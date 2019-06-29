@@ -342,7 +342,7 @@ class _AirTicketRequestState extends State<AirTicketRequest> {
                         child: Row(
                           children: <Widget>[
 
-                            Icon(FontAwesomeIcons.powerOff,color: Colors.red[300],size: 15,),
+                            Icon(FontAwesomeIcons.powerOff,color: Colors.red,size: 15,),
                             SizedBox(width: 5,),
                             Text('Logout',style: TextStyle(fontSize: 15,color: Colors.red),),
                           ],

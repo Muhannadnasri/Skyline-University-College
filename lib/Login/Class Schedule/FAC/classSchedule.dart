@@ -104,7 +104,7 @@ class _CourseAllocationState extends State<CourseAllocation> {
                             children: <Widget>[
                               Icon(
                                 FontAwesomeIcons.powerOff,
-                                color: Colors.red[300],
+                                color: Colors.red,
                                 size: 15,
                               ),
                               SizedBox(

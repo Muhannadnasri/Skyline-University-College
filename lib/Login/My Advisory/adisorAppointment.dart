@@ -120,7 +120,7 @@ class _AdvisorAppointmentState extends State<AdvisorAppointment> {
                           children: <Widget>[
                             Icon(
                               FontAwesomeIcons.powerOff,
-                              color: Colors.red[300],
+                              color: Colors.red,
                               size: 15,
                             ),
                             SizedBox(

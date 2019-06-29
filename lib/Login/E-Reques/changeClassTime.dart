@@ -6,8 +6,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:http/http.dart' as http;
-import 'package:skyline_university/Global/zigzag.dart';
-import 'package:skyline_university/Home/home.dart';
 import 'package:superellipse_shape/superellipse_shape.dart';
 
 
@@ -115,7 +113,7 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
                         child: Row(
                           children: <Widget>[
 
-                            Icon(FontAwesomeIcons.powerOff,color: Colors.red[300],size: 15,),
+                            Icon(FontAwesomeIcons.powerOff,color: Colors.red,size: 15,),
                             SizedBox(width: 5,),
                             Text('Logout',style: TextStyle(fontSize: 15,color: Colors.red),),
                           ],
@@ -286,7 +284,7 @@ crossAxisAlignment: CrossAxisAlignment.start,
       ),
     );
   }
-
+  
   void _showLoading(isLoading) {
     if (isLoading) {
       showDialog(
@@ -403,6 +401,7 @@ crossAxisAlignment: CrossAxisAlignment.start,
 
         _showLoading(false);
       }
+     
     } catch (x) {
       if(x.toString().contains("TimeoutException")){
         _showError("Time out from server",FontAwesomeIcons.hourglassHalf);
@@ -437,6 +436,8 @@ crossAxisAlignment: CrossAxisAlignment.start,
       if (response.statusCode == 200) {
         setState(
           () {
+             currentTimeMessageJson =
+                json.decode(response.body);
             currentTimeJson =
                 json.decode(response.body)['data']['current_shift'];
 

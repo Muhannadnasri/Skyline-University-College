@@ -104,7 +104,7 @@ class _CircularsState extends State<Circulars> {
                           children: <Widget>[
                             Icon(
                               FontAwesomeIcons.powerOff,
-                              color: Colors.red[300],
+                              color: Colors.red,
                               size: 15,
                             ),
                             SizedBox(

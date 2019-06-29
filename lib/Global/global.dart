@@ -185,6 +185,7 @@ Map courseWithdrawalJson;
 List faqByTypeJson =[];
 Map faqByTypeMessageJson;
 Map currentTimeJson={};
+Map currentTimeMessageJson={};
 Map policyChangeTimeJson;
 Map changeClassTimingJson;
 List currentAndNewShiftJson = [];

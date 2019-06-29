@@ -113,7 +113,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
                         children: <Widget>[
                           Icon(
                             FontAwesomeIcons.powerOff,
-                            color: Colors.red[300],
+                            color: Colors.red,
                             size: 15,
                           ),
                           SizedBox(
@@ -530,7 +530,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
     }
   }
 
-  void _showErrorMessage(String msg, IconData icon) {
+  void _showErrorMessage() {
     _showLoading(false);
     showDialog(
         context: context,
@@ -551,11 +551,8 @@ class _OnlineRequestState extends State<OnlineRequest> {
                 padding: const EdgeInsets.only(left: 30.0),
                 child: new Row(
                   children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 25.0),
-                      child: new Icon(icon),
-                    ),
-                    new Text(msg)
+                    
+                    Expanded(child: new Text(onlineRequestTypeMessageJson['message']))
                   ],
                 ),
               ),
@@ -563,9 +560,8 @@ class _OnlineRequestState extends State<OnlineRequest> {
                 new FlatButton(
                   onPressed: () {
                     Navigator.pop(context);
-                    getRequestType();
                   },
-                  child: new Text('Try again'),
+                  child: new Text('Ok'),
                 ),
               ],
             ),
@@ -653,18 +649,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
         _showLoading(false);
       }
       if (onlineRequestTypeMessageJson['success'] == '0') {
-              _showLoading(true);
-
-        Fluttertoast.showToast(
-          
-            msg: onlineRequestTypeMessageJson['message'],
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIos: 1,
-            backgroundColor: Colors.grey[400],
-            textColor: Colors.black87,
-            fontSize: 13.0);
-            
+_showErrorMessage();
       }
     }
 
@@ -760,17 +745,6 @@ class _OnlineRequestState extends State<OnlineRequest> {
             onlineRequestJson = json.decode(response.body);
           },
         );
-        if (onlineRequestJson['success'] == '0') {
-          Fluttertoast.showToast(
-              msg: onlineRequestJson['message'],
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIos: 1,
-              backgroundColor: Colors.grey[400],
-              textColor: Colors.black87,
-              fontSize: 13.0);
-        } else {}
-
         _showLoading(false);
       }
     } catch (x) {
