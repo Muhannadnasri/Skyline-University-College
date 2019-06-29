@@ -6,8 +6,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:http/http.dart' as http;
-import 'package:skyline_university/Global/zigzag.dart';
-import 'package:skyline_university/Home/home.dart';
 import 'package:superellipse_shape/superellipse_shape.dart';
 
 void main() => runApp(LeaveApplication());
@@ -43,6 +41,7 @@ class _LeaveApplicationState extends State<LeaveApplication> {
   void initState() {
 super.initState();
 getLeaveTypes();
+leaveBalanceJson.clear();
 
     DateTime now = DateTime.now();
     _year = now.year;
@@ -231,28 +230,30 @@ getLeaveTypes();
               },
               child: Column(
                 children: <Widget>[
-                  SizedBox(height: 20,),
-                  Container(
+                  SizedBox(height: 10,),
+                  
+                  
+                  Column(
+                    children: <Widget>[
+                      Container(
                     alignment: Alignment.centerLeft,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        'Leave Type',
+                        'Leave Type',style: TextStyle(color: Colors.grey[600]),
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Column(
-                    children: <Widget>[
                       DropdownButton<String>(
                         hint:
 
-                        Text(
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
 
 
-                            'Select Option'
+                              'Select Option',style: TextStyle(color: Colors.black),
+                          ),
                         ),
 
                         isExpanded: true,
@@ -270,16 +271,20 @@ getLeaveTypes();
                         onChanged: (value) {
                           setState(() {
                             leaveType = value;
-//                            getCourseName();
+getLeaveBalance();
                           });
                         },
                       ),
                     ],
                   ),
 
+
+
+
                   //TODO: From and TO
                   Column(
                     children: <Widget>[
+                      Text(leaveBalanceJson.isEmpty? '' : leaveBalanceJson['Bal']== null ? ' '.toString():leaveBalanceJson['Bal'].toString()),
                       SizedBox(
                         height: 10,
                       ),
@@ -391,13 +396,13 @@ getLeaveTypes();
                                 decoration:
 
                                 InputDecoration(
-                                  labelText: "Contact Number",
+                                  labelText: "Contact No in UAE",
                                   fillColor: Colors.white,
                                   helperText: '(Required)',
                                   helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Enter Your Residence Number',hintStyle: TextStyle(fontSize: 15),
+                                  hintText: 'Enter Your Contact Number i UAE',hintStyle: TextStyle(fontSize: 15),
                                   isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.mobileAlt,size: 15,color: Colors.black,),
+                                  prefixIcon: Icon(FontAwesomeIcons.mobileAlt,size: 15,color: Colors.purple,),
                                 ),
                               ),
                             ),
@@ -420,18 +425,6 @@ getLeaveTypes();
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Container(
-                              width: MediaQuery.of(context).size.width / 1.040,
-                              height: 60,
-                              padding: EdgeInsets.only(
-                                  top: 4, left: 16, right: 16, bottom: 4),
-                              decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20)),
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.black12, blurRadius: 5)
-                                  ]),
                               child: TextFormField(
                                 keyboardType: TextInputType.number,
                                 maxLines: null,
@@ -439,7 +432,13 @@ getLeaveTypes();
                                   mobileNo = x;
                                 },
                                 decoration: InputDecoration(
-                                  border: InputBorder.none,
+                                  labelText: "Company and address",
+                                  fillColor: Colors.white,
+
+                                  helperStyle: TextStyle(fontSize: 13),
+                                  hintText: 'Please enter your company and address',hintStyle: TextStyle(fontSize: 15),
+                                  isDense: true,
+                                  prefixIcon: Icon(FontAwesomeIcons.briefcase,size: 15,color: Colors.purple,),
                                 ),
                               ),
                             ),
@@ -462,18 +461,7 @@ getLeaveTypes();
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Container(
-                              width: MediaQuery.of(context).size.width / 1.040,
-                              height: 60,
-                              padding: EdgeInsets.only(
-                                  top: 4, left: 16, right: 16, bottom: 4),
-                              decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20)),
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.black12, blurRadius: 5)
-                                  ]),
+                             
                               child: TextFormField(
                                 textCapitalization: TextCapitalization.words,
                                 maxLines: null,
@@ -481,7 +469,13 @@ getLeaveTypes();
                                   documentSubmitted = x;
                                 },
                                 decoration: InputDecoration(
-                                  border: InputBorder.none,
+                                  labelText: "Company and address",
+                                  fillColor: Colors.white,
+
+                                  helperStyle: TextStyle(fontSize: 13),
+                                  hintText: 'Please enter your company and address',hintStyle: TextStyle(fontSize: 15),
+                                  isDense: true,
+                                  prefixIcon: Icon(FontAwesomeIcons.briefcase,size: 15,color: Colors.purple,),
                                 ),
                               ),
                             ),
@@ -504,18 +498,7 @@ getLeaveTypes();
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Container(
-                              width: MediaQuery.of(context).size.width / 1.040,
-                              height: 60,
-                              padding: EdgeInsets.only(
-                                  top: 4, left: 16, right: 16, bottom: 4),
-                              decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20)),
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.black12, blurRadius: 5)
-                                  ]),
+                            
                               child: TextFormField(
                                 textCapitalization: TextCapitalization.words,
                                 maxLines: null,
@@ -523,7 +506,13 @@ getLeaveTypes();
                                   addressTo = x;
                                 },
                                 decoration: InputDecoration(
-                                  border: InputBorder.none,
+                                  labelText: "Company and address",
+                                  fillColor: Colors.white,
+
+                                  helperStyle: TextStyle(fontSize: 13),
+                                  hintText: 'Please enter your company and address',hintStyle: TextStyle(fontSize: 15),
+                                  isDense: true,
+                                  prefixIcon: Icon(FontAwesomeIcons.briefcase,size: 15,color: Colors.purple,),
                                 ),
                               ),
                             ),
@@ -546,26 +535,21 @@ getLeaveTypes();
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Container(
-                              width: MediaQuery.of(context).size.width / 1.040,
-                              height: 60,
-                              padding: EdgeInsets.only(
-                                  top: 4, left: 16, right: 16, bottom: 4),
-                              decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20)),
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.black12, blurRadius: 5)
-                                  ]),
+                             
                               child: TextFormField(
                                 textCapitalization: TextCapitalization.words,
                                 maxLines: null,
                                 onSaved: (x) {
                                   reasonLeave = x;
                                 },
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
+                                decoration:InputDecoration(
+                                  labelText: "Company and address",
+                                  fillColor: Colors.white,
+
+                                  helperStyle: TextStyle(fontSize: 13),
+                                  hintText: 'Please enter your company and address',hintStyle: TextStyle(fontSize: 15),
+                                  isDense: true,
+                                  prefixIcon: Icon(FontAwesomeIcons.briefcase,size: 15,color: Colors.purple,),
                                 ),
                               ),
                             ),
@@ -797,6 +781,46 @@ getLeaveTypes();
             textColor: Colors.black87,
             fontSize: 13.0
         );
+      }
+    } catch (x) {
+      if(x.toString().contains("TimeoutException")){
+        _showError("Time out from server",FontAwesomeIcons.hourglassHalf);
+      }else{
+        _showError("Sorry, we can't connect",Icons.perm_scan_wifi);
+      }
+
+    }
+  }
+   Future getLeaveBalance() async {
+    Future.delayed(Duration.zero, () {
+      _showLoading(true);
+    });
+
+    try {
+      final response = await http.post(
+        Uri.encodeFull(
+            'https://skylineportal.com/moappad/api/web/getLeaveTypeBalance'),
+        headers: {
+          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+        },
+        body: {
+          'user_id': studentJson['data']['user_id'],
+          'leave_type':leaveType,
+          'usertype': studentJson['data']['user_type'],
+          'ipaddress': '1',
+          'deviceid': '1',
+          'devicename': '1',
+        },
+      ).timeout(Duration(seconds: 35));
+
+      if (response.statusCode == 200) {
+        setState(
+          () {
+            leaveBalanceJson = json.decode(response.body)['data'];
+          },
+        );
+
+        _showLoading(false);
       }
     } catch (x) {
       if(x.toString().contains("TimeoutException")){

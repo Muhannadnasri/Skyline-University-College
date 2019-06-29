@@ -134,6 +134,7 @@ String password = '';
 Map logOutJson;
 //Global List and Map
 List leaveTypesJson=[];
+Map leaveBalanceJson={};
 List cdpCourseJson=[];
 Map cdpCourseMessageJson={};
 List generalAPPtJson=[];
@@ -194,7 +195,7 @@ List onlineListJson=[];
 Map admissionKitJson;
 Map invoicesJson;
 Map passportRetainingJson;
-Map underTakingJson;
+Map underTakingJson={};
 List advisorScheduleJson = [];
 Map myLedgerJson;
 Map advisorNameJson;

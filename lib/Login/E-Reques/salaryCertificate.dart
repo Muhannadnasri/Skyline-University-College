@@ -5,8 +5,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:http/http.dart' as http;
-import 'package:skyline_university/Global/zigzag.dart';
-import 'package:skyline_university/Home/home.dart';
 import 'package:superellipse_shape/superellipse_shape.dart';
 
 void main() => runApp(SalaryCertificate());
@@ -152,15 +150,29 @@ super.initState();
                 children: <Widget>[
                   Column(
                     children: <Widget>[
-                      Text('Purpose of the application'),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text('Purpose of the application',style:TextStyle(color: Colors.grey[600]),)),
+                      ),
                       DropdownButton<String>(
-                        hint: Text('purpose'),
+                        
+                        isExpanded: true,
+                        hint: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('Select',style:TextStyle(color: Colors.black),),
+                        ),
                         value: _purpose,
                         items: purposeJson
                             ?.map(
+                              
                               (item) => DropdownMenuItem<String>(
                               value: item['purposeid'].toString(),
-                              child: Text(item['PurposeName'])),
+                              child: Padding(
+                                padding: const EdgeInsets.only(bottom:8.0,left:8),
+                                child: Text(item['PurposeName']),
+                              )),
                         )
                             ?.toList() ??
                             [],
@@ -176,22 +188,15 @@ super.initState();
                   ),
 SizedBox(height: 15,),
                   Container(
-                    width: 450,
-                    height: 60,
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      elevation: 10,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Center(
+                    
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                        padding: const EdgeInsets.all(10.0),
                           child: Text(
                             'Attention To Submit',
                           ),
                         ),
                       ),
-                    ),
-                  ),
                   Column(
                     children: <Widget>[
 
@@ -217,7 +222,7 @@ SizedBox(height: 15,),
                                   helperStyle: TextStyle(fontSize: 13),
                                   hintText: 'Please enter your company and address',hintStyle: TextStyle(fontSize: 15),
                                   isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.bookmark,size: 15,color: Colors.purple,),
+                                  prefixIcon: Icon(FontAwesomeIcons.briefcase,size: 15,color: Colors.purple,),
                                 ),
                               ),
 
@@ -239,13 +244,13 @@ SizedBox(height: 15,),
                                 decoration:
 
                                 InputDecoration(
-                                  labelText: "Remark",
+                                  labelText: "Adresss",
                                   fillColor: Colors.white,
 
                                   helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your Reason',hintStyle: TextStyle(fontSize: 15),
+                                  hintText: 'Please Enter Your Adresss',hintStyle: TextStyle(fontSize: 15),
                                   isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.bookmark,size: 15,color: Colors.purple,),
+                                  prefixIcon: Icon(FontAwesomeIcons.building,size: 15,color: Colors.purple,),
                                 ),
                               ),
 
@@ -267,13 +272,13 @@ SizedBox(height: 15,),
                                 decoration:
 
                                 InputDecoration(
-                                  labelText: "Remark",
+                                  labelText: "City",
                                   fillColor: Colors.white,
 
                                   helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your Reason',hintStyle: TextStyle(fontSize: 15),
+                                  hintText: 'Please Enter Your city',hintStyle: TextStyle(fontSize: 15),
                                   isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.bookmark,size: 15,color: Colors.purple,),
+                                  prefixIcon: Icon(FontAwesomeIcons.city,size: 15,color: Colors.purple,),
                                 ),
                               ),
 
@@ -282,43 +287,24 @@ SizedBox(height: 15,),
                       ),
 
 
-                      //TODO: hide
-                     Form(
-                        key: _other,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                           TextFormField(
-
-                                textCapitalization: TextCapitalization.words,
-                                maxLines: null,
-                                onSaved: (x) {
-                                  other = x;
-                                },
-                                decoration:
-
-                                InputDecoration(
-                                  labelText: "Remark",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your Reason',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.bookmark,size: 15,color: Colors.purple,),
-                                ),
-                              ),
-
-                          ],
-                        ),
-                      ),
+                    
                       SizedBox(height: 15,),
                       Column(
                         children: <Widget>[
-                          Text('Country'),
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text('Country',style: TextStyle(color: Colors.grey[600]),),
+                            ),
+                          ),
                           DropdownButton<String>(
                             value: _country,
                             isExpanded: true,
-                            hint: Text('Country'),
+                            hint: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text('Select',style: TextStyle(color: Colors.black),),
+                            ),
                             items: countryJson
                                 ?.map((item) => DropdownMenuItem<String>(
                                 value: item['id'].toString(),
@@ -333,6 +319,7 @@ SizedBox(height: 15,),
                               });
                             },
                           ),
+                          SizedBox(height: 30,),
                         ],
                       ),
 
