@@ -530,6 +530,48 @@ class _OnlineRequestState extends State<OnlineRequest> {
     }
   }
 
+  void _showErrorMessage(String msg, IconData icon) {
+    _showLoading(false);
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return WillPopScope(
+            onWillPop: () {},
+            child: new AlertDialog(
+              title: Image.asset('images/logo.png',
+                height: 50,
+              ),
+              shape: SuperellipseShape(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(20),
+                ),
+              ),
+              content: Padding(
+                padding: const EdgeInsets.only(left: 30.0),
+                child: new Row(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(right: 25.0),
+                      child: new Icon(icon),
+                    ),
+                    new Text(msg)
+                  ],
+                ),
+              ),
+              actions: <Widget>[
+                new FlatButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    getRequestType();
+                  },
+                  child: new Text('Try again'),
+                ),
+              ],
+            ),
+          );
+        });
+  }
   void _showError(String msg, IconData icon) {
     _showLoading(false);
     showDialog(
@@ -611,7 +653,10 @@ class _OnlineRequestState extends State<OnlineRequest> {
         _showLoading(false);
       }
       if (onlineRequestTypeMessageJson['success'] == '0') {
+              _showLoading(true);
+
         Fluttertoast.showToast(
+          
             msg: onlineRequestTypeMessageJson['message'],
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
@@ -619,6 +664,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
             backgroundColor: Colors.grey[400],
             textColor: Colors.black87,
             fontSize: 13.0);
+            
       }
     }
 

@@ -7,7 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:http/http.dart' as http;
-import 'package:skyline_university/Home/home.dart';
+
 import 'package:superellipse_shape/superellipse_shape.dart';
 
 String feesPayOnline = 'feespayonline';
@@ -27,6 +27,7 @@ class _PayOnlineState extends State<PayOnline> {
   void initState() {
     super.initState();
 getPayOnline();
+payOnlineJson.clear();
   }
 
 
@@ -135,7 +136,10 @@ getPayOnline();
                 clearCookies: true,
                 scrollBar: true,
 
-                url: payOnlineJson['data'],
+                url: 
+                
+                payOnlineJson.isEmpty ? 'https://skylineuniversity.ac.ae':
+                payOnlineJson['data'],
               ),
             ),
     );

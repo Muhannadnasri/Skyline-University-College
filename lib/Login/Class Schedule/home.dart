@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/zigzag.dart';
-import 'package:skyline_university/Home/home.dart';
+
 
 void main() => runApp(HomeClass());
 
