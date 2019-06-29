@@ -40,7 +40,6 @@ dependencies:
   cupertino_icons: ^0.1.2
 
 dev_dependencies:
-  test: 0.12.30+4 # TRANSITIVE DEPENDENCY with test: 0.12.30+3
   flutter_test:
     sdk: flutter
 
