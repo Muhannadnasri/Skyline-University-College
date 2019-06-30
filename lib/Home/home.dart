@@ -94,7 +94,7 @@ class _HomeState extends State<Home> {
                           ),
                         )
                       ],
-                              color: Colors.blue,
+                              color: Colors.grey.withOpacity(0.1),
                               border: Border.all(width: 1.0),
                               borderRadius: BorderRadius.all(Radius.circular(
                                       15.0) //         <--- border radius here
@@ -193,7 +193,7 @@ class _HomeState extends State<Home> {
                           padding: const EdgeInsets.only(left: 8.0, top: 8),
                           child: Container(
                             decoration: BoxDecoration(
-                               color: Colors.blue,
+                               color: Colors.grey.withOpacity(0.1),
                               border: Border.all(width: 1.0),
                               borderRadius: BorderRadius.all(Radius.circular(
                                       15.0) //         <--- border radius here
@@ -313,7 +313,7 @@ class _HomeState extends State<Home> {
                             width: 110,
                             height: 100,
                             decoration: BoxDecoration(
-                              color: Colors.blue,
+                              color: Colors.grey.withOpacity(0.1),
                               border: Border.all(width: 1.0),
                               borderRadius: BorderRadius.all(Radius.circular(
                                       15.0) //         <--- border radius here
@@ -430,7 +430,7 @@ class _HomeState extends State<Home> {
                                   width: 110,
                                   height: 100,
                                   decoration: BoxDecoration(
-                                    color: Colors.blue,
+                                    color: Colors.grey.withOpacity(0.1),
                                     border: Border.all(width: 1.0),
                                     borderRadius: BorderRadius.all(Radius.circular(
                                             15.0) //         <--- border radius here
@@ -459,9 +459,8 @@ class _HomeState extends State<Home> {
                                         child: Column(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: <Widget>[
-                                            Image.asset('images/events.png',height: 50,),
-                                            SizedBox(
-                                              height: 10,
+                                            Image.asset('images/events.png',height: 50,
+                                             
                                             ),
                                             Text(
                                               'Events',
@@ -538,7 +537,7 @@ class _HomeState extends State<Home> {
                               width: 110,
                               height: 100,
                               decoration: BoxDecoration(
-                                  color: Colors.blue,
+                                  color: Colors.grey.withOpacity(0.1),
                               border: Border.all(width: 1.0),
                               borderRadius: BorderRadius.all(Radius.circular(
                                       15.0) //         <--- border radius here
