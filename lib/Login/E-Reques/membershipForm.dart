@@ -162,18 +162,7 @@ super.initState();
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Container(
-                          width: MediaQuery.of(context).size.width / 1.040,
-                          height: 60,
-                          padding: EdgeInsets.only(
-                              top: 4, left: 16, right: 16, bottom: 4),
-                          decoration: BoxDecoration(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(20)),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.black12, blurRadius: 5)
-                              ]),
+                        
                           child: TextFormField(
 
                             textCapitalization: TextCapitalization.words,
@@ -182,9 +171,18 @@ super.initState();
                               nameForm = x;
                             },
                             decoration: InputDecoration(
-                              hintText: 'Reason',
-                              border: InputBorder.none,
-                            ),
+                                labelText: "Place From",
+                                fillColor: Colors.white,
+                                helperStyle: TextStyle(fontSize: 13),
+                                hintText: 'Please Enter Your Adress want go',
+                                hintStyle: TextStyle(fontSize: 15),
+                                isDense: true,
+                                prefixIcon: Icon(
+                                  FontAwesomeIcons.addressCard,
+                                  size: 15,
+                                  color: Colors.purple,
+                                ),
+                              ),
                           ),
                         ),
                       ],
@@ -254,18 +252,7 @@ super.initState();
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Container(
-                              width: MediaQuery.of(context).size.width / 1.040,
-                              height: 60,
-                              padding: EdgeInsets.only(
-                                  top: 4, left: 16, right: 16, bottom: 4),
-                              decoration: BoxDecoration(
-                                  borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.black12, blurRadius: 5)
-                                  ]),
+                            
                               child: TextFormField(
 
                                 textCapitalization: TextCapitalization.words,
@@ -273,10 +260,19 @@ super.initState();
                                 onSaved: (x) {
                                   residential = x;
                                 },
-                                decoration: InputDecoration(
-                                  hintText: 'Reason',
-                                  border: InputBorder.none,
+                               decoration: InputDecoration(
+                                labelText: "Place From",
+                                fillColor: Colors.white,
+                                helperStyle: TextStyle(fontSize: 13),
+                                hintText: 'Please Enter Your Adress want go',
+                                hintStyle: TextStyle(fontSize: 15),
+                                isDense: true,
+                                prefixIcon: Icon(
+                                  FontAwesomeIcons.addressCard,
+                                  size: 15,
+                                  color: Colors.purple,
                                 ),
+                              ),
                               ),
                             ),
                           ],
@@ -295,18 +291,7 @@ super.initState();
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Container(
-                              width: MediaQuery.of(context).size.width / 1.040,
-                              height: 60,
-                              padding: EdgeInsets.only(
-                                  top: 4, left: 16, right: 16, bottom: 4),
-                              decoration: BoxDecoration(
-                                  borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.black12, blurRadius: 5)
-                                  ]),
+                              
                               child: TextFormField(
 
                                 textCapitalization: TextCapitalization.words,
@@ -315,9 +300,18 @@ super.initState();
                                   homeForm = x;
                                 },
                                 decoration: InputDecoration(
-                                  hintText: 'Reason',
-                                  border: InputBorder.none,
+                                labelText: "Place From",
+                                fillColor: Colors.white,
+                                helperStyle: TextStyle(fontSize: 13),
+                                hintText: 'Please Enter Your Adress want go',
+                                hintStyle: TextStyle(fontSize: 15),
+                                isDense: true,
+                                prefixIcon: Icon(
+                                  FontAwesomeIcons.addressCard,
+                                  size: 15,
+                                  color: Colors.purple,
                                 ),
+                              ),
                               ),
                             ),
                           ],
@@ -336,18 +330,7 @@ super.initState();
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Container(
-                              width: MediaQuery.of(context).size.width / 1.040,
-                              height: 60,
-                              padding: EdgeInsets.only(
-                                  top: 4, left: 16, right: 16, bottom: 4),
-                              decoration: BoxDecoration(
-                                  borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.black12, blurRadius: 5)
-                                  ]),
+                          
                               child: TextFormField(
 
                                 textCapitalization: TextCapitalization.words,
@@ -355,10 +338,19 @@ super.initState();
                                 onSaved: (x) {
                                   workForm = x;
                                 },
-                                decoration: InputDecoration(
-                                  hintText: 'Reason',
-                                  border: InputBorder.none,
+                           decoration: InputDecoration(
+                                labelText: "Place From",
+                                fillColor: Colors.white,
+                                helperStyle: TextStyle(fontSize: 13),
+                                hintText: 'Please Enter Your Adress want go',
+                                hintStyle: TextStyle(fontSize: 15),
+                                isDense: true,
+                                prefixIcon: Icon(
+                                  FontAwesomeIcons.addressCard,
+                                  size: 15,
+                                  color: Colors.purple,
                                 ),
+                              ),
                               ),
                             ),
                           ],
@@ -377,18 +369,7 @@ super.initState();
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Container(
-                              width: MediaQuery.of(context).size.width / 1.040,
-                              height: 60,
-                              padding: EdgeInsets.only(
-                                  top: 4, left: 16, right: 16, bottom: 4),
-                              decoration: BoxDecoration(
-                                  borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.black12, blurRadius: 5)
-                                  ]),
+                          
                               child: TextFormField(
 
                                 textCapitalization: TextCapitalization.words,
@@ -396,12 +377,22 @@ super.initState();
                                 onSaved: (x) {
                                   mobileForm = x;
                                 },
-                                decoration: InputDecoration(
-                                  hintText: 'Reason',
-                                  border: InputBorder.none,
+                              decoration: InputDecoration(
+                                labelText: "Place From",
+                                fillColor: Colors.white,
+                                helperStyle: TextStyle(fontSize: 13),
+                                hintText: 'Please Enter Your Adress want go',
+                                hintStyle: TextStyle(fontSize: 15),
+                                isDense: true,
+                                prefixIcon: Icon(
+                                  FontAwesomeIcons.addressCard,
+                                  size: 15,
+                                  color: Colors.purple,
                                 ),
                               ),
+                              ),
                             ),
+                            SizedBox(height: 30,)
                           ],
                         ),
                       ),

@@ -126,84 +126,76 @@ class _HomeLoginState extends State<HomeLogin> {
                                   child: Container(
                                     width: 110,
                                     height: 100,
-                                    child: DottedBorder(
-                                      color: Colors.blue,
-                                      gap: 3,
-                                      strokeWidth: 3,
-                                      child: Container(
-                                        width: 80,
-                                        height: 80,
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 8.0),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              Icon(
-                                                FontAwesomeIcons
-                                                    .solidCalendarCheck,
-                                                size: 35,
-                                                color: Colors.purple,
-                                              ),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              Text(
-                                                'Attendance',
-                                                style: TextStyle(
-                                                    color: Colors.black),
-                                              ),
-                                            ],
+                                    decoration: BoxDecoration(
+                                      border: Border.all(width: 1.0),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(
+                                              15.0) //         <--- border radius here
                                           ),
-                                        ),
+                                    ),
+                                    child: Container(
+                                      width: 80,
+                                      height: 80,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Image.asset(
+                                            'images/attendance.png',
+                                            height: 50,
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                            'Attendance',
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 8.0, top: 8),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                        context, "/AssessmentMarkCourses");
-                                  },
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                      context, "/AssessmentMarkCourses");
+                                },
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 8.0, top: 8),
                                   child: Container(
                                     width: 110,
                                     height: 100,
-                                    child: DottedBorder(
-                                      color: Colors.blue,
-                                      gap: 3,
-                                      strokeWidth: 3,
-                                      child: Container(
-                                        width: 90,
-                                        height: 80,
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            Icon(
-                                              FontAwesomeIcons.envelopeOpenText,
-                                              color: Colors.purple,
-                                              size: 35,
-                                            ),
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                            Text(
-                                              'Assessment',
-                                              style: TextStyle(
-                                                  color: Colors.black),
-                                            ),
-                                            Text(
-                                              'Marks',
-                                              style: TextStyle(
-                                                  color: Colors.black),
-                                            ),
-                                          ],
-                                        ),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(width: 1.0),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(
+                                              15.0) //         <--- border radius here
+                                          ),
+                                    ),
+                                    child: Container(
+                                      width: 80,
+                                      height: 80,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Image.asset(
+                                            'images/assessment.png',
+                                            height: 50,
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                            'Assessment',
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
@@ -217,38 +209,35 @@ class _HomeLoginState extends State<HomeLogin> {
                                   padding:
                                       const EdgeInsets.only(left: 8.0, top: 8),
                                   child: Container(
+                                    decoration: BoxDecoration(
+                                      border: Border.all(width: 1.0),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(
+                                              15.0) //         <--- border radius here
+                                          ),
+                                    ),
                                     width: 110,
                                     height: 100,
-                                    child: DottedBorder(
-                                      color: Colors.blue,
-                                      gap: 3,
-                                      strokeWidth: 3,
-                                      child: Container(
-                                        width: 80,
-                                        height: 80,
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 8.0),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              Icon(
-                                                FontAwesomeIcons.solidChartBar,
-                                                color: Colors.purple,
-                                                size: 35,
-                                              ),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              Text(
-                                                'Result',
-                                                style: TextStyle(
-                                                    color: Colors.black),
-                                              ),
-                                            ],
+                                    child: Container(
+                                      width: 80,
+                                      height: 80,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Image.asset(
+                                            'images/result.png',
+                                            height: 50,
                                           ),
-                                        ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                            'Result',
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
@@ -273,84 +262,77 @@ class _HomeLoginState extends State<HomeLogin> {
                                   padding:
                                       const EdgeInsets.only(left: 8.0, top: 8),
                                   child: Container(
+                                    decoration: BoxDecoration(
+                                      border: Border.all(width: 1.0),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(
+                                              15.0) //         <--- border radius here
+                                          ),
+                                    ),
                                     width: 110,
                                     height: 100,
-                                    child: DottedBorder(
-                                      color: Colors.blue,
-                                      gap: 3,
-                                      strokeWidth: 3,
-                                      child: Container(
-                                        width: 80,
-                                        height: 80,
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 8.0),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              Icon(
-                                                FontAwesomeIcons.calendarCheck,
-                                                size: 35,
-                                                color: Colors.purple,
-                                              ),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              Text(
-                                                'Class',
-                                                style: TextStyle(
-                                                    color: Colors.black),
-                                              ),
-                                              Text(
-                                                'Schedule',
-                                                style: TextStyle(
-                                                    color: Colors.black),
-                                              ),
-                                            ],
+                                    child: Container(
+                                      width: 80,
+                                      height: 80,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Image.asset(
+                                            'images/class.png',
+                                            height: 50,
                                           ),
-                                        ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                            'Classes',
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 8.0, top: 8),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.pushNamed(context, "/MyAdvisor");
-                                  },
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(context, "/MyAdvisor");
+                                },
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 8.0, top: 8),
                                   child: Container(
+                                     decoration: BoxDecoration(
+                                      border: Border.all(width: 1.0),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(
+                                              15.0) //         <--- border radius here
+                                          ),
+                                    ),
                                     width: 110,
                                     height: 100,
-                                    child: DottedBorder(
-                                      color: Colors.blue,
-                                      gap: 3,
-                                      strokeWidth: 3,
-                                      child: Container(
-                                        width: 90,
-                                        height: 80,
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            Icon(
-                                              FontAwesomeIcons.users,
-                                              size: 35,
-                                              color: Colors.purple,
-                                            ),
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                            Text(
-                                              'Advisor',
-                                              style: TextStyle(
-                                                  color: Colors.black),
-                                            ),
-                                          ],
-                                        ),
+                                    child: Container(
+                                      width: 90,
+                                      height: 80,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Image.asset(
+                                            'images/advisor.png',
+                                            height: 50,
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                            'Advisor',
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
@@ -364,27 +346,25 @@ class _HomeLoginState extends State<HomeLogin> {
                                   padding:
                                       const EdgeInsets.only(left: 8.0, top: 8),
                                   child: Container(
+                                     decoration: BoxDecoration(
+                                      border: Border.all(width: 1.0),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(
+                                              15.0) //         <--- border radius here
+                                          ),
+                                    ),
                                     width: 110,
                                     height: 100,
-                                    child: DottedBorder(
-                                      color: Colors.blue,
-                                      gap: 3,
-                                      strokeWidth: 3,
+                                   
                                       child: Container(
                                         width: 80,
                                         height: 80,
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 8.0),
+                                      
                                           child: Column(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: <Widget>[
-                                              Icon(
-                                                FontAwesomeIcons.newspaper,
-                                                size: 35,
-                                                color: Colors.purple,
-                                              ),
+                                             Image.asset('images/circulars.png',height: 50,),
                                               SizedBox(
                                                 height: 10,
                                               ),
@@ -395,9 +375,9 @@ class _HomeLoginState extends State<HomeLogin> {
                                               ),
                                             ],
                                           ),
-                                        ),
+                                        
                                       ),
-                                    ),
+                                    
                                   ),
                                 ),
                               ),
@@ -407,147 +387,146 @@ class _HomeLoginState extends State<HomeLogin> {
                         SizedBox(
                           height: 10,
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pushNamed(context, "/HomeFees");
-                          },
-                          child: Padding(
+                         Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: <Widget>[
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 8.0, top: 8),
-                                  child: Container(
-                                    width: 110,
-                                    height: 100,
-                                    child: DottedBorder(
-                                      color: Colors.blue,
-                                      gap: 3,
-                                      strokeWidth: 3,
-                                      child: Container(
-                                        width: 80,
-                                        height: 80,
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 8.0),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              Icon(
-                                                FontAwesomeIcons.receipt,
-                                                size: 35,
-                                                color: Colors.purple,
-                                              ),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              Text(
-                                                'Fees',
-                                                style: TextStyle(
-                                                    color: Colors.black),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 8.0, top: 8),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      Navigator.pushNamed(
-                                          context, "/HomeERequest");
-                                    },
-                                    child: Container(
-                                      width: 110,
-                                      height: 100,
-                                      child: DottedBorder(
-                                        color: Colors.blue,
-                                        gap: 3,
-                                        strokeWidth: 3,
-                                        child: Container(
-                                          width: 90,
-                                          height: 80,
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              Icon(
-                                                FontAwesomeIcons.addressCard,
-                                                size: 35,
-                                                color: Colors.purple,
-                                              ),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              Text(
-                                                'E-Request',
-                                                style: TextStyle(
-                                                    color: Colors.black),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
                                 GestureDetector(
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                        context, "/CDPDownload");
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 8.0, top: 8),
+                                   onTap: () {
+                            Navigator.pushNamed(context, "/HomeFees");
+                          },
+                                                                  child: Padding(
+                                    padding:
+                                        const EdgeInsets.only(left: 8.0, top: 8),
                                     child: Container(
+                                       decoration: BoxDecoration(
+                                      border: Border.all(width: 1.0),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(
+                                              15.0) //         <--- border radius here
+                                          ),
+                                    ),
                                       width: 110,
                                       height: 100,
-                                      child: DottedBorder(
-                                        color: Colors.blue,
-                                        gap: 3,
-                                        strokeWidth: 3,
+                                     
                                         child: Container(
                                           width: 80,
                                           height: 80,
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 8.0),
+                                         
                                             child: Column(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: <Widget>[
-                                                Icon(
-                                                  FontAwesomeIcons.fileDownload,
-                                                  size: 35,
-                                                  color: Colors.purple,
-                                                ),
+                                             Image.asset('images/fees.png',height: 50,),
                                                 SizedBox(
                                                   height: 10,
                                                 ),
                                                 Text(
-                                                  'CDP',
+                                                  'Fees',
+                                                  style: TextStyle(
+                                                      color: Colors.black),
+                                                ),
+                                              ],
+                                            ),
+                                          
+                                        ),
+                                      
+                                    ),
+                                  ),
+                                ),
+                                
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, "/HomeERequest");
+                                    },
+                                    child: Padding(
+                                      padding:
+                                        const EdgeInsets.only(left: 8.0, top: 8),
+                                      child: Container(
+                                        width: 110,
+                                        height: 100,
+                                        decoration: BoxDecoration(
+                                        border: Border.all(width: 1.0),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(
+                                                15.0) //         <--- border radius here
+                                            ),
+                                      ),
+                                          child: Container(
+                                            width: 90,
+                                            height: 80,
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Image.asset('images/erequest.png',height: 50,),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Text(
+                                                  'E-Request',
                                                   style: TextStyle(
                                                       color: Colors.black),
                                                 ),
                                               ],
                                             ),
                                           ),
-                                        ),
+                                        
                                       ),
                                     ),
                                   ),
+                                
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, "/CDPDownload");
+                                  },
+                                  
+                                    child: Padding(
+                                      padding:                                         const EdgeInsets.only(left: 8.0, top: 8),
+
+                                      child: Container(
+                                        width: 110,
+                                        height: 100,
+                                         decoration: BoxDecoration(
+                                          border: Border.all(width: 1.0),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(
+                                                  15.0) //         <--- border radius here
+                                              ),
+                                        ),
+                                          child: Container(
+                                            width: 80,
+                                            height: 80,
+                                           
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: <Widget>[
+                                                  Image.asset('images/cdp.png',height: 50,),
+                                                  SizedBox(
+                                                    height: 10,
+                                                  ),
+                                                  Text(
+                                                    'CDP',
+                                                    style: TextStyle(
+                                                        color: Colors.black),
+                                                  ),
+                                                ],
+                                              ),
+                                            
+                                          ),
+                                        
+                                      ),
+                                    ),
+                                  
                                 ),
                               ],
                             ),
                           ),
-                        ),
+                        
                         Image.asset(
                           'images/logo.png',
                           height: 150,
@@ -567,112 +546,15 @@ class _HomeLoginState extends State<HomeLogin> {
                         ),
                         Column(
                           children: <Widget>[
+                            SizedBox(
+                              height: 10,
+                            ),
                             Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: <Widget>[
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.pushNamed(
-                                          context, "/CDPDownload");
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 8.0, top: 8),
-                                      child: Container(
-                                        width: 110,
-                                        height: 100,
-                                        child: DottedBorder(
-                                          color: Colors.blue,
-                                          gap: 3,
-                                          strokeWidth: 3,
-                                          child: Container(
-                                            width: 80,
-                                            height: 80,
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 8.0),
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: <Widget>[
-                                                  Icon(
-                                                    FontAwesomeIcons
-                                                        .fileDownload,
-                                                    size: 32,
-                                                    color: Colors.purple,
-                                                  ),
-                                                  SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  Text(
-                                                    'CDP',
-                                                    style: TextStyle(
-                                                        color: Colors.black),
-                                                  ),
-                                                  Text(
-                                                    'Download',
-                                                    style: TextStyle(
-                                                        color: Colors.black),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 8.0, top: 8),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        Navigator.pushNamed(
-                                            context, "/Reckoner");
-                                      },
-                                      child: Container(
-                                        width: 110,
-                                        height: 100,
-                                        child: DottedBorder(
-                                          color: Colors.blue,
-                                          gap: 3,
-                                          strokeWidth: 3,
-                                          child: Container(
-                                            width: 90,
-                                            height: 80,
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: <Widget>[
-                                                Icon(
-                                                  FontAwesomeIcons
-                                                      .envelopeOpenText,
-                                                  color: Colors.purple,
-                                                  size: 35,
-                                                ),
-                                                SizedBox(
-                                                  height: 10,
-                                                ),
-                                                Text(
-                                                  'Ready',
-                                                  style: TextStyle(
-                                                      color: Colors.black),
-                                                ),
-                                                Text(
-                                                  'Reckoner',
-                                                  style: TextStyle(
-                                                      color: Colors.black),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
                                   GestureDetector(
                                     onTap: () {
                                       Navigator.pushNamed(
@@ -719,18 +601,6 @@ class _HomeLoginState extends State<HomeLogin> {
                                       ),
                                     ),
                                   ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: <Widget>[
                                   GestureDetector(
                                     onTap: () {
                                       Navigator.pushNamed(
