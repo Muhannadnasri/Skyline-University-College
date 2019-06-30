@@ -567,112 +567,16 @@ class _HomeLoginState extends State<HomeLogin> {
                         ),
                         Column(
                           children: <Widget>[
+                            
+                            SizedBox(
+                              height: 10,
+                            ),
                             Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: <Widget>[
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.pushNamed(
-                                          context, "/CDPDownload");
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 8.0, top: 8),
-                                      child: Container(
-                                        width: 110,
-                                        height: 100,
-                                        child: DottedBorder(
-                                          color: Colors.blue,
-                                          gap: 3,
-                                          strokeWidth: 3,
-                                          child: Container(
-                                            width: 80,
-                                            height: 80,
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 8.0),
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: <Widget>[
-                                                  Icon(
-                                                    FontAwesomeIcons
-                                                        .fileDownload,
-                                                    size: 32,
-                                                    color: Colors.purple,
-                                                  ),
-                                                  SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  Text(
-                                                    'CDP',
-                                                    style: TextStyle(
-                                                        color: Colors.black),
-                                                  ),
-                                                  Text(
-                                                    'Download',
-                                                    style: TextStyle(
-                                                        color: Colors.black),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 8.0, top: 8),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        Navigator.pushNamed(
-                                            context, "/Reckoner");
-                                      },
-                                      child: Container(
-                                        width: 110,
-                                        height: 100,
-                                        child: DottedBorder(
-                                          color: Colors.blue,
-                                          gap: 3,
-                                          strokeWidth: 3,
-                                          child: Container(
-                                            width: 90,
-                                            height: 80,
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: <Widget>[
-                                                Icon(
-                                                  FontAwesomeIcons
-                                                      .envelopeOpenText,
-                                                  color: Colors.purple,
-                                                  size: 35,
-                                                ),
-                                                SizedBox(
-                                                  height: 10,
-                                                ),
-                                                Text(
-                                                  'Ready',
-                                                  style: TextStyle(
-                                                      color: Colors.black),
-                                                ),
-                                                Text(
-                                                  'Reckoner',
-                                                  style: TextStyle(
-                                                      color: Colors.black),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
                                   GestureDetector(
                                     onTap: () {
                                       Navigator.pushNamed(
@@ -719,18 +623,6 @@ class _HomeLoginState extends State<HomeLogin> {
                                       ),
                                     ),
                                   ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: <Widget>[
                                   GestureDetector(
                                     onTap: () {
                                       Navigator.pushNamed(

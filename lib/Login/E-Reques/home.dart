@@ -611,51 +611,8 @@ return Scaffold(
                     ),
                   ],
                 ),
-                SizedBox(height: 20,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, "/OnlineRequest");
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            boxShadow: <BoxShadow>[
-                              BoxShadow(
-                                color: Colors.black,
-                                blurRadius: 15.0,
-                              ),
-                            ],
-                            color: Colors.white,
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(10))),
-                        height: 50,
-                        width: 370,
-                        child: Row(
-                          children: <Widget>[
-                            Container(
-                              height: 74,
-                              width: 70,
-
-                              child: Icon(
-                                FontAwesomeIcons.receipt,
-                                color: Colors.purple,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              'Online Request',
-                              style: TextStyle(fontSize: 20),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ), //TODO: Air Ticket
+             
+                
                 SizedBox(height: 20,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

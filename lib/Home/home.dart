@@ -7,12 +7,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 void main() => runApp(Home());
 
-
-
-
-
-
-
 class Home extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -29,10 +23,8 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
-return Scaffold(
-      body:
-
-      Container(
+    return Scaffold(
+      body: Container(
         decoration: new BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
@@ -40,7 +32,6 @@ return Scaffold(
             colors: [
               Color(0xFF3773AC),
               Color(0xFF104C90),
-
             ],
             stops: [
               0.2,
@@ -49,126 +40,173 @@ return Scaffold(
           ),
         ),
         child: ListView(
-
           children: <Widget>[
-            SizedBox(height: 30,),
+            SizedBox(
+              height: 30,
+            ),
             Column(
               children: <Widget>[
                 Container(
-
-                    decoration: BoxDecoration(boxShadow:
-
-                    [
-                      BoxShadow(
-                        color: Colors.white,
-                        blurRadius: 100.0, // has the effect of softening the shadow
-                        spreadRadius: 5, // has the effect of extending the shadow
-                        offset: Offset(
-                          10.0, // horizontal, move right 10
-                          10.0, // vertical, move down 10
-                        ),
-                      )
-                    ],
-
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.white,
+                          blurRadius:
+                              100.0, // has the effect of softening the shadow
+                          spreadRadius:
+                              5, // has the effect of extending the shadow
+                          offset: Offset(
+                            10.0, // horizontal, move right 10
+                            10.0, // vertical, move down 10
+                          ),
+                        )
+                      ],
                     ),
-
-                    child: Image.asset('images/logo.png',height: 200,width: 230,)),
-
-
+                    child: Image.asset(
+                      'images/logo.png',
+                      height: 200,
+                      width: 230,
+                    )),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Row(
-
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
                       GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           Navigator.pushNamed(context, "/HomeAdmission");
-
                         },
                         child: Padding(
-                          padding: const EdgeInsets.only(left:8.0,top:8),
+                          padding: const EdgeInsets.only(left: 8.0, top: 8),
                           child: Container(
-
+                            decoration: BoxDecoration(
+                               boxShadow: [
+                        BoxShadow(
+                          color: Colors.white30,
+                          
+                          blurRadius:
+                              100.0, // has the effect of softening the shadow
+                          spreadRadius:
+                              2, // has the effect of extending the shadow
+                          offset: Offset(
+                            5.0, // horizontal, move right 10
+                            5.0,  // vertical, move down 10
+                          ),
+                        )
+                      ],
+                              color: Colors.yellow[400],
+                              border: Border.all(width: 3.0),
+                              borderRadius: BorderRadius.all(Radius.circular(
+                                      15.0) //         <--- border radius here
+                                  ),
+                            ),
                             width: 110,
                             height: 100,
-                            child: DottedBorder(
-                              color: Colors.black,
-                              gap: 3,
-
-                              strokeWidth: 3,
-                              child: Container(
-                                width: 80,
-                                height: 80,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left:8.0),
-                                  child: Column(
+                            child: Container(
+                              width: 80,
+                              height: 80,
+                              child:Center(
+                                child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
-                                      Icon(
-                                        FontAwesomeIcons.solidCalendarCheck,size: 35,
-                                        color: Colors.black,
+                                      Image.asset(
+                                        'images/register.png',
+                                        height: 50,
                                       ),
-                                      SizedBox(height: 10,),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
                                       Text(
                                         'Admission',
-                                        style: TextStyle(color: Colors.white),
+                                        style: TextStyle(color: Colors.black),
                                       ),
                                     ],
                                   ),
-                                ),
                               ),
+                              
                             ),
                           ),
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left:8.0,top:8),
+                        padding: const EdgeInsets.only(left: 8.0, top: 8),
                         child: GestureDetector(
-                          onTap: (){
-                            Navigator.pushNamed(
-                                context, "/Programs");
+                          onTap: () {
+                            Navigator.pushNamed(context, "/Programs");
                           },
                           child: Container(
+                             decoration: BoxDecoration(
+                               boxShadow: [
+                        BoxShadow(
+                          color: Colors.white30,
+                          
+                          blurRadius:
+                              100.0, // has the effect of softening the shadow
+                          spreadRadius:
+                              2, // has the effect of extending the shadow
+                          offset: Offset(
+                            5.0, // horizontal, move right 10
+                            5.0,  // vertical, move down 10
+                          ),
+                        )
+                      ],
+                              color: Colors.yellow[400],
+                              border: Border.all(width: 3.0),
+                              borderRadius: BorderRadius.all(Radius.circular(
+                                      15.0) //         <--- border radius here
+                                  ),
+                            ),
                             width: 110,
                             height: 100,
-                            child: DottedBorder(
-                              color: Colors.black,
-                              gap: 3,
-                              strokeWidth: 3,
-                              child: Container(
-
-                                width: 90,
+                            child:Container(
+                                
+                                width: 80,
                                 height: 80,
-
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Icon(
-                                      FontAwesomeIcons.envelopeOpenText,
-                                      color: Colors.black,size: 35,
-                                    ),
-                                    SizedBox(height: 10,),
-                                    Text(
-                                      'Programs',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-
-                                  ],
+                                child: Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Image.asset(
+                                          'images/programs.png',
+                                          height: 50,
+                                        ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
+                                        'Programs',
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
+                            
                           ),
                         ),
                       ),
                       GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           Navigator.pushNamed(context, "/News");
-
                         },
                         child: Padding(
-                          padding: const EdgeInsets.only(left:8.0,top:8),
+                          padding: const EdgeInsets.only(left: 8.0, top: 8),
                           child: Container(
+                            decoration: BoxDecoration(
+                                   boxShadow: [
+                        BoxShadow(
+                         color: Colors.white30,
+                          blurRadius:
+                              100.0, // has the effect of softening the shadow
+                          spreadRadius:
+                              2, // has the effect of extending the shadow
+                          offset: Offset(
+                            5.0, // horizontal, move right 10
+                            5.0,  // vertical, move down 10
+                          ),
+                        )
+                      ],
+                                ),
                             width: 110,
                             height: 100,
                             child: DottedBorder(
@@ -176,25 +214,25 @@ return Scaffold(
                               gap: 3,
                               strokeWidth: 3,
                               child: Container(
-
                                 width: 80,
                                 height: 80,
-
                                 child: Padding(
-                                  padding: const EdgeInsets.only(left:8.0),
+                                  padding: const EdgeInsets.only(left: 8.0),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
                                       Icon(
                                         FontAwesomeIcons.solidChartBar,
-                                        color: Colors.black,size: 35,
+                                        color: Colors.black,
+                                        size: 35,
                                       ),
-                                      SizedBox(height: 10,),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
                                       Text(
                                         'News',
                                         style: TextStyle(color: Colors.white),
                                       ),
-
                                     ],
                                   ),
                                 ),
@@ -203,54 +241,65 @@ return Scaffold(
                           ),
                         ),
                       ),
-
-
                     ],
                   ),
                 ),
-
                 SizedBox(
                   height: 10,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Row(
-
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
                       GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           Navigator.pushNamed(context, '/Location');
-
                         },
                         child: Padding(
-                          padding: const EdgeInsets.only(left:8.0,top:8),
+                          padding: const EdgeInsets.only(left: 8.0, top: 8),
                           child: Container(
+                            decoration: BoxDecoration(
+                                   boxShadow: [
+                        BoxShadow(
+                          color: Colors.white30,
+                          blurRadius:
+                              100.0, // has the effect of softening the shadow
+                          spreadRadius:
+                              2, // has the effect of extending the shadow
+                          offset: Offset(
+                             5.0, // horizontal, move right 10
+                            5.0,  // vertical, move down 10
+                          ),
+                        )
+                      ],
+                                ),
                             width: 110,
                             height: 100,
                             child: DottedBorder(
                               color: Colors.black,
                               gap: 3,
-
                               strokeWidth: 3,
                               child: Container(
                                 width: 80,
                                 height: 80,
                                 child: Padding(
-                                  padding: const EdgeInsets.only(left:8.0),
+                                  padding: const EdgeInsets.only(left: 8.0),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
                                       Icon(
-                                        FontAwesomeIcons.calendarCheck,size: 35,
+                                        FontAwesomeIcons.calendarCheck,
+                                        size: 35,
                                         color: Colors.black,
                                       ),
-                                      SizedBox(height: 10,),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
                                       Text(
                                         'Location',
                                         style: TextStyle(color: Colors.white),
                                       ),
-
                                     ],
                                   ),
                                 ),
@@ -260,31 +309,47 @@ return Scaffold(
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left:8.0,top:8),
+                        padding: const EdgeInsets.only(left: 8.0, top: 8),
                         child: GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             Navigator.pushNamed(context, "/HomeInfo");
                           },
                           child: Container(
                             width: 110,
                             height: 100,
+                            decoration: BoxDecoration(
+                                   boxShadow: [
+                        BoxShadow(
+                          color: Colors.white30,
+                          blurRadius:
+                              100.0, // has the effect of softening the shadow
+                          spreadRadius:
+                              2,  // has the effect of extending the shadow
+                          offset: Offset(
+                            5.0, // horizontal, move right 10
+                            5.0,  // vertical, move down 10
+                          ),
+                        )
+                      ],
+                                ),
                             child: DottedBorder(
                               color: Colors.black,
                               gap: 3,
                               strokeWidth: 3,
                               child: Container(
-
                                 width: 90,
                                 height: 80,
-
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
                                     Icon(
-                                      FontAwesomeIcons.users,size: 35,
+                                      FontAwesomeIcons.users,
+                                      size: 35,
                                       color: Colors.black,
                                     ),
-                                    SizedBox(height: 10,),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
                                     Text(
                                       'SUC Info',
                                       style: TextStyle(color: Colors.white),
@@ -297,34 +362,49 @@ return Scaffold(
                         ),
                       ),
                       GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           Navigator.pushNamed(context, "/LoginApp");
-
                         },
                         child: Padding(
-                          padding: const EdgeInsets.only(left:8.0,top:8),
+                          padding: const EdgeInsets.only(left: 8.0, top: 8),
                           child: Container(
                             width: 110,
+                            decoration: BoxDecoration(
+                                   boxShadow: [
+                        BoxShadow(
+                         color: Colors.white30,
+                          blurRadius:
+                              100.0, // has the effect of softening the shadow
+                          spreadRadius:
+                              2,  // has the effect of extending the shadow
+                          offset: Offset(
+                            5.0, // horizontal, move right 10
+                            5.0,  // vertical, move down 10
+                          ),
+                        )
+                      ],
+                                ),
                             height: 100,
                             child: DottedBorder(
                               color: Colors.black,
                               gap: 3,
                               strokeWidth: 3,
                               child: Container(
-
                                 width: 80,
                                 height: 80,
-
                                 child: Padding(
-                                  padding: const EdgeInsets.only(left:8.0),
+                                  padding: const EdgeInsets.only(left: 8.0),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
                                       Icon(
-                                        FontAwesomeIcons.newspaper,size: 35,
+                                        FontAwesomeIcons.newspaper,
+                                        size: 35,
                                         color: Colors.black,
                                       ),
-                                      SizedBox(height: 10,),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
                                       Text(
                                         'SUC Login',
                                         style: TextStyle(color: Colors.white),
@@ -337,46 +417,61 @@ return Scaffold(
                           ),
                         ),
                       ),
-
-
                     ],
                   ),
                 ),
-                SizedBox(height: 10,),
+                SizedBox(
+                  height: 10,
+                ),
                 GestureDetector(
-                  onTap: (){
+                  onTap: () {
                     Navigator.pushNamed(context, "/Events");
-
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Row(
-
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
                         Padding(
-                          padding: const EdgeInsets.only(left:8.0,top:8),
+                          padding: const EdgeInsets.only(left: 8.0, top: 8),
                           child: Container(
                             width: 110,
                             height: 100,
+                            decoration: BoxDecoration(
+                                   boxShadow: [
+                        BoxShadow(
+                          color: Colors.white30,
+                          blurRadius:
+                              100.0, // has the effect of softening the shadow
+                          spreadRadius:
+                              2, // has the effect of extending the shadow
+                          offset: Offset(
+                             5.0, // horizontal, move right 10
+                            5.0,  // vertical, move down 10
+                          ),
+                        )
+                      ],
+                                ),
                             child: DottedBorder(
                               color: Colors.black,
                               gap: 3,
-
                               strokeWidth: 3,
                               child: Container(
                                 width: 80,
                                 height: 80,
                                 child: Padding(
-                                  padding: const EdgeInsets.only(left:8.0),
+                                  padding: const EdgeInsets.only(left: 8.0),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
                                       Icon(
-                                        FontAwesomeIcons.receipt,size: 35,
+                                        FontAwesomeIcons.receipt,
+                                        size: 35,
                                         color: Colors.black,
                                       ),
-                                      SizedBox(height: 10,),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
                                       Text(
                                         'Events',
                                         style: TextStyle(color: Colors.white),
@@ -389,32 +484,47 @@ return Scaffold(
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left:8.0,top:8),
+                          padding: const EdgeInsets.only(left: 8.0, top: 8),
                           child: GestureDetector(
-                            onTap: (){
+                            onTap: () {
                               Navigator.pushNamed(context, "/FAQ");
-
                             },
                             child: Container(
                               width: 110,
                               height: 100,
+                              decoration: BoxDecoration(
+                                   boxShadow: [
+                        BoxShadow(
+                          color: Colors.white30,
+                          blurRadius:
+                              100.0, // has the effect of softening the shadow
+                          spreadRadius:
+                              2,  // has the effect of extending the shadow
+                          offset: Offset(
+                            5.0, // horizontal, move right 10
+                            5.0, // vertical, move down 10
+                          ),
+                        )
+                      ],
+                                ),
                               child: DottedBorder(
                                 color: Colors.black,
                                 gap: 3,
                                 strokeWidth: 3,
                                 child: Container(
-
                                   width: 90,
                                   height: 80,
-
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
                                       Icon(
-                                        FontAwesomeIcons.addressCard,size: 35,
+                                        FontAwesomeIcons.addressCard,
+                                        size: 35,
                                         color: Colors.black,
                                       ),
-                                      SizedBox(height: 10,),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
                                       Text(
                                         'FAQ?',
                                         style: TextStyle(color: Colors.white),
@@ -427,32 +537,47 @@ return Scaffold(
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left:8.0,top:8),
+                          padding: const EdgeInsets.only(left: 8.0, top: 8),
                           child: GestureDetector(
-                            onTap: (){
+                            onTap: () {
                               Navigator.pushNamed(context, "/Gallery");
-
                             },
                             child: Container(
                               width: 110,
                               height: 100,
+                              decoration: BoxDecoration(
+                                   boxShadow: [
+                        BoxShadow(
+                          color: Colors.white30,
+                          blurRadius:
+                              100.0, // has the effect of softening the shadow
+                         spreadRadius:
+                              2,  // has the effect of extending the shadow
+                          offset: Offset(
+                            5.0, // horizontal, move right 10
+                            5.0, // vertical, move down 10
+                          ),
+                        )
+                      ],
+                                ),
                               child: DottedBorder(
                                 color: Colors.black,
                                 gap: 3,
                                 strokeWidth: 3,
                                 child: Container(
-
                                   width: 90,
                                   height: 80,
-
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
                                       Icon(
-                                        FontAwesomeIcons.image,size: 35,
+                                        FontAwesomeIcons.image,
+                                        size: 35,
                                         color: Colors.black,
                                       ),
-                                      SizedBox(height: 10,),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
                                       Text(
                                         'Gallery',
                                         style: TextStyle(color: Colors.white),
@@ -468,18 +593,11 @@ return Scaffold(
                     ),
                   ),
                 ),
-
               ],
             ),
           ],
         ),
-
-
-
       ),
-
-
-
     );
   }
 }

@@ -1,9 +1,10 @@
 // This is a generated file; do not edit or check into version control.
-FLUTTER_ROOT=/Users/muhannadnasri/flutter
-FLUTTER_APPLICATION_PATH=/Users/muhannadnasri/Desktop/F/skyline_university_app
-FLUTTER_TARGET=lib/main.dart
+FLUTTER_ROOT=/Users/innovationlab/packages/flutter
+FLUTTER_APPLICATION_PATH=/Users/innovationlab/Desktop/Skyline App Project/Skyline-University-College
+FLUTTER_TARGET=/Users/innovationlab/Desktop/Skyline App Project/Skyline-University-College/lib/main.dart
 FLUTTER_BUILD_DIR=build
 SYMROOT=${SOURCE_ROOT}/../build/ios
-FLUTTER_FRAMEWORK_DIR=/Users/muhannadnasri/flutter/bin/cache/artifacts/engine/ios
+FLUTTER_FRAMEWORK_DIR=/Users/innovationlab/packages/flutter/bin/cache/artifacts/engine/ios
 FLUTTER_BUILD_NAME=1.0.0
 FLUTTER_BUILD_NUMBER=1
+TRACK_WIDGET_CREATION=true
