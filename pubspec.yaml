@@ -70,7 +70,15 @@ flutter:
     - images/news.png
     - images/login.png
     - images/loginn.png
-
+    - images/attendance.png
+    - images/assessment.png
+    - images/result.png
+    - images/class.png
+    - images/advisor.png
+    - images/circulars.png
+    - images/fees.png
+    - images/erequest.png
+    - images/cdp.png
 
 
 
