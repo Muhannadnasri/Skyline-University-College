@@ -124,155 +124,157 @@ class _HomeInfoState extends State<HomeInfo> {
         color: Colors.grey[300],
         child: ListView(
           children: <Widget>[
-            Column(
-              children: <Widget>[
-                SizedBox(
-                  height: 30,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, "/Directory");
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            boxShadow: <BoxShadow>[
-                              BoxShadow(
-                                color: Colors.black,
-                                blurRadius: 10.0,
+            FittedBox(
+                          child: Column(
+                children: <Widget>[
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, "/Directory");
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              boxShadow: <BoxShadow>[
+                                BoxShadow(
+                                  color: Colors.black,
+                                  blurRadius: 10.0,
+                                ),
+                              ],
+                              color: Colors.white,
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(10))),
+                          height: 50,
+                          width: 370,
+                          child: Row(
+                            children: <Widget>[
+                              Container(
+                                height: 74,
+                                width: 70,
+
+                                child: Icon(
+                                  FontAwesomeIcons.newspaper,
+                                  color: Colors.purple,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                'Directory',
+                                style: TextStyle(fontSize: 20),
                               ),
                             ],
-                            color: Colors.white,
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(10))),
-                        height: 50,
-                        width: 370,
-                        child: Row(
-                          children: <Widget>[
-                            Container(
-                              height: 74,
-                              width: 70,
-
-                              child: Icon(
-                                FontAwesomeIcons.newspaper,
-                                color: Colors.purple,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              'Directory',
-                              style: TextStyle(fontSize: 20),
-                            ),
-                          ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, "/Faculty");
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            boxShadow: <BoxShadow>[
-                              BoxShadow(
-                                color: Colors.black,
-                                                               blurRadius: 10.0,
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, "/Faculty");
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              boxShadow: <BoxShadow>[
+                                BoxShadow(
+                                  color: Colors.black,
+                                                                 blurRadius: 10.0,
 
+                                ),
+                              ],
+                              color: Colors.white,
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(10))),
+                          height: 50,
+                          width: 370,
+                          child: Row(
+                            children: <Widget>[
+                              Container(
+                                height: 74,
+                                width: 70,
+                                child: Icon(
+                                  FontAwesomeIcons.newspaper,
+                                  color: Colors.purple,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                'Faculty Members',
+                                style: TextStyle(fontSize: 20),
                               ),
                             ],
-                            color: Colors.white,
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(10))),
-                        height: 50,
-                        width: 370,
-                        child: Row(
-                          children: <Widget>[
-                            Container(
-                              height: 74,
-                              width: 70,
-                              child: Icon(
-                                FontAwesomeIcons.newspaper,
-                                color: Colors.purple,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              'Faculty Members',
-                              style: TextStyle(fontSize: 20),
-                            ),
-                          ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, "/Staff");
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            boxShadow: <BoxShadow>[
-                              BoxShadow(
-                                color: Colors.black,
-                                                               blurRadius: 10.0,
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, "/Staff");
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              boxShadow: <BoxShadow>[
+                                BoxShadow(
+                                  color: Colors.black,
+                                                                 blurRadius: 10.0,
 
+                                ),
+                              ],
+                              color: Colors.white,
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(10))),
+                          height: 50,
+                          width: 370,
+                          child: Row(
+                            children: <Widget>[
+                              Container(
+                                height: 74,
+                                width: 70,
+
+                                child: Icon(
+                                  FontAwesomeIcons.newspaper,
+                                  color: Colors.purple,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                'Staff',
+                                style: TextStyle(fontSize: 20),
                               ),
                             ],
-                            color: Colors.white,
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(10))),
-                        height: 50,
-                        width: 370,
-                        child: Row(
-                          children: <Widget>[
-                            Container(
-                              height: 74,
-                              width: 70,
-
-                              child: Icon(
-                                FontAwesomeIcons.newspaper,
-                                color: Colors.purple,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              'Staff',
-                              style: TextStyle(fontSize: 20),
-                            ),
-                          ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
 
-              ],
+                ],
+              ),
             ),
           ],
         ),

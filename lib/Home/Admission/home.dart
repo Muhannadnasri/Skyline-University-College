@@ -31,149 +31,152 @@ class _HomeAdmissionState extends State<HomeAdmission> {
         child: ListView(
           children: <Widget>[
             SizedBox(height: 20,),
-            Column(
-              children: <Widget>[
+            FittedBox(
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: (){
-                        Navigator.pushNamed(context, "/AdmissionForm");
+                          child: Column(
+                children: <Widget>[
 
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            boxShadow: <BoxShadow>[
-                              BoxShadow(
-                                color: Colors.black,
-                                blurRadius: 15.0,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: (){
+                          Navigator.pushNamed(context, "/AdmissionForm");
+
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              boxShadow: <BoxShadow>[
+                                BoxShadow(
+                                  color: Colors.black,
+                                  blurRadius: 15.0,
+                                ),
+                              ],
+                              color: Colors.white,
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(10))),
+                          height: 50,
+                          width: 370,
+                          child: Row(
+                            children: <Widget>[
+                              Container(
+                                height: 74,
+                                width: 70,
+                                child: Icon(
+                                  FontAwesomeIcons.newspaper,
+                                  color: Colors.purple,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                'AdmissionForm',
+                                style: TextStyle(fontSize: 20),
                               ),
                             ],
-                            color: Colors.white,
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(10))),
-                        height: 50,
-                        width: 370,
-                        child: Row(
-                          children: <Widget>[
-                            Container(
-                              height: 74,
-                              width: 70,
-                              child: Icon(
-                                FontAwesomeIcons.newspaper,
-                                color: Colors.purple,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              'AdmissionForm',
-                              style: TextStyle(fontSize: 20),
-                            ),
-                          ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: (){
-                        Navigator.pushNamed(context, '/FAQ');
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            boxShadow: <BoxShadow>[
-                              BoxShadow(
-                                color: Colors.black,
-                                blurRadius: 15.0,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: (){
+                          Navigator.pushNamed(context, '/FAQ');
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              boxShadow: <BoxShadow>[
+                                BoxShadow(
+                                  color: Colors.black,
+                                  blurRadius: 15.0,
+                                ),
+                              ],
+                              color: Colors.white,
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(10))),
+                          height: 50,
+                          width: 370,
+                          child: Row(
+                            children: <Widget>[
+                              Container(
+                                height: 74,
+                                width: 70,
+                                child: Icon(
+                                  FontAwesomeIcons.arrowRight,
+                                  color: Colors.purple,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                'FAQ?',
+                                style: TextStyle(fontSize: 20),
                               ),
                             ],
-                            color: Colors.white,
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(10))),
-                        height: 50,
-                        width: 370,
-                        child: Row(
-                          children: <Widget>[
-                            Container(
-                              height: 74,
-                              width: 70,
-                              child: Icon(
-                                FontAwesomeIcons.arrowRight,
-                                color: Colors.purple,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              'FAQ?',
-                              style: TextStyle(fontSize: 20),
-                            ),
-                          ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: (){
-                        Navigator.pushNamed(context, '/GetGPARequirments');
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            boxShadow: <BoxShadow>[
-                              BoxShadow(
-                                color: Colors.black,
-                                blurRadius: 15.0,
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: (){
+                          Navigator.pushNamed(context, '/GetGPARequirments');
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              boxShadow: <BoxShadow>[
+                                BoxShadow(
+                                  color: Colors.black,
+                                  blurRadius: 15.0,
+                                ),
+                              ],
+                              color: Colors.white,
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(10))),
+                          height: 50,
+                          width: 370,
+                          child: Row(
+                            children: <Widget>[
+                              Container(
+                                height: 74,
+                                width: 70,
+
+                                child: Icon(
+                                  FontAwesomeIcons.newspaper,
+                                  color: Colors.purple,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                'GPA Requirments',
+                                style: TextStyle(fontSize: 20),
                               ),
                             ],
-                            color: Colors.white,
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(10))),
-                        height: 50,
-                        width: 370,
-                        child: Row(
-                          children: <Widget>[
-                            Container(
-                              height: 74,
-                              width: 70,
-
-                              child: Icon(
-                                FontAwesomeIcons.newspaper,
-                                color: Colors.purple,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              'GPA Requirments',
-                              style: TextStyle(fontSize: 20),
-                            ),
-                          ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
 
-              ],
+                ],
+              ),
             ),
           ],
         ),

@@ -1,4 +1,4 @@
-import 'dart:convert' as gallery;
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dotted_border/dotted_border.dart';
@@ -320,7 +320,7 @@ Text(galleries[index]['Image_Number']
           body: body);
       print(response.statusCode);
       if (response.statusCode == 200) {
-        var Json = gallery.json.decode(response.body);
+        var Json = json.decode(response.body);
         Directory appDocDir = await getApplicationDocumentsDirectory();
         dataFile = new File(appDocDir.path + "/dataFile.json");
 
@@ -336,7 +336,7 @@ Text(galleries[index]['Image_Number']
         if (Json['gallery'] != null) {
           appJson = Json;
         } else {
-          appJson = gallery.json.decode(dataFile.readAsStringSync());
+          appJson = json.decode(dataFile.readAsStringSync());
         }
 
         _showLoading(false);

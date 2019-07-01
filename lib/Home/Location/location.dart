@@ -125,12 +125,7 @@ class _LocationState extends State<Location> {
       ),
       body: Container(
         color: Colors.grey[300],
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child:
-
-
+        child:
               ListView.builder(
                   itemCount: getLocationJson.length,
                   itemBuilder: (BuildContext context, int index) {
@@ -139,96 +134,98 @@ class _LocationState extends State<Location> {
                         child: Card(
 
                           child:
-                          Column(
+                          FittedBox(
+                                                      child: Column(
 
-                            children: <Widget>[
+                              children: <Widget>[
 
-                              Container(
-                                width: 500,
-                                height: 30,
-                                alignment: Alignment.center,
-                                decoration: new BoxDecoration(
-                                  gradient: LinearGradient(
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                    colors: [
-                                      Color(0xFF104C90),
-                                      Color(0xFF3773AC),
-                                    ],
-                                    stops: [
-                                      0.7,
-                                      0.9,
-                                    ],
+                                Container(
+                                  width: 500,
+                                  height: 30,
+                                  alignment: Alignment.center,
+                                  decoration: new BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                        Color(0xFF104C90),
+                                        Color(0xFF3773AC),
+                                      ],
+                                      stops: [
+                                        0.7,
+                                        0.9,
+                                      ],
+                                    ),
                                   ),
+                                  child: Text(getLocationJson[index]['name'],style: TextStyle(color: Colors.white),),
                                 ),
-                                child: Text(getLocationJson[index]['name'],style: TextStyle(color: Colors.white),),
-                              ),
 
-                              SizedBox(height: 10,),
+                                SizedBox(height: 10,),
 
-                              Row(children: <Widget>[
-                                SizedBox(width: 10,),
+                                Row(children: <Widget>[
+                                  SizedBox(width: 10,),
 
-                                Icon(FontAwesomeIcons.mapMarkerAlt,size: 15,),
-                                SizedBox(width: 10,),
-                                GestureDetector(
+                                  Icon(FontAwesomeIcons.mapMarkerAlt,size: 15,),
+                                  SizedBox(width: 10,),
+                                  GestureDetector(
 
+                                      onTap: (){
+                                        _launchMapsUrl(getLocationJson[index]['latitude'],getLocationJson[index]['longitude']);
+
+                                      },
+                                      child: Text(getLocationJson[index]['address1'],style: TextStyle(
+                                          decoration: TextDecoration.underline,
+                                          color: Colors.blue),)),
+                                ],),
+                                SizedBox(height: 10,),
+                                Row(children: <Widget>[
+                                  SizedBox(width: 10,),
+
+                                  RotationTransition(
+                                      turns: new AlwaysStoppedAnimation(15 / 50),
+                                      child: Icon(FontAwesomeIcons.phone,size: 15,)),
+                                  SizedBox(width: 10,),
+                                  GestureDetector(
                                     onTap: (){
-                                      _launchMapsUrl(getLocationJson[index]['latitude'],getLocationJson[index]['longitude']);
-
-                                    },
-                                    child: Text(getLocationJson[index]['address1'],style: TextStyle(
-                                        decoration: TextDecoration.underline,
-                                        color: Colors.blue),)),
-                              ],),
-                              SizedBox(height: 10,),
-                              Row(children: <Widget>[
-                                SizedBox(width: 10,),
-
-                                RotationTransition(
-                                    turns: new AlwaysStoppedAnimation(15 / 50),
-                                    child: Icon(FontAwesomeIcons.phone,size: 15,)),
-                                SizedBox(width: 10,),
-                                GestureDetector(
-                                  onTap: (){
-                                    launch('tel:'+getLocationJson[index]['phone1'].toString()
+                                      launch('tel:'+getLocationJson[index]['phone1'].toString()
 //
-                                    );
-                                  },
-                                  child: Text(getLocationJson[index]['phone1'],style: TextStyle(
-                                      decoration: TextDecoration.underline,
-                                      color: Colors.blue),),
+                                      );
+                                    },
+                                    child: Text(getLocationJson[index]['phone1'],style: TextStyle(
+                                        decoration: TextDecoration.underline,
+                                        color: Colors.blue),),
+                                  ),
+
+                                ],),
+                                SizedBox(height: 10,),
+
+                                Row(children: <Widget>[
+                                  SizedBox(width: 10,),
+
+                                  Icon(FontAwesomeIcons.solidEnvelope,size: 15,),
+                                  SizedBox(width: 10,),
+                                  GestureDetector(
+                                    onTap: (){
+                                      launch(
+
+
+                                          'mailto:'+getLocationJson[index]['email']
+                                              .toString()
+
+                                      );
+                                    },
+                                    child: Text(getLocationJson[index]['email'],style: TextStyle(
+                                        decoration: TextDecoration.underline,
+                                        color: Colors.blue),),
+                                  ),
+
+                                ],
+
                                 ),
-
-                              ],),
-                              SizedBox(height: 10,),
-
-                              Row(children: <Widget>[
-                                SizedBox(width: 10,),
-
-                                Icon(FontAwesomeIcons.solidEnvelope,size: 15,),
-                                SizedBox(width: 10,),
-                                GestureDetector(
-                                  onTap: (){
-                                    launch(
-
-
-                                        'mailto:'+getLocationJson[index]['email']
-                                            .toString()
-
-                                    );
-                                  },
-                                  child: Text(getLocationJson[index]['email'],style: TextStyle(
-                                      decoration: TextDecoration.underline,
-                                      color: Colors.blue),),
-                                ),
+                                SizedBox(height: 10,),
 
                               ],
-
-                              ),
-                              SizedBox(height: 10,),
-
-                            ],
+                            ),
                           ),
                         ),
                       );
@@ -239,10 +236,9 @@ class _LocationState extends State<Location> {
                   }
 
               ),
-            ),
+            
 
-          ],
-        ),
+      
       ),
     );
   }

@@ -91,7 +91,7 @@ super.initState();
                 clipType: ClipType.waved,
 
                 child: Container(
-                  height: 400,
+                  height: MediaQuery.of(context).size.height/2,
                   decoration: new BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
@@ -132,7 +132,7 @@ child: Column(
 
                               ),
                                 child: Image.asset('images/logohd.png',
-                                  height: 170,width: 170,),
+                                  height: MediaQuery.of(context).size.height/5,width: MediaQuery.of(context).size.width/2,),
                             ),
                         ),
                       ),
