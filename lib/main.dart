@@ -28,6 +28,7 @@ import 'Login/Class Schedule/courseDetails.dart';
 import 'Login/Class Schedule/classScheduleMqpWeekday.dart';
 import 'Login/Class Schedule/classScheduleWeekday.dart';
 import 'Login/Class Schedule/classScheduleWeekend.dart';
+import 'Login/Class Schedule/home.dart';
 import 'Login/E-Reques/airTicketRequest.dart';
 import 'Login/E-Reques/bookrequistion.dart';
 import 'Login/E-Reques/changeClassTime.dart';
@@ -166,7 +167,9 @@ class MyAppState extends State<MyApp> {
         '/GPA': (context) =>GPA(),
                 '/GPAS': (context) =>GPAS(),
                 '/GPASS': (context) =>GPASS(),
+                '/HomeClassFac': (context) =>HomeClassFac(),
                 '/HomeClass': (context) =>HomeClass(),
+                
 
 
 

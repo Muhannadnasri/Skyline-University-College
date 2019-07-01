@@ -21,7 +21,6 @@ dependencies:
   url_launcher: ^5.0.3
   flutter_spinkit: ^3.1.0
   transparent_image: ^1.0.0
-
   dotted_border: ^0.1.1
   sqflite: ^1.1.5
   fluttertoast: ^3.1.0
@@ -39,11 +38,17 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
 
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.7.2+1
 
-
+flutter_icons:
+  image_path: "images/launcher.png"
+  android: true
+  iso: true
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
 
@@ -69,7 +74,6 @@ flutter:
     - images/gallery.png
     - images/news.png
     - images/login.png
-    - images/loginn.png
     - images/attendance.png
     - images/assessment.png
     - images/result.png
@@ -79,7 +83,14 @@ flutter:
     - images/fees.png
     - images/erequest.png
     - images/cdp.png
-
+    - images/allocation.png
+    - images/contactslist.png
+    - images/male.png
+    - images/female.png
+    - images/professor-male.png
+    - images/professor-female.png
+    - images/degree.png
+    - images/year.png
 
 
 

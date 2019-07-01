@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:skyline_university/Global/fab.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:skyline_university/Global/zigzag.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void main() => runApp(Home());
@@ -24,49 +25,76 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-      body: Container(
-        decoration: new BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFF3773AC),
-              Color(0xFF104C90),
-            ],
-            stops: [
-              0.2,
-              0.6,
+      appBar: PreferredSize(
+          preferredSize: Size.fromHeight(120.0),
+          child: Stack(
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  ZigZag(
+                    clipType: ClipType.waved,
+                    child: Container(
+
+                      height: 120,
+                      decoration: new BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Color(0xFF104C90),
+                            Color(0xFF3773AC),
+                          ],
+                          stops: [
+                            0.5,
+                            0.9,
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+                  Center(
+                    child: Container(
+                      height: 200,
+                      width: 200,
+                      decoration: BoxDecoration(
+
+                        image: DecorationImage(
+                          fit: BoxFit.fitWidth,
+                          
+                          image: AssetImage('images/logo.png',),
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+
+color: Colors.white,
+                            blurRadius:
+                                100.0, // has the effect of softening the shadow
+                            spreadRadius:
+                                1, // has the effect of extending the shadow
+                            offset: Offset(
+                              10.0, // horizontal, move right 10
+                              10.0, // vertical, move down 10
+                            ),
+                          )
+                        ],
+                      ),
+                     ),
+                  ),
             ],
           ),
         ),
+      body: Container(
+
         child: ListView(
           children: <Widget>[
-            SizedBox(
-              height: 30,
-            ),
+           
             Column(
               children: <Widget>[
-                Container(
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.white,
-                          blurRadius:
-                              100.0, // has the effect of softening the shadow
-                          spreadRadius:
-                              5, // has the effect of extending the shadow
-                          offset: Offset(
-                            10.0, // horizontal, move right 10
-                            10.0, // vertical, move down 10
-                          ),
-                        )
-                      ],
-                    ),
-                    child: Image.asset(
-                      'images/logo.png',
-                      height: 200,
-                      width: 230,
-                    )),
+             SizedBox(
+              height: 30,
+            ),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Row(

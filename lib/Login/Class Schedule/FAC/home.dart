@@ -5,7 +5,7 @@ import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/zigzag.dart';
 import 'package:skyline_university/Home/home.dart';
 
-void main() => runApp(HomeClass());
+void main() => runApp(HomeClassFac());
 
 class Item {
   final name;
@@ -14,14 +14,14 @@ class Item {
   Item(this.name, this.clipType);
 }
 
-class HomeClass extends StatefulWidget {
+class HomeClassFac extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _HomeClassState();
+    return _HomeClassFacState();
   }
 }
 
-class _HomeClassState extends State<HomeClass> {
+class _HomeClassFacState extends State<HomeClassFac> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
   @override

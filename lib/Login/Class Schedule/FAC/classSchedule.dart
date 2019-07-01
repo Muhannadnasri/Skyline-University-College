@@ -501,8 +501,9 @@ class _CourseAllocationState extends State<CourseAllocation> {
         setState(() {
           courseAllocationJson = json.decode(response.body)['data']['courses'];
         });
-        _showLoading(false);
+        
       }
+      _showLoading(false);
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         _showError("Time out from server", FontAwesomeIcons.hourglassHalf);
