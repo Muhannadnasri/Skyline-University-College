@@ -27,7 +27,7 @@ class _PayOnlineState extends State<PayOnline> {
   void initState() {
     super.initState();
 getPayOnline();
-payOnlineJson.clear();
+
   }
 
 
@@ -138,7 +138,6 @@ payOnlineJson.clear();
 
                 url: 
                 
-                payOnlineJson.isEmpty ? 'https://skylineuniversity.ac.ae':
                 payOnlineJson['data'],
               ),
             ),
