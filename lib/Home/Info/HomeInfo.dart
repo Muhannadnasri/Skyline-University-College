@@ -121,7 +121,7 @@ class _HomeInfoState extends State<HomeInfo> {
       ),
       body:
       Container(
-        color: Colors.grey[300],
+
         child: ListView(
           children: <Widget>[
             FittedBox(

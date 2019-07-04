@@ -33,7 +33,7 @@ class _HomeClassState extends State<HomeClass> {
   Widget build(BuildContext context) {
 return Scaffold(
         body: Container(
-          color: Colors.grey[200],
+
 
           child: ListView(
             children: <Widget>[

@@ -36,7 +36,7 @@ return Scaffold(
         body:
             studentJson ['data']['user_type'] == "STUDENT" ?
             Container(
-          color: Colors.white,
+          
           child: ListView(
             children: <Widget>[
               Column(

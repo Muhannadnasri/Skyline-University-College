@@ -35,7 +35,7 @@ class _HomeFeesState extends State<HomeFees> {
     SystemChrome.setEnabledSystemUIOverlays([]);
 return Scaffold(
         body: Container(
-          color: Colors.grey[200],
+
 
           child: ListView(
             children: <Widget>[
