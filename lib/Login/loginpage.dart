@@ -299,6 +299,7 @@ child: Column(
 
                                 logIn();
 
+
                               },
                               child: Center(
                                 child: Text("SIGNIN",
@@ -424,11 +425,13 @@ child: Column(
 
     if (_logInForm.currentState.validate()) {
       _logInForm.currentState.save();
+
+      
     }
     Future.delayed(Duration.zero, () {
       _showLoading(true);
     });
-//    studentJson.clear();
+
 
     try {
       http.Response response = await http.post(
@@ -456,7 +459,6 @@ child: Column(
 
 
 
-print (studentJson['data']['program']);
         if ( studentJson ['success'] == '1') {
           _showLoading(false);
 
@@ -467,10 +469,20 @@ print (studentJson['data']['program']);
 
         } else {
 
+
         }
 
       }
-      if ( studentJson ['success'] == '0'){
+     
+
+
+
+    } catch (x) {
+      if(x.toString().contains("TimeoutException")){
+        _showError("Time out from server",FontAwesomeIcons.hourglassHalf);
+      }else{
+
+ if ( studentJson ['success'] == '0'){
         _showLoading(false);
         Fluttertoast.showToast(
             msg: studentJson['message'],
@@ -482,13 +494,9 @@ print (studentJson['data']['program']);
             fontSize: 13.0
         );
       }
+      
+_showLoading(false);    
 
-    } catch (x) {
-      print(x);
-      if(x.toString().contains("TimeoutException")){
-        _showError("Time out from server",FontAwesomeIcons.hourglassHalf);
-      }else{
-        _showError("Sorry, we can't connect",Icons.perm_scan_wifi);
       }
 
     }
