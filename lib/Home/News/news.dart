@@ -329,7 +329,7 @@ width: c_width,
     };
     try {
       http.Response response =
-      await http.post("http://www.muhannadnasri.com/App/data.json", body: body);
+      await http.post("http://www.muhannadnasri.com/App/news_events/data.json", body: body);
       print(response.statusCode);
       if (response.statusCode == 200) {
         var Json = json.decode(response.body);

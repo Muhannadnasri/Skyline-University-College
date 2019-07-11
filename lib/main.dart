@@ -18,9 +18,7 @@ import 'Login/Assessment Marks/assessmentMarkCourses.dart';
 import 'Login/Attendance/attendance.dart';
 import 'Login/CDP Download/cdp.dart';
 import 'Login/Circulars/circulars.dart';
-import 'Login/Class Schedule/FAC/CourseAllocationEvening.dart';
 import 'Login/Class Schedule/FAC/CourseAllocationMorning.dart';
-import 'Login/Class Schedule/FAC/CourseAllocationWeekend.dart';
 import 'Login/Class Schedule/FAC/classSchedule.dart';
 
 
@@ -147,9 +145,6 @@ class MyAppState extends State<MyApp> {
         '/GeneralAppointment': (context) => GeneralAppointment(),
         '/CourseAllocation': (context) => CourseAllocation(),
 
-    '/CourseEvening': (context) => CourseEvening(),
-    '/CourseAllocationEvening': (context) => CourseAllocationEvening(),
-    '/CourseAllocationWeekend': (context) => CourseAllocationWeekend(),
 
         '/Faculty': (context) => Faculty(),
 

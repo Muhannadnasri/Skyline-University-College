@@ -26,7 +26,7 @@ class _HomeState extends State<Home> {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(120.0),
+          preferredSize: Size.fromHeight(110.0),
           child: Stack(
             children: <Widget>[
               Column(
@@ -35,7 +35,7 @@ class _HomeState extends State<Home> {
                     clipType: ClipType.waved,
                     child: Container(
 
-                      height: 120,
+                      height: 110,
                       decoration: new BoxDecoration(
                         gradient: LinearGradient(
                           begin: Alignment.topCenter,
@@ -63,22 +63,10 @@ class _HomeState extends State<Home> {
                         image: DecorationImage(
                           fit: BoxFit.fitWidth,
                           
-                          image: AssetImage('images/logo.png',),
+                          image: AssetImage('images/skyline_white.png',),
+                          
                         ),
-                        boxShadow: [
-                          BoxShadow(
-
-color: Colors.white,
-                            blurRadius:
-                                100.0, // has the effect of softening the shadow
-                            spreadRadius:
-                                1, // has the effect of extending the shadow
-                            offset: Offset(
-                              10.0, // horizontal, move right 10
-                              10.0, // vertical, move down 10
-                            ),
-                          )
-                        ],
+                       
                       ),
                      ),
                   ),
