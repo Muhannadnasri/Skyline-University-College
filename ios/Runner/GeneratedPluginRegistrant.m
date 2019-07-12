@@ -3,6 +3,7 @@
 //
 
 #import "GeneratedPluginRegistrant.h"
+#import <firebase_core/FirebaseCorePlugin.h>
 #import <flutter_webview_plugin/FlutterWebviewPlugin.h>
 #import <fluttertoast/FluttertoastPlugin.h>
 #import <path_provider/PathProviderPlugin.h>
@@ -13,6 +14,7 @@
 @implementation GeneratedPluginRegistrant
 
 + (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {
+  [FLTFirebaseCorePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseCorePlugin"]];
   [FlutterWebviewPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterWebviewPlugin"]];
   [FluttertoastPlugin registerWithRegistrar:[registry registrarForPlugin:@"FluttertoastPlugin"]];
   [FLTPathProviderPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTPathProviderPlugin"]];
