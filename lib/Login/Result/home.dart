@@ -7,7 +7,7 @@ import 'package:skyline_university/Global/zigzag.dart';
 import 'package:skyline_university/Home/home.dart';
 
 void main() => runApp(HomeResult());
-
+// FinalTermResults MidTermMarks StudentGPAProfile GetGPARequirments
 class Item {
   final name;
   final clipType;
@@ -41,190 +41,224 @@ return Scaffold(
               SizedBox(height: 20,),
               Column(
                 children: <Widget>[
+Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.pushNamed(context, "/FinalTermResults");
+                                    },
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 8.0, top: 8,right: 8.0),
+                                      child: Container(
+                                        width: 360,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey[100],
+                                          border: Border.all(width: 1.0),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(
+                                                  10.0) //         <--- border radius here
+                                              ),
+                                        ),
+                                        child: Container(
+                                          width: 80,
+                                          height: 80,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: <Widget>[
+                                              SizedBox(width: 15,),
+                                              Image.asset(
+                                                'images/admission.png',
+                                                height: 30,
+                                              ),
+                                                                                          SizedBox(width: 20,),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      GestureDetector(
-                        onTap: (){
-                          Navigator.pushNamed(context, "/FinalTermResults");
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                'Final Term Results',
+                                                style:
+                                                    TextStyle(color: Colors.black),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.pushNamed(context, "/MidTermMarks");
+                                    },
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 8.0, top: 8,right: 8.0),
+                                      child: Container(
+                                        width: 360,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey[100],
+                                          border: Border.all(width: 1.0),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(
+                                                  10.0) //         <--- border radius here
+                                              ),
+                                        ),
+                                        child: Container(
+                                          width: 80,
+                                          height: 80,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: <Widget>[
+                                              SizedBox(width: 15,),
+                                              Image.asset(
+                                                'images/admission.png',
+                                                height: 30,
+                                              ),
+                                                                                          SizedBox(width: 20,),
 
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              boxShadow: <BoxShadow>[
-                                BoxShadow(
-                                  color: Colors.black,
-                                  blurRadius: 15.0,
-                                ),
-                              ],
-                              color: Colors.white,
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(10))),
-                          height: 50,
-                          width: 370,
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                                height: 74,
-                                width: 70,
-                                child: Icon(
-                                  FontAwesomeIcons.newspaper,
-                                  color: Colors.purple,
-                                ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                'Mid Term Marks',
+                                                style:
+                                                    TextStyle(color: Colors.black),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                'Final Grade Result',
-                                style: TextStyle(fontSize: 20),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      GestureDetector(
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.pushNamed(context, "/StudentGPAProfile");
+                                    },
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 8.0, top: 8,right: 8.0),
+                                      child: Container(
+                                        width: 360,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey[100],
+                                          border: Border.all(width: 1.0),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(
+                                                  10.0) //         <--- border radius here
+                                              ),
+                                        ),
+                                        child: Container(
+                                          width: 80,
+                                          height: 80,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: <Widget>[
+                                              SizedBox(width: 15,),
+                                              Image.asset(
+                                                'images/admission.png',
+                                                height: 30,
+                                              ),
+                                                                                          SizedBox(width: 20,),
 
-                        onTap: (){Navigator.pushNamed(context, "/MidTermMarks");},
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                'Student GPA Profile',
+                                                style:
+                                                    TextStyle(color: Colors.black),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.pushNamed(context, "/GetGPARequirments");
+                                    },
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 8.0, top: 8,right: 8.0),
+                                      child: Container(
+                                        width: 360,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey[100],
+                                          border: Border.all(width: 1.0),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(
+                                                  10.0) //         <--- border radius here
+                                              ),
+                                        ),
+                                        child: Container(
+                                          width: 80,
+                                          height: 80,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: <Widget>[
+                                              SizedBox(width: 15,),
+                                              Image.asset(
+                                                'images/admission.png',
+                                                height: 30,
+                                              ),
+                                                                                          SizedBox(width: 20,),
 
-                        child: Container(
-                          decoration: BoxDecoration(
-                              boxShadow: <BoxShadow>[
-                                BoxShadow(
-                                  color: Colors.black,
-                                  blurRadius: 15.0,
-                                ),
-                              ],
-                              color: Colors.white,
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(10))),
-                          height: 50,
-                          width: 370,
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                                height: 74,
-                                width: 70,
-                                child: Icon(
-                                  FontAwesomeIcons.newspaper,
-                                  color: Colors.purple,
-                                ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                'GPA Requirments',
+                                                style:
+                                                    TextStyle(color: Colors.black),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                'Mid Term Result',
-                                style: TextStyle(fontSize: 20),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      GestureDetector(
-                        onTap: (){
-                          Navigator.pushNamed(context, '/StudentGPAProfile');
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              boxShadow: <BoxShadow>[
-                                BoxShadow(
-                                  color: Colors.black,
-                                  blurRadius: 15.0,
-                                ),
-                              ],
-                              color: Colors.white,
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(10))),
-                          height: 50,
-                          width: 370,
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                                height: 74,
-                                width: 70,
-                                child: Icon(
-                                  FontAwesomeIcons.arrowRight,
-                                  color: Colors.purple,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                'Student GPA Profile',
-                                style: TextStyle(fontSize: 20),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      GestureDetector(
-                        onTap: (){
-                          Navigator.pushNamed(context, '/GetGPARequirments');
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              boxShadow: <BoxShadow>[
-                                BoxShadow(
-                                  color: Colors.black,
-                                  blurRadius: 15.0,
-                                ),
-                              ],
-                              color: Colors.white,
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(10))),
-                          height: 50,
-                          width: 370,
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                                height: 74,
-                                width: 70,
+                    SizedBox(
+                      height: 20,
+                    ),
 
-                                child: Icon(
-                                  FontAwesomeIcons.newspaper,
-                                  color: Colors.purple,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                'GPA Requirments',
-                                style: TextStyle(fontSize: 20),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+
 
                 ],
               ),
