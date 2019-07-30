@@ -138,11 +138,11 @@ class _ContactListState extends State<ContactList> {
 
           child: Card(
 
-            color: contactListJson[index]['DEPARTMENT_NAME'] == 'BSIT' ?  Color(0xFF632a79) : Color(0xFF003a62)
+            color: contactListJson[index]['DEPARTMENT_NAME'] == 'BSIT' ?  Color(0xFF612B79) : Color(0xFF023962)
               ,
-            elevation: 15,
+            elevation: 20,
   shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10)
+          borderRadius: BorderRadius.all(Radius.circular(15)
           ),
           ),
   child:   Column(
@@ -194,10 +194,16 @@ SizedBox(width: 20,),
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
 SizedBox(height: 5,),
-                Container(child: Text(contactListJson[index]['Name'].toString()),),
+                Container(child: Text(
+                  
+
+                  
+                  
+                  
+                  contactListJson[index]['Name'].toString(),style: TextStyle(color: Colors.white),),),
                   SizedBox(height: 5,),
 
-                  Container(child:       Text(contactListJson[index]['Job_Name'].toString()),),
+                  Container(child:       Text(contactListJson[index]['Job_Name'].toString(),style: TextStyle(color: Colors.white),),),
                   SizedBox(height: 5,),
 
 

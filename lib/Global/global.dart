@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:superellipse_shape/superellipse_shape.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 
@@ -281,16 +282,20 @@ logOut(BuildContext context) {
 
 
   AlertDialog alert = AlertDialog(
-
+shape: SuperellipseShape(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(20),
+                  ),
+                ),
     title: Image.asset('images/logo.png',
-      height: 50,
+      height:50,
     ),
     content:
 
 
     Padding(
       padding: const EdgeInsets.all(10.0),
-      child: Text("Are you sure want to logout ?"),
+      child: Text("Are you sure you want to logout ?"),
     ),
     actions: [
 
@@ -299,6 +304,8 @@ logOut(BuildContext context) {
     ],
   );
   showDialog(
+              barrierDismissible: false,
+
     context: context,
     builder: (BuildContext context) {
       return alert;
