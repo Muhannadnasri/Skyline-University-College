@@ -37,7 +37,7 @@ class _AdvisorAppointmentState extends State<AdvisorAppointment> {
   void initState() {
     super.initState();
     getAdvisorDate();
-    groupValue = 1;
+    groupValue = 2;
   }
 
   @override
@@ -191,6 +191,7 @@ class _AdvisorAppointmentState extends State<AdvisorAppointment> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Container(
+
                         alignment: Alignment.centerLeft,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -203,6 +204,7 @@ class _AdvisorAppointmentState extends State<AdvisorAppointment> {
                       Padding(
                         padding: const EdgeInsets.only(left: 15.0),
                         child: DropdownButton<String>(
+                          isExpanded: true,
                           hint: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
@@ -252,6 +254,8 @@ class _AdvisorAppointmentState extends State<AdvisorAppointment> {
                         padding: const EdgeInsets.only(left: 15.0),
                         child: DropdownButton<String>(
                           value: _time,
+                                                    isExpanded: true,
+
                           hint: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
@@ -305,7 +309,7 @@ class _AdvisorAppointmentState extends State<AdvisorAppointment> {
                                       groupValue = e;
                                     });
                                   },
-                                  activeColor: Colors.purple,
+                                  activeColor: Colors.blue,
                                 ),
                               ],
                             ),
@@ -318,7 +322,7 @@ class _AdvisorAppointmentState extends State<AdvisorAppointment> {
                                   groupValue = e;
                                 });
                               },
-                              activeColor: Colors.purple,
+                              activeColor: Colors.blue,
                             ),
                           ],
                         ),
@@ -349,6 +353,8 @@ class _AdvisorAppointmentState extends State<AdvisorAppointment> {
                             Padding(
                               padding: const EdgeInsets.only(left: 15.0),
                               child: DropdownButton<String>(
+                                                          isExpanded: true,
+
                                 value: _case,
                                 hint: Padding(
                                   padding: const EdgeInsets.all(8.0),
