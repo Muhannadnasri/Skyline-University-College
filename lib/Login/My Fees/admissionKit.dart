@@ -28,7 +28,7 @@ Map<String, int> body;
 class _AdmissionKitState extends State<AdmissionKit> {
   @override
   void initState() {
-    myLedgerJson.clear();
+
     getMyLedger();
     getAdmissionKit();
     getInvoices();
@@ -136,6 +136,7 @@ class _AdmissionKitState extends State<AdmissionKit> {
           children: <Widget>[
             Column(
               children: <Widget>[
+                SizedBox(height: 15,),
                 Container(
                   height: 50,
                   width: MediaQuery.of(context).size.width,

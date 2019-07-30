@@ -28,6 +28,7 @@ class _PayOnlineState extends State<PayOnline> {
     super.initState();
 getPayOnline();
 
+
   }
 
 
@@ -129,16 +130,22 @@ getPayOnline();
       ),      body:  Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              child: WebviewScaffold(
+              child:
+              
+              payOnlineJson == null ? SizedBox(): 
+               WebviewScaffold(
                 hidden: true,
                 withZoom: true,
+                enableAppScheme: true,
                 clearCache: true,
                 clearCookies: true,
                 scrollBar: true,
 
                 url: 
-                
-                payOnlineJson['data'],
+                               
+                    payOnlineJson['data']
+
+
               ),
             ),
     );

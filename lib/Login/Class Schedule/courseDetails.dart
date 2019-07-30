@@ -95,7 +95,7 @@ classScheduleCourseJson = [];
                         ),
                       ),
                     ),
-                    Text("Class Schedule",style: TextStyle(color: Colors.white),),
+                    Text("Class Details",style: TextStyle(color: Colors.white),),
 
                     GestureDetector(
                       onTap: () {

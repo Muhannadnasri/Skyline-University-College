@@ -99,7 +99,7 @@ class _AdvisorsState extends State<Advisors> {
                         ),
                       ),
                     ),
-                    Text("Advisor Details",style: TextStyle(color: Colors.white),),
+                    Text("Advisor Students",style: TextStyle(color: Colors.white),),
 
                     GestureDetector(
                       onTap: () {

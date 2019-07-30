@@ -95,7 +95,7 @@ class _ContactListState extends State<ContactList> {
                       ),
                     ),
                   ),
-                  Text("Admission Kit",style: TextStyle(color: Colors.white),),
+                  Text("Contact List",style: TextStyle(color: Colors.white),),
 
                   GestureDetector(
                     onTap: () {
@@ -142,7 +142,9 @@ class _ContactListState extends State<ContactList> {
               ,
             elevation: 15,
   shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10))),
+          borderRadius: BorderRadius.all(Radius.circular(10)
+          ),
+          ),
   child:   Column(
 
     children: <Widget>[

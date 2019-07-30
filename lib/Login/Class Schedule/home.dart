@@ -39,6 +39,7 @@ return Scaffold(
             children: <Widget>[
               Column(
                 children: <Widget>[
+                  SizedBox(height: 15,),
                  Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: <Widget>[
@@ -50,7 +51,7 @@ return Scaffold(
                                       padding:
                                           const EdgeInsets.only(left: 8.0, top: 8,right: 8.0),
                                       child: Container(
-                                        width: 360,
+                                        width: 380,
                                         height: 50,
                                         decoration: BoxDecoration(
                                           color: Colors.grey[100],
@@ -104,7 +105,7 @@ return Scaffold(
                                       padding:
                                           const EdgeInsets.only(left: 8.0, top: 8,right: 8.0),
                                       child: Container(
-                                        width: 360,
+                                        width: 380,
                                         height: 50,
                                         decoration: BoxDecoration(
                                           color: Colors.grey[100],
@@ -158,7 +159,7 @@ return Scaffold(
                                       padding:
                                           const EdgeInsets.only(left: 8.0, top: 8,right: 8.0),
                                       child: Container(
-                                        width: 360,
+                                        width: 380,
                                         height: 50,
                                         decoration: BoxDecoration(
                                           color: Colors.grey[100],
@@ -212,7 +213,7 @@ return Scaffold(
                                       padding:
                                           const EdgeInsets.only(left: 8.0, top: 8,right: 8.0),
                                       child: Container(
-                                        width: 360,
+                                        width: 380,
                                         height: 50,
                                         decoration: BoxDecoration(
                                           color: Colors.grey[100],
