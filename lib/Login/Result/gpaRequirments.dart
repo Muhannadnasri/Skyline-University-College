@@ -127,71 +127,75 @@ super.initState();
           child:ListView.builder(
                   itemCount: gpaRequirmentsJson.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return Card(
-                      shape: BeveledRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-elevation: 20,
-                      child: Column(
-                      
-                        children: <Widget>[
+                    return Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Card(
+                        shape: BeveledRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+elevation: 15,
+                        child: Column(
+                        
+                          children: <Widget>[
+                            
+                            
+                           Container(
+                                height: 30,
+                                decoration: new BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)),
+                                  gradient: LinearGradient(
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
+                                    colors: [
+                                      Color(0xFF104C90),
+                                      Color(0xFF3773AC),
+                                    ],
+                                    stops: [
+                                      0.7,
+                                      0.9,
+                                    ],
+                                  ),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
                           
-                         Container(
-                              height: 30,
-                              decoration: new BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                                gradient: LinearGradient(
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
-                                  colors: [
-                                    Color(0xFF104C90),
-                                    Color(0xFF3773AC),
-                                  ],
-                                  stops: [
-                                    0.7,
-                                    0.9,
+                                 Padding(
+                                   padding: const EdgeInsets.only(left:15.0),
+                                   child: Text( gpaRequirmentsJson.toString().contains('BBA') ?
+
+                                    'BBA REQUIREMENTS':
+                            
+                                      'MBA REQUIREMENTS',style: TextStyle(color: Colors.white),),
+                                 ),
+
+                                  
                                   ],
                                 ),
                               ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                        
-                               Padding(
-                                 padding: const EdgeInsets.only(left:15.0),
-                                 child: Text( gpaRequirmentsJson.toString().contains('BBA') ?
 
-                                  'BBA REQUIREMENTS':
-                          
-                                    'MBA REQUIREMENTS',style: TextStyle(color: Colors.white),),
-                               ),
+                         SizedBox(height: 15,),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                                            child: Padding(
+                                  padding: const EdgeInsets.only(left:15.0),
+                                  child: Text(
+                                    
+                                     gpaRequirmentsJson.toString().contains('BBA') ?
 
-                                
-                                ],
+                                    gpaRequirmentsJson[index]['BBA REQUIREMENTS']:
+                            
+                                      gpaRequirmentsJson[index]['MBA REQUIREMENTS']
+                                    
+                                    
+                                    
+                        ),
+                                ),
+
                               ),
-                            ),
+                                                  SizedBox(height: 15,),
 
-                       SizedBox(height: 10,),
-                            Align(
-                              alignment: Alignment.centerLeft,
-                                                          child: Padding(
-                                padding: const EdgeInsets.only(left:15.0),
-                                child: Text(
-                                  
-                                   gpaRequirmentsJson.toString().contains('BBA') ?
-
-                                  gpaRequirmentsJson[index]['BBA REQUIREMENTS']:
-                          
-                                    gpaRequirmentsJson[index]['MBA REQUIREMENTS']
-                                  
-                                  
-                                  
-                      ),
-                              ),
-
-                            ),
-                                                SizedBox(height: 10,),
-
-                        ],
+                          ],
+                        ),
                       ),
                     );
                   },

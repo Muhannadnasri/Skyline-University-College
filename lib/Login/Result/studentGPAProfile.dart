@@ -130,14 +130,14 @@ super.initState();
         child: Container(
           height: 230,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderRadius: BorderRadius.all(Radius.circular(15)),
           ),
           child: Padding(
             padding: const EdgeInsets.all(5.0),
             child: Card(
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(20))),
-              elevation: 20,
+                  borderRadius: BorderRadius.all(Radius.circular(15))),
+              elevation: 15,
               child: DottedBorder(
                 color: Colors.blue,
                 gap: 3,

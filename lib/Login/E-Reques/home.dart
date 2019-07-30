@@ -41,339 +41,385 @@ return Scaffold(
             children: <Widget>[
               Column(
                 children: <Widget>[
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, "/OnlineRequest");
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              boxShadow: <BoxShadow>[
-                                BoxShadow(
-                                  color: Colors.black,
-                                  blurRadius: 15.0,
-                                ),
-                              ],
-                              color: Colors.white,
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(10))),
-                          height: 50,
-                          width: 370,
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                                height: 74,
-                                width: 70,
+               Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.pushNamed(context, "/OnlineRequest");
+                                    },
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 8.0, top: 8,right: 8.0),
+                                      child: Container(
+                                        width: 360,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey[100],
+                                          border: Border.all(width: 1.0),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(
+                                                  10.0) //         <--- border radius here
+                                              ),
+                                        ),
+                                        child: Container(
+                                          width: 80,
+                                          height: 80,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: <Widget>[
+                                              SizedBox(width: 15,),
+                                              Image.asset(
+                                                'images/admission.png',
+                                                height: 30,
+                                              ),
+                                                                                          SizedBox(width: 20,),
 
-                                child: Icon(
-                                  FontAwesomeIcons.newspaper,
-                                  color: Colors.purple,
-                                ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                'Online Request',
+                                                style:
+                                                    TextStyle(color: Colors.black),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                'Online Request',
-                                style: TextStyle(fontSize: 20),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, "/ChangeClassTime");
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              boxShadow: <BoxShadow>[
-                                BoxShadow(
-                                  color: Colors.black,
-                                  blurRadius: 15.0,
-                                ),
-                              ],
-                              color: Colors.white,
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(10))),
-                          height: 50,
-                          width: 370,
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                                height: 74,
-                                width: 70,
-                                child: Icon(
-                                  FontAwesomeIcons.newspaper,
-                                  color: Colors.purple,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                'ChangeClassTime',
-                                style: TextStyle(fontSize: 20),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, "/ReinStatement");
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              boxShadow: <BoxShadow>[
-                                BoxShadow(
-                                  color: Colors.black,
-                                  blurRadius: 15.0,
-                                ),
-                              ],
-                              color: Colors.white,
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(10))),
-                          height: 50,
-                          width: 370,
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                                height: 74,
-                                width: 70,
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.pushNamed(context, "/ChangeClassTime");
+                                    },
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 8.0, top: 8,right: 8.0),
+                                      child: Container(
+                                        width: 360,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey[100],
+                                          border: Border.all(width: 1.0),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(
+                                                  10.0) //         <--- border radius here
+                                              ),
+                                        ),
+                                        child: Container(
+                                          width: 80,
+                                          height: 80,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: <Widget>[
+                                              SizedBox(width: 15,),
+                                              Image.asset(
+                                                'images/admission.png',
+                                                height: 30,
+                                              ),
+                                                                                          SizedBox(width: 20,),
 
-                                child: Icon(
-                                  FontAwesomeIcons.newspaper,
-                                  color: Colors.purple,
-                                ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                'Change Class Time',
+                                                style:
+                                                    TextStyle(color: Colors.black),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                'ReinStatement',
-                                style: TextStyle(fontSize: 20),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, "/CourseWithdrawal");
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              boxShadow: <BoxShadow>[
-                                BoxShadow(
-                                  color: Colors.black,
-                                  blurRadius: 15.0,
-                                ),
-                              ],
-                              color: Colors.white,
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(10))),
-                          height: 50,
-                          width: 370,
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                                height: 74,
-                                width: 70,
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.pushNamed(context, "/ReinStatement");
+                                    },
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 8.0, top: 8,right: 8.0),
+                                      child: Container(
+                                        width: 360,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey[100],
+                                          border: Border.all(width: 1.0),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(
+                                                  10.0) //         <--- border radius here
+                                              ),
+                                        ),
+                                        child: Container(
+                                          width: 80,
+                                          height: 80,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: <Widget>[
+                                              SizedBox(width: 15,),
+                                              Image.asset(
+                                                'images/admission.png',
+                                                height: 30,
+                                              ),
+                                                                                          SizedBox(width: 20,),
 
-                                child: Icon(
-                                  FontAwesomeIcons.newspaper,
-                                  color: Colors.purple,
-                                ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                'ReinStatement',
+                                                style:
+                                                    TextStyle(color: Colors.black),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                'CourseWithdrawal',
-                                style: TextStyle(fontSize: 20),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, "/UpdateInformation");
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              boxShadow: <BoxShadow>[
-                                BoxShadow(
-                                  color: Colors.black,
-                                  blurRadius: 15.0,
-                                ),
-                              ],
-                              color: Colors.white,
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(10))),
-                          height: 50,
-                          width: 370,
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                                height: 74,
-                                width: 70,
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.pushNamed(context, "/CourseWithdrawal");
+                                    },
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 8.0, top: 8,right: 8.0),
+                                      child: Container(
+                                        width: 360,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey[100],
+                                          border: Border.all(width: 1.0),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(
+                                                  10.0) //         <--- border radius here
+                                              ),
+                                        ),
+                                        child: Container(
+                                          width: 80,
+                                          height: 80,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: <Widget>[
+                                              SizedBox(width: 15,),
+                                              Image.asset(
+                                                'images/admission.png',
+                                                height: 30,
+                                              ),
+                                                                                          SizedBox(width: 20,),
 
-                                child: Icon(
-                                  FontAwesomeIcons.newspaper,
-                                  color: Colors.purple,
-                                ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                'Course Withdrawal',
+                                                style:
+                                                    TextStyle(color: Colors.black),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                'UpdateInformation',
-                                style: TextStyle(fontSize: 20),
-                              ),
-                            ],
-                          ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.pushNamed(context, "/UpdateInformation");
+                                    },
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 8.0, top: 8,right: 8.0),
+                                      child: Container(
+                                        width: 360,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey[100],
+                                          border: Border.all(width: 1.0),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(
+                                                  10.0) //         <--- border radius here
+                                              ),
+                                        ),
+                                        child: Container(
+                                          width: 80,
+                                          height: 80,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: <Widget>[
+                                              SizedBox(width: 15,),
+                                              Image.asset(
+                                                'images/admission.png',
+                                                height: 30,
+                                              ),
+                                                                                          SizedBox(width: 20,),
 
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, "/PassportWithdrawal");
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              boxShadow: <BoxShadow>[
-                                BoxShadow(
-                                  color: Colors.black,
-                                  blurRadius: 15.0,
-                                ),
-                              ],
-                              color: Colors.white,
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(10))),
-                          height: 50,
-                          width: 370,
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                                height: 74,
-                                width: 70,
-                                child: Icon(
-                                  FontAwesomeIcons.newspaper,
-                                  color: Colors.purple,
-                                ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                'Update Information',
+                                                style:
+                                                    TextStyle(color: Colors.black),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                'PassportWithdrawal',
-                                style: TextStyle(fontSize: 20),
-                              ),
-                            ],
-                          ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.pushNamed(context, "/PassportWithdrawal");
+                                    },
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 8.0, top: 8,right: 8.0),
+                                      child: Container(
+                                        width: 360,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey[100],
+                                          border: Border.all(width: 1.0),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(
+                                                  10.0) //         <--- border radius here
+                                              ),
+                                        ),
+                                        child: Container(
+                                          width: 80,
+                                          height: 80,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: <Widget>[
+                                              SizedBox(width: 15,),
+                                              Image.asset(
+                                                'images/admission.png',
+                                                height: 30,
+                                              ),
+                                                                                          SizedBox(width: 20,),
 
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, "/GeneralAppointment");
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              boxShadow: <BoxShadow>[
-                                BoxShadow(
-                                  color: Colors.black,
-                                  blurRadius: 15.0,
-                                ),
-                              ],
-                              color: Colors.white,
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(10))),
-                          height: 50,
-                          width: 370,
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                                height: 74,
-                                width: 70,
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                'Passport Withdrawal',
+                                                style:
+                                                    TextStyle(color: Colors.black),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.pushNamed(context, "/GeneralAppointment");
+                                    },
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 8.0, top: 8,right: 8.0),
+                                      child: Container(
+                                        width: 360,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey[100],
+                                          border: Border.all(width: 1.0),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(
+                                                  10.0) //         <--- border radius here
+                                              ),
+                                        ),
+                                        child: Container(
+                                          width: 80,
+                                          height: 80,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: <Widget>[
+                                              SizedBox(width: 15,),
+                                              Image.asset(
+                                                'images/admission.png',
+                                                height: 30,
+                                              ),
+                                                                                          SizedBox(width: 20,),
 
-                                child: Icon(
-                                  FontAwesomeIcons.newspaper,
-                                  color: Colors.purple,
-                                ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                'General Appointment',
+                                                style:
+                                                    TextStyle(color: Colors.black),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                'GeneralAppointment',
-                                style: TextStyle(fontSize: 20),
-                              ),
-                            ],
-                          ),
+                    SizedBox(
+                      height: 20,
+                    ),
 
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
                 ],
               ),
             ],
