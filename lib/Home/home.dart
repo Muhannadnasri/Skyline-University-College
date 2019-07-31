@@ -149,7 +149,7 @@ class _HomeState extends State<Home> {
                           padding: const EdgeInsets.only(left: 8.0, top: 8),
                           child: GestureDetector(
                             onTap: () {
-                              Navigator.pushNamed(context, "/Programs");
+                              Navigator.pushNamed(context, "/Program");
                             },
                             child: Container(
                                decoration: BoxDecoration(

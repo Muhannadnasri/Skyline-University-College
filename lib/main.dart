@@ -14,6 +14,9 @@ import 'Home/FAQ/faq.dart';
 import 'Home/Gallery/gallery.dart';
 import 'Home/Info/faculty.dart';
 import 'Home/Info/staff.dart';
+import 'Home/programs/program.dart';
+import 'Home/programs/programBusiness.dart';
+import 'Home/programs/programIT.dart';
 import 'Login/Assessment Marks/assessmentMarkCourses.dart';
 import 'Login/Attendance/attendance.dart';
 import 'Login/CDP Download/cdp.dart';
@@ -164,7 +167,9 @@ class MyAppState extends State<MyApp> {
                 '/GPASS': (context) =>GPASS(),
 
                 '/HomeClass': (context) =>HomeClass(),
-                
+                                '/Program': (context) =>Program(),
+'/programBusiness': (context) =>ProgramBusiness(),
+'/ProgramIT': (context) =>ProgramIT(),
 
 
 
