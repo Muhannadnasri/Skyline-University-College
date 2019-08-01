@@ -237,6 +237,7 @@ List finalJson =[];
 List marksJson=[];
 List staffPJson=[];
 List studentPJson =[];
+List finalxJson=[];
 Map advisorAppointmentJson;
 List advisorDateJson;
 List advisorCaseJson;

@@ -353,10 +353,112 @@ ListView.builder(
 
 
                     :
+                    selectStudent == 6
+                    ?
                     
-                    SizedBox
+
+
+ListView.builder(
+                        itemCount: finalxJson.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Container(
+
+                            child: Card(
+                              child: Container(
+                                child: Column(
+                                  children: <Widget>[
+                                    Text('Course Code'),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Container(
+                                      child: Text(finalxJson.toString().isEmpty
+                                          ? 'No Data'
+                                          : finalxJson[index]['Course Code']
+                                                      .toString() ==
+                                                  null
+                                              ? 'No Data'
+                                              : finalxJson[index]['Course Code']
+                                                  .toString()),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text('Courses'),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(finalxJson.toString().isEmpty
+                                        ? 'No Data'
+                                        : finalxJson[index]['Courses']
+                                                    .toString() ==
+                                                null
+                                            ? 'No Data'
+                                            : finalxJson[index]['Courses']
+                                                .toString()),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text('Faculty name'),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(finalxJson.toString().isEmpty
+                                        ? 'No Data'
+                                        : finalxJson[index]['Faculty Name']
+                                                    .toString() ==
+                                                null
+                                            ? 'No Data'
+                                            : finalxJson[index]['Faculty Name']
+                                                .toString()),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+
+
+ Text('Final Exam Marks'),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(marksJson.toString().isEmpty
+                                        ? 'No Data'
+                                        : finalxJson[index]['Final Exam Marks']
+                                                    .toString() ==
+                                                null
+                                            ? 'No Data'
+                                            : finalxJson[index]['Final Exam Marks']
+                                                .toString()),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+
+
+                                    Text('Batch'),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(marksJson.toString().isEmpty
+                                        ? 'No Data'
+                                        : finalxJson[index]['Batch ID']
+                                                    .toString() ==
+                                                null
+                                            ? 'No Data'
+                                            : finalxJson[index]['Batch ID']
+                                                .toString()),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      )
+                    :
+                    SizedBox()
                     
-                    
+                    // finalxJson
                     
                     
                     );

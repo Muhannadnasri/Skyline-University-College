@@ -169,6 +169,11 @@ selectStaff=0;
                   ),
                 ),
                 Row(
+                  
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+
+                   Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text('GPA'),
@@ -204,6 +209,12 @@ selectStaff=0;
                       },
                       activeColor: Colors.purple,
                     ),
+                  ],
+                ),
+                   Column(
+                  children: <Widget>[
+
+                    
                     Text('Image'),
                     Radio(
                       value: 4,
@@ -226,11 +237,27 @@ selectStaff=0;
                       },
                       activeColor: Colors.purple,
                     ),
+                     Text('finalx'),
+                    Radio(
+                      value: 6,
+                      groupValue: selectStudent,
+                      onChanged: (int e) {
+                        setState(() {
+                          selectStudent = e;
+                        });
+                      },
+                      activeColor: Colors.purple,
+                    ),
                   ],
                 ),
+
+                ],),
+               
+
+
                 RaisedButton(
                   onPressed: () {
-selectStudent == 4 ? getStudentImage() : selectStudent == 1 ?  getStudentGPAProfile() : selectStudent == 3 ? getFinalMarks() : selectStudent == 5 ? getStudentP() : selectStudent == 2 ? getMarks() : getMarks();
+selectStudent == 4 ? getStudentImage() : selectStudent == 1 ?  getStudentGPAProfile() : selectStudent == 3 ? getFinalMarks() : selectStudent == 5 ? getStudentP() : selectStudent == 6 ? getFinalx() :selectStudent == 2 ? getMarks() : getMarks();
 
 
 
@@ -618,6 +645,55 @@ selectStudent == 4 ? getStudentImage() : selectStudent == 1 ?  getStudentGPAProf
       }
     }
   }
+
+
+
+Future getFinalx() async {
+    if (_userId.currentState.validate()) {
+      _userId.currentState.save();
+    }
+    Future.delayed(Duration.zero, () {
+      _showLoading(true);
+    });
+
+    try {
+      http.Response response = await http.post(
+        Uri.encodeFull("https://skylineportal.com/moappad/api/web/getFinalx"),
+        headers: {
+          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+        },
+        body: {
+          'stud_id': userids.toString(),
+          'usertype': '1',
+          'ipaddress': '1',
+          'deviceid': '1',
+          'devicename': '1'
+        },
+      );
+
+      if (response.statusCode == 200) {
+        setState(() {
+          finalxJson = json.decode(response.body)['data'];
+              _showLoading(false);
+        });
+
+ Navigator.pushNamed(context, "/GPASS");
+      }
+             
+
+    } catch (x) {
+      print(x);
+      if (x.toString().contains("TimeoutException")) {
+        _showError("Time out from server", FontAwesomeIcons.hourglassHalf);
+      } else {
+        _showError("Sorry, we can't connect", Icons.perm_scan_wifi);
+      }
+    }
+  }
+
+
+
+
   Future getStudentP() async {
     if (_userId.currentState.validate()) {
       _userId.currentState.save();
