@@ -17,19 +17,13 @@ import 'Home/Info/staff.dart';
 import 'Home/programs/program.dart';
 import 'Home/programs/programBusiness.dart';
 import 'Home/programs/programIT.dart';
-import 'Login/Assessment Marks/assessmentMarkCourses.dart';
-import 'Login/Attendance/attendance.dart';
-import 'Login/CDP Download/cdp.dart';
+
+import 'Login/Admin/admin.dart';
+import 'Login/Admin/staffAccess.dart';
+import 'Login/Admin/studentAccess.dart';
 import 'Login/Circulars/circulars.dart';
-import 'Login/Class Schedule/FAC/CourseAllocationMorning.dart';
-import 'Login/Class Schedule/FAC/classSchedule.dart';
 
-
-import 'Login/Class Schedule/courseDetails.dart';
-import 'Login/Class Schedule/classScheduleMqpWeekday.dart';
-import 'Login/Class Schedule/classScheduleWeekday.dart';
-import 'Login/Class Schedule/classScheduleWeekend.dart';
-import 'Login/Class Schedule/home.dart';
+import 'Login/ContactsList/contactList.dart';
 import 'Login/E-Reques/airTicketRequest.dart';
 import 'Login/E-Reques/bookrequistion.dart';
 import 'Login/E-Reques/changeClassTime.dart';
@@ -46,35 +40,36 @@ import 'Login/E-Reques/permissionToLeave.dart';
 import 'Login/E-Reques/reinstatment.dart';
 import 'Login/E-Reques/salaryCertificate.dart';
 import 'Login/E-Reques/updateInformation.dart';
-import 'Login/My Advisory/adisorAppointment.dart';
-import 'Login/My Advisory/advisors.dart';
-import 'Login/My Advisory/myAdvisor.dart';
-import 'Login/My Fees/admissionKit.dart';
-import 'Login/My Fees/home.dart';
-import 'Login/My Fees/payOnline.dart';
-import 'Login/Result/GPA.dart';
-import 'Login/Result/GPASS.dart';
-import 'Login/Result/GPAS.dart';
-import 'Login/Result/GPASS.dart';
-import 'Login/Result/finalGradeResult.dart';
-import 'Login/Result/gpaRequirments.dart';
-import 'Login/Result/home.dart';
-import 'Login/Result/midTermMarks.dart';
-import 'Login/Result/studentGPAProfile.dart';
-import 'Login/contactList.dart';
+
+import 'Login/Faculty/advisors.dart';
+import 'Login/Faculty/classScheduleFAC.dart';
+import 'Login/Student/adisorAppointment.dart';
+import 'Login/Student/admissionKit.dart';
+import 'Login/Student/assessmentMarkCourses.dart';
+import 'Login/Student/attendance.dart';
+import 'Login/Student/cdp.dart';
+import 'Login/Student/classSchedule.dart';
+import 'Login/Student/classScheduleMqpWeekday.dart';
+import 'Login/Student/classScheduleWeekday.dart';
+import 'Login/Student/classScheduleWeekend.dart';
+import 'Login/Student/feesHome.dart';
+import 'Login/Student/finalGradeResult.dart';
+import 'Login/Student/gpaRequirments.dart';
+import 'Login/Student/midTermMarks.dart';
+import 'Login/Student/myAdvisor.dart';
+import 'Login/Student/payOnline.dart';
+import 'Login/Student/resultHome.dart';
+import 'Login/Student/scheduleHome.dart';
+import 'Login/Student/studentGPAProfile.dart';
 import 'Login/home.dart';
 import 'Login/loginpage.dart';
 
-
-void main()  async {
+void main() async {
   SystemChrome.setEnabledSystemUIOverlays([]);
   runApp(
-
     new MyApp(),
-
   );
 }
-
 
 class MyApp extends StatefulWidget {
   @override
@@ -86,7 +81,6 @@ class MyApp extends StatefulWidget {
 class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       builder: (BuildContext context, Widget child) {
@@ -117,7 +111,6 @@ class MyAppState extends State<MyApp> {
         '/FinalTermResults': (context) => FinalTermResults(),
         '/HomeResult': (context) => HomeResult(),
         '/StudentGPAProfile': (context) => StudentGPAProfile(),
-
         '/CourseDetails': (context) => CourseDetails(),
         '/ClassScheduleWeekday': (context) => ClassScheduleWeekday(),
         '/ClassScheduleMqpWeekDay': (context) => ClassScheduleMqpWeekDay(),
@@ -147,36 +140,22 @@ class MyAppState extends State<MyApp> {
         '/AdmissionForm': (context) => AdmissionForm(),
         '/GeneralAppointment': (context) => GeneralAppointment(),
         '/CourseAllocation': (context) => CourseAllocation(),
-
-
         '/Faculty': (context) => Faculty(),
-
         '/HomeAdmission': (context) => HomeAdmission(),
         '/FAQ': (context) => FAQ(),
-
-
         '/Staff': (context) => Staff(),
         '/AirTicketRequest': (context) => AirTicketRequest(),
-
         '/Gallery': (context) => Gallery(),
-        '/Conference': (context) =>Conference(),
-        '/online': (context) =>Online(),
-        '/Advisors': (context) =>Advisors(),
-        '/GPA': (context) =>GPA(),
-                '/GPAS': (context) =>GPAS(),
-                '/GPASS': (context) =>GPASS(),
-
-                '/HomeClass': (context) =>HomeClass(),
-                                '/Program': (context) =>Program(),
-'/programBusiness': (context) =>ProgramBusiness(),
-'/ProgramIT': (context) =>ProgramIT(),
-
-
-
-
-
-
-
+        '/Conference': (context) => Conference(),
+        '/online': (context) => Online(),
+        '/Advisors': (context) => Advisors(),
+        '/GPA': (context) => GPA(),
+        '/GPAS': (context) => GPAS(),
+        '/GPASS': (context) => GPASS(),
+        '/HomeClass': (context) => HomeClass(),
+        '/Program': (context) => Program(),
+        '/programBusiness': (context) => ProgramBusiness(),
+        '/ProgramIT': (context) => ProgramIT(),
       },
     );
   }
