@@ -8,7 +8,6 @@ import 'package:skyline_university/Global/global.dart';
 import 'package:http/http.dart' as http;
 import 'package:superellipse_shape/superellipse_shape.dart';
 
-
 void main() => runApp(ChangeClassTime());
 
 class ChangeClassTime extends StatefulWidget {
@@ -20,9 +19,15 @@ class ChangeClassTime extends StatefulWidget {
 
 final _reason = GlobalKey<FormState>();
 
-Map<String, int> body;
+// Map<String, int> body;
 
 class _ChangeClassTimeState extends State<ChangeClassTime> {
+  Map policyChangeTimeJson = {};
+  Map currentTimeMessageJson = {};
+  Map currentTimeJson = {};
+  List currentAndNewShiftJson = [];
+  Map changeClassTimingJson={};
+
   String _newShift;
 
   @override
@@ -38,13 +43,8 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: PreferredSize(
-
         preferredSize: Size.fromHeight(70.0),
-        child:
-
-
-        Stack(
-
+        child: Stack(
           children: <Widget>[
             Column(
               children: <Widget>[
@@ -64,70 +64,80 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
                       ],
                     ),
                   ),
-
-                ), 
-
-
+                ),
               ],
             ),
-
 
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-
-
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Navigator.pop(context);
-
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Row(
-
                         children: <Widget>[
-
-                          Icon(Icons.arrow_back_ios,size: 15,color: Colors.white,),
-                          SizedBox(width: 5,),
-                          Text('Back',style: TextStyle(fontSize: 15,color: Colors.white),),
+                          Icon(
+                            Icons.arrow_back_ios,
+                            size: 15,
+                            color: Colors.white,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            'Back',
+                            style: TextStyle(fontSize: 15, color: Colors.white),
+                          ),
                         ],
                       ),
                     ),
                   ),
-                  Text("Change Class Timing",style: TextStyle(color: Colors.white),),
-
+                  Text(
+                    "Change Class Timing",
+                    style: TextStyle(color: Colors.white),
+                  ),
                   GestureDetector(
                     onTap: () {
-                     logOut(context);},
-
-                     child: GestureDetector(
-                      onTap: (){
+                      logOut(context);
+                    },
+                    child: GestureDetector(
+                      onTap: () {
                         logOut(context);
-
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(15),
                         child: Row(
                           children: <Widget>[
-
-                            Icon(FontAwesomeIcons.powerOff,color: Colors.red,size: 15,),
-                            SizedBox(width: 5,),
-                            Text('Logout',style: TextStyle(fontSize: 15,color: Colors.red),),
+                            Icon(
+                              FontAwesomeIcons.powerOff,
+                              color: Colors.red,
+                              size: 15,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'Logout',
+                              style: TextStyle(fontSize: 15, color: Colors.red),
+                            ),
                           ],
                         ),
                       ),
                     ),
                   ),
-
-                ],),
+                ],
+              ),
             ),
             //TODO: Put all Icon Container
           ],
         ),
-      ),      body: Container(
+      ),
+      body: Container(
         color: Colors.grey[300],
         child: ListView(
           children: <Widget>[
@@ -171,13 +181,12 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
                       ),
                     ),
                     child: Text(
-                       currentTimeJson.isEmpty
-                                                ?''
-                                                
-                          
-                           :currentTimeJson['Shift_Desc'] == 'NA'
+                      currentTimeJson.isEmpty
+                          ? ''
+                          : currentTimeJson['Shift_Desc'] == 'NA'
                               ? ''
-                              : currentTimeJson['Shift_Desc'],style: TextStyle(color: Colors.white),
+                              : currentTimeJson['Shift_Desc'],
+                      style: TextStyle(color: Colors.white),
 //
                     ),
                   ),
@@ -185,29 +194,37 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
                     height: 20,
                   ),
                   Column(
-crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.only(left:10.0),
-                        child: Text('News Timings',style: TextStyle(color:Colors.grey[600]),),
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: Text(
+                          'News Timings',
+                          style: TextStyle(color: Colors.grey[600]),
+                        ),
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(
+                        height: 10,
+                      ),
                       DropdownButton<String>(
                         hint: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text('Select Option',style: TextStyle(color: Colors.black),),
+                          child: Text(
+                            'Select Option',
+                            style: TextStyle(color: Colors.black),
+                          ),
                         ),
                         isExpanded: true,
                         value: _newShift,
                         items: currentAndNewShiftJson
                                 ?.map(
                                   (item) => DropdownMenuItem<String>(
-                                        value: item['Shift_Desc'],
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(item['Shift_Desc']),
-                                        ),
-                                      ),
+                                    value: item['Shift_Desc'],
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(item['Shift_Desc']),
+                                    ),
+                                  ),
                                 )
                                 ?.toList() ??
                             [],
@@ -220,7 +237,9 @@ crossAxisAlignment: CrossAxisAlignment.start,
                       ),
                     ],
                   ),
-                  SizedBox(height: 15,),
+                  SizedBox(
+                    height: 15,
+                  ),
                   Form(
                     key: _reason,
                     child: Column(
@@ -229,28 +248,33 @@ crossAxisAlignment: CrossAxisAlignment.start,
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: TextFormField(
-
                             textCapitalization: TextCapitalization.words,
                             maxLines: null,
                             onSaved: (x) {
                               reason = x;
                             },
-                            decoration:
-
-                            InputDecoration(
+                            decoration: InputDecoration(
                               labelText: "Reason",
                               fillColor: Colors.white,
                               helperStyle: TextStyle(fontSize: 13),
-                              hintText: 'Enter Your Reason to Change Class Time',hintStyle: TextStyle(fontSize: 15),
+                              hintText:
+                                  'Enter Your Reason to Change Class Time',
+                              hintStyle: TextStyle(fontSize: 15),
                               isDense: true,
-                              prefixIcon: Icon(FontAwesomeIcons.question,size: 15,color: Colors.purple,),
+                              prefixIcon: Icon(
+                                FontAwesomeIcons.question,
+                                size: 15,
+                                color: Colors.purple,
+                              ),
                             ),
                           ),
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Container(
                       height: 35,
                       width: 80,
@@ -268,14 +292,15 @@ crossAxisAlignment: CrossAxisAlignment.start,
                           ],
                         ),
                       ),
-
                       child: GestureDetector(
-
-                          onTap: (){
+                          onTap: () {
                             getChangeClassTiming();
                           },
-                          child: Center(child: Text('Submit',style: TextStyle(color: Colors.white),)))
-                  ),
+                          child: Center(
+                              child: Text(
+                            'Submit',
+                            style: TextStyle(color: Colors.white),
+                          )))),
                 ],
               ),
             ),
@@ -284,96 +309,10 @@ crossAxisAlignment: CrossAxisAlignment.start,
       ),
     );
   }
-  
-  void _showLoading(isLoading) {
-    if (isLoading) {
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return WillPopScope(
-              onWillPop: () {},
-              child: new AlertDialog(
-                title: Image.asset('images/logo.png',
-                  height: 50,
-                ),
-                shape: SuperellipseShape(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                ),
-                content: Padding(
-                  padding: const EdgeInsets.only(left: 50.0),
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 25.0),
-                        child: new CircularProgressIndicator(
-                          strokeWidth: 2,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 12),
-                        child: new Text('Please Wait....'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          });
-    } else {
-      Navigator.pop(context);
-    }
-  }
-
-  void _showError(String msg,IconData icon) {
-    _showLoading(false);
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return WillPopScope(
-            onWillPop: () {},
-            child: new AlertDialog(
-              title: Image.asset('images/logo.png',
-                height: 50,
-              ),
-              shape: SuperellipseShape(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              content: Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 25.0),
-                      child: new Icon(icon),
-                    ),
-                    new Text(msg)
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                new FlatButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    getChangeClassTiming();
-                  },
-                  child: new Text('Try again'),
-                ),
-              ],
-            ),
-          );
-        });
-  }
-
 
   Future getRequestFormsText() async {
     Future.delayed(Duration.zero, () {
-      _showLoading(true);
+      showLoading(true, context);
     });
 
     try {
@@ -381,7 +320,7 @@ crossAxisAlignment: CrossAxisAlignment.start,
         Uri.encodeFull(
             'https://skylineportal.com/moappad/api/web/getRequestFormsText'),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'user_id': username,
@@ -399,23 +338,21 @@ crossAxisAlignment: CrossAxisAlignment.start,
           },
         );
 
-        _showLoading(false);
+        showLoading(false, context);
       }
-     
     } catch (x) {
-      if(x.toString().contains("TimeoutException")){
-        _showError("Time out from server",FontAwesomeIcons.hourglassHalf);
-      }else{
-        _showError("Sorry, we can't connect",Icons.perm_scan_wifi);
+      if (x.toString().contains("TimeoutException")) {
+        showLoading(false,context);showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getCurrentAndNewShift);
+      } else {
+        showLoading(false,context); showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getCurrentAndNewShift);
       }
-
     }
   }
 
 //TODO: RequestType
   Future getCurrentAndNewShift() async {
     Future.delayed(Duration.zero, () {
-      _showLoading(true);
+      showLoading(true, context);
     });
 
     try {
@@ -423,7 +360,7 @@ crossAxisAlignment: CrossAxisAlignment.start,
         Uri.encodeFull(
             'https://skylineportal.com/moappad/api/web/getCurrentAndNewShift'),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'user_id': username,
@@ -436,8 +373,7 @@ crossAxisAlignment: CrossAxisAlignment.start,
       if (response.statusCode == 200) {
         setState(
           () {
-             currentTimeMessageJson =
-                json.decode(response.body);
+            currentTimeMessageJson = json.decode(response.body);
             currentTimeJson =
                 json.decode(response.body)['data']['current_shift'];
 
@@ -446,15 +382,14 @@ crossAxisAlignment: CrossAxisAlignment.start,
           },
         );
 
-        _showLoading(false);
+        showLoading(false, context);
       }
     } catch (x) {
-      if(x.toString().contains("TimeoutException")){
-        _showError("Time out from server",FontAwesomeIcons.hourglassHalf);
-      }else{
-        _showError("Sorry, we can't connect",Icons.perm_scan_wifi);
+      if (x.toString().contains("TimeoutException")) {
+        showLoading(false,context);showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getCurrentAndNewShift);
+      } else {
+        showLoading(false,context); showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getCurrentAndNewShift);
       }
-
     }
   }
 
@@ -464,7 +399,7 @@ crossAxisAlignment: CrossAxisAlignment.start,
       _reason.currentState.save();
     }
     Future.delayed(Duration.zero, () {
-      _showLoading(true);
+      showLoading(true, context);
     });
 
     try {
@@ -472,7 +407,7 @@ crossAxisAlignment: CrossAxisAlignment.start,
         Uri.encodeFull(
             'https://skylineportal.com/moappad/api/web/changeClassTiming'),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'user_id': username,
@@ -492,10 +427,10 @@ crossAxisAlignment: CrossAxisAlignment.start,
             changeClassTimingJson = json.decode(response.body);
           },
         );
-        _showLoading(false);
+        showLoading(false, context);
       }
-      if ( changeClassTimingJson['success'] == '0'){
-        _showLoading(false);
+      if (changeClassTimingJson['success'] == '0') {
+        showLoading(false, context);
         Fluttertoast.showToast(
             msg: changeClassTimingJson['message'],
             toastLength: Toast.LENGTH_SHORT,
@@ -503,16 +438,14 @@ crossAxisAlignment: CrossAxisAlignment.start,
             timeInSecForIos: 1,
             backgroundColor: Colors.grey[400],
             textColor: Colors.black87,
-            fontSize: 13.0
-        );
+            fontSize: 13.0);
       }
     } catch (x) {
-      if(x.toString().contains("TimeoutException")){
-        _showError("Time out from server",FontAwesomeIcons.hourglassHalf);
-      }else{
-        _showError("Sorry, we can't connect",Icons.perm_scan_wifi);
+      if (x.toString().contains("TimeoutException")) {
+        showLoading(false,context);showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getCurrentAndNewShift);
+      } else {
+        showLoading(false,context); showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getCurrentAndNewShift);
       }
-
     }
   }
 }

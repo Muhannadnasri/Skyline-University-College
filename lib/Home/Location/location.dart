@@ -127,7 +127,7 @@ class _LocationState extends State<Location> {
         color: Colors.grey[300],
         child:
               ListView.builder(
-                  itemCount: getLocationJson.length,
+                  itemCount: locationJson.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
                         padding: const EdgeInsets.only(top:5),
@@ -157,7 +157,7 @@ class _LocationState extends State<Location> {
                                       ],
                                     ),
                                   ),
-                                  child: Text(getLocationJson[index]['name'],style: TextStyle(color: Colors.white),),
+                                  child: Text(locationJson[index]['name'],style: TextStyle(color: Colors.white),),
                                 ),
 
                                 SizedBox(height: 10,),
@@ -170,10 +170,10 @@ class _LocationState extends State<Location> {
                                   GestureDetector(
 
                                       onTap: (){
-                                        _launchMapsUrl(getLocationJson[index]['latitude'],getLocationJson[index]['longitude']);
+                                        _launchMapsUrl(locationJson[index]['latitude'],locationJson[index]['longitude']);
 
                                       },
-                                      child: Text(getLocationJson[index]['address1'],style: TextStyle(
+                                      child: Text(locationJson[index]['address1'],style: TextStyle(
                                           decoration: TextDecoration.underline,
                                           color: Colors.blue),)),
                                 ],),
@@ -187,11 +187,11 @@ class _LocationState extends State<Location> {
                                   SizedBox(width: 10,),
                                   GestureDetector(
                                     onTap: (){
-                                      launch('tel:'+getLocationJson[index]['phone1'].toString()
+                                      launch('tel:'+locationJson[index]['phone1'].toString()
 //
                                       );
                                     },
-                                    child: Text(getLocationJson[index]['phone1'],style: TextStyle(
+                                    child: Text(locationJson[index]['phone1'],style: TextStyle(
                                         decoration: TextDecoration.underline,
                                         color: Colors.blue),),
                                   ),
@@ -209,12 +209,12 @@ class _LocationState extends State<Location> {
                                       launch(
 
 
-                                          'mailto:'+getLocationJson[index]['email']
+                                          'mailto:'+locationJson[index]['email']
                                               .toString()
 
                                       );
                                     },
-                                    child: Text(getLocationJson[index]['email'],style: TextStyle(
+                                    child: Text(locationJson[index]['email'],style: TextStyle(
                                         decoration: TextDecoration.underline,
                                         color: Colors.blue),),
                                   ),
@@ -242,95 +242,12 @@ class _LocationState extends State<Location> {
       ),
     );
   }
-  void _showLoading(isLoading) {
-    if (isLoading) {
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return WillPopScope(
-              onWillPop: () {},
-              child: new AlertDialog(
-                title: Image.asset(
-                  'images/logo.png',
-                  height: 50,
-                ),
-                shape: SuperellipseShape(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                ),
-                content: Padding(
-                  padding: const EdgeInsets.only(left: 50.0),
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 25.0),
-                        child: new CircularProgressIndicator(
-                          strokeWidth: 2,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 12),
-                        child: new Text('Please Wait....'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          });
-    } else {
-      Navigator.pop(context);
-    }
-  }
+  
 
-  void _showError(String msg, IconData icon) {
-    _showLoading(false);
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return WillPopScope(
-            onWillPop: () {},
-            child: new AlertDialog(
-              title: Image.asset(
-                'images/logo.png',
-                height: 50,
-              ),
-              shape: SuperellipseShape(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              content: Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 25.0),
-                      child: new Icon(icon),
-                    ),
-                    new Text(msg)
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                new FlatButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    getLocation();
-                  },
-                  child: new Text('Try again'),
-                ),
-              ],
-            ),
-          );
-        });
-  }
+ 
   Future getLocation() async {
     Future.delayed(Duration.zero, () {
-      _showLoading(true);
+      showLoading(true,context);
     });
 
     try {
@@ -338,10 +255,10 @@ class _LocationState extends State<Location> {
         Uri.encodeFull(
             'https://skylineportal.com/moappad/api/web/getLocations'),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
-          'usertype': '1',
+          'usertype':'1',
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
@@ -350,17 +267,20 @@ class _LocationState extends State<Location> {
       if (response.statusCode == 200) {
         setState(
               () {
-                getLocationJson = json.decode(response.body)['data'];
+                locationJson = json.decode(response.body)['data'];
           },
         );
-        print(getLocationJson.toString());
-        _showLoading(false);
+        print(locationJson.toString());
+        showLoading(false,context);
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
-        _showError("Time out from server", FontAwesomeIcons.hourglassHalf);
+        showLoading(false,context);
+
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getLocation);
       } else {
-        _showError("Sorry, we can't connect", Icons.perm_scan_wifi);
+          showLoading(false,context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getLocation);
       }
     }
   }
@@ -369,7 +289,7 @@ class _LocationState extends State<Location> {
     final url = 'https://www.google.com/maps/search/?api=1&query=$lat,$lon';
     if (await canLaunch(url)) {
       await launch(url);
-      print(url);
+
 
     } else {
       throw 'Could not launch $url';

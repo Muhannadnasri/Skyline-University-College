@@ -14,7 +14,7 @@ class GPASS extends StatefulWidget {
   }
 }
 
-Map<String, int> body;
+// Map<String, int> body;
 final _userId = GlobalKey<FormState>();
 String userids = '';
 

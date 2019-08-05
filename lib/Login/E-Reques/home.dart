@@ -33,7 +33,7 @@ class _HomeERequestState extends State<HomeERequest> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-      body: studentJson['data']['user_type'] == "STUDENT"
+      body: studentJson['data']['user_type']  == "STUDENT"
           ? Container(
               child: ListView(
                 children: <Widget>[
@@ -432,7 +432,7 @@ class _HomeERequestState extends State<HomeERequest> {
                 ],
               ),
             )
-          : studentJson['data']['user_type'] == "STF"
+          : studentJson['data']['user_type']  == "STF"
               ? Container(
                   color: Colors.white,
                   child: ListView(
@@ -881,7 +881,7 @@ class _HomeERequestState extends State<HomeERequest> {
                     ],
                   ),
                 )
-              : studentJson['data']['user_type'] == "FAC"
+              : studentJson['data']['user_type']  == "FAC"
                   ? Container(
                       color: Colors.white,
                       child: ListView(
@@ -1461,7 +1461,7 @@ class _HomeERequestState extends State<HomeERequest> {
                                       ],
                                     ),
                                     child: Image.asset(
-                                      studentJson['data']['user_type'] == 'FAC'
+                                      studentJson['data']['user_type']  == 'FAC'
                                           ? 'images/professor-male.png'
                                           : studentJson['data']['Gender'] == 'M'
                                               ? 'images/male.png'
@@ -1484,7 +1484,7 @@ class _HomeERequestState extends State<HomeERequest> {
                                   ),
                                 ],
                               ),
-                              studentJson['data']['user_type'] == 'STF'
+                              studentJson['data']['user_type']  == 'STF'
                                   ? SizedBox(
                                       height: 10,
                                     )

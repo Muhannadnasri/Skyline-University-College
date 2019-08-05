@@ -30,10 +30,12 @@ final  _mobile = GlobalKey<FormState>();
 
 
 
-Map<String, int> body;
+// Map<String, int> body;
 
 class _MembershipFormState extends State<MembershipForm> {
 
+List membershipRelationsJson=[];
+Map membershipFormJson={};
 
   String _relations;
   String _gender;
@@ -438,94 +440,9 @@ super.initState();
   }
 
 
-  void _showLoading(isLoading) {
-    if (isLoading) {
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return WillPopScope(
-              onWillPop: () {},
-              child: new AlertDialog(
-                title: Image.asset('images/logo.png',
-                  height: 50,
-                ),
-                shape: SuperellipseShape(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                ),
-                content: Padding(
-                  padding: const EdgeInsets.only(left: 50.0),
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 25.0),
-                        child: new CircularProgressIndicator(
-                          strokeWidth: 2,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 12),
-                        child: new Text('Please Wait....'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          });
-    } else {
-      Navigator.pop(context);
-    }
-  }
-
-  void _showError(String msg,IconData icon) {
-    _showLoading(false);
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return WillPopScope(
-            onWillPop: () {},
-            child: new AlertDialog(
-              title: Image.asset('images/logo.png',
-                height: 50,
-              ),
-              shape: SuperellipseShape(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              content: Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 25.0),
-                      child: new Icon(icon),
-                    ),
-                    new Text(msg)
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                new FlatButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    getMembershipForm();
-                  },
-                  child: new Text('Try again'),
-                ),
-              ],
-            ),
-          );
-        });
-  }
-
-  Future getMembershipFormRelations() async {
+ Future getMembershipFormRelations() async {
     Future.delayed(Duration.zero, () {
-      _showLoading(true);
+      showLoading(true,context);
     });
 
     try {
@@ -533,10 +450,10 @@ super.initState();
         Uri.encodeFull(
             'https://skylineportal.com/moappad/api/web/getMembershipFormRelations'),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
-          'usertype': studentJson['data']['user_type'],
+          'usertype':studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
@@ -551,13 +468,13 @@ super.initState();
 
           },
         );
-        _showLoading(false);
+        showLoading(false,context);
       }
     } catch (x) {
       if(x.toString().contains("TimeoutException")){
-        _showError("Time out from server",FontAwesomeIcons.hourglassHalf);
+        showLoading(false,context);showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getMembershipFormRelations);
       }else{
-        _showError("Sorry, we can't connect",Icons.perm_scan_wifi);
+        showLoading(false,context); showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getMembershipFormRelations);
       }
 
     }
@@ -586,7 +503,7 @@ super.initState();
         Uri.encodeFull(
             'https://skylineportal.com/moappad/api/web/membershipForm'),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'user_id': username,
@@ -597,7 +514,7 @@ super.initState();
           'contact_home':homeForm,
           'contact_work':workForm,
           'contact_mobile':mobileForm,
-          'usertype': studentJson['data']['user_type'],
+          'usertype':studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
@@ -612,7 +529,7 @@ super.initState();
         );
       }
       if ( membershipFormJson['success'] == '0'){
-        _showLoading(false);
+        showLoading(false,context);
         Fluttertoast.showToast(
             msg: membershipFormJson['message'],
             toastLength: Toast.LENGTH_SHORT,
@@ -625,9 +542,9 @@ super.initState();
       }
     } catch (x) {
       if(x.toString().contains("TimeoutException")){
-        _showError("Time out from server",FontAwesomeIcons.hourglassHalf);
+        showLoading(false,context);showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getMembershipForm);
       }else{
-        _showError("Sorry, we can't connect",Icons.perm_scan_wifi);
+        showLoading(false,context); showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getMembershipForm);
       }
 
     }

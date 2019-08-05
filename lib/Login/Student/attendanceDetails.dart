@@ -17,8 +17,13 @@ class AttendanceDetails extends StatefulWidget {
   final int index;
   final String classBatch;
 
-  const AttendanceDetails({Key key, this.classSectionID, this.className, this.index, this.classBatch}) : super(key: key);
-
+  const AttendanceDetails(
+      {Key key,
+      this.classSectionID,
+      this.className,
+      this.index,
+      this.classBatch})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -26,15 +31,17 @@ class AttendanceDetails extends StatefulWidget {
   }
 }
 
-Map<String, int> body;
+// Map<String, int> body;
 
 class _AttendanceDetailsState extends State<AttendanceDetails> {
+  List attendanceDetailsJson = [];
+
+  Map attendanceDetailsJsonMessage = {};
   @override
   void initState() {
     super.initState();
     getStudentAttendanceDetails();
     attendanceDetailsJson = [];
-
   }
 
   @override
@@ -63,9 +70,7 @@ class _AttendanceDetailsState extends State<AttendanceDetails> {
                       ],
                     ),
                   ),
-                ), 
-
-
+                ),
               ],
             ),
 
@@ -104,7 +109,8 @@ class _AttendanceDetailsState extends State<AttendanceDetails> {
                   ),
                   GestureDetector(
                     onTap: () {
-                     logOut(context);},
+                      logOut(context);
+                    },
                     child: Padding(
                       padding: const EdgeInsets.all(15),
                       child: Row(
@@ -133,10 +139,8 @@ class _AttendanceDetailsState extends State<AttendanceDetails> {
         ),
       ),
       body: Column(
-
         children: <Widget>[
           Card(
-
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10))),
             elevation: 10,
@@ -149,8 +153,7 @@ class _AttendanceDetailsState extends State<AttendanceDetails> {
                   Container(
                     height: 30,
                     decoration: new BoxDecoration(
-                      borderRadius:
-                      BorderRadius.all(Radius.circular(10)),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
                       gradient: LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
@@ -170,33 +173,41 @@ class _AttendanceDetailsState extends State<AttendanceDetails> {
                         Padding(
                           padding: const EdgeInsets.only(left: 10),
                           child: Text(
-                            name,
+                            studentJson['data']['name'],
                             style: TextStyle(color: Colors.white),
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(right:10),
+                          padding: const EdgeInsets.only(right: 10),
                           child: Row(
                             children: <Widget>[
-                              Text("Roll NO:",style: TextStyle(color: Colors.white),),
-                              Text(username,style: TextStyle(color: Colors.white),),
-                            ],),
+                              Text(
+                                "Roll NO:",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              Text(
+                                username,
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ],
+                          ),
                         )
                       ],
                     ),
                   ),
                   Container(
                     height: 50,
-                    child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-
 //
-                             Expanded(child: Padding(
-                               padding: const EdgeInsets.only(left:10.0),
-                               child: Text('Batch Code:'+'  '+widget.classBatch.toString()),
-                             )),
-
-
+                        Expanded(
+                            child: Padding(
+                          padding: const EdgeInsets.only(left: 10.0),
+                          child: Text('Batch Code:' +
+                              '  ' +
+                              widget.classBatch.toString()),
+                        )),
                       ],
                     ),
                   ),
@@ -208,71 +219,96 @@ class _AttendanceDetailsState extends State<AttendanceDetails> {
             child: ListView.builder(
               itemCount: attendanceDetailsJson.length,
               itemBuilder: (BuildContext context, int index) {
-                return
-
-                  Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    elevation: 10,
-                    child: Column(
-                      children: <Widget>[
-
-                        DottedBorder(
-                          color: Colors.blue,
-                          gap: 3,
-                          strokeWidth: 1,
-                          child: Container(
-                            height: 50,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
+                return Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  elevation: 10,
+                  child: Column(
+                    children: <Widget>[
+                      DottedBorder(
+                        color: Colors.blue,
+                        gap: 3,
+                        strokeWidth: 1,
+                        child: Container(
+                          height: 50,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Row(
                                       children: <Widget>[
-                                      Icon(FontAwesomeIcons.calendarDay,size: 17,color: Colors.purple,),
-                                      SizedBox(width: 10,),
-                                      Text(attendanceDetailsJson[index]['Attendance Taken On'].toString()),
-
-                                    ],),
-
-                                    Container(child: Row(children: <Widget>[
-
-
-
-                                      attendanceDetailsJson[index]['Attendance'] == "ABSENT".toString() ?
-                                      Icon(FontAwesomeIcons.solidCircle,color:Colors.red,size: 13,):
-                                      attendanceDetailsJson[index]['Attendance'] == "PRESENT".toString() ?
-
-                                      Icon(FontAwesomeIcons.solidCircle,color:Colors.green,size: 13,)
-                                          : SizedBox(),
-
-                                      SizedBox(width: 5,),
-
-                                      attendanceDetailsJson[index]['Attendance'] == "ABSENT".toString() ?
-                                      Text('Absent',style: TextStyle(color: Colors.red),):
-                                      attendanceDetailsJson[index]['Attendance'] == "PRESENT".toString() ?
-
-                                      Text('Present',style: TextStyle(color: Colors.green),)
-                                          : SizedBox()
-
-                                    ],),),
-
-
+                                        Icon(
+                                          FontAwesomeIcons.calendarDay,
+                                          size: 17,
+                                          color: Colors.purple,
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text(attendanceDetailsJson[index]
+                                                ['Attendance Taken On']
+                                            .toString()),
+                                      ],
+                                    ),
+                                    Container(
+                                      child: Row(
+                                        children: <Widget>[
+                                          attendanceDetailsJson[index]
+                                                      ['Attendance'] ==
+                                                  "ABSENT".toString()
+                                              ? Icon(
+                                                  FontAwesomeIcons.solidCircle,
+                                                  color: Colors.red,
+                                                  size: 13,
+                                                )
+                                              : attendanceDetailsJson[index]
+                                                          ['Attendance'] ==
+                                                      "PRESENT".toString()
+                                                  ? Icon(
+                                                      FontAwesomeIcons
+                                                          .solidCircle,
+                                                      color: Colors.green,
+                                                      size: 13,
+                                                    )
+                                                  : SizedBox(),
+                                          SizedBox(
+                                            width: 5,
+                                          ),
+                                          attendanceDetailsJson[index]
+                                                      ['Attendance'] ==
+                                                  "ABSENT".toString()
+                                              ? Text(
+                                                  'Absent',
+                                                  style: TextStyle(
+                                                      color: Colors.red),
+                                                )
+                                              : attendanceDetailsJson[index]
+                                                          ['Attendance'] ==
+                                                      "PRESENT".toString()
+                                                  ? Text(
+                                                      'Present',
+                                                      style: TextStyle(
+                                                          color: Colors.green),
+                                                    )
+                                                  : SizedBox()
+                                        ],
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
-
-                            ],),
+                            ],
                           ),
-                        )
-
-                      ],
-                    ),
-                  );
+                        ),
+                      )
+                    ],
+                  ),
+                );
               },
             ),
           ),
@@ -281,106 +317,21 @@ class _AttendanceDetailsState extends State<AttendanceDetails> {
     );
   }
 
-  void _showLoading(isLoading) {
-    if (isLoading) {
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return WillPopScope(
-              onWillPop: () {},
-              child: new AlertDialog(
-                title: Image.asset('images/logo.png',
-                  height: 50,
-                ),
-                shape: SuperellipseShape(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                ),
-                content: Padding(
-                  padding: const EdgeInsets.only(left: 50.0),
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 25.0),
-                        child: new CircularProgressIndicator(
-                          strokeWidth: 2,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 12),
-                        child: new Text('Please Wait....'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          });
-    } else {
-      Navigator.pop(context);
-    }
-  }
-
-  void _showError(String msg, IconData icon) {
-    _showLoading(false);
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return WillPopScope(
-            onWillPop: () {},
-            child: new AlertDialog(
-              title: Image.asset('images/logo.png',
-                height: 50,
-              ),
-              shape: SuperellipseShape(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              content: Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 25.0),
-                      child: new Icon(icon),
-                    ),
-                    new Text(msg)
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                new FlatButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    getStudentAttendanceDetails();
-                  },
-                  child: new Text('Try again'),
-                ),
-              ],
-            ),
-          );
-        });
-  }
-
   Future getStudentAttendanceDetails() async {
     Future.delayed(Duration.zero, () {
-      _showLoading(true);
+      showLoading(true, context);
     });
     try {
       http.Response response = await http.post(
         Uri.encodeFull(
             "https://skylineportal.com/moappad/api/web/getStudentAttendanceDetails"),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'student_id': username,
           'class_section_id': widget.classSectionID,
-          'usertype': studentJson['data']['user_type'],
+          'usertype':studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
@@ -394,10 +345,10 @@ class _AttendanceDetailsState extends State<AttendanceDetails> {
         });
 
         print(widget.classSectionID);
-        _showLoading(false);
+        showLoading(false, context);
       }
       if (attendanceDetailsJsonMessage['success'] == '0') {
-        _showLoading(false);
+        showLoading(false, context);
         Fluttertoast.showToast(
             msg: attendanceDetailsJsonMessage['message'],
             toastLength: Toast.LENGTH_SHORT,
@@ -409,9 +360,14 @@ class _AttendanceDetailsState extends State<AttendanceDetails> {
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
-        _showError("Time out from server", FontAwesomeIcons.hourglassHalf);
+        showLoading(false, context);
+
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getStudentAttendanceDetails);
       } else {
-        _showError("Sorry, we can't connect", Icons.perm_scan_wifi);
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getStudentAttendanceDetails);
       }
     }
   }

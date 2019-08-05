@@ -29,10 +29,11 @@ final _eResidence = GlobalKey<FormState>();
 final _eOffice = GlobalKey<FormState>();
 final _eAddress = GlobalKey<FormState>();
 
-
-Map<String, int> body;
+// Map<String, int> body;
 
 class _LeaveHolidayState extends State<LeaveHoliday> {
+  Map leaveHolidayJson = {};
+
   int groupValue;
   String leaveType;
   String _dateTimeLeave = '';
@@ -43,14 +44,12 @@ class _LeaveHolidayState extends State<LeaveHoliday> {
 
   @override
   void initState() {
-super.initState();
+    super.initState();
 
     DateTime now = DateTime.now();
     _year = now.year;
     _month = now.month;
     _date = now.day;
-    leaveTypesJson.clear();
-
   }
 
   void _showDateLeave() {
@@ -126,13 +125,8 @@ super.initState();
     return Scaffold(
       resizeToAvoidBottomPadding: true, //TODO: put in all page
       appBar: PreferredSize(
-
         preferredSize: Size.fromHeight(70.0),
-        child:
-
-
-        Stack(
-
+        child: Stack(
           children: <Widget>[
             Column(
               children: <Widget>[
@@ -152,78 +146,82 @@ super.initState();
                       ],
                     ),
                   ),
-
-                ), 
-
-
+                ),
               ],
             ),
-
 
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-
-
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Navigator.pop(context);
-
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Row(
-
                         children: <Widget>[
-
-                          Icon(Icons.arrow_back_ios,size: 15,color: Colors.white,),
-                          SizedBox(width: 5,),
-                          Text('Back',style: TextStyle(fontSize: 15,color: Colors.white),),
+                          Icon(
+                            Icons.arrow_back_ios,
+                            size: 15,
+                            color: Colors.white,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            'Back',
+                            style: TextStyle(fontSize: 15, color: Colors.white),
+                          ),
                         ],
                       ),
                     ),
                   ),
-                  Text("Permission To Leave",style: TextStyle(color: Colors.white),),
-
+                  Text(
+                    "Permission To Leave",
+                    style: TextStyle(color: Colors.white),
+                  ),
                   GestureDetector(
                     onTap: () {
-                     logOut(context);},
-
-                     child: GestureDetector(
-                      onTap: (){
+                      logOut(context);
+                    },
+                    child: GestureDetector(
+                      onTap: () {
                         logOut(context);
-
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(15),
                         child: Row(
                           children: <Widget>[
-
-                            Icon(FontAwesomeIcons.powerOff,color: Colors.red,size: 15,),
-                            SizedBox(width: 5,),
-                            Text('Logout',style: TextStyle(fontSize: 15,color: Colors.red),),
+                            Icon(
+                              FontAwesomeIcons.powerOff,
+                              color: Colors.red,
+                              size: 15,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'Logout',
+                              style: TextStyle(fontSize: 15, color: Colors.red),
+                            ),
                           ],
                         ),
                       ),
                     ),
                   ),
-
-                ],),
+                ],
+              ),
             ),
             //TODO: Put all Icon Container
           ],
         ),
       ),
-      body:
-
-
-      Container(
+      body: Container(
         color: Colors.grey[300],
-        child:
-
-        ListView(
+        child: ListView(
           children: <Widget>[
             GestureDetector(
               onTap: () {
@@ -237,76 +235,74 @@ super.initState();
                       SizedBox(
                         height: 20,
                       ),
-
-
                       GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           _showDateLeave();
                         },
                         child: Container(
                           height: 60,
-                          child:Card(
+                          child: Card(
                             child: Row(
                               children: <Widget>[
                                 Padding(
-                                  padding: const EdgeInsets.only(left:20.0),
-                                  child: Icon(FontAwesomeIcons.calendarAlt,color: Colors.purple,size: 15,),
+                                  padding: const EdgeInsets.only(left: 20.0),
+                                  child: Icon(
+                                    FontAwesomeIcons.calendarAlt,
+                                    color: Colors.purple,
+                                    size: 15,
+                                  ),
                                 ),
-                                SizedBox(width: 20,),
+                                SizedBox(
+                                  width: 20,
+                                ),
                                 Text(_dateTimeLeave == ''
-                                    ? 'Leave From':_dateTimeLeave == null?'Leave From'
-                                    :_dateTimeLeave),
+                                    ? 'Leave From'
+                                    : _dateTimeLeave == null
+                                        ? 'Leave From'
+                                        : _dateTimeLeave),
                               ],
                             ),
                           ),
                         ),
                       ),
-
-
-
-
-
                     ],
                   ),
 
                   Column(
                     children: <Widget>[
-
                       SizedBox(
                         height: 10,
                       ),
                       GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           _showDateReturn();
                         },
                         child: Container(
                           height: 60,
-                          child:Card(
+                          child: Card(
                             child: Row(
                               children: <Widget>[
                                 Padding(
-                                  padding: const EdgeInsets.only(left:20.0),
-                                  child: Icon(FontAwesomeIcons.calendarAlt,color: Colors.purple,size: 15,),
+                                  padding: const EdgeInsets.only(left: 20.0),
+                                  child: Icon(
+                                    FontAwesomeIcons.calendarAlt,
+                                    color: Colors.purple,
+                                    size: 15,
+                                  ),
                                 ),
-                                SizedBox(width: 20,),
+                                SizedBox(
+                                  width: 20,
+                                ),
                                 Text(_dateTimeReturn == ''
-                                    ? 'Leave From':_dateTimeReturn == null?'Leave From'
-                                    :_dateTimeReturn),
+                                    ? 'Leave From'
+                                    : _dateTimeReturn == null
+                                        ? 'Leave From'
+                                        : _dateTimeReturn),
                               ],
                             ),
                           ),
                         ),
                       ),
-
-
-
-
-
-
-
-
-
-
                     ],
                   ),
 
@@ -321,26 +317,27 @@ super.initState();
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-
-                              TextFormField(
-                                keyboardType: TextInputType.number,
-                                maxLines: null,
-                                onSaved: (x) {
-                                  addressLeave = x;
-                                },
-                                decoration:
-
-                                InputDecoration(
-                                  labelText: "Address",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your Address while on leave',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.addressCard,size: 15,color: Colors.purple,),
+                            TextFormField(
+                              keyboardType: TextInputType.number,
+                              maxLines: null,
+                              onSaved: (x) {
+                                addressLeave = x;
+                              },
+                              decoration: InputDecoration(
+                                labelText: "Address",
+                                fillColor: Colors.white,
+                                helperStyle: TextStyle(fontSize: 13),
+                                hintText:
+                                    'Please Enter Your Address while on leave',
+                                hintStyle: TextStyle(fontSize: 15),
+                                isDense: true,
+                                prefixIcon: Icon(
+                                  FontAwesomeIcons.addressCard,
+                                  size: 15,
+                                  color: Colors.purple,
                                 ),
                               ),
-
+                            ),
                           ],
                         ),
                       ),
@@ -350,33 +347,31 @@ super.initState();
 
                       //TODO: Space with text
 
-
-
                       Form(
                         key: _reasonTravel,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-
                             TextFormField(
-                                keyboardType: TextInputType.number,
-                                maxLines: null,
-                                onSaved: (x) {
-                                  reasonTravel = x;
-                                },
-                                decoration:
-
-                                InputDecoration(
-                                  labelText: "Reason",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your Reason for travel',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.question,size: 15,color: Colors.purple,),
+                              keyboardType: TextInputType.number,
+                              maxLines: null,
+                              onSaved: (x) {
+                                reasonTravel = x;
+                              },
+                              decoration: InputDecoration(
+                                labelText: "Reason",
+                                fillColor: Colors.white,
+                                helperStyle: TextStyle(fontSize: 13),
+                                hintText: 'Please Enter Your Reason for travel',
+                                hintStyle: TextStyle(fontSize: 15),
+                                isDense: true,
+                                prefixIcon: Icon(
+                                  FontAwesomeIcons.question,
+                                  size: 15,
+                                  color: Colors.purple,
                                 ),
                               ),
-
+                            ),
                           ],
                         ),
                       ),
@@ -385,7 +380,6 @@ super.initState();
                       ),
 
                       Container(
-
                         color: Colors.red,
                         width: 300,
                       ),
@@ -394,26 +388,27 @@ super.initState();
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-
-                               TextFormField(
-                                textCapitalization: TextCapitalization.words,
-                                maxLines: null,
-                                onSaved: (x) {
-                                  eName = x;
-                                },
-                                decoration:
-
-                                InputDecoration(
-                                  labelText: "Name",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Name to be contacted in case of emergency',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.user,size: 15,color: Colors.purple,),
+                            TextFormField(
+                              textCapitalization: TextCapitalization.words,
+                              maxLines: null,
+                              onSaved: (x) {
+                                eName = x;
+                              },
+                              decoration: InputDecoration(
+                                labelText: "Name",
+                                fillColor: Colors.white,
+                                helperStyle: TextStyle(fontSize: 13),
+                                hintText:
+                                    'Please Enter Name to be contacted in case of emergency',
+                                hintStyle: TextStyle(fontSize: 15),
+                                isDense: true,
+                                prefixIcon: Icon(
+                                  FontAwesomeIcons.user,
+                                  size: 15,
+                                  color: Colors.purple,
                                 ),
                               ),
-
+                            ),
                           ],
                         ),
                       ),
@@ -421,32 +416,32 @@ super.initState();
                         height: 15,
                       ),
 
-
                       Form(
                         key: _eEmail,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-
-                           TextFormField(
-                                textCapitalization: TextCapitalization.words,
-                                maxLines: null,
-                                onSaved: (x) {
-                                  eEmail = x;
-                                },
-                                decoration:
-
-                                InputDecoration(
-                                  labelText: "Email",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Email to be contacted in case of emergency',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.envelopeOpen,size: 15,color: Colors.purple,),
+                            TextFormField(
+                              textCapitalization: TextCapitalization.words,
+                              maxLines: null,
+                              onSaved: (x) {
+                                eEmail = x;
+                              },
+                              decoration: InputDecoration(
+                                labelText: "Email",
+                                fillColor: Colors.white,
+                                helperStyle: TextStyle(fontSize: 13),
+                                hintText:
+                                    'Please Enter Email to be contacted in case of emergency',
+                                hintStyle: TextStyle(fontSize: 15),
+                                isDense: true,
+                                prefixIcon: Icon(
+                                  FontAwesomeIcons.envelopeOpen,
+                                  size: 15,
+                                  color: Colors.purple,
                                 ),
                               ),
-
+                            ),
                           ],
                         ),
                       ),
@@ -460,24 +455,26 @@ super.initState();
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             TextFormField(
-                                textCapitalization: TextCapitalization.words,
-                                maxLines: null,
-                                onSaved: (x) {
-                                  eRelationship = x;
-                                },
-                                decoration:
-
-                                InputDecoration(
-                                  labelText: "Relationship",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your relationship with person',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.users,size: 15,color: Colors.purple,),
+                              textCapitalization: TextCapitalization.words,
+                              maxLines: null,
+                              onSaved: (x) {
+                                eRelationship = x;
+                              },
+                              decoration: InputDecoration(
+                                labelText: "Relationship",
+                                fillColor: Colors.white,
+                                helperStyle: TextStyle(fontSize: 13),
+                                hintText:
+                                    'Please Enter Your relationship with person',
+                                hintStyle: TextStyle(fontSize: 15),
+                                isDense: true,
+                                prefixIcon: Icon(
+                                  FontAwesomeIcons.users,
+                                  size: 15,
+                                  color: Colors.purple,
                                 ),
                               ),
-
+                            ),
                           ],
                         ),
                       ),
@@ -490,25 +487,27 @@ super.initState();
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                           TextFormField(
-                                textCapitalization: TextCapitalization.words,
-                                maxLines: null,
-                                onSaved: (x) {
-                                  eMobile = x;
-                                },
-                                decoration:
-
-                                InputDecoration(
-                                  labelText: "Mobile",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter mobile number to be contacted in case of emergency',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.mobileAlt,size: 15,color: Colors.purple,),
+                            TextFormField(
+                              textCapitalization: TextCapitalization.words,
+                              maxLines: null,
+                              onSaved: (x) {
+                                eMobile = x;
+                              },
+                              decoration: InputDecoration(
+                                labelText: "Mobile",
+                                fillColor: Colors.white,
+                                helperStyle: TextStyle(fontSize: 13),
+                                hintText:
+                                    'Please Enter mobile number to be contacted in case of emergency',
+                                hintStyle: TextStyle(fontSize: 15),
+                                isDense: true,
+                                prefixIcon: Icon(
+                                  FontAwesomeIcons.mobileAlt,
+                                  size: 15,
+                                  color: Colors.purple,
                                 ),
                               ),
-
+                            ),
                           ],
                         ),
                       ),
@@ -521,25 +520,27 @@ super.initState();
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                             TextFormField(
-                                textCapitalization: TextCapitalization.words,
-                                maxLines: null,
-                                onSaved: (x) {
-                                  eResidence = x;
-                                },
-                                decoration:
-
-                                InputDecoration(
-                                  labelText: "Residence No",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Residence No to be contacted in case of emergency',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.building,size: 15,color: Colors.purple,),
+                            TextFormField(
+                              textCapitalization: TextCapitalization.words,
+                              maxLines: null,
+                              onSaved: (x) {
+                                eResidence = x;
+                              },
+                              decoration: InputDecoration(
+                                labelText: "Residence No",
+                                fillColor: Colors.white,
+                                helperStyle: TextStyle(fontSize: 13),
+                                hintText:
+                                    'Please Enter Residence No to be contacted in case of emergency',
+                                hintStyle: TextStyle(fontSize: 15),
+                                isDense: true,
+                                prefixIcon: Icon(
+                                  FontAwesomeIcons.building,
+                                  size: 15,
+                                  color: Colors.purple,
                                 ),
                               ),
-
+                            ),
                           ],
                         ),
                       ),
@@ -552,25 +553,27 @@ super.initState();
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                          TextFormField(
-                                textCapitalization: TextCapitalization.words,
-                                maxLines: null,
-                                onSaved: (x) {
-                                  eOffice = x;
-                                },
-                                decoration:
-
-                                InputDecoration(
-                                  labelText: "Office No",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Office No to be contacted in case of emergency',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.briefcase,size: 15,color: Colors.purple,),
+                            TextFormField(
+                              textCapitalization: TextCapitalization.words,
+                              maxLines: null,
+                              onSaved: (x) {
+                                eOffice = x;
+                              },
+                              decoration: InputDecoration(
+                                labelText: "Office No",
+                                fillColor: Colors.white,
+                                helperStyle: TextStyle(fontSize: 13),
+                                hintText:
+                                    'Please Enter Office No to be contacted in case of emergency',
+                                hintStyle: TextStyle(fontSize: 15),
+                                isDense: true,
+                                prefixIcon: Icon(
+                                  FontAwesomeIcons.briefcase,
+                                  size: 15,
+                                  color: Colors.purple,
                                 ),
                               ),
-
+                            ),
                           ],
                         ),
                       ),
@@ -583,25 +586,27 @@ super.initState();
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                           TextFormField(
-                                textCapitalization: TextCapitalization.words,
-                                maxLines: null,
-                                onSaved: (x) {
-                                  eAddress = x;
-                                },
-                                decoration:
-
-                                InputDecoration(
-                                  labelText: "Address",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Address to be contacted in case of emergency',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.addressCard,size: 15,color: Colors.purple,),
+                            TextFormField(
+                              textCapitalization: TextCapitalization.words,
+                              maxLines: null,
+                              onSaved: (x) {
+                                eAddress = x;
+                              },
+                              decoration: InputDecoration(
+                                labelText: "Address",
+                                fillColor: Colors.white,
+                                helperStyle: TextStyle(fontSize: 13),
+                                hintText:
+                                    'Please Enter Address to be contacted in case of emergency',
+                                hintStyle: TextStyle(fontSize: 15),
+                                isDense: true,
+                                prefixIcon: Icon(
+                                  FontAwesomeIcons.addressCard,
+                                  size: 15,
+                                  color: Colors.purple,
                                 ),
                               ),
-
+                            ),
                           ],
                         ),
                       ),
@@ -630,9 +635,9 @@ super.initState();
                           },
                           child: Center(
                               child: Text(
-                                'Submit',
-                                style: TextStyle(color: Colors.white),
-                              ))))
+                            'Submit',
+                            style: TextStyle(color: Colors.white),
+                          ))))
                 ],
               ),
             ),
@@ -642,50 +647,8 @@ super.initState();
     );
   }
 
-  void _showLoading(isLoading) {
-    if (isLoading) {
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return WillPopScope(
-              onWillPop: () {},
-              child: new AlertDialog(
-                title: Image.asset('images/logo.png',
-                  height: 50,
-                ),
-                shape: SuperellipseShape(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                ),
-                content: Padding(
-                  padding: const EdgeInsets.only(left: 50.0),
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 25.0),
-                        child: new CircularProgressIndicator(
-                          strokeWidth: 2,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 12),
-                        child: new Text('Please Wait....'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          });
-    } else {
-      Navigator.pop(context);
-    }
-  }
-
-  void _showError(String msg,IconData icon) {
-    _showLoading(false);
+  void _showError(String msg, IconData icon) {
+    showLoading(false, context);
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -693,7 +656,8 @@ super.initState();
           return WillPopScope(
             onWillPop: () {},
             child: new AlertDialog(
-              title: Image.asset('images/logo.png',
+              title: Image.asset(
+                'images/logo.png',
                 height: 50,
               ),
               shape: SuperellipseShape(
@@ -758,7 +722,7 @@ super.initState();
       _eAddress.currentState.save();
     }
     Future.delayed(Duration.zero, () {
-      _showLoading(true);
+      showLoading(true, context);
     });
 
     try {
@@ -766,7 +730,7 @@ super.initState();
         Uri.encodeFull(
             'https://skylineportal.com/moappad/api/web/leaveDuringHolidays'),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'user_id': username,
@@ -790,14 +754,14 @@ super.initState();
 
       if (response.statusCode == 200) {
         setState(
-              () {
-                leaveHolidayJson = json.decode(response.body);
+          () {
+            leaveHolidayJson = json.decode(response.body);
           },
         );
-        _showLoading(false);
+        showLoading(false, context);
       }
-      if ( leaveHolidayJson['success'] == '0'){
-        _showLoading(false);
+      if (leaveHolidayJson['success'] == '0') {
+        showLoading(false, context);
         Fluttertoast.showToast(
             msg: leaveHolidayJson['message'],
             toastLength: Toast.LENGTH_SHORT,
@@ -805,16 +769,14 @@ super.initState();
             timeInSecForIos: 1,
             backgroundColor: Colors.grey[400],
             textColor: Colors.black87,
-            fontSize: 13.0
-        );
+            fontSize: 13.0);
       }
     } catch (x) {
-      if(x.toString().contains("TimeoutException")){
-        _showError("Time out from server",FontAwesomeIcons.hourglassHalf);
-      }else{
-        _showError("Sorry, we can't connect",Icons.perm_scan_wifi);
+      if (x.toString().contains("TimeoutException")) {
+        _showError("Time out from server", FontAwesomeIcons.hourglassHalf);
+      } else {
+        _showError("Sorry, we can't connect", Icons.perm_scan_wifi);
       }
-
     }
   }
 }

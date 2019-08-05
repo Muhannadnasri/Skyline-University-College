@@ -8,7 +8,6 @@ import 'package:skyline_university/Home/News/news.dart';
 import 'package:skyline_university/Home/home.dart';
 import 'package:skyline_university/Home/Location/location.dart';
 
-import 'Global/online.dart';
 import 'Home/Admission/home.dart';
 import 'Home/FAQ/faq.dart';
 import 'Home/Gallery/gallery.dart';
@@ -43,8 +42,10 @@ import 'Login/E-Reques/updateInformation.dart';
 
 import 'Login/Faculty/advisors.dart';
 import 'Login/Faculty/classScheduleFAC.dart';
-import 'Login/Student/adisorAppointment.dart';
+
+import 'Login/Student/ClassesHome.dart';
 import 'Login/Student/admissionKit.dart';
+import 'Login/Student/advisorAppointment.dart';
 import 'Login/Student/assessmentMarkCourses.dart';
 import 'Login/Student/attendance.dart';
 import 'Login/Student/cdp.dart';
@@ -59,7 +60,7 @@ import 'Login/Student/midTermMarks.dart';
 import 'Login/Student/myAdvisor.dart';
 import 'Login/Student/payOnline.dart';
 import 'Login/Student/resultHome.dart';
-import 'Login/Student/scheduleHome.dart';
+
 import 'Login/Student/studentGPAProfile.dart';
 import 'Login/home.dart';
 import 'Login/loginpage.dart';
@@ -147,7 +148,6 @@ class MyAppState extends State<MyApp> {
         '/AirTicketRequest': (context) => AirTicketRequest(),
         '/Gallery': (context) => Gallery(),
         '/Conference': (context) => Conference(),
-        '/online': (context) => Online(),
         '/Advisors': (context) => Advisors(),
         '/GPA': (context) => GPA(),
         '/GPAS': (context) => GPAS(),

@@ -10,7 +10,7 @@ import 'package:skyline_university/Home/home.dart';
 import 'package:superellipse_shape/superellipse_shape.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'adisorAppointment.dart';
+import 'advisorAppointment.dart';
 
 void main() => runApp(MyAdvisor());
 
@@ -21,29 +21,25 @@ class MyAdvisor extends StatefulWidget {
   }
 }
 
-Map<String, int> body;
+// Map<String, int> body;
 
 class _MyAdvisorState extends State<MyAdvisor> {
+  List myAdvisorJson = [];
+
   @override
   void initState() {
-super.initState();
+    super.initState();
     getMyAdvisor();
-myAdvisorJson = [];
-
+    myAdvisorJson = [];
   }
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-        appBar:PreferredSize(
-
+        appBar: PreferredSize(
           preferredSize: Size.fromHeight(70.0),
-          child:
-
-
-          Stack(
-
+          child: Stack(
             children: <Widget>[
               Column(
                 children: <Widget>[
@@ -63,314 +59,246 @@ myAdvisorJson = [];
                         ],
                       ),
                     ),
-
-                  ), 
-
-
+                  ),
                 ],
               ),
-
 
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-
-
                     GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         Navigator.pop(context);
-
-
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: Row(
-
                           children: <Widget>[
-
-                            Icon(Icons.arrow_back_ios,size: 15,color: Colors.white,),
-                            SizedBox(width: 5,),
-                            Text('Back',style: TextStyle(fontSize: 15,color: Colors.white),),
+                            Icon(
+                              Icons.arrow_back_ios,
+                              size: 15,
+                              color: Colors.white,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'Back',
+                              style:
+                                  TextStyle(fontSize: 15, color: Colors.white),
+                            ),
                           ],
                         ),
                       ),
                     ),
-                    Text("Advisor Details",style: TextStyle(color: Colors.white),),
-
+                    Text(
+                      "Advisor Details",
+                      style: TextStyle(color: Colors.white),
+                    ),
                     GestureDetector(
                       onTap: () {
-                       logOut(context);},
-
-                       child: GestureDetector(
-                      onTap: (){
                         logOut(context);
-
                       },
-                      child: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Row(
-                          children: <Widget>[
-
-                            Icon(FontAwesomeIcons.powerOff,color: Colors.red,size: 15,),
-                            SizedBox(width: 5,),
-                            Text('Logout',style: TextStyle(fontSize: 15,color: Colors.red),),
-                          ],
+                      child: GestureDetector(
+                        onTap: () {
+                          logOut(context);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Row(
+                            children: <Widget>[
+                              Icon(
+                                FontAwesomeIcons.powerOff,
+                                color: Colors.red,
+                                size: 15,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                'Logout',
+                                style:
+                                    TextStyle(fontSize: 15, color: Colors.red),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                    ),
-
-                  ],),
+                  ],
+                ),
               ),
               //TODO: Put all Icon Container
             ],
           ),
         ),
-
-
         body: Container(
           color: Colors.grey[300],
           child: ListView.builder(
-                  itemCount: myAdvisorJson.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10))),
-                        elevation: 10,
-                        child: DottedBorder(
-                          color: Colors.blue,
-                          gap: 3,
-                          strokeWidth: 1,
-                          child: Column(
-                            children: <Widget>[
-
-                              Container(
-                                height: 30,
-                                child:
-                              Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-
+            itemCount: myAdvisorJson.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  elevation: 10,
+                  child: DottedBorder(
+                    color: Colors.blue,
+                    gap: 3,
+                    strokeWidth: 1,
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          height: 30,
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
                                 Padding(
-                                  padding: const EdgeInsets.only(left:10.0),
-                                  child: Text(myAdvisorJson[index]['NAME OF THE FACULTY'],style: TextStyle(color: Colors.white),),
+                                  padding: const EdgeInsets.only(left: 10.0),
+                                  child: Text(
+                                    myAdvisorJson[index]['NAME OF THE FACULTY'],
+                                    style: TextStyle(color: Colors.white),
+                                  ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(right:10.0),
+                                  padding: const EdgeInsets.only(right: 10.0),
                                   child: GestureDetector(
-
-                                      onTap: (){
-
+                                      onTap: () {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) => AdvisorAppointment(
-
-                                                myAdvisorName: myAdvisorJson[index]
-                                                ['NAME OF THE FACULTY']
-                                                    .toString()),
+                                            builder: (context) =>
+                                                AdvisorAppointment(
+                                                    myAdvisorName: myAdvisorJson[
+                                                                index][
+                                                            'NAME OF THE FACULTY']
+                                                        .toString()),
                                           ),
                                         );
-
                                       },
-                                      child: Icon(FontAwesomeIcons.calendarAlt,color: Colors.white,size: 20,)),
+                                      child: Icon(
+                                        FontAwesomeIcons.calendarAlt,
+                                        color: Colors.white,
+                                        size: 20,
+                                      )),
                                 ),
-
                               ]),
-                                decoration: new BoxDecoration(
-                                    borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                                    gradient: LinearGradient(
-                                        begin: Alignment.topLeft,
-                                        end: Alignment.bottomRight,
-                                        colors: [
-                                          Color(0xFF104C90),
-                                          Color(0xFF3773AC),
-                                        ],
-                                        stops: [
-                                          0.7,
-                                          0.9,
-                                        ])),
-                                ),
-                              SizedBox(height: 10,),
-
-                              Row(
-                                children: <Widget>[
-                                  Text('Postion : '),
-                                  Text(
-                                    myAdvisorJson[index]['DESIGNATION'].toString(),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 10,),
-
-                              GestureDetector(                              onTap:  () {
-
-                                launch('tel:00'+myAdvisorJson[index]['TELPHONE NO']+',1'+','+myAdvisorJson[index]['EXTENSION NO']
-                                    .toString()
-//
-                      );
-                                },
-
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text("Mobile Phone : "),
-                                    Text('00'+
-                                        myAdvisorJson[index]['TELPHONE NO'].toString(),
-                                        style: TextStyle(
-                                          decoration: TextDecoration.underline,
-                                          color: Colors.blue),
-                                      ),
-
+                          decoration: new BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                              gradient: LinearGradient(
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    Color(0xFF104C90),
+                                    Color(0xFF3773AC),
                                   ],
-                                ),
-                              ),
-                              SizedBox(height: 10,),
-
-                              Row(
-                                children: <Widget>[
-                                  Text("Extestion NO : "),
-                                  Text(myAdvisorJson[index]['EXTENSION NO']
-                                      .toString()),
-                                ],
-                              ),
-                              SizedBox(height: 10,),
-                              Row(
-                                children: <Widget>[
-                                  Text('Email ID : '.padRight(10)),
-                                  GestureDetector(onTap: (){
-                                    launch(
-
-
-                                        'mailto:'+myAdvisorJson[index]['EMAIL ID']
+                                  stops: [
+                                    0.7,
+                                    0.9,
+                                  ])),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Text('Postion : '),
+                            Text(
+                              myAdvisorJson[index]['DESIGNATION'].toString(),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            launch('tel:00' +
+                                    myAdvisorJson[index]['TELPHONE NO'] +
+                                    ',1' +
+                                    ',' +
+                                    myAdvisorJson[index]['EXTENSION NO']
                                         .toString()
-
-                                    );
-                                  },
-                                    child: Text(
-                                      myAdvisorJson[index]['EMAIL ID'].toString(),
-                                      style: TextStyle(
-                                          decoration: TextDecoration.underline,
-                                          color: Colors.blue),
-                                    ),
-                                  ),
-                                ],
+//
+                                );
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Text("Mobile Phone : "),
+                              Text(
+                                '00' +
+                                    myAdvisorJson[index]['TELPHONE NO']
+                                        .toString(),
+                                style: TextStyle(
+                                    decoration: TextDecoration.underline,
+                                    color: Colors.blue),
                               ),
-                              SizedBox(height: 10,),
-
-                              Row(
-                                children: <Widget>[
-                                  Text('Faclty ID : '),
-                                  Text(
-                                    myAdvisorJson[index]['FACULTY_ID'].toString(),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 10,),
-
                             ],
                           ),
                         ),
-                      ),
-                    );
-                  },
-                ),
-        ));
-  }
-
-  void _showLoading(isLoading) {
-    if (isLoading) {
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return WillPopScope(
-              onWillPop: () {},
-              child: new AlertDialog(
-                title: Image.asset('images/logo.png',
-                  height: 50,
-                ),
-                shape: SuperellipseShape(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                ),
-                content: Padding(
-                  padding: const EdgeInsets.only(left: 50.0),
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 25.0),
-                        child: new CircularProgressIndicator(
-                          strokeWidth: 2,
+                        SizedBox(
+                          height: 10,
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 12),
-                        child: new Text('Please Wait....'),
-                      ),
-                    ],
+                        Row(
+                          children: <Widget>[
+                            Text("Extestion NO : "),
+                            Text(myAdvisorJson[index]['EXTENSION NO']
+                                .toString()),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Text('Email ID : '.padRight(10)),
+                            GestureDetector(
+                              onTap: () {
+                                launch('mailto:' +
+                                    myAdvisorJson[index]['EMAIL ID']
+                                        .toString());
+                              },
+                              child: Text(
+                                myAdvisorJson[index]['EMAIL ID'].toString(),
+                                style: TextStyle(
+                                    decoration: TextDecoration.underline,
+                                    color: Colors.blue),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Text('Faclty ID : '),
+                            Text(
+                              myAdvisorJson[index]['FACULTY_ID'].toString(),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            );
-          });
-    } else {
-      Navigator.pop(context);
-    }
-  }
-
-  void _showError(String msg,IconData icon) {
-    _showLoading(false);
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return WillPopScope(
-            onWillPop: () {},
-            child: new AlertDialog(
-              title: Image.asset('images/logo.png',
-                height: 50,
-              ),
-              shape: SuperellipseShape(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              content: Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 25.0),
-                      child: new Icon(icon),
-                    ),
-                    new Text(msg)
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                new FlatButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    getMyAdvisor();
-                  },
-                  child: new Text('Try again'),
-                ),
-              ],
-            ),
-          );
-        });
+              );
+            },
+          ),
+        ));
   }
 
   Future getMyAdvisor() async {
     Future.delayed(Duration.zero, () {
-      _showLoading(true);
+      showLoading(true, context);
     });
 
     try {
@@ -378,11 +306,11 @@ myAdvisorJson = [];
         Uri.encodeFull(
             'https://skylineportal.com/moappad/api/web/getMyAdvisors'),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'user_id': username,
-          'usertype': studentJson['data']['user_type'],
+          'usertype':studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
@@ -396,15 +324,18 @@ myAdvisorJson = [];
           },
         );
 
-        _showLoading(false);
+        showLoading(false, context);
       }
     } catch (x) {
-      if(x.toString().contains("TimeoutException")){
-        _showError("Time out from server",FontAwesomeIcons.hourglassHalf);
-      }else{
-        _showError("Sorry, we can't connect",Icons.perm_scan_wifi);
+      if (x.toString().contains("TimeoutException")) {
+        showLoading(false, context);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getMyAdvisor);
+      } else {
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getMyAdvisor);
       }
-
     }
   }
 }

@@ -21,10 +21,12 @@ class UpdateInformation extends StatefulWidget {
 final _information = GlobalKey<FormState>();
 final _remark = GlobalKey<FormState>();
 
-Map<String, int> body;
+// Map<String, int> body;
 
 class _UpdateInformationState extends State<UpdateInformation> {
-  int groupValue;
+  Map studentInfoJson={};
+
+
   int dependentValue;
   int hostelValue;
   int visaValue;
@@ -174,6 +176,7 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                  onChanged: (int e) {
                                    setState(() {
                                      visaValue = e;
+                                     
                                    });
                                  },
                                  activeColor: Colors.purple,
@@ -1028,6 +1031,7 @@ SizedBox(height: 20,),
                             child: GestureDetector(
                                 onTap: () {
                                   getStudentPersonalInfo();
+
                                 },
                                 child: Center(
                                     child: Text(
@@ -1046,90 +1050,7 @@ SizedBox(height: 20,),
     );
   }
 
-  void _showLoading(isLoading) {
-    if (isLoading) {
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return WillPopScope(
-              onWillPop: () {},
-              child: new AlertDialog(
-                title: Image.asset('images/logo.png',
-                  height: 50,
-                ),
-                shape: SuperellipseShape(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                ),
-                content: Padding(
-                  padding: const EdgeInsets.only(left: 50.0),
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 25.0),
-                        child: new CircularProgressIndicator(
-                          strokeWidth: 2,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 12),
-                        child: new Text('Please Wait....'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          });
-    } else {
-      Navigator.pop(context);
-    }
-  }
-
-  void _showError(String msg, IconData icon) {
-    _showLoading(false);
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return WillPopScope(
-            onWillPop: () {},
-            child: new AlertDialog(
-              title: Image.asset('images/logo.png',
-                height: 50,
-              ),
-              shape: SuperellipseShape(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              content: Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 25.0),
-                      child: new Icon(icon),
-                    ),
-                    new Text(msg)
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                new FlatButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    getStudentInfo();
-                  },
-                  child: new Text('Try again'),
-                ),
-              ],
-            ),
-          );
-        });
-  }
+ 
 
 //TODO: RequestType
 
@@ -1137,7 +1058,7 @@ SizedBox(height: 20,),
 
   Future getStudentInfo() async {
     Future.delayed(Duration.zero, () {
-      _showLoading(true);
+      showLoading(true,context);
     });
 
     try {
@@ -1145,11 +1066,11 @@ SizedBox(height: 20,),
         Uri.encodeFull(
             'https://skylineportal.com/moappad/api/web/getStudentPersonalInfo'),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'user_id': username,
-          'usertype': studentJson['data']['user_type'],
+          'usertype':studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
@@ -1182,14 +1103,17 @@ SizedBox(height: 20,),
         } else {
           workingValue = 1;
         }
-        print(groupValue);
-        _showLoading(false);
+
+        showLoading(false,context);
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
-        _showError("Time out from server", FontAwesomeIcons.hourglassHalf);
+        showLoading(false,context);
+
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getStudentInfo);
       } else {
-        _showError("Sorry, we can't connect", Icons.perm_scan_wifi);
+          showLoading(false,context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getStudentInfo);
       }
     }
   }
@@ -1202,21 +1126,21 @@ SizedBox(height: 20,),
       _remark.currentState.save();
     }
     Future.delayed(Duration.zero, () {
-      _showLoading(true);
+      showLoading(true,context);
     });
 
     try {
       final response = await http.post(
         Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/web/getStudentPersonalInfo'),
+            'https://skylineportal.com/moappad/api/web/studentPersonalInfo'),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'user_id': username,
-          'visa_student': '',
-          'dependent': '',
-          'staying_hostel': '',
+          'visa_student': visaValue== 1 ? 'Yes': visaValue== 2 ? 'No':visaValue,
+          'dependent': dependentValue== 1 ? 'Yes': dependentValue== 2 ? 'No':dependentValue,
+          'staying_hostel': hostelValue== 1 ? 'Yes': hostelValue== 2 ? 'No':hostelValue,
           'email': email,
           'mobile_no': mobileNumber,
           'visa_no': visa,
@@ -1230,9 +1154,9 @@ SizedBox(height: 20,),
           'parent_workplace': pWork,
           'parent_designation': pDesignation,
           'po_box_no': boxNumber,
-          'working_student': '',
+          'working_student': workingValue== 1 ? 'Yes': workingValue== 2 ? 'No':workingValue,
           'token': '1',
-          'usertype': studentJson['data']['user_type'],
+          'usertype':studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
@@ -1245,11 +1169,11 @@ SizedBox(height: 20,),
             studentPersonalInfoJson = json.decode(response.body);
           },
         );
-        print(groupValue);
-        _showLoading(false);
+
+        showLoading(false,context);
       }
       if ( studentPersonalInfoJson['success'] == '0'){
-        _showLoading(false);
+        showLoading(false,context);
         Fluttertoast.showToast(
             msg: studentPersonalInfoJson['message'],
             toastLength: Toast.LENGTH_SHORT,
@@ -1263,9 +1187,12 @@ SizedBox(height: 20,),
 
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
-        _showError("Time out from server", FontAwesomeIcons.hourglassHalf);
+        showLoading(false,context);
+
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getStudentInfo);
       } else {
-        _showError("Sorry, we can't connect", Icons.perm_scan_wifi);
+          showLoading(false,context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getStudentInfo);
       }
     }
   }

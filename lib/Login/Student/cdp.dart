@@ -20,15 +20,16 @@ class CDPDownload extends StatefulWidget {
   }
 }
 
-Map<String, int> body;
+// Map<String, int> body;
 
 class _CDPDownloadState extends State<CDPDownload> {
+  List cdpCourseJson = [];
+  Map cdpCourseMessageJson = {};
   @override
   void initState() {
     getCDPCourse();
-
     super.initState();
-    cdpCourseJson=[];
+    cdpCourseJson = [];
   }
 
   @override
@@ -57,8 +58,7 @@ class _CDPDownloadState extends State<CDPDownload> {
                       ],
                     ),
                   ),
-                ), 
-
+                ),
               ],
             ),
 
@@ -97,7 +97,8 @@ class _CDPDownloadState extends State<CDPDownload> {
                   ),
                   GestureDetector(
                     onTap: () {
-                     logOut(context);},
+                      logOut(context);
+                    },
                     child: Padding(
                       padding: const EdgeInsets.all(15),
                       child: Row(
@@ -224,96 +225,9 @@ class _CDPDownloadState extends State<CDPDownload> {
     );
   }
 
-  void _showLoading(isLoading) {
-    if (isLoading) {
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return WillPopScope(
-              onWillPop: () {},
-              child: new AlertDialog(
-                title: Image.asset(
-                  'images/logo.png',
-                  height: 50,
-                ),
-                shape: SuperellipseShape(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                ),
-                content: Padding(
-                  padding: const EdgeInsets.only(left: 50.0),
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 25.0),
-                        child: new CircularProgressIndicator(
-                          strokeWidth: 2,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 12),
-                        child: new Text('Please Wait....'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          });
-    } else {
-      Navigator.pop(context);
-    }
-  }
-
-  void _showError(String msg, IconData icon) {
-    _showLoading(false);
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return WillPopScope(
-            onWillPop: () {},
-            child: new AlertDialog(
-              title: Image.asset(
-                'images/logo.png',
-                height: 50,
-              ),
-              shape: SuperellipseShape(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              content: Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 25.0),
-                      child: new Icon(icon),
-                    ),
-                    new Text(msg)
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                new FlatButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    getCDPCourse();
-                  },
-                  child: new Text('Try again'),
-                ),
-              ],
-            ),
-          );
-        });
-  }
-
   Future getCDPCourse() async {
     Future.delayed(Duration.zero, () {
-      _showLoading(true);
+      showLoading(true, context);
     });
 
     try {
@@ -321,11 +235,11 @@ class _CDPDownloadState extends State<CDPDownload> {
         Uri.encodeFull(
             "https://skylineportal.com/moappad/api/web/getCDPCourse"),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'user_id': username,
-          'usertype': studentJson['data']['user_type'],
+          'usertype':studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1'
@@ -337,10 +251,10 @@ class _CDPDownloadState extends State<CDPDownload> {
           cdpCourseJson = json.decode(response.body)['data'];
           cdpCourseMessageJson = json.decode(response.body);
         });
-        _showLoading(false);
+        showLoading(false, context);
       }
       if (cdpCourseMessageJson['success'] == '0') {
-        _showLoading(false);
+        showLoading(false, context);
         Fluttertoast.showToast(
             msg: cdpCourseMessageJson['message'],
             toastLength: Toast.LENGTH_SHORT,
@@ -352,9 +266,16 @@ class _CDPDownloadState extends State<CDPDownload> {
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
-        _showError("Time out from server", FontAwesomeIcons.hourglassHalf);
+        showLoading(false, context);
+
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getCDPCourse);
       } else {
-        _showError("Sorry, we can't connect", Icons.perm_scan_wifi);
+        showLoading(false, context);
+
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getCDPCourse);
       }
     }
   }

@@ -21,9 +21,15 @@ class OnlineRequest extends StatefulWidget {
 final _address = GlobalKey<FormState>();
 final _remark = GlobalKey<FormState>();
 
-Map<String, int> body;
+// Map<String, int> body;
 
 class _OnlineRequestState extends State<OnlineRequest> {
+  List onlineRequestTypeJson = [];
+Map onlineRequestTypeMessageJson={};
+Map onlineRequestJson={};
+Map requestAmountJson = {};
+
+
   int groupValue;
   String item;
 
@@ -488,134 +494,12 @@ class _OnlineRequestState extends State<OnlineRequest> {
     );
   }
 
-  void _showLoading(isLoading) {
-    if (isLoading) {
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return WillPopScope(
-              onWillPop: () {},
-              child: new AlertDialog(
-                title: Image.asset('images/logo.png',
-                  height: 50,
-                ),
-                shape: SuperellipseShape(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                ),
-                content: Padding(
-                  padding: const EdgeInsets.only(left: 50.0),
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 25.0),
-                        child: new CircularProgressIndicator(
-                          strokeWidth: 2,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 12),
-                        child: new Text('Please Wait....'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          });
-    } else {
-      Navigator.pop(context);
-    }
-  }
+ 
 
-  void _showErrorMessage() {
-    _showLoading(false);
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return WillPopScope(
-            onWillPop: () {},
-            child: new AlertDialog(
-              title: Image.asset('images/logo.png',
-                height: 50,
-              ),
-              shape: SuperellipseShape(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              content: Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: new Row(
-                  children: <Widget>[
-                    
-                    Expanded(child: new Text(onlineRequestTypeMessageJson['message']))
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                new FlatButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: new Text('Ok'),
-                ),
-              ],
-            ),
-          );
-        });
-  }
-  void _showError(String msg, IconData icon) {
-    _showLoading(false);
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return WillPopScope(
-            onWillPop: () {},
-            child: new AlertDialog(
-              title: Image.asset('images/logo.png',
-                height: 50,
-              ),
-              shape: SuperellipseShape(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              content: Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 25.0),
-                      child: new Icon(icon),
-                    ),
-                    new Text(msg)
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                new FlatButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    getRequestType();
-                  },
-                  child: new Text('Try again'),
-                ),
-              ],
-            ),
-          );
-        });
-  }
-
-//TODO: RequestType
   Future getRequestType() async {
 
     Future.delayed(Duration.zero, () {
-      _showLoading(true);
+      showLoading(true,context);
     });
 
 
@@ -625,13 +509,13 @@ class _OnlineRequestState extends State<OnlineRequest> {
         Uri.encodeFull(
             'https://skylineportal.com/moappad/api/web/getOnlineRequestTypes'),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'user_id': '15375',
           'program':'BSIT',
           'token':'1',
-          'usertype': 'STUDENT',
+          'usertype':studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
@@ -646,19 +530,30 @@ class _OnlineRequestState extends State<OnlineRequest> {
           },
         );
 
-        _showLoading(false);
+        showLoading(false,context);
       }
       if (onlineRequestTypeMessageJson['success'] == '0') {
-_showErrorMessage();
-      }
+showLoading(false,context);
+        Fluttertoast.showToast(
+            msg: onlineRequestTypeMessageJson['message'],
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIos: 1,
+            backgroundColor: Colors.grey[400],
+            textColor: Colors.black87,
+            fontSize: 13.0
+        );      }
     }
 
 
     catch (x) {
       if (x.toString().contains("TimeoutException")) {
-        _showError("Time out from server", FontAwesomeIcons.hourglassHalf);
+        showLoading(false,context);
+
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getRequestType);
       } else {
-        _showError("Sorry, we can't connect", Icons.perm_scan_wifi);
+          showLoading(false,context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getRequestType);
       }
     }
   }
@@ -666,7 +561,7 @@ _showErrorMessage();
 //TODO: Amount
   Future getAmount() async {
     Future.delayed(Duration.zero, () {
-      _showLoading(true);
+      showLoading(true,context);
     });
 //    requestAmountJson.clear();
 
@@ -675,12 +570,12 @@ _showErrorMessage();
         Uri.encodeFull(
             'https://skylineportal.com/moappad/api/web/getOnlineRequestAmount'),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'req_type_id': item,
           'token': '1',
-          'usertype': studentJson['data']['user_type'],
+          'usertype':studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
@@ -693,14 +588,17 @@ _showErrorMessage();
             requestAmountJson = json.decode(response.body);
           },
         );
-        _showLoading(false);
+        showLoading(false,context);
       }
     } catch (x) {
       print(x);
       if (x.toString().contains("TimeoutException")) {
-        _showError("Time out from server", FontAwesomeIcons.hourglassHalf);
+        showLoading(false,context);
+
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getAmount);
       } else {
-        _showError("Sorry, we can't connect", Icons.perm_scan_wifi);
+          showLoading(false,context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getAmount);
       }
     }
   }
@@ -714,7 +612,7 @@ _showErrorMessage();
       _remark.currentState.save();
     }
     Future.delayed(Duration.zero, () {
-      _showLoading(true);
+      showLoading(true,context);
     });
 
     try {
@@ -722,7 +620,7 @@ _showErrorMessage();
         Uri.encodeFull(
             'https://skylineportal.com/moappad/api/web/onlineRequest'),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'user_id': username,
@@ -732,7 +630,7 @@ _showErrorMessage();
           'remarks': remark,
           'amount': groupValue == 1 ? "NormalAmount" : "UrgentAmount",
           'token': '1',
-          'usertype': studentJson['data']['user_type'],
+          'usertype':studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
@@ -745,16 +643,19 @@ _showErrorMessage();
             onlineRequestJson = json.decode(response.body);
           },
         );
-        _showLoading(false);
+        showLoading(false,context);
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
-        _showError("Time out from server", FontAwesomeIcons.hourglassHalf);
+        showLoading(false,context);
+
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getOnlineRequest);
       } else {
-        _showError("Sorry, we can't connect", Icons.perm_scan_wifi);
+          showLoading(false,context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getOnlineRequest);
       }
     }
   }
-//TODO: toast
+
 
 }

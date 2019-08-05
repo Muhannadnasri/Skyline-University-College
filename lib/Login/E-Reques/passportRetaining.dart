@@ -11,7 +11,6 @@ import 'package:superellipse_shape/superellipse_shape.dart';
 void main() => runApp(PassportRetaining());
 
 class PassportRetaining extends StatefulWidget {
-
   @override
   State<StatefulWidget> createState() {
     return _PassportRetainingState();
@@ -20,27 +19,20 @@ class PassportRetaining extends StatefulWidget {
 
 final _reasonPassportRetaining = GlobalKey<FormState>();
 
-
-
 bool terms = true;
 
-
-
-Map<String, int> body;
-
-
-
+// Map<String, int> body;
 
 class _PassportRetainingState extends State<PassportRetaining> {
-
-
+  Map passportRetainingJson = {};
+  Map underTakingJson = {};
 
   @override
   void initState() {
-super.initState();
-underTakingJson.clear();
+    super.initState();
+    underTakingJson.clear();
     getRequestFormsText();
-terms =false;
+    terms = false;
   }
 
   @override
@@ -48,13 +40,8 @@ terms =false;
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
       appBar: PreferredSize(
-
         preferredSize: Size.fromHeight(70.0),
-        child:
-
-
-        Stack(
-
+        child: Stack(
           children: <Widget>[
             Column(
               children: <Widget>[
@@ -74,70 +61,80 @@ terms =false;
                       ],
                     ),
                   ),
-
-                ), 
-
-
+                ),
               ],
             ),
-
 
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-
-
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Navigator.pop(context);
-
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Row(
-
                         children: <Widget>[
-
-                          Icon(Icons.arrow_back_ios,size: 15,color: Colors.white,),
-                          SizedBox(width: 5,),
-                          Text('Back',style: TextStyle(fontSize: 15,color: Colors.white),),
+                          Icon(
+                            Icons.arrow_back_ios,
+                            size: 15,
+                            color: Colors.white,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            'Back',
+                            style: TextStyle(fontSize: 15, color: Colors.white),
+                          ),
                         ],
                       ),
                     ),
                   ),
-                  Text("Passport Retaining",style: TextStyle(color: Colors.white),),
-
+                  Text(
+                    "Passport Retaining",
+                    style: TextStyle(color: Colors.white),
+                  ),
                   GestureDetector(
                     onTap: () {
-                     logOut(context);},
-
-                     child: GestureDetector(
-                      onTap: (){
+                      logOut(context);
+                    },
+                    child: GestureDetector(
+                      onTap: () {
                         logOut(context);
-
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(15),
                         child: Row(
                           children: <Widget>[
-
-                            Icon(FontAwesomeIcons.powerOff,color: Colors.red,size: 15,),
-                            SizedBox(width: 5,),
-                            Text('Logout',style: TextStyle(fontSize: 15,color: Colors.red),),
+                            Icon(
+                              FontAwesomeIcons.powerOff,
+                              color: Colors.red,
+                              size: 15,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'Logout',
+                              style: TextStyle(fontSize: 15, color: Colors.red),
+                            ),
                           ],
                         ),
                       ),
                     ),
                   ),
-
-                ],),
+                ],
+              ),
             ),
             //TODO: Put all Icon Container
           ],
         ),
-      ),      body: Container(
+      ),
+      body: Container(
         color: Colors.grey[300],
         child: ListView(
           children: <Widget>[
@@ -151,8 +148,7 @@ terms =false;
                     padding: const EdgeInsets.all(8.0),
                     child: Card(
                       shape: RoundedRectangleBorder(
-                          borderRadius:
-                          BorderRadius.all(Radius.circular(10))),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
                       elevation: 10,
                       child: DottedBorder(
                         color: Colors.blue,
@@ -165,34 +161,35 @@ terms =false;
                             child: Column(
                               children: <Widget>[
                                 Text(
-                                  underTakingJson.isEmpty ? '' :
-                                  underTakingJson['personal_undertaking']==null ? '':underTakingJson['personal_undertaking'],
-
+                                  underTakingJson.isEmpty
+                                      ? ''
+                                      : underTakingJson[
+                                                  'personal_undertaking'] ==
+                                              null
+                                          ? ''
+                                          : underTakingJson[
+                                              'personal_undertaking'],
                                 ),
                                 Row(
                                   children: <Widget>[
                                     Padding(
-                                      padding: const EdgeInsets.only(left:10.0),
-                                      child: Text('I agree the terms and conditions'),
+                                      padding:
+                                          const EdgeInsets.only(left: 10.0),
+                                      child: Text(
+                                          'I agree the terms and conditions'),
                                     ),
                                     Checkbox(
                                       activeColor: Colors.blue,
                                       value: terms,
                                       onChanged: (value) {
-
-
-
-
                                         setState(() {
-
                                           terms = value;
                                         });
-print(terms);
+                                        print(terms);
                                       },
                                     )
                                   ],
                                 ),
-
                               ],
                             ),
                           ),
@@ -200,40 +197,40 @@ print(terms);
                       ),
                     ),
                   ),
-
                   Form(
                     key: _reasonPassportRetaining,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-
-                        SizedBox(height:20,),
-
-                          TextFormField(
-
-                            textCapitalization: TextCapitalization.words,
-                            maxLines: null,
-                            onSaved: (x) {
-                              reasonPassportRetaining = x;
-                            },
-                            decoration:
-
-                            InputDecoration(
-                              labelText: "Remark",
-                              fillColor: Colors.white,
-
-                              helperStyle: TextStyle(fontSize: 13),
-                              hintText: 'Please Enter Your Reason',hintStyle: TextStyle(fontSize: 15),
-                              isDense: true,
-                              prefixIcon: Icon(FontAwesomeIcons.bookmark,size: 15,color: Colors.purple,),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        TextFormField(
+                          textCapitalization: TextCapitalization.words,
+                          maxLines: null,
+                          onSaved: (x) {
+                            reasonPassportRetaining = x;
+                          },
+                          decoration: InputDecoration(
+                            labelText: "Remark",
+                            fillColor: Colors.white,
+                            helperStyle: TextStyle(fontSize: 13),
+                            hintText: 'Please Enter Your Reason',
+                            hintStyle: TextStyle(fontSize: 15),
+                            isDense: true,
+                            prefixIcon: Icon(
+                              FontAwesomeIcons.bookmark,
+                              size: 15,
+                              color: Colors.purple,
                             ),
                           ),
-                        SizedBox(height:30,),
-
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
                       ],
                     ),
                   ),
-
                   Container(
                       height: 35,
                       width: 80,
@@ -257,9 +254,9 @@ print(terms);
                           },
                           child: Center(
                               child: Text(
-                                'Submit',
-                                style: TextStyle(color: Colors.white),
-                              ))))
+                            'Submit',
+                            style: TextStyle(color: Colors.white),
+                          ))))
                 ],
               ),
             ),
@@ -269,93 +266,9 @@ print(terms);
     );
   }
 
-  void _showLoading(isLoading) {
-    if (isLoading) {
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return WillPopScope(
-              onWillPop: () {},
-              child: new AlertDialog(
-                title: Image.asset('images/logo.png',
-                  height: 50,
-                ),
-                shape: SuperellipseShape(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                ),
-                content: Padding(
-                  padding: const EdgeInsets.only(left: 50.0),
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 25.0),
-                        child: new CircularProgressIndicator(
-                          strokeWidth: 2,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 12),
-                        child: new Text('Please Wait....'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          });
-    } else {
-      Navigator.pop(context);
-    }
-  }
-
-  void _showError(String msg,IconData icon) {
-    _showLoading(false);
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return WillPopScope(
-            onWillPop: () {},
-            child: new AlertDialog(
-              title: Image.asset('images/logo.png',
-                height: 50,
-              ),
-              shape: SuperellipseShape(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              content: Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 25.0),
-                      child: new Icon(icon),
-                    ),
-                    new Text(msg)
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                new FlatButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    getRequestFormsText();
-                  },
-                  child: new Text('Try again'),
-                ),
-              ],
-            ),
-          );
-        });
-  }
   Future getRequestFormsText() async {
     Future.delayed(Duration.zero, () {
-      _showLoading(true);
+      showLoading(true, context);
     });
 
     try {
@@ -363,7 +276,7 @@ print(terms);
         Uri.encodeFull(
             'https://skylineportal.com/moappad/api/web/getRequestFormsText'),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'user_id': studentJson['data']['user_id'],
@@ -377,20 +290,19 @@ print(terms);
 
       if (response.statusCode == 200) {
         setState(
-              () {
+          () {
             underTakingJson = json.decode(response.body)['data'];
           },
         );
         print(underTakingJson['message']);
-        _showLoading(false);
+        showLoading(false, context);
       }
     } catch (x) {
-      if(x.toString().contains("TimeoutException")){
-        _showError("Time out from server",FontAwesomeIcons.hourglassHalf);
-      }else{
-        _showError("Sorry, we can't connect",Icons.perm_scan_wifi);
+      if (x.toString().contains("TimeoutException")) {
+        showLoading(false,context);showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getRequestFormsText);
+      } else {
+        showLoading(false,context); showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getRequestFormsText);
       }
-
     }
   }
 
@@ -399,7 +311,7 @@ print(terms);
       if (_reasonPassportRetaining.currentState.validate()) {
         _reasonPassportRetaining.currentState.save();
       }
-      _showLoading(true);
+      showLoading(true, context);
     });
 
     try {
@@ -407,11 +319,11 @@ print(terms);
         Uri.encodeFull(
             'https://skylineportal.com/moappad/api/web/passportRetaining'),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'user_id': studentJson['data']['user_id'],
-          'terms_condition':terms.toString(),
+          'terms_condition': terms.toString(),
           'reason': reasonPassportRetaining,
           'usertype': studentJson['data']['user_type'],
           'ipaddress': '1',
@@ -422,17 +334,17 @@ print(terms);
 
       if (response.statusCode == 200) {
         setState(
-              () {
-                passportRetainingJson = json.decode(response.body);
+          () {
+            passportRetainingJson = json.decode(response.body);
           },
         );
-        _showLoading(false);
+        showLoading(false, context);
       }
       print(reasonPassportRetaining);
       print(terms.toString());
 
-      if ( passportRetainingJson['success'] == '1'){
-        _showLoading(false);
+      if (passportRetainingJson['success'] == '1') {
+        showLoading(false, context);
         Fluttertoast.showToast(
             msg: passportRetainingJson['message'],
             toastLength: Toast.LENGTH_SHORT,
@@ -440,11 +352,10 @@ print(terms);
             timeInSecForIos: 1,
             backgroundColor: Colors.grey[400],
             textColor: Colors.black87,
-            fontSize: 13.0
-        );
+            fontSize: 13.0);
       }
-      if ( passportRetainingJson['success'] == '0'){
-        _showLoading(false);
+      if (passportRetainingJson['success'] == '0') {
+        showLoading(false, context);
         Fluttertoast.showToast(
             msg: passportRetainingJson['message'],
             toastLength: Toast.LENGTH_SHORT,
@@ -452,17 +363,15 @@ print(terms);
             timeInSecForIos: 1,
             backgroundColor: Colors.grey[400],
             textColor: Colors.black87,
-            fontSize: 13.0
-        );
+            fontSize: 13.0);
       }
     } catch (x) {
       print(x);
-      if(x.toString().contains("TimeoutException")){
-        _showError("Time out from server",FontAwesomeIcons.hourglassHalf);
-      }else{
-        _showError("Sorry, we can't connect",Icons.perm_scan_wifi);
+      if (x.toString().contains("TimeoutException")) {
+        showLoading(false,context);showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getPassportRetaining);
+      } else {
+        showLoading(false,context); showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getPassportRetaining);
       }
-
     }
   }
 }

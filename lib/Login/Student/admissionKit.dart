@@ -23,17 +23,19 @@ String ledger = 'ledger';
 String invoices = 'invoices';
 
 String admissionkit = 'admissionkit';
-Map<String, int> body;
+// Map<String, int> body;
 
 class _AdmissionKitState extends State<AdmissionKit> {
+  Map requestAmountJson = {};
+  Map admissionKitJson={};
+  Map invoicesJson={};
+  Map myLedgerJson={};
   @override
   void initState() {
-
     getMyLedger();
     getAdmissionKit();
     getInvoices();
     super.initState();
-
   }
 
   @override
@@ -62,9 +64,7 @@ class _AdmissionKitState extends State<AdmissionKit> {
                       ],
                     ),
                   ),
-                ), 
-
-
+                ),
               ],
             ),
 
@@ -103,7 +103,8 @@ class _AdmissionKitState extends State<AdmissionKit> {
                   ),
                   GestureDetector(
                     onTap: () {
-                     logOut(context);},
+                      logOut(context);
+                    },
                     child: Padding(
                       padding: const EdgeInsets.all(15),
                       child: Row(
@@ -136,44 +137,47 @@ class _AdmissionKitState extends State<AdmissionKit> {
           children: <Widget>[
             Column(
               children: <Widget>[
-                SizedBox(height: 15,),
+                SizedBox(
+                  height: 15,
+                ),
                 Container(
                   height: 50,
                   width: MediaQuery.of(context).size.width,
                   child: Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          elevation: 10,
-                          child: DottedBorder(
-                            color: Colors.blue,
-                            gap: 3,
-                            strokeWidth: 1,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 15.0),
-                                  child: Text("Download Your Ledger Fees"),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      right: 15.0, top: 5),
-                                  child: InkWell(
-                                    child: Text(
-                                      'Download',
-                                      style: TextStyle(color: Colors.blue),
-                                    ),
-                                    onTap: () {
-                                      launch(myLedgerJson['data'] ==      requestAmountJson.isEmpty ? '':myLedgerJson['data'] );
-                                    },
-                                  ),
-                                ),
-                              ],
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    elevation: 10,
+                    child: DottedBorder(
+                      color: Colors.blue,
+                      gap: 3,
+                      strokeWidth: 1,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(left: 15.0),
+                            child: Text("Download Your Ledger Fees"),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 15.0, top: 5),
+                            child: InkWell(
+                              child: Text(
+                                'Download',
+                                style: TextStyle(color: Colors.blue),
+                              ),
+                              onTap: () {
+                                launch(myLedgerJson['data'] ==
+                                        requestAmountJson.isEmpty
+                                    ? ''
+                                    : myLedgerJson['data']);
+                              },
                             ),
                           ),
-                        ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
                 Container(
                   height: 50,
@@ -263,97 +267,9 @@ class _AdmissionKitState extends State<AdmissionKit> {
     );
   }
 
-  void _showLoading(isLoading) {
-    if (isLoading) {
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return WillPopScope(
-              onWillPop: () {},
-              child: new AlertDialog(
-                title: Image.asset(
-                  'images/logo.png',
-                  height: 50,
-                ),
-                shape: SuperellipseShape(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                ),
-                content: Padding(
-                  padding: const EdgeInsets.only(left: 50.0),
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 25.0),
-                        child: new CircularProgressIndicator(
-                          strokeWidth: 2,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 12),
-                        child: new Text('Please Wait....'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          });
-    } else {
-      Navigator.pop(context);
-    }
-  }
-
-  void _showError(String msg, IconData icon) {
-    _showLoading(false);
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return WillPopScope(
-            onWillPop: () {},
-            child: new AlertDialog(
-              title: Image.asset(
-                'images/logo.png',
-                height: 50,
-              ),
-              shape: SuperellipseShape(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              content: Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 25.0),
-                      child: new Icon(icon),
-                    ),
-                    new Text(msg)
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                new FlatButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    getMyLedger();
-                  },
-                  child: new Text('Try again'),
-                ),
-              ],
-            ),
-          );
-        });
-  }
-
   Future getMyLedger() async {
     Future.delayed(Duration.zero, () {
-      _showLoading(true);
-
+      showLoading(true, context);
     });
 
     try {
@@ -361,7 +277,7 @@ class _AdmissionKitState extends State<AdmissionKit> {
         Uri.encodeFull(
             "https://skylineportal.com/moappad/api/web/getDownloadLink"),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'user_id': username,
@@ -379,7 +295,7 @@ class _AdmissionKitState extends State<AdmissionKit> {
         });
 
         if (myLedgerJson['success'] == '0') {
-          _showLoading(false);
+          showLoading(false, context);
           Fluttertoast.showToast(
               msg: myLedgerJson['message'],
               toastLength: Toast.LENGTH_SHORT,
@@ -392,23 +308,27 @@ class _AdmissionKitState extends State<AdmissionKit> {
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
-        _showError("Time out from server", FontAwesomeIcons.hourglassHalf);
+        showLoading(false, context);
+
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getMyLedger);
       } else {
-        _showError("Sorry, we can't connect", Icons.perm_scan_wifi);
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getMyLedger);
       }
     }
   }
 
   Future getAdmissionKit() async {
-    Future.delayed(Duration.zero, () {
-    });
+    Future.delayed(Duration.zero, () {});
 
     try {
       http.Response response = await http.post(
         Uri.encodeFull(
             "https://skylineportal.com/moappad/api/web/getDownloadLink"),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'user_id': username,
@@ -424,27 +344,30 @@ class _AdmissionKitState extends State<AdmissionKit> {
         setState(() {
           admissionKitJson = json.decode(response.body);
         });
-
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
-        _showError("Time out from server", FontAwesomeIcons.hourglassHalf);
+        showLoading(false, context);
+
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getAdmissionKit);
       } else {
-        _showError("Sorry, we can't connect", Icons.perm_scan_wifi);
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getAdmissionKit);
       }
     }
   }
 
   Future getInvoices() async {
-    Future.delayed(Duration.zero, () {
-    });
+    Future.delayed(Duration.zero, () {});
 
     try {
       http.Response response = await http.post(
         Uri.encodeFull(
             "https://skylineportal.com/moappad/api/web/getDownloadLink"),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'user_id': username,
@@ -461,13 +384,18 @@ class _AdmissionKitState extends State<AdmissionKit> {
           invoicesJson = json.decode(response.body);
         });
 
-        _showLoading(false);
+        showLoading(false, context);
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
-        _showError("Time out from server", FontAwesomeIcons.hourglassHalf);
+        showLoading(false, context);
+
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getInvoices);
       } else {
-        _showError("Sorry, we can't connect", Icons.perm_scan_wifi);
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getInvoices);
       }
     }
   }

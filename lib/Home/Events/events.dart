@@ -37,7 +37,7 @@ class _EventsState extends State<Events> {
   @override
   void initState() {
 super.initState();
-    getData();
+    getEvents();
   }
 
   @override
@@ -232,96 +232,14 @@ width: c_width,
     ),
     );
   }
-  void _showLoading(isLoading) {
-    if (isLoading) {
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return WillPopScope(
-              onWillPop: () {},
-              child: new AlertDialog(
-                title: Image.asset('images/logo.png',
-                  height: 50,
-                ),
-                shape: SuperellipseShape(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                ),
-                content: Padding(
-                  padding: const EdgeInsets.only(left: 50.0),
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 25.0),
-                        child: new CircularProgressIndicator(
-                          strokeWidth: 2,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 12),
-                        child: new Text('Please Wait....'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          });
-    } else {
-      Navigator.pop(context);
-    }
-  }
+ 
 
-  void _showError(String msg,IconData icon) {
-    _showLoading(false);
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return WillPopScope(
-            onWillPop: () {},
-            child: new AlertDialog(
-              title: Image.asset('images/logo.png',
-                height: 50,
-              ),
-              shape: SuperellipseShape(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              content: Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 25.0),
-                      child: new Icon(icon),
-                    ),
-                    new Text(msg)
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                new FlatButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    getData();
-                  },
-                  child: new Text('Try again'),
-                ),
-              ],
-            ),
-          );
-        });
-  }
+  
 
 
-
-  Future getData() async {
+  Future getEvents() async {
     new Future.delayed(Duration.zero, () {
-      _showLoading(true);
+      showLoading(true,context);
     });
 
     body = {
@@ -350,7 +268,7 @@ width: c_width,
           appJson = json.decode(dataFile.readAsStringSync());
         }
 
-        _showLoading(false);
+        showLoading(false,context);
 
         setState(() {
           events = appJson["events"];
@@ -362,9 +280,12 @@ width: c_width,
 
     } catch (x) {
       if(x.toString().contains("TimeoutException")){
-      _showError("Time out from server",FontAwesomeIcons.hourglassHalf);
-    }else{
-      _showError("Sorry, we can't connect",Icons.perm_scan_wifi);
+     showLoading(false,context);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getEvents);
+            }else{
+        showLoading(false,context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getEvents);
+
 
     }
 

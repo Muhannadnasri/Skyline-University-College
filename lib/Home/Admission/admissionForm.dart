@@ -59,7 +59,7 @@ final _e2location = GlobalKey<FormState>();
 final _e2position = GlobalKey<FormState>();
 final _aname = GlobalKey<FormState>();
 
-Map<String, int> body;
+// Map<String, int> body;
 
 class _AdmissionFormState extends State<AdmissionForm> {
   String _gender;
@@ -86,27 +86,27 @@ class _AdmissionFormState extends State<AdmissionForm> {
 
   String _1q;
   String _1qCountry;
-  String _1qDate='';
+  String _1qDate = '';
 
   String _2q;
   String _2qCountry;
-  String _2qDate='';
+  String _2qDate = '';
 
   String _3q;
   String _3qCountry;
-  String _3qDate='';
+  String _3qDate = '';
 
   String _4q;
   String _4qCountry;
-  String _4qDate='';
+  String _4qDate = '';
 
   String _test;
 
-  String _1eFDate='';
-  String _1eTdate='';
+  String _1eFDate = '';
+  String _1eTdate = '';
 
-  String _2eFDate='';
-  String _2eTdate='';
+  String _2eFDate = '';
+  String _2eTdate = '';
   int _years = 2018;
   int _month = 11;
   int _date = 11;
@@ -123,13 +123,11 @@ class _AdmissionFormState extends State<AdmissionForm> {
     getAdmissionFormDropdownRecords();
   }
 
-
   void _showDateBirth() {
     DateTime now = DateTime.now();
 
     DatePicker.showDatePicker(
       context,
-
       minYear: now.year,
       initialYear: now.year,
       initialMonth: now.month,
@@ -149,12 +147,12 @@ class _AdmissionFormState extends State<AdmissionForm> {
       },
     );
   }
+
   void _showDateCompleted1() {
     DateTime now = DateTime.now();
 
     DatePicker.showDatePicker(
       context,
-
       minYear: now.year,
       initialYear: now.year,
       initialMonth: now.month,
@@ -174,12 +172,12 @@ class _AdmissionFormState extends State<AdmissionForm> {
       },
     );
   }
+
   void _showDateCompleted2() {
     DateTime now = DateTime.now();
 
     DatePicker.showDatePicker(
       context,
-
       minYear: now.year,
       initialYear: now.year,
       initialMonth: now.month,
@@ -199,12 +197,12 @@ class _AdmissionFormState extends State<AdmissionForm> {
       },
     );
   }
+
   void _showDateCompleted3() {
     DateTime now = DateTime.now();
 
     DatePicker.showDatePicker(
       context,
-
       minYear: now.year,
       initialYear: now.year,
       initialMonth: now.month,
@@ -224,12 +222,12 @@ class _AdmissionFormState extends State<AdmissionForm> {
       },
     );
   }
+
   void _showDateCompleted4() {
     DateTime now = DateTime.now();
 
     DatePicker.showDatePicker(
       context,
-
       minYear: now.year,
       initialYear: now.year,
       initialMonth: now.month,
@@ -249,12 +247,12 @@ class _AdmissionFormState extends State<AdmissionForm> {
       },
     );
   }
+
   void _showDateEmployementFrom1() {
     DateTime now = DateTime.now();
 
     DatePicker.showDatePicker(
       context,
-
       minYear: now.year,
       initialYear: now.year,
       initialMonth: now.month,
@@ -274,12 +272,12 @@ class _AdmissionFormState extends State<AdmissionForm> {
       },
     );
   }
+
   void _showDateEmployementTo1() {
     DateTime now = DateTime.now();
 
     DatePicker.showDatePicker(
       context,
-
       minYear: now.year,
       initialYear: now.year,
       initialMonth: now.month,
@@ -299,12 +297,12 @@ class _AdmissionFormState extends State<AdmissionForm> {
       },
     );
   }
+
   void _showDateEmployementFrom2() {
     DateTime now = DateTime.now();
 
     DatePicker.showDatePicker(
       context,
-
       minYear: now.year,
       initialYear: now.year,
       initialMonth: now.month,
@@ -324,12 +322,12 @@ class _AdmissionFormState extends State<AdmissionForm> {
       },
     );
   }
+
   void _showDateEmployementTo2() {
     DateTime now = DateTime.now();
 
     DatePicker.showDatePicker(
       context,
-
       minYear: now.year,
       initialYear: now.year,
       initialMonth: now.month,
@@ -350,9 +348,6 @@ class _AdmissionFormState extends State<AdmissionForm> {
     );
   }
 
-
-
-
   void _changeDateBirth(int year, int month, int date) {
     setState(() {
       _years = year;
@@ -361,6 +356,7 @@ class _AdmissionFormState extends State<AdmissionForm> {
       _bDate = '$year-$month-$date';
     });
   }
+
   void _changeDateCompleted1(int year, int month, int date) {
     setState(() {
       _years = year;
@@ -369,6 +365,7 @@ class _AdmissionFormState extends State<AdmissionForm> {
       _1qDate = '$year-$month-$date';
     });
   }
+
   void _changeDateCompleted2(int year, int month, int date) {
     setState(() {
       _years = year;
@@ -377,6 +374,7 @@ class _AdmissionFormState extends State<AdmissionForm> {
       _2qDate = '$year-$month-$date';
     });
   }
+
   void _changeDateCompleted3(int year, int month, int date) {
     setState(() {
       _years = year;
@@ -385,6 +383,7 @@ class _AdmissionFormState extends State<AdmissionForm> {
       _3qDate = '$year-$month-$date';
     });
   }
+
   void _changeDateCompleted4(int year, int month, int date) {
     setState(() {
       _years = year;
@@ -393,6 +392,7 @@ class _AdmissionFormState extends State<AdmissionForm> {
       _4qDate = '$year-$month-$date';
     });
   }
+
   void _changeDateEmployementFrom1(int year, int month, int date) {
     setState(() {
       _years = year;
@@ -401,6 +401,7 @@ class _AdmissionFormState extends State<AdmissionForm> {
       _1eFDate = '$year-$month-$date';
     });
   }
+
   void _changeDateEmployementTo1(int year, int month, int date) {
     setState(() {
       _years = year;
@@ -409,6 +410,7 @@ class _AdmissionFormState extends State<AdmissionForm> {
       _1eTdate = '$year-$month-$date';
     });
   }
+
   void _changeDateEmployementFrom2(int year, int month, int date) {
     setState(() {
       _years = year;
@@ -417,6 +419,7 @@ class _AdmissionFormState extends State<AdmissionForm> {
       _2eFDate = '$year-$month-$date';
     });
   }
+
   void _changeDateEmployementTo2(int year, int month, int date) {
     setState(() {
       _years = year;
@@ -425,10 +428,6 @@ class _AdmissionFormState extends State<AdmissionForm> {
       _2eTdate = '$year-$month-$date';
     });
   }
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -457,9 +456,7 @@ class _AdmissionFormState extends State<AdmissionForm> {
                       ],
                     ),
                   ),
-                ), 
-
-
+                ),
               ],
             ),
 
@@ -498,7 +495,8 @@ class _AdmissionFormState extends State<AdmissionForm> {
                   ),
                   GestureDetector(
                     onTap: () {
-                     logOut(context);},
+                      logOut(context);
+                    },
                     child: Padding(
                       padding: const EdgeInsets.all(17),
                       child: Row(
@@ -545,17 +543,22 @@ class _AdmissionFormState extends State<AdmissionForm> {
                           children: <Widget>[
                             Container(
                                 alignment: Alignment.centerLeft,
-
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Text('Title',style: TextStyle(color:Colors.grey[600]),),
+                                  child: Text(
+                                    'Title',
+                                    style: TextStyle(color: Colors.grey[600]),
+                                  ),
                                 )),
                             DropdownButton<String>(
                               value: _title,
                               isExpanded: true,
                               hint: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('Relations',style: TextStyle(color:Colors.black),),
+                                child: Text(
+                                  'Relations',
+                                  style: TextStyle(color: Colors.black),
+                                ),
                               ),
                               items: <String>[
                                     'Mr',
@@ -564,16 +567,12 @@ class _AdmissionFormState extends State<AdmissionForm> {
                                     'Miss',
                                     'Other'
                                   ]
-
                                       ?.map((item) => DropdownMenuItem<String>(
                                           value: item,
-
-
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(item),
-                                  )))
-
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(item),
+                                          )))
                                       ?.toList() ??
                                   [],
                               onChanged: (value) {
@@ -593,10 +592,12 @@ class _AdmissionFormState extends State<AdmissionForm> {
                           children: <Widget>[
                             Container(
                               alignment: Alignment.centerLeft,
-
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('Gender',style: TextStyle(color:Colors.grey[600]),),
+                                child: Text(
+                                  'Gender',
+                                  style: TextStyle(color: Colors.grey[600]),
+                                ),
                               ),
                             ),
                             DropdownButton<String>(
@@ -604,15 +605,18 @@ class _AdmissionFormState extends State<AdmissionForm> {
                               isExpanded: true,
                               hint: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('Select Your Gender',style: TextStyle(color:Colors.black),),
+                                child: Text(
+                                  'Select Your Gender',
+                                  style: TextStyle(color: Colors.black),
+                                ),
                               ),
                               items: <String>['Male', 'Female']
                                       ?.map((item) => DropdownMenuItem<String>(
                                           value: item,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(item),
-                                  )))
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(item),
+                                          )))
                                       ?.toList() ??
                                   [],
                               onChanged: (value) {
@@ -634,27 +638,26 @@ class _AdmissionFormState extends State<AdmissionForm> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Padding(
-                              padding: const EdgeInsets.all(8.0),
-
-                                child:
-
-                                TextFormField(
+                                padding: const EdgeInsets.all(8.0),
+                                child: TextFormField(
                                   textCapitalization: TextCapitalization.words,
                                   maxLines: null,
                                   onSaved: (x) {
                                     pFName = x;
                                   },
-                                   decoration:
-
-                                InputDecoration(
-                                  labelText: "First Name",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your First Name',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.user,size: 15,color: Colors.purple,),
-                                ),
+                                  decoration: InputDecoration(
+                                    labelText: "First Name",
+                                    fillColor: Colors.white,
+                                    helperStyle: TextStyle(fontSize: 13),
+                                    hintText: 'Please Enter Your First Name',
+                                    hintStyle: TextStyle(fontSize: 15),
+                                    isDense: true,
+                                    prefixIcon: Icon(
+                                      FontAwesomeIcons.user,
+                                      size: 15,
+                                      color: Colors.purple,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -671,25 +674,26 @@ class _AdmissionFormState extends State<AdmissionForm> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Padding(
-                              padding: const EdgeInsets.all(8.0),
-
+                                padding: const EdgeInsets.all(8.0),
                                 child: TextFormField(
                                   textCapitalization: TextCapitalization.words,
                                   maxLines: null,
                                   onSaved: (x) {
                                     pMName = x;
                                   },
-                                   decoration:
-
-                                InputDecoration(
-                                  labelText: "Middle Name",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your Middle Name',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.user,size: 15,color: Colors.purple,),
-                                ),
+                                  decoration: InputDecoration(
+                                    labelText: "Middle Name",
+                                    fillColor: Colors.white,
+                                    helperStyle: TextStyle(fontSize: 13),
+                                    hintText: 'Please Enter Your Middle Name',
+                                    hintStyle: TextStyle(fontSize: 15),
+                                    isDense: true,
+                                    prefixIcon: Icon(
+                                      FontAwesomeIcons.user,
+                                      size: 15,
+                                      color: Colors.purple,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -705,25 +709,26 @@ class _AdmissionFormState extends State<AdmissionForm> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Padding(
-                              padding: const EdgeInsets.all(8.0),
-
+                                padding: const EdgeInsets.all(8.0),
                                 child: TextFormField(
                                   textCapitalization: TextCapitalization.words,
                                   maxLines: null,
                                   onSaved: (x) {
                                     pLName = x;
                                   },
-                                   decoration:
-
-                                InputDecoration(
-                                  labelText: "Last Name",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your Last Name',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.user,size: 15,color: Colors.purple,),
-                                ),
+                                  decoration: InputDecoration(
+                                    labelText: "Last Name",
+                                    fillColor: Colors.white,
+                                    helperStyle: TextStyle(fontSize: 13),
+                                    hintText: 'Please Enter Your Last Name',
+                                    hintStyle: TextStyle(fontSize: 15),
+                                    isDense: true,
+                                    prefixIcon: Icon(
+                                      FontAwesomeIcons.user,
+                                      size: 15,
+                                      color: Colors.purple,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -731,45 +736,52 @@ class _AdmissionFormState extends State<AdmissionForm> {
                         ),
 
 //TODO: here date of birth //
-                      GestureDetector(
-                        onTap: (){
-                          _showDateBirth();
-                        },
-                        child: Container(
-                          height: 60,
-                            child:Card(
+                        GestureDetector(
+                          onTap: () {
+                            _showDateBirth();
+                          },
+                          child: Container(
+                            height: 60,
+                            child: Card(
                               child: Row(
                                 children: <Widget>[
                                   Padding(
-                                    padding: const EdgeInsets.only(left:20.0),
-                                    child: Icon(FontAwesomeIcons.calendarAlt,color: Colors.purple,size: 15,),
+                                    padding: const EdgeInsets.only(left: 20.0),
+                                    child: Icon(
+                                      FontAwesomeIcons.calendarAlt,
+                                      color: Colors.purple,
+                                      size: 15,
+                                    ),
                                   ),
-                                  SizedBox(width: 20,),
+                                  SizedBox(
+                                    width: 20,
+                                  ),
                                   Text(_bDate == ''
-                                      ? 'Date Of Birth':_bDate == null?'Date Of Birth'
-                                      :_bDate),
+                                      ? 'Date Of Birth'
+                                      : _bDate == null
+                                          ? 'Date Of Birth'
+                                          : _bDate),
                                 ],
                               ),
                             ),
+                          ),
                         ),
-                      ),
 
                         SizedBox(
                           height: 15,
                         ),
-
-
-
 
 //TODO: Visa
                         Column(
                           children: <Widget>[
                             Container(
                               alignment: Alignment.centerLeft,
-
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('Visa',style: TextStyle(color:Colors.grey[600]),),
+                                child: Text(
+                                  'Visa',
+                                  style: TextStyle(color: Colors.grey[600]),
+                                ),
                               ),
                             ),
                             DropdownButton<String>(
@@ -777,11 +789,13 @@ class _AdmissionFormState extends State<AdmissionForm> {
                               isExpanded: true,
                               hint: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('Select Option',style: TextStyle(color:Colors.black)),
+                                child: Text('Select Option',
+                                    style: TextStyle(color: Colors.black)),
                               ),
                               items: <String>['Yes', 'No']
                                       ?.map((item) => DropdownMenuItem<String>(
-                                          value: item, child: Padding(
+                                          value: item,
+                                          child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(item),
                                           )))
@@ -803,10 +817,10 @@ class _AdmissionFormState extends State<AdmissionForm> {
                           children: <Widget>[
                             Container(
                               alignment: Alignment.centerLeft,
-
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('Hostel',style: TextStyle(color:Colors.grey[600])),
+                                child: Text('Hostel',
+                                    style: TextStyle(color: Colors.grey[600])),
                               ),
                             ),
                             DropdownButton<String>(
@@ -814,11 +828,13 @@ class _AdmissionFormState extends State<AdmissionForm> {
                               isExpanded: true,
                               hint: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('Select Option',style: TextStyle(color:Colors.black)),
+                                child: Text('Select Option',
+                                    style: TextStyle(color: Colors.black)),
                               ),
                               items: <String>['Yes', 'No']
                                       ?.map((item) => DropdownMenuItem<String>(
-                                          value: item, child: Padding(
+                                          value: item,
+                                          child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(item),
                                           )))
@@ -841,25 +857,26 @@ class _AdmissionFormState extends State<AdmissionForm> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Padding(
-                              padding: const EdgeInsets.all(8.0),
-
+                                padding: const EdgeInsets.all(8.0),
                                 child: TextFormField(
                                   textCapitalization: TextCapitalization.words,
                                   maxLines: null,
                                   onSaved: (x) {
                                     pBox = x;
                                   },
-                                   decoration:
-
-                                InputDecoration(
-                                  labelText: "PO Box",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your PO Box',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.box,size: 15,color: Colors.purple,),
-                                ),
+                                  decoration: InputDecoration(
+                                    labelText: "PO Box",
+                                    fillColor: Colors.white,
+                                    helperStyle: TextStyle(fontSize: 13),
+                                    hintText: 'Please Enter Your PO Box',
+                                    hintStyle: TextStyle(fontSize: 15),
+                                    isDense: true,
+                                    prefixIcon: Icon(
+                                      FontAwesomeIcons.box,
+                                      size: 15,
+                                      color: Colors.purple,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -874,25 +891,26 @@ class _AdmissionFormState extends State<AdmissionForm> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Padding(
-                              padding: const EdgeInsets.all(8.0),
-
+                                padding: const EdgeInsets.all(8.0),
                                 child: TextFormField(
                                   textCapitalization: TextCapitalization.words,
                                   maxLines: null,
                                   onSaved: (x) {
                                     pTown = x;
                                   },
-                                   decoration:
-
-                                InputDecoration(
-                                  labelText: "Town",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your Town Name',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.building,size: 15,color: Colors.purple,),
-                                ),
+                                  decoration: InputDecoration(
+                                    labelText: "Town",
+                                    fillColor: Colors.white,
+                                    helperStyle: TextStyle(fontSize: 13),
+                                    hintText: 'Please Enter Your Town Name',
+                                    hintStyle: TextStyle(fontSize: 15),
+                                    isDense: true,
+                                    prefixIcon: Icon(
+                                      FontAwesomeIcons.building,
+                                      size: 15,
+                                      color: Colors.purple,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -907,25 +925,26 @@ class _AdmissionFormState extends State<AdmissionForm> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Padding(
-                              padding: const EdgeInsets.all(8.0),
-
+                                padding: const EdgeInsets.all(8.0),
                                 child: TextFormField(
                                   textCapitalization: TextCapitalization.words,
                                   maxLines: null,
                                   onSaved: (x) {
                                     pState = x;
                                   },
-                                   decoration:
-
-                                InputDecoration(
-                                  labelText: "State",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your State Name',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.building,size: 15,color: Colors.purple,),
-                                ),
+                                  decoration: InputDecoration(
+                                    labelText: "State",
+                                    fillColor: Colors.white,
+                                    helperStyle: TextStyle(fontSize: 13),
+                                    hintText: 'Please Enter Your State Name',
+                                    hintStyle: TextStyle(fontSize: 15),
+                                    isDense: true,
+                                    prefixIcon: Icon(
+                                      FontAwesomeIcons.building,
+                                      size: 15,
+                                      color: Colors.purple,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -940,27 +959,27 @@ class _AdmissionFormState extends State<AdmissionForm> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Padding(
-                              padding: const EdgeInsets.all(8.0),
-
+                                padding: const EdgeInsets.all(8.0),
                                 child: TextFormField(
                                   textCapitalization: TextCapitalization.words,
                                   maxLines: null,
                                   keyboardType: TextInputType.number,
-
                                   onSaved: (x) {
                                     pPost = x;
                                   },
-                                   decoration:
-
-                                InputDecoration(
-                                  labelText: "Post Code",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your Post Code',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.searchLocation,size: 15,color: Colors.purple,),
-                                ),
+                                  decoration: InputDecoration(
+                                    labelText: "Post Code",
+                                    fillColor: Colors.white,
+                                    helperStyle: TextStyle(fontSize: 13),
+                                    hintText: 'Please Enter Your Post Code',
+                                    hintStyle: TextStyle(fontSize: 15),
+                                    isDense: true,
+                                    prefixIcon: Icon(
+                                      FontAwesomeIcons.searchLocation,
+                                      size: 15,
+                                      color: Colors.purple,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -975,17 +994,20 @@ class _AdmissionFormState extends State<AdmissionForm> {
                           children: <Widget>[
                             Container(
                                 alignment: Alignment.centerLeft,
-                                
                                 child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text('Country',style: TextStyle(color:Colors.grey[600]),),
-                            )),
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'Country',
+                                    style: TextStyle(color: Colors.grey[600]),
+                                  ),
+                                )),
                             DropdownButton<String>(
                               value: _cCountry,
                               isExpanded: true,
                               hint: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('Select Option',style: TextStyle(color:Colors.black)),
+                                child: Text('Select Option',
+                                    style: TextStyle(color: Colors.black)),
                               ),
                               items: admissionFormDropdownCountriesJson
                                       ?.map((item) => DropdownMenuItem<String>(
@@ -1015,27 +1037,28 @@ class _AdmissionFormState extends State<AdmissionForm> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Padding(
-                              padding: const EdgeInsets.all(8.0),
-
+                                padding: const EdgeInsets.all(8.0),
                                 child: TextFormField(
                                   textCapitalization: TextCapitalization.words,
                                   keyboardType: TextInputType.number,
-
                                   maxLines: null,
                                   onSaved: (x) {
                                     pTel = x;
                                   },
-                                   decoration:
-
-                                InputDecoration(
-                                  labelText: "Telephone",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your Telephone Number',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.phone,size: 15,color: Colors.purple,),
-                                ),
+                                  decoration: InputDecoration(
+                                    labelText: "Telephone",
+                                    fillColor: Colors.white,
+                                    helperStyle: TextStyle(fontSize: 13),
+                                    hintText:
+                                        'Please Enter Your Telephone Number',
+                                    hintStyle: TextStyle(fontSize: 15),
+                                    isDense: true,
+                                    prefixIcon: Icon(
+                                      FontAwesomeIcons.phone,
+                                      size: 15,
+                                      color: Colors.purple,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -1050,27 +1073,27 @@ class _AdmissionFormState extends State<AdmissionForm> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Padding(
-                              padding: const EdgeInsets.all(8.0),
-
+                                padding: const EdgeInsets.all(8.0),
                                 child: TextFormField(
                                   textCapitalization: TextCapitalization.words,
                                   keyboardType: TextInputType.number,
-
                                   maxLines: null,
                                   onSaved: (x) {
                                     pMobile = x;
                                   },
-                                   decoration:
-
-                                InputDecoration(
-                                  labelText: "Mobile",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your Mobile Number',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.mobileAlt,size: 15,color: Colors.purple,),
-                                ),
+                                  decoration: InputDecoration(
+                                    labelText: "Mobile",
+                                    fillColor: Colors.white,
+                                    helperStyle: TextStyle(fontSize: 13),
+                                    hintText: 'Please Enter Your Mobile Number',
+                                    hintStyle: TextStyle(fontSize: 15),
+                                    isDense: true,
+                                    prefixIcon: Icon(
+                                      FontAwesomeIcons.mobileAlt,
+                                      size: 15,
+                                      color: Colors.purple,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -1079,13 +1102,12 @@ class _AdmissionFormState extends State<AdmissionForm> {
                         SizedBox(
                           height: 15,
                         ),
-Container(
-
-  height: 40,
-  width: 300,
-  color: Colors.red,
-  child:Center(child: Text('Home Address'))
-,),
+                        Container(
+                          height: 40,
+                          width: 300,
+                          color: Colors.red,
+                          child: Center(child: Text('Home Address')),
+                        ),
 //TODO : home address
                         SizedBox(
                           height: 15,
@@ -1096,25 +1118,26 @@ Container(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Padding(
-                              padding: const EdgeInsets.all(8.0),
-
+                                padding: const EdgeInsets.all(8.0),
                                 child: TextFormField(
                                   textCapitalization: TextCapitalization.words,
                                   maxLines: null,
                                   onSaved: (x) {
                                     hBox = x;
                                   },
-                                   decoration:
-
-                                InputDecoration(
-                                  labelText: "PO Box",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your PO Box',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.box,size: 15,color: Colors.purple,),
-                                ),
+                                  decoration: InputDecoration(
+                                    labelText: "PO Box",
+                                    fillColor: Colors.white,
+                                    helperStyle: TextStyle(fontSize: 13),
+                                    hintText: 'Please Enter Your PO Box',
+                                    hintStyle: TextStyle(fontSize: 15),
+                                    isDense: true,
+                                    prefixIcon: Icon(
+                                      FontAwesomeIcons.box,
+                                      size: 15,
+                                      color: Colors.purple,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -1129,25 +1152,26 @@ Container(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Padding(
-                              padding: const EdgeInsets.all(8.0),
-
+                                padding: const EdgeInsets.all(8.0),
                                 child: TextFormField(
                                   textCapitalization: TextCapitalization.words,
                                   maxLines: null,
                                   onSaved: (x) {
                                     hTown = x;
                                   },
-                                   decoration:
-
-                                InputDecoration(
-                                  labelText: "Town",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your Town Name',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.building,size: 15,color: Colors.purple,),
-                                ),
+                                  decoration: InputDecoration(
+                                    labelText: "Town",
+                                    fillColor: Colors.white,
+                                    helperStyle: TextStyle(fontSize: 13),
+                                    hintText: 'Please Enter Your Town Name',
+                                    hintStyle: TextStyle(fontSize: 15),
+                                    isDense: true,
+                                    prefixIcon: Icon(
+                                      FontAwesomeIcons.building,
+                                      size: 15,
+                                      color: Colors.purple,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -1162,25 +1186,26 @@ Container(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Padding(
-                              padding: const EdgeInsets.all(8.0),
-
+                                padding: const EdgeInsets.all(8.0),
                                 child: TextFormField(
                                   textCapitalization: TextCapitalization.words,
                                   maxLines: null,
                                   onSaved: (x) {
                                     hState = x;
                                   },
-                                   decoration:
-
-                                InputDecoration(
-                                  labelText: "State",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your State Name',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.building,size: 15,color: Colors.purple,),
-                                ),
+                                  decoration: InputDecoration(
+                                    labelText: "State",
+                                    fillColor: Colors.white,
+                                    helperStyle: TextStyle(fontSize: 13),
+                                    hintText: 'Please Enter Your State Name',
+                                    hintStyle: TextStyle(fontSize: 15),
+                                    isDense: true,
+                                    prefixIcon: Icon(
+                                      FontAwesomeIcons.building,
+                                      size: 15,
+                                      color: Colors.purple,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -1195,27 +1220,28 @@ Container(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Padding(
-                              padding: const EdgeInsets.all(8.0),
-
+                                padding: const EdgeInsets.all(8.0),
                                 child: TextFormField(
                                   textCapitalization: TextCapitalization.words,
                                   keyboardType: TextInputType.number,
-
                                   maxLines: null,
                                   onSaved: (x) {
                                     hState = x;
                                   },
-                                   decoration:
-
-                                InputDecoration(
-                                  labelText: "Post Code",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your Post Code Number',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.searchLocation,size: 15,color: Colors.purple,),
-                                ),
+                                  decoration: InputDecoration(
+                                    labelText: "Post Code",
+                                    fillColor: Colors.white,
+                                    helperStyle: TextStyle(fontSize: 13),
+                                    hintText:
+                                        'Please Enter Your Post Code Number',
+                                    hintStyle: TextStyle(fontSize: 15),
+                                    isDense: true,
+                                    prefixIcon: Icon(
+                                      FontAwesomeIcons.searchLocation,
+                                      size: 15,
+                                      color: Colors.purple,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -1229,17 +1255,20 @@ Container(
                           children: <Widget>[
                             Container(
                                 alignment: Alignment.centerLeft,
-
                                 child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text('Country',style: TextStyle(color:Colors.grey[600]),),
-                            )),
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'Country',
+                                    style: TextStyle(color: Colors.grey[600]),
+                                  ),
+                                )),
                             DropdownButton<String>(
                               value: _hCountry,
                               isExpanded: true,
                               hint: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('Select Option',style: TextStyle(color:Colors.black)),
+                                child: Text('Select Option',
+                                    style: TextStyle(color: Colors.black)),
                               ),
                               items: admissionFormDropdownCountriesJson
                                       ?.map((item) => DropdownMenuItem<String>(
@@ -1267,8 +1296,7 @@ Container(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Padding(
-                              padding: const EdgeInsets.all(8.0),
-
+                                padding: const EdgeInsets.all(8.0),
                                 child: TextFormField(
                                   textCapitalization: TextCapitalization.words,
                                   keyboardType: TextInputType.number,
@@ -1276,17 +1304,19 @@ Container(
                                   onSaved: (x) {
                                     hTel = x;
                                   },
-                                   decoration:
-
-                                InputDecoration(
-                                  labelText: "Telephone",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Home Telephone ',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.phone,size: 15,color: Colors.purple,),
-                                ),
+                                  decoration: InputDecoration(
+                                    labelText: "Telephone",
+                                    fillColor: Colors.white,
+                                    helperStyle: TextStyle(fontSize: 13),
+                                    hintText: 'Please Enter Home Telephone ',
+                                    hintStyle: TextStyle(fontSize: 15),
+                                    isDense: true,
+                                    prefixIcon: Icon(
+                                      FontAwesomeIcons.phone,
+                                      size: 15,
+                                      color: Colors.purple,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -1301,27 +1331,28 @@ Container(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Padding(
-                              padding: const EdgeInsets.all(8.0),
-
+                                padding: const EdgeInsets.all(8.0),
                                 child: TextFormField(
                                   textCapitalization: TextCapitalization.words,
                                   keyboardType: TextInputType.number,
-
                                   maxLines: null,
                                   onSaved: (x) {
                                     hMobile = x;
                                   },
-                                   decoration:
-
-                                InputDecoration(
-                                  labelText: "Mobile",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Home Mobile Number ',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.bookmark,size: 15,color: Colors.purple,),
-                                ),
+                                  decoration: InputDecoration(
+                                    labelText: "Mobile",
+                                    fillColor: Colors.white,
+                                    helperStyle: TextStyle(fontSize: 13),
+                                    hintText:
+                                        'Please Enter Home Mobile Number ',
+                                    hintStyle: TextStyle(fontSize: 15),
+                                    isDense: true,
+                                    prefixIcon: Icon(
+                                      FontAwesomeIcons.bookmark,
+                                      size: 15,
+                                      color: Colors.purple,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -1336,8 +1367,7 @@ Container(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Padding(
-                              padding: const EdgeInsets.all(8.0),
-
+                                padding: const EdgeInsets.all(8.0),
                                 child: TextFormField(
                                   textCapitalization: TextCapitalization.words,
                                   keyboardType: TextInputType.emailAddress,
@@ -1345,17 +1375,19 @@ Container(
                                   onSaved: (x) {
                                     hEmail = x;
                                   },
-                                   decoration:
-
-                                InputDecoration(
-                                  labelText: "Email",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your Email',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.envelopeOpen,size: 15,color: Colors.purple,),
-                                ),
+                                  decoration: InputDecoration(
+                                    labelText: "Email",
+                                    fillColor: Colors.white,
+                                    helperStyle: TextStyle(fontSize: 13),
+                                    hintText: 'Please Enter Your Email',
+                                    hintStyle: TextStyle(fontSize: 15),
+                                    isDense: true,
+                                    prefixIcon: Icon(
+                                      FontAwesomeIcons.envelopeOpen,
+                                      size: 15,
+                                      color: Colors.purple,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -1370,10 +1402,12 @@ Container(
                           children: <Widget>[
                             Container(
                               alignment: Alignment.centerLeft,
-
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('Nationality',style: TextStyle(color:Colors.grey[600]),),
+                                child: Text(
+                                  'Nationality',
+                                  style: TextStyle(color: Colors.grey[600]),
+                                ),
                               ),
                             ),
                             DropdownButton<String>(
@@ -1381,15 +1415,21 @@ Container(
                               isExpanded: true,
                               hint: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('Select Option',style: TextStyle(color:Colors.black),),
+                                child: Text(
+                                  'Select Option',
+                                  style: TextStyle(color: Colors.black),
+                                ),
                               ),
                               items: admissionFormDropdownCountriesJson
-                                      ?.map((item) => DropdownMenuItem<String>(
+                                      ?.map(
+                                        (item) => DropdownMenuItem<String>(
                                           value: item['id'].toString(),
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(item['country']),
-                                          ),),)
+                                          ),
+                                        ),
+                                      )
                                       ?.toList() ??
                                   [],
                               onChanged: (value) {
@@ -1408,10 +1448,12 @@ Container(
                           children: <Widget>[
                             Container(
                               alignment: Alignment.centerLeft,
-
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('Country',style: TextStyle(color:Colors.grey[600]),),
+                                child: Text(
+                                  'Country',
+                                  style: TextStyle(color: Colors.grey[600]),
+                                ),
                               ),
                             ),
                             DropdownButton<String>(
@@ -1419,16 +1461,19 @@ Container(
                               isExpanded: true,
                               hint: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('Select Option',style: TextStyle(color:Colors.black),),
+                                child: Text(
+                                  'Select Option',
+                                  style: TextStyle(color: Colors.black),
+                                ),
                               ),
                               items: admissionFormDropdownCountriesJson
                                       ?.map((item) => DropdownMenuItem<String>(
                                           value: item['id'].toString(),
-                                          child:
-                                              Padding(
-                                                padding: const EdgeInsets.all(8.0),
-                                                child: Text(item['Country'].toString()),
-                                              )))
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                                item['Country'].toString()),
+                                          )))
                                       ?.toList() ??
                                   [],
                               onChanged: (value) {
@@ -1447,10 +1492,12 @@ Container(
                           children: <Widget>[
                             Container(
                               alignment: Alignment.centerLeft,
-
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('Country of Birthday',style:TextStyle(color:Colors.grey[600]),),
+                                child: Text(
+                                  'Country of Birthday',
+                                  style: TextStyle(color: Colors.grey[600]),
+                                ),
                               ),
                             ),
                             DropdownButton<String>(
@@ -1458,7 +1505,10 @@ Container(
                               isExpanded: true,
                               hint: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('Select Option',style: TextStyle(color:Colors.black),),
+                                child: Text(
+                                  'Select Option',
+                                  style: TextStyle(color: Colors.black),
+                                ),
                               ),
                               items: admissionFormDropdownCountriesJson
                                       ?.map((item) => DropdownMenuItem<String>(
@@ -1485,23 +1535,28 @@ Container(
                           children: <Widget>[
                             Container(
                               alignment: Alignment.centerLeft,
-
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('Are you an international student living outside the UAE?',style: TextStyle(color:Colors.grey[600]),),
+                                child: Text(
+                                  'Are you an international student living outside the UAE?',
+                                  style: TextStyle(color: Colors.grey[600]),
+                                ),
                               ),
                             ),
                             DropdownButton<String>(
                               value: _liveOutside,
                               isExpanded: true,
-
                               hint: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('Select Option',style: TextStyle(color:Colors.black),),
+                                child: Text(
+                                  'Select Option',
+                                  style: TextStyle(color: Colors.black),
+                                ),
                               ),
                               items: <String>['Yes', 'No']
                                       ?.map((item) => DropdownMenuItem<String>(
-                                          value: item, child: Padding(
+                                          value: item,
+                                          child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(item),
                                           )))
@@ -1522,24 +1577,16 @@ Container(
                     ),
                   ),
 
-
-
-
                   // TODO: Program
 
-
-
-
                   Container(
-
                     height: 40,
                     width: 300,
                     color: Colors.red,
-                    child:Center(child: Text('Program Preference'),)
-                    ,),
-
-
-
+                    child: Center(
+                      child: Text('Program Preference'),
+                    ),
+                  ),
 
                   Card(
                     child: Column(
@@ -1551,10 +1598,12 @@ Container(
                           children: <Widget>[
                             Container(
                               alignment: Alignment.centerLeft,
-
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('1st Program',style: TextStyle(color:Colors.grey[600]),),
+                                child: Text(
+                                  '1st Program',
+                                  style: TextStyle(color: Colors.grey[600]),
+                                ),
                               ),
                             ),
                             DropdownButton<String>(
@@ -1562,7 +1611,10 @@ Container(
                               isExpanded: true,
                               hint: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('Select Option',style: TextStyle(color:Colors.black),),
+                                child: Text(
+                                  'Select Option',
+                                  style: TextStyle(color: Colors.black),
+                                ),
                               ),
                               items: admissionFormDropdownProgramJson
                                       ?.map((item) => DropdownMenuItem<String>(
@@ -1589,10 +1641,12 @@ Container(
                           children: <Widget>[
                             Container(
                               alignment: Alignment.centerLeft,
-
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('Course Name',style: TextStyle(color:Colors.grey[600]),),
+                                child: Text(
+                                  'Course Name',
+                                  style: TextStyle(color: Colors.grey[600]),
+                                ),
                               ),
                             ),
                             DropdownButton<String>(
@@ -1600,7 +1654,10 @@ Container(
                               isExpanded: true,
                               hint: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('Select Option',style: TextStyle(color:Colors.black),),
+                                child: Text(
+                                  'Select Option',
+                                  style: TextStyle(color: Colors.black),
+                                ),
                               ),
                               items: programsByCategory1Json
                                       ?.map((item) => DropdownMenuItem<String>(
@@ -1626,10 +1683,12 @@ Container(
                           children: <Widget>[
                             Container(
                               alignment: Alignment.centerLeft,
-
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('2st Program',style: TextStyle(color:Colors.grey[600]),),
+                                child: Text(
+                                  '2st Program',
+                                  style: TextStyle(color: Colors.grey[600]),
+                                ),
                               ),
                             ),
                             DropdownButton<String>(
@@ -1637,7 +1696,10 @@ Container(
                               isExpanded: true,
                               hint: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('Select Option',style: TextStyle(color:Colors.black),),
+                                child: Text(
+                                  'Select Option',
+                                  style: TextStyle(color: Colors.black),
+                                ),
                               ),
                               items: admissionFormDropdownProgramJson
                                       ?.map((item) => DropdownMenuItem<String>(
@@ -1661,10 +1723,12 @@ Container(
                           children: <Widget>[
                             Container(
                               alignment: Alignment.centerLeft,
-
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('Course Name',style: TextStyle(color:Colors.grey[600]),),
+                                child: Text(
+                                  'Course Name',
+                                  style: TextStyle(color: Colors.grey[600]),
+                                ),
                               ),
                             ),
                             DropdownButton<String>(
@@ -1672,7 +1736,10 @@ Container(
                               isExpanded: true,
                               hint: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('Select Option',style: TextStyle(color:Colors.black),),
+                                child: Text(
+                                  'Select Option',
+                                  style: TextStyle(color: Colors.black),
+                                ),
                               ),
                               items: programsByCategory2Json
                                       ?.map((item) => DropdownMenuItem<String>(
@@ -1698,10 +1765,12 @@ Container(
                           children: <Widget>[
                             Container(
                               alignment: Alignment.centerLeft,
-
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('When do you which to begin your degree ?',style: TextStyle(color:Colors.grey[600]),),
+                                child: Text(
+                                  'When do you which to begin your degree ?',
+                                  style: TextStyle(color: Colors.grey[600]),
+                                ),
                               ),
                             ),
                             DropdownButton<String>(
@@ -1709,7 +1778,10 @@ Container(
                               isExpanded: true,
                               hint: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('Select Option',style: TextStyle(color:Colors.black),),
+                                child: Text(
+                                  'Select Option',
+                                  style: TextStyle(color: Colors.black),
+                                ),
                               ),
                               items: admissionFormDropdownTermsJson
                                       ?.map((item) => DropdownMenuItem<String>(
@@ -1732,28 +1804,14 @@ Container(
                     ),
                   ),
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                   Container(
-
                     height: 40,
                     width: 300,
                     color: Colors.red,
-                    child:Center(child: Text('Acadamic background'),)
-                    ,),
+                    child: Center(
+                      child: Text('Acadamic background'),
+                    ),
+                  ),
 
                   //TODO: Acadamic background
                   Card(
@@ -1767,18 +1825,25 @@ Container(
                           children: <Widget>[
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Text('Have you completed any studies through distance or online learning ? ',style: TextStyle(color:Colors.grey[600]),),
+                              child: Text(
+                                'Have you completed any studies through distance or online learning ? ',
+                                style: TextStyle(color: Colors.grey[600]),
+                              ),
                             ),
                             DropdownButton<String>(
                               value: _online,
                               isExpanded: true,
                               hint: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('Select Option',style: TextStyle(color:Colors.black),),
+                                child: Text(
+                                  'Select Option',
+                                  style: TextStyle(color: Colors.black),
+                                ),
                               ),
                               items: <String>['Yes', 'No']
                                       ?.map((item) => DropdownMenuItem<String>(
-                                          value: item, child: Padding(
+                                          value: item,
+                                          child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(item),
                                           )))
@@ -1800,10 +1865,12 @@ Container(
                           children: <Widget>[
                             Container(
                               alignment: Alignment.centerLeft,
-
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('Have you underwent SAT exam ?',style: TextStyle(color:Colors.grey[600]),),
+                                child: Text(
+                                  'Have you underwent SAT exam ?',
+                                  style: TextStyle(color: Colors.grey[600]),
+                                ),
                               ),
                             ),
                             DropdownButton<String>(
@@ -1811,11 +1878,15 @@ Container(
                               isExpanded: true,
                               hint: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('Select Option',style: TextStyle(color:Colors.black),),
+                                child: Text(
+                                  'Select Option',
+                                  style: TextStyle(color: Colors.black),
+                                ),
                               ),
                               items: <String>['Yes', 'No']
                                       ?.map((item) => DropdownMenuItem<String>(
-                                          value: item, child: Padding(
+                                          value: item,
+                                          child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(item),
                                           )))
@@ -1835,160 +1906,176 @@ Container(
                           height: 15,
                         ),
 
-
-                        Row(children: <Widget>[
-                          Expanded(
-                            flex: 2,
-                            child: Column(
-                              children: <Widget>[
-                                Container(
-                                  alignment: Alignment.centerLeft,
-
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text('Qualification',style: TextStyle(color:Colors.grey[600]),),
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              flex: 2,
+                              child: Column(
+                                children: <Widget>[
+                                  Container(
+                                    alignment: Alignment.centerLeft,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        'Qualification',
+                                        style:
+                                            TextStyle(color: Colors.grey[600]),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                                DropdownButton<String>(
-                                  value: _1q,
-                                  isExpanded: true,
-                                  hint: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text('Select Option',style: TextStyle(color:Colors.black),),
+                                  DropdownButton<String>(
+                                    value: _1q,
+                                    isExpanded: true,
+                                    hint: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        'Select Option',
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                    ),
+                                    items:
+                                        admissionFormDropdownQualificationJson
+                                                ?.map((item) =>
+                                                    DropdownMenuItem<String>(
+                                                        value: item['id']
+                                                            .toString(),
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(8.0),
+                                                          child: Text(item[
+                                                              'qualification']),
+                                                        )))
+                                                ?.toList() ??
+                                            [],
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _1q = value;
+                                      });
+                                    },
                                   ),
-                                  items: admissionFormDropdownQualificationJson
-                                      ?.map((item) => DropdownMenuItem<String>(
-                                      value: item['id'].toString(),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(item['qualification']),
-                                      )))
-                                      ?.toList() ??
-                                      [],
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _1q = value;
-                                    });
-                                  },
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            width: 40,
-                          ),
-                          Expanded(
-                            flex:2,
-                            child: Column(
-                              children: <Widget>[
-                                Container(
-                                  alignment: Alignment.centerLeft,
-
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text('Country',style: TextStyle(color:Colors.grey[600]),),
-                                  ),
-                                ),
-                                DropdownButton<String>(
-                                  value: _1qCountry,
-                                  isExpanded: true,
-                                  hint: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text('Select Option',style: TextStyle(color:Colors.black),),
-                                  ),
-                                  items: admissionFormDropdownCountriesJson
-                                      ?.map((item) => DropdownMenuItem<String>(
-                                      value: item['id'].toString(),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(item['country']),
-                                      )))
-                                      ?.toList() ??
-                                      [],
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _1qCountry = value;
-                                    });
-                                  },
-                                ),
-                              ],
+                            SizedBox(
+                              width: 40,
                             ),
-                          ),
-                        ],),
-
+                            Expanded(
+                              flex: 2,
+                              child: Column(
+                                children: <Widget>[
+                                  Container(
+                                    alignment: Alignment.centerLeft,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        'Country',
+                                        style:
+                                            TextStyle(color: Colors.grey[600]),
+                                      ),
+                                    ),
+                                  ),
+                                  DropdownButton<String>(
+                                    value: _1qCountry,
+                                    isExpanded: true,
+                                    hint: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        'Select Option',
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                    ),
+                                    items: admissionFormDropdownCountriesJson
+                                            ?.map((item) => DropdownMenuItem<
+                                                    String>(
+                                                value: item['id'].toString(),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Text(item['country']),
+                                                )))
+                                            ?.toList() ??
+                                        [],
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _1qCountry = value;
+                                      });
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
 
                         SizedBox(
                           height: 15,
                         ),
-    
+
                         Form(
                           key: _q1school,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Padding(
-                              padding: const EdgeInsets.all(8.0),
-
+                                padding: const EdgeInsets.all(8.0),
                                 child: TextFormField(
                                   textCapitalization: TextCapitalization.words,
                                   maxLines: null,
                                   onSaved: (x) {
                                     q1School = x;
                                   },
-                                   decoration:
-
-                                InputDecoration(
-                                  labelText: "Remark",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your Reason',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.bookmark,size: 15,color: Colors.purple,),
-                                ),
+                                  decoration: InputDecoration(
+                                    labelText: "Remark",
+                                    fillColor: Colors.white,
+                                    helperStyle: TextStyle(fontSize: 13),
+                                    hintText: 'Please Enter Your Reason',
+                                    hintStyle: TextStyle(fontSize: 15),
+                                    isDense: true,
+                                    prefixIcon: Icon(
+                                      FontAwesomeIcons.bookmark,
+                                      size: 15,
+                                      color: Colors.purple,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
                           ),
                         ),
 
-  
-
-                            Form(
-                              key: _q1duration,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Padding(
-                              padding: const EdgeInsets.all(8.0),
-
-                                    child: TextFormField(
-                                      textCapitalization:
-                                          TextCapitalization.words,
-                                      maxLines: null,
-                                      onSaved: (x) {
-                                        q1Duration = x;
-                                      },
-                                      decoration:
-
-                                      InputDecoration(
-                                        labelText: "Remark",
-                                        fillColor: Colors.white,
-
-                                        helperStyle: TextStyle(fontSize: 13),
-                                        hintText: 'Please Enter Your Reason',hintStyle: TextStyle(fontSize: 15),
-                                        isDense: true,
-                                        prefixIcon: Icon(FontAwesomeIcons.bookmark,size: 15,color: Colors.purple,),
-                                      ),
+                        Form(
+                          key: _q1duration,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: TextFormField(
+                                  textCapitalization: TextCapitalization.words,
+                                  maxLines: null,
+                                  onSaved: (x) {
+                                    q1Duration = x;
+                                  },
+                                  decoration: InputDecoration(
+                                    labelText: "Remark",
+                                    fillColor: Colors.white,
+                                    helperStyle: TextStyle(fontSize: 13),
+                                    hintText: 'Please Enter Your Reason',
+                                    hintStyle: TextStyle(fontSize: 15),
+                                    isDense: true,
+                                    prefixIcon: Icon(
+                                      FontAwesomeIcons.bookmark,
+                                      size: 15,
+                                      color: Colors.purple,
                                     ),
                                   ),
-                                ],
+                                ),
                               ),
-                            ),
+                            ],
+                          ),
+                        ),
 
-
-                         
                         SizedBox(
                           height: 15,
                         ),
@@ -1999,31 +2086,31 @@ Container(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Padding(
-                              padding: const EdgeInsets.all(8.0),
-
+                                padding: const EdgeInsets.all(8.0),
                                 child: TextFormField(
                                   textCapitalization: TextCapitalization.words,
                                   maxLines: null,
                                   onSaved: (x) {
                                     q1Result = x;
                                   },
-                                   decoration:
-
-                                InputDecoration(
-                                  labelText: "Remark",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your Reason',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.bookmark,size: 15,color: Colors.purple,),
-                                ),
+                                  decoration: InputDecoration(
+                                    labelText: "Remark",
+                                    fillColor: Colors.white,
+                                    helperStyle: TextStyle(fontSize: 13),
+                                    hintText: 'Please Enter Your Reason',
+                                    hintStyle: TextStyle(fontSize: 15),
+                                    isDense: true,
+                                    prefixIcon: Icon(
+                                      FontAwesomeIcons.bookmark,
+                                      size: 15,
+                                      color: Colors.purple,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
                           ),
                         ),
-
 
                         //TODO: qualification 2
 
@@ -2086,96 +2173,90 @@ Container(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Padding(
-                              padding: const EdgeInsets.all(8.0),
-
+                                padding: const EdgeInsets.all(8.0),
                                 child: TextFormField(
                                   textCapitalization: TextCapitalization.words,
                                   maxLines: null,
                                   onSaved: (x) {
                                     q2School = x;
                                   },
-                                   decoration:
-
-                                InputDecoration(
-                                  labelText: "Remark",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your Reason',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.bookmark,size: 15,color: Colors.purple,),
-                                ),
+                                  decoration: InputDecoration(
+                                    labelText: "Remark",
+                                    fillColor: Colors.white,
+                                    helperStyle: TextStyle(fontSize: 13),
+                                    hintText: 'Please Enter Your Reason',
+                                    hintStyle: TextStyle(fontSize: 15),
+                                    isDense: true,
+                                    prefixIcon: Icon(
+                                      FontAwesomeIcons.bookmark,
+                                      size: 15,
+                                      color: Colors.purple,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
                           ),
                         ),
 
-
-
-                            Form(
-                              key: _q2duration,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Padding(
-                              padding: const EdgeInsets.all(8.0),
-
-                                    child: TextFormField(
-                                      textCapitalization:
-                                          TextCapitalization.words,
-                                      maxLines: null,
-                                      onSaved: (x) {
-                                        q2Duration = x;
-                                      },
-                                      decoration: InputDecoration(
-                                        hintText: 'Reason',
-                                        border: InputBorder.none,
-                                      ),
-                                    ),
+                        Form(
+                          key: _q2duration,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: TextFormField(
+                                  textCapitalization: TextCapitalization.words,
+                                  maxLines: null,
+                                  onSaved: (x) {
+                                    q2Duration = x;
+                                  },
+                                  decoration: InputDecoration(
+                                    hintText: 'Reason',
+                                    border: InputBorder.none,
                                   ),
-                                ],
+                                ),
                               ),
-                            ),
-
-
+                            ],
+                          ),
+                        ),
 
                         SizedBox(
                           height: 15,
                         ),
-    
+
                         Form(
                           key: _q2result,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Padding(
-                              padding: const EdgeInsets.all(8.0),
-
+                                padding: const EdgeInsets.all(8.0),
                                 child: TextFormField(
                                   textCapitalization: TextCapitalization.words,
                                   maxLines: null,
                                   onSaved: (x) {
                                     q2Result = x;
                                   },
-                                   decoration:
-
-                                InputDecoration(
-                                  labelText: "Remark",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your Reason',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.bookmark,size: 15,color: Colors.purple,),
-                                ),
+                                  decoration: InputDecoration(
+                                    labelText: "Remark",
+                                    fillColor: Colors.white,
+                                    helperStyle: TextStyle(fontSize: 13),
+                                    hintText: 'Please Enter Your Reason',
+                                    hintStyle: TextStyle(fontSize: 15),
+                                    isDense: true,
+                                    prefixIcon: Icon(
+                                      FontAwesomeIcons.bookmark,
+                                      size: 15,
+                                      color: Colors.purple,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
                           ),
                         ),
-
 
                         //TODO: qualification 3
 
@@ -2238,60 +2319,54 @@ Container(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Padding(
-                              padding: const EdgeInsets.all(8.0),
-
+                                padding: const EdgeInsets.all(8.0),
                                 child: TextFormField(
                                   textCapitalization: TextCapitalization.words,
                                   maxLines: null,
                                   onSaved: (x) {
                                     q3School = x;
                                   },
-                                   decoration:
-
-                                InputDecoration(
-                                  labelText: "Remark",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your Reason',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.bookmark,size: 15,color: Colors.purple,),
-                                ),
+                                  decoration: InputDecoration(
+                                    labelText: "Remark",
+                                    fillColor: Colors.white,
+                                    helperStyle: TextStyle(fontSize: 13),
+                                    hintText: 'Please Enter Your Reason',
+                                    hintStyle: TextStyle(fontSize: 15),
+                                    isDense: true,
+                                    prefixIcon: Icon(
+                                      FontAwesomeIcons.bookmark,
+                                      size: 15,
+                                      color: Colors.purple,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
                           ),
                         ),
 
-
-
-                            Form(
-                              key: _q3duration,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Padding(
-                              padding: const EdgeInsets.all(8.0),
-
-                                    child: TextFormField(
-                                      textCapitalization:
-                                          TextCapitalization.words,
-                                      maxLines: null,
-                                      onSaved: (x) {
-                                        q3Duration = x;
-                                      },
-                                      decoration: InputDecoration(
-                                        hintText: 'Reason',
-                                        border: InputBorder.none,
-                                      ),
-                                    ),
+                        Form(
+                          key: _q3duration,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: TextFormField(
+                                  textCapitalization: TextCapitalization.words,
+                                  maxLines: null,
+                                  onSaved: (x) {
+                                    q3Duration = x;
+                                  },
+                                  decoration: InputDecoration(
+                                    hintText: 'Reason',
+                                    border: InputBorder.none,
                                   ),
-                                ],
+                                ),
                               ),
-                            ),
-
-
+                            ],
+                          ),
+                        ),
 
                         SizedBox(
                           height: 15,
@@ -2303,32 +2378,31 @@ Container(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Padding(
-                              padding: const EdgeInsets.all(8.0),
-
+                                padding: const EdgeInsets.all(8.0),
                                 child: TextFormField(
                                   textCapitalization: TextCapitalization.words,
                                   maxLines: null,
                                   onSaved: (x) {
                                     q3Result = x;
                                   },
-                                   decoration:
-
-                                InputDecoration(
-                                  labelText: "Remark",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your Reason',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.bookmark,size: 15,color: Colors.purple,),
-                                ),
+                                  decoration: InputDecoration(
+                                    labelText: "Remark",
+                                    fillColor: Colors.white,
+                                    helperStyle: TextStyle(fontSize: 13),
+                                    hintText: 'Please Enter Your Reason',
+                                    hintStyle: TextStyle(fontSize: 15),
+                                    isDense: true,
+                                    prefixIcon: Icon(
+                                      FontAwesomeIcons.bookmark,
+                                      size: 15,
+                                      color: Colors.purple,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
                           ),
                         ),
-
-
 
                         //TODO: qualification 4
 
@@ -2391,64 +2465,58 @@ Container(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Padding(
-                              padding: const EdgeInsets.all(8.0),
-
+                                padding: const EdgeInsets.all(8.0),
                                 child: TextFormField(
                                   textCapitalization: TextCapitalization.words,
                                   maxLines: null,
                                   onSaved: (x) {
                                     q4School = x;
                                   },
-                                   decoration:
-
-                                InputDecoration(
-                                  labelText: "Remark",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your Reason',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.bookmark,size: 15,color: Colors.purple,),
-                                ),
+                                  decoration: InputDecoration(
+                                    labelText: "Remark",
+                                    fillColor: Colors.white,
+                                    helperStyle: TextStyle(fontSize: 13),
+                                    hintText: 'Please Enter Your Reason',
+                                    hintStyle: TextStyle(fontSize: 15),
+                                    isDense: true,
+                                    prefixIcon: Icon(
+                                      FontAwesomeIcons.bookmark,
+                                      size: 15,
+                                      color: Colors.purple,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
                           ),
                         ),
 
+                        SizedBox(
+                          height: 15,
+                        ),
 
-
-                            SizedBox(
-                              height: 15,
-                            ),
-
-                            Form(
-                              key: _q4duration,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Padding(
-                              padding: const EdgeInsets.all(8.0),
-
-                                    child: TextFormField(
-                                      textCapitalization:
-                                          TextCapitalization.words,
-                                      maxLines: null,
-                                      onSaved: (x) {
-                                        q4Duration = x;
-                                      },
-                                      decoration: InputDecoration(
-                                        hintText: 'Reason',
-                                        border: InputBorder.none,
-                                      ),
-                                    ),
+                        Form(
+                          key: _q4duration,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: TextFormField(
+                                  textCapitalization: TextCapitalization.words,
+                                  maxLines: null,
+                                  onSaved: (x) {
+                                    q4Duration = x;
+                                  },
+                                  decoration: InputDecoration(
+                                    hintText: 'Reason',
+                                    border: InputBorder.none,
                                   ),
-                                ],
+                                ),
                               ),
-                            ),
-
-
+                            ],
+                          ),
+                        ),
 
                         SizedBox(
                           height: 15,
@@ -2460,25 +2528,26 @@ Container(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Padding(
-                              padding: const EdgeInsets.all(8.0),
-
+                                padding: const EdgeInsets.all(8.0),
                                 child: TextFormField(
                                   textCapitalization: TextCapitalization.words,
                                   maxLines: null,
                                   onSaved: (x) {
                                     q4Result = x;
                                   },
-                                   decoration:
-
-                                InputDecoration(
-                                  labelText: "Remark",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your Reason',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.bookmark,size: 15,color: Colors.purple,),
-                                ),
+                                  decoration: InputDecoration(
+                                    labelText: "Remark",
+                                    fillColor: Colors.white,
+                                    helperStyle: TextStyle(fontSize: 13),
+                                    hintText: 'Please Enter Your Reason',
+                                    hintStyle: TextStyle(fontSize: 15),
+                                    isDense: true,
+                                    prefixIcon: Icon(
+                                      FontAwesomeIcons.bookmark,
+                                      size: 15,
+                                      color: Colors.purple,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -2521,8 +2590,7 @@ Container(
                                       MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Padding(
-                                padding: const EdgeInsets.all(8.0),
-
+                                      padding: const EdgeInsets.all(8.0),
                                       child: TextFormField(
                                         textCapitalization:
                                             TextCapitalization.words,
@@ -2551,8 +2619,7 @@ Container(
                                       MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Padding(
-                                padding: const EdgeInsets.all(8.0),
-
+                                      padding: const EdgeInsets.all(8.0),
                                       child: TextFormField(
                                         textCapitalization:
                                             TextCapitalization.words,
@@ -2570,35 +2637,11 @@ Container(
                                 ),
                               ),
                             ),
-
                           ],
                         )
                       ],
                     ),
                   ),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                   //TODO: Employment Details
                   Card(
@@ -2616,25 +2659,26 @@ Container(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Padding(
-                              padding: const EdgeInsets.all(8.0),
-
+                                padding: const EdgeInsets.all(8.0),
                                 child: TextFormField(
                                   textCapitalization: TextCapitalization.words,
                                   maxLines: null,
                                   onSaved: (x) {
                                     e1time = x;
                                   },
-                                   decoration:
-
-                                InputDecoration(
-                                  labelText: "Remark",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your Reason',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.bookmark,size: 15,color: Colors.purple,),
-                                ),
+                                  decoration: InputDecoration(
+                                    labelText: "Remark",
+                                    fillColor: Colors.white,
+                                    helperStyle: TextStyle(fontSize: 13),
+                                    hintText: 'Please Enter Your Reason',
+                                    hintStyle: TextStyle(fontSize: 15),
+                                    isDense: true,
+                                    prefixIcon: Icon(
+                                      FontAwesomeIcons.bookmark,
+                                      size: 15,
+                                      color: Colors.purple,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -2649,25 +2693,26 @@ Container(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Padding(
-                              padding: const EdgeInsets.all(8.0),
-
+                                padding: const EdgeInsets.all(8.0),
                                 child: TextFormField(
                                   textCapitalization: TextCapitalization.words,
                                   maxLines: null,
                                   onSaved: (x) {
                                     e1name = x;
                                   },
-                                   decoration:
-
-                                InputDecoration(
-                                  labelText: "Remark",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your Reason',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.bookmark,size: 15,color: Colors.purple,),
-                                ),
+                                  decoration: InputDecoration(
+                                    labelText: "Remark",
+                                    fillColor: Colors.white,
+                                    helperStyle: TextStyle(fontSize: 13),
+                                    hintText: 'Please Enter Your Reason',
+                                    hintStyle: TextStyle(fontSize: 15),
+                                    isDense: true,
+                                    prefixIcon: Icon(
+                                      FontAwesomeIcons.bookmark,
+                                      size: 15,
+                                      color: Colors.purple,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -2682,25 +2727,26 @@ Container(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Padding(
-                              padding: const EdgeInsets.all(8.0),
-
+                                padding: const EdgeInsets.all(8.0),
                                 child: TextFormField(
                                   textCapitalization: TextCapitalization.words,
                                   maxLines: null,
                                   onSaved: (x) {
                                     e1location = x;
                                   },
-                                   decoration:
-
-                                InputDecoration(
-                                  labelText: "Remark",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your Reason',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.bookmark,size: 15,color: Colors.purple,),
-                                ),
+                                  decoration: InputDecoration(
+                                    labelText: "Remark",
+                                    fillColor: Colors.white,
+                                    helperStyle: TextStyle(fontSize: 13),
+                                    hintText: 'Please Enter Your Reason',
+                                    hintStyle: TextStyle(fontSize: 15),
+                                    isDense: true,
+                                    prefixIcon: Icon(
+                                      FontAwesomeIcons.bookmark,
+                                      size: 15,
+                                      color: Colors.purple,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -2715,25 +2761,26 @@ Container(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Padding(
-                              padding: const EdgeInsets.all(8.0),
-
+                                padding: const EdgeInsets.all(8.0),
                                 child: TextFormField(
                                   textCapitalization: TextCapitalization.words,
                                   maxLines: null,
                                   onSaved: (x) {
                                     e1position = x;
                                   },
-                                   decoration:
-
-                                InputDecoration(
-                                  labelText: "Remark",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your Reason',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.bookmark,size: 15,color: Colors.purple,),
-                                ),
+                                  decoration: InputDecoration(
+                                    labelText: "Remark",
+                                    fillColor: Colors.white,
+                                    helperStyle: TextStyle(fontSize: 13),
+                                    hintText: 'Please Enter Your Reason',
+                                    hintStyle: TextStyle(fontSize: 15),
+                                    isDense: true,
+                                    prefixIcon: Icon(
+                                      FontAwesomeIcons.bookmark,
+                                      size: 15,
+                                      color: Colors.purple,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -2752,25 +2799,26 @@ Container(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Padding(
-                              padding: const EdgeInsets.all(8.0),
-
+                                padding: const EdgeInsets.all(8.0),
                                 child: TextFormField(
                                   textCapitalization: TextCapitalization.words,
                                   maxLines: null,
                                   onSaved: (x) {
                                     e2time = x;
                                   },
-                                   decoration:
-
-                                InputDecoration(
-                                  labelText: "Remark",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your Reason',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.bookmark,size: 15,color: Colors.purple,),
-                                ),
+                                  decoration: InputDecoration(
+                                    labelText: "Remark",
+                                    fillColor: Colors.white,
+                                    helperStyle: TextStyle(fontSize: 13),
+                                    hintText: 'Please Enter Your Reason',
+                                    hintStyle: TextStyle(fontSize: 15),
+                                    isDense: true,
+                                    prefixIcon: Icon(
+                                      FontAwesomeIcons.bookmark,
+                                      size: 15,
+                                      color: Colors.purple,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -2785,25 +2833,26 @@ Container(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Padding(
-                              padding: const EdgeInsets.all(8.0),
-
+                                padding: const EdgeInsets.all(8.0),
                                 child: TextFormField(
                                   textCapitalization: TextCapitalization.words,
                                   maxLines: null,
                                   onSaved: (x) {
                                     e2name = x;
                                   },
-                                   decoration:
-
-                                InputDecoration(
-                                  labelText: "Remark",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your Reason',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.bookmark,size: 15,color: Colors.purple,),
-                                ),
+                                  decoration: InputDecoration(
+                                    labelText: "Remark",
+                                    fillColor: Colors.white,
+                                    helperStyle: TextStyle(fontSize: 13),
+                                    hintText: 'Please Enter Your Reason',
+                                    hintStyle: TextStyle(fontSize: 15),
+                                    isDense: true,
+                                    prefixIcon: Icon(
+                                      FontAwesomeIcons.bookmark,
+                                      size: 15,
+                                      color: Colors.purple,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -2818,25 +2867,26 @@ Container(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Padding(
-                              padding: const EdgeInsets.all(8.0),
-
+                                padding: const EdgeInsets.all(8.0),
                                 child: TextFormField(
                                   textCapitalization: TextCapitalization.words,
                                   maxLines: null,
                                   onSaved: (x) {
                                     e2location = x;
                                   },
-                                   decoration:
-
-                                InputDecoration(
-                                  labelText: "Remark",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your Reason',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.bookmark,size: 15,color: Colors.purple,),
-                                ),
+                                  decoration: InputDecoration(
+                                    labelText: "Remark",
+                                    fillColor: Colors.white,
+                                    helperStyle: TextStyle(fontSize: 13),
+                                    hintText: 'Please Enter Your Reason',
+                                    hintStyle: TextStyle(fontSize: 15),
+                                    isDense: true,
+                                    prefixIcon: Icon(
+                                      FontAwesomeIcons.bookmark,
+                                      size: 15,
+                                      color: Colors.purple,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -2851,25 +2901,26 @@ Container(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Padding(
-                              padding: const EdgeInsets.all(8.0),
-
+                                padding: const EdgeInsets.all(8.0),
                                 child: TextFormField(
                                   textCapitalization: TextCapitalization.words,
                                   maxLines: null,
                                   onSaved: (x) {
                                     e2position = x;
                                   },
-                                   decoration:
-
-                                InputDecoration(
-                                  labelText: "Remark",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your Reason',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.bookmark,size: 15,color: Colors.purple,),
-                                ),
+                                  decoration: InputDecoration(
+                                    labelText: "Remark",
+                                    fillColor: Colors.white,
+                                    helperStyle: TextStyle(fontSize: 13),
+                                    hintText: 'Please Enter Your Reason',
+                                    hintStyle: TextStyle(fontSize: 15),
+                                    isDense: true,
+                                    prefixIcon: Icon(
+                                      FontAwesomeIcons.bookmark,
+                                      size: 15,
+                                      color: Colors.purple,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -2879,10 +2930,7 @@ Container(
                     ),
                   ),
 
-
-
                   //TODO: Advance standing
-
 
                   Card(
                     child: Column(
@@ -2896,25 +2944,26 @@ Container(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Padding(
-                              padding: const EdgeInsets.all(8.0),
-
+                                padding: const EdgeInsets.all(8.0),
                                 child: TextFormField(
                                   textCapitalization: TextCapitalization.words,
                                   maxLines: null,
                                   onSaved: (x) {
                                     aName = x;
                                   },
-                                   decoration:
-
-                                InputDecoration(
-                                  labelText: "Remark",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your Reason',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.bookmark,size: 15,color: Colors.purple,),
-                                ),
+                                  decoration: InputDecoration(
+                                    labelText: "Remark",
+                                    fillColor: Colors.white,
+                                    helperStyle: TextStyle(fontSize: 13),
+                                    hintText: 'Please Enter Your Reason',
+                                    hintStyle: TextStyle(fontSize: 15),
+                                    isDense: true,
+                                    prefixIcon: Icon(
+                                      FontAwesomeIcons.bookmark,
+                                      size: 15,
+                                      color: Colors.purple,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -2923,9 +2972,6 @@ Container(
                       ],
                     ),
                   ),
-
-
-
 
                   SizedBox(
                     height: 15,
@@ -2953,9 +2999,9 @@ Container(
                           },
                           child: Center(
                               child: Text(
-                                'Submit',
-                                style: TextStyle(color: Colors.white),
-                              ))))
+                            'Submit',
+                            style: TextStyle(color: Colors.white),
+                          ))))
                 ],
               ),
             ),
@@ -2965,96 +3011,9 @@ Container(
     );
   }
 
-  void _showLoading(isLoading) {
-    if (isLoading) {
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return WillPopScope(
-              onWillPop: () {},
-              child: new AlertDialog(
-                title: Image.asset(
-                  'images/logo.png',
-                  height: 50,
-                ), //SuperellipseShape
-                shape: SuperellipseShape(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                ),
-                content: Padding(
-                  padding: const EdgeInsets.only(left: 50.0),
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 25.0),
-                        child: new CircularProgressIndicator(
-                          strokeWidth: 2,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 12),
-                        child: new Text('Please Wait....'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          });
-    } else {
-      Navigator.pop(context);
-    }
-  }
-
-  void _showError(String msg, IconData icon) {
-    _showLoading(false);
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return WillPopScope(
-            onWillPop: () {},
-            child: new AlertDialog(
-              title: Image.asset(
-                'images/logo.png',
-                height: 50,
-              ),
-              shape: SuperellipseShape(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              content: Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 25.0),
-                      child: new Icon(icon),
-                    ),
-                    new Text(msg)
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                new FlatButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    getAdmissionFormDropdownRecords();
-                  },
-                  child: new Text('Try again'),
-                ),
-              ],
-            ),
-          );
-        });
-  }
-
   Future getAdmissionFormDropdownRecords() async {
     Future.delayed(Duration.zero, () {
-      _showLoading(true);
+      showLoading(true, context);
     });
 
     try {
@@ -3062,7 +3021,7 @@ Container(
         Uri.encodeFull(
             'https://skylineportal.com/moappad/api/web/getAdmissionFormDropdownRecords'),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'usertype': '1',
@@ -3089,21 +3048,26 @@ Container(
           },
         );
         print(admissionFormDropdownIELTSJson[0].toString());
-        _showLoading(false);
+        showLoading(false, context);
       }
     } catch (x) {
       print(x);
       if (x.toString().contains("TimeoutException")) {
-        _showError("Time out from server", FontAwesomeIcons.hourglassHalf);
+        showLoading(false, context);
+
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getAdmissionFormDropdownRecords);
       } else {
-        _showError("Sorry, we can't connect", Icons.perm_scan_wifi);
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getAdmissionFormDropdownRecords);
       }
     }
   }
 
   Future getProgramsByCategory1() async {
     Future.delayed(Duration.zero, () {
-      _showLoading(true);
+      showLoading(true, context);
       programsByCategory1Json.clear();
     });
     try {
@@ -3111,7 +3075,7 @@ Container(
         Uri.encodeFull(
             'https://skylineportal.com/moappad/api/web/getProgramsByCategory'),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'category_id': _1Program,
@@ -3133,21 +3097,26 @@ Container(
         print(programsByCategory1Json);
         print(_1Program);
 
-        _showLoading(false);
+        showLoading(false, context);
       }
     } catch (x) {
       print(x);
       if (x.toString().contains("TimeoutException")) {
-        _showError("Time out from server", FontAwesomeIcons.hourglassHalf);
+        showLoading(false, context);
+
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getAdmissionFormDropdownRecords);
       } else {
-        _showError("Sorry, we can't connect", Icons.perm_scan_wifi);
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getAdmissionFormDropdownRecords);
       }
     }
   }
 
   Future getProgramsByCategory2() async {
     Future.delayed(Duration.zero, () {
-      _showLoading(true);
+      showLoading(true, context);
       programsByCategory2Json.clear();
     });
 
@@ -3156,7 +3125,7 @@ Container(
         Uri.encodeFull(
             'https://skylineportal.com/moappad/api/web/getProgramsByCategory'),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'category_id': _2Program,
@@ -3176,14 +3145,19 @@ Container(
         );
         print(programsByCategory2Json);
         print(_2Program);
-        _showLoading(false);
+        showLoading(false, context);
       }
     } catch (x) {
       print(x);
       if (x.toString().contains("TimeoutException")) {
-        _showError("Time out from server", FontAwesomeIcons.hourglassHalf);
+        showLoading(false, context);
+
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getAdmissionFormDropdownRecords);
       } else {
-        _showError("Sorry, we can't connect", Icons.perm_scan_wifi);
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getAdmissionFormDropdownRecords);
       }
     }
   }
@@ -3196,7 +3170,7 @@ Container(
         Uri.encodeFull(
             'https://skylineportal.com/moappad/api/web/membershipForm'),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'user_id': username,
@@ -3257,9 +3231,14 @@ Container(
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
-        _showError("Time out from server", FontAwesomeIcons.hourglassHalf);
+        showLoading(false, context);
+
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getAdmissionFormDropdownRecords);
       } else {
-        _showError("Sorry, we can't connect", Icons.perm_scan_wifi);
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getAdmissionFormDropdownRecords);
       }
     }
   }

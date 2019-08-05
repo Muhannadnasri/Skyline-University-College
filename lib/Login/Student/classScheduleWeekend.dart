@@ -2,19 +2,12 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:superellipse_shape/superellipse_shape.dart';
 
-
-
-
-
-
-
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:http/http.dart' as http;
-import 'package:skyline_university/Home/home.dart';
 
 void main() => runApp(ClassScheduleWeekend());
 
@@ -25,29 +18,26 @@ class ClassScheduleWeekend extends StatefulWidget {
   }
 }
 
-Map<String, int> body;
+// Map<String, int> body;
 
 class _ClassScheduleWeekendState extends State<ClassScheduleWeekend> {
+  List classScheduleWeekendJson = [];
+  Map classScheduleWeekendMessageJson = {};
+
   @override
   void initState() {
-super.initState();
+    super.initState();
     getClassScheduleWeekend();
-classScheduleWeekendJson = [];
-
+    classScheduleWeekendJson = [];
   }
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-        appBar:PreferredSize(
-
+        appBar: PreferredSize(
           preferredSize: Size.fromHeight(70.0),
-          child:
-
-
-          Stack(
-
+          child: Stack(
             children: <Widget>[
               Column(
                 children: <Widget>[
@@ -67,70 +57,82 @@ classScheduleWeekendJson = [];
                         ],
                       ),
                     ),
-
-                  ), 
-
-
+                  ),
                 ],
               ),
-
 
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-
-
                     GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         Navigator.pop(context);
-
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: Row(
-
                           children: <Widget>[
-
-                            Icon(Icons.arrow_back_ios,size: 15,color: Colors.white,),
-                            SizedBox(width: 5,),
-                            Text('Back',style: TextStyle(fontSize: 15,color: Colors.white),),
+                            Icon(
+                              Icons.arrow_back_ios,
+                              size: 15,
+                              color: Colors.white,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'Back',
+                              style:
+                                  TextStyle(fontSize: 15, color: Colors.white),
+                            ),
                           ],
                         ),
                       ),
                     ),
-                    Text("Class Schedule WeekEnd",style: TextStyle(color: Colors.white),),
-
+                    Text(
+                      "Class Schedule WeekEnd",
+                      style: TextStyle(color: Colors.white),
+                    ),
                     GestureDetector(
                       onTap: () {
-                       logOut(context);},
-
-                       child: GestureDetector(
-                      onTap: (){
                         logOut(context);
-
                       },
-                      child: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Row(
-                          children: <Widget>[
-
-                            Icon(FontAwesomeIcons.powerOff,color: Colors.red,size: 15,),
-                            SizedBox(width: 5,),
-                            Text('Logout',style: TextStyle(fontSize: 15,color: Colors.red),),
-                          ],
+                      child: GestureDetector(
+                        onTap: () {
+                          logOut(context);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Row(
+                            children: <Widget>[
+                              Icon(
+                                FontAwesomeIcons.powerOff,
+                                color: Colors.red,
+                                size: 15,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                'Logout',
+                                style:
+                                    TextStyle(fontSize: 15, color: Colors.red),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                    ),
-
-                  ],),
+                  ],
+                ),
               ),
               //TODO: Put all Icon Container
             ],
           ),
-        ),        body: Container(
+        ),
+        body: Container(
           color: Colors.grey[300],
           child: ListView.builder(
             itemCount: classScheduleWeekendJson.length,
@@ -145,13 +147,10 @@ classScheduleWeekendJson = [];
                   strokeWidth: 1,
                   child: Column(
                     children: <Widget>[
-
                       Container(
                         height: 30,
-
                         decoration: new BoxDecoration(
-                          borderRadius:
-                          BorderRadius.all(Radius.circular(10)),
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
                           gradient: LinearGradient(
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
@@ -168,12 +167,16 @@ classScheduleWeekendJson = [];
                         child: Row(children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text(classScheduleWeekendJson[index]['Day'],style: TextStyle(color: Colors.white),),
+                            child: Text(
+                              classScheduleWeekendJson[index]['Day'],
+                              style: TextStyle(color: Colors.white),
+                            ),
                           )
                         ]),
                       ),
-                      SizedBox(height: 10,),
-
+                      SizedBox(
+                        height: 10,
+                      ),
                       Row(
                         children: <Widget>[
                           Padding(
@@ -183,16 +186,18 @@ classScheduleWeekendJson = [];
                           Expanded(
                             child: Text(
                               classScheduleWeekendJson[index]['Ses1']
-                                  .toString() ==
-                                  "null"
+                                          .toString() ==
+                                      "null"
                                   ? ""
                                   : classScheduleWeekendJson[index]['Ses1']
-                                  .toString(),
+                                      .toString(),
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(
+                        height: 10,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
@@ -203,17 +208,18 @@ classScheduleWeekendJson = [];
                           Expanded(
                             child: Text(
                               classScheduleWeekendJson[index]['Ses2']
-                                  .toString() ==
-                                  "null"
+                                          .toString() ==
+                                      "null"
                                   ? ""
                                   : classScheduleWeekendJson[index]['Ses2']
-                                  .toString(),
+                                      .toString(),
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 10,),
-
+                      SizedBox(
+                        height: 10,
+                      ),
                       Row(
                         children: <Widget>[
                           Padding(
@@ -223,17 +229,18 @@ classScheduleWeekendJson = [];
                           Expanded(
                             child: Text(
                               classScheduleWeekendJson[index]['Ses3']
-                                  .toString() ==
-                                  "null"
+                                          .toString() ==
+                                      "null"
                                   ? ""
                                   : classScheduleWeekendJson[index]['Ses3']
-                                  .toString(),
+                                      .toString(),
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 10,),
-
+                      SizedBox(
+                        height: 10,
+                      ),
                       Row(
                         children: <Widget>[
                           Padding(
@@ -243,17 +250,18 @@ classScheduleWeekendJson = [];
                           Expanded(
                             child: Text(
                               classScheduleWeekendJson[index]['Ses4']
-                                  .toString() ==
-                                  "null"
+                                          .toString() ==
+                                      "null"
                                   ? ""
                                   : classScheduleWeekendJson[index]['Ses4']
-                                  .toString(),
+                                      .toString(),
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 10,),
-
+                      SizedBox(
+                        height: 10,
+                      ),
                       Row(
                         children: <Widget>[
                           Padding(
@@ -262,15 +270,19 @@ classScheduleWeekendJson = [];
                           ),
                           Expanded(
                             child: Text(
-                              classScheduleWeekendJson[index]['Ses5'].toString() == "null"
+                              classScheduleWeekendJson[index]['Ses5']
+                                          .toString() ==
+                                      "null"
                                   ? ""
-                                  : classScheduleWeekendJson[index]['Ses5'].toString(),
+                                  : classScheduleWeekendJson[index]['Ses5']
+                                      .toString(),
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 10,),
-
+                      SizedBox(
+                        height: 10,
+                      ),
                     ],
                   ),
                 ),
@@ -280,105 +292,20 @@ classScheduleWeekendJson = [];
         ));
   }
 
-  void _showLoading(isLoading) {
-    if (isLoading) {
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return WillPopScope(
-              onWillPop: () {},
-              child: new AlertDialog(
-                title: Image.asset('images/logo.png',
-                  height: 50,
-                ),
-                shape: SuperellipseShape(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                ),
-                content: Padding(
-                  padding: const EdgeInsets.only(left: 50.0),
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 25.0),
-                        child: new CircularProgressIndicator(
-                          strokeWidth: 2,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 12),
-                        child: new Text('Please Wait....'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          });
-    } else {
-      Navigator.pop(context);
-    }
-  }
-
-  void _showError(String msg,IconData icon) {
-    _showLoading(false);
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return WillPopScope(
-            onWillPop: () {},
-            child: new AlertDialog(
-              title: Image.asset('images/logo.png',
-                height: 50,
-              ),
-              shape: SuperellipseShape(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              content: Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 25.0),
-                      child: new Icon(icon),
-                    ),
-                    new Text(msg)
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                new FlatButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    getClassScheduleWeekend();
-                  },
-                  child: new Text('Try again'),
-                ),
-              ],
-            ),
-          );
-        });
-  }
-
   Future getClassScheduleWeekend() async {
     Future.delayed(Duration.zero, () {
-      _showLoading(true);
+      showLoading(true, context);
     });
     try {
       http.Response response = await http.post(
         Uri.encodeFull(
             "https://skylineportal.com/moappad/api/web/classScheduleWeekend"),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'user_id': username,
-          'usertype': studentJson['data']['user_type'],
+          'usertype':studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
@@ -388,12 +315,12 @@ classScheduleWeekendJson = [];
       if (response.statusCode == 200) {
         setState(() {
           classScheduleWeekendJson = json.decode(response.body)['data'];
-          classScheduleWeekendMessageJson= json.decode(response.body);
+          classScheduleWeekendMessageJson = json.decode(response.body);
         });
-        _showLoading(false);
+        showLoading(false, context);
       }
       if (classScheduleWeekendMessageJson['success'] == '0') {
-        _showLoading(false);
+        showLoading(false, context);
         Fluttertoast.showToast(
             msg: classScheduleWeekendMessageJson['message'],
             toastLength: Toast.LENGTH_SHORT,
@@ -404,12 +331,15 @@ classScheduleWeekendJson = [];
             fontSize: 13.0);
       }
     } catch (x) {
-      if(x.toString().contains("TimeoutException")){
-        _showError("Time out from server",FontAwesomeIcons.hourglassHalf);
-      }else{
-        _showError("Sorry, we can't connect",Icons.perm_scan_wifi);
+      if (x.toString().contains("TimeoutException")) {
+        showLoading(false, context);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getClassScheduleWeekend);
+      } else {
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getClassScheduleWeekend);
       }
-
     }
   }
 }

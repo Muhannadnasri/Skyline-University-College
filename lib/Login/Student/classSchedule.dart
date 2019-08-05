@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/zigzag.dart';
 import 'package:skyline_university/Home/home.dart';
 import 'package:superellipse_shape/superellipse_shape.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() => runApp(CourseDetails());
 
@@ -18,12 +19,14 @@ class CourseDetails extends StatefulWidget {
   }
 }
 
-Map<String, int> body;
+// Map<String, int> body;
 
 class _CourseDetailsState extends State<CourseDetails> {
+  List classScheduleCourseJson = [];
+
   @override
   void initState() {
-super.initState();
+    super.initState();
     getClassScheduleCourseDetails();
   }
 
@@ -31,14 +34,9 @@ super.initState();
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-        appBar:PreferredSize(
-
+        appBar: PreferredSize(
           preferredSize: Size.fromHeight(70.0),
-          child:
-
-
-          Stack(
-
+          child: Stack(
             children: <Widget>[
               Column(
                 children: <Widget>[
@@ -58,236 +56,197 @@ super.initState();
                         ],
                       ),
                     ),
-
-                  ), //TODO: ZigZag + Name and years and type
-
-//                  SizedBox(
-//                    height: 60,
-//                  ),
+                  ),
                 ],
               ),
-
 
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-
-
                     GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         Navigator.pop(context);
-
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: Row(
-
                           children: <Widget>[
-
-                            Icon(Icons.arrow_back_ios,size: 15,color: Colors.white,),
-                            SizedBox(width: 5,),
-                            Text('Back',style: TextStyle(fontSize: 15,color: Colors.white),),
+                            Icon(
+                              Icons.arrow_back_ios,
+                              size: 15,
+                              color: Colors.white,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'Back',
+                              style:
+                                  TextStyle(fontSize: 15, color: Colors.white),
+                            ),
                           ],
                         ),
                       ),
                     ),
-                    Text("Class Schedule",style: TextStyle(color: Colors.white),),
-
+                    Text(
+                      "Class Schedule",
+                      style: TextStyle(color: Colors.white),
+                    ),
                     GestureDetector(
                       onTap: () {
-                       logOut(context);},
-
-                       child: GestureDetector(
-                      onTap: (){
                         logOut(context);
-
                       },
-                      child: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Row(
-                          children: <Widget>[
-
-                            Icon(FontAwesomeIcons.powerOff,color: Colors.red,size: 15,),
-                            SizedBox(width: 5,),
-                            Text('Logout',style: TextStyle(fontSize: 15,color: Colors.red),),
-                          ],
+                      child: GestureDetector(
+                        onTap: () {
+                          logOut(context);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Row(
+                            children: <Widget>[
+                              Icon(
+                                FontAwesomeIcons.powerOff,
+                                color: Colors.red,
+                                size: 15,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                'Logout',
+                                style:
+                                    TextStyle(fontSize: 15, color: Colors.red),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                    ),
-
-                  ],),
+                  ],
+                ),
               ),
               //TODO: Put all Icon Container
             ],
           ),
-        ),        body: Container(
+        ),
+        body: Container(
           color: Colors.grey[300],
-
-          child:
-          classScheduleCourseJson==null ? Center(
-              child: Text('')
-          ) :
-          ListView.builder(
-            itemCount: classScheduleCourseJson.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                elevation: 10,
-                child: DottedBorder(
-                  color: Colors.blue,
-                  gap: 3,
-                  strokeWidth: 1,
-                  child: Column(
-                    children: <Widget>[
-                      Row(children: <Widget>[
-                        Text('Course :'),
-                        Text(classScheduleCourseJson[index]['COURSE NAME'])
-                      ]),
-                      Row(
-                        children: <Widget>[
-                          Text('Faculty Name : '),
-                          Text(
-                            classScheduleCourseJson[index]['FACULTY NAME']
-                                .toString(),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          Text("EXTN: "),
-                          Text(classScheduleCourseJson[index]['EXTN']
-                              .toString()),
-                        ],
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Text("Email: "),
-                          Text(classScheduleCourseJson[index]['MAILID']
-                              .toString()),
-                        ],
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Text('Course Code : '.padRight(10)),
-                          Text(
-                            classScheduleCourseJson[index]['CODE'].toString(),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            },
-          ),
-        ));
-  }
-
-  void _showLoading(isLoading) {
-    if (isLoading) {
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return WillPopScope(
-              onWillPop: () {},
-              child: new AlertDialog(
-                title: Image.asset('images/logo.png',
-                  height: 50,
-                ),
-                shape: SuperellipseShape(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                ),
-                content: Padding(
-                  padding: const EdgeInsets.only(left: 50.0),
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 25.0),
-                        child: new CircularProgressIndicator(
-                          strokeWidth: 2,
+          child: classScheduleCourseJson == null
+              ? Center(child: Text(''))
+              : ListView.builder(
+                  itemCount: classScheduleCourseJson.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      elevation: 10,
+                      child: DottedBorder(
+                        color: Colors.blue,
+                        gap: 3,
+                        strokeWidth: 1,
+                        child: Column(
+                          children: <Widget>[
+                            FittedBox(
+                              child: Row(children: <Widget>[
+                                Text(
+                                  classScheduleCourseJson[index]['COURSE NAME'],
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                )
+                              ]),
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Text('Faculty Name : '),
+                                Text(
+                                    classScheduleCourseJson[index]
+                                            ['FACULTY NAME']
+                                        .toString(),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold)),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                Text("EXTN:"),
+                                GestureDetector(
+                                  onTap: () {
+                                    launch('tel:0097165441155' +
+                                            ',1' +
+                                            ',' +
+                                            classScheduleCourseJson[index]
+                                                    ['EXTN']
+                                                .toString()
+//
+                                        );
+                                  },
+                                  child: Text(
+                                    ' +97165441155 : ' +
+                                        classScheduleCourseJson[index]['EXTN']
+                                            .toString(),
+                                    style: TextStyle(
+                                      color: Colors.blue,
+                                      decoration: TextDecoration.underline,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Text("Email: "),
+                                GestureDetector(
+                                  onTap: () {
+                                    launch('mailto:' +
+                                        classScheduleCourseJson[index]['MAILID']
+                                            .toString());
+                                  },
+                                  child: Text(
+                                    classScheduleCourseJson[index]['MAILID']
+                                        .toString(),
+                                    style: TextStyle(
+                                      color: Colors.blue,
+                                      decoration: TextDecoration.underline,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Text('Course Code : '.padRight(10)),
+                                Text(
+                                  classScheduleCourseJson[index]['CODE']
+                                      .toString(),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 12),
-                        child: new Text('Please Wait....'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          });
-    } else {
-      Navigator.pop(context);
-    }
-  }
-
-  void _showError(String msg,IconData icon) {
-    _showLoading(false);
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return WillPopScope(
-            onWillPop: () {},
-            child: new AlertDialog(
-              title: Image.asset('images/logo.png',
-                height: 50,
-              ),
-              shape: SuperellipseShape(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              content: Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 25.0),
-                      child: new Icon(icon),
-                    ),
-                    new Text(msg)
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                new FlatButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    getClassScheduleCourseDetails();
+                    );
                   },
-                  child: new Text('Try again'),
                 ),
-              ],
-            ),
-          );
-        });
+        ));
   }
 
   Future getClassScheduleCourseDetails() async {
     Future.delayed(Duration.zero, () {
       classScheduleCourseJson = [];
-      _showLoading(true);
+      showLoading(true, context);
     });
     try {
       http.Response response = await http.post(
         Uri.encodeFull(
             "https://skylineportal.com/moappad/api/web/classScheduleCourseDetails"),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'user_id': username,
-          'usertype': studentJson['data']['user_type'],
+          'usertype':studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
@@ -298,15 +257,19 @@ super.initState();
         setState(() {
           classScheduleCourseJson = json.decode(response.body)['data'];
         });
-        _showLoading(false);
+        showLoading(false, context);
       }
     } catch (x) {
-      if(x.toString().contains("TimeoutException")){
-        _showError("Time out from server",FontAwesomeIcons.hourglassHalf);
-      }else{
-        _showError("Sorry, we can't connect",Icons.perm_scan_wifi);
-      }
+      if (x.toString().contains("TimeoutException")) {
+        showLoading(false, context);
 
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getClassScheduleCourseDetails);
+      } else {
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getClassScheduleCourseDetails);
+      }
     }
   }
 }

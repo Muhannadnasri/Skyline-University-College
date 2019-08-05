@@ -18,14 +18,19 @@ class FinalTermResults extends StatefulWidget {
   }
 }
 
-Map<String, int> body;
+// Map<String, int> body;
 
 class _FinalTermResultsState extends State<FinalTermResults> {
+  List finalTermMarksJson = [];
+  List finalTermResultsJson = [];
+  Map finalTermResultsMessageJson={};
+
   @override
   void initState() {
-super.initState();
-finalTermResultsJson = [];
-finalTermMarksJson=[];
+    super.initState();
+
+    finalTermResultsJson = [];
+    finalTermMarksJson = [];
 
     getFinalTermResults();
   }
@@ -35,14 +40,9 @@ finalTermMarksJson=[];
     SystemChrome.setEnabledSystemUIOverlays([]);
 
     return Scaffold(
-      appBar:PreferredSize(
-
+      appBar: PreferredSize(
         preferredSize: Size.fromHeight(70.0),
-        child:
-
-
-        Stack(
-
+        child: Stack(
           children: <Widget>[
             Column(
               children: <Widget>[
@@ -62,74 +62,82 @@ finalTermMarksJson=[];
                       ],
                     ),
                   ),
-
-                ), 
-
-
+                ),
               ],
             ),
-
 
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-
-
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Navigator.pop(context);
-
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Row(
-
                         children: <Widget>[
-
-                          Icon(Icons.arrow_back_ios,size: 15,color: Colors.white,),
-                          SizedBox(width: 5,),
-                          Text('Back',style: TextStyle(fontSize: 15,color: Colors.white),),
+                          Icon(
+                            Icons.arrow_back_ios,
+                            size: 15,
+                            color: Colors.white,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            'Back',
+                            style: TextStyle(fontSize: 15, color: Colors.white),
+                          ),
                         ],
                       ),
                     ),
                   ),
-                  Text("Final Results",style: TextStyle(color: Colors.white),),
-
+                  Text(
+                    "Final Results",
+                    style: TextStyle(color: Colors.white),
+                  ),
                   GestureDetector(
                     onTap: () {
-                     logOut(context);},
-
-                     child: GestureDetector(
-                      onTap: (){
+                      logOut(context);
+                    },
+                    child: GestureDetector(
+                      onTap: () {
                         logOut(context);
-
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(15),
                         child: Row(
                           children: <Widget>[
-
-                            Icon(FontAwesomeIcons.powerOff,color: Colors.red,size: 15,),
-                            SizedBox(width: 5,),
-                            Text('Logout',style: TextStyle(fontSize: 15,color: Colors.red),),
+                            Icon(
+                              FontAwesomeIcons.powerOff,
+                              color: Colors.red,
+                              size: 15,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'Logout',
+                              style: TextStyle(fontSize: 15, color: Colors.red),
+                            ),
                           ],
                         ),
                       ),
                     ),
                   ),
-
-                ],),
+                ],
+              ),
             ),
             //TODO: Put all Icon Container
           ],
         ),
-      ),      body: Container(
+      ),
+      body: Container(
         color: Colors.grey[300],
-        child:
-
-        ListView.builder(
+        child: ListView.builder(
           itemCount: finalTermResultsJson.length,
           itemBuilder: (BuildContext context, int index) {
             return Container(
@@ -147,26 +155,23 @@ finalTermMarksJson=[];
                     children: <Widget>[
                       Container(
                         decoration: new BoxDecoration(
-                          borderRadius:
-                          BorderRadius.all(Radius.circular(10)),
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
                           gradient: LinearGradient(
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                             colors: [
                               Color(0xFF104C90),
                               Color(0xFF3773AC),
-
                             ],
                             stops: [
                               0.7,
-
                               0.9,
-
                             ],
                           ),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 10, top: 10.0,bottom: 5),
+                          padding: const EdgeInsets.only(
+                              left: 10, top: 10.0, bottom: 5),
                           child: Row(
                             children: <Widget>[
                               Container(
@@ -185,8 +190,12 @@ finalTermMarksJson=[];
                                   getFinalTermMarks();
                                 },
                                 child: Padding(
-                                  padding: const EdgeInsets.only(bottom: 5,right:20),
-                                  child: Icon(Icons.remove_red_eye,color: Colors.white,),
+                                  padding: const EdgeInsets.only(
+                                      bottom: 5, right: 20),
+                                  child: Icon(
+                                    Icons.remove_red_eye,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               )
                             ],
@@ -263,13 +272,23 @@ finalTermMarksJson=[];
                             children: <Widget>[
                               Text('Result'),
                               Container(
-                                child:
-                                finalTermResultsJson[index]['Results'].toString()
-                                    == "FAIL" ?
-                                Text( finalTermResultsJson[index]['Results'],style: TextStyle(color: Colors.red),):
-                                finalTermResultsJson[index]['Results'].toString() == "PASS" ?
-                                Text( finalTermResultsJson[index]['Results'],style: TextStyle(color: Colors.blue),):
-SizedBox,
+                                child: finalTermResultsJson[index]['Results']
+                                            .toString() ==
+                                        "FAIL"
+                                    ? Text(
+                                        finalTermResultsJson[index]['Results'],
+                                        style: TextStyle(color: Colors.red),
+                                      )
+                                    : finalTermResultsJson[index]['Results']
+                                                .toString() ==
+                                            "PASS"
+                                        ? Text(
+                                            finalTermResultsJson[index]
+                                                ['Results'],
+                                            style:
+                                                TextStyle(color: Colors.blue),
+                                          )
+                                        : SizedBox,
                               ),
                             ],
                           ),
@@ -282,8 +301,7 @@ SizedBox,
                           Column(
                             children: <Widget>[
                               Text('Final Marks'),
-                              Text(
-                                  finalTermMarksJson.isEmpty == true
+                              Text(finalTermMarksJson.isEmpty == true
                                   ? ''
                                   : finalTermMarksJson[index]
                                           ['Final Exam Marks']
@@ -312,7 +330,8 @@ SizedBox,
         barrierDismissible: false,
         builder: (BuildContext context) {
           return new AlertDialog(
-            title: Image.asset('images/logo.png',
+            title: Image.asset(
+              'images/logo.png',
               height: 50,
             ),
             content: Row(
@@ -345,50 +364,8 @@ SizedBox,
         });
   }
 
-  void _showLoading(isLoading) {
-    if (isLoading) {
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return WillPopScope(
-              onWillPop: () {},
-              child: new AlertDialog(
-                title: Image.asset('images/logo.png',
-                  height: 50,
-                ),
-                shape: SuperellipseShape(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                ),
-                content: Padding(
-                  padding: const EdgeInsets.only(left: 50.0),
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 25.0),
-                        child: new CircularProgressIndicator(
-                          strokeWidth: 2,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 12),
-                        child: new Text('Please Wait....'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          });
-    } else {
-      Navigator.pop(context);
-    }
-  }
-
   void _showError(String msg, IconData icon) {
-    _showLoading(false);
+    showLoading(false, context);
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -396,7 +373,8 @@ SizedBox,
           return WillPopScope(
             onWillPop: () {},
             child: new AlertDialog(
-              title: Image.asset('images/logo.png',
+              title: Image.asset(
+                'images/logo.png',
                 height: 50,
               ),
               shape: SuperellipseShape(
@@ -432,19 +410,18 @@ SizedBox,
 
   Future getFinalTermResults() async {
     Future.delayed(Duration.zero, () {
-
-      _showLoading(true);
+      showLoading(true, context);
     });
     try {
       http.Response response = await http.post(
         Uri.encodeFull(
             "https://skylineportal.com/moappad/api/web/getFinalTermResults"),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'user_id': username,
-          'usertype': studentJson['data']['user_type'],
+          'usertype':studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
@@ -455,12 +432,11 @@ SizedBox,
         setState(() {
           finalTermResultsJson = json.decode(response.body)['data'];
           finalTermResultsMessageJson = json.decode(response.body);
-
         });
-        _showLoading(false);
+        showLoading(false, context);
       }
-      if ( finalTermResultsMessageJson['success'] == '0'){
-        _showLoading(false);
+      if (finalTermResultsMessageJson['success'] == '0') {
+        showLoading(false, context);
         Fluttertoast.showToast(
             msg: finalTermResultsMessageJson['message'],
             toastLength: Toast.LENGTH_SHORT,
@@ -468,32 +444,36 @@ SizedBox,
             timeInSecForIos: 1,
             backgroundColor: Colors.grey[400],
             textColor: Colors.black87,
-            fontSize: 13.0
-        );
+            fontSize: 13.0);
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
-        _showError("Time out from server", FontAwesomeIcons.hourglassHalf);
+        showLoading(false, context);
+
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getFinalTermResults);
       } else {
-        _showError("Sorry, we can't connect", Icons.perm_scan_wifi);
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getFinalTermResults);
       }
     }
   }
 
   Future getFinalTermMarks() async {
     Future.delayed(Duration.zero, () {
-      _showLoading(true);
+      showLoading(true, context);
     });
     try {
       http.Response response = await http.post(
         Uri.encodeFull(
             "https://skylineportal.com/moappad/api/web/getFinalTermMarks"),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'user_id': username,
-          'usertype': studentJson['data']['user_type'],
+          'usertype':studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
@@ -504,13 +484,20 @@ SizedBox,
         setState(() {
           finalTermMarksJson = json.decode(response.body)['data'];
         });
-        _showLoading(false);
+        showLoading(false, context);
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
-        _showError("Time out from server", FontAwesomeIcons.hourglassHalf);
+        showLoading(false, context);
+
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getFinalTermResults);
       } else {
-        _showError("Sorry, we can't connect", Icons.perm_scan_wifi);
+        showLoading(false, context);
+
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getFinalTermResults);
       }
     }
   }

@@ -24,7 +24,7 @@ String staffids = '';
 String userids = '';
 
 
-Map<String, int> body;
+// Map<String, int> body;
 
 class _GPAState extends State<GPA> {
   @override
@@ -346,99 +346,13 @@ selectStudent == 4 ? getStudentImage() : selectStudent == 1 ?  getStudentGPAProf
     );
   }
 
-  void _showLoading(isLoading) {
-    if (isLoading) {
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return WillPopScope(
-              onWillPop: () {},
-              child: new AlertDialog(
-                title: Image.asset(
-                  'images/logo.png',
-                  height: 50,
-                ),
-                shape: SuperellipseShape(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                ),
-                content: Padding(
-                  padding: const EdgeInsets.only(left: 50.0),
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 25.0),
-                        child: new CircularProgressIndicator(
-                          strokeWidth: 2,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 12),
-                        child: new Text('Please Wait....'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          });
-    } else {
-      Navigator.pop(context);
-    }
-  }
-
-  void _showError(String msg, IconData icon) {
-    _showLoading(false);
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return WillPopScope(
-            onWillPop: () {},
-            child: new AlertDialog(
-              title: Image.asset(
-                'images/logo.png',
-                height: 50,
-              ),
-              shape: SuperellipseShape(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              content: Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 25.0),
-                      child: new Icon(icon),
-                    ),
-                    new Text(msg)
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                new FlatButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    getStudentGPAProfile();
-                  },
-                  child: new Text('Try again'),
-                ),
-              ],
-            ),
-          );
-        });
-  }
-
+  
   Future getStudentGPAProfile() async {
     if (_userId.currentState.validate()) {
       _userId.currentState.save();
     }
     Future.delayed(Duration.zero, () {
-      _showLoading(true);
+      showLoading(true,context);
     });
 
     try {
@@ -446,11 +360,11 @@ selectStudent == 4 ? getStudentImage() : selectStudent == 1 ?  getStudentGPAProf
         Uri.encodeFull(
             "https://skylineportal.com/moappad/api/web/getStudentGPAProfile"),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'user_id': userids.toString(),
-          'usertype': '1',
+          'usertype':'1',
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1'
@@ -460,7 +374,7 @@ selectStudent == 4 ? getStudentImage() : selectStudent == 1 ?  getStudentGPAProf
       if (response.statusCode == 200) {
         setState(() {
           gpaJson = json.decode(response.body)['data'];
-                  _showLoading(false);
+                  showLoading(false,context);
 
         });
            Navigator.pushNamed(context, "/GPASS");
@@ -470,9 +384,12 @@ selectStudent == 4 ? getStudentImage() : selectStudent == 1 ?  getStudentGPAProf
     } catch (x) {
       print(x);
       if (x.toString().contains("TimeoutException")) {
-        _showError("Time out from server", FontAwesomeIcons.hourglassHalf);
+        showLoading(false,context);
+
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getStudentGPAProfile);
       } else {
-        _showError("Sorry, we can't connect", Icons.perm_scan_wifi);
+          showLoading(false,context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getStudentGPAProfile);
       }
     }
   }
@@ -482,19 +399,18 @@ selectStudent == 4 ? getStudentImage() : selectStudent == 1 ?  getStudentGPAProf
       _userId.currentState.save();
     }
     Future.delayed(Duration.zero, () {
-      _showLoading(true);
+      showLoading(true,context);
     });
 
     try {
       http.Response response = await http.post(
         Uri.encodeFull("https://skylineportal.com/moappad/api/web/getStudent"),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'user_id': userids.toString(),
-          'usertype': '1',
-          'ipaddress': '1',
+          'usertype':'1',          'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1'
         },
@@ -503,7 +419,7 @@ selectStudent == 4 ? getStudentImage() : selectStudent == 1 ?  getStudentGPAProf
       if (response.statusCode == 200) {
         setState(() {
           imageJson = json.decode(response.body)['data'];
-          _showLoading(false);
+          showLoading(false,context);
         });
          Navigator.pushNamed(context, "/GPASS");
         
@@ -512,9 +428,12 @@ selectStudent == 4 ? getStudentImage() : selectStudent == 1 ?  getStudentGPAProf
     } catch (x) {
       print(x);
       if (x.toString().contains("TimeoutException")) {
-        _showError("Time out from server", FontAwesomeIcons.hourglassHalf);
+        showLoading(false,context);
+
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getStudentImage);
       } else {
-        _showError("Sorry, we can't connect", Icons.perm_scan_wifi);
+          showLoading(false,context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getStudentImage);
       }
     }
   }
@@ -524,19 +443,18 @@ selectStudent == 4 ? getStudentImage() : selectStudent == 1 ?  getStudentGPAProf
       _userId.currentState.save();
     }
     Future.delayed(Duration.zero, () {
-      _showLoading(true);
+      showLoading(true,context);
     });
 
     try {
       http.Response response = await http.post(
         Uri.encodeFull("https://skylineportal.com/moappad/api/web/getFinal"),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'user_id': userids.toString(),
-          'usertype': '1',
-          'ipaddress': '1',
+          'usertype':'1',          'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1'
         },
@@ -545,7 +463,7 @@ selectStudent == 4 ? getStudentImage() : selectStudent == 1 ?  getStudentGPAProf
       if (response.statusCode == 200) {
         setState(() {
           finalJson = json.decode(response.body)['data'];
-           _showLoading(false);
+           showLoading(false,context);
         });
          Navigator.pushNamed(context, "/GPASS");
        
@@ -554,9 +472,12 @@ selectStudent == 4 ? getStudentImage() : selectStudent == 1 ?  getStudentGPAProf
     } catch (x) {
       print(x);
       if (x.toString().contains("TimeoutException")) {
-        _showError("Time out from server", FontAwesomeIcons.hourglassHalf);
+        showLoading(false,context);
+
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getFinalMarks);
       } else {
-        _showError("Sorry, we can't connect", Icons.perm_scan_wifi);
+          showLoading(false,context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getFinalMarks);
       }
     }
   }
@@ -566,19 +487,18 @@ selectStudent == 4 ? getStudentImage() : selectStudent == 1 ?  getStudentGPAProf
       _userId.currentState.save();
     }
     Future.delayed(Duration.zero, () {
-      _showLoading(true);
+      showLoading(true,context);
     });
 
     try {
       http.Response response = await http.post(
         Uri.encodeFull("https://skylineportal.com/moappad/api/web/getMarks"),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'user_id': userids.toString(),
-          'usertype': '1',
-          'ipaddress': '1',
+          'usertype':'1',          'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1'
         },
@@ -587,7 +507,7 @@ selectStudent == 4 ? getStudentImage() : selectStudent == 1 ?  getStudentGPAProf
       if (response.statusCode == 200) {
         setState(() {
           marksJson = json.decode(response.body)['data'];
-           _showLoading(false);
+           showLoading(false,context);
         });
          Navigator.pushNamed(context, "/GPASS");
        
@@ -596,9 +516,12 @@ selectStudent == 4 ? getStudentImage() : selectStudent == 1 ?  getStudentGPAProf
     } catch (x) {
       print(x);
       if (x.toString().contains("TimeoutException")) {
-        _showError("Time out from server", FontAwesomeIcons.hourglassHalf);
+        showLoading(false,context);
+
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getMarks);
       } else {
-        _showError("Sorry, we can't connect", Icons.perm_scan_wifi);
+          showLoading(false,context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getMarks);
       }
     }
   }
@@ -608,19 +531,18 @@ selectStudent == 4 ? getStudentImage() : selectStudent == 1 ?  getStudentGPAProf
       _staffId.currentState.save();
     }
     Future.delayed(Duration.zero, () {
-      _showLoading(true);
+      showLoading(true,context);
     });
 
     try {
       http.Response response = await http.post(
         Uri.encodeFull("https://skylineportal.com/moappad/api/web/getStaffP"),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'user_id': staffids.toString(),
-          'usertype': '1',
-          'ipaddress': '1',
+          'usertype':'1',          'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1'
         },
@@ -629,7 +551,7 @@ selectStudent == 4 ? getStudentImage() : selectStudent == 1 ?  getStudentGPAProf
       if (response.statusCode == 200) {
         setState(() {
           staffPJson = json.decode(response.body)['data'];
-              _showLoading(false);
+              showLoading(false,context);
         });
 
  Navigator.pushNamed(context, "/GPAS");
@@ -639,9 +561,12 @@ selectStudent == 4 ? getStudentImage() : selectStudent == 1 ?  getStudentGPAProf
     } catch (x) {
       print(x);
       if (x.toString().contains("TimeoutException")) {
-        _showError("Time out from server", FontAwesomeIcons.hourglassHalf);
+        showLoading(false,context);
+
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getStaffP);
       } else {
-        _showError("Sorry, we can't connect", Icons.perm_scan_wifi);
+          showLoading(false,context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getStaffP);
       }
     }
   }
@@ -653,19 +578,18 @@ Future getFinalx() async {
       _userId.currentState.save();
     }
     Future.delayed(Duration.zero, () {
-      _showLoading(true);
+      showLoading(true,context);
     });
 
     try {
       http.Response response = await http.post(
         Uri.encodeFull("https://skylineportal.com/moappad/api/web/getFinalx"),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'stud_id': userids.toString(),
-          'usertype': '1',
-          'ipaddress': '1',
+          'usertype':'1',          'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1'
         },
@@ -674,7 +598,7 @@ Future getFinalx() async {
       if (response.statusCode == 200) {
         setState(() {
           finalxJson = json.decode(response.body)['data'];
-              _showLoading(false);
+              showLoading(false,context);
         });
 
  Navigator.pushNamed(context, "/GPASS");
@@ -684,9 +608,12 @@ Future getFinalx() async {
     } catch (x) {
       print(x);
       if (x.toString().contains("TimeoutException")) {
-        _showError("Time out from server", FontAwesomeIcons.hourglassHalf);
+        showLoading(false,context);
+
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getFinalx);
       } else {
-        _showError("Sorry, we can't connect", Icons.perm_scan_wifi);
+          showLoading(false,context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getFinalx);
       }
     }
   }
@@ -699,19 +626,18 @@ Future getFinalx() async {
       _userId.currentState.save();
     }
     Future.delayed(Duration.zero, () {
-      _showLoading(true);
+      showLoading(true,context);
     });
 
     try {
       http.Response response = await http.post(
         Uri.encodeFull("https://skylineportal.com/moappad/api/web/getStudentP"),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'user_id': userids.toString(),
-          'usertype': '1',
-          'ipaddress': '1',
+          'usertype':'1',          'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1'
         },
@@ -720,7 +646,7 @@ Future getFinalx() async {
       if (response.statusCode == 200) {
         setState(() {
           studentPJson = json.decode(response.body)['data'];
-              _showLoading(false);
+              showLoading(false,context);
         });
 
  Navigator.pushNamed(context, "/GPASS");
@@ -730,9 +656,12 @@ Future getFinalx() async {
     } catch (x) {
       print(x);
       if (x.toString().contains("TimeoutException")) {
-        _showError("Time out from server", FontAwesomeIcons.hourglassHalf);
+        showLoading(false,context);
+
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getStudentP);
       } else {
-        _showError("Sorry, we can't connect", Icons.perm_scan_wifi);
+          showLoading(false,context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getStudentP);
       }
     }
   }

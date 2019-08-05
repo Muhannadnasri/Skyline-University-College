@@ -27,15 +27,18 @@ final _isbn = GlobalKey<FormState>();
 final _quantity = GlobalKey<FormState>();
 final _price = GlobalKey<FormState>();
 
-Map<String, int> body;
+// Map<String, int> body;
 
 class _BookRequisitionState extends State<BookRequisition> {
+  Map bookRequisitionJson={};
+
   String _type;
 
   @override
   void initState() {
     super.initState();
     getLibraryMaterial();
+    bookRequisitionJson={};
   }
 
   @override
@@ -508,50 +511,10 @@ class _BookRequisitionState extends State<BookRequisition> {
     );
   }
 
-  void _showLoading(isLoading) {
-    if (isLoading) {
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return WillPopScope(
-              onWillPop: () {},
-              child: new AlertDialog(
-                title: Image.asset('images/logo.png',
-                  height: 50,
-                ),
-                shape: SuperellipseShape(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                ),
-                content: Padding(
-                  padding: const EdgeInsets.only(left: 50.0),
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 25.0),
-                        child: new CircularProgressIndicator(
-                          strokeWidth: 2,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 12),
-                        child: new Text('Please Wait....'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          });
-    } else {
-      Navigator.pop(context);
-    }
-  }
+ 
 
   void _showError(String msg, IconData icon) {
-    _showLoading(false);
+    showLoading(false,context);
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -597,7 +560,7 @@ class _BookRequisitionState extends State<BookRequisition> {
 
   Future getLibraryMaterial() async {
     Future.delayed(Duration.zero, () {
-      _showLoading(true);
+      showLoading(true,context);
     });
 
     try {
@@ -605,10 +568,10 @@ class _BookRequisitionState extends State<BookRequisition> {
         Uri.encodeFull(
             'https://skylineportal.com/moappad/api/web/getLibraryMaterial'),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
-          'usertype': studentJson['data']['user_type'],
+          'usertype':studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
@@ -621,13 +584,16 @@ class _BookRequisitionState extends State<BookRequisition> {
             libraryMaterialJson = json.decode(response.body)['data'];
           },
         );
-        _showLoading(false);
+        showLoading(false,context);
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
-        _showError("Time out from server", FontAwesomeIcons.hourglassHalf);
+        showLoading(false,context);
+
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getLibraryMaterial);
       } else {
-        _showError("Sorry, we can't connect", Icons.perm_scan_wifi);
+          showLoading(false,context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getLibraryMaterial);
       }
     }
   }
@@ -658,7 +624,7 @@ class _BookRequisitionState extends State<BookRequisition> {
       _price.currentState.save();
     }
     Future.delayed(Duration.zero, () {
-      _showLoading(true);
+      showLoading(true,context);
     });
 
     try {
@@ -666,7 +632,7 @@ class _BookRequisitionState extends State<BookRequisition> {
         Uri.encodeFull(
             'https://skylineportal.com/moappad/api/web/libraryBookRequisition'),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'user_id': username,
@@ -680,7 +646,7 @@ class _BookRequisitionState extends State<BookRequisition> {
           'quantity': bQuantity,
           'price': bPrice,
           'type_of_material': _type,
-          'usertype': studentJson['data']['user_type'],
+          'usertype':studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
@@ -693,10 +659,10 @@ class _BookRequisitionState extends State<BookRequisition> {
             bookRequisitionJson = json.decode(response.body);
           },
         );
-        _showLoading(false);
+        showLoading(false,context);
       }
       if ( bookRequisitionJson['success'] == '0'){
-        _showLoading(false);
+        showLoading(false,context);
         Fluttertoast.showToast(
             msg: bookRequisitionJson['message'],
             toastLength: Toast.LENGTH_SHORT,
@@ -709,9 +675,12 @@ class _BookRequisitionState extends State<BookRequisition> {
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
-        _showError("Time out from server", FontAwesomeIcons.hourglassHalf);
+        showLoading(false,context);
+
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getLibraryMaterial);
       } else {
-        _showError("Sorry, we can't connect", Icons.perm_scan_wifi);
+          showLoading(false,context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getLibraryMaterial);
       }
     }
   }

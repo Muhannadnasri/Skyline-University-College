@@ -18,15 +18,16 @@ class StudentGPAProfile extends StatefulWidget {
   }
 }
 
-Map<String, int> body;
+// Map<String, int> body;
 
 class _StudentGPAProfileState extends State<StudentGPAProfile> {
+  Map studentGPAProfileJson = {};
+
   @override
   void initState() {
-super.initState();
+    super.initState();
     getStudentGPAProfile();
-  studentGPAProfileJson.clear();
-
+    studentGPAProfileJson.clear();
   }
 
   @override
@@ -34,14 +35,9 @@ super.initState();
     SystemChrome.setEnabledSystemUIOverlays([]);
 
     return Scaffold(
-      appBar:PreferredSize(
-
+      appBar: PreferredSize(
         preferredSize: Size.fromHeight(70.0),
-        child:
-
-
-        Stack(
-
+        child: Stack(
           children: <Widget>[
             Column(
               children: <Widget>[
@@ -61,72 +57,81 @@ super.initState();
                       ],
                     ),
                   ),
-
-                ), 
-
-
+                ),
               ],
             ),
-
 
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-
-
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Navigator.pop(context);
-
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Row(
-
                         children: <Widget>[
-
-                          Icon(Icons.arrow_back_ios,size: 15,color: Colors.white,),
-                          SizedBox(width: 5,),
-                          Text('Back',style: TextStyle(fontSize: 15,color: Colors.white),),
+                          Icon(
+                            Icons.arrow_back_ios,
+                            size: 15,
+                            color: Colors.white,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            'Back',
+                            style: TextStyle(fontSize: 15, color: Colors.white),
+                          ),
                         ],
                       ),
                     ),
                   ),
-                  Text("GPA",style: TextStyle(color: Colors.white),),
-
+                  Text(
+                    "GPA",
+                    style: TextStyle(color: Colors.white),
+                  ),
                   GestureDetector(
                     onTap: () {
-                     logOut(context);},
-
-                     child: GestureDetector(
-                      onTap: (){
+                      logOut(context);
+                    },
+                    child: GestureDetector(
+                      onTap: () {
                         logOut(context);
-
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(15),
                         child: Row(
                           children: <Widget>[
-
-                            Icon(FontAwesomeIcons.powerOff,color: Colors.red,size: 15,),
-                            SizedBox(width: 5,),
-                            Text('Logout',style: TextStyle(fontSize: 15,color: Colors.red),),
+                            Icon(
+                              FontAwesomeIcons.powerOff,
+                              color: Colors.red,
+                              size: 15,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'Logout',
+                              style: TextStyle(fontSize: 15, color: Colors.red),
+                            ),
                           ],
                         ),
                       ),
                     ),
                   ),
-
-                ],),
+                ],
+              ),
             ),
             //TODO: Put all Icon Container
           ],
         ),
       ),
       body: Container(
-        color:Colors.grey[300],
+        color: Colors.grey[300],
         child: Container(
           height: 230,
           decoration: BoxDecoration(
@@ -147,33 +152,37 @@ super.initState();
                   children: <Widget>[
                     Container(
                       decoration: new BoxDecoration(
-                        borderRadius:
-                        BorderRadius.all(Radius.circular(10)),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
                         gradient: LinearGradient(
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                           colors: [
                             Color(0xFF104C90),
                             Color(0xFF3773AC),
-
                           ],
                           stops: [
                             0.7,
-
                             0.9,
-
                           ],
                         ),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 10, top: 10.0,bottom: 5),
+                        padding: const EdgeInsets.only(
+                            left: 10, top: 10.0, bottom: 5),
                         child: Row(
                           children: <Widget>[
                             Container(
                               child: Expanded(
                                 child: Text(
-                                studentGPAProfileJson.isEmpty  ? ' ':
-                                  studentGPAProfileJson['data']['STUDENT NAME'] ==  'null'  ?  ''  : studentGPAProfileJson['data']['STUDENT NAME'].toString(),
+                                  studentGPAProfileJson.isEmpty
+                                      ? ' '
+                                      : studentGPAProfileJson['data']
+                                                  ['STUDENT NAME'] ==
+                                              'null'
+                                          ? ''
+                                          : studentGPAProfileJson['data']
+                                                  ['STUDENT NAME']
+                                              .toString(),
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 15,
@@ -192,22 +201,20 @@ super.initState();
                       padding: const EdgeInsets.only(left: 10, top: 10.0),
                       child: Row(
                         children: <Widget>[
-                          Text('My Advisor : ', style:
-                          TextStyle(fontSize: 12, color: Colors.black),),
                           Text(
-
-
-                              studentGPAProfileJson.isEmpty  ? ' ':
-                            studentGPAProfileJson['data']['ADVISOR'].toString() ==
-
-
-                                'null'  ?  '' :
-
-                            studentGPAProfileJson['data']['ADVISOR']  , style: TextStyle(fontSize: 13),
-
-
+                            'My Advisor : ',
+                            style: TextStyle(fontSize: 12, color: Colors.black),
                           ),
-
+                          Text(
+                            studentGPAProfileJson.isEmpty
+                                ? ' '
+                                : studentGPAProfileJson['data']['ADVISOR']
+                                            .toString() ==
+                                        'null'
+                                    ? ''
+                                    : studentGPAProfileJson['data']['ADVISOR'],
+                            style: TextStyle(fontSize: 13),
+                          ),
                         ],
                       ),
                     ),
@@ -220,8 +227,16 @@ super.initState();
                             style: TextStyle(fontSize: 12),
                           ),
                           Text(
-                            studentGPAProfileJson.isEmpty  ? ' ':
-                            studentGPAProfileJson['data']['TRANSFER OF CREDIT (TOC)'] == 'null' ? '' : studentGPAProfileJson['data']['TRANSFER OF CREDIT (TOC)'].toString()  , style: TextStyle(fontSize: 13),
+                            studentGPAProfileJson.isEmpty
+                                ? ' '
+                                : studentGPAProfileJson['data']
+                                            ['TRANSFER OF CREDIT (TOC)'] ==
+                                        'null'
+                                    ? ''
+                                    : studentGPAProfileJson['data']
+                                            ['TRANSFER OF CREDIT (TOC)']
+                                        .toString(),
+                            style: TextStyle(fontSize: 13),
                           ),
                         ],
                       ),
@@ -238,11 +253,16 @@ super.initState();
                             style: TextStyle(fontSize: 12),
                           ),
                           Text(
-
-                            studentGPAProfileJson.isEmpty  ? ' ':
-                            studentGPAProfileJson['data']['TOTAL CREDIT EARNED (INCLUDING TOC)'] ==  'null' ? '' : studentGPAProfileJson['data']['TOTAL CREDIT EARNED (INCLUDING TOC)'].toString(),
-                              style:
-                            TextStyle(fontSize: 13, color: Colors.black),
+                            studentGPAProfileJson.isEmpty
+                                ? ' '
+                                : studentGPAProfileJson['data'][
+                                            'TOTAL CREDIT EARNED (INCLUDING TOC)'] ==
+                                        'null'
+                                    ? ''
+                                    : studentGPAProfileJson['data'][
+                                            'TOTAL CREDIT EARNED (INCLUDING TOC)']
+                                        .toString(),
+                            style: TextStyle(fontSize: 13, color: Colors.black),
                           ),
                         ],
                       ),
@@ -254,14 +274,17 @@ super.initState();
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
                         Padding(
-                          padding: const EdgeInsets.only(left:8.0),
+                          padding: const EdgeInsets.only(left: 8.0),
                           child: Column(
                             children: <Widget>[
                               Text('GPA'),
-                              Text(
-
-                                  studentGPAProfileJson.isEmpty  ? ' ':
-                                  studentGPAProfileJson['data']['CGPA']  == 'null' ? ' ' : studentGPAProfileJson['data']['CGPA'] .toString())
+                              Text(studentGPAProfileJson.isEmpty
+                                  ? ' '
+                                  : studentGPAProfileJson['data']['CGPA'] ==
+                                          'null'
+                                      ? ' '
+                                      : studentGPAProfileJson['data']['CGPA']
+                                          .toString())
                             ],
                           ),
                         ),
@@ -269,35 +292,46 @@ super.initState();
                           children: <Widget>[
                             Text('Level'),
                             Text(
-
-                              studentGPAProfileJson.isEmpty  ? ' ':
-                              studentGPAProfileJson['data']
-
-                            ['LEVEL']  =='null' ? '' :  studentGPAProfileJson['data']
-                            ['LEVEL'] .toString(),),
+                              studentGPAProfileJson.isEmpty
+                                  ? ' '
+                                  : studentGPAProfileJson['data']['LEVEL'] ==
+                                          'null'
+                                      ? ''
+                                      : studentGPAProfileJson['data']['LEVEL']
+                                          .toString(),
+                            ),
                           ],
                         ),
-
                         Column(
                           children: <Widget>[
                             Text('Credit To Completed'),
                             Container(
-                              child: Text(
-                                  studentGPAProfileJson.isEmpty  ? ' ':
-                                  studentGPAProfileJson['data']['CREDIT TO BE COMPLETED']  == 'null' ? '': studentGPAProfileJson['data']['CREDIT TO BE COMPLETED'].toString()   ),
+                              child: Text(studentGPAProfileJson.isEmpty
+                                  ? ' '
+                                  : studentGPAProfileJson['data']
+                                              ['CREDIT TO BE COMPLETED'] ==
+                                          'null'
+                                      ? ''
+                                      : studentGPAProfileJson['data']
+                                              ['CREDIT TO BE COMPLETED']
+                                          .toString()),
                             ),
                           ],
                         ),
                         Column(
                           children: <Widget>[
                             Text('CREDIT ATTENDED'),
-                            Text(
-
-                                studentGPAProfileJson.isEmpty  ? ' ':
-                                studentGPAProfileJson['data']['CREDIT ATTENDED'] == 'null' ? '': studentGPAProfileJson['data']['CREDIT ATTENDED'].toString()),
+                            Text(studentGPAProfileJson.isEmpty
+                                ? ' '
+                                : studentGPAProfileJson['data']
+                                            ['CREDIT ATTENDED'] ==
+                                        'null'
+                                    ? ''
+                                    : studentGPAProfileJson['data']
+                                            ['CREDIT ATTENDED']
+                                        .toString()),
                           ],
                         ),
-
                       ],
                     ),
                     SizedBox(
@@ -313,107 +347,21 @@ super.initState();
     );
   }
 
-  void _showLoading(isLoading) {
-    if (isLoading) {
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return WillPopScope(
-              onWillPop: () {},
-              child: new AlertDialog(
-                title: Image.asset('images/logo.png',
-                  height: 50,
-                ),
-                shape: SuperellipseShape(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                ),
-                content: Padding(
-                  padding: const EdgeInsets.only(left: 50.0),
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 25.0),
-                        child: new CircularProgressIndicator(
-                          strokeWidth: 2,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 12),
-                        child: new Text('Please Wait....'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          });
-    } else {
-      Navigator.pop(context);
-    }
-  }
-
-  void _showError(String msg,IconData icon) {
-    _showLoading(false);
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return WillPopScope(
-            onWillPop: () {},
-            child: new AlertDialog(
-              title: Image.asset('images/logo.png',
-                height: 50,
-              ),
-              shape: SuperellipseShape(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              content: Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 25.0),
-                      child: new Icon(icon),
-                    ),
-                    new Text(msg)
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                new FlatButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    getStudentGPAProfile();
-                  },
-                  child: new Text('Try again'),
-                ),
-              ],
-            ),
-          );
-        });
-  }
-
   Future getStudentGPAProfile() async {
     Future.delayed(Duration.zero, () {
-      _showLoading(true);
+      showLoading(true, context);
     });
 
     try {
-
       http.Response response = await http.post(
         Uri.encodeFull(
             "https://skylineportal.com/moappad/api/web/getStudentGPAProfile"),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'user_id': username,
-          'usertype': studentJson['data']['user_type'],
+          'usertype':studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1'
@@ -425,16 +373,18 @@ super.initState();
           studentGPAProfileJson = json.decode(response.body);
         });
 
-
-        _showLoading(false);
+        showLoading(false, context);
       }
     } catch (x) {
-      if(x.toString().contains("TimeoutException")){
-        _showError("Time out from server",FontAwesomeIcons.hourglassHalf);
-      }else{
-        _showError("Sorry, we can't connect",Icons.perm_scan_wifi);
+      if (x.toString().contains("TimeoutException")) {
+        showLoading(false, context);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getStudentGPAProfile);
+      } else {
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getStudentGPAProfile);
       }
-
     }
   }
 }

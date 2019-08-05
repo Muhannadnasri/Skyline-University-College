@@ -27,9 +27,11 @@ final _internationalNumber = GlobalKey<FormState>();
 final _reasonPassport = GlobalKey<FormState>();
 
 
-Map<String, int> body;
+// Map<String, int> body;
 
 class _PassportWithdrawalState extends State<PassportWithdrawal> {
+  Map passportWithdrawalJson;
+
   int groupValue;
   String ID;
   String _dateTimeReturnPassport = '';
@@ -470,90 +472,6 @@ SizedBox(height: 20,),
     );
   }
 
-  void _showLoading(isLoading) {
-    if (isLoading) {
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return WillPopScope(
-              onWillPop: () {},
-              child: new AlertDialog(
-                title: Image.asset('images/logo.png',
-                  height: 50,
-                ),
-                shape: SuperellipseShape(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                ),
-                content: Padding(
-                  padding: const EdgeInsets.only(left: 50.0),
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 25.0),
-                        child: new CircularProgressIndicator(
-                          strokeWidth: 2,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 12),
-                        child: new Text('Please Wait....'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          });
-    } else {
-      Navigator.pop(context);
-    }
-  }
-
-  void _showError(String msg,IconData icon) {
-    _showLoading(false);
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return WillPopScope(
-            onWillPop: () {},
-            child: new AlertDialog(
-              title: Image.asset('images/logo.png',
-                height: 50,
-              ),
-              shape: SuperellipseShape(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              content: Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 25.0),
-                      child: new Icon(icon),
-                    ),
-                    new Text(msg)
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                new FlatButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    getPassportWithdrawal();
-                  },
-                  child: new Text('Try again'),
-                ),
-              ],
-            ),
-          );
-        });
-  }
 
   Future getPassportWithdrawal() async {
     if (_localName.currentState.validate()) {
@@ -572,7 +490,7 @@ SizedBox(height: 20,),
       _reasonPassport.currentState.save();
     }
     Future.delayed(Duration.zero, () {
-      _showLoading(true);
+      showLoading(true,context);
     });
 
     try {
@@ -580,7 +498,7 @@ SizedBox(height: 20,),
         Uri.encodeFull(
             'https://skylineportal.com/moappad/api/web/passportRetaining'),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'user_id': username,
@@ -590,7 +508,7 @@ SizedBox(height: 20,),
           'intl_contact': internationalNumber,
           'return_date': _dateTimeReturnPassport,
           'reason': reasonPassport,
-          'usertype': studentJson['data']['user_type'],
+          'usertype':studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
@@ -603,10 +521,10 @@ SizedBox(height: 20,),
             passportWithdrawalJson = json.decode(response.body);
           },
         );
-        _showLoading(false);
+        showLoading(false,context);
       }
       if ( passportWithdrawalJson['success'] == '0'){
-        _showLoading(false);
+        showLoading(false,context);
         Fluttertoast.showToast(
             msg: passportWithdrawalJson['message'],
             toastLength: Toast.LENGTH_SHORT,
@@ -619,9 +537,9 @@ SizedBox(height: 20,),
       }
     } catch (x) {
       if(x.toString().contains("TimeoutException")){
-        _showError("Time out from server",FontAwesomeIcons.hourglassHalf);
+        showLoading(false,context);showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getPassportWithdrawal);
       }else{
-        _showError("Sorry, we can't connect",Icons.perm_scan_wifi);
+        showLoading(false,context); showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getPassportWithdrawal);
       }
 
     }

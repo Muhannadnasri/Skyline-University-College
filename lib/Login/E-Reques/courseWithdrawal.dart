@@ -9,7 +9,6 @@ import 'package:http/http.dart' as http;
 import 'package:skyline_university/Home/home.dart';
 import 'package:superellipse_shape/superellipse_shape.dart';
 
-
 void main() => runApp(CourseWithdrawal());
 
 class CourseWithdrawal extends StatefulWidget {
@@ -21,18 +20,19 @@ class CourseWithdrawal extends StatefulWidget {
 
 final _remarkCourse = GlobalKey<FormState>();
 
-Map<String, int> body;
+// Map<String, int> body;
 
 class _CourseWithdrawalState extends State<CourseWithdrawal> {
+  Map courseWithdrawalJson = {};
+
   int groupValue;
   String id;
 
   @override
   void initState() {
-super.initState();
+    super.initState();
     getCourseWithdrawalCourses();
-courseNameJson.clear();
-
+    courseNameJson.clear();
   }
 
   @override
@@ -41,13 +41,8 @@ courseNameJson.clear();
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: PreferredSize(
-
         preferredSize: Size.fromHeight(70.0),
-        child:
-
-
-        Stack(
-
+        child: Stack(
           children: <Widget>[
             Column(
               children: <Widget>[
@@ -67,65 +62,74 @@ courseNameJson.clear();
                       ],
                     ),
                   ),
-
-                ), 
-
-
+                ),
               ],
             ),
-
 
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-
-
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Navigator.pop(context);
-
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Row(
-
                         children: <Widget>[
-
-                          Icon(Icons.arrow_back_ios,size: 15,color: Colors.white,),
-                          SizedBox(width: 5,),
-                          Text('Back',style: TextStyle(fontSize: 15,color: Colors.white),),
+                          Icon(
+                            Icons.arrow_back_ios,
+                            size: 15,
+                            color: Colors.white,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            'Back',
+                            style: TextStyle(fontSize: 15, color: Colors.white),
+                          ),
                         ],
                       ),
                     ),
                   ),
-                  Text("Course Withdrawal",style: TextStyle(color: Colors.white),),
-
+                  Text(
+                    "Course Withdrawal",
+                    style: TextStyle(color: Colors.white),
+                  ),
                   GestureDetector(
                     onTap: () {
-                     logOut(context);},
-
-                     child: GestureDetector(
-                      onTap: (){
+                      logOut(context);
+                    },
+                    child: GestureDetector(
+                      onTap: () {
                         logOut(context);
-
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(15),
                         child: Row(
                           children: <Widget>[
-
-                            Icon(FontAwesomeIcons.powerOff,color: Colors.red,size: 15,),
-                            SizedBox(width: 5,),
-                            Text('Logout',style: TextStyle(fontSize: 15,color: Colors.red),),
+                            Icon(
+                              FontAwesomeIcons.powerOff,
+                              color: Colors.red,
+                              size: 15,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'Logout',
+                              style: TextStyle(fontSize: 15, color: Colors.red),
+                            ),
                           ],
                         ),
                       ),
                     ),
                   ),
-
-                ],),
+                ],
+              ),
             ),
             //TODO: Put all Icon Container
           ],
@@ -140,19 +144,19 @@ courseNameJson.clear();
                 FocusScope.of(context).requestFocus(new FocusNode());
               },
               child: Column(
-                
                 children: <Widget>[
-                  SizedBox(height: 15,),
+                  SizedBox(
+                    height: 15,
+                  ),
                   Container(
                     alignment: Alignment.centerLeft,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        'Course Code',style: TextStyle(color: Colors.grey[600]),
+                        'Course Code',
+                        style: TextStyle(color: Colors.grey[600]),
                       ),
-
                     ),
-
                   ),
                   SizedBox(
                     height: 10,
@@ -162,15 +166,18 @@ courseNameJson.clear();
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: DropdownButton<String>(
-                          hint: Text('Select Option',style: TextStyle(color: Colors.black),),
+                          hint: Text(
+                            'Select Option',
+                            style: TextStyle(color: Colors.black),
+                          ),
                           isExpanded: true,
                           value: id,
                           items: courseWithdrawalCoursesJson
                                   ?.map(
                                     (item) => DropdownMenuItem<String>(
-                                          value: item['CDD_ID'].toString(),
-                                          child: Text(item['Cdd_COde']),
-                                        ),
+                                      value: item['CDD_ID'].toString(),
+                                      child: Text(item['Cdd_COde']),
+                                    ),
                                   )
                                   ?.toList() ??
                               [],
@@ -192,9 +199,10 @@ courseNameJson.clear();
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
                         alignment: Alignment.centerLeft,
-
-
-                        child: Text('Course Title',style: TextStyle(color: Colors.grey[600]),)),
+                        child: Text(
+                          'Course Title',
+                          style: TextStyle(color: Colors.grey[600]),
+                        )),
                   ),
                   SizedBox(
                     height: 15,
@@ -202,7 +210,7 @@ courseNameJson.clear();
                   Padding(
                     padding: const EdgeInsets.only(left: 5.0, right: 5),
                     child: Container(
-                      height: 50 ,
+                      height: 50,
                       decoration: new BoxDecoration(
                         gradient: LinearGradient(
                           begin: Alignment.topCenter,
@@ -222,13 +230,10 @@ courseNameJson.clear();
                         padding: const EdgeInsets.only(left: 8.0),
                         child: Center(
                           child: Text(
- courseNameJson.isEmpty
-                                                    ?
-                                                    ''
-                                                    :
-                        
-                        
-                              courseNameJson['data']['CourseName'],style: TextStyle(color: Colors.white),
+                            courseNameJson.isEmpty
+                                ? ''
+                                : courseNameJson['data']['CourseName'],
+                            style: TextStyle(color: Colors.white),
                           ),
                         ),
                       ),
@@ -251,32 +256,34 @@ courseNameJson.clear();
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: TextFormField(
-
                                 textCapitalization: TextCapitalization.words,
                                 maxLines: null,
                                 onSaved: (x) {
                                   remarkCourse = x;
                                 },
-                                decoration:
-
-                                InputDecoration(
+                                decoration: InputDecoration(
                                   labelText: "Remark",
                                   fillColor: Colors.white,
-
                                   helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your Reason',hintStyle: TextStyle(fontSize: 15),
+                                  hintText: 'Please Enter Your Reason',
+                                  hintStyle: TextStyle(fontSize: 15),
                                   isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.bookmark,size: 15,color: Colors.purple,),
+                                  prefixIcon: Icon(
+                                    FontAwesomeIcons.bookmark,
+                                    size: 15,
+                                    color: Colors.purple,
+                                  ),
                                 ),
                               ),
                             ),
                           ],
                         ),
                       ),
-
                     ],
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Container(
                       height: 35,
                       width: 80,
@@ -294,14 +301,15 @@ courseNameJson.clear();
                           ],
                         ),
                       ),
-
                       child: GestureDetector(
-
-                          onTap: (){
+                          onTap: () {
                             getCourseWithdrawal();
                           },
-                          child: Center(child: Text('Submit',style: TextStyle(color: Colors.white),)))
-                  ),
+                          child: Center(
+                              child: Text(
+                            'Submit',
+                            style: TextStyle(color: Colors.white),
+                          )))),
                 ],
               ),
             ),
@@ -311,95 +319,11 @@ courseNameJson.clear();
     );
   }
 
-  void _showLoading(isLoading) {
-    if (isLoading) {
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return WillPopScope(
-              onWillPop: () {},
-              child: new AlertDialog(
-                title: Image.asset('images/logo.png',
-                  height: 50,
-                ),
-                shape: SuperellipseShape(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                ),
-                content: Padding(
-                  padding: const EdgeInsets.only(left: 50.0),
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 25.0),
-                        child: new CircularProgressIndicator(
-                          strokeWidth: 2,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 12),
-                        child: new Text('Please Wait....'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          });
-    } else {
-      Navigator.pop(context);
-    }
-  }
-
-  void _showError(String msg,IconData icon) {
-    _showLoading(false);
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return WillPopScope(
-            onWillPop: () {},
-            child: new AlertDialog(
-              title: Image.asset('images/logo.png',
-                height: 50,
-              ),
-              shape: SuperellipseShape(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              content: Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 25.0),
-                      child: new Icon(icon),
-                    ),
-                    new Text(msg)
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                new FlatButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    getCourseWithdrawalCourses();
-                  },
-                  child: new Text('Try again'),
-                ),
-              ],
-            ),
-          );
-        });
-  }
 
 //TODO: RequestType
   Future getCourseWithdrawalCourses() async {
     Future.delayed(Duration.zero, () {
-      _showLoading(true);
+      showLoading(true, context);
     });
 
     try {
@@ -407,7 +331,7 @@ courseNameJson.clear();
         Uri.encodeFull(
             'https://skylineportal.com/moappad/api/web/getCourseWithdrawalCourses'),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'user_id': username,
@@ -425,15 +349,14 @@ courseNameJson.clear();
           },
         );
 
-        _showLoading(false);
+        showLoading(false, context);
       }
     } catch (x) {
-      if(x.toString().contains("TimeoutException")){
-        _showError("Time out from server",FontAwesomeIcons.hourglassHalf);
-      }else{
-        _showError("Sorry, we can't connect",Icons.perm_scan_wifi);
+      if (x.toString().contains("TimeoutException")) {
+        showLoading(false,context);showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getCourseWithdrawalCourses);
+      } else {
+        showLoading(false,context); showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getCourseWithdrawalCourses);
       }
-
     }
   }
 
@@ -446,7 +369,7 @@ courseNameJson.clear();
         Uri.encodeFull(
             'https://skylineportal.com/moappad/api/web/getCourseName'),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'user_id': username,
@@ -466,12 +389,11 @@ courseNameJson.clear();
         print(courseNameJson);
       }
     } catch (x) {
-      if(x.toString().contains("TimeoutException")){
-        _showError("Time out from server",FontAwesomeIcons.hourglassHalf);
-      }else{
-        _showError("Sorry, we can't connect",Icons.perm_scan_wifi);
+      if (x.toString().contains("TimeoutException")) {
+        showLoading(false,context);showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getCourseWithdrawalCourses);
+      } else {
+        showLoading(false,context); showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getCourseWithdrawalCourses);
       }
-
     }
   }
 
@@ -480,7 +402,7 @@ courseNameJson.clear();
       _remarkCourse.currentState.save();
     }
     Future.delayed(Duration.zero, () {
-      _showLoading(true);
+      showLoading(true, context);
     });
 
     try {
@@ -488,7 +410,7 @@ courseNameJson.clear();
         Uri.encodeFull(
             'https://skylineportal.com/moappad/api/web/courseWithdrawal'),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'user_id': username,
@@ -507,10 +429,10 @@ courseNameJson.clear();
             courseWithdrawalJson = json.decode(response.body);
           },
         );
-        _showLoading(false);
+        showLoading(false, context);
       }
-      if ( courseWithdrawalJson['success'] == '0'){
-        _showLoading(false);
+      if (courseWithdrawalJson['success'] == '0') {
+        showLoading(false, context);
         Fluttertoast.showToast(
             msg: courseWithdrawalJson['message'],
             toastLength: Toast.LENGTH_SHORT,
@@ -518,16 +440,14 @@ courseNameJson.clear();
             timeInSecForIos: 1,
             backgroundColor: Colors.grey[400],
             textColor: Colors.black87,
-            fontSize: 13.0
-        );
+            fontSize: 13.0);
       }
-    } catch (x) {if(x.toString().contains("TimeoutException")){
-      _showError("Time out from server",FontAwesomeIcons.hourglassHalf);
-    }else{
-      _showError("Sorry, we can't connect",Icons.perm_scan_wifi);
-
+    } catch (x) {
+      if (x.toString().contains("TimeoutException")) {
+        showLoading(false,context);showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getCourseWithdrawalCourses);
+      } else {
+        showLoading(false,context); showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getCourseWithdrawalCourses);
       }
-
     }
   }
 }

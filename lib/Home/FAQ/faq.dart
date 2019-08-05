@@ -195,50 +195,10 @@ SizedBox(width: 10,),
       ),
     );
   }
-  void _showLoading(isLoading) {
-    if (isLoading) {
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return WillPopScope(
-              onWillPop: () {},
-              child: new AlertDialog(
-                title: Image.asset('images/logo.png',
-                  height: 50,
-                ),
-                shape: SuperellipseShape(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                ),
-                content: Padding(
-                  padding: const EdgeInsets.only(left: 50.0),
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 25.0),
-                        child: new CircularProgressIndicator(
-                          strokeWidth: 2,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 12),
-                        child: new Text('Please Wait....'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          });
-    } else {
-      Navigator.pop(context);
-    }
-  }
+ 
 
   void _showError(String msg,IconData icon) {
-    _showLoading(false);
+    showLoading(false,context);
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -285,7 +245,7 @@ SizedBox(width: 10,),
   Future getFaqByType() async {
 
     Future.delayed(Duration.zero, () {
-      _showLoading(true);
+      showLoading(true,context);
     });
 
     try {
@@ -293,12 +253,12 @@ SizedBox(width: 10,),
         Uri.encodeFull(
             'https://skylineportal.com/moappad/api/web/getFaqByType'),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
 
           'faq_type':'1',
-          'usertype': '1',
+          'usertype':'1',
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
@@ -314,10 +274,10 @@ SizedBox(width: 10,),
 
           },
         );
-        _showLoading(false);
+        showLoading(false,context);
       }
       if ( faqByTypeMessageJson['success'] == '0'){
-        _showLoading(false);
+        showLoading(false,context);
         Fluttertoast.showToast(
             msg: faqByTypeMessageJson['message'],
             toastLength: Toast.LENGTH_SHORT,

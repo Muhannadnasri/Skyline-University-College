@@ -20,29 +20,25 @@ class ContactList extends StatefulWidget {
   }
 }
 
-
-Map<String, int> body;
+// Map<String, int> body;
 
 class _ContactListState extends State<ContactList> {
+  List contactListJson = [];
+
   @override
   void initState() {
     getContactList();
     super.initState();
-    contactListJson=[];
+    contactListJson = [];
   }
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-      appBar:PreferredSize(
-
+      appBar: PreferredSize(
         preferredSize: Size.fromHeight(70.0),
-        child:
-
-
-        Stack(
-
+        child: Stack(
           children: <Widget>[
             Column(
               children: <Widget>[
@@ -62,388 +58,248 @@ class _ContactListState extends State<ContactList> {
                       ],
                     ),
                   ),
-
-                ), 
-
-
+                ),
               ],
             ),
-
 
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-
-
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Navigator.pop(context);
-
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Row(
-
                         children: <Widget>[
-
-                          Icon(Icons.arrow_back_ios,size: 15,color: Colors.white,),
-                          SizedBox(width: 5,),
-                          Text('Back',style: TextStyle(fontSize: 15,color: Colors.white),),
+                          Icon(
+                            Icons.arrow_back_ios,
+                            size: 15,
+                            color: Colors.white,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            'Back',
+                            style: TextStyle(fontSize: 15, color: Colors.white),
+                          ),
                         ],
                       ),
                     ),
                   ),
-                  Text("Contact List",style: TextStyle(color: Colors.white),),
-
+                  Text(
+                    "Contact List",
+                    style: TextStyle(color: Colors.white),
+                  ),
                   GestureDetector(
                     onTap: () {
-                     logOut(context);},
-
-                     child: GestureDetector(
-                      onTap: (){
+                      logOut(context);
+                    },
+                    child: GestureDetector(
+                      onTap: () {
                         logOut(context);
-
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(15),
                         child: Row(
                           children: <Widget>[
-
-                            Icon(FontAwesomeIcons.powerOff,color: Colors.red,size: 15,),
-                            SizedBox(width: 5,),
-                            Text('Logout',style: TextStyle(fontSize: 15,color: Colors.red),),
+                            Icon(
+                              FontAwesomeIcons.powerOff,
+                              color: Colors.red,
+                              size: 15,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'Logout',
+                              style: TextStyle(fontSize: 15, color: Colors.red),
+                            ),
                           ],
                         ),
                       ),
                     ),
                   ),
-
-                ],),
+                ],
+              ),
             ),
             //TODO: Put all Icon Container
           ],
         ),
       ),
-
       body: ListView.builder(
-            itemCount: contactListJson.length,
-            itemBuilder: (BuildContext context, int index) {
-
-      return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          height: 140,
-
-          child: Card(
-
-            color: contactListJson[index]['DEPARTMENT_NAME'] == 'BSIT' ?  Color(0xFF612B79) : Color(0xFF023962)
-              ,
-            elevation: 20,
-  shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(15)
-          ),
-          ),
-  child:   Column(
-
-    children: <Widget>[
-
-          Row(children: <Widget>[
-
-
-  Container(
-
-
-    child: Padding(
-      padding: const EdgeInsets.only(left:10.0),
-      child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-
-              children: <Widget>[
-
-                Container(
-                  decoration: BoxDecoration(shape: BoxShape.circle),
-                  child: Container(
-                    width: 40.0,
-                    height: 40.0,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.blue),
-                      shape: BoxShape.circle,
-                      color: Colors.white,
-                      image: DecorationImage(
-                        fit: BoxFit.fitHeight,
-                        image:
-                        AssetImage(
-                          'images/logosmall.png',
-                        ),
-                      ),
-                    ),
+          itemCount: contactListJson.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                height: 140,
+                child: Card(
+                  color: contactListJson[index]['DEPARTMENT_NAME'] == 'BSIT'
+                      ? Color(0xFF612B79)
+                      : Color(0xFF023962),
+                  elevation: 20,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
                   ),
-                ),
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          Container(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 10.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Container(
+                                    decoration:
+                                        BoxDecoration(shape: BoxShape.circle),
+                                    child: Container(
+                                      width: 40.0,
+                                      height: 40.0,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(color: Colors.blue),
+                                        shape: BoxShape.circle,
+                                        color: Colors.white,
+                                        image: DecorationImage(
+                                          fit: BoxFit.fitHeight,
+                                          image: AssetImage(
+                                            'images/logosmall.png',
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
 
-               //TODO: Image Profile
-              ],
-            ),
-    ),
-  ),
+                                  //TODO: Image Profile
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Container(
+                                  child: Text(
+                                    contactListJson[index]['Name'].toString(),
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
 
-SizedBox(width: 20,),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-SizedBox(height: 5,),
-                Container(child: Text(
-                  
+                                Container(
+                                  child: Text(
+                                    contactListJson[index]['Job_Name']
+                                        .toString(),
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
 
-                  
-                  
-                  
-                  contactListJson[index]['Name'].toString(),style: TextStyle(color: Colors.white),),),
-                  SizedBox(height: 5,),
+                                GestureDetector(
+                                    onTap: () {
+                                      launch('mailto:' +
+                                          contactListJson[index]['OfficeMail']
+                                              .toString());
+                                    },
+                                    child: Text(
+                                      contactListJson[index]['OfficeMail']
+                                          .toString(),
+                                      style: TextStyle(
+                                          decoration: TextDecoration.underline,
+                                          color: Colors.blue),
+                                    )),
+                                SizedBox(
+                                  height: 5,
+                                ),
 
-                  Container(child:       Text(contactListJson[index]['Job_Name'].toString(),style: TextStyle(color: Colors.white),),),
-                  SizedBox(height: 5,),
-
-
-
-
-              GestureDetector(
-                  onTap: (){
-              launch(
-
-
-              'mailto:'+contactListJson[index]['OfficeMail']
-                  .toString()
-
-              );
-              },
-
-                  child: Text(contactListJson[index]['OfficeMail'].toString(),style: TextStyle(
-              decoration: TextDecoration.underline,
-              color: Colors.blue),)),
-                  SizedBox(height: 5,),
-
-                  GestureDetector(
-
-                onTap: (){
-                  launch(
-
-
-                      'mailto:'+contactListJson[index]['Email'].toString()
-
-                  );
-                },
-                child: Text(contactListJson[index]['Email'].toString(),style: TextStyle(
-                decoration: TextDecoration.underline,
-                color: Colors.blue),),
-              ),
-                  SizedBox(height: 5,),
+                                GestureDetector(
+                                  onTap: () {
+                                    launch('mailto:' +
+                                        contactListJson[index]['Email']
+                                            .toString());
+                                  },
+                                  child: Text(
+                                    contactListJson[index]['Email'].toString(),
+                                    style: TextStyle(
+                                        decoration: TextDecoration.underline,
+                                        color: Colors.blue),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
 //                'tel:00'
-                  GestureDetector(
-                      onTap:  () {
-
-                        launch(
-                            contactListJson[index]['Mobile']
-                                .toString().startsWith('9',0)
-
-                                ?
-
-                            'tel:00'+contactListJson[index]['Mobile'].toString()
-                                :
-
-                            'tel:'+contactListJson[index]['Mobile'].toString()
-                          //
-                        );
-                      },
-                      child: Text(
-
-
+                                GestureDetector(
+                                    onTap: () {
+                                      launch(contactListJson[index]['Mobile']
+                                                  .toString()
+                                                  .startsWith('9', 0)
+                                              ? 'tel:00' +
+                                                  contactListJson[index]
+                                                          ['Mobile']
+                                                      .toString()
+                                              : 'tel:' +
+                                                  contactListJson[index]
+                                                          ['Mobile']
+                                                      .toString()
+                                          //
+                                          );
+                                    },
+                                    child: Text(
 //
 
-                          contactListJson[index]['Mobile']
-                              .toString().startsWith('9',0)
+                                      contactListJson[index]['Mobile']
+                                              .toString()
+                                              .startsWith('9', 0)
+                                          ? '00' +
+                                              contactListJson[index]['Mobile']
+                                                  .toString()
+                                          : '' +
+                                              contactListJson[index]['Mobile']
+                                                  .toString(),
 
-                              ?
-
-                          '00'+contactListJson[index]['Mobile'].toString()
-                              :
-
-                          ''+contactListJson[index]['Mobile'].toString()
-,
-
-                        style: TextStyle(
-
-                          decoration: TextDecoration.underline,
-                          color: Colors.blue),
+                                      style: TextStyle(
+                                          decoration: TextDecoration.underline,
+                                          color: Colors.blue),
 ////
-                      )
-                  ),
-                  SizedBox(height: 5,),
-
-
-                ],),
-            ),
-
-          ],),
-  /*
-          Text(contactListJson[index]['DEPARTMENT_NAME'].toString()),
-          Text(contactListJson[index]['Name'].toString()),
-          Text(contactListJson[index]['Job_Name'].toString()),
-          Text(contactListJson[index]['OfficeExtn'].toString()),
-          GestureDetector(
-              onTap:  () {
-
-                    launch('tel:00'+contactListJson[index]['Mobile']
-                        .toString()
-  //
-                    );
-                    },
-              child: Text(contactListJson[index]['Mobile'].toString(),style: TextStyle(
-                  decoration: TextDecoration.underline,
-                  color: Colors.blue),)),
-          Text(contactListJson[index]['Employeetype'].toString()),
-          GestureDetector(
-
-              onTap: (){
-                launch(
-
-
-                    'mailto:'+contactListJson[index]['OfficeMail']
-                        .toString()
-
-                );
-              },
-              child: Text(contactListJson[index]['OfficeMail'].toString(),style: TextStyle(
-                  decoration: TextDecoration.underline,
-                  color: Colors.blue),)),
-          GestureDetector(
-
-            onTap: (){
-              launch(
-
-
-                  'mailto:'+contactListJson[index]['Email'].toString()
-
-              );
-            },
-            child: Text(contactListJson[index]['Email'].toString(),style: TextStyle(
-                decoration: TextDecoration.underline,
-                color: Colors.blue),),
-          ),
-          Text(contactListJson[index]['Department_Name'].toString()),
-          Text(contactListJson[index]['RoomNo'].toString()),
-
-
-   */
-
-    ],
-  ),
-),
-        ),
-      );
-
-
-
-            }
-            ),
-
-
-
-    );
-  }
-
-  void _showLoading(isLoading) {
-    if (isLoading) {
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return WillPopScope(
-              onWillPop: () {},
-              child: new AlertDialog(
-                title: Image.asset('images/logo.png',
-                  height: 50,
-                ),
-                shape: SuperellipseShape(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                ),
-                content: Padding(
-                  padding: const EdgeInsets.only(left: 50.0),
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 25.0),
-                        child: new CircularProgressIndicator(
-                          strokeWidth: 2,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 12),
-                        child: new Text('Please Wait....'),
+                                    )),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
                 ),
               ),
             );
-          });
-    } else {
-      Navigator.pop(context);
-    }
-  }
-
-  void _showError(String msg,IconData icon) {
-    _showLoading(false);
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return WillPopScope(
-            onWillPop: () {},
-            child: new AlertDialog(
-              title: Image.asset('images/logo.png',
-                height: 50,
-              ),
-              shape: SuperellipseShape(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              content: Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 25.0),
-                      child: new Icon(icon),
-                    ),
-                    new Text(msg)
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                new FlatButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    getContactList();
-                  },
-                  child: new Text('Try again'),
-                ),
-              ],
-            ),
-          );
-        });
+          }),
+    );
   }
 
   Future getContactList() async {
     Future.delayed(Duration.zero, () {
-      _showLoading(true);
-
-
+      showLoading(true, context);
     });
 
     try {
@@ -451,10 +307,10 @@ SizedBox(height: 5,),
         Uri.encodeFull(
             "https://skylineportal.com/moappad/api/web/getStaffContactsList"),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
-          'usertype': studentJson['data']['user_type'],
+          'usertype':studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1'
@@ -464,23 +320,22 @@ SizedBox(height: 5,),
       if (response.statusCode == 200) {
         setState(() {
           contactListJson = json.decode(response.body)['data'];
-
         });
-
       }
       print(contactListJson.toString());
 
-      _showLoading(false);
-
+      showLoading(false, context);
     } catch (x) {
       print(x);
-      if(x.toString().contains("TimeoutException")){
-        _showError("Time out from server",FontAwesomeIcons.hourglassHalf);
-      }else{
-        _showError("Sorry, we can't connect",Icons.perm_scan_wifi);
+      if (x.toString().contains("TimeoutException")) {
+        showLoading(false, context);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getContactList);
+      } else {
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getContactList);
       }
-
     }
   }
-
 }

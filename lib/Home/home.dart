@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:skyline_university/Global/fab.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/zigzag.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -18,6 +19,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   void initState() {
+
+
     super.initState();
   }
 
@@ -373,6 +376,7 @@ class _HomeState extends State<Home> {
                         ),
                         GestureDetector(
                           onTap: () {
+
                             Navigator.pushNamed(context, "/LoginApp");
                           },
                           child: Padding(

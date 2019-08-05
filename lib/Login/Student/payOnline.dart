@@ -21,7 +21,7 @@ class PayOnline extends StatefulWidget {
   }
 }
 
-Map<String, int> body;
+// Map<String, int> body;
 
 class _PayOnlineState extends State<PayOnline> {
   void initState() {
@@ -151,50 +151,10 @@ getPayOnline();
     );
   }
 
-  void _showLoading(isLoading) {
-    if (isLoading) {
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return WillPopScope(
-              onWillPop: () {},
-              child: new AlertDialog(
-                title: Image.asset('images/logo.png',
-                  height: 50,
-                ),
-                shape: SuperellipseShape(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                ),
-                content: Padding(
-                  padding: const EdgeInsets.only(left: 50.0),
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 25.0),
-                        child: new CircularProgressIndicator(
-                          strokeWidth: 2,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 12),
-                        child: new Text('Please Wait....'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          });
-    } else {
-      Navigator.pop(context);
-    }
-  }
+ 
 
   void _showError(String msg,IconData icon) {
-    _showLoading(false);
+    showLoading(false,context);
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -238,7 +198,7 @@ getPayOnline();
 
   Future getPayOnline() async {
     Future.delayed(Duration.zero, () {
-      _showLoading(true);
+      showLoading(true,context);
     });
 
     try {
@@ -246,12 +206,12 @@ getPayOnline();
         Uri.encodeFull(
             "https://skylineportal.com/moappad/api/web/getPayOnlineLink"),
         headers: {
-          "API-KEY": "965a0109d2fde592b05b94588bcb43f5",
+          "API-KEY": API,
         },
         body: {
           'user_id': username,
           'pay_for': feesPayOnline,
-          'usertype': studentJson['data']['user_type'],
+          'usertype':studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1'
@@ -262,9 +222,9 @@ getPayOnline();
         setState(() {
           payOnlineJson = json.decode(response.body);
         });
-        _showLoading(false);
+        showLoading(false,context);
         if (payOnlineJson['success'] == '0') {
-          _showLoading(false);
+          showLoading(false,context);
           Fluttertoast.showToast(
               msg: payOnlineJson['message'],
               toastLength: Toast.LENGTH_SHORT,
