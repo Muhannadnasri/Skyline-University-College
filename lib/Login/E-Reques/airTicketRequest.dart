@@ -26,17 +26,16 @@ final _remarksAir = GlobalKey<FormState>();
 // Map<String, int> body;
 
 class _AirTicketRequestState extends State<AirTicketRequest> {
-    List personalFamilyTimesJson = [];
-Map leaveBalanceJson = {};
+  List personalFamilyTimesJson = [];
+  Map leaveBalanceJson = {};
 
   List personalFamilyFamilyJson = [];
-Map leaveApplicationJson={};
+  Map leaveApplicationJson = {};
 
   Map leaveHolidayJson = {};
   List personalFamilyPersonalJson = [];
 
   Map personalFamilyTimesMessageJson = {};
-
 
   int groupValue;
   String leaveType;
@@ -46,6 +45,9 @@ Map leaveApplicationJson={};
   String _timeLeave = '';
   String _dayLeave1 = '';
   String _timeLeave1 = '';
+  String placeFrom = '';
+String placeTo = '';
+String remarksAir = '';
 
   //
   int _year = 2018;
@@ -760,7 +762,7 @@ Map leaveApplicationJson={};
         },
         body: {
           'emp_id': studentJson['data']['user_id'],
-          'usertype':studentJson['data']['user_type'],
+          'usertype': studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
@@ -827,13 +829,13 @@ Map leaveApplicationJson={};
           'Placefrom1': placeTo,
           'Placeto': placeTo,
           'Placeto1': placeFrom,
-          'Remarks': reasonLeave,
+          'Remarks': remarksAir,
           'Day': _dayLeave,
           'Day1': _dayLeave1,
           'Time': _timeLeave,
           'Time1': _timeLeave1,
           'LoginIp': '1',
-          'usertype':studentJson['data']['user_type'],
+          'usertype': studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',

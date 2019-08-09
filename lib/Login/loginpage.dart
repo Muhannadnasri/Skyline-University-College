@@ -188,6 +188,8 @@ class _LoginAppState extends State<LoginApp> {
                           SizedBox(
                             height: ScreenUtil.getInstance().setHeight(30),
                           ),
+                     
+
                           Form(
                             key: _logInForm,
                             child: Column(
@@ -389,14 +391,14 @@ class _LoginAppState extends State<LoginApp> {
         body: {
           'username': username,
           'password': password,
-          'usertype':'1',
+          'usertype': '1',
           'ipaddress': '1',
           'deviceid': '1',
           'devicetype': '1',
           'devicetoken': '1',
           'devicename': '1'
         },
-      ).timeout(Duration(seconds: 35));
+      ).timeout(Duration(seconds: 50));
 
       if (response.statusCode == 200) {
         studentJson = json.decode(response.body);
@@ -409,14 +411,11 @@ class _LoginAppState extends State<LoginApp> {
               MaterialPageRoute(builder: (BuildContext context) => HomeLogin()),
               (Route<dynamic> route) => false);
         } else {
- Navigator.pushAndRemoveUntil(
+          Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (BuildContext context) => Home()),
               (Route<dynamic> route) => false);
-
         }
-            
-
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {

@@ -26,6 +26,7 @@ bool terms = true;
 class _PassportRetainingState extends State<PassportRetaining> {
   Map passportRetainingJson = {};
   Map underTakingJson = {};
+  String reasonPassportRetaining = '';
 
   @override
   void initState() {
@@ -299,9 +300,13 @@ class _PassportRetainingState extends State<PassportRetaining> {
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
-        showLoading(false,context);showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getRequestFormsText);
+        showLoading(false, context);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getRequestFormsText);
       } else {
-        showLoading(false,context); showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getRequestFormsText);
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getRequestFormsText);
       }
     }
   }
@@ -340,7 +345,7 @@ class _PassportRetainingState extends State<PassportRetaining> {
         );
         showLoading(false, context);
       }
-      print(reasonPassportRetaining);
+
       print(terms.toString());
 
       if (passportRetainingJson['success'] == '1') {
@@ -368,9 +373,13 @@ class _PassportRetainingState extends State<PassportRetaining> {
     } catch (x) {
       print(x);
       if (x.toString().contains("TimeoutException")) {
-        showLoading(false,context);showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getPassportRetaining);
+        showLoading(false, context);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getPassportRetaining);
       } else {
-        showLoading(false,context); showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getPassportRetaining);
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getPassportRetaining);
       }
     }
   }

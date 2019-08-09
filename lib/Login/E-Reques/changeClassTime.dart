@@ -4,6 +4,7 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:http/http.dart' as http;
 import 'package:superellipse_shape/superellipse_shape.dart';
@@ -17,22 +18,24 @@ class ChangeClassTime extends StatefulWidget {
   }
 }
 
-final _reason = GlobalKey<FormState>();
-
 // Map<String, int> body;
 
 class _ChangeClassTimeState extends State<ChangeClassTime> {
+  final _reason = GlobalKey<FormState>();
+
   Map policyChangeTimeJson = {};
   Map currentTimeMessageJson = {};
   Map currentTimeJson = {};
   List currentAndNewShiftJson = [];
-  Map changeClassTimingJson={};
+  Map changeClassTimingJson = {};
+  String reason = '';
 
-  String _newShift;
-
+  String newShift;
+  bool isValidat = false;
   @override
   void initState() {
     super.initState();
+
     getCurrentAndNewShift();
     currentTimeJson.clear();
   }
@@ -210,12 +213,12 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
                         hint: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            'Select Option',
+                            'Please Select Option',
                             style: TextStyle(color: Colors.black),
                           ),
                         ),
                         isExpanded: true,
-                        value: _newShift,
+                        value: newShift,
                         items: currentAndNewShiftJson
                                 ?.map(
                                   (item) => DropdownMenuItem<String>(
@@ -230,8 +233,7 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
                             [],
                         onChanged: (value) {
                           setState(() {
-                            _newShift = value;
-                            print(_newShift);
+                            newShift = value;
                           });
                         },
                       ),
@@ -242,36 +244,70 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
                   ),
                   Form(
                     key: _reason,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextFormField(
-                            textCapitalization: TextCapitalization.words,
-                            maxLines: null,
-                            onSaved: (x) {
-                              reason = x;
-                            },
-                            decoration: InputDecoration(
-                              labelText: "Reason",
-                              fillColor: Colors.white,
-                              helperStyle: TextStyle(fontSize: 13),
-                              hintText:
-                                  'Enter Your Reason to Change Class Time',
-                              hintStyle: TextStyle(fontSize: 15),
-                              isDense: true,
-                              prefixIcon: Icon(
-                                FontAwesomeIcons.question,
-                                size: 15,
-                                color: Colors.purple,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                    onChanged: () {
+                      if (_reason.currentState.validate()) {
+                        isValidat = true;
+                        return 'Please check your input';
+                      } else {
+                        isValidat = false;
+                        return null;
+                      }
+                    },
+                    child: GlobalForms(
+                      context,
+                      "Please enter you'r reason",
+                      '',
+                      isValidat
+                          ? FontAwesomeIcons.checkCircle
+                          : !isValidat ? FontAwesomeIcons.timesCircle : null,
+                      isValidat ? Colors.green : !isValidat ? Colors.red : null,
+                      (String value) {
+                        if (value.length < 3 ||
+                            value.isEmpty ||
+                            _reason == null) {
+                          isValidat = false;
+                          return 'Please check your input';
+                        } else {
+                          isValidat = true;
+                          return null;
+                        }
+                      },
+                      (x) {
+                        setState(() {
+                          reason = x;
+                        });
+                      },
+                      'Reason',
                     ),
                   ),
+
+                  //  Forms(
+                  //   context,
+                  //   'Reason',
+                  //   '',
+                  //   FontAwesomeIcons.question,
+                  //   Colors.purple,
+                  //   (x) {
+                  //     if (x.length < 3 || x.length > 30) {
+                  //       setState(() {
+                  //         isValidat = false;
+                  //       });
+                  //     } else {
+                  //       setState(() {
+                  //         isValidat = true;
+                  //       });
+                  //     }
+                  //   },
+                  //   (x) {
+                  //     setState(() {
+                  //       reason = x;
+                  //     });
+                  //   },
+                  //   isValidat
+                  //       ? Colors.green
+                  //       : !isValidat ? Colors.red : Colors.grey,
+                  // ),
+
                   SizedBox(
                     height: 20,
                   ),
@@ -294,7 +330,18 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
                       ),
                       child: GestureDetector(
                           onTap: () {
-                            getChangeClassTiming();
+                            setState(() {
+                              if (_reason.currentState.validate() &&
+                                  newShift != null) {
+                                _reason.currentState.save();
+
+                                print(reason.toString());
+
+                                getChangeClassTiming();
+                              } else {
+                                return null;
+                              }
+                            });
                           },
                           child: Center(
                               child: Text(
@@ -342,9 +389,13 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
-        showLoading(false,context);showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getCurrentAndNewShift);
+        showLoading(false, context);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getCurrentAndNewShift);
       } else {
-        showLoading(false,context); showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getCurrentAndNewShift);
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getCurrentAndNewShift);
       }
     }
   }
@@ -386,18 +437,19 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
-        showLoading(false,context);showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getCurrentAndNewShift);
+        showLoading(false, context);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getCurrentAndNewShift);
       } else {
-        showLoading(false,context); showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getCurrentAndNewShift);
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getCurrentAndNewShift);
       }
     }
   }
 
 //TODO: Amount
   Future getChangeClassTiming() async {
-    if (_reason.currentState.validate()) {
-      _reason.currentState.save();
-    }
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
     });
@@ -412,7 +464,7 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
         body: {
           'user_id': username,
           'current_timing': currentTimeJson['Shift_Desc'],
-          'new_timing': _newShift,
+          'new_timing': newShift,
           'reason': reason,
           'usertype': studentJson['data']['user_type'],
           'ipaddress': '1',
@@ -440,11 +492,27 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
             textColor: Colors.black87,
             fontSize: 13.0);
       }
+      if (changeClassTimingJson['success'] == '1') {
+        showLoading(false, context);
+        Fluttertoast.showToast(
+            msg: changeClassTimingJson['message'],
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIos: 1,
+            backgroundColor: Colors.grey[400],
+            textColor: Colors.black87,
+            fontSize: 13.0);
+      }
     } catch (x) {
+      print(x);
       if (x.toString().contains("TimeoutException")) {
-        showLoading(false,context);showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getCurrentAndNewShift);
+        showLoading(false, context);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getCurrentAndNewShift);
       } else {
-        showLoading(false,context); showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getCurrentAndNewShift);
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getCurrentAndNewShift);
       }
     }
   }

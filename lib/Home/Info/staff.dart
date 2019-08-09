@@ -27,7 +27,7 @@ class Staff extends StatefulWidget {
 List staff = [];
 
 File dataFile;
-
+Map staffJson={};
 Map<String, String> body;
 
 class _StaffState extends State<Staff> {
@@ -199,15 +199,15 @@ class _StaffState extends State<Staff> {
         }
 
         if (Json['staff'] != null) {
-          appJson = Json;
+          staffJson = Json;
         } else {
-          appJson = json.decode(dataFile.readAsStringSync());
+          staffJson = json.decode(dataFile.readAsStringSync());
         }
 
         showLoading(false,context);
 
         setState(() {
-          staff = appJson["staff"];
+          staff = staffJson["staff"];
         });
       } else {}
     } catch (x) {

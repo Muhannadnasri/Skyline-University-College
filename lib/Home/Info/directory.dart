@@ -25,7 +25,7 @@ class Directory extends StatefulWidget {
 
 
 
-Map<String, String> body;
+List directoryJson = [];
 
 
 
@@ -138,7 +138,7 @@ class _DirectoryState extends State<Directory> {
             Expanded(
               child:
               ListView.builder(
-                  itemCount: getDirectoryJson.length,
+                  itemCount: directoryJson.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
                       padding: const EdgeInsets.only(top:5),
@@ -169,7 +169,7 @@ class _DirectoryState extends State<Directory> {
                               ),
                               child: Text(
 
-                                getDirectoryJson[index]['name'],style: TextStyle(color: Colors.white),
+                                directoryJson[index]['name'],style: TextStyle(color: Colors.white),
 
 
                               ),
@@ -220,10 +220,10 @@ class _DirectoryState extends State<Directory> {
       if (response.statusCode == 200) {
         setState(
               () {
-                getDirectoryJson = json.decode(response.body)['data'];
+                directoryJson = json.decode(response.body)['data'];
           },
         );
-        print(getDirectoryJson.toString());
+        print(directoryJson.toString());
         showLoading(false,context);
       }
     } catch (x) {

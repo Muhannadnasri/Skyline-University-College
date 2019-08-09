@@ -36,6 +36,9 @@ class _ConferenceState extends State<Conference> {
   int _month = 11;
   int _date = 11;
   String _dateEvent = '';
+  String conferenceName = '';
+String conference = '';
+
 
   String toTime;
   @override

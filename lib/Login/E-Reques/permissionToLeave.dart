@@ -34,6 +34,16 @@ final _eAddress = GlobalKey<FormState>();
 class _LeaveHolidayState extends State<LeaveHoliday> {
   Map leaveHolidayJson = {};
 
+  String addressLeave = '';
+  String reasonTravel = '';
+  String eName = '';
+  String eEmail = '';
+  String eRelationship = '';
+
+  String eMobile = '';
+  String eResidence = '';
+  String eOffice = '';
+  String eAddress = '';
   int groupValue;
   String leaveType;
   String _dateTimeLeave = '';
@@ -737,7 +747,7 @@ class _LeaveHolidayState extends State<LeaveHoliday> {
           'from': _dateTimeLeave.toString(),
           'to': _dateTimeReturn.toString(),
           'address_to': addressLeave,
-          'reason': reasonLeave,
+          'reason': reasonTravel,
           'name': eName,
           'email': eEmail,
           'relationship': eRelationship,

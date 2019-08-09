@@ -30,8 +30,8 @@ final _reasonLeave = GlobalKey<FormState>();
 
 class _LeaveApplicationState extends State<LeaveApplication> {
   List leaveTypesJson = [];
-Map leaveApplicationJson={};
-Map leaveBalanceJson = {};
+  Map leaveApplicationJson = {};
+  Map leaveBalanceJson = {};
 
   int groupValue;
   String leaveType;
@@ -40,18 +40,22 @@ Map leaveBalanceJson = {};
   int _year = 2018;
   int _month = 11;
   int _date = 11;
+  String contactNo = '';
+  String mobileNo = '';
+  String documentSubmitted = '';
+  String addressTo = '';
+  String reasonLeave = '';
 
   @override
   void initState() {
-super.initState();
-getLeaveTypes();
-leaveBalanceJson.clear();
+    super.initState();
+    getLeaveTypes();
+    leaveBalanceJson.clear();
 
     DateTime now = DateTime.now();
     _year = now.year;
     _month = now.month;
     _date = now.day;
-
   }
 
   void _showDateLeave() {
@@ -59,7 +63,6 @@ leaveBalanceJson.clear();
 
     DatePicker.showDatePicker(
       context,
-
       minYear: now.year,
       initialYear: now.year,
       initialMonth: now.month,
@@ -78,7 +81,6 @@ leaveBalanceJson.clear();
         _changeDateLeave(year, month, date);
       },
     );
-
   }
 
   void _showDateReturn() {
@@ -129,13 +131,8 @@ leaveBalanceJson.clear();
     return Scaffold(
       resizeToAvoidBottomPadding: true, //TODO: put in all page
       appBar: PreferredSize(
-
         preferredSize: Size.fromHeight(70.0),
-        child:
-
-
-        Stack(
-
+        child: Stack(
           children: <Widget>[
             Column(
               children: <Widget>[
@@ -155,78 +152,82 @@ leaveBalanceJson.clear();
                       ],
                     ),
                   ),
-
-                ), 
-
-
+                ),
               ],
             ),
-
 
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-
-
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Navigator.pop(context);
-
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Row(
-
                         children: <Widget>[
-
-                          Icon(Icons.arrow_back_ios,size: 15,color: Colors.white,),
-                          SizedBox(width: 5,),
-                          Text('Back',style: TextStyle(fontSize: 15,color: Colors.white),),
+                          Icon(
+                            Icons.arrow_back_ios,
+                            size: 15,
+                            color: Colors.white,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            'Back',
+                            style: TextStyle(fontSize: 15, color: Colors.white),
+                          ),
                         ],
                       ),
                     ),
                   ),
-                  Text("Leave Application",style: TextStyle(color: Colors.white),),
-
+                  Text(
+                    "Leave Application",
+                    style: TextStyle(color: Colors.white),
+                  ),
                   GestureDetector(
                     onTap: () {
-                     logOut(context);},
-
-                     child: GestureDetector(
-                      onTap: (){
+                      logOut(context);
+                    },
+                    child: GestureDetector(
+                      onTap: () {
                         logOut(context);
-
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(15),
                         child: Row(
                           children: <Widget>[
-
-                            Icon(FontAwesomeIcons.powerOff,color: Colors.red,size: 15,),
-                            SizedBox(width: 5,),
-                            Text('Logout',style: TextStyle(fontSize: 15,color: Colors.red),),
+                            Icon(
+                              FontAwesomeIcons.powerOff,
+                              color: Colors.red,
+                              size: 15,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'Logout',
+                              style: TextStyle(fontSize: 15, color: Colors.red),
+                            ),
                           ],
                         ),
                       ),
                     ),
                   ),
-
-                ],),
+                ],
+              ),
             ),
             //TODO: Put all Icon Container
           ],
         ),
       ),
-      body:
-
-
-      Container(
+      body: Container(
         color: Colors.grey[300],
-        child:
-
-        ListView(
+        child: ListView(
           children: <Widget>[
             GestureDetector(
               onTap: () {
@@ -234,61 +235,59 @@ leaveBalanceJson.clear();
               },
               child: Column(
                 children: <Widget>[
-                  SizedBox(height: 10,),
-                  
-                  
+                  SizedBox(
+                    height: 10,
+                  ),
+
                   Column(
                     children: <Widget>[
                       Container(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Leave Type',style: TextStyle(color: Colors.grey[600]),
-                      ),
-                    ),
-                  ),
-                      DropdownButton<String>(
-                        hint:
-
-                        Padding(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-
-
-                              'Select Option',style: TextStyle(color: Colors.black),
+                            'Leave Type',
+                            style: TextStyle(color: Colors.grey[600]),
                           ),
                         ),
-
+                      ),
+                      DropdownButton<String>(
+                        hint: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'Select Option',
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        ),
                         isExpanded: true,
                         value: leaveType,
                         items: leaveTypesJson
                                 ?.map(
                                   (item) => DropdownMenuItem<String>(
-                                        value: item['leaveid'].toString(),
-                                        child:
-                                            Text(item['leavetype'].toString()),
-                                      ),
+                                    value: item['leaveid'].toString(),
+                                    child: Text(item['leavetype'].toString()),
+                                  ),
                                 )
                                 ?.toList() ??
                             [],
                         onChanged: (value) {
                           setState(() {
                             leaveType = value;
-getLeaveBalance();
+                            getLeaveBalance();
                           });
                         },
                       ),
                     ],
                   ),
 
-
-
-
                   //TODO: From and TO
                   Column(
                     children: <Widget>[
-                      Text(leaveBalanceJson.isEmpty? '' : leaveBalanceJson['Bal']== null ? ' '.toString():leaveBalanceJson['Bal'].toString()),
+                      Text(leaveBalanceJson.isEmpty
+                          ? ''
+                          : leaveBalanceJson['Bal'] == null
+                              ? ' '.toString()
+                              : leaveBalanceJson['Bal'].toString()),
                       SizedBox(
                         height: 10,
                       ),
@@ -380,7 +379,6 @@ getLeaveBalance();
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                    
                       SizedBox(
                         height: 15,
                       ),
@@ -397,16 +395,19 @@ getLeaveBalance();
                                 onSaved: (x) {
                                   contactNo = x;
                                 },
-                                decoration:
-
-                                InputDecoration(
+                                decoration: InputDecoration(
                                   labelText: "Contact No in UAE",
                                   fillColor: Colors.white,
                                   helperText: '(Required)',
                                   helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Enter Your Contact Number i UAE',hintStyle: TextStyle(fontSize: 15),
+                                  hintText: 'Enter Your Contact Number i UAE',
+                                  hintStyle: TextStyle(fontSize: 15),
                                   isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.mobileAlt,size: 15,color: Colors.purple,),
+                                  prefixIcon: Icon(
+                                    FontAwesomeIcons.mobileAlt,
+                                    size: 15,
+                                    color: Colors.purple,
+                                  ),
                                 ),
                               ),
                             ),
@@ -438,11 +439,16 @@ getLeaveBalance();
                                 decoration: InputDecoration(
                                   labelText: "Company and address",
                                   fillColor: Colors.white,
-
                                   helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please enter your company and address',hintStyle: TextStyle(fontSize: 15),
+                                  hintText:
+                                      'Please enter your company and address',
+                                  hintStyle: TextStyle(fontSize: 15),
                                   isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.briefcase,size: 15,color: Colors.purple,),
+                                  prefixIcon: Icon(
+                                    FontAwesomeIcons.briefcase,
+                                    size: 15,
+                                    color: Colors.purple,
+                                  ),
                                 ),
                               ),
                             ),
@@ -465,7 +471,6 @@ getLeaveBalance();
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Container(
-                             
                               child: TextFormField(
                                 textCapitalization: TextCapitalization.words,
                                 maxLines: null,
@@ -475,11 +480,16 @@ getLeaveBalance();
                                 decoration: InputDecoration(
                                   labelText: "Company and address",
                                   fillColor: Colors.white,
-
                                   helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please enter your company and address',hintStyle: TextStyle(fontSize: 15),
+                                  hintText:
+                                      'Please enter your company and address',
+                                  hintStyle: TextStyle(fontSize: 15),
                                   isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.briefcase,size: 15,color: Colors.purple,),
+                                  prefixIcon: Icon(
+                                    FontAwesomeIcons.briefcase,
+                                    size: 15,
+                                    color: Colors.purple,
+                                  ),
                                 ),
                               ),
                             ),
@@ -502,7 +512,6 @@ getLeaveBalance();
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Container(
-                            
                               child: TextFormField(
                                 textCapitalization: TextCapitalization.words,
                                 maxLines: null,
@@ -512,11 +521,16 @@ getLeaveBalance();
                                 decoration: InputDecoration(
                                   labelText: "Company and address",
                                   fillColor: Colors.white,
-
                                   helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please enter your company and address',hintStyle: TextStyle(fontSize: 15),
+                                  hintText:
+                                      'Please enter your company and address',
+                                  hintStyle: TextStyle(fontSize: 15),
                                   isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.briefcase,size: 15,color: Colors.purple,),
+                                  prefixIcon: Icon(
+                                    FontAwesomeIcons.briefcase,
+                                    size: 15,
+                                    color: Colors.purple,
+                                  ),
                                 ),
                               ),
                             ),
@@ -539,21 +553,25 @@ getLeaveBalance();
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Container(
-                             
                               child: TextFormField(
                                 textCapitalization: TextCapitalization.words,
                                 maxLines: null,
                                 onSaved: (x) {
                                   reasonLeave = x;
                                 },
-                                decoration:InputDecoration(
+                                decoration: InputDecoration(
                                   labelText: "Company and address",
                                   fillColor: Colors.white,
-
                                   helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please enter your company and address',hintStyle: TextStyle(fontSize: 15),
+                                  hintText:
+                                      'Please enter your company and address',
+                                  hintStyle: TextStyle(fontSize: 15),
                                   isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.briefcase,size: 15,color: Colors.purple,),
+                                  prefixIcon: Icon(
+                                    FontAwesomeIcons.briefcase,
+                                    size: 15,
+                                    color: Colors.purple,
+                                  ),
                                 ),
                               ),
                             ),
@@ -585,9 +603,9 @@ getLeaveBalance();
                           },
                           child: Center(
                               child: Text(
-                                'Submit',
-                                style: TextStyle(color: Colors.white),
-                              ))))
+                            'Submit',
+                            style: TextStyle(color: Colors.white),
+                          ))))
                 ],
               ),
             ),
@@ -597,12 +615,10 @@ getLeaveBalance();
     );
   }
 
- 
-
 //TODO: RequestType
   Future getLeaveTypes() async {
     Future.delayed(Duration.zero, () {
-      showLoading(true,context);
+      showLoading(true, context);
     });
 
     try {
@@ -614,7 +630,7 @@ getLeaveBalance();
         },
         body: {
           'user_id': studentJson['data']['user_id'],
-          'usertype':studentJson['data']['user_type'],
+          'usertype': studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
@@ -628,15 +644,18 @@ getLeaveBalance();
           },
         );
 
-        showLoading(false,context);
+        showLoading(false, context);
       }
     } catch (x) {
-      if(x.toString().contains("TimeoutException")){
-                showLoading(false,context);showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getLeaveTypes);
-      }else{
-                showLoading(false,context); showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getLeaveTypes);
+      if (x.toString().contains("TimeoutException")) {
+        showLoading(false, context);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getLeaveTypes);
+      } else {
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getLeaveTypes);
       }
-
     }
   }
 
@@ -657,7 +676,7 @@ getLeaveBalance();
       _reasonLeave.currentState.save();
     }
     Future.delayed(Duration.zero, () {
-      showLoading(true,context);
+      showLoading(true, context);
     });
 
     try {
@@ -676,7 +695,7 @@ getLeaveBalance();
           'document_submitted': documentSubmitted,
           'address_to': addressTo,
           'reason': reasonLeave,
-          'usertype':studentJson['data']['user_type'],
+          'usertype': studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
@@ -689,10 +708,10 @@ getLeaveBalance();
             leaveApplicationJson = json.decode(response.body);
           },
         );
-        showLoading(false,context);
+        showLoading(false, context);
       }
-      if ( leaveApplicationJson['success'] == '0'){
-        showLoading(false,context);
+      if (leaveApplicationJson['success'] == '0') {
+        showLoading(false, context);
         Fluttertoast.showToast(
             msg: leaveApplicationJson['message'],
             toastLength: Toast.LENGTH_SHORT,
@@ -700,21 +719,24 @@ getLeaveBalance();
             timeInSecForIos: 1,
             backgroundColor: Colors.grey[400],
             textColor: Colors.black87,
-            fontSize: 13.0
-        );
+            fontSize: 13.0);
       }
     } catch (x) {
-      if(x.toString().contains("TimeoutException")){
-                showLoading(false,context);showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getLeaveApplication);
-      }else{
-                showLoading(false,context); showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getLeaveApplication);
+      if (x.toString().contains("TimeoutException")) {
+        showLoading(false, context);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getLeaveApplication);
+      } else {
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getLeaveApplication);
       }
-
     }
   }
-   Future getLeaveBalance() async {
+
+  Future getLeaveBalance() async {
     Future.delayed(Duration.zero, () {
-      showLoading(true,context);
+      showLoading(true, context);
     });
 
     try {
@@ -726,8 +748,8 @@ getLeaveBalance();
         },
         body: {
           'user_id': studentJson['data']['user_id'],
-          'leave_type':leaveType,
-          'usertype':studentJson['data']['user_type'],
+          'leave_type': leaveType,
+          'usertype': studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
@@ -741,15 +763,18 @@ getLeaveBalance();
           },
         );
 
-        showLoading(false,context);
+        showLoading(false, context);
       }
     } catch (x) {
-      if(x.toString().contains("TimeoutException")){
-                showLoading(false,context);showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getLeaveBalance);
-      }else{
-                showLoading(false,context); showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getLeaveBalance);
+      if (x.toString().contains("TimeoutException")) {
+        showLoading(false, context);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getLeaveBalance);
+      } else {
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getLeaveBalance);
       }
-
     }
   }
 }

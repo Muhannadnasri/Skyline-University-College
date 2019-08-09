@@ -24,7 +24,8 @@ class Location extends StatefulWidget {
 
 
 
-Map<String, String> body;
+List locationJson = [];
+
 
 
 

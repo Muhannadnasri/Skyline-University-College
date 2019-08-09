@@ -30,6 +30,7 @@ List galleries = [];
 
 File dataFile;
 
+Map galleryJson={};
 Map<String, String> body;
 
 class _GalleryState extends State<Gallery> {
@@ -249,15 +250,15 @@ Text(galleries[index]['Image_Number']
         }
 
         if (Json['gallery'] != null) {
-          appJson = Json;
+          galleryJson = Json;
         } else {
-          appJson = json.decode(dataFile.readAsStringSync());
+          galleryJson = json.decode(dataFile.readAsStringSync());
         }
 
         showLoading(false,context);
 
         setState(() {
-          galleries = appJson["gallery"];
+          galleries = galleryJson["gallery"];
         });
       } else {}
     } catch (x) {

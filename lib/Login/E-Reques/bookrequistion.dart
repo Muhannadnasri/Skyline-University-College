@@ -30,7 +30,17 @@ final _price = GlobalKey<FormState>();
 // Map<String, int> body;
 
 class _BookRequisitionState extends State<BookRequisition> {
-  Map bookRequisitionJson={};
+  Map bookRequisitionJson = {};
+  List libraryMaterialJson=[];
+
+  String bTitle = '';
+  String bAuthor = '';
+  String bEdition = '';
+  String bPublisher = '';
+  String bYear = '';
+  String bIsbn = '';
+  String bQuantity = '';
+  String bPrice = '';
 
   String _type;
 
@@ -38,7 +48,7 @@ class _BookRequisitionState extends State<BookRequisition> {
   void initState() {
     super.initState();
     getLibraryMaterial();
-    bookRequisitionJson={};
+    bookRequisitionJson = {};
   }
 
   @override
@@ -47,13 +57,8 @@ class _BookRequisitionState extends State<BookRequisition> {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: PreferredSize(
-
         preferredSize: Size.fromHeight(70.0),
-        child:
-
-
-        Stack(
-
+        child: Stack(
           children: <Widget>[
             Column(
               children: <Widget>[
@@ -73,72 +78,80 @@ class _BookRequisitionState extends State<BookRequisition> {
                       ],
                     ),
                   ),
-
-                ), 
-
-
+                ),
               ],
             ),
-
 
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-
-
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Navigator.pop(context);
-
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Row(
-
                         children: <Widget>[
-
-                          Icon(Icons.arrow_back_ios,size: 15,color: Colors.white,),
-                          SizedBox(width: 5,),
-                          Text('Back',style: TextStyle(fontSize: 15,color: Colors.white),),
+                          Icon(
+                            Icons.arrow_back_ios,
+                            size: 15,
+                            color: Colors.white,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            'Back',
+                            style: TextStyle(fontSize: 15, color: Colors.white),
+                          ),
                         ],
                       ),
                     ),
                   ),
-                  Text("Book Requistion",style: TextStyle(color: Colors.white),),
-
+                  Text(
+                    "Book Requistion",
+                    style: TextStyle(color: Colors.white),
+                  ),
                   GestureDetector(
                     onTap: () {
-                     logOut(context);},
-
-                     child: GestureDetector(
-                      onTap: (){
+                      logOut(context);
+                    },
+                    child: GestureDetector(
+                      onTap: () {
                         logOut(context);
-
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(15),
                         child: Row(
                           children: <Widget>[
-
-                            Icon(FontAwesomeIcons.powerOff,color: Colors.red,size: 15,),
-                            SizedBox(width: 5,),
-                            Text('Logout',style: TextStyle(fontSize: 15,color: Colors.red),),
+                            Icon(
+                              FontAwesomeIcons.powerOff,
+                              color: Colors.red,
+                              size: 15,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'Logout',
+                              style: TextStyle(fontSize: 15, color: Colors.red),
+                            ),
                           ],
                         ),
                       ),
                     ),
                   ),
-
-                ],),
+                ],
+              ),
             ),
             //TODO: Put all Icon Container
           ],
         ),
       ),
       body: ListView(
-
         children: <Widget>[
           GestureDetector(
             onTap: () {
@@ -164,7 +177,8 @@ class _BookRequisitionState extends State<BookRequisition> {
                           height: 60,
                           child: Card(
                             shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(10))),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
                             elevation: 10,
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -185,29 +199,29 @@ class _BookRequisitionState extends State<BookRequisition> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                            TextFormField(
-                                  textCapitalization: TextCapitalization.words,
-                                  maxLines: null,
-                                  onSaved: (x) {
-                                    bTitle = x;
-                                  },
-                                  decoration:
-
-                                  InputDecoration(
-                                    labelText: "Title",
-                                    fillColor: Colors.white,
-
-                                    helperStyle: TextStyle(fontSize: 13),
-                                    hintText: 'Please enter title book you want',hintStyle: TextStyle(fontSize: 15),
-                                    isDense: true,
-                                    prefixIcon: Icon(FontAwesomeIcons.heading,size: 15,color: Colors.purple,),
+                              TextFormField(
+                                textCapitalization: TextCapitalization.words,
+                                maxLines: null,
+                                onSaved: (x) {
+                                  bTitle = x;
+                                },
+                                decoration: InputDecoration(
+                                  labelText: "Title",
+                                  fillColor: Colors.white,
+                                  helperStyle: TextStyle(fontSize: 13),
+                                  hintText: 'Please enter title book you want',
+                                  hintStyle: TextStyle(fontSize: 15),
+                                  isDense: true,
+                                  prefixIcon: Icon(
+                                    FontAwesomeIcons.heading,
+                                    size: 15,
+                                    color: Colors.purple,
                                   ),
                                 ),
-
+                              ),
                             ],
                           ),
                         ),
-                      
                         SizedBox(
                           height: 15,
                         ),
@@ -216,29 +230,29 @@ class _BookRequisitionState extends State<BookRequisition> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                            TextFormField(
-                                  textCapitalization: TextCapitalization.words,
-                                  maxLines: null,
-                                  onSaved: (x) {
-                                    bAuthor = x;
-                                  },
-                                  decoration:
-
-                                InputDecoration(
+                              TextFormField(
+                                textCapitalization: TextCapitalization.words,
+                                maxLines: null,
+                                onSaved: (x) {
+                                  bAuthor = x;
+                                },
+                                decoration: InputDecoration(
                                   labelText: "Author",
                                   fillColor: Colors.white,
-
                                   helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please enter author book you want',hintStyle: TextStyle(fontSize: 15),
+                                  hintText: 'Please enter author book you want',
+                                  hintStyle: TextStyle(fontSize: 15),
                                   isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.at,size: 15,color: Colors.purple,),
+                                  prefixIcon: Icon(
+                                    FontAwesomeIcons.at,
+                                    size: 15,
+                                    color: Colors.purple,
+                                  ),
                                 ),
-                                ),
-
+                              ),
                             ],
                           ),
                         ),
-
                         SizedBox(
                           height: 15,
                         ),
@@ -247,30 +261,30 @@ class _BookRequisitionState extends State<BookRequisition> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-
-                          TextFormField(
-                                  textCapitalization: TextCapitalization.words,
-                                  maxLines: null,
-                                  onSaved: (x) {
-                                    bEdition = x;
-                                  },
-                            decoration:
-
-                            InputDecoration(
-                              labelText: "Edition",
-                              fillColor: Colors.white,
-
-                              helperStyle: TextStyle(fontSize: 13),
-                              hintText: 'Please enter edition book you want',hintStyle: TextStyle(fontSize: 15),
-                              isDense: true,
-                              prefixIcon: Icon(FontAwesomeIcons.iCursor,size: 15,color: Colors.purple,),
-                            ),
+                              TextFormField(
+                                textCapitalization: TextCapitalization.words,
+                                maxLines: null,
+                                onSaved: (x) {
+                                  bEdition = x;
+                                },
+                                decoration: InputDecoration(
+                                  labelText: "Edition",
+                                  fillColor: Colors.white,
+                                  helperStyle: TextStyle(fontSize: 13),
+                                  hintText:
+                                      'Please enter edition book you want',
+                                  hintStyle: TextStyle(fontSize: 15),
+                                  isDense: true,
+                                  prefixIcon: Icon(
+                                    FontAwesomeIcons.iCursor,
+                                    size: 15,
+                                    color: Colors.purple,
+                                  ),
                                 ),
-
+                              ),
                             ],
                           ),
                         ),
-
                         SizedBox(
                           height: 15,
                         ),
@@ -279,29 +293,30 @@ class _BookRequisitionState extends State<BookRequisition> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                             TextFormField(
-                                  textCapitalization: TextCapitalization.words,
-                                  maxLines: null,
-                                  onSaved: (x) {
-                                    bPublisher = x;
-                                  },
-                               decoration:
-
-                               InputDecoration(
-                                 labelText: "Publisher",
-                                 fillColor: Colors.white,
-
-                                 helperStyle: TextStyle(fontSize: 13),
-                                 hintText: 'Please enter publisher book you want',hintStyle: TextStyle(fontSize: 15),
-                                 isDense: true,
-                                 prefixIcon: Icon(FontAwesomeIcons.userTie,size: 15,color: Colors.purple,),
-                               ),
+                              TextFormField(
+                                textCapitalization: TextCapitalization.words,
+                                maxLines: null,
+                                onSaved: (x) {
+                                  bPublisher = x;
+                                },
+                                decoration: InputDecoration(
+                                  labelText: "Publisher",
+                                  fillColor: Colors.white,
+                                  helperStyle: TextStyle(fontSize: 13),
+                                  hintText:
+                                      'Please enter publisher book you want',
+                                  hintStyle: TextStyle(fontSize: 15),
+                                  isDense: true,
+                                  prefixIcon: Icon(
+                                    FontAwesomeIcons.userTie,
+                                    size: 15,
+                                    color: Colors.purple,
+                                  ),
                                 ),
-
+                              ),
                             ],
                           ),
                         ),
-
                         SizedBox(
                           height: 15,
                         ),
@@ -311,28 +326,28 @@ class _BookRequisitionState extends State<BookRequisition> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               TextFormField(
-                                  textCapitalization: TextCapitalization.words,
-                                  maxLines: null,
-                                  onSaved: (x) {
-                                    bYear = x;
-                                  },
-                                decoration:
-
-                                InputDecoration(
+                                textCapitalization: TextCapitalization.words,
+                                maxLines: null,
+                                onSaved: (x) {
+                                  bYear = x;
+                                },
+                                decoration: InputDecoration(
                                   labelText: "Year",
                                   fillColor: Colors.white,
-
                                   helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please enter year book you want',hintStyle: TextStyle(fontSize: 15),
+                                  hintText: 'Please enter year book you want',
+                                  hintStyle: TextStyle(fontSize: 15),
                                   isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.calendarAlt,size: 15,color: Colors.purple,),
+                                  prefixIcon: Icon(
+                                    FontAwesomeIcons.calendarAlt,
+                                    size: 15,
+                                    color: Colors.purple,
+                                  ),
                                 ),
-                                ),
-
+                              ),
                             ],
                           ),
                         ),
-
                         SizedBox(
                           height: 15,
                         ),
@@ -342,28 +357,29 @@ class _BookRequisitionState extends State<BookRequisition> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               TextFormField(
-                                  textCapitalization: TextCapitalization.words,
-                                  maxLines: null,
-                                  onSaved: (x) {
-                                    bIsbn = x;
-                                  },
-                                decoration:
-
-                                InputDecoration(
+                                textCapitalization: TextCapitalization.words,
+                                maxLines: null,
+                                onSaved: (x) {
+                                  bIsbn = x;
+                                },
+                                decoration: InputDecoration(
                                   labelText: "ISBN No",
                                   fillColor: Colors.white,
-
                                   helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please enter ISBN No book you want',hintStyle: TextStyle(fontSize: 15),
+                                  hintText:
+                                      'Please enter ISBN No book you want',
+                                  hintStyle: TextStyle(fontSize: 15),
                                   isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.barcode,size: 15,color: Colors.purple,),
+                                  prefixIcon: Icon(
+                                    FontAwesomeIcons.barcode,
+                                    size: 15,
+                                    color: Colors.purple,
+                                  ),
                                 ),
-                                ),
-
+                              ),
                             ],
                           ),
                         ),
-
                         SizedBox(
                           height: 15,
                         ),
@@ -372,29 +388,29 @@ class _BookRequisitionState extends State<BookRequisition> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                             TextFormField(
-                                  textCapitalization: TextCapitalization.words,
-                                  maxLines: null,
-                                  onSaved: (x) {
-                                    bQuantity = x;
-                                  },
-                               decoration:
-
-                               InputDecoration(
-                                 labelText: "Quantity",
-                                 fillColor: Colors.white,
-
-                                 helperStyle: TextStyle(fontSize: 13),
-                                 hintText: 'Please enter quantity you want',hintStyle: TextStyle(fontSize: 15),
-                                 isDense: true,
-                                 prefixIcon: Icon(FontAwesomeIcons.cartPlus,size: 15,color: Colors.purple,),
-                               ),
+                              TextFormField(
+                                textCapitalization: TextCapitalization.words,
+                                maxLines: null,
+                                onSaved: (x) {
+                                  bQuantity = x;
+                                },
+                                decoration: InputDecoration(
+                                  labelText: "Quantity",
+                                  fillColor: Colors.white,
+                                  helperStyle: TextStyle(fontSize: 13),
+                                  hintText: 'Please enter quantity you want',
+                                  hintStyle: TextStyle(fontSize: 15),
+                                  isDense: true,
+                                  prefixIcon: Icon(
+                                    FontAwesomeIcons.cartPlus,
+                                    size: 15,
+                                    color: Colors.purple,
+                                  ),
                                 ),
-
+                              ),
                             ],
                           ),
                         ),
-
                         SizedBox(
                           height: 15,
                         ),
@@ -404,24 +420,25 @@ class _BookRequisitionState extends State<BookRequisition> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               TextFormField(
-                                  textCapitalization: TextCapitalization.words,
-                                  maxLines: null,
-                                  onSaved: (x) {
-                                    bPrice = x;
-                                  },
-                                  decoration:
-
-                                InputDecoration(
+                                textCapitalization: TextCapitalization.words,
+                                maxLines: null,
+                                onSaved: (x) {
+                                  bPrice = x;
+                                },
+                                decoration: InputDecoration(
                                   labelText: "Price",
                                   fillColor: Colors.white,
-
                                   helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please enter price you aspect',hintStyle: TextStyle(fontSize: 15),
+                                  hintText: 'Please enter price you aspect',
+                                  hintStyle: TextStyle(fontSize: 15),
                                   isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.moneyCheck,size: 15,color: Colors.purple,),
+                                  prefixIcon: Icon(
+                                    FontAwesomeIcons.moneyCheck,
+                                    size: 15,
+                                    color: Colors.purple,
+                                  ),
                                 ),
-                                ),
-                              
+                              ),
                             ],
                           ),
                         ),
@@ -432,38 +449,42 @@ class _BookRequisitionState extends State<BookRequisition> {
                     height: 15,
                   ),
                   Container(
-
                       alignment: Alignment.centerLeft,
                       child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('Please Select Book Type',style: TextStyle(color: Colors.grey[500]),),
-                  )),
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Please Select Book Type',
+                          style: TextStyle(color: Colors.grey[500]),
+                        ),
+                      )),
                   SizedBox(
                     height: 5,
                   ),
-
                   Column(
                     children: <Widget>[
                       DropdownButton<String>(
                         value: _type,
                         hint: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text('Select Type',style: TextStyle(color:Colors.black),),
+                          child: Text(
+                            'Select Type',
+                            style: TextStyle(color: Colors.black),
+                          ),
                         ),
                         isExpanded: true,
                         items: libraryMaterialJson
                                 ?.map(
                                   (item) => DropdownMenuItem<String>(
-                                        value: item['CatTypeName'].toString(),
-                                        child: Column(
-                                          children: <Widget>[
-                                            Padding(
-                                              padding: const EdgeInsets.all(8.0),
-                                              child: Text(item['CatTypeName']),
-                                            ),
-                                          ],
+                                    value: item['CatTypeName'].toString(),
+                                    child: Column(
+                                      children: <Widget>[
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(item['CatTypeName']),
                                         ),
-                                      ),
+                                      ],
+                                    ),
+                                  ),
                                 )
                                 ?.toList() ??
                             [],
@@ -475,7 +496,9 @@ class _BookRequisitionState extends State<BookRequisition> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 15,),
+                  SizedBox(
+                    height: 15,
+                  ),
                   Container(
                       height: 35,
                       width: 80,
@@ -499,9 +522,9 @@ class _BookRequisitionState extends State<BookRequisition> {
                           },
                           child: Center(
                               child: Text(
-                                'Submit',
-                                style: TextStyle(color: Colors.white),
-                              ))))
+                            'Submit',
+                            style: TextStyle(color: Colors.white),
+                          ))))
                 ],
               ),
             ),
@@ -511,10 +534,8 @@ class _BookRequisitionState extends State<BookRequisition> {
     );
   }
 
- 
-
   void _showError(String msg, IconData icon) {
-    showLoading(false,context);
+    showLoading(false, context);
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -522,7 +543,8 @@ class _BookRequisitionState extends State<BookRequisition> {
           return WillPopScope(
             onWillPop: () {},
             child: new AlertDialog(
-              title: Image.asset('images/logo.png',
+              title: Image.asset(
+                'images/logo.png',
                 height: 50,
               ),
               shape: SuperellipseShape(
@@ -556,11 +578,9 @@ class _BookRequisitionState extends State<BookRequisition> {
         });
   }
 
-
-
   Future getLibraryMaterial() async {
     Future.delayed(Duration.zero, () {
-      showLoading(true,context);
+      showLoading(true, context);
     });
 
     try {
@@ -571,7 +591,7 @@ class _BookRequisitionState extends State<BookRequisition> {
           "API-KEY": API,
         },
         body: {
-          'usertype':studentJson['data']['user_type'],
+          'usertype': studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
@@ -584,16 +604,18 @@ class _BookRequisitionState extends State<BookRequisition> {
             libraryMaterialJson = json.decode(response.body)['data'];
           },
         );
-        showLoading(false,context);
+        showLoading(false, context);
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
-        showLoading(false,context);
+        showLoading(false, context);
 
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getLibraryMaterial);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getLibraryMaterial);
       } else {
-          showLoading(false,context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getLibraryMaterial);
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getLibraryMaterial);
       }
     }
   }
@@ -624,7 +646,7 @@ class _BookRequisitionState extends State<BookRequisition> {
       _price.currentState.save();
     }
     Future.delayed(Duration.zero, () {
-      showLoading(true,context);
+      showLoading(true, context);
     });
 
     try {
@@ -646,7 +668,7 @@ class _BookRequisitionState extends State<BookRequisition> {
           'quantity': bQuantity,
           'price': bPrice,
           'type_of_material': _type,
-          'usertype':studentJson['data']['user_type'],
+          'usertype': studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
@@ -659,10 +681,10 @@ class _BookRequisitionState extends State<BookRequisition> {
             bookRequisitionJson = json.decode(response.body);
           },
         );
-        showLoading(false,context);
+        showLoading(false, context);
       }
-      if ( bookRequisitionJson['success'] == '0'){
-        showLoading(false,context);
+      if (bookRequisitionJson['success'] == '0') {
+        showLoading(false, context);
         Fluttertoast.showToast(
             msg: bookRequisitionJson['message'],
             toastLength: Toast.LENGTH_SHORT,
@@ -670,17 +692,18 @@ class _BookRequisitionState extends State<BookRequisition> {
             timeInSecForIos: 1,
             backgroundColor: Colors.grey[400],
             textColor: Colors.black87,
-            fontSize: 13.0
-        );
+            fontSize: 13.0);
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
-        showLoading(false,context);
+        showLoading(false, context);
 
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getLibraryMaterial);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getLibraryMaterial);
       } else {
-          showLoading(false,context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getLibraryMaterial);
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getLibraryMaterial);
       }
     }
   }

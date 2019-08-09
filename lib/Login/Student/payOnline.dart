@@ -10,13 +10,14 @@ import 'package:http/http.dart' as http;
 
 import 'package:superellipse_shape/superellipse_shape.dart';
 
-String feesPayOnline = 'feespayonline';
-
 void main() => runApp(PayOnline());
 
 class PayOnline extends StatefulWidget {
+  
+
   @override
   State<StatefulWidget> createState() {
+    
     return _PayOnlineState();
   }
 }
@@ -24,27 +25,21 @@ class PayOnline extends StatefulWidget {
 // Map<String, int> body;
 
 class _PayOnlineState extends State<PayOnline> {
+  Map payOnlineJson;
+  String feesPayOnline = 'feespayonline';
+  
   void initState() {
     super.initState();
-getPayOnline();
-
-
+    getPayOnline();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-      appBar:PreferredSize(
-
+      appBar: PreferredSize(
         preferredSize: Size.fromHeight(70.0),
-        child:
-
-
-        Stack(
-
+        child: Stack(
           children: <Widget>[
             Column(
               children: <Widget>[
@@ -64,97 +59,98 @@ getPayOnline();
                       ],
                     ),
                   ),
-
-                ), 
-
-
+                ),
               ],
             ),
-
 
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-
-
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Navigator.pop(context);
-
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Row(
-
                         children: <Widget>[
-
-                          Icon(Icons.arrow_back_ios,size: 15,color: Colors.white,),
-                          SizedBox(width: 5,),
-                          Text('Back',style: TextStyle(fontSize: 15,color: Colors.white),),
+                          Icon(
+                            Icons.arrow_back_ios,
+                            size: 15,
+                            color: Colors.white,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            'Back',
+                            style: TextStyle(fontSize: 15, color: Colors.white),
+                          ),
                         ],
                       ),
                     ),
                   ),
-                  Text("Pay Online",style: TextStyle(color: Colors.white),),
-
+                  Text(
+                    "Pay Online",
+                    style: TextStyle(color: Colors.white),
+                  ),
                   GestureDetector(
                     onTap: () {
-                     logOut(context);},
-
-                     child: GestureDetector(
-                      onTap: (){
+                      logOut(context);
+                    },
+                    child: GestureDetector(
+                      onTap: () {
                         logOut(context);
-
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(15),
                         child: Row(
                           children: <Widget>[
-
-                            Icon(FontAwesomeIcons.powerOff,color: Colors.red,size: 15,),
-                            SizedBox(width: 5,),
-                            Text('Logout',style: TextStyle(fontSize: 15,color: Colors.red),),
+                            Icon(
+                              FontAwesomeIcons.powerOff,
+                              color: Colors.red,
+                              size: 15,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'Logout',
+                              style: TextStyle(fontSize: 15, color: Colors.red),
+                            ),
                           ],
                         ),
                       ),
                     ),
                   ),
-
-                ],),
+                ],
+              ),
             ),
             //TODO: Put all Icon Container
           ],
         ),
-      ),      body:  Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              child:
-              
-              payOnlineJson == null ? SizedBox(): 
-               WebviewScaffold(
+      ),
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: payOnlineJson == null
+            ? SizedBox()
+            : WebviewScaffold(
                 hidden: true,
                 withZoom: true,
                 enableAppScheme: true,
                 clearCache: true,
                 clearCookies: true,
                 scrollBar: true,
-
-                url: 
-                               
-                    payOnlineJson['data']
-
-
-              ),
-            ),
+                url: payOnlineJson['data']),
+      ),
     );
   }
 
- 
-
-  void _showError(String msg,IconData icon) {
-    showLoading(false,context);
+  void _showError(String msg, IconData icon) {
+    showLoading(false, context);
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -162,7 +158,8 @@ getPayOnline();
           return WillPopScope(
             onWillPop: () {},
             child: new AlertDialog(
-              title: Image.asset('images/logo.png',
+              title: Image.asset(
+                'images/logo.png',
                 height: 50,
               ),
               shape: SuperellipseShape(
@@ -198,7 +195,7 @@ getPayOnline();
 
   Future getPayOnline() async {
     Future.delayed(Duration.zero, () {
-      showLoading(true,context);
+      showLoading(true, context);
     });
 
     try {
@@ -211,7 +208,7 @@ getPayOnline();
         body: {
           'user_id': username,
           'pay_for': feesPayOnline,
-          'usertype':studentJson['data']['user_type'],
+          'usertype': studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1'
@@ -222,9 +219,9 @@ getPayOnline();
         setState(() {
           payOnlineJson = json.decode(response.body);
         });
-        showLoading(false,context);
+        showLoading(false, context);
         if (payOnlineJson['success'] == '0') {
-          showLoading(false,context);
+          showLoading(false, context);
           Fluttertoast.showToast(
               msg: payOnlineJson['message'],
               toastLength: Toast.LENGTH_SHORT,
@@ -236,12 +233,11 @@ getPayOnline();
         }
       }
     } catch (x) {
-      if(x.toString().contains("TimeoutException")){
-        _showError("Time out from server",FontAwesomeIcons.hourglassHalf);
-      }else{
-        _showError("Sorry, we can't connect",Icons.perm_scan_wifi);
+      if (x.toString().contains("TimeoutException")) {
+        _showError("Time out from server", FontAwesomeIcons.hourglassHalf);
+      } else {
+        _showError("Sorry, we can't connect", Icons.perm_scan_wifi);
       }
-
     }
   }
 }

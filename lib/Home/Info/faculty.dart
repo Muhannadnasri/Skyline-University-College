@@ -26,6 +26,7 @@ class Faculty extends StatefulWidget {
 
 List faculty = [];
 
+Map facultyJson={};
 File dataFile;
 
 Map<String, String> body;
@@ -214,15 +215,15 @@ class _FacultyState extends State<Faculty> {
         }
 
         if (Json['faculty'] != null) {
-          appJson = Json;
+          facultyJson = Json;
         } else {
-          appJson = json.decode(dataFile.readAsStringSync());
+          facultyJson = json.decode(dataFile.readAsStringSync());
         }
 
         showLoading(false,context);
 
         setState(() {
-          faculty = appJson["faculty"];
+          faculty = facultyJson["faculty"];
         });
       } else {}
     } catch (x) {

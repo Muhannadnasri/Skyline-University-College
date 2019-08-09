@@ -20,6 +20,10 @@ class CourseAllocation extends StatefulWidget {
 // Map<String, int> body;
 
 class _CourseAllocationState extends State<CourseAllocation> {
+  List courseAllocationJson = [];
+  List courseAllocationWeekendJson = [];
+  List courseAllocationMorningJson = [];
+  List courseAllocationEveningJson = [];
   @override
   void initState() {
     super.initState();
@@ -389,10 +393,8 @@ class _CourseAllocationState extends State<CourseAllocation> {
         ));
   }
 
-  
-
   void _showError(String msg, IconData icon) {
-    showLoading(false,context);
+    showLoading(false, context);
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -438,7 +440,7 @@ class _CourseAllocationState extends State<CourseAllocation> {
   Future getCourseAllocationData() async {
     Future.delayed(Duration.zero, () {
       courseAllocationJson = [];
-      showLoading(true,context);
+      showLoading(true, context);
     });
     try {
       http.Response response = await http.post(
@@ -449,7 +451,7 @@ class _CourseAllocationState extends State<CourseAllocation> {
         },
         body: {
           'faculty_id': studentJson['data']['user_id'],
-          'usertype':studentJson['data']['user_type'],
+          'usertype': studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
@@ -460,17 +462,18 @@ class _CourseAllocationState extends State<CourseAllocation> {
         setState(() {
           courseAllocationJson = json.decode(response.body)['data']['courses'];
         });
-        
       }
-      showLoading(false,context);
+      showLoading(false, context);
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
-        showLoading(false,context);
+        showLoading(false, context);
 
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getCourseAllocationData);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getCourseAllocationData);
       } else {
-          showLoading(false,context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getCourseAllocationData);
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getCourseAllocationData);
       }
     }
   }

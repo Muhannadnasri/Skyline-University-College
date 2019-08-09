@@ -28,6 +28,8 @@ class _OnlineRequestState extends State<OnlineRequest> {
 Map onlineRequestTypeMessageJson={};
 Map onlineRequestJson={};
 Map requestAmountJson = {};
+String address = '';
+String remark = '';
 
 
   int groupValue;

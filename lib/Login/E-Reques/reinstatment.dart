@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/zigzag.dart';
@@ -29,6 +30,7 @@ class _ReinStatementState extends State<ReinStatement> {
   bool spring = false;
   bool summer = false;
   String semester = "";
+  String documentry = '';
 
   bool incomplete = false;
   bool medical = false;
@@ -39,7 +41,7 @@ class _ReinStatementState extends State<ReinStatement> {
   @override
   void initState() {
     super.initState();
-    getReinStatement();
+    // getReinStatement();
   }
 
   @override
@@ -308,33 +310,40 @@ class _ReinStatementState extends State<ReinStatement> {
                   ),
                   Form(
                     key: _documentry,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextFormField(
-                            textCapitalization: TextCapitalization.words,
-                            maxLines: null,
-                            onSaved: (x) {
-                              documentry = x;
-                            },
-                            decoration: InputDecoration(
-                              labelText: "Document",
-                              fillColor: Colors.white,
-                              helperStyle: TextStyle(fontSize: 13),
-                              hintText: 'Enter Your Doucment Link',
-                              hintStyle: TextStyle(fontSize: 15),
-                              isDense: true,
-                              prefixIcon: Icon(
-                                FontAwesomeIcons.paperclip,
-                                size: 15,
-                                color: Colors.purple,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                    onChanged: () {
+                      if (_documentry.currentState.validate()) {
+                        isValidat = true;
+                        return 'Please check your input';
+                      } else {
+                        isValidat = false;
+                        return null;
+                      }
+                    },
+                    child: GlobalForms(
+                      context,
+                      "Please enter you'r reason",
+                      '',
+                      isValidat
+                          ? FontAwesomeIcons.checkCircle
+                          : !isValidat ? FontAwesomeIcons.timesCircle : null,
+                      isValidat ? Colors.green : !isValidat ? Colors.red : null,
+                      (String value) {
+                        if (value.length < 3 ||
+                            value.isEmpty ||
+                            documentry == null) {
+                          isValidat = false;
+                          return 'Please check your input';
+                        } else {
+                          isValidat = true;
+                          return null;
+                        }
+                      },
+                      (x) {
+                        setState(() {
+                          documentry = x;
+                        });
+                      },
+                      'Reason',
                     ),
                   ),
                   SizedBox(
@@ -359,7 +368,23 @@ class _ReinStatementState extends State<ReinStatement> {
                       ),
                       child: GestureDetector(
                           onTap: () {
-                            getReinStatement();
+                            setState(() {
+                              if (_documentry.currentState.validate() &&
+                                  (incomplete == true ||
+                                      medical == true ||
+                                      medical == true ||
+                                      death == true ||
+                                      personal == true ||
+                                      other == true) &&
+                                  semester.isNotEmpty) {
+                                _documentry.currentState.save();
+
+
+                                getReinStatement();
+                              } else {
+                                return 'Please check your input';
+                              }
+                            });
                           },
                           child: Center(
                               child: Text(
@@ -422,6 +447,17 @@ class _ReinStatementState extends State<ReinStatement> {
             textColor: Colors.black87,
             fontSize: 13.0);
       }
+      if (reinStatementJson['success'] == '1') {
+        showLoading(false, context);
+        Fluttertoast.showToast(
+            msg: reinStatementJson['message'],
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIos: 1,
+            backgroundColor: Colors.grey[400],
+            textColor: Colors.black87,
+            fontSize: 13.0);
+      }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
@@ -436,3 +472,5 @@ class _ReinStatementState extends State<ReinStatement> {
     }
   }
 }
+
+class Forms {}

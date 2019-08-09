@@ -21,26 +21,27 @@ class SalaryCertificate extends StatefulWidget {
 }
 
 final _company = GlobalKey<FormState>();
-final  _addressCertificate = GlobalKey<FormState>();
-final  _cityCertificate = GlobalKey<FormState>();
-final  _other = GlobalKey<FormState>();
-
-
+final _addressCertificate = GlobalKey<FormState>();
+final _cityCertificate = GlobalKey<FormState>();
+final _other = GlobalKey<FormState>();
 
 // Map<String, int> body;
 
 class _SalaryCertificateState extends State<SalaryCertificate> {
-
-Map salaryCertificateJson={};
-List purposeJson = [];
-List countryJson = [];
-
-  String _country;
-  String _purpose;
+  Map salaryCertificateJson = {};
+  List purposeJson = [];
+  List countryJson = [];
+  String comapny = '';
+  String addressCertificate = '';
+  String cityCertificate = '';
+  String _country = '';
+  String _purpose = '';
+  String other='';
+  // String other = '';
 
   @override
   void initState() {
-super.initState();
+    super.initState();
     getSalaryPurposeTypeAndCountry();
   }
 
@@ -50,13 +51,8 @@ super.initState();
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       appBar: PreferredSize(
-
         preferredSize: Size.fromHeight(70.0),
-        child:
-
-
-        Stack(
-
+        child: Stack(
           children: <Widget>[
             Column(
               children: <Widget>[
@@ -76,65 +72,74 @@ super.initState();
                       ],
                     ),
                   ),
-
-                ), 
-
-
+                ),
               ],
             ),
-
 
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-
-
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Navigator.pop(context);
-
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Row(
-
                         children: <Widget>[
-
-                          Icon(Icons.arrow_back_ios,size: 15,color: Colors.white,),
-                          SizedBox(width: 5,),
-                          Text('Back',style: TextStyle(fontSize: 15,color: Colors.white),),
+                          Icon(
+                            Icons.arrow_back_ios,
+                            size: 15,
+                            color: Colors.white,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            'Back',
+                            style: TextStyle(fontSize: 15, color: Colors.white),
+                          ),
                         ],
                       ),
                     ),
                   ),
-                  Text("Salary Certificate",style: TextStyle(color: Colors.white),),
-
+                  Text(
+                    "Salary Certificate",
+                    style: TextStyle(color: Colors.white),
+                  ),
                   GestureDetector(
                     onTap: () {
-                     logOut(context);},
-
-                     child: GestureDetector(
-                      onTap: (){
+                      logOut(context);
+                    },
+                    child: GestureDetector(
+                      onTap: () {
                         logOut(context);
-
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(15),
                         child: Row(
                           children: <Widget>[
-
-                            Icon(FontAwesomeIcons.powerOff,color: Colors.red,size: 15,),
-                            SizedBox(width: 5,),
-                            Text('Logout',style: TextStyle(fontSize: 15,color: Colors.red),),
+                            Icon(
+                              FontAwesomeIcons.powerOff,
+                              color: Colors.red,
+                              size: 15,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'Logout',
+                              style: TextStyle(fontSize: 15, color: Colors.red),
+                            ),
                           ],
                         ),
                       ),
                     ),
                   ),
-
-                ],),
+                ],
+              ),
             ),
             //TODO: Put all Icon Container
           ],
@@ -156,28 +161,33 @@ super.initState();
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          alignment: Alignment.centerLeft,
-                          child: Text('Purpose of the application',style:TextStyle(color: Colors.grey[600]),)),
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Purpose of the application',
+                              style: TextStyle(color: Colors.grey[600]),
+                            )),
                       ),
                       DropdownButton<String>(
-                        
                         isExpanded: true,
                         hint: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text('Select',style:TextStyle(color: Colors.black),),
+                          child: Text(
+                            'Select',
+                            style: TextStyle(color: Colors.black),
+                          ),
                         ),
                         value: _purpose,
                         items: purposeJson
-                            ?.map(
-                              
-                              (item) => DropdownMenuItem<String>(
-                              value: item['purposeid'].toString(),
-                              child: Padding(
-                                padding: const EdgeInsets.only(bottom:8.0,left:8),
-                                child: Text(item['PurposeName']),
-                              )),
-                        )
-                            ?.toList() ??
+                                ?.map(
+                                  (item) => DropdownMenuItem<String>(
+                                      value: item['purposeid'].toString(),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            bottom: 8.0, left: 8),
+                                        child: Text(item['PurposeName']),
+                                      )),
+                                )
+                                ?.toList() ??
                             [],
                         onChanged: (value) {
                           setState(() {
@@ -189,46 +199,80 @@ super.initState();
                       ),
                     ],
                   ),
-SizedBox(height: 15,),
+                  SizedBox(
+                    height: 15,
+                  ),
                   Container(
-                    
                     alignment: Alignment.centerLeft,
                     child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                          child: Text(
-                            'Attention To Submit',
-                          ),
-                        ),
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text(
+                        'Attention To Submit',
                       ),
+                    ),
+                  ),
+
+
+
                   Column(
                     children: <Widget>[
-
-
+                      _purpose=="Others" ? 
                       Form(
                         key: _company,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             TextFormField(
-
-                                textCapitalization: TextCapitalization.words,
-                                maxLines: null,
-                                onSaved: (x) {
-                                  comapny = x;
-                                },
-                                decoration:
-
-                                InputDecoration(
-                                  labelText: "Company and address",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please enter your company and address',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.briefcase,size: 15,color: Colors.purple,),
+                              textCapitalization: TextCapitalization.words,
+                              maxLines: null,
+                              onSaved: (x) {
+                                other = x;
+                              },
+                              decoration: InputDecoration(
+                                labelText: "Company and address",
+                                fillColor: Colors.white,
+                                helperStyle: TextStyle(fontSize: 13),
+                                hintText:
+                                    'Please enter your company and address',
+                                hintStyle: TextStyle(fontSize: 15),
+                                isDense: true,
+                                prefixIcon: Icon(
+                                  FontAwesomeIcons.briefcase,
+                                  size: 15,
+                                  color: Colors.purple,
                                 ),
                               ),
-
+                            ),
+                          ],
+                        ),
+                      )
+                      :
+                      Form(
+                        key: _company,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            TextFormField(
+                              textCapitalization: TextCapitalization.words,
+                              maxLines: null,
+                              onSaved: (x) {
+                                comapny = x;
+                              },
+                              decoration: InputDecoration(
+                                labelText: "Company and address",
+                                fillColor: Colors.white,
+                                helperStyle: TextStyle(fontSize: 13),
+                                hintText:
+                                    'Please enter your company and address',
+                                hintStyle: TextStyle(fontSize: 15),
+                                isDense: true,
+                                prefixIcon: Icon(
+                                  FontAwesomeIcons.briefcase,
+                                  size: 15,
+                                  color: Colors.purple,
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -238,25 +282,25 @@ SizedBox(height: 15,),
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             TextFormField(
-
-                                textCapitalization: TextCapitalization.words,
-                                maxLines: null,
-                                onSaved: (x) {
-                                  addressCertificate = x;
-                                },
-                                decoration:
-
-                                InputDecoration(
-                                  labelText: "Adresss",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your Adresss',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.building,size: 15,color: Colors.purple,),
+                              textCapitalization: TextCapitalization.words,
+                              maxLines: null,
+                              onSaved: (x) {
+                                addressCertificate = x;
+                              },
+                              decoration: InputDecoration(
+                                labelText: "Adresss",
+                                fillColor: Colors.white,
+                                helperStyle: TextStyle(fontSize: 13),
+                                hintText: 'Please Enter Your Adresss',
+                                hintStyle: TextStyle(fontSize: 15),
+                                isDense: true,
+                                prefixIcon: Icon(
+                                  FontAwesomeIcons.building,
+                                  size: 15,
+                                  color: Colors.purple,
                                 ),
                               ),
-
+                            ),
                           ],
                         ),
                       ),
@@ -266,39 +310,41 @@ SizedBox(height: 15,),
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             TextFormField(
-
-                                textCapitalization: TextCapitalization.words,
-                                maxLines: null,
-                                onSaved: (x) {
-                                  cityCertificate = x;
-                                },
-                                decoration:
-
-                                InputDecoration(
-                                  labelText: "City",
-                                  fillColor: Colors.white,
-
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your city',hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(FontAwesomeIcons.city,size: 15,color: Colors.purple,),
+                              textCapitalization: TextCapitalization.words,
+                              maxLines: null,
+                              onSaved: (x) {
+                                cityCertificate = x;
+                              },
+                              decoration: InputDecoration(
+                                labelText: "City",
+                                fillColor: Colors.white,
+                                helperStyle: TextStyle(fontSize: 13),
+                                hintText: 'Please Enter Your city',
+                                hintStyle: TextStyle(fontSize: 15),
+                                isDense: true,
+                                prefixIcon: Icon(
+                                  FontAwesomeIcons.city,
+                                  size: 15,
+                                  color: Colors.purple,
                                 ),
                               ),
-
+                            ),
                           ],
                         ),
                       ),
-
-
-                    
-                      SizedBox(height: 15,),
+                      SizedBox(
+                        height: 15,
+                      ),
                       Column(
                         children: <Widget>[
                           Container(
                             alignment: Alignment.centerLeft,
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Text('Country',style: TextStyle(color: Colors.grey[600]),),
+                              child: Text(
+                                'Country',
+                                style: TextStyle(color: Colors.grey[600]),
+                              ),
                             ),
                           ),
                           DropdownButton<String>(
@@ -306,13 +352,16 @@ SizedBox(height: 15,),
                             isExpanded: true,
                             hint: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Text('Select',style: TextStyle(color: Colors.black),),
+                              child: Text(
+                                'Select',
+                                style: TextStyle(color: Colors.black),
+                              ),
                             ),
                             items: countryJson
-                                ?.map((item) => DropdownMenuItem<String>(
-                                value: item['id'].toString(),
-                                child: Text(item['country'])))
-                                ?.toList() ??
+                                    ?.map((item) => DropdownMenuItem<String>(
+                                        value: item['id'].toString(),
+                                        child: Text(item['country'])))
+                                    ?.toList() ??
                                 [],
                             onChanged: (value) {
                               setState(() {
@@ -322,12 +371,11 @@ SizedBox(height: 15,),
                               });
                             },
                           ),
-                          SizedBox(height: 30,),
+                          SizedBox(
+                            height: 30,
+                          ),
                         ],
                       ),
-
-
-
                     ],
                   ),
                   Container(
@@ -353,9 +401,9 @@ SizedBox(height: 15,),
                           },
                           child: Center(
                               child: Text(
-                                'Submit',
-                                style: TextStyle(color: Colors.white),
-                              ))))
+                            'Submit',
+                            style: TextStyle(color: Colors.white),
+                          ))))
                 ],
               ),
             ),
@@ -365,11 +413,9 @@ SizedBox(height: 15,),
     );
   }
 
-
- 
   Future getSalaryPurposeTypeAndCountry() async {
     Future.delayed(Duration.zero, () {
-      showLoading(true,context);
+      showLoading(true, context);
     });
 
     try {
@@ -380,7 +426,7 @@ SizedBox(height: 15,),
           "API-KEY": API,
         },
         body: {
-          'usertype':studentJson['data']['user_type'],
+          'usertype': studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
@@ -389,22 +435,23 @@ SizedBox(height: 15,),
 
       if (response.statusCode == 200) {
         setState(
-              () {
+          () {
             purposeJson = json.decode(response.body)['data']['purpose_types'];
             countryJson = json.decode(response.body)['data']['country'];
-
-
           },
         );
-        showLoading(false,context);
+        showLoading(false, context);
       }
     } catch (x) {
-      if(x.toString().contains("TimeoutException")){
-        showLoading(false,context);showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getSalaryPurposeTypeAndCountry);
-      }else{
-        showLoading(false,context); showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getSalaryPurposeTypeAndCountry);
+      if (x.toString().contains("TimeoutException")) {
+        showLoading(false, context);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getSalaryPurposeTypeAndCountry);
+      } else {
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getSalaryPurposeTypeAndCountry);
       }
-
     }
   }
 
@@ -431,11 +478,11 @@ SizedBox(height: 15,),
           'user_id': username,
           'app_purpose': _purpose,
           'country': _country,
-          'others':other,
-          'company_address':comapny,
-          'address':addressCertificate,
-          'city':cityCertificate,
-          'usertype':studentJson['data']['user_type'],
+          'others': other,
+          'company_address': comapny,
+          'address': addressCertificate,
+          'city': cityCertificate,
+          'usertype': studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
@@ -444,14 +491,13 @@ SizedBox(height: 15,),
 
       if (response.statusCode == 200) {
         setState(
-              () {
-                salaryCertificateJson = json.decode(response.body);
+          () {
+            salaryCertificateJson = json.decode(response.body);
           },
         );
-
       }
-      if ( salaryCertificateJson['success'] == '0'){
-        showLoading(false,context);
+      if (salaryCertificateJson['success'] == '0') {
+        showLoading(false, context);
         Fluttertoast.showToast(
             msg: salaryCertificateJson['message'],
             toastLength: Toast.LENGTH_SHORT,
@@ -459,16 +505,18 @@ SizedBox(height: 15,),
             timeInSecForIos: 1,
             backgroundColor: Colors.grey[400],
             textColor: Colors.black87,
-            fontSize: 13.0
-        );
+            fontSize: 13.0);
       }
     } catch (x) {
-      if(x.toString().contains("TimeoutException")){
-        showLoading(false,context);showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getSalaryCertificate);
-      }else{
-        showLoading(false,context); showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getSalaryCertificate);
+      if (x.toString().contains("TimeoutException")) {
+        showLoading(false, context);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getSalaryCertificate);
+      } else {
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getSalaryCertificate);
       }
-
     }
   }
 }

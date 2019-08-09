@@ -62,6 +62,44 @@ final _aname = GlobalKey<FormState>();
 // Map<String, int> body;
 
 class _AdmissionFormState extends State<AdmissionForm> {
+  String e2location = '';
+  String pFName = '';
+  String pMName = '';
+  String pLName = '';
+  String pBox = '';
+  String pTown = '';
+  String pState = '';
+  String pPost = '';
+  String pTel = '';
+  String pMobile = '';
+  String hBox = '';
+  String hTown = '';
+  String hState = '';
+  String hPost = '';
+  String hTel = '';
+  String hMobile = '';
+  String hEmail = '';
+  String q1School = '';
+  String q1Duration = '';
+  String q1Result = '';
+  String q2School = '';
+  String q2Duration = '';
+  String q2Result = '';
+  String q3School = '';
+  String q3Duration = '';
+  String q3Result = '';
+  String q4School = '';
+  String q4Duration = '';
+  String q4Result = '';
+  String year = '';
+  String overall = '';
+  String e1time = '';
+  String e1name = '';
+  String e1location = '';
+  String e1position = '';
+  String e2time = '';
+  String e2name = '';
+  String e2position = '';
   String _gender;
   String _title;
   String _visa;
@@ -72,6 +110,14 @@ class _AdmissionFormState extends State<AdmissionForm> {
   String _pCountry;
   String _bCountry;
   String _liveOutside;
+  List programsByCategory2Json = [];
+  List programsByCategory1Json = [];
+  List admissionFormDropdownCountriesJson = [];
+  List admissionFormDropdownProgramJson = [];
+  List admissionFormDropdownTermsJson = [];
+  List admissionFormDropdownQualificationJson = [];
+  List admissionFormDropdownIELTSJson = [];
+  Map admissionForm = {};
 
   String _1Program;
   String _1cName;
@@ -101,6 +147,7 @@ class _AdmissionFormState extends State<AdmissionForm> {
   String _4qDate = '';
 
   String _test;
+  String aName = '';
 
   String _1eFDate = '';
   String _1eTdate = '';

@@ -28,7 +28,7 @@ class News extends StatefulWidget {
 List news = [];
 
 File dataFile;
-
+Map newsJson={};
 Map<String, String> body;
 
 
@@ -265,15 +265,15 @@ width: c_width,
         }
 
         if (Json['news'] != null) {
-          appJson = Json;
+           newsJson = Json;
         } else {
-          appJson = json.decode(dataFile.readAsStringSync());
+          newsJson = json.decode(dataFile.readAsStringSync());
         }
 
         showLoading(false,context);
 
         setState(() {
-          news = appJson["news"];
+          news = newsJson["news"];
         });
         print(news[2]['date']);
       } else {}

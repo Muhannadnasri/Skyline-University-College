@@ -15,11 +15,9 @@ import 'package:superellipse_shape/superellipse_shape.dart';
 
 import '../home.dart';
 
-
 void main() => runApp(FAQ());
 
 class FAQ extends StatefulWidget {
-
   @override
   State<StatefulWidget> createState() {
     return _FAQState();
@@ -29,10 +27,10 @@ class FAQ extends StatefulWidget {
 List news = [];
 
 File dataFile;
+List faqByTypeJson = [];
+Map faqByTypeMessageJson;
 
 Map<String, String> body;
-
-
 
 class _FAQState extends State<FAQ> {
   @override
@@ -47,13 +45,8 @@ class _FAQState extends State<FAQ> {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: PreferredSize(
-
         preferredSize: Size.fromHeight(70.0),
-        child:
-
-
-        Stack(
-
+        child: Stack(
           children: <Widget>[
             Column(
               children: <Widget>[
@@ -73,59 +66,69 @@ class _FAQState extends State<FAQ> {
                       ],
                     ),
                   ),
-
-                ), 
-
-
+                ),
               ],
             ),
-
 
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-
-
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Navigator.pop(context);
-
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Row(
-
                         children: <Widget>[
-
-                          Icon(Icons.arrow_back_ios,size: 15,color: Colors.white,),
-                          SizedBox(width: 5,),
-                          Text('Back',style: TextStyle(fontSize: 15,color: Colors.white),),
+                          Icon(
+                            Icons.arrow_back_ios,
+                            size: 15,
+                            color: Colors.white,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            'Back',
+                            style: TextStyle(fontSize: 15, color: Colors.white),
+                          ),
                         ],
                       ),
                     ),
                   ),
-                  Text("FAQ?",style: TextStyle(color: Colors.white),),
-
+                  Text(
+                    "FAQ?",
+                    style: TextStyle(color: Colors.white),
+                  ),
                   GestureDetector(
                     onTap: () {
-                     logOut(context);},
-
+                      logOut(context);
+                    },
                     child: Padding(
                       padding: const EdgeInsets.all(15),
                       child: Row(
                         children: <Widget>[
-
-                          Icon(FontAwesomeIcons.home,color: Colors.white,size: 15,),
-                          SizedBox(width: 5,),
-                          Text('Home',style: TextStyle(fontSize: 15,color: Colors.white),),
+                          Icon(
+                            FontAwesomeIcons.home,
+                            color: Colors.white,
+                            size: 15,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            'Home',
+                            style: TextStyle(fontSize: 15, color: Colors.white),
+                          ),
                         ],
                       ),
                     ),
                   ),
-
-                ],),
+                ],
+              ),
             ),
             //TODO: Put all Icon Container
           ],
@@ -133,58 +136,53 @@ class _FAQState extends State<FAQ> {
       ),
       body: Container(
         color: Colors.white,
-        child:
-
-        ListView.builder(
-
+        child: ListView.builder(
           itemCount: faqByTypeJson.length,
           itemBuilder: (BuildContext context, int index) {
-            return
-
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Card(
-                  shape: BeveledRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-elevation: 20,
-
-                  child: Container(
-
-                    child: ExpansionTile(
-leading: Icon(FontAwesomeIcons.question,size: 20,),
-                      title: Text(
-                        faqByTypeJson[index]['question']
-                            .toString(),style: TextStyle(fontSize: 14, color: Colors.black)
-
-                      ),
-
-                      children: <Widget>[
-                        Divider(color: Colors.black),
-
-Row(children: <Widget>[
-  Padding(
-    padding: const EdgeInsets.all(15.0),
-    child: Icon(FontAwesomeIcons.checkCircle,size: 20,),
-  ),
-SizedBox(width: 10,),
-  Expanded(
-    child: Padding(
-      padding: const EdgeInsets.all(15.0),
-      child: Text(
-        faqByTypeJson[index]['answer']
-            .toString(),style: TextStyle(fontSize: 13),
-      ),
-    ),
-  ),
-],),
-
-                      ],
-
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                shape: BeveledRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0)),
+                elevation: 20,
+                child: Container(
+                  child: ExpansionTile(
+                    leading: Icon(
+                      FontAwesomeIcons.question,
+                      size: 20,
                     ),
+                    title: Text(faqByTypeJson[index]['question'].toString(),
+                        style: TextStyle(fontSize: 14, color: Colors.black)),
+                    children: <Widget>[
+                      Divider(color: Colors.black),
+                      Row(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Icon(
+                              FontAwesomeIcons.checkCircle,
+                              size: 20,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Text(
+                                faqByTypeJson[index]['answer'].toString(),
+                                style: TextStyle(fontSize: 13),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-              );
-
-
+              ),
+            );
           },
         ),
 //        ExpansionTile(
@@ -195,10 +193,9 @@ SizedBox(width: 10,),
       ),
     );
   }
- 
 
-  void _showError(String msg,IconData icon) {
-    showLoading(false,context);
+  void _showError(String msg, IconData icon) {
+    showLoading(false, context);
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -206,7 +203,8 @@ SizedBox(width: 10,),
           return WillPopScope(
             onWillPop: () {},
             child: new AlertDialog(
-              title: Image.asset('images/logo.png',
+              title: Image.asset(
+                'images/logo.png',
                 height: 50,
               ),
               shape: SuperellipseShape(
@@ -240,12 +238,9 @@ SizedBox(width: 10,),
         });
   }
 
-
-
   Future getFaqByType() async {
-
     Future.delayed(Duration.zero, () {
-      showLoading(true,context);
+      showLoading(true, context);
     });
 
     try {
@@ -256,28 +251,24 @@ SizedBox(width: 10,),
           "API-KEY": API,
         },
         body: {
-
-          'faq_type':'1',
-          'usertype':'1',
+          'faq_type': '1',
+          'usertype': '1',
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
-
         },
       );
       if (response.statusCode == 200) {
         setState(
-              () {
-                faqByTypeJson = json.decode(response.body)['data'];
-                faqByTypeMessageJson = json.decode(response.body);
-
-
+          () {
+            faqByTypeJson = json.decode(response.body)['data'];
+            faqByTypeMessageJson = json.decode(response.body);
           },
         );
-        showLoading(false,context);
+        showLoading(false, context);
       }
-      if ( faqByTypeMessageJson['success'] == '0'){
-        showLoading(false,context);
+      if (faqByTypeMessageJson['success'] == '0') {
+        showLoading(false, context);
         Fluttertoast.showToast(
             msg: faqByTypeMessageJson['message'],
             toastLength: Toast.LENGTH_SHORT,
@@ -285,17 +276,14 @@ SizedBox(width: 10,),
             timeInSecForIos: 1,
             backgroundColor: Colors.grey[400],
             textColor: Colors.black87,
-            fontSize: 13.0
-        );
+            fontSize: 13.0);
       }
-    } catch (x) {if(x.toString().contains("TimeoutException")){
-      _showError("Time out from server",FontAwesomeIcons.hourglassHalf);
-    }else{
-      _showError("Sorry, we can't connect",Icons.perm_scan_wifi);
-
-    }
-
+    } catch (x) {
+      if (x.toString().contains("TimeoutException")) {
+        _showError("Time out from server", FontAwesomeIcons.hourglassHalf);
+      } else {
+        _showError("Sorry, we can't connect", Icons.perm_scan_wifi);
+      }
     }
   }
-
 }

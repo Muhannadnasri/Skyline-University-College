@@ -33,6 +33,7 @@ class _AdvisorAppointmentState extends State<AdvisorAppointment> {
   Map advisorAppointmentJson = {};
 
   int groupValue;
+  String studentProblem = '';
 
   String _time;
   String _date;
@@ -277,8 +278,6 @@ class _AdvisorAppointmentState extends State<AdvisorAppointment> {
                               [],
                           onChanged: (value) {
                             setState(() {
-
-                              
                               _time = value;
                               getAdvisorAppointment();
                             });
@@ -467,7 +466,7 @@ class _AdvisorAppointmentState extends State<AdvisorAppointment> {
         },
         body: {
           'user_id': username,
-          'usertype':studentJson['data']['user_type'],
+          'usertype': studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
@@ -516,7 +515,7 @@ class _AdvisorAppointmentState extends State<AdvisorAppointment> {
           'user_id': username,
           'appt_date': _date,
           'token': '1',
-          'usertype':studentJson['data']['user_type'],
+          'usertype': studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
@@ -568,7 +567,7 @@ class _AdvisorAppointmentState extends State<AdvisorAppointment> {
           'case_desc': _case,
           'stud_problem': studentProblem,
           'token': '1',
-          'usertype':studentJson['data']['user_type'],
+          'usertype': studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',

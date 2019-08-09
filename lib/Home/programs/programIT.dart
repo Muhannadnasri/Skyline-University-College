@@ -29,7 +29,7 @@ class ProgramIT extends StatefulWidget {
 List programIT = [];
 
 File dataFile;
-
+Map programITJson={};
 Map<String, String> body;
 
 class _ProgramITState extends State<ProgramIT> {
@@ -251,15 +251,15 @@ SizedBox(height: 3,),
         }
 
         if (Json['events'] != null) {
-          appJson = Json;
+          programITJson = Json;
         } else {
-          appJson = json.decode(dataFile.readAsStringSync());
+          programITJson = json.decode(dataFile.readAsStringSync());
         }
 
         showLoading(false,context);
 
         setState(() {
-          programIT = appJson["events"];
+          programIT = programITJson["events"];
         });
       } else {}
     } catch (x) {

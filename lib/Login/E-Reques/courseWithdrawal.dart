@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Home/home.dart';
@@ -24,6 +25,11 @@ final _remarkCourse = GlobalKey<FormState>();
 
 class _CourseWithdrawalState extends State<CourseWithdrawal> {
   Map courseWithdrawalJson = {};
+  Map courseNameJson = {};
+
+  List courseWithdrawalCoursesJson=[];
+
+  String remarkCourse = '';
 
   int groupValue;
   String id;
@@ -250,33 +256,44 @@ class _CourseWithdrawalState extends State<CourseWithdrawal> {
                       ),
                       Form(
                         key: _remarkCourse,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TextFormField(
-                                textCapitalization: TextCapitalization.words,
-                                maxLines: null,
-                                onSaved: (x) {
-                                  remarkCourse = x;
-                                },
-                                decoration: InputDecoration(
-                                  labelText: "Remark",
-                                  fillColor: Colors.white,
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your Reason',
-                                  hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(
-                                    FontAwesomeIcons.bookmark,
-                                    size: 15,
-                                    color: Colors.purple,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
+                        onChanged: () {
+                          if (_remarkCourse.currentState.validate()) {
+                            isValidat = true;
+                            return 'Please check your input';
+                          } else {
+                            isValidat = false;
+                            return null;
+                          }
+                        },
+                        child: GlobalForms(
+                          context,
+                          "Please enter you'r reason",
+                          '',
+                          isValidat
+                              ? FontAwesomeIcons.checkCircle
+                              : !isValidat
+                                  ? FontAwesomeIcons.timesCircle
+                                  : null,
+                          isValidat
+                              ? Colors.green
+                              : !isValidat ? Colors.red : null,
+                          (String value) {
+                            if (value.length < 3 ||
+                                value.isEmpty ||
+                                remarkCourse == null) {
+                              isValidat = false;
+                              return 'Please check your input';
+                            } else {
+                              isValidat = true;
+                              return null;
+                            }
+                          },
+                          (x) {
+                            setState(() {
+                              remarkCourse = x;
+                            });
+                          },
+                          'Reason',
                         ),
                       ),
                     ],
@@ -319,7 +336,6 @@ class _CourseWithdrawalState extends State<CourseWithdrawal> {
     );
   }
 
-
 //TODO: RequestType
   Future getCourseWithdrawalCourses() async {
     Future.delayed(Duration.zero, () {
@@ -353,9 +369,13 @@ class _CourseWithdrawalState extends State<CourseWithdrawal> {
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
-        showLoading(false,context);showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getCourseWithdrawalCourses);
+        showLoading(false, context);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getCourseWithdrawalCourses);
       } else {
-        showLoading(false,context); showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getCourseWithdrawalCourses);
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getCourseWithdrawalCourses);
       }
     }
   }
@@ -390,9 +410,13 @@ class _CourseWithdrawalState extends State<CourseWithdrawal> {
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
-        showLoading(false,context);showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getCourseWithdrawalCourses);
+        showLoading(false, context);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getCourseWithdrawalCourses);
       } else {
-        showLoading(false,context); showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getCourseWithdrawalCourses);
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getCourseWithdrawalCourses);
       }
     }
   }
@@ -444,9 +468,13 @@ class _CourseWithdrawalState extends State<CourseWithdrawal> {
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
-        showLoading(false,context);showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getCourseWithdrawalCourses);
+        showLoading(false, context);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getCourseWithdrawalCourses);
       } else {
-        showLoading(false,context); showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getCourseWithdrawalCourses);
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getCourseWithdrawalCourses);
       }
     }
   }

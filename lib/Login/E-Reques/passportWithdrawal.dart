@@ -26,7 +26,6 @@ final _internationalName = GlobalKey<FormState>();
 final _internationalNumber = GlobalKey<FormState>();
 final _reasonPassport = GlobalKey<FormState>();
 
-
 // Map<String, int> body;
 
 class _PassportWithdrawalState extends State<PassportWithdrawal> {
@@ -38,17 +37,22 @@ class _PassportWithdrawalState extends State<PassportWithdrawal> {
   int _year = 2018;
   int _month = 11;
   int _date = 11;
-
+  String localName = '';
+  String localNumber = '';
+  String internationalName = '';
+  String internationalNumber = '';
+  String reasonPassport = '';
 
   @override
   void initState() {
-super.initState();
+    super.initState();
     DateTime now = DateTime.now();
     _year = now.year;
     _month = now.month;
     _date = now.day;
     getPassportWithdrawal();
   }
+
   void _showDateReturnPassport() {
     DateTime now = DateTime.now();
 
@@ -73,6 +77,7 @@ super.initState();
       },
     );
   }
+
   void _changeDateReturnPassport(int year, int month, int date) {
     setState(() {
       _year = year;
@@ -82,20 +87,14 @@ super.initState();
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-      resizeToAvoidBottomPadding: true,//todo: On all Form
+      resizeToAvoidBottomPadding: true, //todo: On all Form
       appBar: PreferredSize(
-
         preferredSize: Size.fromHeight(70.0),
-        child:
-
-
-        Stack(
-
+        child: Stack(
           children: <Widget>[
             Column(
               children: <Widget>[
@@ -115,71 +114,80 @@ super.initState();
                       ],
                     ),
                   ),
-
-                ), 
-
-
+                ),
               ],
             ),
-
 
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-
-
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Navigator.pop(context);
-
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Row(
-
                         children: <Widget>[
-
-                          Icon(Icons.arrow_back_ios,size: 15,color: Colors.white,),
-                          SizedBox(width: 5,),
-                          Text('Back',style: TextStyle(fontSize: 15,color: Colors.white),),
+                          Icon(
+                            Icons.arrow_back_ios,
+                            size: 15,
+                            color: Colors.white,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            'Back',
+                            style: TextStyle(fontSize: 15, color: Colors.white),
+                          ),
                         ],
                       ),
                     ),
                   ),
-                  Text("Passport Withdrawal",style: TextStyle(color: Colors.white),),
-
+                  Text(
+                    "Passport Withdrawal",
+                    style: TextStyle(color: Colors.white),
+                  ),
                   GestureDetector(
                     onTap: () {
-                     logOut(context);},
-
-                     child: GestureDetector(
-                      onTap: (){
+                      logOut(context);
+                    },
+                    child: GestureDetector(
+                      onTap: () {
                         logOut(context);
-
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(15),
                         child: Row(
                           children: <Widget>[
-
-                            Icon(FontAwesomeIcons.powerOff,color: Colors.red,size: 15,),
-                            SizedBox(width: 5,),
-                            Text('Logout',style: TextStyle(fontSize: 15,color: Colors.red),),
+                            Icon(
+                              FontAwesomeIcons.powerOff,
+                              color: Colors.red,
+                              size: 15,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'Logout',
+                              style: TextStyle(fontSize: 15, color: Colors.red),
+                            ),
                           ],
                         ),
                       ),
                     ),
                   ),
-
-                ],),
+                ],
+              ),
             ),
             //TODO: Put all Icon Container
           ],
         ),
-      ),      body: Container(
-
+      ),
+      body: Container(
         child: ListView(
           children: <Widget>[
             GestureDetector(
@@ -197,244 +205,257 @@ super.initState();
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Column(children: <Widget>[
-
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Form(
-                          key: _localName,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: TextFormField(
-
-                                  textCapitalization: TextCapitalization.words,
-                                  maxLines: null,
-                                  onSaved: (x) {
-                                    localName = x;
-                                  },
-                                    decoration:
-
-                                    InputDecoration(
-                                      labelText: "Contact Local Person",
-                                      fillColor: Colors.white,
-
-                                      helperStyle: TextStyle(fontSize: 13),
-                                      hintText: 'Please Enter Local Name',hintStyle: TextStyle(fontSize: 15),
-                                      isDense: true,
-                                      prefixIcon: Icon(FontAwesomeIcons.user,size: 15,color: Colors.purple,),
-                                    )
-                                ),
-                              ),
-                            ],
+                      Column(
+                        children: <Widget>[
+                          SizedBox(
+                            height: 5,
                           ),
-                        ),
-                      ],),
-                      Column(children: <Widget>[
-
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Form(
-                          key: _localNumber,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: TextFormField(
-
-                                  textCapitalization: TextCapitalization.words,
-                                  maxLines: null,
-                                  onSaved: (x) {
-                                    localNumber = x;
-                                  },
-                                    decoration:
-
-                                    InputDecoration(
-                                      labelText: "Contact Local Number",
-                                      fillColor: Colors.white,
-
-                                      helperStyle: TextStyle(fontSize: 13),
-                                      hintText: 'Please Enter Local Number',hintStyle: TextStyle(fontSize: 15),
-                                      isDense: true,
-                                      prefixIcon: Icon(FontAwesomeIcons.mobileAlt,size: 15,color: Colors.purple,),
-                                    )
+                          Form(
+                            key: _localName,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: TextFormField(
+                                      textCapitalization:
+                                          TextCapitalization.words,
+                                      maxLines: null,
+                                      onSaved: (x) {
+                                        localName = x;
+                                      },
+                                      decoration: InputDecoration(
+                                        labelText: "Contact Local Person",
+                                        fillColor: Colors.white,
+                                        helperStyle: TextStyle(fontSize: 13),
+                                        hintText: 'Please Enter Local Name',
+                                        hintStyle: TextStyle(fontSize: 15),
+                                        isDense: true,
+                                        prefixIcon: Icon(
+                                          FontAwesomeIcons.user,
+                                          size: 15,
+                                          color: Colors.purple,
+                                        ),
+                                      )),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                      ],),
-                      Column(children: <Widget>[
-
-
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Form(
-                          key: _internationalName,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: TextFormField(
-
-                                  textCapitalization: TextCapitalization.words,
-                                  maxLines: null,
-                                  onSaved: (x) {
-                                    internationalName = x;
-                                  },
-                                    decoration:
-
-                                    InputDecoration(
-                                      labelText: "Contact International Person",
-                                      fillColor: Colors.white,
-
-                                      helperStyle: TextStyle(fontSize: 13),
-                                      hintText: 'Please Enter Your International Name',hintStyle: TextStyle(fontSize: 15),
-                                      isDense: true,
-                                      prefixIcon: Icon(FontAwesomeIcons.user,size: 15,color: Colors.purple,),
-                                    )
+                        ],
+                      ),
+                      Column(
+                        children: <Widget>[
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Form(
+                            key: _localNumber,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: TextFormField(
+                                      textCapitalization:
+                                          TextCapitalization.words,
+                                      maxLines: null,
+                                      onSaved: (x) {
+                                        localNumber = x;
+                                      },
+                                      decoration: InputDecoration(
+                                        labelText: "Contact Local Number",
+                                        fillColor: Colors.white,
+                                        helperStyle: TextStyle(fontSize: 13),
+                                        hintText: 'Please Enter Local Number',
+                                        hintStyle: TextStyle(fontSize: 15),
+                                        isDense: true,
+                                        prefixIcon: Icon(
+                                          FontAwesomeIcons.mobileAlt,
+                                          size: 15,
+                                          color: Colors.purple,
+                                        ),
+                                      )),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                      ],),
-                      Column(children: <Widget>[
-
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Form(
-                          key: _internationalNumber,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: TextFormField(
-
-                                  textCapitalization: TextCapitalization.words,
-                                  maxLines: null,
-                                  onSaved: (x) {
-                                    internationalNumber = x;
-                                  },
-                                    decoration:
-
-                                    InputDecoration(
-                                      labelText: "Contact International Number",
-                                      fillColor: Colors.white,
-
-                                      helperStyle: TextStyle(fontSize: 13),
-                                      hintText: 'Please Enter International Number',hintStyle: TextStyle(fontSize: 15),
-                                      isDense: true,
-                                      prefixIcon: Icon(FontAwesomeIcons.mobileAlt,size: 15,color: Colors.purple,),
-                                    )
+                        ],
+                      ),
+                      Column(
+                        children: <Widget>[
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Form(
+                            key: _internationalName,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: TextFormField(
+                                      textCapitalization:
+                                          TextCapitalization.words,
+                                      maxLines: null,
+                                      onSaved: (x) {
+                                        internationalName = x;
+                                      },
+                                      decoration: InputDecoration(
+                                        labelText:
+                                            "Contact International Person",
+                                        fillColor: Colors.white,
+                                        helperStyle: TextStyle(fontSize: 13),
+                                        hintText:
+                                            'Please Enter Your International Name',
+                                        hintStyle: TextStyle(fontSize: 15),
+                                        isDense: true,
+                                        prefixIcon: Icon(
+                                          FontAwesomeIcons.user,
+                                          size: 15,
+                                          color: Colors.purple,
+                                        ),
+                                      )),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                      ],),
-
-
+                        ],
+                      ),
+                      Column(
+                        children: <Widget>[
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Form(
+                            key: _internationalNumber,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: TextFormField(
+                                      textCapitalization:
+                                          TextCapitalization.words,
+                                      maxLines: null,
+                                      onSaved: (x) {
+                                        internationalNumber = x;
+                                      },
+                                      decoration: InputDecoration(
+                                        labelText:
+                                            "Contact International Number",
+                                        fillColor: Colors.white,
+                                        helperStyle: TextStyle(fontSize: 13),
+                                        hintText:
+                                            'Please Enter International Number',
+                                        hintStyle: TextStyle(fontSize: 15),
+                                        isDense: true,
+                                        prefixIcon: Icon(
+                                          FontAwesomeIcons.mobileAlt,
+                                          size: 15,
+                                          color: Colors.purple,
+                                        ),
+                                      )),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                       SizedBox(
                         height: 15,
                       ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                  height: 40,
-                                  width: MediaQuery.of(context).size.width,
-                                  decoration: new BoxDecoration(
-                                    gradient: LinearGradient(
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter,
-                                      colors: [
-                                        Color(0xFF104C90),
-                                        Color(0xFF3773AC),
-                                      ],
-                                      stops: [
-                                        0.7,
-                                        0.9,
-                                      ],
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          height: 40,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: new BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Color(0xFF104C90),
+                                Color(0xFF3773AC),
+                              ],
+                              stops: [
+                                0.7,
+                                0.9,
+                              ],
+                            ),
+                          ),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: GestureDetector(
+                              onTap: () {
+                                _showDateReturnPassport();
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  SizedBox(
+                                    width: 15,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 10.0),
+                                    child: Icon(
+                                      FontAwesomeIcons.calendarAlt,
+                                      color: Colors.white,
                                     ),
-                                  ),                                child: Align(
-                                      alignment: Alignment.centerLeft,
-                                        child: GestureDetector(
-                                          onTap: (){
-
-                                            _showDateReturnPassport();
-
-                                          },
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            children: <Widget>[
-                                              SizedBox(width: 15,),
-
-                                              Padding(
-                                                    padding: const EdgeInsets.only(right:10.0),
-                                                    child: Icon(FontAwesomeIcons.calendarAlt,color: Colors.white,),
-                                                  ),
-SizedBox(width: 10,),
-                                              Padding(
-                                                padding: const EdgeInsets.only (left:10.0),
-                                                child: Text( 
-                                                  
-                                                  
-                                                  
-                                                  _dateTimeReturnPassport == null ? 'Date To Return': 'Date To Return' ,style: TextStyle(color:Colors.white),),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-
-                              ),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10.0),
+                                    child: Text(
+                                      _dateTimeReturnPassport == null
+                                          ? 'Date To Return'
+                                          : 'Date To Return',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-
-
-                        SizedBox(
-                          height: 15,
+                          ),
                         ),
-                        Form(
-                          key: _reasonPassport,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: TextFormField(
-
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Form(
+                        key: _reasonPassport,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextFormField(
                                   textCapitalization: TextCapitalization.words,
                                   maxLines: null,
                                   onSaved: (x) {
                                     reasonPassport = x;
                                   },
-                                    decoration:
-
-                                    InputDecoration(
-                                      labelText: "Remark",
-                                      fillColor: Colors.white,
-
-                                      helperStyle: TextStyle(fontSize: 13),
-                                      hintText: 'Please Enter Your Reason',hintStyle: TextStyle(fontSize: 15),
-                                      isDense: true,
-                                      prefixIcon: Icon(FontAwesomeIcons.bookmark,size: 15,color: Colors.purple,),
-                                    )
-                                ),
-                              ),
-                            ],
-                          ),
+                                  decoration: InputDecoration(
+                                    labelText: "Remark",
+                                    fillColor: Colors.white,
+                                    helperStyle: TextStyle(fontSize: 13),
+                                    hintText: 'Please Enter Your Reason',
+                                    hintStyle: TextStyle(fontSize: 15),
+                                    isDense: true,
+                                    prefixIcon: Icon(
+                                      FontAwesomeIcons.bookmark,
+                                      size: 15,
+                                      color: Colors.purple,
+                                    ),
+                                  )),
+                            ),
+                          ],
                         ),
-SizedBox(height: 20,),
-
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
                     ],
                   ),
                   Container(
@@ -460,9 +481,9 @@ SizedBox(height: 20,),
                           },
                           child: Center(
                               child: Text(
-                                'Submit',
-                                style: TextStyle(color: Colors.white),
-                              ))))
+                            'Submit',
+                            style: TextStyle(color: Colors.white),
+                          ))))
                 ],
               ),
             ),
@@ -471,7 +492,6 @@ SizedBox(height: 20,),
       ),
     );
   }
-
 
   Future getPassportWithdrawal() async {
     if (_localName.currentState.validate()) {
@@ -490,7 +510,7 @@ SizedBox(height: 20,),
       _reasonPassport.currentState.save();
     }
     Future.delayed(Duration.zero, () {
-      showLoading(true,context);
+      showLoading(true, context);
     });
 
     try {
@@ -508,7 +528,7 @@ SizedBox(height: 20,),
           'intl_contact': internationalNumber,
           'return_date': _dateTimeReturnPassport,
           'reason': reasonPassport,
-          'usertype':studentJson['data']['user_type'],
+          'usertype': studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
@@ -521,10 +541,10 @@ SizedBox(height: 20,),
             passportWithdrawalJson = json.decode(response.body);
           },
         );
-        showLoading(false,context);
+        showLoading(false, context);
       }
-      if ( passportWithdrawalJson['success'] == '0'){
-        showLoading(false,context);
+      if (passportWithdrawalJson['success'] == '0') {
+        showLoading(false, context);
         Fluttertoast.showToast(
             msg: passportWithdrawalJson['message'],
             toastLength: Toast.LENGTH_SHORT,
@@ -532,16 +552,18 @@ SizedBox(height: 20,),
             timeInSecForIos: 1,
             backgroundColor: Colors.grey[400],
             textColor: Colors.black87,
-            fontSize: 13.0
-        );
+            fontSize: 13.0);
       }
     } catch (x) {
-      if(x.toString().contains("TimeoutException")){
-        showLoading(false,context);showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getPassportWithdrawal);
-      }else{
-        showLoading(false,context); showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getPassportWithdrawal);
+      if (x.toString().contains("TimeoutException")) {
+        showLoading(false, context);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getPassportWithdrawal);
+      } else {
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getPassportWithdrawal);
       }
-
     }
   }
 }

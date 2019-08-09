@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:http/http.dart' as http;
@@ -26,9 +27,10 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
   List generalAPPtTimeJson = [];
   List generalAPPtJson = [];
   List generalApptDate = [];
-  Map onlineRequestJson={};
+  Map generalRequestJson = {};
+  String remarkAppointment = '';
 
-  int groupValue;
+
   String _categoryID;
   String _departmentID;
   String _appointDate;
@@ -467,6 +469,9 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
                       ),
                       child: GestureDetector(
                           onTap: () {
+
+
+
                             getGeneralAppointment();
                           },
                           child: Center(
@@ -488,7 +493,7 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
 
   Future getGeneralApptDate() async {
     Future.delayed(Duration.zero, () {
-      generalApptDate = [];
+
       showLoading(true, context);
     });
 
@@ -501,7 +506,7 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
         },
         body: {
           'user_id': username,
-          'usertype':studentJson['data']['user_type'],
+          'usertype': studentJson['data']['user_type'],
           'emp_no': _departmentID,
           'department': '1',
           'token': '1',
@@ -547,8 +552,8 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
           "API-KEY": API,
         },
         body: {
-          'user_id': username,
-          'usertype':studentJson['data']['user_type'],
+
+          'usertype': studentJson['data']['user_type'],
           'token': '1',
           'ipaddress': '1',
           'deviceid': '1',
@@ -602,23 +607,23 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
           'case_type': _caseType,
           'case_category': _categoryID,
           'department': _caseType == 'Suggestions'
-              ? null
+              ? "null"
               : _caseType == 'Complaints'
-                  ? null
-                  : _caseType == 'Improverments' ? null : _departmentID,
+                  ? "null"
+                  : _caseType == 'Improverments' ? "null" : _departmentID,
           'appt_date': _caseType == 'Suggestions'
-              ? null
+              ? "null"
               : _caseType == 'Complaints'
-                  ? null
-                  : _caseType == 'Improverments' ? null : _appointDate,
+                  ? "null"
+                  : _caseType == 'Improverments' ? "null" : _appointDate,
           'appt_time': _caseType == 'Suggestions'
-              ? null
+              ? "null"
               : _caseType == 'Complaints'
-                  ? null
-                  : _caseType == 'Improverments' ? null : '',
-          'description': '',
+                  ? "null"
+                  : _caseType == 'Improverments' ? "null" : '',
+          'description': remarkAppointment,
           'token': '1',
-          'usertype':studentJson['data']['user_type'],
+          'usertype': studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
@@ -627,10 +632,32 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
       if (response.statusCode == 200) {
         setState(
           () {
-            onlineRequestJson = json.decode(response.body);
+            generalRequestJson = json.decode(response.body);
           },
         );
         showLoading(false, context);
+      }
+      if (generalRequestJson['success'] == '0') {
+        showLoading(false, context);
+        Fluttertoast.showToast(
+            msg: generalRequestJson['message'],
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIos: 1,
+            backgroundColor: Colors.grey[400],
+            textColor: Colors.black87,
+            fontSize: 13.0);
+      }
+      if (generalRequestJson['success'] == '1') {
+        showLoading(false, context);
+        Fluttertoast.showToast(
+            msg: generalRequestJson['message'],
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIos: 1,
+            backgroundColor: Colors.grey[400],
+            textColor: Colors.black87,
+            fontSize: 13.0);
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {

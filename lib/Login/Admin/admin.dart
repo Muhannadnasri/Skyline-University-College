@@ -23,19 +23,18 @@ String staffids = '';
 
 String userids = '';
 
-
 // Map<String, int> body;
 
 class _GPAState extends State<GPA> {
   @override
   void initState() {
     super.initState();
-selectStudent=0;
-selectStaff=0;
+    selectStudent = 0;
+    selectStaff = 0;
     gpaJson = {};
     imageJson = [];
     finalJson = [];
-    marksJson=[];
+    marksJson = [];
   }
 
   @override
@@ -169,101 +168,100 @@ selectStaff=0;
                   ),
                 ),
                 Row(
-                  
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-
-                   Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text('GPA'),
-                    Radio(
-                      value: 1,
-                      groupValue: selectStudent,
-                      onChanged: (int e) {
-                        setState(() {
-                          selectStudent = e;
-                        });
-                      },
-                      activeColor: Colors.purple,
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text('GPA'),
+                        Radio(
+                          value: 1,
+                          groupValue: selectStudent,
+                          onChanged: (int e) {
+                            setState(() {
+                              selectStudent = e;
+                            });
+                          },
+                          activeColor: Colors.purple,
+                        ),
+                        Text('Makrs'),
+                        Radio(
+                          value: 2,
+                          groupValue: selectStudent,
+                          onChanged: (int e) {
+                            setState(() {
+                              selectStudent = e;
+                            });
+                          },
+                          activeColor: Colors.purple,
+                        ),
+                        Text('Final'),
+                        Radio(
+                          value: 3,
+                          groupValue: selectStudent,
+                          onChanged: (int e) {
+                            setState(() {
+                              selectStudent = e;
+                            });
+                          },
+                          activeColor: Colors.purple,
+                        ),
+                      ],
                     ),
-                    Text('Makrs'),
-                    Radio(
-                      value: 2,
-                      groupValue: selectStudent,
-                      onChanged: (int e) {
-                        setState(() {
-                          selectStudent = e;
-                        });
-                      },
-                      activeColor: Colors.purple,
-                    ),
-                    Text('Final'),
-                    Radio(
-                      value: 3,
-                      groupValue: selectStudent,
-                      onChanged: (int e) {
-                        setState(() {
-                          selectStudent = e;
-                        });
-                      },
-                      activeColor: Colors.purple,
+                    Column(
+                      children: <Widget>[
+                        Text('Image'),
+                        Radio(
+                          value: 4,
+                          groupValue: selectStudent,
+                          onChanged: (int e) {
+                            setState(() {
+                              selectStudent = e;
+                            });
+                          },
+                          activeColor: Colors.purple,
+                        ),
+                        Text('Pass'),
+                        Radio(
+                          value: 5,
+                          groupValue: selectStudent,
+                          onChanged: (int e) {
+                            setState(() {
+                              selectStudent = e;
+                            });
+                          },
+                          activeColor: Colors.purple,
+                        ),
+                        Text('finalx'),
+                        Radio(
+                          value: 6,
+                          groupValue: selectStudent,
+                          onChanged: (int e) {
+                            setState(() {
+                              selectStudent = e;
+                            });
+                          },
+                          activeColor: Colors.purple,
+                        ),
+                      ],
                     ),
                   ],
                 ),
-                   Column(
-                  children: <Widget>[
-
-                    
-                    Text('Image'),
-                    Radio(
-                      value: 4,
-                      groupValue: selectStudent,
-                      onChanged: (int e) {
-                        setState(() {
-                          selectStudent = e;
-                        });
-                      },
-                      activeColor: Colors.purple,
-                    ),
-                    Text('Pass'),
-                    Radio(
-                      value: 5,
-                      groupValue: selectStudent,
-                      onChanged: (int e) {
-                        setState(() {
-                          selectStudent = e;
-                        });
-                      },
-                      activeColor: Colors.purple,
-                    ),
-                     Text('finalx'),
-                    Radio(
-                      value: 6,
-                      groupValue: selectStudent,
-                      onChanged: (int e) {
-                        setState(() {
-                          selectStudent = e;
-                        });
-                      },
-                      activeColor: Colors.purple,
-                    ),
-                  ],
-                ),
-
-                ],),
-               
-
-
                 RaisedButton(
                   onPressed: () {
-selectStudent == 4 ? getStudentImage() : selectStudent == 1 ?  getStudentGPAProfile() : selectStudent == 3 ? getFinalMarks() : selectStudent == 5 ? getStudentP() : selectStudent == 6 ? getFinalx() :selectStudent == 2 ? getMarks() : getMarks();
-
-
-
-
-
-
+                    selectStudent == 4
+                        ? getStudentImage()
+                        : selectStudent == 1
+                            ? getStudentGPAProfile()
+                            : selectStudent == 3
+                                ? getFinalMarks()
+                                : selectStudent == 5
+                                    ? getStudentP()
+                                    : selectStudent == 6
+                                        ? getFinalx()
+                                        : selectStudent == 2
+                                            ? getMarks()
+                                            : getMarks();
                   },
                   child: Text('UserId'),
                 ),
@@ -314,26 +312,10 @@ selectStudent == 4 ? getStudentImage() : selectStudent == 1 ?  getStudentGPAProf
                 RaisedButton(
                     child: Text('Staff ID'),
                     onPressed: () {
-
-
-
-
                       setState(() {
-
-                        if (selectStaff == 1)
-                        {
-  getStaffP() ;
-                        }else{}
-                        
-
-                      
-                        
-                        
-                        
-                      
-
-
-
+                        if (selectStaff == 1) {
+                          getStaffP();
+                        } else {}
                       });
                     }),
               ],
@@ -341,18 +323,15 @@ selectStudent == 4 ? getStudentImage() : selectStudent == 1 ?  getStudentGPAProf
           ),
         ],
       ),
-
-
     );
   }
 
-  
   Future getStudentGPAProfile() async {
     if (_userId.currentState.validate()) {
       _userId.currentState.save();
     }
     Future.delayed(Duration.zero, () {
-      showLoading(true,context);
+      showLoading(true, context);
     });
 
     try {
@@ -364,7 +343,7 @@ selectStudent == 4 ? getStudentImage() : selectStudent == 1 ?  getStudentGPAProf
         },
         body: {
           'user_id': userids.toString(),
-          'usertype':'1',
+          'usertype': '1',
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1'
@@ -374,22 +353,22 @@ selectStudent == 4 ? getStudentImage() : selectStudent == 1 ?  getStudentGPAProf
       if (response.statusCode == 200) {
         setState(() {
           gpaJson = json.decode(response.body)['data'];
-                  showLoading(false,context);
-
+          showLoading(false, context);
         });
-           Navigator.pushNamed(context, "/GPASS");
-
+        Navigator.pushNamed(context, "/GPASS");
       }
       print(gpaJson.toString());
     } catch (x) {
       print(x);
       if (x.toString().contains("TimeoutException")) {
-        showLoading(false,context);
+        showLoading(false, context);
 
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getStudentGPAProfile);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getStudentGPAProfile);
       } else {
-          showLoading(false,context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getStudentGPAProfile);
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getStudentGPAProfile);
       }
     }
   }
@@ -399,7 +378,7 @@ selectStudent == 4 ? getStudentImage() : selectStudent == 1 ?  getStudentGPAProf
       _userId.currentState.save();
     }
     Future.delayed(Duration.zero, () {
-      showLoading(true,context);
+      showLoading(true, context);
     });
 
     try {
@@ -410,7 +389,8 @@ selectStudent == 4 ? getStudentImage() : selectStudent == 1 ?  getStudentGPAProf
         },
         body: {
           'user_id': userids.toString(),
-          'usertype':'1',          'ipaddress': '1',
+          'usertype': '1',
+          'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1'
         },
@@ -419,21 +399,23 @@ selectStudent == 4 ? getStudentImage() : selectStudent == 1 ?  getStudentGPAProf
       if (response.statusCode == 200) {
         setState(() {
           imageJson = json.decode(response.body)['data'];
-          showLoading(false,context);
+          showLoading(false, context);
         });
-         Navigator.pushNamed(context, "/GPASS");
-        
+        Navigator.pushNamed(context, "/GPASS");
+
         print(response.body.toString());
       }
     } catch (x) {
       print(x);
       if (x.toString().contains("TimeoutException")) {
-        showLoading(false,context);
+        showLoading(false, context);
 
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getStudentImage);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getStudentImage);
       } else {
-          showLoading(false,context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getStudentImage);
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getStudentImage);
       }
     }
   }
@@ -443,7 +425,7 @@ selectStudent == 4 ? getStudentImage() : selectStudent == 1 ?  getStudentGPAProf
       _userId.currentState.save();
     }
     Future.delayed(Duration.zero, () {
-      showLoading(true,context);
+      showLoading(true, context);
     });
 
     try {
@@ -454,7 +436,8 @@ selectStudent == 4 ? getStudentImage() : selectStudent == 1 ?  getStudentGPAProf
         },
         body: {
           'user_id': userids.toString(),
-          'usertype':'1',          'ipaddress': '1',
+          'usertype': '1',
+          'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1'
         },
@@ -463,21 +446,23 @@ selectStudent == 4 ? getStudentImage() : selectStudent == 1 ?  getStudentGPAProf
       if (response.statusCode == 200) {
         setState(() {
           finalJson = json.decode(response.body)['data'];
-           showLoading(false,context);
+          showLoading(false, context);
         });
-         Navigator.pushNamed(context, "/GPASS");
-       
+        Navigator.pushNamed(context, "/GPASS");
+
         print(response.body.toString());
       }
     } catch (x) {
       print(x);
       if (x.toString().contains("TimeoutException")) {
-        showLoading(false,context);
+        showLoading(false, context);
 
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getFinalMarks);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getFinalMarks);
       } else {
-          showLoading(false,context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getFinalMarks);
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getFinalMarks);
       }
     }
   }
@@ -487,7 +472,7 @@ selectStudent == 4 ? getStudentImage() : selectStudent == 1 ?  getStudentGPAProf
       _userId.currentState.save();
     }
     Future.delayed(Duration.zero, () {
-      showLoading(true,context);
+      showLoading(true, context);
     });
 
     try {
@@ -498,7 +483,8 @@ selectStudent == 4 ? getStudentImage() : selectStudent == 1 ?  getStudentGPAProf
         },
         body: {
           'user_id': userids.toString(),
-          'usertype':'1',          'ipaddress': '1',
+          'usertype': '1',
+          'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1'
         },
@@ -507,21 +493,23 @@ selectStudent == 4 ? getStudentImage() : selectStudent == 1 ?  getStudentGPAProf
       if (response.statusCode == 200) {
         setState(() {
           marksJson = json.decode(response.body)['data'];
-           showLoading(false,context);
+          showLoading(false, context);
         });
-         Navigator.pushNamed(context, "/GPASS");
-       
+        Navigator.pushNamed(context, "/GPASS");
+
         print(response.body.toString());
       }
     } catch (x) {
       print(x);
       if (x.toString().contains("TimeoutException")) {
-        showLoading(false,context);
+        showLoading(false, context);
 
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getMarks);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getMarks);
       } else {
-          showLoading(false,context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getMarks);
+        showLoading(false, context);
+        showError(
+            "Sorry, we can't connect", Icons.perm_scan_wifi, context, getMarks);
       }
     }
   }
@@ -531,7 +519,7 @@ selectStudent == 4 ? getStudentImage() : selectStudent == 1 ?  getStudentGPAProf
       _staffId.currentState.save();
     }
     Future.delayed(Duration.zero, () {
-      showLoading(true,context);
+      showLoading(true, context);
     });
 
     try {
@@ -542,7 +530,8 @@ selectStudent == 4 ? getStudentImage() : selectStudent == 1 ?  getStudentGPAProf
         },
         body: {
           'user_id': staffids.toString(),
-          'usertype':'1',          'ipaddress': '1',
+          'usertype': '1',
+          'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1'
         },
@@ -551,34 +540,32 @@ selectStudent == 4 ? getStudentImage() : selectStudent == 1 ?  getStudentGPAProf
       if (response.statusCode == 200) {
         setState(() {
           staffPJson = json.decode(response.body)['data'];
-              showLoading(false,context);
+          showLoading(false, context);
         });
 
- Navigator.pushNamed(context, "/GPAS");
+        Navigator.pushNamed(context, "/GPAS");
       }
-             
-
     } catch (x) {
       print(x);
       if (x.toString().contains("TimeoutException")) {
-        showLoading(false,context);
+        showLoading(false, context);
 
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getStaffP);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getStaffP);
       } else {
-          showLoading(false,context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getStaffP);
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getStaffP);
       }
     }
   }
 
-
-
-Future getFinalx() async {
+  Future getFinalx() async {
     if (_userId.currentState.validate()) {
       _userId.currentState.save();
     }
     Future.delayed(Duration.zero, () {
-      showLoading(true,context);
+      showLoading(true, context);
     });
 
     try {
@@ -589,7 +576,8 @@ Future getFinalx() async {
         },
         body: {
           'stud_id': userids.toString(),
-          'usertype':'1',          'ipaddress': '1',
+          'usertype': '1',
+          'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1'
         },
@@ -598,35 +586,32 @@ Future getFinalx() async {
       if (response.statusCode == 200) {
         setState(() {
           finalxJson = json.decode(response.body)['data'];
-              showLoading(false,context);
+          showLoading(false, context);
         });
 
- Navigator.pushNamed(context, "/GPASS");
+        Navigator.pushNamed(context, "/GPASS");
       }
-             
-
     } catch (x) {
       print(x);
       if (x.toString().contains("TimeoutException")) {
-        showLoading(false,context);
+        showLoading(false, context);
 
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getFinalx);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getFinalx);
       } else {
-          showLoading(false,context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getFinalx);
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getFinalx);
       }
     }
   }
-
-
-
 
   Future getStudentP() async {
     if (_userId.currentState.validate()) {
       _userId.currentState.save();
     }
     Future.delayed(Duration.zero, () {
-      showLoading(true,context);
+      showLoading(true, context);
     });
 
     try {
@@ -637,7 +622,8 @@ Future getFinalx() async {
         },
         body: {
           'user_id': userids.toString(),
-          'usertype':'1',          'ipaddress': '1',
+          'usertype': '1',
+          'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1'
         },
@@ -646,27 +632,23 @@ Future getFinalx() async {
       if (response.statusCode == 200) {
         setState(() {
           studentPJson = json.decode(response.body)['data'];
-              showLoading(false,context);
+          showLoading(false, context);
         });
 
- Navigator.pushNamed(context, "/GPASS");
+        Navigator.pushNamed(context, "/GPASS");
       }
-             
-
     } catch (x) {
       print(x);
       if (x.toString().contains("TimeoutException")) {
-        showLoading(false,context);
+        showLoading(false, context);
 
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getStudentP);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getStudentP);
       } else {
-          showLoading(false,context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getStudentP);
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getStudentP);
       }
     }
   }
 }
-
-
-
-

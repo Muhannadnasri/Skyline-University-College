@@ -9,10 +9,12 @@ import 'package:skyline_university/Home/home.dart';
 import 'package:skyline_university/Home/Location/location.dart';
 
 import 'Home/Admission/home.dart';
+
 import 'Home/FAQ/faq.dart';
 import 'Home/Gallery/gallery.dart';
 import 'Home/Info/faculty.dart';
 import 'Home/Info/staff.dart';
+import 'Home/Info/virtual.dart';
 import 'Home/programs/program.dart';
 import 'Home/programs/programBusiness.dart';
 import 'Home/programs/programIT.dart';
@@ -156,6 +158,9 @@ class MyAppState extends State<MyApp> {
         '/Program': (context) => Program(),
         '/programBusiness': (context) => ProgramBusiness(),
         '/ProgramIT': (context) => ProgramIT(),
+                '/virtual': (context) => Virtual(),
+
+        
       },
     );
   }

@@ -30,6 +30,7 @@ class ProgramBusiness extends StatefulWidget {
 List programbusiness = [];
 
 File dataFile;
+Map programBusinessJson={};
 
 Map<String, String> body;
 
@@ -251,15 +252,15 @@ SizedBox(height: 3,),
         }
 
         if (Json['events'] != null) {
-          appJson = Json;
+          programBusinessJson = Json;
         } else {
-          appJson = json.decode(dataFile.readAsStringSync());
+          programBusinessJson = json.decode(dataFile.readAsStringSync());
         }
 
         showLoading(false,context);
 
         setState(() {
-          programbusiness = appJson["events"];
+          programbusiness = programBusinessJson["events"];
         });
       } else {}
     } catch (x) {

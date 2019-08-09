@@ -30,7 +30,7 @@ List events = [];
 File dataFile;
 
 Map<String, String> body;
-
+Map eventsJson={};
 
 
 class _EventsState extends State<Events> {
@@ -263,15 +263,15 @@ width: c_width,
         }
 
         if (Json['events'] != null) {
-          appJson = Json;
+          eventsJson = Json;
         } else {
-          appJson = json.decode(dataFile.readAsStringSync());
+          eventsJson = json.decode(dataFile.readAsStringSync());
         }
 
         showLoading(false,context);
 
         setState(() {
-          events = appJson["events"];
+          events = eventsJson["events"];
         });
         print(events[2]['date']);
 

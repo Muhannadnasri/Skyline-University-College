@@ -244,7 +244,7 @@ class _CDPDownloadState extends State<CDPDownload> {
           'deviceid': '1',
           'devicename': '1'
         },
-      ).timeout(Duration(seconds: 35));
+      ).timeout(Duration(seconds: 50));
 
       if (response.statusCode == 200) {
         setState(() {

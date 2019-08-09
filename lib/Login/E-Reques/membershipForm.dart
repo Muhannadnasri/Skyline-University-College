@@ -27,7 +27,12 @@ final  _home = GlobalKey<FormState>();
 final  _work = GlobalKey<FormState>();
 final  _mobile = GlobalKey<FormState>();
 
+String nameForm = '';
 
+String residential = '';
+String homeForm = '';
+String workForm = '';
+String mobileForm = '';
 
 
 // Map<String, int> body;

@@ -26,7 +26,8 @@ class FeeStructures extends StatefulWidget {
 
 
 
-Map<String, String> body;
+Map feeStructuresJson;
+
 
 
 
@@ -139,7 +140,7 @@ class _FeeStructuresState extends State<FeeStructures> {
             Expanded(
               child:
               ListView.builder(
-                  itemCount: getFeeStructuresJson.length,
+                  itemCount: feeStructuresJson.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
                       padding: const EdgeInsets.only(top:5),
@@ -170,7 +171,7 @@ class _FeeStructuresState extends State<FeeStructures> {
                               ),
                               child: Text(
 
-                                getFeeStructuresJson[index]['name'],style: TextStyle(color: Colors.white),
+                                feeStructuresJson[index]['name'],style: TextStyle(color: Colors.white),
 
                               ),
                             ),
@@ -223,7 +224,7 @@ class _FeeStructuresState extends State<FeeStructures> {
       if (response.statusCode == 200) {
         setState(
               () {
-                getFeeStructuresJson = json.decode(response.body)['data'];
+                feeStructuresJson = json.decode(response.body)['data'];
           },
         );
 
