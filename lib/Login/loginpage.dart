@@ -31,7 +31,6 @@ class _LoginAppState extends State<LoginApp> {
   void initState() {
     super.initState();
     //  studentJson.clear();
-    logIn();
   }
 
   void _radio() {
@@ -188,8 +187,6 @@ class _LoginAppState extends State<LoginApp> {
                           SizedBox(
                             height: ScreenUtil.getInstance().setHeight(30),
                           ),
-                     
-
                           Form(
                             key: _logInForm,
                             child: Column(
@@ -418,6 +415,7 @@ class _LoginAppState extends State<LoginApp> {
         }
       }
     } catch (x) {
+      print(x);
       if (x.toString().contains("TimeoutException")) {
         _showError("Time out from server", FontAwesomeIcons.hourglassHalf);
       } else {

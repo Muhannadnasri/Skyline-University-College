@@ -4,26 +4,28 @@ import 'package:skyline_university/Home/Admission/admissionForm.dart';
 import 'package:skyline_university/Home/Chat/chat.dart';
 import 'package:skyline_university/Home/Events/events.dart';
 import 'package:skyline_university/Home/Info/HomeInfo.dart';
+import 'package:skyline_university/Home/Location/location.dart';
 import 'package:skyline_university/Home/News/news.dart';
 import 'package:skyline_university/Home/home.dart';
-import 'package:skyline_university/Home/Location/location.dart';
 
 import 'Home/Admission/home.dart';
-
 import 'Home/FAQ/faq.dart';
 import 'Home/Gallery/gallery.dart';
 import 'Home/Info/faculty.dart';
 import 'Home/Info/staff.dart';
 import 'Home/Info/virtual.dart';
-import 'Home/programs/program.dart';
-import 'Home/programs/programBusiness.dart';
-import 'Home/programs/programIT.dart';
-
+import 'Home/programs/ProfessionalCourses.dart';
+import 'Home/programs/UndergraduatePrograms.dart';
+import 'Home/programs/graduatePrograms.dart';
+import 'Home/programs/homePrograms.dart';
+import 'Home/programs/homeUndergraduate.dart';
+import 'Home/programs/undergraduateBusiness.dart';
+import 'Home/programs/undergraduateIT.dart';
+import 'Home/programs/undergraduateProgram.dart';
 import 'Login/Admin/admin.dart';
 import 'Login/Admin/staffAccess.dart';
 import 'Login/Admin/studentAccess.dart';
 import 'Login/Circulars/circulars.dart';
-
 import 'Login/ContactsList/contactList.dart';
 import 'Login/E-Reques/airTicketRequest.dart';
 import 'Login/E-Reques/bookrequistion.dart';
@@ -41,15 +43,14 @@ import 'Login/E-Reques/permissionToLeave.dart';
 import 'Login/E-Reques/reinstatment.dart';
 import 'Login/E-Reques/salaryCertificate.dart';
 import 'Login/E-Reques/updateInformation.dart';
-
 import 'Login/Faculty/advisors.dart';
 import 'Login/Faculty/classScheduleFAC.dart';
-
 import 'Login/Student/ClassesHome.dart';
 import 'Login/Student/admissionKit.dart';
 import 'Login/Student/advisorAppointment.dart';
 import 'Login/Student/assessmentMarkCourses.dart';
 import 'Login/Student/attendance.dart';
+import 'Login/Student/attendanceCalendar.dart';
 import 'Login/Student/cdp.dart';
 import 'Login/Student/classSchedule.dart';
 import 'Login/Student/classScheduleMqpWeekday.dart';
@@ -62,7 +63,6 @@ import 'Login/Student/midTermMarks.dart';
 import 'Login/Student/myAdvisor.dart';
 import 'Login/Student/payOnline.dart';
 import 'Login/Student/resultHome.dart';
-
 import 'Login/Student/studentGPAProfile.dart';
 import 'Login/home.dart';
 import 'Login/loginpage.dart';
@@ -155,12 +155,16 @@ class MyAppState extends State<MyApp> {
         '/GPAS': (context) => GPAS(),
         '/GPASS': (context) => GPASS(),
         '/HomeClass': (context) => HomeClass(),
-        '/Program': (context) => Program(),
-        '/programBusiness': (context) => ProgramBusiness(),
-        '/ProgramIT': (context) => ProgramIT(),
-                '/virtual': (context) => Virtual(),
-
-        
+        '/UndergraduateProgram': (context) => UndergraduateProgram(),
+        '/UndergraduatePrograms': (context) => UndergraduatePrograms(),
+        '/virtual': (context) => Virtual(),
+        '/attendanceCalendar': (context) => AttendanceCalendar(),
+        '/homePrograms': (context) => HomePrograms(),
+        '/graduatePrograms': (context) => GraduatePrograms(),
+        '/professionalCourses': (context) => ProfessionalCourses(),
+        '/undergraduateBusiness': (context) => UndergraduateBusiness(),
+        '/undergraduateIT': (context) => UndergraduateIT(),
+        '/homeUndergraduate': (context) => HomeUndergraduate(),
       },
     );
   }

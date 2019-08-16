@@ -1213,7 +1213,10 @@ class _HomeLoginState extends State<HomeLogin> {
       }
 
       print(copyRight);
-    } catch (x) {}
+    } catch (x) {
+            print(x);
+
+    }
   }
 
   Future<bool> _exitApp(BuildContext context) async {

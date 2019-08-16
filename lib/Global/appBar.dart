@@ -1,0 +1,40 @@
+import 'package:flutter/material.dart';
+
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:gradient_app_bar/gradient_app_bar.dart';
+
+Widget appBar(BuildContext context, header) {
+  return GradientAppBar(
+    actions: <Widget>[
+      GestureDetector(
+        onTap: () {
+          Navigator.popAndPushNamed(context, "/");
+        },
+        child: Padding(
+          padding: const EdgeInsets.only(right: 17.0),
+          child: Icon(
+            FontAwesomeIcons.home,
+            size: 20,
+          ),
+        ),
+      ),
+    ],
+    centerTitle: true,
+    title: Text(
+      header,
+      style: TextStyle(fontSize: 17),
+    ),
+    gradient: LinearGradient(
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+      colors: [
+        Color(0xFF104C90),
+        Color(0xFF3773AC),
+      ],
+      stops: [
+        0.7,
+        0.9,
+      ],
+    ),
+  );
+}

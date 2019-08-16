@@ -4,6 +4,7 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:http/http.dart' as http;
@@ -45,101 +46,7 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(70.0),
-        child: Stack(
-          children: <Widget>[
-            Column(
-              children: <Widget>[
-                Container(
-                  height: 70,
-                  decoration: new BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Color(0xFF104C90),
-                        Color(0xFF3773AC),
-                      ],
-                      stops: [
-                        0.7,
-                        0.9,
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Row(
-                        children: <Widget>[
-                          Icon(
-                            Icons.arrow_back_ios,
-                            size: 15,
-                            color: Colors.white,
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            'Back',
-                            style: TextStyle(fontSize: 15, color: Colors.white),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Text(
-                    "Change Class Timing",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      logOut(context);
-                    },
-                    child: GestureDetector(
-                      onTap: () {
-                        logOut(context);
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Row(
-                          children: <Widget>[
-                            Icon(
-                              FontAwesomeIcons.powerOff,
-                              color: Colors.red,
-                              size: 15,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              'Logout',
-                              style: TextStyle(fontSize: 15, color: Colors.red),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            //TODO: Put all Icon Container
-          ],
-        ),
-      ),
+      appBar: appBarLogin(context, 'Change Class Time'),
       body: Container(
         color: Colors.grey[300],
         child: ListView(

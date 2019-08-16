@@ -7,13 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/global.dart';
-import 'package:skyline_university/Home/News/oneNews.dart';
-import 'package:superellipse_shape/superellipse_shape.dart';
-
-import '../home.dart';
 
 void main() => runApp(Staff());
 
@@ -27,7 +22,7 @@ class Staff extends StatefulWidget {
 List staff = [];
 
 File dataFile;
-Map staffJson={};
+Map staffJson = {};
 Map<String, String> body;
 
 class _StaffState extends State<Staff> {
@@ -64,9 +59,7 @@ class _StaffState extends State<Staff> {
                       ],
                     ),
                   ),
-                ), 
-
-
+                ),
               ],
             ),
 
@@ -105,7 +98,8 @@ class _StaffState extends State<Staff> {
                   ),
                   GestureDetector(
                     onTap: () {
-                     logOut(context);},
+                      logOut(context);
+                    },
                     child: Padding(
                       padding: const EdgeInsets.all(17),
                       child: Row(
@@ -139,30 +133,39 @@ class _StaffState extends State<Staff> {
                 padding: const EdgeInsets.all(3.0),
                 child: Card(
                   shape: RoundedRectangleBorder(
-                      borderRadius:
-                      BorderRadius.all(Radius.circular(10))),
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
                   elevation: 10,
-                 child:
-
-
-                      DottedBorder(
-                        color: Colors.blue,
-                        gap: 3,
-                        strokeWidth: 1,
-                        child: Column(children: <Widget>[
-                          SizedBox(height: 10,),
-                         Center(child: Text(staff[index]['Name'],style: TextStyle(color: Colors.black),)),
-                          SizedBox(height: 5,),
-
-                          Center(
-                            child: Text(staff[index]['Job_Title'] == null ? 'Staff':staff[index]['Job_Title'],
-                              style: TextStyle(color: Colors.grey[600]), ),
+                  child: DottedBorder(
+                    color: Colors.blue,
+                    gap: 3,
+                    strokeWidth: 1,
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Center(
+                            child: Text(
+                          staff[index]['Name'],
+                          style: TextStyle(color: Colors.black),
+                        )),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Center(
+                          child: Text(
+                            staff[index]['Job_Title'] == null
+                                ? 'Staff'
+                                : staff[index]['Job_Title'],
+                            style: TextStyle(color: Colors.grey[600]),
                           ),
-                          SizedBox(height: 10,),
-
-                        ],),
-                      ),
-
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               );
             }),
@@ -170,13 +173,9 @@ class _StaffState extends State<Staff> {
     );
   }
 
-  
-
-  
-
   Future getStaff() async {
     new Future.delayed(Duration.zero, () {
-      showLoading(true,context);
+      showLoading(true, context);
     });
 
     body = {};
@@ -204,7 +203,7 @@ class _StaffState extends State<Staff> {
           staffJson = json.decode(dataFile.readAsStringSync());
         }
 
-        showLoading(false,context);
+        showLoading(false, context);
 
         setState(() {
           staff = staffJson["staff"];
@@ -212,12 +211,14 @@ class _StaffState extends State<Staff> {
       } else {}
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
-        showLoading(false,context);
+        showLoading(false, context);
 
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getStaff);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getStaff);
       } else {
-          showLoading(false,context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getStaff);
+        showLoading(false, context);
+        showError(
+            "Sorry, we can't connect", Icons.perm_scan_wifi, context, getStaff);
       }
     }
   }

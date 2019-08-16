@@ -1,13 +1,13 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:skyline_university/Global/global.dart';
 import 'package:http/http.dart' as http;
-import 'package:skyline_university/Global/zigzag.dart';
-import 'package:skyline_university/Home/home.dart';
-import 'package:superellipse_shape/superellipse_shape.dart';
+import 'package:skyline_university/Global/appBarLogin.dart';
+import 'package:skyline_university/Global/global.dart';
+
 //TODO: Here Please Check all
 void main() => runApp(OnlineRequest());
 
@@ -25,25 +25,22 @@ final _remark = GlobalKey<FormState>();
 
 class _OnlineRequestState extends State<OnlineRequest> {
   List onlineRequestTypeJson = [];
-Map onlineRequestTypeMessageJson={};
-Map onlineRequestJson={};
-Map requestAmountJson = {};
-String address = '';
-String remark = '';
-
+  Map onlineRequestTypeMessageJson = {};
+  Map onlineRequestJson = {};
+  Map requestAmountJson = {};
+  String address = '';
+  String remark = '';
 
   int groupValue;
   String item;
 
   @override
   void initState() {
-
     super.initState();
 
     getRequestType();
 
     requestAmountJson.clear();
-
   }
 
   @override
@@ -51,100 +48,10 @@ String remark = '';
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
       resizeToAvoidBottomPadding: true,
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(70.0),
-        child: Stack(
-          children: <Widget>[
-            Column(
-              children: <Widget>[
-                Container(
-                  height: 70,
-                  decoration: new BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Color(0xFF104C90),
-                        Color(0xFF3773AC),
-                      ],
-                      stops: [
-                        0.7,
-                        0.9,
-                      ],
-                    ),
-                  ),
-                ),
-
-
-              ],
-            ),
-
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Row(
-                        children: <Widget>[
-                          Icon(
-                            Icons.arrow_back_ios,
-                            size: 15,
-                            color: Colors.white,
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            'Back',
-                            style: TextStyle(fontSize: 15, color: Colors.white),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Text(
-                    "Online Request",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      logOut(context);},
-                    child: Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: Row(
-                        children: <Widget>[
-                          Icon(
-                            FontAwesomeIcons.powerOff,
-                            color: Colors.red,
-                            size: 15,
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            'Logout',
-                            style: TextStyle(fontSize: 15, color: Colors.red),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            //TODO: Put all Icon Container
-          ],
-        ),
-      ),
+      appBar: appBarLogin(context, 'Online Request'),
       body: Container(
         color: Colors.grey[300],
-        child:Container(
+        child: Container(
           color: Colors.grey[300],
           child: ListView(
             children: <Widget>[
@@ -171,10 +78,8 @@ String remark = '';
                     Column(
                       children: <Widget>[
                         DropdownButton<String>(
-                          style: TextStyle(
-                              fontSize: 13, color: Colors.black),
+                          style: TextStyle(fontSize: 13, color: Colors.black),
                           isExpanded: true,
-
                           value: item,
                           hint: Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -183,23 +88,19 @@ String remark = '';
                               style: TextStyle(color: Colors.black),
                             ),
                           ),
-
-                          items:onlineRequestTypeJson
-                              ?.map(
-                                (item) => DropdownMenuItem<String>(
-                              value: item['DetailsID'].toString(),
-                              child: Padding(
-                                padding:
-                                const EdgeInsets.all(8.0),
-                                child: Text(item['Item'].toString()),
-
-                              ),
-                            ),
-                          )
-                              ?.toList() ??
+                          items: onlineRequestTypeJson
+                                  ?.map(
+                                    (item) => DropdownMenuItem<String>(
+                                      value: item['DetailsID'].toString(),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(item['Item'].toString()),
+                                      ),
+                                    ),
+                                  )
+                                  ?.toList() ??
                               [],
                           onChanged: (value) {
-
                             item = value;
                             print(onlineRequestTypeJson.toString());
                             getAmount();
@@ -207,7 +108,6 @@ String remark = '';
                         ),
                       ],
                     ),
-
                     Card(
                       color: Colors.grey[300],
                       child: Row(
@@ -222,8 +122,7 @@ String remark = '';
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
                                     'Normal Amount',
-                                    style: TextStyle(
-                                        color: Colors.grey[600]),
+                                    style: TextStyle(color: Colors.grey[600]),
                                   ),
                                 ),
                               ),
@@ -234,20 +133,15 @@ String remark = '';
                                     child: Align(
                                       alignment: Alignment.centerLeft,
                                       child: Container(
-                                        child: Text(
-
-                                                  requestAmountJson.isEmpty
-                                                    ?
-                                                    ''
-                                                    :
-                                            requestAmountJson['data']['NormalAmount']
-                                                ==
-                                                ("NA")
-                                                ?
-                                            "Not Avalible"
-                                                :
-                                            requestAmountJson['data']['NormalAmount'].toString()
-                                        ),
+                                        child: Text(requestAmountJson.isEmpty
+                                            ? ''
+                                            : requestAmountJson['data']
+                                                        ['NormalAmount'] ==
+                                                    ("NA")
+                                                ? "Not Avalible"
+                                                : requestAmountJson['data']
+                                                        ['NormalAmount']
+                                                    .toString()),
                                       ),
                                     ),
                                   ),
@@ -275,8 +169,7 @@ String remark = '';
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
                                     'Urgent Amount',
-                                    style: TextStyle(
-                                        color: Colors.grey[600]),
+                                    style: TextStyle(color: Colors.grey[600]),
                                   ),
                                 ),
                               ),
@@ -284,18 +177,15 @@ String remark = '';
                                 alignment: Alignment.centerLeft,
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                            requestAmountJson.isEmpty
-                                                ?
-                                            ''
-                                            :
-                                      requestAmountJson['data']
-                                      ['UrgentAmount'] ==
-                                          ("NA")
+                                  child: Text(requestAmountJson.isEmpty
+                                      ? ''
+                                      : requestAmountJson['data']
+                                                  ['UrgentAmount'] ==
+                                              ("NA")
                                           ? "Not Avalible"
                                           : requestAmountJson['data']
-                                      ['UrgentAmount'].toString()
-                                  ),
+                                                  ['UrgentAmount']
+                                              .toString()),
                                 ),
                               ),
                             ],
@@ -315,14 +205,13 @@ String remark = '';
                           Form(
                             key: _address,
                             child: Column(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: TextFormField(
                                     textCapitalization:
-                                    TextCapitalization.words,
+                                        TextCapitalization.words,
                                     maxLines: null,
                                     onSaved: (x) {
                                       address = x;
@@ -331,8 +220,7 @@ String remark = '';
                                       labelText: "Address",
                                       fillColor: Colors.white,
                                       helperText: '(Optional)',
-                                      helperStyle:
-                                      TextStyle(fontSize: 13),
+                                      helperStyle: TextStyle(fontSize: 13),
                                       hintText: 'Enter Your Adress',
                                       hintStyle: TextStyle(fontSize: 15),
                                       isDense: true,
@@ -358,19 +246,17 @@ String remark = '';
                           Form(
                             key: _remark,
                             child: Column(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: TextFormField(
                                     textCapitalization:
-                                    TextCapitalization.words,
+                                        TextCapitalization.words,
                                     maxLines: null,
                                     onSaved: (x) {
                                       remark = x;
                                     },
-
                                     decoration: InputDecoration(
                                       labelText: "Remark",
                                       fillColor: Colors.white,
@@ -481,11 +367,9 @@ String remark = '';
                             },
                             child: Center(
                                 child: Text(
-                                  'Submit',
-                                  style: TextStyle(color: Colors.white),
-                                )))),
-
-
+                              'Submit',
+                              style: TextStyle(color: Colors.white),
+                            )))),
                   ],
                 ),
               ),
@@ -496,15 +380,10 @@ String remark = '';
     );
   }
 
- 
-
   Future getRequestType() async {
-
     Future.delayed(Duration.zero, () {
-      showLoading(true,context);
+      showLoading(true, context);
     });
-
-
 
     try {
       final response = await http.post(
@@ -515,9 +394,9 @@ String remark = '';
         },
         body: {
           'user_id': '15375',
-          'program':'BSIT',
-          'token':'1',
-          'usertype':studentJson['data']['user_type'],
+          'program': 'BSIT',
+          'token': '1',
+          'usertype': studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
@@ -526,16 +405,16 @@ String remark = '';
 
       if (response.statusCode == 200) {
         setState(
-              () {
+          () {
             onlineRequestTypeJson = json.decode(response.body)['data'];
             onlineRequestTypeMessageJson = json.decode(response.body);
           },
         );
 
-        showLoading(false,context);
+        showLoading(false, context);
       }
       if (onlineRequestTypeMessageJson['success'] == '0') {
-showLoading(false,context);
+        showLoading(false, context);
         Fluttertoast.showToast(
             msg: onlineRequestTypeMessageJson['message'],
             toastLength: Toast.LENGTH_SHORT,
@@ -543,19 +422,18 @@ showLoading(false,context);
             timeInSecForIos: 1,
             backgroundColor: Colors.grey[400],
             textColor: Colors.black87,
-            fontSize: 13.0
-        );      }
-    }
-
-
-    catch (x) {
+            fontSize: 13.0);
+      }
+    } catch (x) {
       if (x.toString().contains("TimeoutException")) {
-        showLoading(false,context);
+        showLoading(false, context);
 
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getRequestType);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getRequestType);
       } else {
-          showLoading(false,context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getRequestType);
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getRequestType);
       }
     }
   }
@@ -563,7 +441,7 @@ showLoading(false,context);
 //TODO: Amount
   Future getAmount() async {
     Future.delayed(Duration.zero, () {
-      showLoading(true,context);
+      showLoading(true, context);
     });
 //    requestAmountJson.clear();
 
@@ -577,7 +455,7 @@ showLoading(false,context);
         body: {
           'req_type_id': item,
           'token': '1',
-          'usertype':studentJson['data']['user_type'],
+          'usertype': studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
@@ -586,21 +464,23 @@ showLoading(false,context);
 
       if (response.statusCode == 200) {
         setState(
-              () {
+          () {
             requestAmountJson = json.decode(response.body);
           },
         );
-        showLoading(false,context);
+        showLoading(false, context);
       }
     } catch (x) {
       print(x);
       if (x.toString().contains("TimeoutException")) {
-        showLoading(false,context);
+        showLoading(false, context);
 
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getAmount);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getAmount);
       } else {
-          showLoading(false,context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getAmount);
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getAmount);
       }
     }
   }
@@ -614,7 +494,7 @@ showLoading(false,context);
       _remark.currentState.save();
     }
     Future.delayed(Duration.zero, () {
-      showLoading(true,context);
+      showLoading(true, context);
     });
 
     try {
@@ -632,7 +512,7 @@ showLoading(false,context);
           'remarks': remark,
           'amount': groupValue == 1 ? "NormalAmount" : "UrgentAmount",
           'token': '1',
-          'usertype':studentJson['data']['user_type'],
+          'usertype': studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
@@ -641,23 +521,23 @@ showLoading(false,context);
 
       if (response.statusCode == 200) {
         setState(
-              () {
+          () {
             onlineRequestJson = json.decode(response.body);
           },
         );
-        showLoading(false,context);
+        showLoading(false, context);
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
-        showLoading(false,context);
+        showLoading(false, context);
 
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,context,getOnlineRequest);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getOnlineRequest);
       } else {
-          showLoading(false,context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi,context,getOnlineRequest);
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getOnlineRequest);
       }
     }
   }
-
-
 }

@@ -163,6 +163,13 @@ void showError(String msg, IconData icon, context, action) {
               new FlatButton(
                 onPressed: () {
                   Navigator.pop(context);
+                  Navigator.pop(context);
+                },
+                child: new Text('Back'),
+              ),
+              new FlatButton(
+                onPressed: () {
+                  Navigator.pop(context);
                   action();
                 },
                 child: new Text('Try again'),
