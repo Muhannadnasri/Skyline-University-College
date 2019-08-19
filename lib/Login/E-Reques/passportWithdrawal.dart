@@ -1,13 +1,14 @@
 import 'dart:convert';
 
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:skyline_university/Global/appBarLogin.dart';
+import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
 
 void main() => runApp(PassportWithdrawal());
@@ -19,23 +20,26 @@ class PassportWithdrawal extends StatefulWidget {
   }
 }
 
-final _localName = GlobalKey<FormState>();
-final _localNumber = GlobalKey<FormState>();
-final _internationalName = GlobalKey<FormState>();
-final _internationalNumber = GlobalKey<FormState>();
-final _reasonPassport = GlobalKey<FormState>();
+final _passportWithdrawal = GlobalKey<FormState>();
 
 // Map<String, int> body;
 
 class _PassportWithdrawalState extends State<PassportWithdrawal> {
+  final format = DateFormat("yyyy-MM-dd HH:mm");
+  final initialValue = DateTime.now();
+
+  bool autoValidate = false;
+  bool readOnly = true;
+  bool showResetIcon = true;
+  DateTime value = DateTime.now();
+  int changedCount = 0;
+  int savedCount = 0;
+
   Map passportWithdrawalJson;
 
   int groupValue;
   String ID;
-  String _dateTimeReturnPassport = '';
-  int _year = 2018;
-  int _month = 11;
-  int _date = 11;
+
   String localName = '';
   String localNumber = '';
   String internationalName = '';
@@ -45,45 +49,9 @@ class _PassportWithdrawalState extends State<PassportWithdrawal> {
   @override
   void initState() {
     super.initState();
-    DateTime now = DateTime.now();
-    _year = now.year;
-    _month = now.month;
-    _date = now.day;
-    getPassportWithdrawal();
-  }
+    disableForm = true;
 
-  void _showDateReturnPassport() {
-    DateTime now = DateTime.now();
-
-    DatePicker.showDatePicker(
-      context,
-      minYear: now.year,
-      initialYear: now.year,
-      initialMonth: now.month,
-      initialDate: _date,
-      confirm: Text(
-        'Confirm',
-        style: TextStyle(color: Colors.red),
-      ),
-      cancel: Text(
-        'Cancel',
-        style: TextStyle(color: Colors.cyan),
-      ),
-      locale: 'EN',
-      dateFormat: 'dd-mm-yyyy',
-      onConfirm: (year, month, date) {
-        _changeDateReturnPassport(year, month, date);
-      },
-    );
-  }
-
-  void _changeDateReturnPassport(int year, int month, int date) {
-    setState(() {
-      _year = year;
-      _month = month;
-      _date = date;
-      _dateTimeReturnPassport = '$year-$month-$date';
-    });
+    // getPassportWithdrawal();
   }
 
   @override
@@ -102,266 +70,156 @@ class _PassportWithdrawalState extends State<PassportWithdrawal> {
               child: Column(
                 children: <Widget>[
                   SizedBox(
-                    height: 5,
-                  ),
-                  SizedBox(
                     height: 20,
                   ),
                   Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Column(
-                        children: <Widget>[
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Form(
-                            key: _localName,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: TextFormField(
-                                      textCapitalization:
-                                          TextCapitalization.words,
-                                      maxLines: null,
-                                      onSaved: (x) {
-                                        localName = x;
-                                      },
-                                      decoration: InputDecoration(
-                                        labelText: "Contact Local Person",
-                                        fillColor: Colors.white,
-                                        helperStyle: TextStyle(fontSize: 13),
-                                        hintText: 'Please Enter Local Name',
-                                        hintStyle: TextStyle(fontSize: 15),
-                                        isDense: true,
-                                        prefixIcon: Icon(
-                                          FontAwesomeIcons.user,
-                                          size: 15,
-                                          color: Colors.purple,
-                                        ),
-                                      )),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: <Widget>[
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Form(
-                            key: _localNumber,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: TextFormField(
-                                      textCapitalization:
-                                          TextCapitalization.words,
-                                      maxLines: null,
-                                      onSaved: (x) {
-                                        localNumber = x;
-                                      },
-                                      decoration: InputDecoration(
-                                        labelText: "Contact Local Number",
-                                        fillColor: Colors.white,
-                                        helperStyle: TextStyle(fontSize: 13),
-                                        hintText: 'Please Enter Local Number',
-                                        hintStyle: TextStyle(fontSize: 15),
-                                        isDense: true,
-                                        prefixIcon: Icon(
-                                          FontAwesomeIcons.mobileAlt,
-                                          size: 15,
-                                          color: Colors.purple,
-                                        ),
-                                      )),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: <Widget>[
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Form(
-                            key: _internationalName,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: TextFormField(
-                                      textCapitalization:
-                                          TextCapitalization.words,
-                                      maxLines: null,
-                                      onSaved: (x) {
-                                        internationalName = x;
-                                      },
-                                      decoration: InputDecoration(
-                                        labelText:
-                                            "Contact International Person",
-                                        fillColor: Colors.white,
-                                        helperStyle: TextStyle(fontSize: 13),
-                                        hintText:
-                                            'Please Enter Your International Name',
-                                        hintStyle: TextStyle(fontSize: 15),
-                                        isDense: true,
-                                        prefixIcon: Icon(
-                                          FontAwesomeIcons.user,
-                                          size: 15,
-                                          color: Colors.purple,
-                                        ),
-                                      )),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: <Widget>[
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Form(
-                            key: _internationalNumber,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: TextFormField(
-                                      textCapitalization:
-                                          TextCapitalization.words,
-                                      maxLines: null,
-                                      onSaved: (x) {
-                                        internationalNumber = x;
-                                      },
-                                      decoration: InputDecoration(
-                                        labelText:
-                                            "Contact International Number",
-                                        fillColor: Colors.white,
-                                        helperStyle: TextStyle(fontSize: 13),
-                                        hintText:
-                                            'Please Enter International Number',
-                                        hintStyle: TextStyle(fontSize: 15),
-                                        isDense: true,
-                                        prefixIcon: Icon(
-                                          FontAwesomeIcons.mobileAlt,
-                                          size: 15,
-                                          color: Colors.purple,
-                                        ),
-                                      )),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
                       SizedBox(
-                        height: 15,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          height: 40,
-                          width: MediaQuery.of(context).size.width,
-                          decoration: new BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                Color(0xFF104C90),
-                                Color(0xFF3773AC),
-                              ],
-                              stops: [
-                                0.7,
-                                0.9,
-                              ],
-                            ),
-                          ),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: GestureDetector(
-                              onTap: () {
-                                _showDateReturnPassport();
-                              },
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  SizedBox(
-                                    width: 15,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 10.0),
-                                    child: Icon(
-                                      FontAwesomeIcons.calendarAlt,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 10.0),
-                                    child: Text(
-                                      _dateTimeReturnPassport == null
-                                          ? 'Date To Return'
-                                          : 'Date To Return',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 15,
+                        height: 5,
                       ),
                       Form(
-                        key: _reasonPassport,
+                        key: _passportWithdrawal,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TextFormField(
-                                  textCapitalization: TextCapitalization.words,
-                                  maxLines: null,
-                                  onSaved: (x) {
-                                    reasonPassport = x;
-                                  },
-                                  decoration: InputDecoration(
-                                    labelText: "Remark",
-                                    fillColor: Colors.white,
-                                    helperStyle: TextStyle(fontSize: 13),
-                                    hintText: 'Please Enter Your Reason',
-                                    hintStyle: TextStyle(fontSize: 15),
-                                    isDense: true,
-                                    prefixIcon: Icon(
-                                      FontAwesomeIcons.bookmark,
-                                      size: 15,
-                                      color: Colors.purple,
-                                    ),
-                                  )),
-                            ),
+                            globalForms(context, '', (String value) {
+                              if (value.trim().isEmpty) {
+                                return 'Name is required';
+                              }
+                              return null;
+                            }, (x) {
+                              setState(() {
+                                localName = x;
+                              });
+                            }, 'Contact Local Name', false, TextInputType.text,
+                                Icons.flight_takeoff, Colors.red),
+                            globalForms(context, '', (String value) {
+                              if (value.trim().isEmpty) {
+                                return 'Number is required';
+                              }
+                              return null;
+                            }, (x) {
+                              setState(() {
+                                localNumber = x;
+                              });
+                            },
+                                'Contact Local Number',
+                                false,
+                                TextInputType.number,
+                                Icons.flight_takeoff,
+                                Colors.red),
+                            globalForms(context, '', (String value) {
+                              if (value.trim().isEmpty) {
+                                return 'Name is required';
+                              }
+                              return null;
+                            }, (x) {
+                              setState(() {
+                                internationalName = x;
+                              });
+                            },
+                                'Contact International Name',
+                                false,
+                                TextInputType.text,
+                                Icons.flight_takeoff,
+                                Colors.red),
+                            globalForms(context, '', (String value) {
+                              if (value.trim().isEmpty) {
+                                return 'Number is required';
+                              }
+                              return null;
+                            }, (x) {
+                              setState(() {
+                                internationalNumber = x;
+                              });
+                            },
+                                'Contact International Number',
+                                false,
+                                TextInputType.number,
+                                Icons.flight_takeoff,
+                                Colors.red),
+                            globalForms(context, '', (String value) {
+                              if (value.trim().isEmpty) {
+                                return 'Reason is required';
+                              }
+                              return null;
+                            }, (x) {
+                              setState(() {
+                                reasonPassport = x;
+                              });
+                            }, 'Reason', false, TextInputType.text,
+                                Icons.flight_takeoff, Colors.red),
+                            datePickers(context),
                           ],
                         ),
                       ),
-                      SizedBox(
-                        height: 20,
-                      ),
                     ],
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+
+                  // Padding(
+                  //   padding: const EdgeInsets.all(8.0),
+                  //   child: Container(
+                  //     height: 40,
+                  //     width: MediaQuery.of(context).size.width,
+                  //     decoration: new BoxDecoration(
+                  //       gradient: LinearGradient(
+                  //         begin: Alignment.topCenter,
+                  //         end: Alignment.bottomCenter,
+                  //         colors: [
+                  //           Color(0xFF104C90),
+                  //           Color(0xFF3773AC),
+                  //         ],
+                  //         stops: [
+                  //           0.7,
+                  //           0.9,
+                  //         ],
+                  //       ),
+                  //     ),
+                  //     child: Align(
+                  //       alignment: Alignment.centerLeft,
+                  //       child: GestureDetector(
+                  //         onTap: () {
+                  //           _showDateReturnPassport();
+                  //         },
+                  //         child: Row(
+                  //           mainAxisAlignment: MainAxisAlignment.start,
+                  //           children: <Widget>[
+                  //             SizedBox(
+                  //               width: 15,
+                  //             ),
+                  //             Padding(
+                  //               padding: const EdgeInsets.only(right: 10.0),
+                  //               child: Icon(
+                  //                 FontAwesomeIcons.calendarAlt,
+                  //                 color: Colors.white,
+                  //               ),
+                  //             ),
+                  //             SizedBox(
+                  //               width: 10,
+                  //             ),
+                  //             Padding(
+                  //               padding: const EdgeInsets.only(left: 10.0),
+                  //               child: Text(
+                  //                 _dateTimeReturnPassport == null
+                  //                     ? 'Date To Return'
+                  //                     : 'Date To Return',
+                  //                 style: TextStyle(color: Colors.white),
+                  //               ),
+                  //             ),
+                  //           ],
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  SizedBox(
+                    height: 20,
                   ),
                   Container(
                       height: 35,
@@ -382,7 +240,16 @@ class _PassportWithdrawalState extends State<PassportWithdrawal> {
                       ),
                       child: GestureDetector(
                           onTap: () {
-                            getPassportWithdrawal();
+                            setState(() {
+                              if (_passportWithdrawal.currentState.validate() &&
+                                  value != null) {
+                                _passportWithdrawal.currentState.save();
+                                getPassportWithdrawal();
+                              } else {
+                                return null;
+                              }
+                            });
+                            // print(value);
                           },
                           child: Center(
                               child: Text(
@@ -399,21 +266,6 @@ class _PassportWithdrawalState extends State<PassportWithdrawal> {
   }
 
   Future getPassportWithdrawal() async {
-    if (_localName.currentState.validate()) {
-      _localName.currentState.save();
-    }
-    if (_localNumber.currentState.validate()) {
-      _localNumber.currentState.save();
-    }
-    if (_internationalName.currentState.validate()) {
-      _internationalName.currentState.save();
-    }
-    if (_internationalNumber.currentState.validate()) {
-      _internationalNumber.currentState.save();
-    }
-    if (_reasonPassport.currentState.validate()) {
-      _reasonPassport.currentState.save();
-    }
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
     });
@@ -431,7 +283,7 @@ class _PassportWithdrawalState extends State<PassportWithdrawal> {
           'local_contact': localNumber,
           'intl_person': internationalName,
           'intl_contact': internationalNumber,
-          'return_date': _dateTimeReturnPassport,
+          'return_date': value,
           'reason': reasonPassport,
           'usertype': studentJson['data']['user_type'],
           'ipaddress': '1',
@@ -448,18 +300,11 @@ class _PassportWithdrawalState extends State<PassportWithdrawal> {
         );
         showLoading(false, context);
       }
-      if (passportWithdrawalJson['success'] == '0') {
-        showLoading(false, context);
-        Fluttertoast.showToast(
-            msg: passportWithdrawalJson['message'],
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIos: 1,
-            backgroundColor: Colors.grey[400],
-            textColor: Colors.black87,
-            fontSize: 13.0);
+      if (passportWithdrawalJson['success'] == '1') {
+        showDoneInput(passportWithdrawalJson['message'], context);
       }
     } catch (x) {
+      print(x);
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
         showError("Time out from server", FontAwesomeIcons.hourglassHalf,
@@ -470,5 +315,57 @@ class _PassportWithdrawalState extends State<PassportWithdrawal> {
             getPassportWithdrawal);
       }
     }
+  }
+
+  Widget datePickers(BuildContext context) {
+    return Column(children: <Widget>[
+      Padding(
+        padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 5.0),
+        child: DateTimeField(
+          format: format,
+          onShowPicker: (context, currentValue) async {
+            final date = await showDatePicker(
+                context: context,
+                firstDate: DateTime(1900),
+                initialDate: currentValue ?? DateTime.now(),
+                lastDate: DateTime(2100));
+            if (date != null) {
+              final time = await showTimePicker(
+                context: context,
+                initialTime:
+                    TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
+              );
+              return DateTimeField.combine(date, time);
+            } else {
+              return currentValue;
+            }
+          },
+          validator: (date) {
+            if (value == null) {
+              return 'Date is required';
+            }
+            return null;
+          },
+          initialValue: initialValue,
+          onChanged: (date) => setState(() {
+            value = date;
+            changedCount++;
+          }),
+          onSaved: (date) => setState(() {
+            value = date;
+            savedCount++;
+          }),
+          resetIcon: showResetIcon ? Icon(Icons.delete) : null,
+          readOnly: readOnly,
+          decoration: InputDecoration(
+            labelText: 'Date to Return',
+            icon: Icon(
+              Icons.date_range,
+              color: Colors.blue,
+            ),
+          ),
+        ),
+      ),
+    ]);
   }
 }

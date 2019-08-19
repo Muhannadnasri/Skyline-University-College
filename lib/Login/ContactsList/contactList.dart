@@ -37,8 +37,8 @@ class _ContactListState extends State<ContactList> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-      appBar: appBarLogin(context,'Contact List'),
-        body: ListView.builder(
+      appBar: appBarLogin(context, 'Contact List'),
+      body: ListView.builder(
           itemCount: contactListJson.length,
           itemBuilder: (BuildContext context, int index) {
             return Padding(
@@ -217,7 +217,7 @@ class _ContactListState extends State<ContactList> {
           "API-KEY": API,
         },
         body: {
-          'usertype':studentJson['data']['user_type'],
+          'usertype': studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1'

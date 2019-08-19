@@ -34,6 +34,7 @@ import 'Login/E-Reques/conference.dart';
 import 'Login/E-Reques/courseWithdrawal.dart';
 import 'Login/E-Reques/generalAppointment.dart';
 import 'Login/E-Reques/home.dart';
+import 'Login/E-Reques/leaveApplicationForm.dart';
 import 'Login/E-Reques/leaveapplication.dart';
 import 'Login/E-Reques/membershipForm.dart';
 import 'Login/E-Reques/onlineRequest.dart';
@@ -165,6 +166,7 @@ class MyAppState extends State<MyApp> {
         '/undergraduateBusiness': (context) => UndergraduateBusiness(),
         '/undergraduateIT': (context) => UndergraduateIT(),
         '/homeUndergraduate': (context) => HomeUndergraduate(),
+        '/leaveApplicationForm': (context) => LeaveApplicationForm(),
       },
     );
   }

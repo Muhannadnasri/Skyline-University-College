@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
+import 'package:skyline_university/Global/bottomAppBar.dart';
 import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
 
@@ -26,7 +27,6 @@ final _remark = GlobalKey<FormState>();
 class _UpdateInformationState extends State<UpdateInformation> {
   Map studentInfoJson = {};
   Map studentPersonalInfoJson = {};
-
   int dependentValue;
   int hostelValue;
   int visaValue;
@@ -36,18 +36,20 @@ class _UpdateInformationState extends State<UpdateInformation> {
   String eid = '';
   String passport = '';
   String visa = '';
-  String pName = '';
-  String pEid = '';
-  String pMobileNumber = '';
-  String pEmail = '';
-  String pMobileTelephone = '';
-  String pWork = '';
-  String pDesignation = '';
+  String parentName = '';
+  String parentEmiratesID = '';
+  String parentMobileNumber = '';
+  String parentEmail = '';
+  String residenceMobileNumber = '';
+  String parentWork = '';
+  String parentDesignation = '';
   String boxNumber = '';
 
   @override
   void initState() {
+    disableForm = true;
     super.initState();
+    // print(studentInfoJson);
     getStudentInfo();
   }
 
@@ -56,6 +58,17 @@ class _UpdateInformationState extends State<UpdateInformation> {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
       resizeToAvoidBottomPadding: true,
+      bottomNavigationBar: bottomappBar(
+        context,
+        () {
+          setState(() {
+            if (_information.currentState.validate()) {
+              _information.currentState.save();
+              getStudentPersonalInfo();
+            }
+          });
+        },
+      ),
       appBar: appBarLogin(context, 'Update Information'),
       body: ListView(
         children: <Widget>[
@@ -104,7 +117,7 @@ class _UpdateInformationState extends State<UpdateInformation> {
                               ],
                             ),
                           ],
-                        ), //TODO : Visa
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
@@ -136,7 +149,7 @@ class _UpdateInformationState extends State<UpdateInformation> {
                               ],
                             ),
                           ],
-                        ), //TODO : Dependent
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
@@ -202,241 +215,74 @@ class _UpdateInformationState extends State<UpdateInformation> {
                     height: 20,
                   ),
                   Form(
-                    onChanged: () {
-                      if (_information.currentState.validate()) {
-                        isValidat = true;
-                        return 'Please check your input';
-                      } else {
-                        isValidat = false;
-                        return null;
-                      }
-                    },
                     key: _information,
                     child: Column(
                       children: <Widget>[
-                        GlobalForms(
-                          context,
-                          "Please enter you'r reason",
-                          studentInfoJson['data']['Email'].toString().isEmpty ==
-                                  true
-                              ? ''
-                              : studentInfoJson['data']['Email'].toString(),
-                          isValidat
-                              ? FontAwesomeIcons.checkCircle
-                              : !isValidat
-                                  ? FontAwesomeIcons.timesCircle
-                                  : null,
-                          isValidat
-                              ? Colors.green
-                              : !isValidat ? Colors.red : null,
-                          (String value) {
-                            if (value.length < 3 ||
-                                value.isEmpty ||
-                                email == null) {
-                              isValidat = false;
-                              return 'Please check your input';
-                            } else {
-                              isValidat = true;
-                              return null;
-                            }
-                          },
-                          (x) {
-                            setState(() {
-                              email = x;
-                            });
-                          },
-                          'Email',
-                        ),
-                        SizedBox(
-                          height: 50,
-                        ),
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(left: 15.0, bottom: 10),
-                          child: Row(children: <Widget>[
-                            Text(
-                              'Mobile Number',
-                              style: TextStyle(color: Colors.grey[500]),
-                            )
-                          ]),
-                        ),
-                        Container(
-                          height: 40,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 5.0, right: 5),
-                            child: TextFormField(
-                              initialValue: studentInfoJson['data']
-                                          ['MobileNo'] ==
-                                      null
-                                  ? ''
-                                  : studentInfoJson['data']['MobileNo'] == ''
-                                      ? ''
-                                      : studentInfoJson['data']['MobileNo'],
-                              textCapitalization: TextCapitalization.words,
-                              maxLines: null,
-                              autofocus: false,
-                              onSaved: (x) {
-                                mobileNumber = x;
-                              },
-                              decoration: InputDecoration(
-                                fillColor: Colors.white,
-                                helperStyle: TextStyle(fontSize: 13),
-                                hintText: 'Please Enter Your Mobile Number',
-                                hintStyle: TextStyle(fontSize: 15),
-                                isDense: true,
-                                prefixIcon: Icon(
-                                  FontAwesomeIcons.mobileAlt,
-                                  size: 15,
-                                  color: Colors.purple,
-                                ),
-                              ),
-//                            maxLength: 10,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 50,
-                        ),
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(left: 15.0, bottom: 10),
-                          child: Row(children: <Widget>[
-                            Text(
-                              'Emirates ID',
-                              style: TextStyle(color: Colors.grey[500]),
-                            )
-                          ]),
-                        ),
-                        Container(
-                          height: 40,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 5.0, right: 5),
-                            child: TextFormField(
-                              initialValue: studentInfoJson['data']
-                                          ['EmiratesID'] ==
-                                      null
-                                  ? ''
-                                  : studentInfoJson['data']['EmiratesID'] == ''
-                                      ? ''
-                                      : studentInfoJson['data']['EmiratesID'],
-                              textCapitalization: TextCapitalization.words,
-                              maxLines: null,
-                              autofocus: false,
-                              onSaved: (x) {
-                                eid = x;
-                              },
-                              decoration: InputDecoration(
-                                fillColor: Colors.white,
-                                helperStyle: TextStyle(fontSize: 13),
-                                hintText: 'Please Enter Your E-ID',
-                                hintStyle: TextStyle(fontSize: 15),
-                                isDense: true,
-                                prefixIcon: Icon(
-                                  FontAwesomeIcons.idCard,
-                                  size: 15,
-                                  color: Colors.purple,
-                                ),
-                              ),
-//                            maxLength: 10,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 50,
-                        ),
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(left: 15.0, bottom: 10),
-                          child: Row(children: <Widget>[
-                            Text(
-                              'Passport Number',
-                              style: TextStyle(color: Colors.grey[500]),
-                            )
-                          ]),
-                        ),
-                        Container(
-                          height: 40,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 5.0, right: 5),
-                            child: TextFormField(
-                              initialValue: studentInfoJson['data']
-                                          ['PassportNo'] ==
-                                      null
-                                  ? ''
-                                  : studentInfoJson['data']['PassportNo'] == ''
-                                      ? ''
-                                      : studentInfoJson['data']['PassportNo'],
-                              textCapitalization: TextCapitalization.words,
-                              maxLines: null,
-                              autofocus: false,
-                              onSaved: (x) {
-                                passport = x;
-                              },
-                              decoration: InputDecoration(
-                                fillColor: Colors.white,
-                                helperStyle: TextStyle(fontSize: 13),
-                                hintText: 'Please Enter Your Passport Number',
-                                hintStyle: TextStyle(fontSize: 15),
-                                isDense: true,
-                                prefixIcon: Icon(
-                                  FontAwesomeIcons.passport,
-                                  size: 15,
-                                  color: Colors.purple,
-                                ),
-                              ),
-//                            maxLength: 10,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 50,
-                        ),
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(left: 15.0, bottom: 10),
-                          child: Row(children: <Widget>[
-                            Text(
-                              'Visa Number',
-                              style: TextStyle(color: Colors.grey[500]),
-                            )
-                          ]),
-                        ),
-                        Container(
-                          height: 40,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 5.0, right: 5),
-                            child: TextFormField(
-                              initialValue:
-                                  studentInfoJson['data']['Visa'] == null
-                                      ? ''
-                                      : studentInfoJson['data']['Visa'] == ''
-                                          ? ''
-                                          : studentInfoJson['data']['Visa'],
-                              textCapitalization: TextCapitalization.words,
-                              maxLines: null,
-                              autofocus: false,
-                              onSaved: (x) {
-                                visa = x;
-                              },
-                              decoration: InputDecoration(
-                                fillColor: Colors.white,
-                                helperStyle: TextStyle(fontSize: 13),
-                                hintText: 'Please Enter Your Visa Number',
-                                hintStyle: TextStyle(fontSize: 15),
-                                isDense: true,
-                                prefixIcon: Icon(
-                                  FontAwesomeIcons.passport,
-                                  size: 15,
-                                  color: Colors.purple,
-                                ),
-                              ),
-//                            maxLength: 10,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
+                        globalForms(context, 
+                        studentInfoJson.isEmpty ? '' :studentInfoJson['data']['Email']==null ? '' :
+                        studentInfoJson['data']['Email'],
+                            (String value) {
+                          if (value.trim().isEmpty) {
+                            return 'Email is required';
+                          }
+                          return null;
+                        }, (x) {
+                          setState(() {
+                            email = x;
+                          });
+                        }, 'Email', true, TextInputType.emailAddress,
+                            Icons.flight_takeoff, Colors.red),
+                        globalForms(
+                            context, studentInfoJson['data']['MobileNo'],
+                            (String value) {
+                          if (value.trim().isEmpty) {
+                            return 'Mobile No is required';
+                          }
+                          return null;
+                        }, (x) {
+                          setState(() {
+                            mobileNumber = x;
+                          });
+                        }, 'MobileNo', true, TextInputType.number,
+                            Icons.flight_takeoff, Colors.red),
+                        globalForms(
+                            context, studentInfoJson['data']['EmiratesID'],
+                            (String value) {
+                          if (value.trim().isEmpty) {
+                            return 'Emirates ID is required';
+                          }
+                          return null;
+                        }, (x) {
+                          setState(() {
+                            eid = x;
+                          });
+                        }, 'EmiratesID', true, TextInputType.number,
+                            Icons.flight_takeoff, Colors.red),
+                        globalForms(
+                            context, studentInfoJson['data']['PassportNo'],
+                            (String value) {
+                          if (value.trim().isEmpty) {
+                            return 'Passport is required';
+                          }
+                          return null;
+                        }, (x) {
+                          setState(() {
+                            passport = x;
+                          });
+                        }, 'Passport', true, TextInputType.text,
+                            Icons.flight_takeoff, Colors.red),
+                        globalForms(context, studentInfoJson['data']['Visa'],
+                            (String value) {
+                          if (value.trim().isEmpty) {
+                            return 'Visa is required';
+                          }
+                          return null;
+                        }, (x) {
+                          setState(() {
+                            visa = x;
+                          });
+                        }, 'Visa', true, TextInputType.text,
+                            Icons.flight_takeoff, Colors.red),
                         Container(
                           width: 450,
                           height: 30,
@@ -463,405 +309,113 @@ class _UpdateInformationState extends State<UpdateInformation> {
                         SizedBox(
                           height: 20,
                         ),
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(left: 15.0, bottom: 10),
-                          child: Row(children: <Widget>[
-                            Text(
-                              'Parent Name',
-                              style: TextStyle(color: Colors.grey[500]),
-                            )
-                          ]),
-                        ),
-                        Container(
-                          height: 40,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 5.0, right: 5),
-                            child: TextFormField(
-                              initialValue: studentInfoJson['data']
-                                          ['ParentName'] ==
-                                      null
-                                  ? ''
-                                  : studentInfoJson['data']['ParentName'] == ''
-                                      ? ''
-                                      : studentInfoJson['data']['ParentName'],
-
-                              textCapitalization: TextCapitalization.words,
-                              maxLines: null,
-                              autofocus: false,
-                              onSaved: (x) {
-                                pName = x;
-                              },
-                              decoration: InputDecoration(
-                                fillColor: Colors.white,
-                                helperStyle: TextStyle(fontSize: 13),
-                                hintText: 'Please Enter Your Parent Name',
-                                hintStyle: TextStyle(fontSize: 15),
-                                isDense: true,
-                                prefixIcon: Icon(
-                                  FontAwesomeIcons.user,
-                                  size: 15,
-                                  color: Colors.purple,
-                                ),
-                              ),
-//                            maxLength: 10,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 50,
-                        ),
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(left: 15.0, bottom: 10),
-                          child: Row(children: <Widget>[
-                            Text(
-                              'Parent Emirates ID',
-                              style: TextStyle(color: Colors.grey[500]),
-                            )
-                          ]),
-                        ),
-                        Container(
-                          height: 40,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 5.0, right: 5),
-                            child: TextFormField(
-                              initialValue: studentInfoJson['data']
-                                          ['ParentEmiratesIDNo'] ==
-                                      null
-                                  ? ''
-                                  : studentInfoJson['data']
-                                              ['ParentEmiratesIDNo'] ==
-                                          ''
-                                      ? ''
-                                      : studentInfoJson['data']
-                                          ['ParentEmiratesIDNo'],
-                              textCapitalization: TextCapitalization.words,
-                              maxLines: null,
-                              autofocus: false,
-                              onSaved: (x) {
-                                pEid = x;
-                              },
-                              decoration: InputDecoration(
-                                fillColor: Colors.white,
-                                helperStyle: TextStyle(fontSize: 13),
-                                hintText: 'Please Enter Your Parent E-ID',
-                                hintStyle: TextStyle(fontSize: 15),
-                                isDense: true,
-                                prefixIcon: Icon(
-                                  FontAwesomeIcons.idCard,
-                                  size: 15,
-                                  color: Colors.purple,
-                                ),
-                              ),
-//                            maxLength: 10,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 50,
-                        ),
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(left: 15.0, bottom: 10),
-                          child: Row(children: <Widget>[
-                            Text(
-                              'Parent Mobile Number',
-                              style: TextStyle(color: Colors.grey[500]),
-                            )
-                          ]),
-                        ),
-                        Container(
-                          height: 40,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 5.0, right: 5),
-                            child: TextFormField(
-                              initialValue: studentInfoJson['data']
-                                          ['Parent Mobile No'] ==
-                                      null
-                                  ? ''
-                                  : studentInfoJson['data']
-                                              ['Parent Mobile No'] ==
-                                          ''
-                                      ? ''
-                                      : studentInfoJson['data']
-                                          ['Parent Mobile No'],
-
-                              textCapitalization: TextCapitalization.words,
-                              maxLines: null,
-                              autofocus: false,
-                              onSaved: (x) {
-                                pMobileNumber = x;
-                              },
-                              decoration: InputDecoration(
-                                fillColor: Colors.white,
-                                helperStyle: TextStyle(fontSize: 13),
-                                hintText:
-                                    'Please Enter Your Parent Mobile Number',
-                                hintStyle: TextStyle(fontSize: 15),
-                                isDense: true,
-                                prefixIcon: Icon(
-                                  FontAwesomeIcons.mobileAlt,
-                                  size: 15,
-                                  color: Colors.purple,
-                                ),
-                              ),
-//                            maxLength: 10,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 50,
-                        ),
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(left: 15.0, bottom: 10),
-                          child: Row(children: <Widget>[
-                            Text(
-                              'Parent Email ID',
-                              style: TextStyle(color: Colors.grey[500]),
-                            )
-                          ]),
-                        ),
-                        Container(
-                          height: 40,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 5.0, right: 5),
-                            child: TextFormField(
-                              initialValue: //TODO: If Statement
-                                  studentInfoJson['data']['Parent Email'] ==
-                                          null
-                                      ? ''
-                                      : studentInfoJson['data']
-                                                  ['Parent Email'] ==
-                                              ''
-                                          ? ''
-                                          : studentInfoJson['data']
-                                              ['Parent Email'],
-                              textCapitalization: TextCapitalization.words,
-                              maxLines: null,
-                              autofocus: false,
-                              onSaved: (x) {
-                                pEmail = x;
-                              },
-                              decoration: InputDecoration(
-                                fillColor: Colors.white,
-                                helperStyle: TextStyle(fontSize: 13),
-                                hintText: 'Please Enter Your Parent Email',
-                                hintStyle: TextStyle(fontSize: 15),
-                                isDense: true,
-                                prefixIcon: Icon(
-                                  FontAwesomeIcons.mailBulk,
-                                  size: 15,
-                                  color: Colors.purple,
-                                ),
-                              ),
-//                            maxLength: 10,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 50,
-                        ),
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(left: 15.0, bottom: 10),
-                          child: Row(children: <Widget>[
-                            Text(
-                              'Residence Telephone Number',
-                              style: TextStyle(color: Colors.grey[500]),
-                            )
-                          ]),
-                        ),
-                        Container(
-                          height: 40,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 5.0, right: 5),
-                            child: TextFormField(
-                              initialValue: studentInfoJson['data']
-                                          ['ResidenceNumber'] ==
-                                      null
-                                  ? ''
-                                  : studentInfoJson['data']
-                                              ['ResidenceNumber'] ==
-                                          ''
-                                      ? ''
-                                      : studentInfoJson['data']
-                                          ['ResidenceNumber'],
-                              textCapitalization: TextCapitalization.words,
-                              maxLines: null,
-                              autofocus: false,
-                              onSaved: (x) {
-                                pMobileTelephone = x;
-                              },
-                              decoration: InputDecoration(
-                                fillColor: Colors.white,
-                                helperStyle: TextStyle(fontSize: 13),
-                                hintText: 'Please Enter Your Telephone Number',
-                                hintStyle: TextStyle(fontSize: 15),
-                                isDense: true,
-                                prefixIcon: Icon(
-                                  FontAwesomeIcons.phone,
-                                  size: 15,
-                                  color: Colors.purple,
-                                ),
-                              ),
-//                            maxLength: 10,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 50,
-                        ),
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(left: 15.0, bottom: 10),
-                          child: Row(children: <Widget>[
-                            Text(
-                              'Parent Work Company',
-                              style: TextStyle(color: Colors.grey[500]),
-                            )
-                          ]),
-                        ),
-                        Container(
-                          height: 40,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 5.0, right: 5),
-                            child: TextFormField(
-                              initialValue: studentInfoJson['data']
-                                          ['ParentWorkPlace'] ==
-                                      null
-                                  ? ''
-                                  : studentInfoJson['data']
-                                              ['ParentWorkPlace'] ==
-                                          ''
-                                      ? ''
-                                      : studentInfoJson['data']
-                                          ['ParentWorkPlace'],
-
-                              textCapitalization: TextCapitalization.words,
-                              maxLines: null,
-                              autofocus: false,
-                              onSaved: (x) {
-                                pWork = x;
-                              },
-                              decoration: InputDecoration(
-                                fillColor: Colors.white,
-                                helperStyle: TextStyle(fontSize: 13),
-                                hintText: 'Please Enter Your Parent Company',
-                                hintStyle: TextStyle(fontSize: 15),
-                                isDense: true,
-                                prefixIcon: Icon(
-                                  FontAwesomeIcons.building,
-                                  size: 15,
-                                  color: Colors.purple,
-                                ),
-                              ),
-//                            maxLength: 10,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 50,
-                        ),
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(left: 15.0, bottom: 10),
-                          child: Row(children: <Widget>[
-                            Text(
-                              'Parent Work Position ',
-                              style: TextStyle(color: Colors.grey[500]),
-                            )
-                          ]),
-                        ),
-                        Container(
-                          height: 40,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 5.0, right: 5),
-                            child: TextFormField(
-                              initialValue: studentInfoJson['data']
-                                          ['Designation'] ==
-                                      null
-                                  ? ''
-                                  : studentInfoJson['data']['Designation'] == ''
-                                      ? ''
-                                      : studentInfoJson['data']['Designation'],
-                              textCapitalization: TextCapitalization.words,
-                              maxLines: null,
-                              autofocus: false,
-                              onSaved: (x) {
-                                pDesignation = x;
-                              },
-                              decoration: InputDecoration(
-                                fillColor: Colors.white,
-                                helperStyle: TextStyle(fontSize: 13),
-                                hintText:
-                                    'Please Enter Your Parent Work Position',
-                                hintStyle: TextStyle(fontSize: 15),
-                                isDense: true,
-                                prefixIcon: Icon(
-                                  FontAwesomeIcons.userTie,
-                                  size: 15,
-                                  color: Colors.purple,
-                                ),
-                              ),
-//                            maxLength: 10,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 50,
-                        ),
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(left: 15.0, bottom: 10),
-                          child: Row(children: <Widget>[
-                            Text(
-                              'Po Box Number',
-                              style: TextStyle(color: Colors.grey[500]),
-                            )
-                          ]),
-                        ),
-                        Container(
-                          height: 40,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 5.0, right: 5),
-                            child: TextFormField(
-                              initialValue: studentInfoJson['data']
-                                          ['Po BoxNumber'] ==
-                                      null
-                                  ? ''
-                                  : studentInfoJson['data']['Po BoxNumber'] ==
-                                          ''
-                                      ? ''
-                                      : studentInfoJson['data']['Po BoxNumber'],
-
-                              textCapitalization: TextCapitalization.words,
-                              maxLines: null,
-                              autofocus: false,
-                              onSaved: (x) {
-                                boxNumber = x;
-                              },
-                              decoration: InputDecoration(
-                                fillColor: Colors.white,
-                                helperStyle: TextStyle(fontSize: 13),
-                                hintText: 'Please Enter Your Po.Box Number',
-                                hintStyle: TextStyle(fontSize: 15),
-                                isDense: true,
-                                prefixIcon: Icon(
-                                  FontAwesomeIcons.inbox,
-                                  size: 15,
-                                  color: Colors.purple,
-                                ),
-                              ),
-//                            maxLength: 10,
-                            ),
-                          ),
-                        ),
+                        globalForms(
+                            context, studentInfoJson['data']['ParentName'],
+                            (String value) {
+                          if (value.trim().isEmpty) {
+                            return 'Parent Name is required';
+                          }
+                          return null;
+                        }, (x) {
+                          setState(() {
+                            parentName = x;
+                          });
+                        }, 'ParentName', true, TextInputType.text,
+                            Icons.flight_takeoff, Colors.red),
+                        globalForms(context,
+                            studentInfoJson['data']['ParentEmiratesIDNo'],
+                            (String value) {
+                          if (value.trim().isEmpty) {
+                            return 'Parent Emirates ID is required';
+                          }
+                          return null;
+                        }, (x) {
+                          setState(() {
+                            parentEmiratesID = x;
+                          });
+                        }, 'Parent Emirates ID', true, TextInputType.number,
+                            Icons.flight_takeoff, Colors.red),
+                        globalForms(context,
+                            studentInfoJson['data']['Parent Mobile No'],
+                            (String value) {
+                          if (value.trim().isEmpty) {
+                            return 'Parent Mobile is required';
+                          }
+                          return null;
+                        }, (x) {
+                          setState(() {
+                            parentMobileNumber = x;
+                          });
+                        }, 'Parent Mobile Number', true, TextInputType.number,
+                            Icons.flight_takeoff, Colors.red),
+                        globalForms(
+                            context, studentInfoJson['data']['Parent Email'],
+                            (String value) {
+                          if (value.trim().isEmpty) {
+                            return 'Parent Email is required';
+                          }
+                          return null;
+                        }, (x) {
+                          setState(() {
+                            parentEmail = x;
+                          });
+                        }, 'Parent Email', true, TextInputType.number,
+                            Icons.flight_takeoff, Colors.red),
+                        globalForms(
+                            context, studentInfoJson['data']['ResidenceNumber'],
+                            (String value) {
+                          if (value.trim().isEmpty) {
+                            return 'Residence Number is required';
+                          }
+                          return null;
+                        }, (x) {
+                          setState(() {
+                            residenceMobileNumber = x;
+                          });
+                        }, 'Residence Number', true, TextInputType.number,
+                            Icons.flight_takeoff, Colors.red),
+                        globalForms(
+                            context, studentInfoJson['data']['ParentWorkPlace'],
+                            (String value) {
+                          if (value.trim().isEmpty) {
+                            return 'Parent Work Place is required';
+                          }
+                          return null;
+                        }, (x) {
+                          setState(() {
+                            parentWork = x;
+                          });
+                        }, 'Parent Work Place', true, TextInputType.text,
+                            Icons.flight_takeoff, Colors.red),
+                        globalForms(
+                            context, studentInfoJson['data']['Designation'],
+                            (String value) {
+                          if (value.trim().isEmpty) {
+                            return 'Designation is required';
+                          }
+                          return null;
+                        }, (x) {
+                          setState(() {
+                            parentDesignation = x;
+                          });
+                        }, 'Designation', true, TextInputType.text,
+                            Icons.flight_takeoff, Colors.red),
+                        globalForms(
+                            context, studentInfoJson['data']['Po BoxNumber'],
+                            (String value) {
+                          if (value.trim().isEmpty) {
+                            return 'BoxNumber is required';
+                          }
+                          return null;
+                        }, (x) {
+                          setState(() {
+                            boxNumber = x;
+                          });
+                        }, 'BoxNumber', true, TextInputType.number,
+                            Icons.flight_takeoff, Colors.red),
                       ],
                     ),
                   ),
-
                   SizedBox(
                     height: 30,
                   ),
@@ -901,41 +455,11 @@ class _UpdateInformationState extends State<UpdateInformation> {
                             ),
                           ],
                         ),
+                        SizedBox(
+                          height: 15,
+                        ),
                       ],
                     ),
-                  ),
-                  //TODO: Working
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                      height: 35,
-                      width: 80,
-                      decoration: new BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Color(0xFF104C90),
-                            Color(0xFF3773AC),
-                          ],
-                          stops: [
-                            0.7,
-                            0.9,
-                          ],
-                        ),
-                      ),
-                      child: GestureDetector(
-                          onTap: () {
-                            getStudentPersonalInfo();
-                          },
-                          child: Center(
-                              child: Text(
-                            'Submit',
-                            style: TextStyle(color: Colors.white),
-                          )))),
-                  SizedBox(
-                    height: 20,
                   ),
                 ],
               ),
@@ -945,10 +469,6 @@ class _UpdateInformationState extends State<UpdateInformation> {
       ),
     );
   }
-
-//TODO: RequestType
-
-//TODO: Final Request
 
   Future getStudentInfo() async {
     Future.delayed(Duration.zero, () {
@@ -1046,13 +566,13 @@ class _UpdateInformationState extends State<UpdateInformation> {
           'visa_no': visa,
           'passport_no': passport,
           'emirates_id': eid,
-          'parent_name': pName,
-          'parent_emirates_id': pEid,
-          'parent_mobile_no': pMobileNumber,
-          'parent_email': pEmail,
-          'residence_tel': pMobileTelephone,
-          'parent_workplace': pWork,
-          'parent_designation': pDesignation,
+          'parent_name': parentName,
+          'parent_emirates_id': parentEmiratesID,
+          'parent_mobile_no': parentMobileNumber,
+          'parent_email': parentEmail,
+          'residence_tel': residenceMobileNumber,
+          'parent_workplace': parentWork,
+          'parent_designation': parentDesignation,
           'po_box_no': boxNumber,
           'working_student': workingValue == 1
               ? 'Yes'

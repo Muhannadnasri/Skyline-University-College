@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:superellipse_shape/superellipse_shape.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 
 Map studentJson = {};
-
+bool container = false;
+bool disableForm = false;
 bool copyRight = false;
 
 //API-Key
@@ -178,4 +180,27 @@ void showError(String msg, IconData icon, context, action) {
           ),
         );
       });
+}
+
+void showErrorInput(String msg) {
+  Fluttertoast.showToast(
+      msg: msg,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIos: 2,
+      backgroundColor: Colors.grey[400],
+      textColor: Colors.black87,
+      fontSize: 13.0);
+}
+void showDoneInput(String msg,context) {
+      Navigator.pop(context);
+
+  Fluttertoast.showToast(
+      msg: msg,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIos: 2,
+      backgroundColor: Colors.grey[400],
+      textColor: Colors.black87,
+      fontSize: 13.0);
 }

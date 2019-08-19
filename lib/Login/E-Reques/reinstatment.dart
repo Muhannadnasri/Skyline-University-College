@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
+import 'package:skyline_university/Global/bottomAppBar.dart';
 import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
 
@@ -24,6 +25,7 @@ final _documentry = GlobalKey<FormState>();
 
 class _ReinStatementState extends State<ReinStatement> {
   Map reinStatementJson = {};
+  Map policyDetailsJson = {};
 
   bool fall = false;
   bool spring = false;
@@ -40,6 +42,8 @@ class _ReinStatementState extends State<ReinStatement> {
   @override
   void initState() {
     super.initState();
+    getPolicyDetails();
+
     // getReinStatement();
   }
 
@@ -48,41 +52,75 @@ class _ReinStatementState extends State<ReinStatement> {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
       resizeToAvoidBottomPadding: true,
+      bottomNavigationBar: bottomappBar(
+        context,
+        () {
+          setState(() {
+            if (_documentry.currentState.validate() &&
+                (incomplete == true ||
+                    medical == true ||
+                    medical == true ||
+                    death == true ||
+                    personal == true ||
+                    other == true) &&
+                semester.isNotEmpty) {
+              _documentry.currentState.save();
+
+              getReinStatement();
+            } else {
+              return showErrorInput(
+                'Please Check Your Input',
+              );
+            }
+          });
+        },
+      ),
       appBar: appBarLogin(context, 'Reinstatment'),
       body: Container(
         color: Colors.grey[300],
         child: ListView(
           children: <Widget>[
+            ExpansionTile(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(policyDetailsJson.isEmpty
+                      ? ''
+                      : policyDetailsJson['data']['description']),
+                ),
+              ],
+              title: Text('Policy Details'),
+            ),
             GestureDetector(
               onTap: () {
                 FocusScope.of(context).requestFocus(new FocusNode());
               },
               child: Column(
                 children: <Widget>[
+                  Container(
+                    height: 1.0,
+                    color: Colors.grey[400],
+                  ),
                   SizedBox(
                     height: 15,
                   ),
                   Container(
                     alignment: Alignment.centerLeft,
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(5),
                       child: Text(
                         'Attend the class ',
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
+                    padding: const EdgeInsets.all(5),
                     child: Column(
                       children: <Widget>[
                         Row(
                           children: <Widget>[
-                            Text('Fall'),
                             Checkbox(
-                              activeColor: Colors.purple,
+                              activeColor: Colors.blue,
                               value: fall,
                               onChanged: (value) {
                                 spring = false;
@@ -95,14 +133,14 @@ class _ReinStatementState extends State<ReinStatement> {
                                   value ? semester = "fall" : semester = "";
                                 });
                               },
-                            )
+                            ),
+                            Text('Fall'),
                           ],
                         ),
                         Row(
                           children: <Widget>[
-                            Text('Spring'),
                             Checkbox(
-                              activeColor: Colors.purple,
+                              activeColor: Colors.blue,
                               value: spring,
                               onChanged: (value) {
                                 setState(() {
@@ -112,14 +150,14 @@ class _ReinStatementState extends State<ReinStatement> {
                                   value ? semester = "spring" : semester = "";
                                 });
                               },
-                            )
+                            ),
+                            Text('Spring'),
                           ],
                         ),
                         Row(
                           children: <Widget>[
-                            Text('Summer'),
                             Checkbox(
-                              activeColor: Colors.purple,
+                              activeColor: Colors.blue,
                               value: summer,
                               onChanged: (value) {
                                 setState(() {
@@ -129,77 +167,97 @@ class _ReinStatementState extends State<ReinStatement> {
                                   value ? semester = "summer" : semester = "";
                                 });
                               },
-                            )
+                            ),
+                            Text('Summer'),
                           ],
                         ),
                       ],
                     ),
                   ),
+                  Container(
+                    height: 1.0,
+                    color: Colors.grey[400],
+                  ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
+                    padding: const EdgeInsets.all(5),
                     child: Column(
                       children: <Widget>[
                         Row(
                           children: <Widget>[
-                            Text('Incomplete Grades'),
                             Checkbox(
-                              activeColor: Colors.purple,
+                              activeColor: Colors.blue,
                               value: incomplete,
                               onChanged: (value) {
                                 setState(() {
                                   incomplete = value;
                                 });
                               },
-                            )
+                            ),
+                            Text('Incomplete Grades'),
                           ],
+                        ),
+                        Container(
+                          height: 1.0,
+                          color: Colors.grey[400],
                         ),
                         Row(
                           children: <Widget>[
-                            Text('Medical conditions'),
                             Checkbox(
-                              activeColor: Colors.purple,
+                              activeColor: Colors.blue,
                               value: medical,
                               onChanged: (value) {
                                 setState(() {
                                   medical = value;
                                 });
                               },
-                            )
+                            ),
+                            Text('Medical conditions'),
                           ],
+                        ),
+                        Container(
+                          height: 1.0,
+                          color: Colors.grey[400],
                         ),
                         Row(
                           children: <Widget>[
-                            Text('Death In Family'),
                             Checkbox(
-                              activeColor: Colors.purple,
+                              activeColor: Colors.blue,
                               value: death,
                               onChanged: (value) {
                                 setState(() {
                                   death = value;
                                 });
                               },
-                            )
+                            ),
+                            Text('Death In Family'),
                           ],
+                        ),
+                        Container(
+                          height: 1.0,
+                          color: Colors.grey[400],
                         ),
                         Row(
                           children: <Widget>[
-                            Text('Personal Circumstances'),
                             Checkbox(
-                              activeColor: Colors.purple,
+                              activeColor: Colors.blue,
                               value: personal,
                               onChanged: (value) {
                                 setState(() {
                                   personal = value;
                                 });
                               },
-                            )
+                            ),
+                            Text('Personal Circumstances'),
                           ],
+                        ),
+                        Container(
+                          height: 1.0,
+                          color: Colors.grey[400],
                         ),
                         Row(
                           children: <Widget>[
-                            Text('Other'),
                             Checkbox(
-                              activeColor: Colors.purple,
+                              activeColor: Colors.blue,
                               value: other,
                               onChanged: (value) {
                                 setState(() {
@@ -207,94 +265,33 @@ class _ReinStatementState extends State<ReinStatement> {
                                   other = value;
                                 });
                               },
-                            )
+                            ),
+                            Text('Other'),
                           ],
+                        ),
+                        Container(
+                          height: 1.0,
+                          color: Colors.grey[400],
                         ),
                       ],
                     ),
                   ),
+                  SizedBox(
+                    height: 5,
+                  ),
                   Form(
-                    key: _documentry,
-                    onChanged: () {
-                      if (_documentry.currentState.validate()) {
-                        isValidat = true;
-                        return 'Please check your input';
-                      } else {
-                        isValidat = false;
-                        return null;
-                      }
-                    },
-                    child: GlobalForms(
-                      context,
-                      "Please enter you'r reason",
-                      '',
-                      isValidat
-                          ? FontAwesomeIcons.checkCircle
-                          : !isValidat ? FontAwesomeIcons.timesCircle : null,
-                      isValidat ? Colors.green : !isValidat ? Colors.red : null,
-                      (String value) {
-                        if (value.length < 3 ||
-                            value.isEmpty ||
-                            documentry == null) {
-                          isValidat = false;
-                          return 'Please check your input';
-                        } else {
-                          isValidat = true;
-                          return null;
+                      key: _documentry,
+                      child: globalForms(context, '', (String value) {
+                        if (value.trim().isEmpty) {
+                          return 'Documentry is required';
                         }
-                      },
-                      (x) {
+                        return null;
+                      }, (x) {
                         setState(() {
                           documentry = x;
                         });
-                      },
-                      'Reason',
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                      height: 35,
-                      width: 80,
-                      decoration: new BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Color(0xFF104C90),
-                            Color(0xFF3773AC),
-                          ],
-                          stops: [
-                            0.7,
-                            0.9,
-                          ],
-                        ),
-                      ),
-                      child: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              if (_documentry.currentState.validate() &&
-                                  (incomplete == true ||
-                                      medical == true ||
-                                      medical == true ||
-                                      death == true ||
-                                      personal == true ||
-                                      other == true) &&
-                                  semester.isNotEmpty) {
-                                _documentry.currentState.save();
-
-                                getReinStatement();
-                              } else {
-                                return 'Please check your input';
-                              }
-                            });
-                          },
-                          child: Center(
-                              child: Text(
-                            'Submit',
-                            style: TextStyle(color: Colors.white),
-                          )))),
+                      }, 'Documentry', true, TextInputType.text,
+                          FontAwesomeIcons.fileAlt, Colors.blue)),
                 ],
               ),
             ),
@@ -340,17 +337,7 @@ class _ReinStatementState extends State<ReinStatement> {
         );
         showLoading(false, context);
       }
-      if (reinStatementJson['success'] == '0') {
-        showLoading(false, context);
-        Fluttertoast.showToast(
-            msg: reinStatementJson['message'],
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIos: 1,
-            backgroundColor: Colors.grey[400],
-            textColor: Colors.black87,
-            fontSize: 13.0);
-      }
+
       if (reinStatementJson['success'] == '1') {
         showLoading(false, context);
         Fluttertoast.showToast(
@@ -375,6 +362,45 @@ class _ReinStatementState extends State<ReinStatement> {
       }
     }
   }
-}
 
-class Forms {}
+  Future getPolicyDetails() async {
+    Future.delayed(Duration.zero, () {});
+
+    try {
+      final response = await http.post(
+        Uri.encodeFull(
+            'https://skylineportal.com/moappad/api/web/getRequestFormsText'),
+        headers: {
+          "API-KEY": API,
+        },
+        body: {
+          'user_id': username,
+          'name': 'changeClassTimings',
+          'usertype': studentJson['data']['user_type'],
+          'ipaddress': '1',
+          'deviceid': '1',
+          'devicename': '1',
+        },
+      ).timeout(Duration(seconds: 35));
+
+      if (response.statusCode == 200) {
+        setState(
+          () {
+            policyDetailsJson = json.decode(response.body);
+          },
+        );
+      }
+    } catch (x) {
+      print(x);
+      if (x.toString().contains("TimeoutException")) {
+        showLoading(false, context);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getPolicyDetails);
+      } else {
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getPolicyDetails);
+      }
+    }
+  }
+}

@@ -1,14 +1,13 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:skyline_university/Global/appBarLogin.dart';
-import 'package:skyline_university/Global/global.dart';
 import 'package:http/http.dart' as http;
-import 'package:skyline_university/Global/zigzag.dart';
-import 'package:skyline_university/Home/home.dart';
-import 'package:superellipse_shape/superellipse_shape.dart';
+import 'package:skyline_university/Global/appBarLogin.dart';
+import 'package:skyline_university/Global/bottomAppBar.dart';
+import 'package:skyline_university/Global/form.dart';
+import 'package:skyline_university/Global/global.dart';
 
 void main() => runApp(GeneralAppointment());
 
@@ -19,7 +18,7 @@ class GeneralAppointment extends StatefulWidget {
   }
 }
 
-final _remarkAppointment = GlobalKey<FormState>();
+final _generalAppointment = GlobalKey<FormState>();
 
 // Map<String, int> body;
 
@@ -48,6 +47,25 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
       resizeToAvoidBottomPadding: false,
+      bottomNavigationBar: bottomappBar(
+        context,
+        () {
+          setState(() {
+            if (_generalAppointment.currentState.validate() &&
+                    _caseType != null ||
+                _generalAppointment.currentState.validate() &&
+                    _caseType != null &&
+                    _categoryID != null &&
+                    _departmentID != null &&
+                    _appointDate != null &&
+                    _appointTime != null) {
+              _generalAppointment.currentState.save();
+              getGeneralAppointment();
+            }
+            return showErrorInput('Check your input please');
+          });
+        },
+      ),
       appBar: appBarLogin(context, 'General Appointment'),
       body: ListView(
         children: <Widget>[
@@ -322,73 +340,20 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
                       : SizedBox(),
                   Container(
                     alignment: Alignment.center,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Form(
-                          key: _remarkAppointment,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Container(
-                                child: TextFormField(
-                                  textCapitalization: TextCapitalization.words,
-                                  maxLines: null,
-                                  onSaved: (x) {
-                                    remarkAppointment = x;
-                                  },
-                                  decoration: InputDecoration(
-                                    labelText: "Remark",
-                                    fillColor: Colors.white,
-                                    helperStyle: TextStyle(fontSize: 13),
-                                    hintText: 'Please Enter Your Description',
-                                    hintStyle: TextStyle(fontSize: 15),
-                                    isDense: true,
-                                    prefixIcon: Icon(
-                                      FontAwesomeIcons.bookmark,
-                                      size: 15,
-                                      color: Colors.purple,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                    child: Form(
+                      key: _generalAppointment,
+                      child: globalForms(context, '', (String value) {
+                        if (value.trim().isEmpty) {
+                          return 'Reason is required';
+                        }
+                        return null;
+                      }, (x) {
+                        setState(() {
+                          remarkAppointment = x;
+                        });
+                      }, 'Reason', true, TextInputType.text,
+                          Icons.flight_takeoff, Colors.red),
                     ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                      height: 35,
-                      width: 80,
-                      decoration: new BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Color(0xFF104C90),
-                            Color(0xFF3773AC),
-                          ],
-                          stops: [
-                            0.7,
-                            0.9,
-                          ],
-                        ),
-                      ),
-                      child: GestureDetector(
-                          onTap: () {
-                            getGeneralAppointment();
-                          },
-                          child: Center(
-                              child: Text(
-                            'Submit',
-                            style: TextStyle(color: Colors.white),
-                          )))),
-                  SizedBox(
-                    height: 20,
                   ),
                 ],
               ),
@@ -494,9 +459,6 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
   }
 
   Future getGeneralAppointment() async {
-    if (_remarkAppointment.currentState.validate()) {
-      _remarkAppointment.currentState.save();
-    }
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
     });
@@ -543,27 +505,9 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
         );
         showLoading(false, context);
       }
-      if (generalRequestJson['success'] == '0') {
-        showLoading(false, context);
-        Fluttertoast.showToast(
-            msg: generalRequestJson['message'],
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIos: 1,
-            backgroundColor: Colors.grey[400],
-            textColor: Colors.black87,
-            fontSize: 13.0);
-      }
+
       if (generalRequestJson['success'] == '1') {
-        showLoading(false, context);
-        Fluttertoast.showToast(
-            msg: generalRequestJson['message'],
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIos: 1,
-            backgroundColor: Colors.grey[400],
-            textColor: Colors.black87,
-            fontSize: 13.0);
+        showDoneInput(generalRequestJson['message'], context);
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {

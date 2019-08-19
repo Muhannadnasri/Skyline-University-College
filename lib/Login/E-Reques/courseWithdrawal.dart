@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:skyline_university/Global/appBarLogin.dart';
+import 'package:skyline_university/Global/bottomAppBar.dart';
 import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:http/http.dart' as http;
@@ -27,7 +28,7 @@ final _remarkCourse = GlobalKey<FormState>();
 class _CourseWithdrawalState extends State<CourseWithdrawal> {
   Map courseWithdrawalJson = {};
   Map courseNameJson = {};
-
+  Map policyDetailsJson = {};
   List courseWithdrawalCoursesJson = [];
 
   String remarkCourse = '';
@@ -38,6 +39,7 @@ class _CourseWithdrawalState extends State<CourseWithdrawal> {
   @override
   void initState() {
     super.initState();
+    getPolicyDetails();
     getCourseWithdrawalCourses();
     courseNameJson.clear();
   }
@@ -47,11 +49,37 @@ class _CourseWithdrawalState extends State<CourseWithdrawal> {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
       resizeToAvoidBottomPadding: false,
+      bottomNavigationBar: bottomappBar(
+        context,
+        () {
+          setState(() {
+            if (_remarkCourse.currentState.validate() && id != null) {
+              _remarkCourse.currentState.save();
+
+              return getCourseWithdrawal();
+            } else {
+              showErrorInput('Please check your selection');
+            }
+            return null;
+          });
+        },
+      ),
       appBar: appBarLogin(context, 'Course Withdrawal'),
       body: Container(
         color: Colors.grey[300],
         child: ListView(
           children: <Widget>[
+            ExpansionTile(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(policyDetailsJson.isEmpty
+                      ? ''
+                      : policyDetailsJson['data']['description']),
+                ),
+              ],
+              title: Text('Policy Details'),
+            ),
             GestureDetector(
               onTap: () {
                 FocusScope.of(context).requestFocus(new FocusNode());
@@ -59,26 +87,24 @@ class _CourseWithdrawalState extends State<CourseWithdrawal> {
               child: Column(
                 children: <Widget>[
                   SizedBox(
-                    height: 15,
+                    height: 10,
                   ),
                   Container(
                     alignment: Alignment.centerLeft,
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(5.0),
                       child: Text(
                         'Course Code',
                         style: TextStyle(color: Colors.grey[600]),
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
                   Column(
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(5.0),
                         child: DropdownButton<String>(
+                          isDense: true,
                           hint: Text(
                             'Select Option',
                             style: TextStyle(color: Colors.black),
@@ -109,7 +135,7 @@ class _CourseWithdrawalState extends State<CourseWithdrawal> {
                     height: 10,
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(5.0),
                     child: Container(
                         alignment: Alignment.centerLeft,
                         child: Text(
@@ -158,82 +184,21 @@ class _CourseWithdrawalState extends State<CourseWithdrawal> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      SizedBox(
-                        height: 15,
-                      ),
                       Form(
-                        key: _remarkCourse,
-                        onChanged: () {
-                          if (_remarkCourse.currentState.validate()) {
-                            isValidat = true;
-                            return 'Please check your input';
-                          } else {
-                            isValidat = false;
-                            return null;
-                          }
-                        },
-                        child: GlobalForms(
-                          context,
-                          "Please enter you'r reason",
-                          '',
-                          isValidat
-                              ? FontAwesomeIcons.checkCircle
-                              : !isValidat
-                                  ? FontAwesomeIcons.timesCircle
-                                  : null,
-                          isValidat
-                              ? Colors.green
-                              : !isValidat ? Colors.red : null,
-                          (String value) {
-                            if (value.length < 3 ||
-                                value.isEmpty ||
-                                remarkCourse == null) {
-                              isValidat = false;
-                              return 'Please check your input';
-                            } else {
-                              isValidat = true;
-                              return null;
+                          key: _remarkCourse,
+                          child: globalForms(context, '', (String value) {
+                            if (value.trim().isEmpty) {
+                              return 'Your reason is required';
                             }
-                          },
-                          (x) {
+                            return null;
+                          }, (x) {
                             setState(() {
                               remarkCourse = x;
                             });
-                          },
-                          'Reason',
-                        ),
-                      ),
+                          }, 'Reason', true, TextInputType.text, FontAwesomeIcons.question,
+                              Colors.blue)),
                     ],
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                      height: 35,
-                      width: 80,
-                      decoration: new BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Color(0xFF104C90),
-                            Color(0xFF3773AC),
-                          ],
-                          stops: [
-                            0.7,
-                            0.9,
-                          ],
-                        ),
-                      ),
-                      child: GestureDetector(
-                          onTap: () {
-                            getCourseWithdrawal();
-                          },
-                          child: Center(
-                              child: Text(
-                            'Submit',
-                            style: TextStyle(color: Colors.white),
-                          )))),
                 ],
               ),
             ),
@@ -243,7 +208,6 @@ class _CourseWithdrawalState extends State<CourseWithdrawal> {
     );
   }
 
-//TODO: RequestType
   Future getCourseWithdrawalCourses() async {
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
@@ -287,7 +251,6 @@ class _CourseWithdrawalState extends State<CourseWithdrawal> {
     }
   }
 
-//TODO: Final Request
   Future getCourseName() async {
     Future.delayed(Duration.zero, () {});
 
@@ -362,7 +325,7 @@ class _CourseWithdrawalState extends State<CourseWithdrawal> {
         );
         showLoading(false, context);
       }
-      if (courseWithdrawalJson['success'] == '0') {
+      if (courseWithdrawalJson['success'] == '1') {
         showLoading(false, context);
         Fluttertoast.showToast(
             msg: courseWithdrawalJson['message'],
@@ -382,6 +345,47 @@ class _CourseWithdrawalState extends State<CourseWithdrawal> {
         showLoading(false, context);
         showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
             getCourseWithdrawalCourses);
+      }
+    }
+  }
+
+  Future getPolicyDetails() async {
+    Future.delayed(Duration.zero, () {});
+
+    try {
+      final response = await http.post(
+        Uri.encodeFull(
+            'https://skylineportal.com/moappad/api/web/getRequestFormsText'),
+        headers: {
+          "API-KEY": API,
+        },
+        body: {
+          'user_id': username,
+          'name': 'changeClassTimings',
+          'usertype': studentJson['data']['user_type'],
+          'ipaddress': '1',
+          'deviceid': '1',
+          'devicename': '1',
+        },
+      ).timeout(Duration(seconds: 35));
+
+      if (response.statusCode == 200) {
+        setState(
+          () {
+            policyDetailsJson = json.decode(response.body);
+          },
+        );
+      }
+    } catch (x) {
+      print(x);
+      if (x.toString().contains("TimeoutException")) {
+        showLoading(false, context);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getPolicyDetails);
+      } else {
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getPolicyDetails);
       }
     }
   }

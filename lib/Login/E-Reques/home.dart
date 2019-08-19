@@ -33,10 +33,13 @@ class _HomeERequestState extends State<HomeERequest> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-      body: studentJson['data']['user_type']  == "STUDENT"
+      body: studentJson['data']['user_type'] == "STUDENT"
           ? Container(
               child: ListView(
                 children: <Widget>[
+                  SizedBox(
+                    height: 10,
+                  ),
                   Column(
                     children: <Widget>[
                       FittedBox(
@@ -54,7 +57,7 @@ class _HomeERequestState extends State<HomeERequest> {
                                   width: 360,
                                   height: 50,
                                   decoration: BoxDecoration(
-                                    color: Colors.grey[100],
+                                    color: Colors.grey[200],
                                     border: Border.all(width: 1.0),
                                     borderRadius: BorderRadius.all(
                                         Radius.circular(
@@ -65,7 +68,8 @@ class _HomeERequestState extends State<HomeERequest> {
                                     width: 80,
                                     height: 80,
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
                                       children: <Widget>[
                                         SizedBox(
                                           width: 15,
@@ -102,7 +106,8 @@ class _HomeERequestState extends State<HomeERequest> {
                           children: <Widget>[
                             GestureDetector(
                               onTap: () {
-                                Navigator.pushNamed(context, "/ChangeClassTime");
+                                Navigator.pushNamed(
+                                    context, "/ChangeClassTime");
                               },
                               child: Padding(
                                 padding: const EdgeInsets.only(
@@ -111,7 +116,7 @@ class _HomeERequestState extends State<HomeERequest> {
                                   width: 360,
                                   height: 50,
                                   decoration: BoxDecoration(
-                                    color: Colors.grey[100],
+                                    color: Colors.grey[200],
                                     border: Border.all(width: 1.0),
                                     borderRadius: BorderRadius.all(
                                         Radius.circular(
@@ -122,7 +127,8 @@ class _HomeERequestState extends State<HomeERequest> {
                                     width: 80,
                                     height: 80,
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
                                       children: <Widget>[
                                         SizedBox(
                                           width: 15,
@@ -168,7 +174,7 @@ class _HomeERequestState extends State<HomeERequest> {
                                   width: 360,
                                   height: 50,
                                   decoration: BoxDecoration(
-                                    color: Colors.grey[100],
+                                    color: Colors.grey[200],
                                     border: Border.all(width: 1.0),
                                     borderRadius: BorderRadius.all(
                                         Radius.circular(
@@ -179,7 +185,8 @@ class _HomeERequestState extends State<HomeERequest> {
                                     width: 80,
                                     height: 80,
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
                                       children: <Widget>[
                                         SizedBox(
                                           width: 15,
@@ -216,7 +223,8 @@ class _HomeERequestState extends State<HomeERequest> {
                           children: <Widget>[
                             GestureDetector(
                               onTap: () {
-                                Navigator.pushNamed(context, "/CourseWithdrawal");
+                                Navigator.pushNamed(
+                                    context, "/CourseWithdrawal");
                               },
                               child: Padding(
                                 padding: const EdgeInsets.only(
@@ -225,7 +233,7 @@ class _HomeERequestState extends State<HomeERequest> {
                                   width: 360,
                                   height: 50,
                                   decoration: BoxDecoration(
-                                    color: Colors.grey[100],
+                                    color: Colors.grey[200],
                                     border: Border.all(width: 1.0),
                                     borderRadius: BorderRadius.all(
                                         Radius.circular(
@@ -236,7 +244,8 @@ class _HomeERequestState extends State<HomeERequest> {
                                     width: 80,
                                     height: 80,
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
                                       children: <Widget>[
                                         SizedBox(
                                           width: 15,
@@ -283,7 +292,7 @@ class _HomeERequestState extends State<HomeERequest> {
                                   width: 360,
                                   height: 50,
                                   decoration: BoxDecoration(
-                                    color: Colors.grey[100],
+                                    color: Colors.grey[200],
                                     border: Border.all(width: 1.0),
                                     borderRadius: BorderRadius.all(
                                         Radius.circular(
@@ -294,7 +303,8 @@ class _HomeERequestState extends State<HomeERequest> {
                                     width: 80,
                                     height: 80,
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
                                       children: <Widget>[
                                         SizedBox(
                                           width: 15,
@@ -341,7 +351,7 @@ class _HomeERequestState extends State<HomeERequest> {
                                   width: 360,
                                   height: 50,
                                   decoration: BoxDecoration(
-                                    color: Colors.grey[100],
+                                    color: Colors.grey[200],
                                     border: Border.all(width: 1.0),
                                     borderRadius: BorderRadius.all(
                                         Radius.circular(
@@ -352,7 +362,8 @@ class _HomeERequestState extends State<HomeERequest> {
                                     width: 80,
                                     height: 80,
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
                                       children: <Widget>[
                                         SizedBox(
                                           width: 15,
@@ -399,7 +410,7 @@ class _HomeERequestState extends State<HomeERequest> {
                                   width: 360,
                                   height: 50,
                                   decoration: BoxDecoration(
-                                    color: Colors.grey[100],
+                                    color: Colors.grey[200],
                                     border: Border.all(width: 1.0),
                                     borderRadius: BorderRadius.all(
                                         Radius.circular(
@@ -410,7 +421,8 @@ class _HomeERequestState extends State<HomeERequest> {
                                     width: 80,
                                     height: 80,
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
                                       children: <Widget>[
                                         SizedBox(
                                           width: 15,
@@ -441,483 +453,573 @@ class _HomeERequestState extends State<HomeERequest> {
                       SizedBox(
                         height: 20,
                       ),
+                      FittedBox(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: <Widget>[
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, "/leaveApplicationForm");
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 8.0, top: 8, right: 8.0),
+                                child: Container(
+                                  width: 360,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[200],
+                                    border: Border.all(width: 1.0),
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(
+                                            10.0) //         <--- border radius here
+                                        ),
+                                  ),
+                                  child: Container(
+                                    width: 80,
+                                    height: 80,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: <Widget>[
+                                        SizedBox(
+                                          width: 15,
+                                        ),
+                                        Image.asset(
+                                          'images/admission.png',
+                                          height: 30,
+                                        ),
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        Text(
+                                          'Leave Application',
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
                     ],
                   ),
                 ],
               ),
             )
-          : studentJson['data']['user_type']  == "STF"
+          : studentJson['data']['user_type'] == "STF"
               ? Container(
-                  color: Colors.white,
                   child: ListView(
                     children: <Widget>[
-                     
+                      SizedBox(
+                        height: 10,
+                      ),
                       Column(
                         children: <Widget>[
-                           SizedBox(
-                        height: 15,
-                      ),
-                      FittedBox(
-                        child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: <Widget>[
-                                    GestureDetector(
-                                      onTap: () {
-                                        Navigator.pushNamed(context, "/PassportRetaining");
-                                      },
-                                      child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 8.0, top: 8,right: 8.0),
-                                        child: Container(
-                                          width: 380,
-                                          height: 50,
-                                          decoration: BoxDecoration(
-                                            color: Colors.grey[100],
-                                            border: Border.all(width: 1.0),
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(
-                                                    10.0) //         <--- border radius here
-                                                ),
-                                          ),
-                                          child: Container(
-                                            width: 80,
-                                            height: 80,
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: <Widget>[
-                                                SizedBox(width: 15,),
-                                                Image.asset(
-                                                  'images/admission.png',
-                                                  height: 30,
-                                                ),
-                                                                                            SizedBox(width: 20,),
-
-                                                SizedBox(
-                                                  height: 10,
-                                                ),
-                                                Text(
-                                                  'Passport Retaining',
-                                                  style:
-                                                      TextStyle(color: Colors.black),
-                                                ),
-                                              ],
+                          SizedBox(
+                            height: 15,
+                          ),
+                          FittedBox(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: <Widget>[
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, "/PassportRetaining");
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 8.0, top: 8, right: 8.0),
+                                    child: Container(
+                                      width: 380,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[200],
+                                        border: Border.all(width: 1.0),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(
+                                                10.0) //         <--- border radius here
                                             ),
-                                          ),
+                                      ),
+                                      child: Container(
+                                        width: 80,
+                                        height: 80,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: <Widget>[
+                                            SizedBox(
+                                              width: 15,
+                                            ),
+                                            Image.asset(
+                                              'images/admission.png',
+                                              height: 30,
+                                            ),
+                                            SizedBox(
+                                              width: 20,
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text(
+                                              'Passport Retaining',
+                                              style: TextStyle(
+                                                  color: Colors.black),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),
-                                  ],
+                                  ),
                                 ),
-                      ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    FittedBox(
-                      child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: <Widget>[
-                                    GestureDetector(
-                                      onTap: () {
-                                        Navigator.pushNamed(context, "/SalaryCertificate");
-                                      },
-                                      child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 8.0, top: 8,right: 8.0),
-                                        child: Container(
-                                          width: 380,
-                                          height: 50,
-                                          decoration: BoxDecoration(
-                                            color: Colors.grey[100],
-                                            border: Border.all(width: 1.0),
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(
-                                                    10.0) //         <--- border radius here
-                                                ),
-                                          ),
-                                          child: Container(
-                                            width: 80,
-                                            height: 80,
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: <Widget>[
-                                                SizedBox(width: 15,),
-                                                Image.asset(
-                                                  'images/admission.png',
-                                                  height: 30,
-                                                ),
-                                                                                            SizedBox(width: 20,),
-
-                                                SizedBox(
-                                                  height: 10,
-                                                ),
-                                                Text(
-                                                  'Salary Certificate',
-                                                  style:
-                                                      TextStyle(color: Colors.black),
-                                                ),
-                                              ],
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          FittedBox(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: <Widget>[
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, "/SalaryCertificate");
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 8.0, top: 8, right: 8.0),
+                                    child: Container(
+                                      width: 380,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[200],
+                                        border: Border.all(width: 1.0),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(
+                                                10.0) //         <--- border radius here
                                             ),
-                                          ),
+                                      ),
+                                      child: Container(
+                                        width: 80,
+                                        height: 80,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: <Widget>[
+                                            SizedBox(
+                                              width: 15,
+                                            ),
+                                            Image.asset(
+                                              'images/admission.png',
+                                              height: 30,
+                                            ),
+                                            SizedBox(
+                                              width: 20,
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text(
+                                              'Salary Certificate',
+                                              style: TextStyle(
+                                                  color: Colors.black),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),
-                                  ],
+                                  ),
                                 ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    FittedBox(
-                      child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: <Widget>[
-                                    GestureDetector(
-                                      onTap: () {
-                                        Navigator.pushNamed(context, "/LeaveApplication");
-                                      },
-                                      child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 8.0, top: 8,right: 8.0),
-                                        child: Container(
-                                          width: 380,
-                                          height: 50,
-                                          decoration: BoxDecoration(
-                                            color: Colors.grey[100],
-                                            border: Border.all(width: 1.0),
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(
-                                                    10.0) //         <--- border radius here
-                                                ),
-                                          ),
-                                          child: Container(
-                                            width: 80,
-                                            height: 80,
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: <Widget>[
-                                                SizedBox(width: 15,),
-                                                Image.asset(
-                                                  'images/admission.png',
-                                                  height: 30,
-                                                ),
-                                                                                            SizedBox(width: 20,),
-
-                                                SizedBox(
-                                                  height: 10,
-                                                ),
-                                                Text(
-                                                  'Leave Application',
-                                                  style:
-                                                      TextStyle(color: Colors.black),
-                                                ),
-                                              ],
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          FittedBox(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: <Widget>[
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, "/LeaveApplication");
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 8.0, top: 8, right: 8.0),
+                                    child: Container(
+                                      width: 380,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[200],
+                                        border: Border.all(width: 1.0),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(
+                                                10.0) //         <--- border radius here
                                             ),
-                                          ),
+                                      ),
+                                      child: Container(
+                                        width: 80,
+                                        height: 80,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: <Widget>[
+                                            SizedBox(
+                                              width: 15,
+                                            ),
+                                            Image.asset(
+                                              'images/admission.png',
+                                              height: 30,
+                                            ),
+                                            SizedBox(
+                                              width: 20,
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text(
+                                              'Leave Application',
+                                              style: TextStyle(
+                                                  color: Colors.black),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),
-                                  ],
+                                  ),
                                 ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    FittedBox(
-                      child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: <Widget>[
-                                    GestureDetector(
-                                      onTap: () {
-                                        Navigator.pushNamed(context, "/PassportWithdrawal");
-                                      },
-                                      child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 8.0, top: 8,right: 8.0),
-                                        child: Container(
-                                          width: 380,
-                                          height: 50,
-                                          decoration: BoxDecoration(
-                                            color: Colors.grey[100],
-                                            border: Border.all(width: 1.0),
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(
-                                                    10.0) //         <--- border radius here
-                                                ),
-                                          ),
-                                          child: Container(
-                                            width: 80,
-                                            height: 80,
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: <Widget>[
-                                                SizedBox(width: 15,),
-                                                Image.asset(
-                                                  'images/admission.png',
-                                                  height: 30,
-                                                ),
-                                                                                            SizedBox(width: 20,),
-
-                                                SizedBox(
-                                                  height: 10,
-                                                ),
-                                                Text(
-                                                  'Passport Withdrawal',
-                                                  style:
-                                                      TextStyle(color: Colors.black),
-                                                ),
-                                              ],
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          FittedBox(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: <Widget>[
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, "/PassportWithdrawal");
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 8.0, top: 8, right: 8.0),
+                                    child: Container(
+                                      width: 380,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[200],
+                                        border: Border.all(width: 1.0),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(
+                                                10.0) //         <--- border radius here
                                             ),
-                                          ),
+                                      ),
+                                      child: Container(
+                                        width: 80,
+                                        height: 80,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: <Widget>[
+                                            SizedBox(
+                                              width: 15,
+                                            ),
+                                            Image.asset(
+                                              'images/admission.png',
+                                              height: 30,
+                                            ),
+                                            SizedBox(
+                                              width: 20,
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text(
+                                              'Passport Withdrawal',
+                                              style: TextStyle(
+                                                  color: Colors.black),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),
-                                  ],
+                                  ),
                                 ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    FittedBox(
-                      child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: <Widget>[
-                                    GestureDetector(
-                                      onTap: () {
-                                        Navigator.pushNamed(context, "/LeaveHoliday");
-                                      },
-                                      child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 8.0, top: 8,right: 8.0),
-                                        child: Container(
-                                          width: 380,
-                                          height: 50,
-                                          decoration: BoxDecoration(
-                                            color: Colors.grey[100],
-                                            border: Border.all(width: 1.0),
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(
-                                                    10.0) //         <--- border radius here
-                                                ),
-                                          ),
-                                          child: Container(
-                                            width: 80,
-                                            height: 80,
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: <Widget>[
-                                                SizedBox(width: 15,),
-                                                Image.asset(
-                                                  'images/admission.png',
-                                                  height: 30,
-                                                ),
-                                                                                            SizedBox(width: 20,),
-
-                                                SizedBox(
-                                                  height: 10,
-                                                ),
-                                                Text(
-                                                  'Leave Holiday',
-                                                  style:
-                                                      TextStyle(color: Colors.black),
-                                                ),
-                                              ],
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          FittedBox(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: <Widget>[
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, "/LeaveHoliday");
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 8.0, top: 8, right: 8.0),
+                                    child: Container(
+                                      width: 380,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[200],
+                                        border: Border.all(width: 1.0),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(
+                                                10.0) //         <--- border radius here
                                             ),
-                                          ),
+                                      ),
+                                      child: Container(
+                                        width: 80,
+                                        height: 80,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: <Widget>[
+                                            SizedBox(
+                                              width: 15,
+                                            ),
+                                            Image.asset(
+                                              'images/admission.png',
+                                              height: 30,
+                                            ),
+                                            SizedBox(
+                                              width: 20,
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text(
+                                              'Leave Holiday',
+                                              style: TextStyle(
+                                                  color: Colors.black),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),
-                                  ],
+                                  ),
                                 ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    FittedBox(
-                      child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: <Widget>[
-                                    GestureDetector(
-                                      onTap: () {
-                                        Navigator.pushNamed(context, "/BookRequisition");
-                                      },
-                                      child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 8.0, top: 8,right: 8.0),
-                                        child: Container(
-                                          width: 380,
-                                          height: 50,
-                                          decoration: BoxDecoration(
-                                            color: Colors.grey[100],
-                                            border: Border.all(width: 1.0),
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(
-                                                    10.0) //         <--- border radius here
-                                                ),
-                                          ),
-                                          child: Container(
-                                            width: 80,
-                                            height: 80,
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: <Widget>[
-                                                SizedBox(width: 15,),
-                                                Image.asset(
-                                                  'images/admission.png',
-                                                  height: 30,
-                                                ),
-                                                                                            SizedBox(width: 20,),
-
-                                                SizedBox(
-                                                  height: 10,
-                                                ),
-                                                Text(
-                                                  'Book Requisition',
-                                                  style:
-                                                      TextStyle(color: Colors.black),
-                                                ),
-                                              ],
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          FittedBox(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: <Widget>[
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, "/BookRequisition");
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 8.0, top: 8, right: 8.0),
+                                    child: Container(
+                                      width: 380,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[200],
+                                        border: Border.all(width: 1.0),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(
+                                                10.0) //         <--- border radius here
                                             ),
-                                          ),
+                                      ),
+                                      child: Container(
+                                        width: 80,
+                                        height: 80,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: <Widget>[
+                                            SizedBox(
+                                              width: 15,
+                                            ),
+                                            Image.asset(
+                                              'images/admission.png',
+                                              height: 30,
+                                            ),
+                                            SizedBox(
+                                              width: 20,
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text(
+                                              'Book Requisition',
+                                              style: TextStyle(
+                                                  color: Colors.black),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),
-                                  ],
+                                  ),
                                 ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    FittedBox(
-                      child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: <Widget>[
-                                    GestureDetector(
-                                      onTap: () {
-                                        Navigator.pushNamed(context, "/MembershipForm");
-                                      },
-                                      child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 8.0, top: 8,right: 8.0),
-                                        child: Container(
-                                          width: 380,
-                                          height: 50,
-                                          decoration: BoxDecoration(
-                                            color: Colors.grey[100],
-                                            border: Border.all(width: 1.0),
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(
-                                                    10.0) //         <--- border radius here
-                                                ),
-                                          ),
-                                          child: Container(
-                                            width: 80,
-                                            height: 80,
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: <Widget>[
-                                                SizedBox(width: 15,),
-                                                Image.asset(
-                                                  'images/admission.png',
-                                                  height: 30,
-                                                ),
-                                                                                            SizedBox(width: 20,),
-
-                                                SizedBox(
-                                                  height: 10,
-                                                ),
-                                                Text(
-                                                  'Membership Form',
-                                                  style:
-                                                      TextStyle(color: Colors.black),
-                                                ),
-                                              ],
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          FittedBox(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: <Widget>[
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, "/MembershipForm");
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 8.0, top: 8, right: 8.0),
+                                    child: Container(
+                                      width: 380,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[200],
+                                        border: Border.all(width: 1.0),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(
+                                                10.0) //         <--- border radius here
                                             ),
-                                          ),
+                                      ),
+                                      child: Container(
+                                        width: 80,
+                                        height: 80,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: <Widget>[
+                                            SizedBox(
+                                              width: 15,
+                                            ),
+                                            Image.asset(
+                                              'images/admission.png',
+                                              height: 30,
+                                            ),
+                                            SizedBox(
+                                              width: 20,
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text(
+                                              'Membership Form',
+                                              style: TextStyle(
+                                                  color: Colors.black),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),
-                                  ],
+                                  ),
                                 ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    FittedBox(
-                      child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: <Widget>[
-                                    GestureDetector(
-                                      onTap: () {
-                                        Navigator.pushNamed(context, "/AirTicketRequest");
-                                      },
-                                      child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 8.0, top: 8,right: 8.0),
-                                        child: Container(
-                                          width: 380,
-                                          height: 50,
-                                          decoration: BoxDecoration(
-                                            color: Colors.grey[100],
-                                            border: Border.all(width: 1.0),
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(
-                                                    10.0) //         <--- border radius here
-                                                ),
-                                          ),
-                                          child: Container(
-                                            width: 80,
-                                            height: 80,
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: <Widget>[
-                                                SizedBox(width: 15,),
-                                                Image.asset(
-                                                  'images/admission.png',
-                                                  height: 30,
-                                                ),
-                                                                                            SizedBox(width: 20,),
-
-                                                SizedBox(
-                                                  height: 10,
-                                                ),
-                                                Text(
-                                                  'AirTicket Request ',
-                                                  style:
-                                                      TextStyle(color: Colors.black),
-                                                ),
-                                              ],
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          FittedBox(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: <Widget>[
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, "/AirTicketRequest");
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 8.0, top: 8, right: 8.0),
+                                    child: Container(
+                                      width: 380,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[200],
+                                        border: Border.all(width: 1.0),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(
+                                                10.0) //         <--- border radius here
                                             ),
-                                          ),
+                                      ),
+                                      child: Container(
+                                        width: 80,
+                                        height: 80,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: <Widget>[
+                                            SizedBox(
+                                              width: 15,
+                                            ),
+                                            Image.asset(
+                                              'images/admission.png',
+                                              height: 30,
+                                            ),
+                                            SizedBox(
+                                              width: 20,
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text(
+                                              'AirTicket Request ',
+                                              style: TextStyle(
+                                                  color: Colors.black),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),
-                                  ],
+                                  ),
                                 ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
                         ],
                       )
                     ],
                   ),
                 )
-              : studentJson['data']['user_type']  == "FAC"
+              : studentJson['data']['user_type'] == "FAC"
                   ? Container(
-                      color: Colors.white,
                       child: ListView(
                         children: <Widget>[
                           SizedBox(
-                            height: 15,
+                            height: 10,
                           ),
                           Column(
                             children: <Widget>[
@@ -938,7 +1040,7 @@ class _HomeERequestState extends State<HomeERequest> {
                                           width: 380,
                                           height: 50,
                                           decoration: BoxDecoration(
-                                            color: Colors.grey[100],
+                                            color: Colors.grey[200],
                                             border: Border.all(width: 1.0),
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(
@@ -999,7 +1101,7 @@ class _HomeERequestState extends State<HomeERequest> {
                                           width: 380,
                                           height: 50,
                                           decoration: BoxDecoration(
-                                            color: Colors.grey[100],
+                                            color: Colors.grey[200],
                                             border: Border.all(width: 1.0),
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(
@@ -1060,7 +1162,7 @@ class _HomeERequestState extends State<HomeERequest> {
                                           width: 380,
                                           height: 50,
                                           decoration: BoxDecoration(
-                                            color: Colors.grey[100],
+                                            color: Colors.grey[200],
                                             border: Border.all(width: 1.0),
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(
@@ -1121,7 +1223,7 @@ class _HomeERequestState extends State<HomeERequest> {
                                           width: 380,
                                           height: 50,
                                           decoration: BoxDecoration(
-                                            color: Colors.grey[100],
+                                            color: Colors.grey[200],
                                             border: Border.all(width: 1.0),
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(
@@ -1182,7 +1284,7 @@ class _HomeERequestState extends State<HomeERequest> {
                                           width: 380,
                                           height: 50,
                                           decoration: BoxDecoration(
-                                            color: Colors.grey[100],
+                                            color: Colors.grey[200],
                                             border: Border.all(width: 1.0),
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(
@@ -1243,7 +1345,7 @@ class _HomeERequestState extends State<HomeERequest> {
                                           width: 380,
                                           height: 50,
                                           decoration: BoxDecoration(
-                                            color: Colors.grey[100],
+                                            color: Colors.grey[200],
                                             border: Border.all(width: 1.0),
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(
@@ -1304,7 +1406,7 @@ class _HomeERequestState extends State<HomeERequest> {
                                           width: 380,
                                           height: 50,
                                           decoration: BoxDecoration(
-                                            color: Colors.grey[100],
+                                            color: Colors.grey[200],
                                             border: Border.all(width: 1.0),
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(
@@ -1365,7 +1467,7 @@ class _HomeERequestState extends State<HomeERequest> {
                                           width: 380,
                                           height: 50,
                                           decoration: BoxDecoration(
-                                            color: Colors.grey[100],
+                                            color: Colors.grey[200],
                                             border: Border.all(width: 1.0),
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(
@@ -1426,7 +1528,7 @@ class _HomeERequestState extends State<HomeERequest> {
                                           width: 380,
                                           height: 50,
                                           decoration: BoxDecoration(
-                                            color: Colors.grey[100],
+                                            color: Colors.grey[200],
                                             border: Border.all(width: 1.0),
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(
@@ -1509,7 +1611,7 @@ class _HomeERequestState extends State<HomeERequest> {
                                       ],
                                     ),
                                     child: Image.asset(
-                                      studentJson['data']['user_type']  == 'FAC'
+                                      studentJson['data']['user_type'] == 'FAC'
                                           ? 'images/professor-male.png'
                                           : studentJson['data']['Gender'] == 'M'
                                               ? 'images/male.png'
@@ -1532,7 +1634,7 @@ class _HomeERequestState extends State<HomeERequest> {
                                   ),
                                 ],
                               ),
-                              studentJson['data']['user_type']  == 'STF'
+                              studentJson['data']['user_type'] == 'STF'
                                   ? SizedBox(
                                       height: 10,
                                     )
