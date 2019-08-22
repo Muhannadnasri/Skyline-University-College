@@ -18,11 +18,6 @@ class UndergraduateBusiness extends StatefulWidget {
   }
 }
 
-// List programs = [];
-
-// File dataFile;
-// Map programsJson = {};
-// Map<String, String> body;
 List programsJson = [];
 
 class _UndergraduateBusinessState extends State<UndergraduateBusiness> {
@@ -48,16 +43,6 @@ class _UndergraduateBusinessState extends State<UndergraduateBusiness> {
                   return GestureDetector(
                     onTap: () {
                       print(index);
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => OneGallery(
-                      //           oneGalleryPhotos: galleries[index]['photos'],
-                      //           oneGalleryTitle: galleries[index]['Event_Name'],
-
-                      //         ),
-                      //   ),
-                      // );
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -272,56 +257,6 @@ class _UndergraduateBusinessState extends State<UndergraduateBusiness> {
       ),
     );
   }
-
-  // Future getPrograms() async {
-  //   new Future.delayed(Duration.zero, () {
-  //     showLoading(true, context);
-  //   });
-
-  //   body = {};
-  //   try {
-  //     http.Response response = await http
-  //         .post("http://muhannadnasri.com/App/programs/data.json", body: body);
-  //     print(response.statusCode);
-  //     if (response.statusCode == 200) {
-  //       var Json = json.decode(response.body);
-  //       Directory appDocDir = await getApplicationDocumentsDirectory();
-  //       dataFile = new File(appDocDir.path + "/dataFile.json");
-
-  //       if (dataFile.existsSync()) {
-  //         if (Json['Undergraduate'] != null) {
-  //           dataFile.writeAsStringSync(response.body);
-  //         }
-  //       } else {
-  //         dataFile.createSync();
-  //         dataFile.writeAsStringSync(response.body);
-  //       }
-
-  //       if (Json['Undergraduate'] != null) {
-  //         programsJson = Json;
-  //       } else {
-  //         programsJson = json.decode(dataFile.readAsStringSync());
-  //       }
-
-  //       showLoading(false, context);
-
-  //       setState(() {
-  //         programs = programsJson["Undergraduate"];
-  //       });
-  //     } else {}
-  //   } catch (x) {
-  //     if (x.toString().contains("TimeoutException")) {
-  //       showLoading(false, context);
-
-  //       showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-  //           context, getPrograms);
-  //     } else {
-  //       showLoading(false, context);
-  //       showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-  //           getPrograms);
-  //     }
-  //   }
-  // }
 
   Future getPrograms() async {
     Future.delayed(Duration.zero, () {

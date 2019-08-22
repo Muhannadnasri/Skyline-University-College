@@ -5,6 +5,7 @@ import 'package:superellipse_shape/superellipse_shape.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 Map studentJson = {};
+
 bool container = false;
 bool disableForm = false;
 bool copyRight = false;
@@ -192,8 +193,9 @@ void showErrorInput(String msg) {
       textColor: Colors.black87,
       fontSize: 13.0);
 }
-void showDoneInput(String msg,context) {
-      Navigator.pop(context);
+
+void showDoneInput(String msg, context) {
+  Navigator.pop(context);
 
   Fluttertoast.showToast(
       msg: msg,
@@ -203,4 +205,42 @@ void showDoneInput(String msg,context) {
       backgroundColor: Colors.grey[400],
       textColor: Colors.black87,
       fontSize: 13.0);
+}
+
+void showAttendance(context, msg) {
+  showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          actions: <Widget>[
+            new FlatButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: new Text('Ok'),
+            ),
+          ],
+          title: Image.asset(
+            'images/logo.png',
+            height: 50,
+          ),
+          shape: SuperellipseShape(
+            borderRadius: BorderRadius.all(
+              Radius.circular(20),
+            ),
+          ),
+          content: FittedBox(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                new Text(
+                  msg,
+                  style: TextStyle(fontSize: 14),
+                ),
+              ],
+            ),
+          ),
+        );
+      });
 }

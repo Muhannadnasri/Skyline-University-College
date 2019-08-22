@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:skyline_university/Global/appBar.dart';
+import 'package:skyline_university/Global/rowSection.dart';
 
 void main() => runApp(HomeInfo());
 
@@ -42,114 +43,12 @@ class _HomeInfoState extends State<HomeInfo> {
                   SizedBox(
                     height: 15,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, "/virtual");
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 8.0, top: 8, right: 8.0),
-                          child: Container(
-                            width: 380,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: Colors.grey[100],
-                              border: Border.all(width: 1.0),
-                              borderRadius: BorderRadius.all(Radius.circular(
-                                      10.0) //         <--- border radius here
-                                  ),
-                            ),
-                            child: Container(
-                              width: 80,
-                              height: 80,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  SizedBox(
-                                    width: 15,
-                                  ),
-                                  Image.asset(
-                                    'images/admission.png',
-                                    height: 30,
-                                  ),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    "Virtual Tour",
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, "/Faculty");
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 8.0, top: 8, right: 8.0),
-                          child: Container(
-                            width: 380,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: Colors.grey[100],
-                              border: Border.all(width: 1.0),
-                              borderRadius: BorderRadius.all(Radius.circular(
-                                      10.0) //         <--- border radius here
-                                  ),
-                            ),
-                            child: Container(
-                              width: 80,
-                              height: 80,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  SizedBox(
-                                    width: 15,
-                                  ),
-                                  Image.asset(
-                                    'images/admission.png',
-                                    height: 30,
-                                  ),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    'Faculty Members',
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  rowSection(context, 'images/admission.png', 'Virtual Tour',
+                      '/virtual'),
+                  rowSection(context, 'images/admission.png', 'Faculty Members',
+                      '/Faculty'),
+                  rowSection(
+                      context, 'images/admission.png', 'SUC Info', '/info'),
                 ],
               ),
             ),
@@ -159,4 +58,3 @@ class _HomeInfoState extends State<HomeInfo> {
     );
   }
 }
-//TODO: SystemChrome.setEnabledSystemUIOverlays([]) For hide status Bar

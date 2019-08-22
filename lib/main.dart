@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:skyline_university/Home/Admission/admissionForm.dart';
 import 'package:skyline_university/Home/Chat/chat.dart';
 import 'package:skyline_university/Home/Events/events.dart';
 import 'package:skyline_university/Home/Info/HomeInfo.dart';
@@ -12,13 +11,13 @@ import 'Home/Admission/home.dart';
 import 'Home/FAQ/faq.dart';
 import 'Home/Gallery/gallery.dart';
 import 'Home/Info/faculty.dart';
-import 'Home/Info/staff.dart';
+import 'Home/Info/info.dart';
+import 'Home/Info/infoPage.dart';
 import 'Home/Info/virtual.dart';
-import 'Home/programs/ProfessionalCourses.dart';
-import 'Home/programs/UndergraduatePrograms.dart';
-import 'Home/programs/graduatePrograms.dart';
+
 import 'Home/programs/homePrograms.dart';
 import 'Home/programs/homeUndergraduate.dart';
+import 'Home/programs/professionalCourses.dart';
 import 'Home/programs/undergraduateBusiness.dart';
 import 'Home/programs/undergraduateIT.dart';
 import 'Home/programs/undergraduateProgram.dart';
@@ -46,25 +45,25 @@ import 'Login/E-Reques/salaryCertificate.dart';
 import 'Login/E-Reques/updateInformation.dart';
 import 'Login/Faculty/advisors.dart';
 import 'Login/Faculty/classScheduleFAC.dart';
-import 'Login/Student/ClassesHome.dart';
-import 'Login/Student/admissionKit.dart';
-import 'Login/Student/advisorAppointment.dart';
-import 'Login/Student/assessmentMarkCourses.dart';
-import 'Login/Student/attendance.dart';
-import 'Login/Student/attendanceCalendar.dart';
-import 'Login/Student/cdp.dart';
-import 'Login/Student/classSchedule.dart';
-import 'Login/Student/classScheduleMqpWeekday.dart';
-import 'Login/Student/classScheduleWeekday.dart';
-import 'Login/Student/classScheduleWeekend.dart';
-import 'Login/Student/feesHome.dart';
-import 'Login/Student/finalGradeResult.dart';
-import 'Login/Student/gpaRequirments.dart';
-import 'Login/Student/midTermMarks.dart';
-import 'Login/Student/myAdvisor.dart';
-import 'Login/Student/payOnline.dart';
-import 'Login/Student/resultHome.dart';
-import 'Login/Student/studentGPAProfile.dart';
+import 'Login/Student/Advisor/advisorAppointment.dart';
+import 'Login/Student/Advisor/myAdvisor.dart';
+import 'Login/Student/Assessment/assessmentMarkCourses.dart';
+import 'Login/Student/Attendance/attendance.dart';
+import 'Login/Student/Attendance/attendanceCalendar.dart';
+import 'Login/Student/CDP/cdp.dart';
+import 'Login/Student/Classes/ClassHome.dart';
+import 'Login/Student/Classes/classDetails.dart';
+import 'Login/Student/Classes/classScheduleMqpWeekday.dart';
+import 'Login/Student/Classes/classScheduleWeekday.dart';
+import 'Login/Student/Classes/classScheduleWeekend.dart';
+import 'Login/Student/Fees/admissionKit.dart';
+import 'Login/Student/Fees/feesHome.dart';
+import 'Login/Student/Fees/payOnline.dart';
+import 'Login/Student/Results/finalGradeResult.dart';
+import 'Login/Student/Results/gpaRequirments.dart';
+import 'Login/Student/Results/midTermMarks.dart';
+import 'Login/Student/Results/resultHome.dart';
+import 'Login/Student/Results/studentGPAProfile.dart';
 import 'Login/home.dart';
 import 'Login/loginpage.dart';
 
@@ -141,13 +140,12 @@ class MyAppState extends State<MyApp> {
         '/LeaveHoliday': (context) => LeaveHoliday(),
         '/BookRequisition': (context) => BookRequisition(),
         '/MembershipForm': (context) => MembershipForm(),
-        '/AdmissionForm': (context) => AdmissionForm(),
+        // '/AdmissionForm': (context) => AdmissionForm(),
         '/GeneralAppointment': (context) => GeneralAppointment(),
         '/CourseAllocation': (context) => CourseAllocation(),
         '/Faculty': (context) => Faculty(),
         '/HomeAdmission': (context) => HomeAdmission(),
         '/FAQ': (context) => FAQ(),
-        '/Staff': (context) => Staff(),
         '/AirTicketRequest': (context) => AirTicketRequest(),
         '/Gallery': (context) => Gallery(),
         '/Conference': (context) => Conference(),
@@ -157,16 +155,21 @@ class MyAppState extends State<MyApp> {
         '/GPASS': (context) => GPASS(),
         '/HomeClass': (context) => HomeClass(),
         '/UndergraduateProgram': (context) => UndergraduateProgram(),
-        '/UndergraduatePrograms': (context) => UndergraduatePrograms(),
+
         '/virtual': (context) => Virtual(),
         '/attendanceCalendar': (context) => AttendanceCalendar(),
         '/homePrograms': (context) => HomePrograms(),
-        '/graduatePrograms': (context) => GraduatePrograms(),
-        '/professionalCourses': (context) => ProfessionalCourses(),
+
         '/undergraduateBusiness': (context) => UndergraduateBusiness(),
         '/undergraduateIT': (context) => UndergraduateIT(),
         '/homeUndergraduate': (context) => HomeUndergraduate(),
         '/leaveApplicationForm': (context) => LeaveApplicationForm(),
+        '/info': (context) => Info(),
+        '/infoPage': (context) => InfoPage(),
+
+        '/professionalCourses': (context) => ProfessionalCourses(),
+
+        
       },
     );
   }

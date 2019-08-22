@@ -8,8 +8,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:skyline_university/Global/appBar.dart';
+import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Home/News/oneNews.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 void main() => runApp(News());
 
@@ -30,6 +32,7 @@ class _NewsState extends State<News> {
   @override
   void initState() {
     super.initState();
+    news = [];
     getNews();
   }
 
@@ -40,112 +43,122 @@ class _NewsState extends State<News> {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: appBar(context, 'News'),
-      body: Container(
-        color: Colors.grey[300],
-        child: ListView.builder(
-            itemCount: news.length,
-            itemBuilder: (BuildContext context, int index) {
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => OneNews(
-                        oneNewsTitle: news[index]['title'],
-                        oneNewsContent: news[index]['content'],
-                        oneNewsImage: news[index]['image_big'],
-                        oneNewsDate: news[index]['date'],
-                      ),
-                    ),
-                  );
-                },
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 5),
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    elevation: 10,
-                    child: DottedBorder(
-                      color: Colors.blue,
-                      gap: 3,
-                      strokeWidth: 1,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Container(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Hero(
-                                  tag: news[index]['image_big'],
-                                  child: Image.network(
-                                    news[index]['image_big'],
-                                    height: 80,
-                                    width: 100,
-                                    filterQuality: FilterQuality.low,
-                                  )),
+      body: news == null
+          ? exception(context, FontAwesomeIcons.exclamationTriangle,
+              'No news available')
+          : Container(
+              color: Colors.grey[300],
+              child: ListView.builder(
+                  itemCount: news.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => OneNews(
+                              oneNewsTitle: news[index]['title'],
+                              oneNewsContent: news[index]['content'],
+                              oneNewsImage: news[index]['image_big'],
+                              oneNewsDate: news[index]['date'],
                             ),
-                          ), //TODO: Image news
-                          Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                          ),
+                        );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 5),
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          elevation: 10,
+                          child: DottedBorder(
+                            color: Colors.blue,
+                            gap: 3,
+                            strokeWidth: 1,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 Container(
-                                  height: 20,
-                                  decoration: new BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
-                                    gradient: LinearGradient(
-                                      begin: Alignment.topLeft,
-                                      end: Alignment.bottomRight,
-                                      colors: [
-                                        Color(0xFF104C90),
-                                        Color(0xFF3773AC),
-                                      ],
-                                      stops: [
-                                        0.7,
-                                        0.9,
-                                      ],
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Hero(
+                                      tag: news[index]['image_big'],
+                                      child: Center(
+                                        child: FadeInImage.memoryNetwork(
+                                          fit: BoxFit.contain,
+                                          placeholder: kTransparentImage,
+                                          image: news[index]['image_big'],
+                                          height: 80,
+                                          width: 100,
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Row(children: <Widget>[
-                                      Icon(
-                                        Icons.update,
-                                        size: 10,
-                                        color: Colors.white,
-                                      ),
-                                      Text(
-                                        news[index]['date'],
-                                        style: TextStyle(
-                                            fontSize: 10, color: Colors.white),
-                                      )
-                                    ]),
-                                  ),
-                                ),
-//                    /TODO: Date
-                                SizedBox(
-                                  height: 10,
-                                ),
+                                ), //TODO: Image news
                                 Container(
-                                  width: c_width,
-                                  child: Text(
-                                    news[index]['title'],
-                                    textAlign: TextAlign.left,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Container(
+                                        height: 20,
+                                        decoration: new BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10)),
+                                          gradient: LinearGradient(
+                                            begin: Alignment.topLeft,
+                                            end: Alignment.bottomRight,
+                                            colors: [
+                                              Color(0xFF104C90),
+                                              Color(0xFF3773AC),
+                                            ],
+                                            stops: [
+                                              0.7,
+                                              0.9,
+                                            ],
+                                          ),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5.0),
+                                          child: Row(children: <Widget>[
+                                            Icon(
+                                              Icons.update,
+                                              size: 10,
+                                              color: Colors.white,
+                                            ),
+                                            Text(
+                                              news[index]['date'],
+                                              style: TextStyle(
+                                                  fontSize: 10,
+                                                  color: Colors.white),
+                                            )
+                                          ]),
+                                        ),
+                                      ),
+//                    /TODO: Date
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Container(
+                                        width: c_width,
+                                        child: Text(
+                                          news[index]['title'],
+                                          textAlign: TextAlign.left,
+                                        ),
+                                      ), //TODO: Title
+                                    ],
                                   ),
-                                ), //TODO: Title
+                                ),
                               ],
                             ),
                           ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-              );
-            }),
-      ),
+                    );
+                  }),
+            ),
     );
   }
 

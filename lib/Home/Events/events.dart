@@ -5,15 +5,13 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
 import 'package:skyline_university/Global/appBar.dart';
+import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Home/Events/oneEvent.dart';
-import 'package:superellipse_shape/superellipse_shape.dart';
-
-import '../home.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 void main() => runApp(Events());
 
@@ -35,6 +33,7 @@ class _EventsState extends State<Events> {
   @override
   void initState() {
     super.initState();
+    events=[];
     getEvents();
   }
 
@@ -45,112 +44,119 @@ class _EventsState extends State<Events> {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: appBar(context, 'Events'),
-      body: Container(
-        color: Colors.grey[300],
-        child: ListView.builder(
-            itemCount: events.length,
-            itemBuilder: (BuildContext context, int index) {
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => OneEvents(
-                        oneEventsTitle: events[index]['title'],
-                        oneEventsContent: events[index]['content'],
-                        oneEventsImage: events[index]['image_big'],
-                        oneEventsDate: events[index]['date'],
-                      ),
-                    ),
-                  );
-                },
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 5),
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    elevation: 10,
-                    child: DottedBorder(
-                      color: Colors.blue,
-                      gap: 3,
-                      strokeWidth: 1,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Container(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Hero(
-                                  tag: events[index]['image_big'],
-                                  child: Image.network(
-                                    events[index]['image_big'],
-                                    height: 80,
-                                    width: 100,
-                                    filterQuality: FilterQuality.low,
-                                  )),
+      body: events == null
+          ? exception(context, FontAwesomeIcons.exclamationTriangle,
+              'No events available')
+          : Container(
+              color: Colors.grey[300],
+              child: ListView.builder(
+                  itemCount: events.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => OneEvents(
+                              oneEventsTitle: events[index]['title'],
+                              oneEventsContent: events[index]['content'],
+                              oneEventsImage: events[index]['image_big'],
+                              oneEventsDate: events[index]['date'],
                             ),
-                          ), //TODO: Image news
-                          Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                          ),
+                        );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 5),
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          elevation: 10,
+                          child: DottedBorder(
+                            color: Colors.blue,
+                            gap: 3,
+                            strokeWidth: 1,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
-                                Container(
-                                  height: 20,
-                                  decoration: new BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
-                                    gradient: LinearGradient(
-                                      begin: Alignment.topLeft,
-                                      end: Alignment.bottomRight,
-                                      colors: [
-                                        Color(0xFF104C90),
-                                        Color(0xFF3773AC),
-                                      ],
-                                      stops: [
-                                        0.7,
-                                        0.9,
-                                      ],
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Hero(
+                                    tag: events[index]['image_big'],
+                                    child: Center(
+                                      child: FadeInImage.memoryNetwork(
+                                        fit: BoxFit.contain,
+                                        placeholder: kTransparentImage,
+                                        image: events[index]['image_big'],
+                                        height: 80,
+                                        width: 100,
+                                      ),
                                     ),
                                   ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Row(children: <Widget>[
-                                      Icon(
-                                        Icons.update,
-                                        size: 10,
-                                        color: Colors.white,
-                                      ),
-                                      Text(
-                                        events[index]['date'],
-                                        style: TextStyle(
-                                            fontSize: 10, color: Colors.white),
-                                      )
-                                    ]),
-                                  ),
-                                ),
-//                    /TODO: Date
-                                SizedBox(
-                                  height: 10,
                                 ),
                                 Container(
-                                  width: c_width,
-                                  child: Text(
-                                    events[index]['title'],
-                                    textAlign: TextAlign.left,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Container(
+                                        height: 20,
+                                        decoration: new BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10)),
+                                          gradient: LinearGradient(
+                                            begin: Alignment.topLeft,
+                                            end: Alignment.bottomRight,
+                                            colors: [
+                                              Color(0xFF104C90),
+                                              Color(0xFF3773AC),
+                                            ],
+                                            stops: [
+                                              0.7,
+                                              0.9,
+                                            ],
+                                          ),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5.0),
+                                          child: Row(children: <Widget>[
+                                            Icon(
+                                              Icons.update,
+                                              size: 10,
+                                              color: Colors.white,
+                                            ),
+                                            Text(
+                                              events[index]['date'],
+                                              style: TextStyle(
+                                                  fontSize: 10,
+                                                  color: Colors.white),
+                                            )
+                                          ]),
+                                        ),
+                                      ),
+//                    /TODO: Date
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Container(
+                                        width: c_width,
+                                        child: Text(
+                                          events[index]['title'],
+                                          textAlign: TextAlign.left,
+                                        ),
+                                      ), //TODO: Title
+                                    ],
                                   ),
-                                ), //TODO: Title
+                                ),
                               ],
                             ),
                           ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-              );
-            }),
-      ),
+                    );
+                  }),
+            ),
     );
   }
 

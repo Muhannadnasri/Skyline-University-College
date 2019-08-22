@@ -38,7 +38,8 @@ class _OneNewsState extends State<OneNews> {
       resizeToAvoidBottomPadding: false,
       appBar: appBar(context, 'New'),
       body: Container(
-        child: ListView(
+        child: 
+        ListView(
           children: <Widget>[
             Column(
               children: <Widget>[

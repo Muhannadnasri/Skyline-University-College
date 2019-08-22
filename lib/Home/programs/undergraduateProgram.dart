@@ -7,8 +7,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBar.dart';
 import 'package:skyline_university/Global/global.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 void main() => runApp(UndergraduateProgram());
 
@@ -49,64 +47,63 @@ class _UndergraduateProgramState extends State<UndergraduateProgram> {
         body: ListView.builder(
           itemCount: programITJson.length,
           itemBuilder: (BuildContext context, int index) {
-            // String videoId;
-            // videoId = YoutubePlayer.convertUrlToId(
-            //     "https://www.youtube.com/watch?v=BBAyRBTfsOU");
             return Column(
               children: <Widget>[
+                programITJson[index]['content_type'] == 'url'
+                    ? Container(
+                        height: 140,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              new BoxShadow(
+                                  color: Colors.black45,
+                                  offset: new Offset(2.0, 2.0),
+                                  blurRadius: 30)
+                            ],
+                            image: DecorationImage(
+                                fit: BoxFit.contain,
+                                image: NetworkImage(
+                                  programITJson[index]['content'].toString(),
+                                ))),
+                      )
+                    : SizedBox(),
                 Container(
-                    child: programITJson[index]['name'] == "Youtube"
-                        ? YoutubePlayer(
-                            context: context,
-                            videoId: programITJson[index]['content'].toString(),
-                            flags: YoutubePlayerFlags(
-                              autoPlay: true,
-                              showVideoProgressIndicator: true,
-                              hideControls: true,
-                              hideFullScreenButton: true,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      programITJson[index]['content_type'] == 'url'
+                          ? SizedBox()
+                          : Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Text(
+                                programITJson[index]['name'],
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
+                              ),
                             ),
-                            videoProgressIndicatorColor: Colors.amber,
-                            progressColors: ProgressColors(
-                              playedColor: Colors.amber,
-                              handleColor: Colors.amberAccent,
-                            ),
-                          )
-                        : SizedBox()),
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  child: GestureDetector(
-                    onTap: () {
-                      launch(programITJson[index][''].toString());
-                    },
-                    child: Text(
-                      programITJson[index]['name'] == "GENERAL EDUCATION" ||
-                              programITJson[index]['name'] ==
-                                  'ENTERPRISE COMPUTING' ||
-                              programITJson[index]['name'] == 'OBJECTIVES' ||
-                              programITJson[index]['name'] == 'INTRODUCTION'
-                          ? programITJson[index]['name']
-                          : '',
-                      style:
-                          TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
-                    ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 15.0, top: 5),
+                        child: programITJson[index]['content_type'] == 'url'
+                            ? SizedBox()
+                            : Container(
+                                width: 100,
+                                decoration: UnderlineTabIndicator(
+                                    borderSide: BorderSide(
+                                        width: 3,
+                                        color: Colors.blue,
+                                        style: BorderStyle.solid)),
+                              ),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: programITJson[index]['content_type'] == 'url'
+                            ? SizedBox()
+                            : Html(data: programITJson[index]['content']),
+                      )
+                    ],
                   ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Html(
-                  data: programITJson[index]['name'] == "GENERAL EDUCATION" ||
-                          programITJson[index]['name'] ==
-                              'ENTERPRISE COMPUTING' ||
-                          programITJson[index]['name'] == 'OBJECTIVES' ||
-                          programITJson[index]['name'] == 'INTRODUCTION'
-                      ? programITJson[index]['content']
-                      : '',
-                  defaultTextStyle: TextStyle(fontSize: 15),
-                  padding: const EdgeInsets.all(10.0),
-                  useRichText: false,
                 ),
               ],
             );
