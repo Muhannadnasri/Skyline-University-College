@@ -7,6 +7,7 @@ import 'package:skyline_university/Home/Location/location.dart';
 import 'package:skyline_university/Home/News/news.dart';
 import 'package:skyline_university/Home/home.dart';
 
+import 'Home/Admission/admissionForm.dart';
 import 'Home/Admission/home.dart';
 import 'Home/FAQ/faq.dart';
 import 'Home/Gallery/gallery.dart';
@@ -140,7 +141,7 @@ class MyAppState extends State<MyApp> {
         '/LeaveHoliday': (context) => LeaveHoliday(),
         '/BookRequisition': (context) => BookRequisition(),
         '/MembershipForm': (context) => MembershipForm(),
-        // '/AdmissionForm': (context) => AdmissionForm(),
+         '/AdmissionForm': (context) => AdmissionForm(),
         '/GeneralAppointment': (context) => GeneralAppointment(),
         '/CourseAllocation': (context) => CourseAllocation(),
         '/Faculty': (context) => Faculty(),

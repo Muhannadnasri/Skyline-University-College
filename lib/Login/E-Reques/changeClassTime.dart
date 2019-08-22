@@ -58,7 +58,10 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
 
               getChangeClassTiming();
             }
-          });
+          }
+
+
+          );
         },
       ),
       appBar: appBarLogin(
