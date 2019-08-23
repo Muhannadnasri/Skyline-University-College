@@ -57,7 +57,7 @@ class _UndergraduateBusinessState extends State<UndergraduateBusiness> {
                               size: 20,
                             ),
                             title: Html(
-                              data: programsJson[index]['name'].toString(),
+                              data: programsJson[index]['description'].toString(),
                             ),
                             children: <Widget>[
                               Divider(color: Colors.black),

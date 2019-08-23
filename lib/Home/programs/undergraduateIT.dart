@@ -18,11 +18,6 @@ class UndergraduateIT extends StatefulWidget {
   }
 }
 
-// List programs = [];
-
-// File dataFile;
-// Map programsJson = {};
-// Map<String, String> body;
 List programsJson = [];
 
 class _UndergraduateITState extends State<UndergraduateIT> {

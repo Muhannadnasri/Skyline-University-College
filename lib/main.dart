@@ -11,9 +11,16 @@ import 'Home/Admission/admissionForm.dart';
 import 'Home/Admission/home.dart';
 import 'Home/FAQ/faq.dart';
 import 'Home/Gallery/gallery.dart';
+import 'Home/Info/board.dart';
+import 'Home/Info/committees.dart';
+import 'Home/Info/council.dart';
+import 'Home/Info/dean.dart';
 import 'Home/Info/faculty.dart';
+
+import 'Home/Info/founder.dart';
+import 'Home/Info/glance.dart';
+import 'Home/Info/goals.dart';
 import 'Home/Info/info.dart';
-import 'Home/Info/infoPage.dart';
 import 'Home/Info/virtual.dart';
 
 import 'Home/programs/homePrograms.dart';
@@ -141,7 +148,7 @@ class MyAppState extends State<MyApp> {
         '/LeaveHoliday': (context) => LeaveHoliday(),
         '/BookRequisition': (context) => BookRequisition(),
         '/MembershipForm': (context) => MembershipForm(),
-         '/AdmissionForm': (context) => AdmissionForm(),
+        '/AdmissionForm': (context) => AdmissionForm(),
         '/GeneralAppointment': (context) => GeneralAppointment(),
         '/CourseAllocation': (context) => CourseAllocation(),
         '/Faculty': (context) => Faculty(),
@@ -156,21 +163,22 @@ class MyAppState extends State<MyApp> {
         '/GPASS': (context) => GPASS(),
         '/HomeClass': (context) => HomeClass(),
         '/UndergraduateProgram': (context) => UndergraduateProgram(),
-
         '/virtual': (context) => Virtual(),
         '/attendanceCalendar': (context) => AttendanceCalendar(),
         '/homePrograms': (context) => HomePrograms(),
-
         '/undergraduateBusiness': (context) => UndergraduateBusiness(),
         '/undergraduateIT': (context) => UndergraduateIT(),
         '/homeUndergraduate': (context) => HomeUndergraduate(),
         '/leaveApplicationForm': (context) => LeaveApplicationForm(),
         '/info': (context) => Info(),
-        '/infoPage': (context) => InfoPage(),
-
         '/professionalCourses': (context) => ProfessionalCourses(),
-
-        
+        '/glance': (context) => Glance(),
+        '/goals': (context) => Goals(),
+        '/board': (context) => Board(),
+        '/founder': (context) => Founder(),
+        '/council': (context) => Council(),
+        '/dean': (context) => Dean(),
+        '/committees': (context) => Committees(),
       },
     );
   }

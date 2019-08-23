@@ -7,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBar.dart';
 import 'package:skyline_university/Global/global.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 void main() => runApp(UndergraduateProgram());
 
@@ -30,7 +31,6 @@ class UndergraduateProgram extends StatefulWidget {
 
 class _UndergraduateProgramState extends State<UndergraduateProgram> {
   List programITJson = [];
-
   @override
   void initState() {
     getprogramIT();
@@ -49,23 +49,33 @@ class _UndergraduateProgramState extends State<UndergraduateProgram> {
           itemBuilder: (BuildContext context, int index) {
             return Column(
               children: <Widget>[
-                programITJson[index]['content_type'] == 'url'
+                programITJson[index]['name'] == 'BS IT Video'
                     ? Container(
-                        height: 140,
-                        decoration: BoxDecoration(
-                            boxShadow: [
-                              new BoxShadow(
-                                  color: Colors.black45,
-                                  offset: new Offset(2.0, 2.0),
-                                  blurRadius: 30)
-                            ],
-                            image: DecorationImage(
-                                fit: BoxFit.contain,
-                                image: NetworkImage(
-                                  programITJson[index]['content'].toString(),
-                                ))),
+                        child: YoutubePlayer(
+                          videoId: programITJson[index]['content'],
+                          context: context,
+                        ),
+                        // YoutubePlayer(
+                        //   context: context,
+                        //   source: programITJson[index]['content'],
+                        //   autoPlay: true,
+                        //   quality: YoutubeQuality.HD,
+
+                        //   onVideoEnded: () => _showThankYouDialog(),
+                        //   onError: (error) {
+                        //     print(error);
+                        //   },
+                        // ),
                       )
-                    : SizedBox(),
+                    : programITJson[index]['content_type'] == 'url'
+                        ? Container(
+                            height: 140,
+                            child: Image.network(
+                              programITJson[index]['content'],
+                              fit: BoxFit.contain,
+                            ),
+                          )
+                        : SizedBox(),
                 Container(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

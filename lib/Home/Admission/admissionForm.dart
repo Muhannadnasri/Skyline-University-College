@@ -45,37 +45,20 @@ class _AdmissionFormState extends State<AdmissionForm> {
   String firstName = '';
   String middleName = '';
   String lastName = '';
-  String pBox = '';
+
   String town = '';
-  String telephone = '';
+
   String mobile = '';
   String email = '';
 
   String program = '';
-  String gender = '';
-
+  String know = '';
   String country = '';
 
   String liveOutside = '';
-  String date = '';
-  String online = '';
-
-  String sat = '';
-  String qualification = '';
-  String qCountry = '';
-  String qSchool = '';
-  String qDuration = '';
-  String qResult = '';
-  String testName = '';
-  String testYear = '';
-  String testOverall = '';
 
   String nationality = '';
   String courseName = '';
-  String employmentTime = '';
-  String employmentName = '';
-  String employmentLocation = '';
-  String employmentPosition = '';
 
   @override
   void initState() {
@@ -116,18 +99,16 @@ class _AdmissionFormState extends State<AdmissionForm> {
               employmentDetails.currentState.validate() &&
                   nationality != null &&
                   courseName != null &&
-                  sat != null &&
-                  online != null &&
-                  qualification != null &&
                   liveOutside != null &&
                   country != null &&
-                  gender != null &&
-                  program != null) {
+                  program != null &&
+                  know != null) {
             personalDetails.currentState.save();
             academicBackground.currentState.save();
             employmentDetails.currentState.save();
             getAdmissionForm();
           } else {
+            
             showErrorInput(
               'Please Check Your Input',
             );
@@ -136,268 +117,209 @@ class _AdmissionFormState extends State<AdmissionForm> {
       ),
       body: ListView(
         children: <Widget>[
-          GestureDetector(
-            onTap: () {
-              FocusScope.of(context).requestFocus(new FocusNode());
-            },
-            child: Container(
-              color: Colors.grey[200],
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(children: <Widget>[
-                  SizedBox(height: 10,),
-                  Column(
-                    children: <Widget>[
-
-                      Form(
-                        key: personalDetails,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(children: <Widget>[
+              SizedBox(
+                height: 10,
+              ),
+              Column(
+                children: <Widget>[
+                  Form(
+                    key: personalDetails,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        globalForms(context, '', (String value) {
+                          if (value.trim().isEmpty) {
+                            return 'First name is requiblue';
+                          }
+                          return null;
+                        }, (x) {
+                          setState(() {
+                            firstName = x;
+                          });
+                        }, 'First Name', true, TextInputType.text,
+                            FontAwesomeIcons.user, Colors.blue),
+                        globalForms(context, '', (String value) {
+                          if (value.trim().isEmpty) {
+                            return 'Middle name is requiblue';
+                          }
+                          return null;
+                        }, (x) {
+                          setState(() {
+                            middleName = x;
+                          });
+                        }, 'Middle Name', true, TextInputType.text,
+                            FontAwesomeIcons.user, Colors.blue),
+                        globalForms(context, '', (String value) {
+                          if (value.trim().isEmpty) {
+                            return 'Last name is requiblue';
+                          }
+                          return null;
+                        }, (x) {
+                          setState(() {
+                            lastName = x;
+                          });
+                        }, 'Last Name', true, TextInputType.text,
+                            FontAwesomeIcons.user, Colors.blue),
+                        globalForms(context, '', (String value) {
+                          if (value.trim().isEmpty) {
+                            return 'Email name is requiblue';
+                          }
+                          return null;
+                        }, (x) {
+                          setState(() {
+                            email = x;
+                          });
+                        }, 'Email', true, TextInputType.emailAddress,
+                            FontAwesomeIcons.envelope, Colors.blue),
+                        globalForms(context, '', (String value) {
+                          if (value.trim().isEmpty) {
+                            return 'Mobile is requiblue';
+                          }
+                          return null;
+                        }, (x) {
+                          setState(() {
+                            mobile = x;
+                          });
+                        }, 'Mobile', true, TextInputType.number,
+                            FontAwesomeIcons.phoneAlt, Colors.blue),
+                        Row(
                           children: <Widget>[
-                            globalForms(context, '', (String value) {
-                              if (value.trim().isEmpty) {
-                                return 'First name is requiblue';
-                              }
-                              return null;
-                            }, (x) {
-                              setState(() {
-                                firstName = x;
-                              });
-                            }, 'First Name', true, TextInputType.text,
-                                FontAwesomeIcons.user, Colors.blue),
-                            globalForms(context, '', (String value) {
-                              if (value.trim().isEmpty) {
-                                return 'Middle name is requiblue';
-                              }
-                              return null;
-                            }, (x) {
-                              setState(() {
-                                middleName = x;
-                              });
-                            }, 'Middle Name', true, TextInputType.text,
-                                FontAwesomeIcons.user, Colors.blue),
-                            globalForms(context, '', (String value) {
-                              if (value.trim().isEmpty) {
-                                return 'Last name is requiblue';
-                              }
-                              return null;
-                            }, (x) {
-                              setState(() {
-                                lastName = x;
-                              });
-                            }, 'Last Name', true, TextInputType.text,
-                                FontAwesomeIcons.user, Colors.blue),
-                            globalForms(context, '', (String value) {
-                              if (value.trim().isEmpty) {
-                                return 'Email name is requiblue';
-                              }
-                              return null;
-                            }, (x) {
-                              setState(() {
-                                email = x;
-                              });
-                            }, 'Email', true, TextInputType.emailAddress,
-                                FontAwesomeIcons.envelope, Colors.blue),
-
-                            globalForms(context, '', (String value) {
-                              if (value.trim().isEmpty) {
-                                return 'Telephone is requiblue';
-                              }
-                              return null;
-                            }, (x) {
-                              setState(() {
-                                telephone = x;
-                              });
-                            }, 'Telephone', true, TextInputType.number,
-                                FontAwesomeIcons.phoneAlt, Colors.blue),
-                            globalForms(context, '', (String value) {
-                              if (value.trim().isEmpty) {
-                                return 'Mobile is requiblue';
-                              }
-                              return null;
-                            }, (x) {
-                              setState(() {
-                                mobile = x;
-                              });
-                            }, 'Mobile', true, TextInputType.number,
-                                FontAwesomeIcons.phoneAlt, Colors.blue),
-
-                            globalForms(context, '', (String value) {
-                              if (value.trim().isEmpty) {
-                                return 'Town is requiblue';
-                              }
-                              return null;
-                            }, (x) {
-                              setState(() {
-                                town = x;
-                              });
-                            }, 'Town', true, TextInputType.text,
-                                FontAwesomeIcons.mapMarkedAlt, Colors.blue),
-
-//
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: <Widget>[
-                                  Container(
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: <Widget>[
+                                    Container(
+                                        alignment: Alignment.centerLeft,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            'Country',
+                                            style: TextStyle(
+                                                color: Colors.grey[600]),
+                                          ),
+                                        )),
+                                    DropdownButton<String>(
+                                      isExpanded: true,
+                                      hint: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text('Select Option',
+                                            style:
+                                                TextStyle(color: Colors.black)),
+                                      ),
+                                      items: admissionFormDropdownCountriesJson
+                                              ?.map((item) => DropdownMenuItem<
+                                                      String>(
+                                                  value: item['id'].toString(),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child:
+                                                        Text(item['country']),
+                                                  )))
+                                              ?.toList() ??
+                                          [],
+                                      onChanged: (value) {
+                                        setState(() {
+                                          country = value;
+                                        });
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: <Widget>[
+                                    Container(
                                       alignment: Alignment.centerLeft,
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(
-                                          'Country',
+                                          'Nationality',
                                           style: TextStyle(
                                               color: Colors.grey[600]),
                                         ),
-                                      )),
-                                  DropdownButton<String>(
-                                    isExpanded: true,
-                                    hint: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text('Select Option',
-                                          style:
-                                              TextStyle(color: Colors.black)),
-                                    ),
-                                    items: admissionFormDropdownCountriesJson
-                                            ?.map((item) => DropdownMenuItem<
-                                                    String>(
-                                                value: item['id'].toString(),
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Text(item['country']),
-                                                )))
-                                            ?.toList() ??
-                                        [],
-                                    onChanged: (value) {
-                                      setState(() {
-                                        country = value;
-                                      });
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: <Widget>[
-                                  Container(
-                                    alignment: Alignment.centerLeft,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        'Nationality',
-                                        style:
-                                            TextStyle(color: Colors.grey[600]),
                                       ),
                                     ),
-                                  ),
-                                  DropdownButton<String>(
-                                    isExpanded: true,
-                                    hint: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        'Select Option',
-                                        style: TextStyle(color: Colors.black),
+                                    DropdownButton<String>(
+                                      isExpanded: true,
+                                      hint: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          'Select Option',
+                                          style: TextStyle(color: Colors.black),
+                                        ),
                                       ),
-                                    ),
-                                    items: admissionFormDropdownCountriesJson
-                                            ?.map(
-                                              (item) =>
-                                                  DropdownMenuItem<String>(
-                                                value: item['id'].toString(),
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Text(item['country']),
+                                      items: admissionFormDropdownCountriesJson
+                                              ?.map(
+                                                (item) =>
+                                                    DropdownMenuItem<String>(
+                                                  value: item['id'].toString(),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child:
+                                                        Text(item['country']),
+                                                  ),
                                                 ),
-                                              ),
-                                            )
-                                            ?.toList() ??
-                                        [],
-                                    onChanged: (value) {
-                                      setState(() {
-                                        nationality = value;
-                                      });
-                                    },
-                                  ),
-                                ],
+                                              )
+                                              ?.toList() ??
+                                          [],
+                                      onChanged: (value) {
+                                        setState(() {
+                                          nationality = value;
+                                        });
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        globalForms(context, '', (String value) {
+                          if (value.trim().isEmpty) {
+                            return 'Town is requiblue';
+                          }
+                          return null;
+                        }, (x) {
+                          setState(() {
+                            town = x;
+                          });
+                        }, 'Town', true, TextInputType.text,
+                            FontAwesomeIcons.mapMarkedAlt, Colors.blue),
+                        Column(
+                          children: <Widget>[
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Text(
+                                  'Program',
+                                  style: TextStyle(color: Colors.grey[600]),
+                                ),
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: <Widget>[
-                                  Container(
-                                    alignment: Alignment.centerLeft,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        'Gender',
-                                        style:
-                                            TextStyle(color: Colors.grey[600]),
-                                      ),
-                                    ),
-                                  ),
-                                  DropdownButton<String>(
-                                    isExpanded: true,
-                                    hint: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        'Select Your Gender',
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    ),
-                                    items: <String>['Male', 'Female']
-                                            ?.map((item) =>
-                                                DropdownMenuItem<String>(
-                                                    value: item,
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: Text(item),
-                                                    )))
-                                            ?.toList() ??
-                                        [],
-                                    onChanged: (String value) {
-                                      setState(() {
-                                        gender = value;
-                                      });
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: <Widget>[
-                                  Container(
-                                    alignment: Alignment.centerLeft,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        'Program',
-                                        style:
-                                            TextStyle(color: Colors.grey[600]),
-                                      ),
-                                    ),
-                                  ),
-                                  DropdownButton<String>(
-                                    isExpanded: true,
-                                    hint: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        'Select Option',
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    ),
-                                    items: admissionFormDropdownProgramJson
-                                            ?.map((item) => DropdownMenuItem<
-                                                    String>(
+                              padding: const EdgeInsets.all(5.0),
+                              child: DropdownButton<String>(
+                                isExpanded: true,
+                                hint: Text(
+                                  'Select Option',
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                                items: admissionFormDropdownProgramJson
+                                        ?.map(
+                                            (item) => DropdownMenuItem<String>(
                                                 value: item['id'].toString(),
                                                 child: Padding(
                                                   padding:
@@ -405,535 +327,156 @@ class _AdmissionFormState extends State<AdmissionForm> {
                                                   child: Text(item['program']
                                                       .toString()),
                                                 )))
-                                            ?.toList() ??
-                                        [],
-                                    onChanged: (value) {
-                                      setState(() {
-                                        program = value;
-                                        getProgramsByCategory1();
-                                      });
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: <Widget>[
-                                  Container(
-                                    alignment: Alignment.centerLeft,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        'Course Name',
-                                        style:
-                                            TextStyle(color: Colors.grey[600]),
-                                      ),
-                                    ),
-                                  ),
-                                  DropdownButton<String>(
-                                    isExpanded: true,
-                                    hint: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        'Select Option',
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    ),
-                                    items: programsByCategory1Json
-                                            ?.map((item) => DropdownMenuItem<
-                                                    String>(
-                                                value: item['id'].toString(),
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Text(item['name']),
-                                                )))
-                                            ?.toList() ??
-                                        [],
-                                    onChanged: (value) {
-                                      setState(() {
-                                        courseName = value;
-                                      });
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'Have you completed any studies through distance or online learning ? ',
-                                      style: TextStyle(color: Colors.grey[600]),
-                                    ),
-                                  ),
-                                  DropdownButton<String>(
-                                    isExpanded: true,
-                                    hint: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        'Select Option',
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    ),
-                                    items: <String>['Yes', 'No']
-                                            ?.map((item) =>
-                                                DropdownMenuItem<String>(
-                                                    value: item,
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: Text(item),
-                                                    )))
-                                            ?.toList() ??
-                                        [],
-                                    onChanged: (value) {
-                                      setState(() {
-                                        online = value;
-                                      });
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: <Widget>[
-                                  Container(
-                                    alignment: Alignment.centerLeft,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        'Have you underwent SAT exam ?',
-                                        style:
-                                            TextStyle(color: Colors.grey[600]),
-                                      ),
-                                    ),
-                                  ),
-                                  DropdownButton<String>(
-                                    isExpanded: true,
-                                    hint: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        'Select Option',
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    ),
-                                    items: <String>['Yes', 'No']
-                                            ?.map((item) =>
-                                                DropdownMenuItem<String>(
-                                                    value: item,
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: Text(item),
-                                                    )))
-                                            ?.toList() ??
-                                        [],
-                                    onChanged: (value) {
-                                      setState(() {
-                                        sat = value;
-                                      });
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: <Widget>[
-                                  Column(
-                                    children: <Widget>[
-                                      Container(
-                                        alignment: Alignment.centerLeft,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            'When do you which to begin your degree ?',
-                                            style: TextStyle(
-                                                color: Colors.grey[600]),
-                                          ),
-                                        ),
-                                      ),
-                                      DropdownButton<String>(
-                                        isExpanded: true,
-                                        hint: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            'Select Option',
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ),
-                                        items: admissionFormDropdownTermsJson
-                                                ?.map((item) =>
-                                                    DropdownMenuItem<String>(
-                                                        value: item['id']
-                                                            .toString(),
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(8.0),
-                                                          child: Text(
-                                                              item['term']),
-                                                        )))
-                                                ?.toList() ??
-                                            [],
-                                        onChanged: (value) {
-                                          setState(() {
-                                            date = value;
-                                          });
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: <Widget>[
-                                  Container(
-                                    alignment: Alignment.centerLeft,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        'Are you an international student living outside the UAE?',
-                                        style:
-                                            TextStyle(color: Colors.grey[600]),
-                                      ),
-                                    ),
-                                  ),
-                                  DropdownButton<String>(
-                                    isExpanded: true,
-                                    hint: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        'Select Option',
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    ),
-                                    items: <String>['Yes', 'No']
-                                            ?.map((item) =>
-                                                DropdownMenuItem<String>(
-                                                    value: item,
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: Text(item),
-                                                    )))
-                                            ?.toList() ??
-                                        [],
-                                    onChanged: (value) {
-                                      setState(() {
-                                        liveOutside = value;
-                                      });
-                                    },
-                                  ),
-                                ],
+                                        ?.toList() ??
+                                    [],
+                                onChanged: (value) {
+                                  setState(() {
+                                    program = value;
+                                    getProgramsByCategory1();
+                                  });
+                                },
                               ),
                             ),
                           ],
                         ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    height: 70,
-                    child: Card(
-                      elevation: 10,
-
-                      color: Colors.white,
-                      child: Row(
-
-                        children: <Widget>[
-                          Spacer(
-
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(child: Text('Qualification')),
-                          ),
-
-                          Spacer(
-
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(child: Icon(FontAwesomeIcons.graduationCap,color: Colors.grey,)),
-                          ),SizedBox(width: 5,),
-
-                        ],
-                      ),
-                    ),
-                  ),
-                  Form(
-                    key: academicBackground,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: <Widget>[
-                              Container(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    'Qualification',
-                                    style: TextStyle(color: Colors.grey[600]),
-                                  ),
+                        Column(
+                          children: <Widget>[
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Text(
+                                  'Course Name',
+                                  style: TextStyle(color: Colors.grey[600]),
                                 ),
                               ),
-                              DropdownButton<String>(
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: DropdownButton<String>(
                                 isExpanded: true,
-                                hint: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    'Select Option',
-                                    style: TextStyle(color: Colors.black),
-                                  ),
+                                hint: Text(
+                                  'Select Option',
+                                  style: TextStyle(color: Colors.black),
                                 ),
-                                items: admissionFormDropdownQualificationJson
+                                items: programsByCategory1Json
                                         ?.map(
                                             (item) => DropdownMenuItem<String>(
                                                 value: item['id'].toString(),
                                                 child: Padding(
                                                   padding:
                                                       const EdgeInsets.all(8.0),
-                                                  child: Text(
-                                                      item['qualification']),
+                                                  child: Text(item['name']),
                                                 )))
                                         ?.toList() ??
                                     [],
                                 onChanged: (value) {
                                   setState(() {
-                                    qualification = value;
+                                    courseName = value;
                                   });
                                 },
                               ),
-                            ],
-                          ),
-                        ),
-                        globalForms(context, '', (String value) {
-                          if (value.trim().isEmpty) {
-                            return 'Qualification school is requiblue';
-                          }
-                          return null;
-                        }, (x) {
-                          setState(() {
-                            qSchool = x;
-                          });
-                        },
-                            'Qualification School Name',
-                            true,
-                            TextInputType.text,
-                            FontAwesomeIcons.school,
-                            Colors.blue),
-                        globalForms(context, '', (String value) {
-                          if (value.trim().isEmpty) {
-                            return 'Qualification year is requiblue';
-                          }
-                          return null;
-                        }, (x) {
-                          setState(() {
-                            qDuration = x;
-                          });
-                        }, 'Qualification Year', true, TextInputType.number,
-                            FontAwesomeIcons.calendarAlt, Colors.blue),
-                        globalForms(context, '', (String value) {
-                          if (value.trim().isEmpty) {
-                            return 'Qualification result is requiblue';
-                          }
-                          return null;
-                        }, (x) {
-                          setState(() {
-                            qResult = x;
-                          });
-                        }, 'Qualification Result', true, TextInputType.number,
-                            FontAwesomeIcons.pollH, Colors.blue),
-
-
-
-                        Container(
-                          height: 70,
-                          child: Card(
-                            elevation: 10,
-
-                            color: Colors.white,
-                            child: Row(
-
-                              children: <Widget>[
-                                Spacer(
-
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(child: Text('Certificate')),
-                                ),
-
-                                Spacer(
-
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(child: Icon(FontAwesomeIcons.certificate,color: Colors.grey,)),
-                                ),SizedBox(width: 5,),
-
-                              ],
                             ),
-                          ),
+                          ],
                         ),
-
-
-
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: <Widget>[
-                              DropdownButton<String>(
-                                isExpanded: true,
-                                hint: Text('Select Option'),
-                                items: admissionFormDropdownIELTSJson
-                                        ?.map((item) =>
-                                            DropdownMenuItem<String>(
-                                                value: item['id'].toString(),
-                                                child: Text(item['test_type'])))
-                                        ?.toList() ??
-                                    [],
-                                onChanged: (value) {
-                                  setState(() {
-                                    testName = value;
-                                  });
-                                },
+                        Column(
+                          children: <Widget>[
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'How did you come to know?',
+                                  style: TextStyle(color: Colors.grey[600]),
+                                ),
                               ),
-                            ],
-                          ),
+                            ),
+                            DropdownButton<String>(
+                              // value: know,
+                              isExpanded: true,
+
+                              hint: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'Select Option',
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ),
+                              items: <String>[
+                                    'Others',
+                                    'Google',
+                                    'Facebook',
+                                    'Yahoo',
+                                    'School',
+                                    'Friends/Relatives',
+                                    'Word of mouth',
+                                    'Newspaper',
+                                    'Exhibition',
+                                    'Radio',
+                                    'Cinema Theater',
+                                    'Billboards',
+                                    'Television'
+                                  ]
+                                      ?.map((item) => DropdownMenuItem<String>(
+                                          value: item,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(item),
+                                          )))
+                                      ?.toList() ??
+                                  [],
+                              onChanged: (value) {
+                                setState(() {
+                                  know = value;
+                                });
+                              },
+                            ),
+                          ],
                         ),
-                        globalForms(context, '', (String value) {
-                          if (value.trim().isEmpty) {
-                            return 'Test year is requiblue';
-                          }
-                          return null;
-                        }, (x) {
-                          setState(() {
-                            testYear = x;
-                          });
-                        }, 'Test Year', true, TextInputType.number,
-                            FontAwesomeIcons.calendarAlt, Colors.blue),
-                        globalForms(context, '', (String value) {
-                          if (value.trim().isEmpty) {
-                            return 'Test overall is requiblue';
-                          }
-                          return null;
-                        }, (x) {
-                          setState(() {
-                            testOverall = x;
-                          });
-                        }, 'Test Overall', true, TextInputType.number,
-                            FontAwesomeIcons.pollH, Colors.blue),
+                        Column(
+                          children: <Widget>[
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'Are you an international student living outside the UAE?',
+                                  style: TextStyle(color: Colors.grey[600]),
+                                ),
+                              ),
+                            ),
+                            DropdownButton<String>(
+                              isExpanded: true,
+                              hint: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'Select Option',
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ),
+                              items: <String>['Yes', 'No']
+                                      ?.map((item) => DropdownMenuItem<String>(
+                                          value: item,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(item),
+                                          )))
+                                      ?.toList() ??
+                                  [],
+                              onChanged: (value) {
+                                setState(() {
+                                  liveOutside = value;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
-                  Container(
-                    height: 70,
-                    child: Card(
-                      elevation: 10,
-
-                      color: Colors.white,
-                      child: Row(
-
-                        children: <Widget>[
-                          Spacer(
-
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(child: Text('Employment')),
-                          ),
-
-                          Spacer(
-
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(child: Icon(FontAwesomeIcons.briefcase,color: Colors.grey,)),
-                          ),SizedBox(width: 5,),
-
-                        ],
-                      ),
-                    ),
-                  ),
-                  Form(
-                    key: employmentDetails,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        globalForms(context, '', (String value) {
-                          if (value.trim().isEmpty) {
-                            return 'Employment time is requiblue';
-                          }
-                          return null;
-                        }, (x) {
-                          setState(() {
-                            employmentTime = x;
-                          });
-                        }, 'Employment Time', true, TextInputType.text,
-                            FontAwesomeIcons.calendarAlt, Colors.blue),
-                        globalForms(context, '', (String value) {
-                          if (value.trim().isEmpty) {
-                            return 'Employment name is requiblue';
-                          }
-                          return null;
-                        }, (x) {
-                          setState(() {
-                            employmentName = x;
-                          });
-                        }, 'Employment Name', true, TextInputType.text,
-                            FontAwesomeIcons.user, Colors.blue),
-                        globalForms(context, '', (String value) {
-                          if (value.trim().isEmpty) {
-                            return 'Employment location is requiblue';
-                          }
-                          return null;
-                        }, (x) {
-                          setState(() {
-                            employmentLocation = x;
-                          });
-                        }, 'Employment Location', true, TextInputType.text,
-                            FontAwesomeIcons.mapMarkedAlt, Colors.blue),
-                        globalForms(context, '', (String value) {
-                          if (value.trim().isEmpty) {
-                            return 'Employment position is requiblue';
-                          }
-                          return null;
-                        }, (x) {
-                          setState(() {
-                            employmentPosition = x;
-                          });
-                        }, 'Employment Position', true, TextInputType.text,
-                            FontAwesomeIcons.plus, Colors.blue),
-                      ],
-                    ),
-                  ),
-                ]),
+                ],
               ),
-            ),
+            ]),
           ),
         ],
       ),
@@ -1098,6 +641,7 @@ class _AdmissionFormState extends State<AdmissionForm> {
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
+          'know': know,
         },
       ).timeout(Duration(seconds: 35));
 
