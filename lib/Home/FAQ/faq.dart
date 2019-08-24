@@ -36,7 +36,7 @@ class _FAQState extends State<FAQ> {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      appBar: appBar(context, 'FAQ? '),
+      appBar: appBar(context, 'FAQ?  '),
       body: Container(
         color: Colors.white,
         child: ListView.builder(
