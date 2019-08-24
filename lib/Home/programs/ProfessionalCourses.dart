@@ -7,6 +7,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBar.dart';
 import 'package:skyline_university/Global/global.dart';
+import 'package:skyline_university/Global/rowSection.dart';
+import 'package:skyline_university/Home/programs/professionalProgram.dart';
 import 'package:skyline_university/Home/programs/undergraduateProgram.dart';
 
 void main() => runApp(ProfessionalCourses());
@@ -32,83 +34,108 @@ class _ProfessionalCoursesState extends State<ProfessionalCourses> {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: appBar(context, 'Professional Programs'),
-      body: Container(
-        color: Colors.grey[300],
-        child: ListView.builder(
-            itemCount: programsJson.length,
-            itemBuilder: (BuildContext context, int index) {
-              return GestureDetector(
-                onTap: () {
-                  print(index);
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Card(
-                    shape: BeveledRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0)),
-                    elevation: 10,
-                    child: Container(
-                      child: ExpansionTile(
-                        leading: Icon(
-                          FontAwesomeIcons.info,
-                          size: 20,
-                        ),
-                        title: Html(
-                          data: programsJson[index]['name'].toString(),
-                        ),
-                        children: <Widget>[
-                          Divider(color: Colors.black),
-                          Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(15.0),
-                                  child: Text(
-                                    programsJson[index]['description'],
-                                    style: TextStyle(fontSize: 13),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          UndergraduateProgram(
-                                        programName: programsJson[index]
-                                            ['name'],
-                                        programId: programsJson[index]['id']
-                                            .toString(),
-                                        programdescription: programsJson[index]
-                                            ['description'],
-                                      ),
-                                    ),
-                                  );
-                                },
-                                child: Icon(
-                                  FontAwesomeIcons.arrowRight,
-                                  size: 20,
-                                  color: Colors.green,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+      body: ListView(
+        children: <Widget>[
+          FittedBox(
+            child: Column(
+              children: <Widget>[
+                SizedBox(
+                  height: 15,
                 ),
-                //
-              );
-            }),
+                rowSection(
+                    context,
+                    'images/admission.png',
+                    'Centre for Continuing Learning',
+                    '/centreContinuingLearning'),
+                rowSection(
+                    context,
+                    'images/admission.png',
+                    'Executive Development Program',
+                    '/executiveDevelopmentProgram'),
+                rowSection(context, 'images/admission.png',
+                    'English Language Centre', '/englishLanguageCentre'),
+                rowSection(context, 'images/admission.png',
+                    'Masters Qualifying Program', '/mastersQualifyingProgram'),
+              ],
+            ),
+          ),
+        ],
       ),
+
+      // ListView.builder(
+      //     itemCount: programsJson.length,
+      //     itemBuilder: (BuildContext context, int index) {
+      //       return GestureDetector(
+      //         onTap: () {
+      //           print(index);
+      //         },
+      //         child: Padding(
+      //           padding: const EdgeInsets.all(8.0),
+      //           child: Card(
+      //             shape: BeveledRectangleBorder(
+      //                 borderRadius: BorderRadius.circular(15.0)),
+      //             elevation: 10,
+      //             child: Container(
+      //               child: ExpansionTile(
+      //                 leading: Icon(
+      //                   FontAwesomeIcons.info,
+      //                   size: 20,
+      //                 ),
+      //                 title: Html(
+      //                   data: programsJson[index]['name'].toString(),
+      //                 ),
+      //                 children: <Widget>[
+      //                   Divider(color: Colors.black),
+      //                   Row(
+      //                     children: <Widget>[
+      //                       Expanded(
+      //                         child: Padding(
+      //                           padding: const EdgeInsets.all(15.0),
+      //                           child: Text(
+      //                             programsJson[index]['description'],
+      //                             style: TextStyle(fontSize: 13),
+      //                           ),
+      //                         ),
+      //                       ),
+      //                       SizedBox(
+      //                         width: 10,
+      //                       ),
+      //                       GestureDetector(
+      //                         onTap: () {
+      //                           Navigator.push(
+      //                             context,
+      //                             MaterialPageRoute(
+      //                               builder: (context) =>
+      //                                   ProfessionalProgram(
+      //                                 programName: programsJson[index]
+      //                                     ['name'],
+      //                                 programId: programsJson[index]['id']
+      //                                     .toString(),
+      //                                 programdescription: programsJson[index]
+      //                                     ['description'],
+      //                               ),
+      //                             ),
+      //                           );
+      //                         },
+      //                         child: Icon(
+      //                           FontAwesomeIcons.arrowRight,
+      //                           size: 20,
+      //                           color: Colors.green,
+      //                         ),
+      //                       ),
+      //                       SizedBox(
+      //                         width: 10,
+      //                       ),
+      //                     ],
+      //                   ),
+      //                 ],
+      //               ),
+      //             ),
+      //           ),
+      //         ),
+      //         //
+      //       );
+      //     }),
     );
   }
 

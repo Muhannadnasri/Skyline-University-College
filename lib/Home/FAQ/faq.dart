@@ -50,7 +50,6 @@ class _FAQState extends State<FAQ> {
                 elevation: 20,
                 child: Container(
                   child: ExpansionTile(
-                    
                     leading: Icon(
                       FontAwesomeIcons.question,
                       size: 20,
@@ -66,6 +65,7 @@ class _FAQState extends State<FAQ> {
                             child: Icon(
                               FontAwesomeIcons.checkCircle,
                               size: 20,
+                              color: Colors.green,
                             ),
                           ),
                           SizedBox(

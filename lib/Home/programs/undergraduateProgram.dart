@@ -69,7 +69,7 @@ class _UndergraduateProgramState extends State<UndergraduateProgram> {
                       )
                     : programITJson[index]['content_type'] == 'url'
                         ? Container(
-                            height: 140,
+                          
                             child: Image.network(
                               programITJson[index]['content'],
                               fit: BoxFit.contain,

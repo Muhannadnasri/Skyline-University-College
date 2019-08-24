@@ -103,7 +103,7 @@ class _HomeProgramsState extends State<HomePrograms> {
                     children: <Widget>[
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, "/graduatePrograms");
+                          Navigator.pushNamed(context, "/homeGraduate");
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(

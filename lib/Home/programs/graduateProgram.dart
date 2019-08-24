@@ -1,30 +1,28 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
-
-// https://www.youtube.com/embed/uDAjHLXrTU0?controls=0
-// import 'package:flutter_html_view/flutter_html_view.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBar.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:skyline_university/Global/global.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 void main() => runApp(GraduateProgram());
 
 class GraduateProgram extends StatefulWidget {
   final String programName;
-  final String programLink;
+  final String programId;
 
-  final String programIntroduction;
+  final String programdescription;
 
-  final String programImage;
-
-  const GraduateProgram(
-      {Key key,
-      this.programName,
-      this.programIntroduction,
-      this.programImage,
-      this.programLink})
-      : super(key: key);
+  const GraduateProgram({
+    Key key,
+    this.programName,
+    this.programId,
+    this.programdescription,
+  }) : super(key: key);
   @override
   State<StatefulWidget> createState() {
     return _GraduateProgramState();
@@ -32,8 +30,11 @@ class GraduateProgram extends StatefulWidget {
 }
 
 class _GraduateProgramState extends State<GraduateProgram> {
+  List programITJson = [];
   @override
   void initState() {
+    getprogramIT();
+
     super.initState();
   }
 
@@ -43,89 +44,135 @@ class _GraduateProgramState extends State<GraduateProgram> {
     return Scaffold(
         resizeToAvoidBottomPadding: false,
         appBar: appBar(context, 'Program'),
-        body: ListView(
-          children: <Widget>[
-            Column(
+        body: ListView.builder(
+          itemCount: programITJson.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Column(
               children: <Widget>[
-                Container(
-                  child: widget.programImage.toString() ==
-                          'https://skylineuniversity.ac.ae'
-                      ? YoutubePlayer(
-                          context: context,
-                          videoId: "uDAjHLXrTU0",
-                          flags: YoutubePlayerFlags(
-                            autoPlay: true,
-                            showVideoProgressIndicator: true,
-                            hideControls: true,
-                            hideFullScreenButton: true,
-                          ),
-                          videoProgressIndicatorColor: Colors.amber,
-                          progressColors: ProgressColors(
-                            playedColor: Colors.amber,
-                            handleColor: Colors.amberAccent,
-                          ),
-                        )
+                // programITJson[index]['name'] == 'BS IT Video'
+                //     ? Container(
+                //         child: YoutubePlayer(
+                //           videoId: programITJson[index]['content'],
+                //           context: context,
+                //         ),
+                //         // YoutubePlayer(
+                //         //   context: context,
+                //         //   source: programITJson[index]['content'],
+                //         //   autoPlay: true,
+                //         //   quality: YoutubeQuality.HD,
 
-                      //  FlutterYoutube.playYoutubeVideoByUrl(
-                      //     apiKey: "<API_KEY>",
-                      //     videoUrl:
-                      //         'https://www.youtube.com/watch?v=uDAjHLXrTU0',
-                      //     autoPlay: true, //default falase
-                      //     fullScreen: false //default false
-                      //     )
-                      // ? YoutubePlayer(
-                      //     autoPlay: true,
-                      //     hideShareButton: true,
-                      //     quality: YoutubeQuality.HD,
-                      //     context: context,
-                      //     source: _source,
-                      //     showThumbnail: true,
-                      //     callbackController: (controller) {
+                //         //   onVideoEnded: () => _showThankYouDialog(),
+                //         //   onError: (error) {
+                //         //     print(error);
+                //         //   },
+                //         // ),
+                //       )
+                // :
+                programITJson[index]['content_type'] == 'url'
+                    ? Container(
 
-                      //       _videoController = controller;
-                      //     },
-                      //     onError: (error) {
-                      //       print(error);
-                      //     },
-                      //     onVideoEnded: () => _showThankYouDialog(),
-                      //   )
-                      : Image.network(widget.programImage),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
+                        child: Image.network(
+                          programITJson[index]['content'],
+                          fit: BoxFit.contain,
+                        ),
+                      )
+                    : SizedBox(),
                 Container(
-                  child: GestureDetector(
-                    onTap: () {
-                      launch(widget.programLink.toString());
-                    },
-                    child: Text(
-                      widget.programName.replaceAll('&amp;', ''),
-                      style:
-                          TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
-                    ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      programITJson[index]['content_type'] == 'url'
+                          ? SizedBox()
+                          : Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Text(
+                                programITJson[index]['name'],
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 15.0, top: 5),
+                        child: programITJson[index]['content_type'] == 'url'
+                            ? SizedBox()
+                            : Container(
+                                width: 100,
+                                decoration: UnderlineTabIndicator(
+                                    borderSide: BorderSide(
+                                        width: 3,
+                                        color: Colors.blue,
+                                        style: BorderStyle.solid)),
+                              ),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: programITJson[index]['content_type'] == 'url'
+                            ? SizedBox()
+                            : Html(data: programITJson[index]['content']),
+                      )
+                    ],
                   ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  child: Text(
-                    'INTRODUCTION',
-                    style: TextStyle(fontSize: 17),
-                  ),
-                ),
-                Html(
-                  data: widget.programIntroduction
-                      .replaceAll('&nbsp;', '')
-                      .replaceAll('INTRODUCTION', ''),
-                  defaultTextStyle: TextStyle(fontSize: 15),
-                  padding: const EdgeInsets.all(10.0),
-                  useRichText: false,
                 ),
               ],
-            ),
-          ],
+            );
+          },
         ));
+  }
+
+  void _showThankYouDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Video Ended"),
+          content: Text("Thank you for trying the plugin!"),
+        );
+      },
+    );
+  }
+
+  Future getprogramIT() async {
+    Future.delayed(Duration.zero, () {
+      showLoading(true, context);
+    });
+    try {
+      http.Response response = await http.post(
+        Uri.encodeFull(
+            "https://skylineportal.com/moappad/api/web/getProgramTabs"),
+        headers: {
+          "API-KEY": API,
+        },
+        body: {
+          'usertype': '1',
+          'program_id': widget.programId.toString(),
+          'ipaddress': '1',
+          'deviceid': '1',
+          'devicename': '1',
+        },
+      ).timeout(Duration(seconds: 35));
+
+      if (response.statusCode == 200) {
+        setState(() {
+          programITJson = json.decode(response.body)['data'];
+        });
+        print(programITJson.toString());
+        showLoading(false, context);
+      }
+    } catch (x) {
+      print(x);
+      if (x.toString().contains("TimeoutException")) {
+        showLoading(false, context);
+
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getprogramIT);
+      } else {
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getprogramIT);
+      }
+    }
   }
 }
