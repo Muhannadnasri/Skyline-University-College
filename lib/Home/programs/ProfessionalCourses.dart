@@ -25,7 +25,6 @@ class _ProfessionalCoursesState extends State<ProfessionalCourses> {
   @override
   void initState() {
     super.initState();
-    getPrograms();
   }
 
   @override
@@ -139,45 +138,4 @@ class _ProfessionalCoursesState extends State<ProfessionalCourses> {
     );
   }
 
-  Future getPrograms() async {
-    Future.delayed(Duration.zero, () {
-      showLoading(true, context);
-    });
-    try {
-      http.Response response = await http.post(
-        Uri.encodeFull(
-            "https://skylineportal.com/moappad/api/web/getProgramsByCategory"),
-        headers: {
-          "API-KEY": API,
-        },
-        body: {
-          'usertype': '1',
-          'category_id': '3',
-          'ipaddress': '1',
-          'deviceid': '1',
-          'devicename': '1',
-        },
-      ).timeout(Duration(seconds: 35));
-
-      if (response.statusCode == 200) {
-        setState(() {
-          programsJson = json.decode(response.body)['data'];
-        });
-        print(programsJson.toString());
-        showLoading(false, context);
-      }
-    } catch (x) {
-      print(x);
-      if (x.toString().contains("TimeoutException")) {
-        showLoading(false, context);
-
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-            context, getPrograms);
-      } else {
-        showLoading(false, context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-            getPrograms);
-      }
-    }
-  }
 }
