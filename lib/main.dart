@@ -11,7 +11,9 @@ import 'Home/Admission/admissionForm.dart';
 import 'Home/Admission/home.dart';
 import 'Home/FAQ/faq.dart';
 import 'Home/Gallery/gallery.dart';
+import 'Home/Info/academicAdvisingAndMentoring.dart';
 import 'Home/Info/board.dart';
+import 'Home/Info/clubs.dart';
 import 'Home/Info/committees.dart';
 import 'Home/Info/council.dart';
 import 'Home/Info/dean.dart';
@@ -21,6 +23,12 @@ import 'Home/Info/founder.dart';
 import 'Home/Info/glance.dart';
 import 'Home/Info/goals.dart';
 import 'Home/Info/info.dart';
+import 'Home/Info/internationalStudents.dart';
+import 'Home/Info/knowMoreAboutSkyline.dart';
+import 'Home/Info/sportsDepartment.dart';
+import 'Home/Info/studentEventCommittees.dart';
+import 'Home/Info/studentLife.dart';
+import 'Home/Info/studentServicesDepartment.dart';
 import 'Home/Info/virtual.dart';
 
 import 'Home/programs/centreContinuingLearning.dart';
@@ -196,6 +204,19 @@ class MyAppState extends State<MyApp> {
         '/mastersQualifyingProgram': (context) => MastersQualifyingProgram(),
         '/scholarship': (context) => Scholarship(),
         '/feeStructures': (context) => FeeStructures(),
+        '/studentLife': (context) => StudentLife(),
+        '/internationalStudents': (context) => InternationalStudents(),
+        '/knowMoreAboutSkyline': (context) =>  KnowMoreAboutSkyline(),
+        '/studentServicesDepartment': (context) =>  StudentServicesDepartment(),
+        '/academicAdvisingAndMentoring': (context) =>  AcademicAdvisingAndMentoring(),
+        '/clubs': (context) =>  Clubs(),
+        '/studentEventCommittees': (context) =>  StudentEventCommittees(),
+        '/sportsDepartment': (context) =>  SportsDepartment(),
+
+
+
+
+
       },
     );
   }

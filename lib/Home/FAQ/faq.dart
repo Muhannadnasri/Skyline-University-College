@@ -17,17 +17,19 @@ class FAQ extends StatefulWidget {
     return _FAQState();
   }
 }
-
-List faqs = [];
-Map faqsJson = {};
-File dataFile;
-
-Map<String, String> body;
+List faqsJson=[];
+//List faqs = [];
+//Map faqsJson = {};
+//File dataFile;
+//
+//Map<String, String> body;
 
 class _FAQState extends State<FAQ> {
   @override
   void initState() {
     super.initState();
+   faqsJson=[];
+
     getFaqByType();
   }
 
@@ -40,7 +42,7 @@ class _FAQState extends State<FAQ> {
       body: Container(
         color: Colors.white,
         child: ListView.builder(
-          itemCount: faqs.length,
+          itemCount: faqsJson.length,
           itemBuilder: (BuildContext context, int index) {
             return Padding(
               padding: const EdgeInsets.all(8.0),
@@ -54,7 +56,7 @@ class _FAQState extends State<FAQ> {
                       FontAwesomeIcons.question,
                       size: 20,
                     ),
-                    title: Text(faqs[index]['Header'].toString(),
+                    title: Text(faqsJson[index]['question'].toString(),
                         style: TextStyle(fontSize: 14, color: Colors.black)),
                     children: <Widget>[
                       Divider(color: Colors.black),
@@ -75,7 +77,7 @@ class _FAQState extends State<FAQ> {
                             child: Padding(
                               padding: const EdgeInsets.all(15.0),
                               child: Text(
-                                faqs[index]['Inner'].toString(),
+                                faqsJson[index]['answer'].toString(),
                                 style: TextStyle(fontSize: 13),
                               ),
                             ),
@@ -98,46 +100,88 @@ class _FAQState extends State<FAQ> {
     );
   }
 
+//
+//
+//  Future getFaqByType() async {
+//    new Future.delayed(Duration.zero, () {
+//      showLoading(true, context);
+//    });
+//
+//    body = {};
+//    try {
+//      http.Response response = await http
+//          .post("http://www.muhannadnasri.com/App/faq/data.json", body: body);
+//      print(response.statusCode);
+//      if (response.statusCode == 200) {
+//        var Json = json.decode(response.body);
+//        Directory appDocDir = await getApplicationDocumentsDirectory();
+//        dataFile = new File(appDocDir.path + "/dataFile.json");
+//
+//        if (dataFile.existsSync()) {
+//          if (Json['faq'] != null) {
+//            dataFile.writeAsStringSync(response.body);
+//          }
+//        } else {
+//          dataFile.createSync();
+//          dataFile.writeAsStringSync(response.body);
+//        }
+//
+//        if (Json['faq'] != null) {
+//          faqsJson = Json;
+//        } else {
+//          faqsJson = json.decode(dataFile.readAsStringSync());
+//        }
+//
+//        showLoading(false, context);
+//
+//        setState(() {
+//          faqs = faqsJson["faq"];
+//        });
+//      } else {}
+//    } catch (x) {
+//      if (x.toString().contains("TimeoutException")) {
+//        showLoading(false, context);
+//
+//        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+//            context, getFaqByType);
+//      } else {
+//        showLoading(false, context);
+//        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+//            getFaqByType);
+//      }
+//    }
+//  }
+
   Future getFaqByType() async {
-    new Future.delayed(Duration.zero, () {
+    Future.delayed(Duration.zero, () {
+
       showLoading(true, context);
     });
-
-    body = {};
     try {
-      http.Response response = await http
-          .post("http://www.muhannadnasri.com/App/faq/data.json", body: body);
-      print(response.statusCode);
+      http.Response response = await http.post(
+        Uri.encodeFull("https://skylineportal.com/moappad/api/web/getFaqByType"),
+        headers: {
+          "API-KEY": API,
+        },
+        body: {
+          'usertype': '1',
+          'faq_type': '1',
+          'ipaddress': '1',
+          'deviceid': '1',
+          'devicename': '1',
+        },
+      ).timeout(Duration(seconds: 35));
+
       if (response.statusCode == 200) {
-        var Json = json.decode(response.body);
-        Directory appDocDir = await getApplicationDocumentsDirectory();
-        dataFile = new File(appDocDir.path + "/dataFile.json");
-
-        if (dataFile.existsSync()) {
-          if (Json['faq'] != null) {
-            dataFile.writeAsStringSync(response.body);
-          }
-        } else {
-          dataFile.createSync();
-          dataFile.writeAsStringSync(response.body);
-        }
-
-        if (Json['faq'] != null) {
-          faqsJson = Json;
-        } else {
-          faqsJson = json.decode(dataFile.readAsStringSync());
-        }
-
-        showLoading(false, context);
-
         setState(() {
-          faqs = faqsJson["faq"];
+          faqsJson = json.decode(response.body)['data'];
         });
-      } else {}
+        print(faqsJson.toString());
+        showLoading(false, context);
+      }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
-
         showError("Time out from server", FontAwesomeIcons.hourglassHalf,
             context, getFaqByType);
       } else {

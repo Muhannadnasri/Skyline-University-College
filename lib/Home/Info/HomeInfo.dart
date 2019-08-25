@@ -49,6 +49,8 @@ class _HomeInfoState extends State<HomeInfo> {
                       '/Faculty'),
                   rowSection(
                       context, 'images/admission.png', 'SUC Info', '/info'),
+                  rowSection(
+                      context, 'images/admission.png', 'Student Life', '/studentLife'),
                 ],
               ),
             ),
