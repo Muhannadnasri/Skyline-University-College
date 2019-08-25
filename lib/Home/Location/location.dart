@@ -141,60 +141,6 @@ class _LocationState extends State<Location> {
     });
   }
 
-  // Future<void> _goToTokyo() async {
-  //   double lat = 35.6795;
-  //   double long = 139.77171;
-  //   final GoogleMapController controller = await _controller.future;
-  //   controller
-  //       .animateCamera(CameraUpdate.newLatLngZoom(LatLng(lat, long), _zoom));
-  //   setState(() {
-  //     _markers.clear();
-  //     _markers.add(
-  //       Marker(
-  //           markerId: MarkerId('tokyo'),
-  //           position: LatLng(lat, long),
-  //           infoWindow:
-  //               InfoWindow(title: 'Tokyo', snippet: 'Welcome to Tokyo')),
-  //     );
-  //   });
-  // }
-
-  // Future<void> _goToDubai() async {
-  //   double lat = 25.2048;
-  //   double long = 55.2708;
-  //   final GoogleMapController controller = await _controller.future;
-  //   controller
-  //       .animateCamera(CameraUpdate.newLatLngZoom(LatLng(lat, long), _zoom));
-  //   setState(() {
-  //     _markers.clear();
-  //     _markers.add(
-  //       Marker(
-  //           markerId: MarkerId('dubai'),
-  //           position: LatLng(lat, long),
-  //           infoWindow:
-  //               InfoWindow(title: 'Dubai', snippet: 'Welcome to Dubai')),
-  //     );
-  //   });
-  // }
-
-  // Future<void> _goToParis() async {
-  //   double lat = 48.8566;
-  //   double long = 2.3522;
-  //   final GoogleMapController controller = await _controller.future;
-  //   controller
-  //       .animateCamera(CameraUpdate.newLatLngZoom(LatLng(lat, long), _zoom));
-  //   setState(() {
-  //     _markers.clear();
-  //     _markers.add(
-  //       Marker(
-  //           markerId: MarkerId('paris'),
-  //           position: LatLng(lat, long),
-  //           infoWindow:
-  //               InfoWindow(title: 'Paris', snippet: 'Welcome to Paris')),
-  //     );
-  //   });
-  // }
-
   Future getLocation() async {
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
