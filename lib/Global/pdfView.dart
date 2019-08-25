@@ -42,7 +42,7 @@ class _PdfViewState extends State<PdfView>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarLogin(context, 'Admission Kit'),
+      appBar: appBarLogin(context, ''),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color.fromARGB(255, 39, 93, 155),
         foregroundColor: Colors.white,

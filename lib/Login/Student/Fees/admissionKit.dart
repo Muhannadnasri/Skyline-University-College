@@ -84,11 +84,14 @@ class _AdmissionKitState extends State<AdmissionKit> {
                                       style: TextStyle(color: Colors.blue),
                                     ),
                                     onTap: () {
+
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) => PdfView(
-                                              url: myLedgerJson['data']),
+                                              url: myLedgerJson['data']
+
+                                          ),
                                         ),
                                       );
                                     },
