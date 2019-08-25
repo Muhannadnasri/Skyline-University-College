@@ -196,9 +196,6 @@ class MyAppState extends State<MyApp> {
         '/mastersQualifyingProgram': (context) => MastersQualifyingProgram(),
         '/scholarship': (context) => Scholarship(),
         '/feeStructures': (context) => FeeStructures(),
-
-
-
       },
     );
   }

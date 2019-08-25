@@ -2,13 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
-
 import 'package:skyline_university/Global/appBar.dart';
+import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/pdfView.dart';
 
@@ -37,165 +36,545 @@ class _FeeStructuresState extends State<FeeStructures> {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      appBar: appBar(context, 'Skyline Info'),
-      body: ListView.builder(
-          itemCount: infoJson.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Column(
+      appBar: appBar(context, 'Fee Structures'),
+      body: infoJson.isEmpty
+          ? exception(context, FontAwesomeIcons.exclamationTriangle, '')
+          : ListView(
               children: <Widget>[
-                infoJson[index]['type'] == 'url'
-                    ? Container(
-                        child: Image.network(
-                          infoJson[index]['page_content'].toString(),
-                          fit: BoxFit.contain,
+                Column(
+                  children: <Widget>[
+                    Container(
+                      child: Image.network(infoJson[0]['page_content']),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Container(
+                        child: Column(
+                          children: <Widget>[
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              child: Column(
+                                children: <Widget>[
+                                  Container(
+                                    child: Html(
+                                      data: infoJson[1]['page_content'],
+                                      defaultTextStyle:
+                                          TextStyle(color: Colors.green),
+                                    ),
+                                  ),
+                                  Column(
+                                    children: <Widget>[
+                                      Row(
+                                        children: <Widget>[
+                                          GestureDetector(
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        PdfView(
+                                                            url: infoJson[2][
+                                                                'page_content']),
+                                                  ),
+                                                );
+                                              },
+                                              child: Text(
+                                                infoJson[2]['title'],
+                                                style: TextStyle(
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                    color: Colors.blue),
+                                              )),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Row(
+                                        children: <Widget>[
+                                          GestureDetector(
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        PdfView(
+                                                            url: infoJson[3][
+                                                                'page_content']),
+                                                  ),
+                                                );
+                                              },
+                                              child: Text(
+                                                infoJson[3]['title'],
+                                                style: TextStyle(
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                    color: Colors.blue),
+                                              )),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Row(
+                                        children: <Widget>[
+                                          GestureDetector(
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        PdfView(
+                                                            url: infoJson[4][
+                                                                'page_content']),
+                                                  ),
+                                                );
+                                              },
+                                              child: Text(
+                                                infoJson[4]['title'],
+                                                style: TextStyle(
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                    color: Colors.blue),
+                                              )),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Row(
+                                        children: <Widget>[
+                                          GestureDetector(
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        PdfView(
+                                                            url: infoJson[5][
+                                                                'page_content']),
+                                                  ),
+                                                );
+                                              },
+                                              child: Text(
+                                                infoJson[5]['title'],
+                                                style: TextStyle(
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                    color: Colors.blue),
+                                              )),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Row(
+                                        children: <Widget>[
+                                          GestureDetector(
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        PdfView(
+                                                            url: infoJson[6][
+                                                                'page_content']),
+                                                  ),
+                                                );
+                                              },
+                                              child: Text(
+                                                infoJson[6]['title'],
+                                                style: TextStyle(
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                    color: Colors.blue),
+                                              )),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              child: Column(
+                                children: <Widget>[
+                                  Container(
+                                    child: Html(
+                                      data: infoJson[7]['page_content'],
+                                      defaultTextStyle:
+                                          TextStyle(color: Colors.green),
+                                    ),
+                                  ),
+                                  Column(
+                                    children: <Widget>[
+                                      Row(
+                                        children: <Widget>[
+                                          GestureDetector(
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        PdfView(
+                                                            url: infoJson[8][
+                                                                'page_content']),
+                                                  ),
+                                                );
+                                              },
+                                              child: Text(
+                                                infoJson[8]['title'],
+                                                style: TextStyle(
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                    color: Colors.blue),
+                                              )),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Row(
+                                        children: <Widget>[
+                                          GestureDetector(
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        PdfView(
+                                                            url: infoJson[9][
+                                                                'page_content']),
+                                                  ),
+                                                );
+                                              },
+                                              child: Text(
+                                                infoJson[9]['title'],
+                                                style: TextStyle(
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                    color: Colors.blue),
+                                              )),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Row(
+                                        children: <Widget>[
+                                          GestureDetector(
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        PdfView(
+                                                            url: infoJson[10][
+                                                                'page_content']),
+                                                  ),
+                                                );
+                                              },
+                                              child: Text(
+                                                infoJson[10]['title'],
+                                                style: TextStyle(
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                    color: Colors.blue),
+                                              )),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Row(
+                                        children: <Widget>[
+                                          GestureDetector(
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        PdfView(
+                                                            url: infoJson[11][
+                                                                'page_content']),
+                                                  ),
+                                                );
+                                              },
+                                              child: Text(
+                                                infoJson[11]['title'],
+                                                style: TextStyle(
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                    color: Colors.blue),
+                                              )),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Row(
+                                        children: <Widget>[
+                                          GestureDetector(
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        PdfView(
+                                                            url: infoJson[12][
+                                                                'page_content']),
+                                                  ),
+                                                );
+                                              },
+                                              child: Text(
+                                                infoJson[12]['title'],
+                                                style: TextStyle(
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                    color: Colors.blue),
+                                              )),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Row(
+                                        children: <Widget>[
+                                          GestureDetector(
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        PdfView(
+                                                            url: infoJson[13][
+                                                                'page_content']),
+                                                  ),
+                                                );
+                                              },
+                                              child: Text(
+                                                infoJson[13]['title'],
+                                                style: TextStyle(
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                    color: Colors.blue),
+                                              )),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Row(
+                                        children: <Widget>[
+                                          GestureDetector(
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        PdfView(
+                                                            url: infoJson[14][
+                                                                'page_content']),
+                                                  ),
+                                                );
+                                              },
+                                              child: Text(
+                                                infoJson[14]['title'],
+                                                style: TextStyle(
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                    color: Colors.blue),
+                                              )),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Row(
+                                        children: <Widget>[
+                                          GestureDetector(
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        PdfView(
+                                                            url: infoJson[15][
+                                                                'page_content']),
+                                                  ),
+                                                );
+                                              },
+                                              child: Text(
+                                                infoJson[15]['title'],
+                                                style: TextStyle(
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                    color: Colors.blue),
+                                              )),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              child: Column(
+                                children: <Widget>[
+                                  Container(
+                                    child: Html(
+                                      data: infoJson[16]['page_content'],
+                                      defaultTextStyle:
+                                          TextStyle(color: Colors.purple),
+                                    ),
+                                  ),
+                                  Column(
+                                    children: <Widget>[
+                                      Row(
+                                        children: <Widget>[
+                                          GestureDetector(
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        PdfView(
+                                                            url: infoJson[17][
+                                                                'page_content']),
+                                                  ),
+                                                );
+                                              },
+                                              child: Text(
+                                                infoJson[17]['title'],
+                                                style: TextStyle(
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                    color: Colors.blue),
+                                              )),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Row(
+                                        children: <Widget>[
+                                          GestureDetector(
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        PdfView(
+                                                            url: infoJson[18][
+                                                                'page_content']),
+                                                  ),
+                                                );
+                                              },
+                                              child: Text(
+                                                infoJson[18]['title'],
+                                                style: TextStyle(
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                    color: Colors.blue),
+                                              )),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Row(
+                                        children: <Widget>[
+                                          GestureDetector(
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        PdfView(
+                                                            url: infoJson[19][
+                                                                'page_content']),
+                                                  ),
+                                                );
+                                              },
+                                              child: Text(
+                                                infoJson[19]['title'],
+                                                style: TextStyle(
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                    color: Colors.blue),
+                                              )),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Row(
+                                        children: <Widget>[
+                                          GestureDetector(
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        PdfView(
+                                                            url: infoJson[20][
+                                                                'page_content']),
+                                                  ),
+                                                );
+                                              },
+                                              child: Text(
+                                                infoJson[20]['title'],
+                                                style: TextStyle(
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                    color: Colors.blue),
+                                              )),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Row(
+                                        children: <Widget>[
+                                          GestureDetector(
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        PdfView(
+                                                            url: infoJson[21][
+                                                                'page_content']),
+                                                  ),
+                                                );
+                                              },
+                                              child: Text(
+                                                infoJson[21]['title'],
+                                                style: TextStyle(
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                    color: Colors.blue),
+                                              )),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
-                      )
-                    : SizedBox(),
-                Container(
-                    child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Column(
-                    children: <Widget>[
-                      infoJson[index]['title'] == "NON-VISA APPLICANT (NORMAL)"
-                          ? Row(
-                              children: <Widget>[
-                                Text('NON-VISA APPLICANT (NORMAL)'),
-                                GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => PdfView(
-                                              url: infoJson[index]
-                                                  ['page_content']),
-                                        ),
-                                      );
-                                    },
-                                    child: Icon(FontAwesomeIcons.vectorSquare))
-                              ],
-                            )
-                          : infoJson[index]['title'] ==
-                                  "VISA APPLICANT (NORMAL)"
-                              ? Row(
-                                  children: <Widget>[
-                                    Text('VISA APPLICANT (NORMAL)'),
-                                    GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => PdfView(
-                                                  url: infoJson[index]
-                                                      ['page_content']),
-                                            ),
-                                          );
-                                        },
-                                        child:
-                                            Icon(FontAwesomeIcons.vectorSquare))
-                                  ],
-                                )
-                              : infoJson[index]['title'] ==
-                                      "NON-VISA APPLICANT (WEEKEND)"
-                                  ? Row(
-                                      children: <Widget>[
-                                        Text('NON-VISA APPLICANT (WEEKEND)'),
-                                        GestureDetector(
-                                            onTap: () {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) => PdfView(
-                                                      url: infoJson[index]
-                                                          ['page_content']),
-                                                ),
-                                              );
-                                            },
-                                            child: Icon(
-                                                FontAwesomeIcons.vectorSquare))
-                                      ],
-                                    )
-                                  : infoJson[index]['title'] ==
-                                          "INTERNATIONAL VISA APPLICANT"
-                                      ? Row(
-                                          children: <Widget>[
-                                            Text(
-                                                'INTERNATIONAL VISA APPLICANT'),
-                                            GestureDetector(
-                                                onTap: () {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          PdfView(
-                                                              url: infoJson[
-                                                                      index][
-                                                                  'page_content']),
-                                                    ),
-                                                  );
-                                                },
-                                                child: Icon(FontAwesomeIcons
-                                                    .vectorSquare))
-                                          ],
-                                        )
-                                      : infoJson[index]['title'] ==
-                                              "MISCELLANEOUS FEES"
-                                          ? Row(
-                                              children: <Widget>[
-                                                Text('MISCELLANEOUS FEES'),
-                                                GestureDetector(
-                                                    onTap: () {
-                                                      Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              PdfView(
-                                                                  url: infoJson[
-                                                                          index]
-                                                                      [
-                                                                      'page_content']),
-                                                        ),
-                                                      );
-                                                    },
-                                                    child: Icon(FontAwesomeIcons
-                                                        .vectorSquare))
-                                              ],
-                                            )
-                                          : SizedBox()
-                    ],
-                  ),
-                )),
-                Container(
-                    child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Column(
-                    children: <Widget>[
-                      infoJson[index]['title']== 'MBA' ?
-                    Html(data: infoJson[index]['page_content'],):SizedBox(),
-                      infoJson[index]['id'] == 52
-                          ? Row(
-                              children: <Widget>[
-                                Text('NORMAL'),
-                                GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => PdfView(
-                                              url: infoJson[index]
-                                                  ['page_content']),
-                                        ),
-                                      );
-                                    },
-                                    child: Icon(FontAwesomeIcons.vectorSquare))
-                              ],
-                            )
-                          : SizedBox()
-                    ],
-                  ),
-                )),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 15,
+                ),
               ],
-            );
-          }),
+            ),
     );
   }
 
