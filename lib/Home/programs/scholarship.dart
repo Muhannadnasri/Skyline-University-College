@@ -27,7 +27,7 @@ class _ScholarshipState extends State<Scholarship> {
   void initState() {
     super.initState();
     infoJson = [];
-    getPrograms();
+    getScholarships();
 //print('Image Number'+widget.oneGalleryPhotos);
   }
 
@@ -36,7 +36,7 @@ class _ScholarshipState extends State<Scholarship> {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      appBar: appBar(context, 'Skyline Info'),
+      appBar: appBar(context, 'Scholarships'),
       body: ListView.builder(
 // index
           itemCount: infoJson.length,
@@ -83,8 +83,7 @@ class _ScholarshipState extends State<Scholarship> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
-                        child:
-                        infoJson[index]['type'] == 'url'
+                        child: infoJson[index]['type'] == 'url'
                             ? SizedBox()
                             : Html(data: infoJson[index]['page_content']),
                       )
@@ -97,8 +96,9 @@ class _ScholarshipState extends State<Scholarship> {
     );
   }
 
-  Future getPrograms() async {
+  Future getScholarships() async {
     Future.delayed(Duration.zero, () {
+
       showLoading(true, context);
     });
     try {
@@ -124,16 +124,14 @@ class _ScholarshipState extends State<Scholarship> {
         showLoading(false, context);
       }
     } catch (x) {
-      print(x);
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
-
         showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-            context, getPrograms);
+            context, getScholarships);
       } else {
         showLoading(false, context);
         showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-            getPrograms);
+            getScholarships);
       }
     }
   }
