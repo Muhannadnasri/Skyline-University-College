@@ -8,6 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:skyline_university/Global/appBarLogin.dart';
+import 'package:skyline_university/Global/bottomAppBar.dart';
 import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
 
@@ -60,14 +61,27 @@ class _PassportWithdrawalState extends State<PassportWithdrawal> {
     return Scaffold(
       resizeToAvoidBottomPadding: true, //todo: On all Form
       appBar: appBarLogin(context, 'Passport Withdrawal'),
-      body: Container(
-        child: ListView(
-          children: <Widget>[
-            GestureDetector(
-              onTap: () {
-                FocusScope.of(context).requestFocus(new FocusNode());
-              },
-              child: Column(
+      bottomNavigationBar: bottomappBar(
+        context,
+        () {
+          setState(() {
+            if (_passportWithdrawal.currentState.validate() && value != null) {
+              _passportWithdrawal.currentState.save();
+              getPassportWithdrawal();
+            } else {
+              return showErrorInput('Please check your input');
+            }
+          });
+        },
+      ),
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(new FocusNode());
+        },
+        child: Container(
+          child: ListView(
+            children: <Widget>[
+              Column(
                 children: <Widget>[
                   SizedBox(
                     height: 20,
@@ -92,7 +106,7 @@ class _PassportWithdrawalState extends State<PassportWithdrawal> {
                                 localName = x;
                               });
                             }, 'Contact Local Name', false, TextInputType.text,
-                                Icons.flight_takeoff, Colors.red),
+                                FontAwesomeIcons.user, Colors.blue),
                             globalForms(context, '', (String value) {
                               if (value.trim().isEmpty) {
                                 return 'Number is required';
@@ -106,8 +120,8 @@ class _PassportWithdrawalState extends State<PassportWithdrawal> {
                                 'Contact Local Number',
                                 false,
                                 TextInputType.number,
-                                Icons.flight_takeoff,
-                                Colors.red),
+                                FontAwesomeIcons.phoneAlt,
+                                Colors.blue),
                             globalForms(context, '', (String value) {
                               if (value.trim().isEmpty) {
                                 return 'Name is required';
@@ -121,8 +135,8 @@ class _PassportWithdrawalState extends State<PassportWithdrawal> {
                                 'Contact International Name',
                                 false,
                                 TextInputType.text,
-                                Icons.flight_takeoff,
-                                Colors.red),
+                                FontAwesomeIcons.user,
+                                Colors.blue),
                             globalForms(context, '', (String value) {
                               if (value.trim().isEmpty) {
                                 return 'Number is required';
@@ -136,8 +150,8 @@ class _PassportWithdrawalState extends State<PassportWithdrawal> {
                                 'Contact International Number',
                                 false,
                                 TextInputType.number,
-                                Icons.flight_takeoff,
-                                Colors.red),
+                                FontAwesomeIcons.phoneAlt,
+                                Colors.blue),
                             globalForms(context, '', (String value) {
                               if (value.trim().isEmpty) {
                                 return 'Reason is required';
@@ -148,7 +162,7 @@ class _PassportWithdrawalState extends State<PassportWithdrawal> {
                                 reasonPassport = x;
                               });
                             }, 'Reason', false, TextInputType.text,
-                                Icons.flight_takeoff, Colors.red),
+                                FontAwesomeIcons.question, Colors.blue),
                             datePickers(context),
                           ],
                         ),
@@ -158,108 +172,10 @@ class _PassportWithdrawalState extends State<PassportWithdrawal> {
                   SizedBox(
                     height: 15,
                   ),
-
-                  // Padding(
-                  //   padding: const EdgeInsets.all(8.0),
-                  //   child: Container(
-                  //     height: 40,
-                  //     width: MediaQuery.of(context).size.width,
-                  //     decoration: new BoxDecoration(
-                  //       gradient: LinearGradient(
-                  //         begin: Alignment.topCenter,
-                  //         end: Alignment.bottomCenter,
-                  //         colors: [
-                  //           Color(0xFF104C90),
-                  //           Color(0xFF3773AC),
-                  //         ],
-                  //         stops: [
-                  //           0.7,
-                  //           0.9,
-                  //         ],
-                  //       ),
-                  //     ),
-                  //     child: Align(
-                  //       alignment: Alignment.centerLeft,
-                  //       child: GestureDetector(
-                  //         onTap: () {
-                  //           _showDateReturnPassport();
-                  //         },
-                  //         child: Row(
-                  //           mainAxisAlignment: MainAxisAlignment.start,
-                  //           children: <Widget>[
-                  //             SizedBox(
-                  //               width: 15,
-                  //             ),
-                  //             Padding(
-                  //               padding: const EdgeInsets.only(right: 10.0),
-                  //               child: Icon(
-                  //                 FontAwesomeIcons.calendarAlt,
-                  //                 color: Colors.white,
-                  //               ),
-                  //             ),
-                  //             SizedBox(
-                  //               width: 10,
-                  //             ),
-                  //             Padding(
-                  //               padding: const EdgeInsets.only(left: 10.0),
-                  //               child: Text(
-                  //                 _dateTimeReturnPassport == null
-                  //                     ? 'Date To Return'
-                  //                     : 'Date To Return',
-                  //                 style: TextStyle(color: Colors.white),
-                  //               ),
-                  //             ),
-                  //           ],
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                      height: 35,
-                      width: 80,
-                      decoration: new BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Color(0xFF104C90),
-                            Color(0xFF3773AC),
-                          ],
-                          stops: [
-                            0.7,
-                            0.9,
-                          ],
-                        ),
-                      ),
-                      child: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              if (_passportWithdrawal.currentState.validate() &&
-                                  value != null) {
-                                _passportWithdrawal.currentState.save();
-                                getPassportWithdrawal();
-                              } else {
-                                return null;
-                              }
-                            });
-                            // print(value);
-                          },
-                          child: Center(
-                              child: Text(
-                            'Submit',
-                            style: TextStyle(color: Colors.white),
-                          ))))
                 ],
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

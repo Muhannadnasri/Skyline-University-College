@@ -66,106 +66,112 @@ class _LeaveApplicationFormState extends State<LeaveApplicationForm> {
         },
       ),
       appBar: appBarLogin(context, 'Leave Application'),
-      body: Container(
-        color: Colors.grey[300],
-        child: ListView(
-          children: <Widget>[
-            GestureDetector(
-              onTap: () {
-                FocusScope.of(context).requestFocus(new FocusNode());
-              },
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Form(
-                    key: _leaveApplicationForm,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        SizedBox(
-                          height: 10,
-                        ),
-                        datePickers(context, (date) {
-                          from = date.toString();
-                        }, 'Leave From'),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        datePickers(context, (date) {
-                          to = date.toString();
-                        }, 'Leave To'),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        globalForms(context, '', (String value) {
-                          if (value.trim().isEmpty) {
-                            return 'Contact number is required';
-                          }
-                          return null;
-                        }, (x) {
-                          setState(() {
-                            residenceContactNumber = x;
-                          });
-                        },
-                            'Residence Contact Number',
-                            true,
-                            TextInputType.number,
-                            FontAwesomeIcons.phoneAlt,
-                            Colors.blue),
-                        globalForms(context, '', (String value) {
-                          if (value.trim().isEmpty) {
-                            return 'Mobile number is required';
-                          }
-                          return null;
-                        }, (x) {
-                          setState(() {
-                            mobileNumber = x;
-                          });
-                        }, 'Mobile Number', true, TextInputType.number,
-                            FontAwesomeIcons.phoneAlt, Colors.blue),
-                        globalForms(context, '', (String value) {
-                          if (value.trim().isEmpty) {
-                            return 'Document is required';
-                          }
-                          return null;
-                        }, (x) {
-                          setState(() {
-                            documentSubmitted = x;
-                          });
-                        }, 'Document Submitted', true, TextInputType.text,
-                            FontAwesomeIcons.fileAlt, Colors.blue),
-                        globalForms(context, '', (String value) {
-                          if (value.trim().isEmpty) {
-                            return 'Adress is required';
-                          }
-                          return null;
-                        }, (x) {
-                          setState(() {
-                            addressTo = x;
-                          });
-                        }, 'Address To', true, TextInputType.text,
-                            FontAwesomeIcons.mapMarkerAlt, Colors.blue),
-                        globalForms(context, '', (String value) {
-                          if (value.trim().isEmpty) {
-                            return 'Reason is required';
-                          }
-                          return null;
-                        }, (x) {
-                          setState(() {
-                            reasonLeave = x;
-                          });
-                        }, 'Reason For Leave', true, TextInputType.text,
-                            FontAwesomeIcons.question, Colors.blue),
-                      ],
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(new FocusNode());
+        },
+        child: Container(
+          color: Colors.white,
+          child: ListView(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    SizedBox(
+                      height: 15,
                     ),
-                  ),
-                ],
+                    Form(
+                      key: _leaveApplicationForm,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          SizedBox(
+                            height: 10,
+                          ),
+                          datePickers(context, (date) {
+                            from = date.toString();
+                          }, 'Leave From'),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          datePickers(context, (date) {
+                            to = date.toString();
+                          }, 'Leave To'),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          globalForms(context, '', (String value) {
+                            if (value.trim().isEmpty) {
+                              return 'Contact number is required';
+                            }
+                            return null;
+                          }, (x) {
+                            setState(() {
+                              residenceContactNumber = x;
+                            });
+                          },
+                              'Residence Contact Number',
+                              true,
+                              TextInputType.number,
+                              FontAwesomeIcons.phoneAlt,
+                              Colors.blue),
+                          globalForms(context, '', (String value) {
+                            if (value.trim().isEmpty) {
+                              return 'Mobile number is required';
+                            }
+                            return null;
+                          }, (x) {
+                            setState(() {
+                              mobileNumber = x;
+                            });
+                          }, 'Mobile Number', true, TextInputType.number,
+                              FontAwesomeIcons.phoneAlt, Colors.blue),
+                          globalForms(context, '', (String value) {
+                            if (value.trim().isEmpty) {
+                              return 'Document is required';
+                            }
+                            return null;
+                          }, (x) {
+                            setState(() {
+                              documentSubmitted = x;
+                            });
+                          }, 'Document Submitted', true, TextInputType.text,
+                              FontAwesomeIcons.fileAlt, Colors.blue),
+                          globalForms(context, '', (String value) {
+                            if (value.trim().isEmpty) {
+                              return 'Adress is required';
+                            }
+                            return null;
+                          }, (x) {
+                            setState(() {
+                              addressTo = x;
+                            });
+                          }, 'Address To', true, TextInputType.text,
+                              FontAwesomeIcons.mapMarkerAlt, Colors.blue),
+                          globalForms(context, '', (String value) {
+                            if (value.trim().isEmpty) {
+                              return 'Reason is required';
+                            }
+                            return null;
+                          }, (x) {
+                            setState(() {
+                              reasonLeave = x;
+                            });
+                          }, 'Reason For Leave', true, TextInputType.text,
+                              FontAwesomeIcons.question, Colors.blue),
+                          SizedBox(
+                            height: 10,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

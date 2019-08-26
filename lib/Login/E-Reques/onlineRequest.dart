@@ -6,9 +6,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
+import 'package:skyline_university/Global/bottomAppBar.dart';
+import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
 
-//TODO: Here Please Check all
 void main() => runApp(OnlineRequest());
 
 class OnlineRequest extends StatefulWidget {
@@ -18,8 +19,7 @@ class OnlineRequest extends StatefulWidget {
   }
 }
 
-final _address = GlobalKey<FormState>();
-final _remark = GlobalKey<FormState>();
+final _onlineRequest = GlobalKey<FormState>();
 
 // Map<String, int> body;
 
@@ -37,10 +37,8 @@ class _OnlineRequestState extends State<OnlineRequest> {
   @override
   void initState() {
     super.initState();
-
+    onlineRequestTypeJson = [];
     getRequestType();
-
-    requestAmountJson.clear();
   }
 
   @override
@@ -48,18 +46,32 @@ class _OnlineRequestState extends State<OnlineRequest> {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
       resizeToAvoidBottomPadding: true,
+      bottomNavigationBar: bottomappBar(
+        context,
+        () {
+          if (_onlineRequest.currentState.validate() && item != null) {
+            _onlineRequest.currentState.save();
+            getOnlineRequest();
+          } else {
+            return showErrorInput('Please check your input');
+          }
+
+          // getLeaveApplication();
+          // print(value);
+        },
+      ),
       appBar: appBarLogin(context, 'Online Request'),
-      body: Container(
-        color: Colors.grey[300],
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(new FocusNode());
+        },
         child: Container(
           color: Colors.grey[300],
-          child: ListView(
-            children: <Widget>[
-              GestureDetector(
-                onTap: () {
-                  FocusScope.of(context).requestFocus(new FocusNode());
-                },
-                child: Column(
+          child: Container(
+            color: Colors.grey[300],
+            child: ListView(
+              children: <Widget>[
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     SizedBox(
@@ -203,74 +215,32 @@ class _OnlineRequestState extends State<OnlineRequest> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Form(
-                            key: _address,
+                            key: _onlineRequest,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: TextFormField(
-                                    textCapitalization:
-                                        TextCapitalization.words,
-                                    maxLines: null,
-                                    onSaved: (x) {
-                                      address = x;
-                                    },
-                                    decoration: InputDecoration(
-                                      labelText: "Address",
-                                      fillColor: Colors.white,
-                                      helperText: '(Optional)',
-                                      helperStyle: TextStyle(fontSize: 13),
-                                      hintText: 'Enter Your Adress',
-                                      hintStyle: TextStyle(fontSize: 15),
-                                      isDense: true,
-                                      prefixIcon: Icon(
-                                        FontAwesomeIcons.addressBook,
-                                        size: 15,
-                                        color: Colors.purple,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Form(
-                            key: _remark,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: TextFormField(
-                                    textCapitalization:
-                                        TextCapitalization.words,
-                                    maxLines: null,
-                                    onSaved: (x) {
-                                      remark = x;
-                                    },
-                                    decoration: InputDecoration(
-                                      labelText: "Remark",
-                                      fillColor: Colors.white,
-                                      hintText: 'Enter Your Questions',
-                                      hintStyle: TextStyle(fontSize: 15),
-                                      isDense: true,
-                                      prefixIcon: Icon(
-                                        FontAwesomeIcons.question,
-                                        size: 15,
-                                        color: Colors.purple,
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                                globalForms(context, '', (String value) {
+                                  if (value.trim().isEmpty) {
+                                    return 'Address  is required';
+                                  }
+                                  return null;
+                                }, (x) {
+                                  setState(() {
+                                    address = x;
+                                  });
+                                }, 'Address', true, TextInputType.text,
+                                    FontAwesomeIcons.mapMarkedAlt, Colors.blue),
+                                globalForms(context, '', (String value) {
+                                  if (value.trim().isEmpty) {
+                                    return 'Remark is required';
+                                  }
+                                  return null;
+                                }, (x) {
+                                  setState(() {
+                                    remark = x;
+                                  });
+                                }, 'Remark', true, TextInputType.text,
+                                    FontAwesomeIcons.phoneAlt, Colors.blue),
                               ],
                             ),
                           ),
@@ -284,13 +254,13 @@ class _OnlineRequestState extends State<OnlineRequest> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(10.0),
                           child: Row(
                             children: <Widget>[
                               Icon(
                                 FontAwesomeIcons.moneyCheck,
                                 size: 20,
-                                color: Colors.purple,
+                                color: Colors.blue,
                               ),
                               SizedBox(
                                 width: 15,
@@ -344,36 +314,10 @@ class _OnlineRequestState extends State<OnlineRequest> {
                     SizedBox(
                       height: 20,
                     ),
-                    Container(
-                        height: 35,
-                        width: 80,
-                        decoration: new BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              Color(0xFF104C90),
-                              Color(0xFF3773AC),
-                            ],
-                            stops: [
-                              0.7,
-                              0.9,
-                            ],
-                          ),
-                        ),
-                        child: GestureDetector(
-                            onTap: () {
-                              getOnlineRequest();
-                            },
-                            child: Center(
-                                child: Text(
-                              'Submit',
-                              style: TextStyle(color: Colors.white),
-                            )))),
                   ],
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -393,15 +337,16 @@ class _OnlineRequestState extends State<OnlineRequest> {
           "API-KEY": API,
         },
         body: {
-          'user_id': '15375',
-          'program': 'BSIT',
-          'token': '1',
+          'user_id': '14146',
+          'program': studentJson['data']['program'],
           'usertype': studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
         },
       );
+      print(studentJson['data']['program']);
+      print(studentJson['data']['user_type']);
 
       if (response.statusCode == 200) {
         setState(
@@ -410,19 +355,20 @@ class _OnlineRequestState extends State<OnlineRequest> {
             onlineRequestTypeMessageJson = json.decode(response.body);
           },
         );
-
         showLoading(false, context);
       }
-      if (onlineRequestTypeMessageJson['success'] == '0') {
+
+      if (onlineRequestTypeMessageJson["success"] == "0") {
         showLoading(false, context);
         Fluttertoast.showToast(
-            msg: onlineRequestTypeMessageJson['message'],
+            msg: onlineRequestTypeMessageJson["message"],
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIos: 1,
             backgroundColor: Colors.grey[400],
             textColor: Colors.black87,
             fontSize: 13.0);
+        Navigator.pop(context);
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
@@ -438,12 +384,10 @@ class _OnlineRequestState extends State<OnlineRequest> {
     }
   }
 
-//TODO: Amount
   Future getAmount() async {
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
     });
-//    requestAmountJson.clear();
 
     try {
       final response = await http.post(
@@ -454,7 +398,6 @@ class _OnlineRequestState extends State<OnlineRequest> {
         },
         body: {
           'req_type_id': item,
-          'token': '1',
           'usertype': studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
@@ -485,14 +428,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
     }
   }
 
-//TODO: Final Request
   Future getOnlineRequest() async {
-    if (_address.currentState.validate()) {
-      _address.currentState.save();
-    }
-    if (_remark.currentState.validate()) {
-      _remark.currentState.save();
-    }
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
     });

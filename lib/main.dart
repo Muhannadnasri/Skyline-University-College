@@ -206,17 +206,13 @@ class MyAppState extends State<MyApp> {
         '/feeStructures': (context) => FeeStructures(),
         '/studentLife': (context) => StudentLife(),
         '/internationalStudents': (context) => InternationalStudents(),
-        '/knowMoreAboutSkyline': (context) =>  KnowMoreAboutSkyline(),
-        '/studentServicesDepartment': (context) =>  StudentServicesDepartment(),
-        '/academicAdvisingAndMentoring': (context) =>  AcademicAdvisingAndMentoring(),
-        '/clubs': (context) =>  Clubs(),
-        '/studentEventCommittees': (context) =>  StudentEventCommittees(),
-        '/sportsDepartment': (context) =>  SportsDepartment(),
-
-
-
-
-
+        '/knowMoreAboutSkyline': (context) => KnowMoreAboutSkyline(),
+        '/studentServicesDepartment': (context) => StudentServicesDepartment(),
+        '/academicAdvisingAndMentoring': (context) =>
+            AcademicAdvisingAndMentoring(),
+        '/clubs': (context) => Clubs(),
+        '/studentEventCommittees': (context) => StudentEventCommittees(),
+        '/sportsDepartment': (context) => SportsDepartment(),
       },
     );
   }

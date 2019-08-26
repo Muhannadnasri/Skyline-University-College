@@ -58,10 +58,7 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
 
               getChangeClassTiming();
             }
-          }
-
-
-          );
+          });
         },
       ),
       appBar: appBarLogin(
@@ -69,7 +66,7 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
         'Change Class Time',
       ),
       body: Container(
-        color: Colors.grey[300],
+        color: Colors.white,
         child: ListView(
           children: <Widget>[
             ExpansionTile(

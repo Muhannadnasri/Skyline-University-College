@@ -5,6 +5,8 @@ import 'package:superellipse_shape/superellipse_shape.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 Map studentJson = {};
+String program = studentJson['data']['program'];
+String userType = studentJson['data']['user_type'];
 
 bool container = false;
 bool disableForm = false;
@@ -189,9 +191,9 @@ void showErrorInput(String msg) {
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
       timeInSecForIos: 2,
-      backgroundColor: Colors.grey[400],
-      textColor: Colors.black87,
-      fontSize: 13.0);
+      backgroundColor: Colors.grey[200],
+      textColor: Colors.black,
+      fontSize: 15.0);
 }
 
 void showDoneInput(String msg, context) {

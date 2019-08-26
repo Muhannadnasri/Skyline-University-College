@@ -1,12 +1,16 @@
 import 'dart:convert';
 
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:skyline_university/Global/appBarLogin.dart';
+import 'package:skyline_university/Global/bottomAppBar.dart';
+import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
 
 void main() => runApp(LeaveApplication());
@@ -18,29 +22,23 @@ class LeaveApplication extends StatefulWidget {
   }
 }
 
-final _rNumber = GlobalKey<FormState>();
-final _mobile = GlobalKey<FormState>();
-
-final _document = GlobalKey<FormState>();
-
-final _address = GlobalKey<FormState>();
-
-final _reasonLeave = GlobalKey<FormState>();
+final _leaveApplication = GlobalKey<FormState>();
 
 // Map<String, int> body;
 
 class _LeaveApplicationState extends State<LeaveApplication> {
+  final format = DateFormat("yyyy-MM-dd HH:mm");
+  final initialValue = DateTime.now();
+
   List leaveTypesJson = [];
   Map leaveApplicationJson = {};
   Map leaveBalanceJson = {};
 
   int groupValue;
   String leaveType;
-  String _dateTimeLeave = '';
-  String _dateTimeReturn = '';
-  int _year = 2018;
-  int _month = 11;
-  int _date = 11;
+  String from;
+  String to;
+
   String contactNo = '';
   String mobileNo = '';
   String documentSubmitted = '';
@@ -52,78 +50,6 @@ class _LeaveApplicationState extends State<LeaveApplication> {
     super.initState();
     getLeaveTypes();
     leaveBalanceJson.clear();
-
-    DateTime now = DateTime.now();
-    _year = now.year;
-    _month = now.month;
-    _date = now.day;
-  }
-
-  void _showDateLeave() {
-    DateTime now = DateTime.now();
-
-    DatePicker.showDatePicker(
-      context,
-      minYear: now.year,
-      initialYear: now.year,
-      initialMonth: now.month,
-      initialDate: _date,
-      confirm: Text(
-        'Confirm',
-        style: TextStyle(color: Colors.red),
-      ),
-      cancel: Text(
-        'Cancel',
-        style: TextStyle(color: Colors.cyan),
-      ),
-      locale: 'EN',
-      dateFormat: 'dd-mm-yyyy',
-      onConfirm: (year, month, date) {
-        _changeDateLeave(year, month, date);
-      },
-    );
-  }
-
-  void _showDateReturn() {
-    DateTime now = DateTime.now();
-    DatePicker.showDatePicker(
-      context,
-      minYear: now.year,
-      initialYear: now.year,
-      initialMonth: now.month,
-      initialDate: _date,
-      confirm: Text(
-        'Confirm',
-        style: TextStyle(color: Colors.red),
-      ),
-      cancel: Text(
-        'Cancel',
-        style: TextStyle(color: Colors.cyan),
-      ),
-      locale: 'en',
-      dateFormat: 'dd-mm-yyyy',
-      onConfirm: (year, month, date) {
-        _changeDateReturn(year, month, date);
-      },
-    );
-  }
-
-  void _changeDateLeave(int year, int month, int date) {
-    setState(() {
-      _year = year;
-      _month = month;
-      _date = date;
-      _dateTimeLeave = '$year-$month-$date';
-    });
-  }
-
-  void _changeDateReturn(int year, int month, int date) {
-    setState(() {
-      _year = year;
-      _month = month;
-      _date = date;
-      _dateTimeReturn = '$year-$month-$date';
-    });
   }
 
   @override
@@ -132,6 +58,18 @@ class _LeaveApplicationState extends State<LeaveApplication> {
     return Scaffold(
       resizeToAvoidBottomPadding: true, //TODO: put in all page
       appBar: appBarLogin(context, 'Leave Application'),
+      bottomNavigationBar: bottomappBar(
+        context,
+        () {
+          if (_leaveApplication.currentState.validate() && leaveType != null) {
+            _leaveApplication.currentState.save();
+            getLeaveApplication();
+          }
+
+          // getLeaveApplication();
+          // print(value);
+        },
+      ),
       body: Container(
         color: Colors.grey[300],
         child: ListView(
@@ -188,305 +126,120 @@ class _LeaveApplicationState extends State<LeaveApplication> {
                   ),
 
                   //TODO: From and TO
-                  Column(
-                    children: <Widget>[
-                      Text(leaveBalanceJson.isEmpty
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Container(
+                    width: 500,
+                    height: 50,
+                    alignment: Alignment.center,
+                    decoration: new BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Color(0xFF104C90),
+                          Color(0xFF3773AC),
+                        ],
+                        stops: [
+                          0.7,
+                          0.9,
+                        ],
+                      ),
+                    ),
+                    child: Text(
+                      leaveBalanceJson.isEmpty
                           ? ''
                           : leaveBalanceJson['Bal'] == null
                               ? ' '.toString()
-                              : leaveBalanceJson['Bal'].toString()),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                          height: 40,
-                          width: MediaQuery.of(context).size.width,
-                          color: Colors.lightBlueAccent,
-                          child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 10.0),
-                                child: Text('Leave From'),
-                              ))),
-                      SizedBox(
-                        height: 2,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          _showDateLeave();
-                        },
-                        child: Container(
-                          height: 50,
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.blue)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.only(left: 15.0),
-                                child: Text(
-                                  _dateTimeLeave == ''
-                                      ? 'DD-MM-YY'
-                                      : _dateTimeLeave,
-                                ),
-                              ),
-                              Icon(Icons.date_range),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
+                              : leaveBalanceJson['Bal'].toString(),
+                      style: TextStyle(color: Colors.white),
+//
+                    ),
                   ),
 
-                  Column(
-                    children: <Widget>[
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Container(
-                          height: 40,
-                          width: MediaQuery.of(context).size.width,
-                          color: Colors.lightBlueAccent,
-                          child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 10.0),
-                                child: Text('Leave To'),
-                              ))),
-                      SizedBox(
-                        height: 2,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          _showDateReturn();
-                        },
-                        child: Container(
-                          height: 50,
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.blue)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.only(left: 15.0),
-                                child: Text(
-                                  _dateTimeReturn == ''
-                                      ? 'DD-MM-YY'
-                                      : _dateTimeReturn,
-                                ),
-                              ),
-                              Icon(Icons.date_range),
-                            ],
-                          ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Form(
+                    key: _leaveApplication,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        SizedBox(
+                          height: 10,
                         ),
-                      ),
-                    ],
+                        datePickers(context, (date) {
+                          from = date.toString();
+                        }, 'Leave From'),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        datePickers(context, (date) {
+                          to = date.toString();
+                        }, 'Leave To'),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        globalForms(context, '', (String value) {
+                          if (value.trim().isEmpty) {
+                            return 'Contact number is required';
+                          }
+                          return null;
+                        }, (x) {
+                          setState(() {
+                            contactNo = x;
+                          });
+                        }, 'Contact number in UAE', true, TextInputType.number,
+                            FontAwesomeIcons.phoneAlt, Colors.blue),
+                        globalForms(context, '', (String value) {
+                          if (value.trim().isEmpty) {
+                            return 'Mobile number is required';
+                          }
+                          return null;
+                        }, (x) {
+                          setState(() {
+                            mobileNo = x;
+                          });
+                        }, 'Mobile number in UAE', true, TextInputType.number,
+                            FontAwesomeIcons.phoneAlt, Colors.blue),
+                        globalForms(context, '', (String value) {
+                          if (value.trim().isEmpty) {
+                            return 'Document is required';
+                          }
+                          return null;
+                        }, (x) {
+                          setState(() {
+                            documentSubmitted = x;
+                          });
+                        }, 'Document Submitted', true, TextInputType.text,
+                            FontAwesomeIcons.fileAlt, Colors.blue),
+                        globalForms(context, '', (String value) {
+                          if (value.trim().isEmpty) {
+                            return 'Adress is required';
+                          }
+                          return null;
+                        }, (x) {
+                          setState(() {
+                            addressTo = x;
+                          });
+                        }, 'Address To', true, TextInputType.text,
+                            FontAwesomeIcons.mapMarked, Colors.blue),
+                        globalForms(context, '', (String value) {
+                          if (value.trim().isEmpty) {
+                            return 'Reason is required';
+                          }
+                          return null;
+                        }, (x) {
+                          setState(() {
+                            reasonLeave = x;
+                          });
+                        }, 'Reason for leave', true, TextInputType.text,
+                            FontAwesomeIcons.question, Colors.blue),
+                      ],
+                    ),
                   ),
 
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Form(
-                        key: _rNumber,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TextFormField(
-                                keyboardType: TextInputType.number,
-                                maxLines: null,
-                                onSaved: (x) {
-                                  contactNo = x;
-                                },
-                                decoration: InputDecoration(
-                                  labelText: "Contact No in UAE",
-                                  fillColor: Colors.white,
-                                  helperText: '(Required)',
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Enter Your Contact Number i UAE',
-                                  hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(
-                                    FontAwesomeIcons.mobileAlt,
-                                    size: 15,
-                                    color: Colors.purple,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: Text('Mobile Number'),
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Form(
-                        key: _mobile,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Container(
-                              child: TextFormField(
-                                keyboardType: TextInputType.number,
-                                maxLines: null,
-                                onSaved: (x) {
-                                  mobileNo = x;
-                                },
-                                decoration: InputDecoration(
-                                  labelText: "Company and address",
-                                  fillColor: Colors.white,
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText:
-                                      'Please enter your company and address',
-                                  hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(
-                                    FontAwesomeIcons.briefcase,
-                                    size: 15,
-                                    color: Colors.purple,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: Text('Document Submitted'),
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Form(
-                        key: _document,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Container(
-                              child: TextFormField(
-                                textCapitalization: TextCapitalization.words,
-                                maxLines: null,
-                                onSaved: (x) {
-                                  documentSubmitted = x;
-                                },
-                                decoration: InputDecoration(
-                                  labelText: "Company and address",
-                                  fillColor: Colors.white,
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText:
-                                      'Please enter your company and address',
-                                  hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(
-                                    FontAwesomeIcons.briefcase,
-                                    size: 15,
-                                    color: Colors.purple,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: Text('Address To'),
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Form(
-                        key: _address,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Container(
-                              child: TextFormField(
-                                textCapitalization: TextCapitalization.words,
-                                maxLines: null,
-                                onSaved: (x) {
-                                  addressTo = x;
-                                },
-                                decoration: InputDecoration(
-                                  labelText: "Company and address",
-                                  fillColor: Colors.white,
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText:
-                                      'Please enter your company and address',
-                                  hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(
-                                    FontAwesomeIcons.briefcase,
-                                    size: 15,
-                                    color: Colors.purple,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: Text('Reason For Leave'),
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Form(
-                        key: _reasonLeave,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Container(
-                              child: TextFormField(
-                                textCapitalization: TextCapitalization.words,
-                                maxLines: null,
-                                onSaved: (x) {
-                                  reasonLeave = x;
-                                },
-                                decoration: InputDecoration(
-                                  labelText: "Company and address",
-                                  fillColor: Colors.white,
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText:
-                                      'Please enter your company and address',
-                                  hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(
-                                    FontAwesomeIcons.briefcase,
-                                    size: 15,
-                                    color: Colors.purple,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
                   Container(
                       height: 35,
                       width: 80,
@@ -522,7 +275,6 @@ class _LeaveApplicationState extends State<LeaveApplication> {
     );
   }
 
-//TODO: RequestType
   Future getLeaveTypes() async {
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
@@ -567,21 +319,6 @@ class _LeaveApplicationState extends State<LeaveApplication> {
   }
 
   Future getLeaveApplication() async {
-    if (_rNumber.currentState.validate()) {
-      _rNumber.currentState.save();
-    }
-    if (_mobile.currentState.validate()) {
-      _mobile.currentState.save();
-    }
-    if (_document.currentState.validate()) {
-      _document.currentState.save();
-    }
-    if (_address.currentState.validate()) {
-      _address.currentState.save();
-    }
-    if (_reasonLeave.currentState.validate()) {
-      _reasonLeave.currentState.save();
-    }
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
     });
@@ -595,8 +332,8 @@ class _LeaveApplicationState extends State<LeaveApplication> {
         },
         body: {
           'user_id': username,
-          'from': _dateTimeLeave.toString(),
-          'to': _dateTimeReturn.toString(),
+          'from': from.toString(),
+          'to': to.toString(),
           'contact_no': contactNo,
           'mobile_no': mobileNo,
           'document_submitted': documentSubmitted,
@@ -617,16 +354,8 @@ class _LeaveApplicationState extends State<LeaveApplication> {
         );
         showLoading(false, context);
       }
-      if (leaveApplicationJson['success'] == '0') {
-        showLoading(false, context);
-        Fluttertoast.showToast(
-            msg: leaveApplicationJson['message'],
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIos: 1,
-            backgroundColor: Colors.grey[400],
-            textColor: Colors.black87,
-            fontSize: 13.0);
+      if (leaveApplicationJson['success'] == '1') {
+        showDoneInput(leaveApplicationJson['message'], context);
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
@@ -683,5 +412,44 @@ class _LeaveApplicationState extends State<LeaveApplication> {
             getLeaveBalance);
       }
     }
+  }
+
+  Widget datePickers(BuildContext context, onSaved, labelText) {
+    return Column(children: <Widget>[
+      Padding(
+        padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 5.0),
+        child: DateTimeField(
+          format: format,
+          onShowPicker: (context, currentValue) async {
+            final date = await showDatePicker(
+                context: context,
+                firstDate: DateTime(1900),
+                initialDate: currentValue ?? DateTime.now(),
+                lastDate: DateTime(2100));
+            if (date != null) {
+              final time = await showTimePicker(
+                context: context,
+                initialTime:
+                    TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
+              );
+              return DateTimeField.combine(date, time);
+            } else {
+              return currentValue;
+            }
+          },
+          // validator: validator,
+          initialValue: initialValue,
+          onSaved: onSaved,
+          readOnly: true,
+          decoration: InputDecoration(
+            labelText: labelText,
+            icon: Icon(
+              Icons.date_range,
+              color: Colors.blue,
+            ),
+          ),
+        ),
+      ),
+    ]);
   }
 }

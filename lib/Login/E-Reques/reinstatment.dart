@@ -75,21 +75,24 @@ class _ReinStatementState extends State<ReinStatement> {
           });
         },
       ),
-      appBar: appBarLogin(context, 'Reinstatment'),
+      appBar: appBarLogin(context, 'Reinstatement'),
       body: Container(
-        color: Colors.grey[300],
+        color: Colors.white,
         child: ListView(
           children: <Widget>[
-            ExpansionTile(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text(policyDetailsJson.isEmpty
-                      ? ''
-                      : policyDetailsJson['data']['description']),
-                ),
-              ],
-              title: Text('Policy Details'),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ExpansionTile(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(policyDetailsJson.isEmpty
+                        ? ''
+                        : policyDetailsJson['data']['description']),
+                  ),
+                ],
+                title: Text('Policy Details'),
+              ),
             ),
             GestureDetector(
               onTap: () {
@@ -292,6 +295,9 @@ class _ReinStatementState extends State<ReinStatement> {
                         });
                       }, 'Documentry', true, TextInputType.text,
                           FontAwesomeIcons.fileAlt, Colors.blue)),
+                  SizedBox(
+                    height: 10,
+                  ),
                 ],
               ),
             ),

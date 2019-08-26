@@ -1,15 +1,13 @@
 import 'dart:async';
 
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/zigzag.dart';
-import 'package:skyline_university/Home/home.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:http/http.dart' as http;
 
 void main() => runApp(HomeLogin());
 
@@ -28,7 +26,6 @@ class HomeLogin extends StatefulWidget {
 }
 
 class _HomeLoginState extends State<HomeLogin> {
-  
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   int _exit = 0;
@@ -36,6 +33,7 @@ class _HomeLoginState extends State<HomeLogin> {
   @override
   void initState() {
     super.initState();
+
     getCopyRight();
 //    semester='';
 //    program='';
@@ -111,10 +109,8 @@ class _HomeLoginState extends State<HomeLogin> {
                             height: 20,
                           ),
                     FittedBox(
-                                          child: Column(
-                        
+                      child: Column(
                         children: <Widget>[
-                          
                           Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: Row(
@@ -125,8 +121,8 @@ class _HomeLoginState extends State<HomeLogin> {
                                     Navigator.pushNamed(context, "/Attendance");
                                   },
                                   child: Padding(
-                                    padding:
-                                        const EdgeInsets.only(left: 8.0, top: 8),
+                                    padding: const EdgeInsets.only(
+                                        left: 8.0, top: 8),
                                     child: Container(
                                       width: 110,
                                       height: 100,
@@ -153,8 +149,8 @@ class _HomeLoginState extends State<HomeLogin> {
                                             ),
                                             Text(
                                               'Attendance',
-                                              style:
-                                                  TextStyle(color: Colors.black),
+                                              style: TextStyle(
+                                                  color: Colors.black),
                                             ),
                                           ],
                                         ),
@@ -168,8 +164,8 @@ class _HomeLoginState extends State<HomeLogin> {
                                         context, "/AssessmentMarkCourses");
                                   },
                                   child: Padding(
-                                    padding:
-                                        const EdgeInsets.only(left: 8.0, top: 8),
+                                    padding: const EdgeInsets.only(
+                                        left: 8.0, top: 8),
                                     child: Container(
                                       width: 110,
                                       height: 100,
@@ -196,8 +192,8 @@ class _HomeLoginState extends State<HomeLogin> {
                                             ),
                                             Text(
                                               'Assessment',
-                                              style:
-                                                  TextStyle(color: Colors.black),
+                                              style: TextStyle(
+                                                  color: Colors.black),
                                             ),
                                           ],
                                         ),
@@ -210,8 +206,8 @@ class _HomeLoginState extends State<HomeLogin> {
                                     Navigator.pushNamed(context, "/HomeResult");
                                   },
                                   child: Padding(
-                                    padding:
-                                        const EdgeInsets.only(left: 8.0, top: 8),
+                                    padding: const EdgeInsets.only(
+                                        left: 8.0, top: 8),
                                     child: Container(
                                       decoration: BoxDecoration(
                                         border: Border.all(width: 1.0),
@@ -238,8 +234,8 @@ class _HomeLoginState extends State<HomeLogin> {
                                             ),
                                             Text(
                                               'Result',
-                                              style:
-                                                  TextStyle(color: Colors.black),
+                                              style: TextStyle(
+                                                  color: Colors.black),
                                             ),
                                           ],
                                         ),
@@ -263,8 +259,8 @@ class _HomeLoginState extends State<HomeLogin> {
                                     Navigator.pushNamed(context, '/HomeClass');
                                   },
                                   child: Padding(
-                                    padding:
-                                        const EdgeInsets.only(left: 8.0, top: 8),
+                                    padding: const EdgeInsets.only(
+                                        left: 8.0, top: 8),
                                     child: Container(
                                       decoration: BoxDecoration(
                                         border: Border.all(width: 1.0),
@@ -291,8 +287,8 @@ class _HomeLoginState extends State<HomeLogin> {
                                             ),
                                             Text(
                                               'Classes',
-                                              style:
-                                                  TextStyle(color: Colors.black),
+                                              style: TextStyle(
+                                                  color: Colors.black),
                                             ),
                                           ],
                                         ),
@@ -305,8 +301,8 @@ class _HomeLoginState extends State<HomeLogin> {
                                     Navigator.pushNamed(context, "/MyAdvisor");
                                   },
                                   child: Padding(
-                                    padding:
-                                        const EdgeInsets.only(left: 8.0, top: 8),
+                                    padding: const EdgeInsets.only(
+                                        left: 8.0, top: 8),
                                     child: Container(
                                       decoration: BoxDecoration(
                                         border: Border.all(width: 1.0),
@@ -333,8 +329,8 @@ class _HomeLoginState extends State<HomeLogin> {
                                             ),
                                             Text(
                                               'Advisor',
-                                              style:
-                                                  TextStyle(color: Colors.black),
+                                              style: TextStyle(
+                                                  color: Colors.black),
                                             ),
                                           ],
                                         ),
@@ -347,8 +343,8 @@ class _HomeLoginState extends State<HomeLogin> {
                                     Navigator.pushNamed(context, "/Circulars");
                                   },
                                   child: Padding(
-                                    padding:
-                                        const EdgeInsets.only(left: 8.0, top: 8),
+                                    padding: const EdgeInsets.only(
+                                        left: 8.0, top: 8),
                                     child: Container(
                                       decoration: BoxDecoration(
                                         border: Border.all(width: 1.0),
@@ -375,8 +371,8 @@ class _HomeLoginState extends State<HomeLogin> {
                                             ),
                                             Text(
                                               'Circulars',
-                                              style:
-                                                  TextStyle(color: Colors.black),
+                                              style: TextStyle(
+                                                  color: Colors.black),
                                             ),
                                           ],
                                         ),
@@ -400,8 +396,8 @@ class _HomeLoginState extends State<HomeLogin> {
                                     Navigator.pushNamed(context, "/HomeFees");
                                   },
                                   child: Padding(
-                                    padding:
-                                        const EdgeInsets.only(left: 8.0, top: 8),
+                                    padding: const EdgeInsets.only(
+                                        left: 8.0, top: 8),
                                     child: Container(
                                       decoration: BoxDecoration(
                                         border: Border.all(width: 1.0),
@@ -428,8 +424,8 @@ class _HomeLoginState extends State<HomeLogin> {
                                             ),
                                             Text(
                                               'Fees',
-                                              style:
-                                                  TextStyle(color: Colors.black),
+                                              style: TextStyle(
+                                                  color: Colors.black),
                                             ),
                                           ],
                                         ),
@@ -439,11 +435,12 @@ class _HomeLoginState extends State<HomeLogin> {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    Navigator.pushNamed(context, "/HomeERequest");
+                                    Navigator.pushNamed(
+                                        context, "/HomeERequest");
                                   },
                                   child: Padding(
-                                    padding:
-                                        const EdgeInsets.only(left: 8.0, top: 8),
+                                    padding: const EdgeInsets.only(
+                                        left: 8.0, top: 8),
                                     child: Container(
                                       width: 110,
                                       height: 100,
@@ -470,8 +467,8 @@ class _HomeLoginState extends State<HomeLogin> {
                                             ),
                                             Text(
                                               'E-Request',
-                                              style:
-                                                  TextStyle(color: Colors.black),
+                                              style: TextStyle(
+                                                  color: Colors.black),
                                             ),
                                           ],
                                         ),
@@ -481,11 +478,12 @@ class _HomeLoginState extends State<HomeLogin> {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    Navigator.pushNamed(context, "/CDPDownload");
+                                    Navigator.pushNamed(
+                                        context, "/CDPDownload");
                                   },
                                   child: Padding(
-                                    padding:
-                                        const EdgeInsets.only(left: 8.0, top: 8),
+                                    padding: const EdgeInsets.only(
+                                        left: 8.0, top: 8),
                                     child: Container(
                                       width: 110,
                                       height: 100,
@@ -512,8 +510,8 @@ class _HomeLoginState extends State<HomeLogin> {
                                             ),
                                             Text(
                                               'CDP',
-                                              style:
-                                                  TextStyle(color: Colors.black),
+                                              style: TextStyle(
+                                                  color: Colors.black),
                                             ),
                                           ],
                                         ),
@@ -639,55 +637,53 @@ class _HomeLoginState extends State<HomeLogin> {
                                       ),
                                     ),
                                   ),
-                                    GestureDetector(
-                                        onTap: () {
-                                          Navigator.pushNamed(
-                                              context, "/ContactList");
-                                        },
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 8.0, top: 8),
-                                          child: Container(
-                                             decoration: BoxDecoration(
-                                              border: Border.all(width: 1.0),
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(
-                                                      15.0) //         <--- border radius here
-                                                  ),
-                                            ),
-                                            width: 110,
-                                            height: 100,
-                                          
-                                              child: Container(
-                                                width: 80,
-                                                height: 80,
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 8.0),
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: <Widget>[
-                                                      Image.asset('images/contactslist.png',height: 50,),
-                                                      SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                      Text(
-                                                        'Contact List',
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.black),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, "/ContactList");
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 8.0, top: 8),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          border: Border.all(width: 1.0),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(
+                                                  15.0) //         <--- border radius here
                                               ),
-                                            
+                                        ),
+                                        width: 110,
+                                        height: 100,
+                                        child: Container(
+                                          width: 80,
+                                          height: 80,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 8.0),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Image.asset(
+                                                  'images/contactslist.png',
+                                                  height: 50,
+                                                ),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Text(
+                                                  'Contact List',
+                                                  style: TextStyle(
+                                                      color: Colors.black),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
@@ -725,7 +721,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                           padding: const EdgeInsets.only(
                                               left: 8.0, top: 8),
                                           child: Container(
-                                             decoration: BoxDecoration(
+                                            decoration: BoxDecoration(
                                               border: Border.all(width: 1.0),
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(
@@ -734,34 +730,32 @@ class _HomeLoginState extends State<HomeLogin> {
                                             ),
                                             width: 110,
                                             height: 100,
-                                           
-                                              child: Container(
-                                                width: 80,
-                                                height: 80,
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 8.0),
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: <Widget>[
-                                                     Image.asset('images/allocation.png',height: 50,),
-                                                      SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                      Text(
-                                                        'Courses',
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.black),
-                                                      ),
-                                                    ],
-                                                  ),
+                                            child: Container(
+                                              width: 80,
+                                              height: 80,
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 8.0),
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    Image.asset(
+                                                      'images/allocation.png',
+                                                      height: 50,
+                                                    ),
+                                                    SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    Text(
+                                                      'Courses',
+                                                      style: TextStyle(
+                                                          color: Colors.black),
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
-                                            
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -915,7 +909,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                           padding: const EdgeInsets.only(
                                               left: 8.0, top: 8),
                                           child: Container(
-                                             decoration: BoxDecoration(
+                                            decoration: BoxDecoration(
                                               border: Border.all(width: 1.0),
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(
@@ -924,34 +918,32 @@ class _HomeLoginState extends State<HomeLogin> {
                                             ),
                                             width: 110,
                                             height: 100,
-                                          
-                                              child: Container(
-                                                width: 80,
-                                                height: 80,
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 8.0),
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: <Widget>[
-                                                      Image.asset('images/contactslist.png',height: 50,),
-                                                      SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                      Text(
-                                                        'Contact List',
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.black),
-                                                      ),
-                                                    ],
-                                                  ),
+                                            child: Container(
+                                              width: 80,
+                                              height: 80,
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 8.0),
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    Image.asset(
+                                                      'images/contactslist.png',
+                                                      height: 50,
+                                                    ),
+                                                    SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    Text(
+                                                      'Contact List',
+                                                      style: TextStyle(
+                                                          color: Colors.black),
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
-                                            
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -991,19 +983,28 @@ class _HomeLoginState extends State<HomeLogin> {
                                     Container(
                                       decoration: BoxDecoration(
                                         boxShadow: [
-          BoxShadow(
-            color: Colors.white,
-            blurRadius: 12.0, // has the effect of softening the shadow
-            spreadRadius: 3.0, // has the effect of extending the shadow
-            
-          )
-        ],
+                                          BoxShadow(
+                                            color: Colors.white,
+                                            blurRadius:
+                                                12.0, // has the effect of softening the shadow
+                                            spreadRadius:
+                                                3.0, // has the effect of extending the shadow
+                                          )
+                                        ],
                                       ),
                                       child: Image.asset(
-
-                                         studentJson['data']['user_type'] == 'FAC'
+                                        studentJson['data']['user_type'] ==
+                                                'FAC'
                                             ? 'images/professor-male.png'
-                                            :studentJson['data']['Gender'] =='M'?'images/male.png':studentJson['data']['Gender'] =='F' ? 'images/female.png' :'images/professor-male.png',height: 25,
+                                            : studentJson['data']['Gender'] ==
+                                                    'M'
+                                                ? 'images/male.png'
+                                                : studentJson['data']
+                                                            ['Gender'] ==
+                                                        'F'
+                                                    ? 'images/female.png'
+                                                    : 'images/professor-male.png',
+                                        height: 25,
                                       ),
                                     ),
                                     SizedBox(
@@ -1025,17 +1026,21 @@ class _HomeLoginState extends State<HomeLogin> {
                                     : Row(
                                         children: <Widget>[
                                           Container(
-                                              decoration: BoxDecoration(
-                                        boxShadow: [
-          BoxShadow(
-            color: Colors.white,
-            blurRadius: 12.0, // has the effect of softening the shadow
-            spreadRadius: 3.0, // has the effect of extending the shadow
-            
-          )
-        ],
-                                      ),
-                                            child:Image.asset('images/degree.png',height: 25,),
+                                            decoration: BoxDecoration(
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.white,
+                                                  blurRadius:
+                                                      12.0, // has the effect of softening the shadow
+                                                  spreadRadius:
+                                                      3.0, // has the effect of extending the shadow
+                                                )
+                                              ],
+                                            ),
+                                            child: Image.asset(
+                                              'images/degree.png',
+                                              height: 25,
+                                            ),
                                           ),
                                           SizedBox(
                                             width: 10,
@@ -1054,17 +1059,21 @@ class _HomeLoginState extends State<HomeLogin> {
                                 Row(
                                   children: <Widget>[
                                     Container(
-                                       decoration: BoxDecoration(
+                                      decoration: BoxDecoration(
                                         boxShadow: [
-          BoxShadow(
-            color: Colors.white,
-            blurRadius: 12.0, // has the effect of softening the shadow
-            spreadRadius: 3.0, // has the effect of extending the shadow
-            
-          )
-        ],
+                                          BoxShadow(
+                                            color: Colors.white,
+                                            blurRadius:
+                                                12.0, // has the effect of softening the shadow
+                                            spreadRadius:
+                                                3.0, // has the effect of extending the shadow
+                                          )
+                                        ],
                                       ),
-                                      child: Image.asset('images/year.png',height:25,),
+                                      child: Image.asset(
+                                        'images/year.png',
+                                        height: 25,
+                                      ),
                                     ),
                                     SizedBox(
                                       width: 10,
@@ -1155,10 +1164,8 @@ class _HomeLoginState extends State<HomeLogin> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-                  
                   Padding(
                     padding: const EdgeInsets.all(15),
-                    
                     child: GestureDetector(
                       onTap: () {
                         logOut(context);
@@ -1214,8 +1221,7 @@ class _HomeLoginState extends State<HomeLogin> {
 
       print(copyRight);
     } catch (x) {
-            print(x);
-
+      print(x);
     }
   }
 

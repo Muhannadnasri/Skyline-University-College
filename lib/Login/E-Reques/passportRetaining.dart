@@ -7,6 +7,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
+import 'package:skyline_university/Global/bottomAppBar.dart';
+import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
 
 void main() => runApp(PassportRetaining());
@@ -42,8 +44,17 @@ class _PassportRetainingState extends State<PassportRetaining> {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
       appBar: appBarLogin(context, 'Passport Retaining'),
+      bottomNavigationBar: bottomappBar(
+        context,
+        () {
+          if (_reasonPassportRetaining.currentState.validate()) {
+            _reasonPassportRetaining.currentState.save();
+            getPassportRetaining();
+          }
+        },
+      ),
       body: Container(
-        color: Colors.grey[300],
+        color: Colors.white,
         child: ListView(
           children: <Widget>[
             GestureDetector(
@@ -56,7 +67,7 @@ class _PassportRetainingState extends State<PassportRetaining> {
                     padding: const EdgeInsets.all(8.0),
                     child: Card(
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                          borderRadius: BorderRadius.all(Radius.circular(5))),
                       elevation: 10,
                       child: DottedBorder(
                         color: Colors.blue,
@@ -79,13 +90,9 @@ class _PassportRetainingState extends State<PassportRetaining> {
                                               'personal_undertaking'],
                                 ),
                                 Row(
+                                  mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.only(left: 10.0),
-                                      child: Text(
-                                          'I agree the terms and conditions'),
-                                    ),
+                                    Text('I agree the terms and conditions'),
                                     Checkbox(
                                       activeColor: Colors.blue,
                                       value: terms,
@@ -107,64 +114,18 @@ class _PassportRetainingState extends State<PassportRetaining> {
                   ),
                   Form(
                     key: _reasonPassportRetaining,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        SizedBox(
-                          height: 20,
-                        ),
-                        TextFormField(
-                          textCapitalization: TextCapitalization.words,
-                          maxLines: null,
-                          onSaved: (x) {
-                            reasonPassportRetaining = x;
-                          },
-                          decoration: InputDecoration(
-                            labelText: "Remark",
-                            fillColor: Colors.white,
-                            helperStyle: TextStyle(fontSize: 13),
-                            hintText: 'Please Enter Your Reason',
-                            hintStyle: TextStyle(fontSize: 15),
-                            isDense: true,
-                            prefixIcon: Icon(
-                              FontAwesomeIcons.bookmark,
-                              size: 15,
-                              color: Colors.purple,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 30,
-                        ),
-                      ],
-                    ),
+                    child: globalForms(context, '', (String value) {
+                      if (value.trim().isEmpty) {
+                        return 'Remark is required';
+                      }
+                      return null;
+                    }, (x) {
+                      setState(() {
+                        reasonPassportRetaining = x;
+                      });
+                    }, 'Remark', true, TextInputType.text,
+                        FontAwesomeIcons.question, Colors.blue),
                   ),
-                  Container(
-                      height: 35,
-                      width: 80,
-                      decoration: new BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Color(0xFF104C90),
-                            Color(0xFF3773AC),
-                          ],
-                          stops: [
-                            0.7,
-                            0.9,
-                          ],
-                        ),
-                      ),
-                      child: GestureDetector(
-                          onTap: () {
-                            getPassportRetaining();
-                          },
-                          child: Center(
-                              child: Text(
-                            'Submit',
-                            style: TextStyle(color: Colors.white),
-                          ))))
                 ],
               ),
             ),

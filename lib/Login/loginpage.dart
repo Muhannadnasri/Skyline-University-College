@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:skyline_university/Global/global.dart';
+
 import 'package:skyline_university/Global/zigzag.dart';
 import 'package:skyline_university/Home/home.dart';
 import 'package:superellipse_shape/superellipse_shape.dart';
@@ -23,8 +24,6 @@ class LoginApp extends StatefulWidget {
 }
 
 class _LoginAppState extends State<LoginApp> {
-  bool checkValue = false;
-
   bool _isSelected = false;
   final _logInForm = GlobalKey<FormState>();
 
@@ -32,29 +31,6 @@ class _LoginAppState extends State<LoginApp> {
     super.initState();
     //  studentJson.clear();
   }
-
-  void _radio() {
-    setState(() {
-      _isSelected = !_isSelected;
-    });
-  }
-
-  Widget radioButton(bool isSelected) => Container(
-        width: 16.0,
-        height: 16.0,
-        padding: EdgeInsets.all(2.0),
-        decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(width: 2.0, color: Colors.black)),
-        child: isSelected
-            ? Container(
-                width: double.infinity,
-                height: double.infinity,
-                decoration:
-                    BoxDecoration(shape: BoxShape.circle, color: Colors.black),
-              )
-            : Container(),
-      );
 
   Widget horizontalLine() => Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -72,7 +48,7 @@ class _LoginAppState extends State<LoginApp> {
     ScreenUtil.instance =
         ScreenUtil(width: 750, height: 1334, allowFontScaling: true);
     return new Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Colors.white,
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
@@ -99,7 +75,7 @@ class _LoginAppState extends State<LoginApp> {
                   child: Column(
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.only(top: 20.0),
+                        padding: const EdgeInsets.only(top: 20),
                         child: Align(
                           alignment: Alignment.topCenter,
                           child: Container(
@@ -204,7 +180,7 @@ class _LoginAppState extends State<LoginApp> {
                                 ),
                                 Container(
                                   child: TextFormField(
-                                    initialValue: '14136',
+                                    initialValue: '14147',
                                     onSaved: (x) {
                                       username = x;
                                     },
@@ -232,7 +208,7 @@ class _LoginAppState extends State<LoginApp> {
                                 ),
                                 Container(
                                   child: TextFormField(
-                                    initialValue: '15378',
+                                    initialValue: '14147',
                                     onSaved: (x) {
                                       password = x;
                                     },
@@ -262,15 +238,26 @@ class _LoginAppState extends State<LoginApp> {
                       Row(
                         children: <Widget>[
                           SizedBox(
-                            width: 12.0,
+                            width: 5.0,
                           ),
-                          GestureDetector(
-                            onTap: _radio,
-                            child: radioButton(_isSelected),
+                          Switch(
+                            activeTrackColor: Colors.lightBlueAccent,
+                            activeColor: Colors.blue,
+                            value: _isSelected,
+                            onChanged: (x) {
+                              setState(() {
+                                _isSelected = x;
+
+                                if (_isSelected) {
+                                  password = '';
+                                  username = '';
+                                } else {}
+                                print(_isSelected);
+                              });
+                            },
                           ),
-                          SizedBox(
-                            width: 8.0,
-                          ),
+
+                          //TODO:Switch remeber
                           Text("Remember me",
                               style: TextStyle(
                                   fontSize: 12, fontFamily: "Poppins-Medium"))
@@ -278,8 +265,8 @@ class _LoginAppState extends State<LoginApp> {
                       ),
                       InkWell(
                         child: Container(
-                          width: ScreenUtil.getInstance().setWidth(330),
-                          height: ScreenUtil.getInstance().setHeight(100),
+                          width: ScreenUtil.getInstance().setWidth(300),
+                          height: ScreenUtil.getInstance().setHeight(95),
                           decoration: BoxDecoration(
                               gradient: LinearGradient(colors: [
                                 Color(0xFF104C90),
@@ -315,7 +302,7 @@ class _LoginAppState extends State<LoginApp> {
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );

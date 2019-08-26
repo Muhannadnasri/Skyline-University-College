@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:photo_view/photo_view.dart';
-import 'package:skyline_university/Global/appBar.dart';
 
+import 'package:skyline_university/Global/appBar.dart';
 
 void main() => runApp(OneGallery());
 
@@ -47,43 +47,41 @@ class _OneGalleryState extends State<OneGallery> {
             return GestureDetector(
               onTap: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PhotoView(
-                        maxScale: PhotoViewComputedScale.covered * 1,
-
-                        minScale: PhotoViewComputedScale.contained * 1,
-                          imageProvider: NetworkImage(widget.oneGalleryPhotos[index],
-
-
-                          ),),
-                    ),);
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PhotoView(
+                      maxScale: PhotoViewComputedScale.covered * 1,
+                      minScale: PhotoViewComputedScale.contained * 1,
+                      imageProvider: NetworkImage(
+                        widget.oneGalleryPhotos[index],
+                      ),
+                    ),
+                  ),
+                );
               },
               child: Container(
                 decoration: BoxDecoration(
-                    border: new Border.all(
-                        color: Colors.black54,
-                        width: 2.0,
-                        style: BorderStyle.solid),
-                    boxShadow: [
-                      new BoxShadow(
-                        color: Colors.black38,
-                        blurRadius: 15,
-                        offset: new Offset(5.0,10.0),
-                      )
-                    ],
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(5.0),
-                    ),
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      colorFilter: ColorFilter.mode(
-                          Colors.black.withOpacity(0.2), BlendMode.softLight),
-                      image: NetworkImage(widget.oneGalleryPhotos[index]),
-                    )),
-//              child: Image.network(
-//                        widget.oneGalleryPhotos[index],fit: BoxFit.cover,filterQuality: FilterQuality.high,
-//                      ),
+                  border: new Border.all(
+                      color: Colors.black54,
+                      width: 2.0,
+                      style: BorderStyle.solid),
+                  boxShadow: [
+                    new BoxShadow(
+                      color: Colors.black38,
+                      blurRadius: 15,
+                      offset: new Offset(5.0, 10.0),
+                    )
+                  ],
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(5.0),
+                  ),
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                        Colors.black.withOpacity(0.2), BlendMode.softLight),
+                    image: NetworkImage(widget.oneGalleryPhotos[index]),
+                  ),
+                ),
               ),
             );
           }),
@@ -94,10 +92,10 @@ class _OneGalleryState extends State<OneGallery> {
 class HeroPhotoViewWrapper extends StatelessWidget {
   const HeroPhotoViewWrapper(
       {this.imageProvider,
-        this.loadingChild,
-        this.backgroundDecoration,
-        this.minScale,
-        this.maxScale});
+      this.loadingChild,
+      this.backgroundDecoration,
+      this.minScale,
+      this.maxScale});
 
   final ImageProvider imageProvider;
   final Widget loadingChild;

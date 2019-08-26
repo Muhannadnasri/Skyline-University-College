@@ -79,7 +79,7 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
               child: Column(
                 children: <Widget>[
                   SizedBox(
-                    height: 20,
+                    height: 35,
                   ),
                   Align(
                     alignment: Alignment.centerLeft,
@@ -90,6 +90,9 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
                         style: TextStyle(color: Colors.grey[600]),
                       ),
                     ),
+                  ),
+                  SizedBox(
+                    height: 5,
                   ),
                   Column(
                     children: <Widget>[
@@ -128,6 +131,9 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
                       ),
                     ],
                   ),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Container(
                     alignment: Alignment.centerLeft,
                     child: Padding(
@@ -137,6 +143,9 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
                         style: TextStyle(color: Colors.grey[600]),
                       ),
                     ),
+                  ),
+                  SizedBox(
+                    height: 5,
                   ),
                   Column(
                     children: <Widget>[
@@ -172,6 +181,9 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
                         },
                       ),
                     ],
+                  ),
+                  SizedBox(
+                    height: 10,
                   ),
                   _caseType == 'General Appointment'
                       ? Column(
@@ -352,7 +364,7 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
                           remarkAppointment = x;
                         });
                       }, 'Reason', true, TextInputType.text,
-                          Icons.flight_takeoff, Colors.red),
+                          FontAwesomeIcons.question, Colors.blue),
                     ),
                   ),
                 ],

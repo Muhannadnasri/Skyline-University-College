@@ -1,16 +1,13 @@
 import 'dart:convert';
-import 'package:dotted_border/dotted_border.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/global.dart';
-import 'package:http/http.dart' as http;
-import 'package:skyline_university/Global/zigzag.dart';
-import 'package:skyline_university/Home/home.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:superellipse_shape/superellipse_shape.dart';
 
 void main() => runApp(ContactList());
 
@@ -46,12 +43,9 @@ class _ContactListState extends State<ContactList> {
               child: Container(
                 height: 140,
                 child: Card(
-                  color: contactListJson[index]['DEPARTMENT_NAME'] == 'BSIT'
-                      ? Color(0xFF612B79)
-                      : Color(0xFF023962),
                   elevation: 20,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
                   child: Column(
                     children: <Widget>[
@@ -82,8 +76,6 @@ class _ContactListState extends State<ContactList> {
                                       ),
                                     ),
                                   ),
-
-                                  //TODO: Image Profile
                                 ],
                               ),
                             ),
@@ -101,7 +93,9 @@ class _ContactListState extends State<ContactList> {
                                 Container(
                                   child: Text(
                                     contactListJson[index]['Name'].toString(),
-                                    style: TextStyle(color: Colors.white),
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ),
                                 SizedBox(
@@ -112,7 +106,7 @@ class _ContactListState extends State<ContactList> {
                                   child: Text(
                                     contactListJson[index]['Job_Name']
                                         .toString(),
-                                    style: TextStyle(color: Colors.white),
+                                    style: TextStyle(color: Colors.black),
                                   ),
                                 ),
                                 SizedBox(
