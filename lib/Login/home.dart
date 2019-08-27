@@ -1,10 +1,13 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/zigzag.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -27,11 +30,15 @@ class HomeLogin extends StatefulWidget {
 
 class _HomeLoginState extends State<HomeLogin> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  Map<String, String> body;
+  File dataFile;
 
   int _exit = 0;
-
+  Map value = {};
+  Map valueJson={};
   @override
   void initState() {
+
     super.initState();
 
     getCopyRight();
@@ -67,7 +74,9 @@ class _HomeLoginState extends State<HomeLogin> {
                 child: GestureDetector(
                   onTap: () {
                     _launchURL() async {
-                      const url = 'https://www.linkedin.com/in/muhannad-nasri/';
+                      const url =
+
+                          'https://www.linkedin.com/in/muhannad-nasri/';
                       if (await canLaunch(url)) {
                         await launch(url,
                             forceWebView: false,
@@ -80,9 +89,14 @@ class _HomeLoginState extends State<HomeLogin> {
 
                     _launchURL();
                   },
-                  child: Text(
-                    '© MuhannadNasri 2019 / ALL RIGHTS RESERVED.',
-                    style: TextStyle(color: Colors.white),
+                  child: Center(
+                    child: Text(
+
+
+//                      '© MuhannadNasri 2019 / ALL RIGHTS RESERVED.'
+                      value['events']['info'],
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
               )
@@ -1202,13 +1216,70 @@ class _HomeLoginState extends State<HomeLogin> {
     );
   }
 
+  Future getGallery() async {
+    new Future.delayed(Duration.zero, () {
+      showLoading(true, context);
+    });
+
+    body = {};
+    try {
+      http.Response response = await http.post(
+          "https://muhannadnasri.com/App/data.ph",
+          body: body);
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+
+        var Json = json.decode(response.body);
+        Directory appDocDir = await getApplicationDocumentsDirectory();
+        dataFile = new File(appDocDir.path + "/dataFile.json");
+
+        if (dataFile.existsSync()) {
+          if (Json['gallery'] != null) {
+            dataFile.writeAsStringSync(response.body);
+          }
+        } else {
+          dataFile.createSync();
+          dataFile.writeAsStringSync(response.body);
+        }
+
+
+        showLoading(false, context);
+
+        setState(() {
+          value = valueJson["gallery"];
+        });
+      } else if(response.statusCode == 300) {
+
+
+        return null;
+      }
+    } catch (x) {
+
+
+
+      if (x.toString().contains("TimeoutException")) {
+        showLoading(false, context);
+
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getGallery);
+      } else {
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getGallery);
+      }
+    }
+  }
+
+
+
+
+
   Future getCopyRight() async {
     Future.delayed(Duration.zero, () {});
-    copyRight = false;
     try {
       final response = await http
-          .post(
-            Uri.encodeFull('https://muhannadnasri.com/App/copyright.php'),
+          .get(
+            Uri.encodeFull('https://muhannadnasri.com/App/data.php'),
           )
           .timeout(Duration(seconds: 20));
       print(response.contentLength);
