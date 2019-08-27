@@ -411,7 +411,7 @@ class _HomeState extends State<Home> {
                                       5.0, // horizontal, move right 10
                                       5.0, // vertical, move down 10
                                     ),
-                                  )
+                                  ),
                                 ],
                               ),
                               height: 100,
@@ -475,7 +475,7 @@ class _HomeState extends State<Home> {
                                       5.0, // horizontal, move right 10
                                       5.0, // vertical, move down 10
                                     ),
-                                  )
+                                  ),
                                 ],
                               ),
                               child: Container(
@@ -527,7 +527,7 @@ class _HomeState extends State<Home> {
                                       5.0, // horizontal, move right 10
                                       5.0, // vertical, move down 10
                                     ),
-                                  )
+                                  ),
                                 ],
                               ),
                               child: Container(

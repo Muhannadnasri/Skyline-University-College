@@ -31,6 +31,7 @@ import 'Home/Info/studentLife.dart';
 import 'Home/Info/studentServicesDepartment.dart';
 import 'Home/Info/virtual.dart';
 
+import 'Home/programs/ProfessionalCourses.dart';
 import 'Home/programs/centreContinuingLearning.dart';
 import 'Home/programs/englishLanguageCentre.dart';
 import 'Home/programs/executiveDevelopmentProgram.dart';
@@ -39,7 +40,7 @@ import 'Home/programs/homeGraduate.dart';
 import 'Home/programs/homePrograms.dart';
 import 'Home/programs/homeUndergraduate.dart';
 import 'Home/programs/mastersQualifyingProgram.dart';
-import 'Home/programs/professionalCourses.dart';
+
 import 'Home/programs/professionalProgram.dart';
 import 'Home/programs/scholarship.dart';
 import 'Home/programs/undergraduateBusiness.dart';

@@ -167,24 +167,7 @@ class _AttendanceState extends State<Attendance> {
                                                 ("null")
                                             ? "0.0"
                                             : attendanceJson[index]['NATT']
-                                                        .toString() ==
-                                                    ("13.4")
-                                                ? "Please go to SSD"
-                                                : attendanceJson[index]['NATT']
-                                                    .toString()),
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Expanded(
-                                        child: Text(
-                                          attendanceJson[index]['NATT']
-                                                      .toString() ==
-                                                  ("4.44")
-                                              ? "Please Vist SSD "
-                                              : "",
-                                          style: TextStyle(color: Colors.red),
-                                        ),
+                                                .toString()),
                                       ),
                                     ],
                                   ),

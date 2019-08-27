@@ -53,132 +53,134 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
 
     return Scaffold(
         appBar: appBarLogin(context, 'Attendance Calendar'),
-        body: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                elevation: 10,
-                child: DottedBorder(
-                  color: Colors.blue,
-                  gap: 3,
-                  strokeWidth: 1,
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        height: 30,
-                        decoration: new BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              Color(0xFF104C90),
-                              Color(0xFF3773AC),
-                            ],
-                            stops: [
-                              0.7,
-                              0.9,
+        body: Container(
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  elevation: 10,
+                  child: DottedBorder(
+                    color: Colors.blue,
+                    gap: 3,
+                    strokeWidth: 1,
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          height: 30,
+                          decoration: new BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [
+                                Color(0xFF104C90),
+                                Color(0xFF3773AC),
+                              ],
+                              stops: [
+                                0.7,
+                                0.9,
+                              ],
+                            ),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(left: 10),
+                                child: Text(
+                                  studentJson['data']['name'],
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 10),
+                                child: Row(
+                                  children: <Widget>[
+                                    Text(
+                                      "Roll NO:",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    Text(
+                                      username,
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ],
+                                ),
+                              )
                             ],
                           ),
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text(
-                                studentJson['data']['name'],
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 10),
-                              child: Row(
-                                children: <Widget>[
-                                  Text(
-                                    "Roll NO:",
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                  Text(
-                                    username,
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
+                        SizedBox(
+                          height: 10,
                         ),
-                      ),
-                      Container(
-                        height: 40,
-                        child: FittedBox(
+                        Container(
                           child: Row(
                             children: <Widget>[
                               Text('Course Name : '),
-                              Text(widget.className),
+                              Text(widget.className)
                             ],
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: DottedBorder(
-                color: Colors.black,
-                gap: 2,
-                child: Container(
-                  color: Colors.white,
-                  child: CalendarCarousel<Event>(
-                    onDayPressed: (DateTime date, List<Event> events) {
-                      setState(() {
-                        _selectedEvents = events;
-                      });
-                    },
-                    showOnlyCurrentMonthDate: true,
-                    thisMonthDayBorderColor: Colors.transparent,
-                    selectedDayButtonColor: Color(0xFF30A9B2),
-                    selectedDayBorderColor: Color(0xFF30A9B2),
-                    todayButtonColor: Colors.redAccent,
-                    todayTextStyle: TextStyle(color: Colors.white),
-                    todayBorderColor: Colors.white,
-                    selectedDayTextStyle: TextStyle(color: Colors.black),
-                    weekendTextStyle: TextStyle(color: Colors.black),
-                    daysTextStyle: TextStyle(color: Colors.black),
-                    nextDaysTextStyle: TextStyle(color: Colors.black),
-                    prevDaysTextStyle: TextStyle(color: Colors.black),
-                    weekdayTextStyle: TextStyle(color: Colors.black),
-                    weekDayFormat: WeekdayFormat.short,
-                    firstDayOfWeek: 01,
-                    showHeader: true,
-                    isScrollable: true,
-                    weekFormat: false,
-                    height: 300.0,
-                    headerTitleTouchable: false,
-                    daysHaveCircularBorder: true,
-                    customGridViewPhysics: NeverScrollableScrollPhysics(),
-                    markedDatesMap: days,
-                    markedDateWidget: Container(
-                      height: 3,
-                      width: 3,
-                      decoration: new BoxDecoration(
-                        color: Colors.blue,
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: DottedBorder(
+                  color: Colors.black,
+                  gap: 2,
+                  child: Container(
+                    color: Colors.white,
+                    child: CalendarCarousel<Event>(
+                      onDayPressed: (DateTime date, List<Event> events) {
+                        setState(() {
+                          _selectedEvents = events;
+                        });
+                      },
+                      showOnlyCurrentMonthDate: true,
+                      thisMonthDayBorderColor: Colors.transparent,
+                      selectedDayButtonColor: Color(0xFF30A9B2),
+                      selectedDayBorderColor: Color(0xFF30A9B2),
+                      todayButtonColor: Colors.redAccent,
+                      todayTextStyle: TextStyle(color: Colors.white),
+                      todayBorderColor: Colors.white,
+                      selectedDayTextStyle: TextStyle(color: Colors.black),
+                      weekendTextStyle: TextStyle(color: Colors.black),
+                      daysTextStyle: TextStyle(color: Colors.black),
+                      nextDaysTextStyle: TextStyle(color: Colors.black),
+                      prevDaysTextStyle: TextStyle(color: Colors.black),
+                      weekdayTextStyle: TextStyle(color: Colors.black),
+                      weekDayFormat: WeekdayFormat.short,
+                      firstDayOfWeek: 01,
+                      showHeader: true,
+                      isScrollable: true,
+                      weekFormat: false,
+                      height: 380.0,
+                      headerTitleTouchable: false,
+                      daysHaveCircularBorder: true,
+                      customGridViewPhysics: NeverScrollableScrollPhysics(),
+                      markedDatesMap: days,
+                      markedDateWidget: Container(
+                        height: 3,
+                        width: 3,
+                        decoration: new BoxDecoration(
+                          color: Colors.blue,
+                          shape: BoxShape.rectangle,
+                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-            _buildEventList(_selectedEvents)
-          ],
+              _buildEventList(_selectedEvents)
+            ],
+          ),
         ));
   }
 
@@ -193,13 +195,17 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
           ),
           padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 4.0),
           child: ListTile(
-            title: Text(events[index].title),
+            title: Text(
+              events[index].title,
+              style: TextStyle(fontSize: 14),
+            ),
             trailing: Icon(
               events[index].title == "ABSENT"
                   ? FontAwesomeIcons.timesCircle
                   : FontAwesomeIcons.checkCircle,
               color:
                   events[index].title == "ABSENT" ? Colors.red : Colors.green,
+              size: 18,
             ),
             onTap: () {
               setState(() {
