@@ -38,6 +38,8 @@ class _OnlineRequestState extends State<OnlineRequest> {
   void initState() {
     super.initState();
     onlineRequestTypeJson = [];
+
+
     getRequestType();
   }
 

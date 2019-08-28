@@ -1,6 +1,9 @@
+import 'package:device_info/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
+import 'package:http/http.dart' as http;
+;
 
 void main() => runApp(Home());
 
@@ -13,8 +16,12 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   @override
-  void initState() {
+  initState() {
     super.initState();
+
+    // print(lang);
+
+    getLogs();
   }
 
   @override
@@ -615,5 +622,28 @@ class _HomeState extends State<Home> {
         ),
       ),
     );
+  }
+
+  Future getLogs() async {
+    Future.delayed(Duration.zero, () {});
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    // print('Running on ${androidInfo.model}');
+
+    try {
+      final response = await http.post(
+        Uri.encodeFull('http://muhannadnasri.com/App/logUser.php'),
+        body: {
+          'username': '',
+          'location': '',
+          'deviceName': '${androidInfo.brand}'
+        },
+      );
+      if (response.statusCode == 200) {
+        print('Done');
+      }
+    } catch (x) {
+      print(x);
+    }
   }
 }

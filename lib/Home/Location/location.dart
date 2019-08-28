@@ -30,96 +30,102 @@ class _LocationState extends State<Location> {
   MapType _defaultMapType = MapType.normal;
   Completer<GoogleMapController> _controller = Completer();
 
-  void _onMapCreated(GoogleMapController controller) {
-    _controller.complete(controller);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar(context, 'Location'),
       // drawer: _drawer(),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: GoogleMap(
-              markers: _markers,
-              mapType: _defaultMapType,
-              myLocationEnabled: true,
-              onMapCreated: _onMapCreated,
-              initialCameraPosition: _initialPosition,
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: locationJson.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Card(
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(
-                        height: 10,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          _goTo(index, locationJson[index]['name'],
-                              locationJson[index]['address1']);
-                        },
-                        child: Container(
-                          child: Text(locationJson[index]['name']),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        child: Text(locationJson[index]['address1']),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          launch('mailto:' +
-                              locationJson[index]['email'].toString());
-                        },
-                        child: Container(
-                          child: Text(
-                            locationJson[index]['email'],
-                            style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                color: Colors.blue),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          launch('tel:' +
-                              locationJson[index]['phone1'].toString());
-                          print(locationJson[index]['phone1'].toString());
-                        },
-                        child: Container(
-                          child: Text(
-                            locationJson[index]['phone1'],
-                            style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                color: Colors.blue),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
+      body: Container(
+        child: GoogleMap(
+          markers: _markers,
+          mapType: _defaultMapType,
+          myLocationEnabled: true,
+          initialCameraPosition: _initialPosition,
+        ),
+
+        // Column(
+
+        //   children: <Widget>[
+        //     Expanded(
+        //       child: GoogleMap(
+        //         markers: _markers,
+        //         mapType: _defaultMapType,
+        //         myLocationEnabled: true,
+        //         onMapCreated: _onMapCreated,
+        //         initialCameraPosition: _initialPosition,
+        //       ),
+        //     ),
+        //     // Expanded(
+        //     //   child: ListView.builder(
+        //     //     itemCount: locationJson.length,
+        //     //     itemBuilder: (BuildContext context, int index) {
+        //     //       return Card(
+        //     //         child: Column(
+        //     //           children: <Widget>[
+        //     //             SizedBox(
+        //     //               height: 10,
+        //     //             ),
+        //     //             GestureDetector(
+        //     //               onTap: () {
+        //     //                 _goTo(index, locationJson[index]['name'],
+        //     //                     locationJson[index]['address1']);
+        //     //               },
+        //     //               child: Container(
+        //     //                 child: Text(locationJson[index]['name']),
+        //     //               ),
+        //     //             ),
+        //     //             SizedBox(
+        //     //               height: 10,
+        //     //             ),
+        //     //             Container(
+        //     //               child: Text(locationJson[index]['address1']),
+        //     //             ),
+        //     //             SizedBox(
+        //     //               height: 10,
+        //     //             ),
+        //     //             GestureDetector(
+        //     //               onTap: () {
+        //     //                 launch('mailto:' +
+        //     //                     locationJson[index]['email'].toString());
+        //     //               },
+        //     //               child: Container(
+        //     //                 child: Text(
+        //     //                   locationJson[index]['email'],
+        //     //                   style: TextStyle(
+        //     //                       decoration: TextDecoration.underline,
+        //     //                       color: Colors.blue),
+        //     //                 ),
+        //     //               ),
+        //     //             ),
+        //     //             SizedBox(
+        //     //               height: 10,
+        //     //             ),
+        //     //             GestureDetector(
+        //     //               onTap: () {
+        //     //                 launch('tel:' +
+        //     //                     locationJson[index]['phone1'].toString());
+        //     //                 print(locationJson[index]['phone1'].toString());
+        //     //               },
+        //     //               child: Container(
+        //     //                 child: Text(
+        //     //                   locationJson[index]['phone1'],
+        //     //                   style: TextStyle(
+        //     //                       decoration: TextDecoration.underline,
+        //     //                       color: Colors.blue),
+        //     //                 ),
+        //     //               ),
+        //     //             ),
+        //     //             SizedBox(
+        //     //               height: 10,
+        //     //             ),
+        //     //           ],
+        //     //         ),
+        //     //       );
+        //     //     },
+        //     //   ),
+        //     // ),
+        //   ],
+        // ),
       ),
     );
   }

@@ -9,9 +9,14 @@ String program = studentJson['data']['program'];
 String userType = studentJson['data']['user_type'];
 
 bool container = false;
-bool disableForm = false;
+
 bool copyRight = false;
 
+List courseAllocationJson = [];
+
+List courseAllocationMorningJson = [];
+List courseAllocationEveningJson = [];
+List courseAllocationWeekendJson = [];
 //API-Key
 String API = '965a0109d2fde592b05b94588bcb43f5';
 //Global String

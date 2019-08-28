@@ -65,7 +65,7 @@ class _AdmissionFormState extends State<AdmissionForm> {
     super.initState();
 
     container = false;
-    disableForm = true;
+
     programsByCategory2Json = [];
 
     programsByCategory1Json = [];

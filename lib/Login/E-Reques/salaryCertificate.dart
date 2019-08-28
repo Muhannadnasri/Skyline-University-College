@@ -58,16 +58,15 @@ class _SalaryCertificateState extends State<SalaryCertificate> {
       ),
       resizeToAvoidBottomPadding: true,
       appBar: appBarLogin(context, 'Salary Certificate'),
-      body: ListView(
-        children: <Widget>[
-          GestureDetector(
-            onTap: () {
-              FocusScope.of(context).requestFocus(new FocusNode());
-            },
-            child: Container(
-              height: MediaQuery.of(context).size.height,
-              color: Colors.white,
-              child: Padding(
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(new FocusNode());
+        },
+        child: Container(
+          color: Colors.white,
+          child: ListView(
+            children: <Widget>[
+              Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: <Widget>[
@@ -227,9 +226,9 @@ class _SalaryCertificateState extends State<SalaryCertificate> {
                   ],
                 ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

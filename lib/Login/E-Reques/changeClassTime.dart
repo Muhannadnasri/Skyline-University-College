@@ -38,7 +38,7 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
   @override
   void initState() {
     super.initState();
-    disableForm = true;
+
     getCurrentAndNewShift();
     getPolicyDetails();
     currentTimeJson.clear();

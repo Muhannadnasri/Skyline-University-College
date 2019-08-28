@@ -50,7 +50,7 @@ class _PassportWithdrawalState extends State<PassportWithdrawal> {
   @override
   void initState() {
     super.initState();
-    disableForm = true;
+
 
     // getPassportWithdrawal();
   }
@@ -79,6 +79,7 @@ class _PassportWithdrawalState extends State<PassportWithdrawal> {
           FocusScope.of(context).requestFocus(new FocusNode());
         },
         child: Container(
+          color: Colors.white,
           child: ListView(
             children: <Widget>[
               Column(

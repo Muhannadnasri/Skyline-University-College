@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:skyline_university/Global/appBarLogin.dart';
-import 'package:skyline_university/Global/appBarLoginHome.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/rowSection.dart';
 import 'package:skyline_university/Global/zigzag.dart';

@@ -70,6 +70,9 @@ import 'Login/E-Reques/salaryCertificate.dart';
 import 'Login/E-Reques/updateInformation.dart';
 import 'Login/Faculty/advisors.dart';
 import 'Login/Faculty/classScheduleFAC.dart';
+import 'Login/Faculty/courseAllocationEvening.dart';
+import 'Login/Faculty/courseAllocationMorning.dart';
+import 'Login/Faculty/courseAllocationWeekend.dart';
 import 'Login/Student/Advisor/advisorAppointment.dart';
 import 'Login/Student/Advisor/myAdvisor.dart';
 import 'Login/Student/Assessment/assessmentMarkCourses.dart';
@@ -93,15 +96,19 @@ import 'Login/home.dart';
 import 'Login/loginpage.dart';
 
 void main() async {
+  
   SystemChrome.setEnabledSystemUIOverlays([]);
   runApp(
     new MyApp(),
   );
 }
 
+// http://muhannadnasri.com/App/logUser.php
 class MyApp extends StatefulWidget {
+  
   @override
   MyAppState createState() {
+    
     return new MyAppState();
   }
 }
@@ -110,6 +117,7 @@ class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      
       debugShowCheckedModeBanner: false,
       builder: (BuildContext context, Widget child) {
         return new Builder(
@@ -214,7 +222,11 @@ class MyAppState extends State<MyApp> {
         '/clubs': (context) => Clubs(),
         '/studentEventCommittees': (context) => StudentEventCommittees(),
         '/sportsDepartment': (context) => SportsDepartment(),
+        '/courseAllocationMorning': (context) => CourseAllocationMorning(),
+        '/courseAllocationEvening': (context) => CourseAllocationEvening(),
+        '/courseAllocationWeekend': (context) => CourseAllocationWeekend(),
       },
     );
   }
+
 }

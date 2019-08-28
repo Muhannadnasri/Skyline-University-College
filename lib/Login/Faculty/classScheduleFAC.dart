@@ -6,8 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
+import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/global.dart';
-import 'package:superellipse_shape/superellipse_shape.dart';
 
 void main() => runApp(CourseAllocation());
 
@@ -21,10 +21,6 @@ class CourseAllocation extends StatefulWidget {
 // Map<String, int> body;
 
 class _CourseAllocationState extends State<CourseAllocation> {
-  List courseAllocationJson = [];
-  List courseAllocationWeekendJson = [];
-  List courseAllocationMorningJson = [];
-  List courseAllocationEveningJson = [];
   @override
   void initState() {
     super.initState();
@@ -35,311 +31,276 @@ class _CourseAllocationState extends State<CourseAllocation> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-        appBar: appBarLogin(context, 'Course FAC'),
-        body: Container(
-          child: Column(
-            children: <Widget>[
-              Card(
-                elevation: 10,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    color: Colors.white,
-                    child: DottedBorder(
-                      color: Colors.blue,
-                      gap: 3,
-                      strokeWidth: 1,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Container(
-                            height: 50,
-                            width: 100,
-                            decoration: new BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                                gradient: LinearGradient(
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                    colors: [
-                                      Color(0xFF104C90),
-                                      Color(0xFF3773AC),
-                                    ],
-                                    stops: [
-                                      0.7,
-                                      0.9,
-                                    ])),
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.popAndPushNamed(
-                                    context, "/CourseAllocationEvening");
-                              },
-                              child: Center(
-                                child: Text(
-                                  'Morning',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            height: 50,
-                            width: 100,
-                            decoration: new BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                                gradient: LinearGradient(
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                    colors: [
-                                      Color(0xFF104C90),
-                                      Color(0xFF3773AC),
-                                    ],
-                                    stops: [
-                                      0.7,
-                                      0.9,
-                                    ])),
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 10.0),
-                              child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                        context, "/CourseEvening");
-                                  },
-                                  child: Center(
-                                      child: Text(
-                                    'Evening',
-                                    style: TextStyle(color: Colors.white),
-                                  ))),
-                            ),
-                          ),
-                          Container(
-                            height: 50,
-                            width: 100,
-                            decoration: new BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                                gradient: LinearGradient(
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                    colors: [
-                                      Color(0xFF104C90),
-                                      Color(0xFF3773AC),
-                                    ],
-                                    stops: [
-                                      0.7,
-                                      0.9,
-                                    ])),
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 10.0),
-                              child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                        context, "/CourseWeekend");
-                                  },
-                                  child: Center(
-                                      child: Text(
-                                    'Weekend',
-                                    style: TextStyle(color: Colors.white),
-                                  ))),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: courseAllocationJson.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
+        appBar: appBarLogin(context, 'Course Faculty'),
+        body: courseAllocationJson == null
+            ? exception(context, FontAwesomeIcons.exclamationTriangle,
+                'No course available')
+            : Container(
+                child: Column(
+                  children: <Widget>[
+                    Card(
                       elevation: 10,
-                      child: DottedBorder(
-                        color: Colors.blue,
-                        gap: 3,
-                        strokeWidth: 1,
-                        child: Column(
-                          children: <Widget>[
-                            Container(
-                              height: 30,
-                              decoration: new BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10)),
-                                  gradient: LinearGradient(
-                                      begin: Alignment.topLeft,
-                                      end: Alignment.bottomRight,
-                                      colors: [
-                                        Color(0xFF104C90),
-                                        Color(0xFF3773AC),
-                                      ],
-                                      stops: [
-                                        0.7,
-                                        0.9,
-                                      ])),
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 10.0),
-                                child: Row(
-                                  children: <Widget>[
-                                    Text(
-                                      courseAllocationJson[index]
-                                          ['Course Description'],
-                                      style: TextStyle(color: Colors.white),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          color: Colors.white,
+                          child: DottedBorder(
+                            color: Colors.blue,
+                            gap: 3,
+                            strokeWidth: 1,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Container(
+                                  height: 50,
+                                  width: 100,
+                                  decoration: new BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(10)),
+                                      gradient: LinearGradient(
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
+                                          colors: [
+                                            Color(0xFF104C90),
+                                            Color(0xFF3773AC),
+                                          ],
+                                          stops: [
+                                            0.7,
+                                            0.9,
+                                          ])),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, "/courseAllocationMorning");
+                                    },
+                                    child: Center(
+                                      child: Text(
+                                        'Morning',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
                                     ),
-                                  ],
+                                  ),
                                 ),
-                              ),
-                            ),
-                            Row(
-                              children: <Widget>[
-                                SizedBox(
-                                  height: 30,
+                                Container(
+                                  height: 50,
+                                  width: 100,
+                                  decoration: new BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(10)),
+                                      gradient: LinearGradient(
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
+                                          colors: [
+                                            Color(0xFF104C90),
+                                            Color(0xFF3773AC),
+                                          ],
+                                          stops: [
+                                            0.7,
+                                            0.9,
+                                          ])),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 10.0),
+                                    child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.pushNamed(context,
+                                              "/courseAllocationEvening");
+                                        },
+                                        child: Center(
+                                            child: Text(
+                                          'Evening',
+                                          style: TextStyle(color: Colors.white),
+                                        ))),
+                                  ),
                                 ),
-                                Text('Course Code : '),
-                                Text(
-                                  courseAllocationJson[index]['Course Code']
-                                      .toString(),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: <Widget>[
-                                Text("Semester: "),
-                                Text(courseAllocationJson[index]['Semester']
-                                    .toString()),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              children: <Widget>[
-                                Text("Batch Code: "),
-                                Text(courseAllocationJson[index]['Batch Code']
-                                    .toString()),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              children: <Widget>[
-                                Text('Program : '.padRight(10)),
-                                Text(
-                                  courseAllocationJson[index]['Program']
-                                      .toString(),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              children: <Widget>[
-                                Text('Level :'.padRight(10)),
-                                Text(
-                                  courseAllocationJson[index]['Level']
-                                      .toString(),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              children: <Widget>[
-                                Text('Morning : '),
-                                Text(
-                                  courseAllocationJson[index]['Morning']
-                                      .toString(),
+                                Container(
+                                  height: 50,
+                                  width: 100,
+                                  decoration: new BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(10)),
+                                      gradient: LinearGradient(
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
+                                          colors: [
+                                            Color(0xFF104C90),
+                                            Color(0xFF3773AC),
+                                          ],
+                                          stops: [
+                                            0.7,
+                                            0.9,
+                                          ])),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 10.0),
+                                    child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.pushNamed(context,
+                                              "/courseAllocationWeekend");
+                                        },
+                                        child: Center(
+                                            child: Text(
+                                          'Weekend',
+                                          style: TextStyle(color: Colors.white),
+                                        ))),
+                                  ),
                                 ),
                               ],
                             ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              children: <Widget>[
-                                Text('Evening : '),
-                                Text(
-                                  courseAllocationJson[index]['Evening']
-                                      .toString(),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              children: <Widget>[
-                                Text('Weekend : '),
-                                Text(
-                                  courseAllocationJson[index]['Weekend']
-                                      .toString(),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                          ],
+                          ),
                         ),
                       ),
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-        ));
-  }
-
-  void _showError(String msg, IconData icon) {
-    showLoading(false, context);
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return WillPopScope(
-            onWillPop: () {},
-            child: new AlertDialog(
-              title: Image.asset(
-                'images/logo.png',
-                height: 50,
-              ),
-              shape: SuperellipseShape(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              content: Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 25.0),
-                      child: new Icon(icon),
                     ),
-                    new Text(msg)
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: courseAllocationJson.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            elevation: 10,
+                            child: DottedBorder(
+                              color: Colors.blue,
+                              gap: 3,
+                              strokeWidth: 1,
+                              child: Column(
+                                children: <Widget>[
+                                  Container(
+                                    height: 30,
+                                    decoration: new BoxDecoration(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10)),
+                                        gradient: LinearGradient(
+                                            begin: Alignment.topLeft,
+                                            end: Alignment.bottomRight,
+                                            colors: [
+                                              Color(0xFF104C90),
+                                              Color(0xFF3773AC),
+                                            ],
+                                            stops: [
+                                              0.7,
+                                              0.9,
+                                            ])),
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 10.0),
+                                      child: Row(
+                                        children: <Widget>[
+                                          Text(
+                                            courseAllocationJson[index]
+                                                ['Course Description'],
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      SizedBox(
+                                        height: 30,
+                                      ),
+                                      Text('Course Code : '),
+                                      Text(
+                                        courseAllocationJson[index]
+                                                ['Course Code']
+                                            .toString(),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: <Widget>[
+                                      Text("Semester: "),
+                                      Text(courseAllocationJson[index]
+                                              ['Semester']
+                                          .toString()),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Text("Batch Code: "),
+                                      Text(courseAllocationJson[index]
+                                              ['Batch Code']
+                                          .toString()),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Text('Program : '.padRight(10)),
+                                      Text(
+                                        courseAllocationJson[index]['Program']
+                                            .toString(),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Text('Level :'.padRight(10)),
+                                      Text(
+                                        courseAllocationJson[index]['Level']
+                                            .toString(),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Text('Morning : '),
+                                      Text(
+                                        courseAllocationJson[index]['Morning']
+                                            .toString(),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Text('Evening : '),
+                                      Text(
+                                        courseAllocationJson[index]['Evening']
+                                            .toString(),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Text('Weekend : '),
+                                      Text(
+                                        courseAllocationJson[index]['Weekend']
+                                            .toString(),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
                   ],
                 ),
-              ),
-              actions: <Widget>[
-                new FlatButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    getCourseAllocationData();
-                  },
-                  child: new Text('Try again'),
-                ),
-              ],
-            ),
-          );
-        });
+              ));
   }
 
   Future getCourseAllocationData() async {
@@ -366,6 +327,12 @@ class _CourseAllocationState extends State<CourseAllocation> {
       if (response.statusCode == 200) {
         setState(() {
           courseAllocationJson = json.decode(response.body)['data']['courses'];
+          courseAllocationMorningJson =
+              json.decode(response.body)['data']['morning'];
+          courseAllocationEveningJson =
+              json.decode(response.body)['data']['evening'];
+          courseAllocationWeekendJson =
+              json.decode(response.body)['data']['weekend'];
         });
       }
       showLoading(false, context);

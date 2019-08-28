@@ -3,8 +3,6 @@ import 'dart:convert';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -70,20 +68,19 @@ class _LeaveApplicationState extends State<LeaveApplication> {
           // print(value);
         },
       ),
-      body: Container(
-        color: Colors.grey[300],
-        child: ListView(
-          children: <Widget>[
-            GestureDetector(
-              onTap: () {
-                FocusScope.of(context).requestFocus(new FocusNode());
-              },
-              child: Column(
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(new FocusNode());
+        },
+        child: Container(
+          color: Colors.white,
+          child: ListView(
+            children: <Widget>[
+              Column(
                 children: <Widget>[
                   SizedBox(
                     height: 10,
                   ),
-
                   Column(
                     children: <Widget>[
                       Container(
@@ -124,8 +121,15 @@ class _LeaveApplicationState extends State<LeaveApplication> {
                       ),
                     ],
                   ),
-
-                  //TODO: From and TO
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Center(
+                    child: Text(
+                      'Balance',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
                   SizedBox(
                     height: 15,
                   ),
@@ -157,7 +161,6 @@ class _LeaveApplicationState extends State<LeaveApplication> {
 //
                     ),
                   ),
-
                   SizedBox(
                     height: 15,
                   ),
@@ -236,40 +239,16 @@ class _LeaveApplicationState extends State<LeaveApplication> {
                           });
                         }, 'Reason for leave', true, TextInputType.text,
                             FontAwesomeIcons.question, Colors.blue),
+                        SizedBox(
+                          height: 10,
+                        ),
                       ],
                     ),
                   ),
-
-                  Container(
-                      height: 35,
-                      width: 80,
-                      decoration: new BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Color(0xFF104C90),
-                            Color(0xFF3773AC),
-                          ],
-                          stops: [
-                            0.7,
-                            0.9,
-                          ],
-                        ),
-                      ),
-                      child: GestureDetector(
-                          onTap: () {
-                            getLeaveApplication();
-                          },
-                          child: Center(
-                              child: Text(
-                            'Submit',
-                            style: TextStyle(color: Colors.white),
-                          ))))
                 ],
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

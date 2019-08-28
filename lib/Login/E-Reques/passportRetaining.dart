@@ -37,6 +37,7 @@ class _PassportRetainingState extends State<PassportRetaining> {
     underTakingJson.clear();
     getRequestFormsText();
     terms = false;
+
   }
 
   @override

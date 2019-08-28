@@ -1,15 +1,16 @@
 import 'dart:convert';
+
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:skyline_university/Global/appBarLogin.dart';
-import 'package:skyline_university/Global/global.dart';
 import 'package:http/http.dart' as http;
-import 'package:skyline_university/Home/home.dart';
-import 'package:superellipse_shape/superellipse_shape.dart';
+import 'package:intl/intl.dart';
+import 'package:skyline_university/Global/appBarLogin.dart';
+import 'package:skyline_university/Global/bottomAppBar.dart';
+import 'package:skyline_university/Global/form.dart';
+import 'package:skyline_university/Global/global.dart';
 
 void main() => runApp(Conference());
 
@@ -21,11 +22,14 @@ class Conference extends StatefulWidget {
 }
 
 final _conference = GlobalKey<FormState>();
-final _conferenceName = GlobalKey<FormState>();
 
 // Map<String, int> body;
 
 class _ConferenceState extends State<Conference> {
+  final format = DateFormat("yyyy-MM-dd HH:mm");
+  final initialValue = DateTime.now();
+
+  String date;
   Map courseWithdrawalJson = {};
 
   List personalFamilyTimesJson = [];
@@ -33,10 +37,7 @@ class _ConferenceState extends State<Conference> {
   int groupValue;
   String fromTime;
   String session;
-  int _year = 2018;
-  int _month = 11;
-  int _date = 11;
-  String _dateEvent = '';
+
   String conferenceName = '';
   String conference = '';
 
@@ -44,45 +45,8 @@ class _ConferenceState extends State<Conference> {
   @override
   void initState() {
     super.initState();
-    DateTime now = DateTime.now();
-    _year = now.year;
-    _month = now.month;
-    _date = now.day;
+
     getTimes();
-  }
-
-  void _showEventDate() {
-    DateTime now = DateTime.now();
-
-    DatePicker.showDatePicker(
-      context,
-      minYear: now.year,
-      initialYear: now.year,
-      initialMonth: now.month,
-      initialDate: _date,
-      confirm: Text(
-        'Confirm',
-        style: TextStyle(color: Colors.red),
-      ),
-      cancel: Text(
-        'Cancel',
-        style: TextStyle(color: Colors.cyan),
-      ),
-      locale: 'EN',
-      dateFormat: 'dd-mm-yyyy',
-      onConfirm: (year, month, date) {
-        _changeEventDate(year, month, date);
-      },
-    );
-  }
-
-  void _changeEventDate(int year, int month, int date) {
-    setState(() {
-      _year = year;
-      _month = month;
-      _date = date;
-      _dateEvent = '$year-$month-$date';
-    });
   }
 
   @override
@@ -90,306 +54,221 @@ class _ConferenceState extends State<Conference> {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
       resizeToAvoidBottomPadding: false,
+      bottomNavigationBar: bottomappBar(
+        context,
+        () {
+          if (_conference.currentState.validate()) {
+            _conference.currentState.save();
+            getTimes();
+          }
+        },
+      ),
       appBar: appBarLogin(context, 'Conference'),
-      body: Container(
-        color: Colors.grey[300],
-        child: ListView(
-          children: <Widget>[
-            GestureDetector(
-              onTap: () {
-                FocusScope.of(context).requestFocus(new FocusNode());
-              },
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Course Code',
-                        style: TextStyle(color: Colors.grey[600]),
-                      ),
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(new FocusNode());
+        },
+        child: Container(
+          color: Colors.white,
+          child: ListView(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(
+                      height: 10,
                     ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Form(
-                    key: _conferenceName,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextFormField(
-                            textCapitalization: TextCapitalization.words,
-                            maxLines: null,
-                            onSaved: (x) {
+                    Form(
+                      key: _conference,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          globalForms(context, '', (String value) {
+                            if (value.trim().isEmpty) {
+                              return 'Name is required';
+                            }
+                            return null;
+                          }, (x) {
+                            setState(() {
                               conferenceName = x;
-                            },
-                            decoration: InputDecoration(
-                              labelText: "Remark",
-                              fillColor: Colors.white,
-                              helperStyle: TextStyle(fontSize: 13),
-                              hintText: 'Please Enter Your Reason',
-                              hintStyle: TextStyle(fontSize: 15),
-                              isDense: true,
-                              prefixIcon: Icon(
-                                FontAwesomeIcons.bookmark,
-                                size: 15,
-                                color: Colors.purple,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                      onTap: () {
-                        _showEventDate();
-                      },
-                      child: Container(
-                          height: 50,
-                          width: 450,
-                          child: Card(
-                            elevation: 10,
+                            });
+                          }, 'Name', true, TextInputType.text,
+                              FontAwesomeIcons.user, Colors.blue),
+                          datePickers(context, (date) {
+                            date = date.toString();
+                          }, 'Data'),
+                          Container(
+                            alignment: Alignment.centerLeft,
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: <Widget>[
-                                  Icon(FontAwesomeIcons.calendarAlt),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  Text(_dateEvent == null
-                                      ? 'Select Date'
-                                      : _dateEvent == ''
-                                          ? 'Select Date'
-                                          : _dateEvent)
-                                ],
+                              child: Text(
+                                'From Time',
+                                style: TextStyle(color: Colors.grey[500]),
                               ),
                             ),
-                          ))),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'From Time',
-                        style: TextStyle(color: Colors.grey[500]),
-                      ),
-                    ),
-                  ),
-                  Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: DropdownButton<String>(
-                          hint: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              'Select Option',
-                              style: TextStyle(color: Colors.black),
-                            ),
                           ),
-                          isExpanded: true,
-                          value: fromTime,
-                          items: personalFamilyTimesJson
-                                  ?.map(
-                                    (item) => DropdownMenuItem<String>(
-                                      value: item['time_value'].toString(),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(item['time_value']),
+                          Column(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  child: DropdownButton<String>(
+                                    hint: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        'Select Option',
+                                        style: TextStyle(color: Colors.black),
                                       ),
                                     ),
-                                  )
-                                  ?.toList() ??
-                              [],
-                          onChanged: (value) {
-                            setState(() {
-                              fromTime = value;
-                              print(fromTime);
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text('To Time'),
-                    ),
-                  ),
-                  Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: DropdownButton<String>(
-                          hint: Text(
-                            'Select Option',
-                            style: TextStyle(color: Colors.black),
-                          ),
-                          isExpanded: true,
-                          value: toTime,
-                          items: personalFamilyTimesJson
-                                  ?.map(
-                                    (item) => DropdownMenuItem<String>(
-                                      value: item['time_value'].toString(),
-                                      child: Text(item['time_value']),
-                                    ),
-                                  )
-                                  ?.toList() ??
-                              [],
-                          onChanged: (value) {
-                            setState(() {
-                              toTime = value;
-                              print(toTime);
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Session',
-                        style: TextStyle(color: Colors.grey[500]),
-                      ),
-                    ),
-                  ),
-                  Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: DropdownButton<String>(
-                          hint: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              'Select Events',
-                              style: TextStyle(color: Colors.black),
-                            ),
-                          ),
-                          isExpanded: true,
-                          value: session,
-                          items: ['Morning Session', 'Evening Session']
-                                  ?.map(
-                                    (item) => DropdownMenuItem<String>(
-                                      value: item.toString(),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(item.toString()),
-                                      ),
-                                    ),
-                                  )
-                                  ?.toList() ??
-                              [],
-                          onChanged: (value) {
-                            setState(() {
-                              session = value;
-                              print(session);
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Form(
-                        key: _conference,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TextFormField(
-                                textCapitalization: TextCapitalization.words,
-                                maxLines: null,
-                                onSaved: (x) {
-                                  conference = x;
-                                },
-                                decoration: InputDecoration(
-                                  labelText: "Remark",
-                                  fillColor: Colors.white,
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please Enter Your Reason',
-                                  hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(
-                                    FontAwesomeIcons.bookmark,
-                                    size: 15,
-                                    color: Colors.purple,
+                                    isExpanded: true,
+                                    value: fromTime,
+                                    items: personalFamilyTimesJson
+                                            ?.map(
+                                              (item) =>
+                                                  DropdownMenuItem<String>(
+                                                value: item['time_value']
+                                                    .toString(),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child:
+                                                      Text(item['time_value']),
+                                                ),
+                                              ),
+                                            )
+                                            ?.toList() ??
+                                        [],
+                                    onChanged: (value) {
+                                      setState(() {
+                                        fromTime = value;
+                                      });
+                                    },
                                   ),
                                 ),
                               ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text('To Time'),
                             ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                      height: 35,
-                      width: 80,
-                      decoration: new BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Color(0xFF104C90),
-                            Color(0xFF3773AC),
-                          ],
-                          stops: [
-                            0.7,
-                            0.9,
-                          ],
-                        ),
-                      ),
-                      child: GestureDetector(
-                          onTap: () {
-                            getConference();
-                          },
-                          child: Center(
+                          ),
+                          Column(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: DropdownButton<String>(
+                                  hint: Text(
+                                    'Select Option',
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                  isExpanded: true,
+                                  value: toTime,
+                                  items: personalFamilyTimesJson
+                                          ?.map(
+                                            (item) => DropdownMenuItem<String>(
+                                              value:
+                                                  item['time_value'].toString(),
+                                              child: Text(item['time_value']),
+                                            ),
+                                          )
+                                          ?.toList() ??
+                                      [],
+                                  onChanged: (value) {
+                                    setState(() {
+                                      toTime = value;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
                               child: Text(
-                            'Submit',
-                            style: TextStyle(color: Colors.white),
-                          )))),
-                ],
+                                'Session',
+                                style: TextStyle(color: Colors.grey[500]),
+                              ),
+                            ),
+                          ),
+                          Column(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: DropdownButton<String>(
+                                  hint: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'Select Events',
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                  ),
+                                  isExpanded: true,
+                                  value: session,
+                                  items: ['Morning Session', 'Evening Session']
+                                          ?.map(
+                                            (item) => DropdownMenuItem<String>(
+                                              value: item.toString(),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Text(item.toString()),
+                                              ),
+                                            ),
+                                          )
+                                          ?.toList() ??
+                                      [],
+                                  onChanged: (value) {
+                                    setState(() {
+                                      session = value;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          globalForms(context, '', (String value) {
+                            if (value.trim().isEmpty) {
+                              return 'Remark is required';
+                            }
+                            return null;
+                          }, (x) {
+                            setState(() {
+                              conference = x;
+                            });
+                          }, 'Remark', true, TextInputType.text,
+                              FontAwesomeIcons.question, Colors.blue),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 
-//TODO: RequestType
-
-//TODO: Final Request
   Future getTimes() async {
+    Future.delayed(Duration.zero, () {
+      showLoading(true, context);
+    });
     try {
       final response = await http.post(
         Uri.encodeFull(
@@ -413,11 +292,9 @@ class _ConferenceState extends State<Conference> {
                 json.decode(response.body)['data']['times'];
           },
         );
+        showLoading(false, context);
       }
-
-      print(personalFamilyTimesJson.toString());
     } catch (x) {
-      print(x);
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
         showError("Time out from server", FontAwesomeIcons.hourglassHalf,
@@ -431,13 +308,6 @@ class _ConferenceState extends State<Conference> {
   }
 
   Future getConference() async {
-    if (_conference.currentState.validate()) {
-      _conference.currentState.save();
-    }
-    if (_conferenceName.currentState.validate()) {
-      _conferenceName.currentState.save();
-    }
-
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
     });
@@ -445,15 +315,15 @@ class _ConferenceState extends State<Conference> {
     try {
       final response = await http.post(
         Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/web/courseWithdrawal'),
+            'https://skylineportal.com/moappad/api/web/outdoorEvent'),
         headers: {
           "API-KEY": API,
         },
         body: {
           'user_id': username,
           'type': 'conferenceform',
-          'event_name': _conferenceName,
-          'event_date': _dateEvent,
+          'event_name': conferenceName,
+          'event_date': date,
           'session': session,
           'from_time': fromTime,
           'to_time': toTime,
@@ -472,16 +342,10 @@ class _ConferenceState extends State<Conference> {
         );
         showLoading(false, context);
       }
-      if (courseWithdrawalJson['success'] == '0') {
+      print(courseWithdrawalJson);
+      if (courseWithdrawalJson['success'] == '1') {
         showLoading(false, context);
-        Fluttertoast.showToast(
-            msg: courseWithdrawalJson['message'],
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIos: 1,
-            backgroundColor: Colors.grey[400],
-            textColor: Colors.black87,
-            fontSize: 13.0);
+        showDoneInput(courseWithdrawalJson['message'], context);
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
@@ -494,5 +358,44 @@ class _ConferenceState extends State<Conference> {
             "Sorry, we can't connect", Icons.perm_scan_wifi, context, getTimes);
       }
     }
+  }
+
+  Widget datePickers(BuildContext context, onSaved, labelText) {
+    return Column(children: <Widget>[
+      Padding(
+        padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 5.0),
+        child: DateTimeField(
+          format: format,
+          onShowPicker: (context, currentValue) async {
+            final date = await showDatePicker(
+                context: context,
+                firstDate: DateTime(1900),
+                initialDate: currentValue ?? DateTime.now(),
+                lastDate: DateTime(2100));
+            if (date != null) {
+              final time = await showTimePicker(
+                context: context,
+                initialTime:
+                    TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
+              );
+              return DateTimeField.combine(date, time);
+            } else {
+              return currentValue;
+            }
+          },
+          // validator: validator,
+          initialValue: initialValue,
+          onSaved: onSaved,
+          readOnly: true,
+          decoration: InputDecoration(
+            labelText: labelText,
+            icon: Icon(
+              Icons.date_range,
+              color: Colors.blue,
+            ),
+          ),
+        ),
+      ),
+    ]);
   }
 }

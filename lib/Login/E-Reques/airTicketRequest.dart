@@ -1,15 +1,14 @@
 import 'dart:convert';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:intl/intl.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:skyline_university/Global/appBarLogin.dart';
-import 'package:skyline_university/Global/global.dart';
 import 'package:http/http.dart' as http;
-import 'package:skyline_university/Global/zigzag.dart';
-import 'package:skyline_university/Home/home.dart';
-import 'package:superellipse_shape/superellipse_shape.dart';
+import 'package:skyline_university/Global/appBarLogin.dart';
+import 'package:skyline_university/Global/form.dart';
+import 'package:skyline_university/Global/global.dart';
 
 void main() => runApp(AirTicketRequest());
 
@@ -20,13 +19,25 @@ class AirTicketRequest extends StatefulWidget {
   }
 }
 
-final _placeFrom = GlobalKey<FormState>();
-final _placeTo = GlobalKey<FormState>();
-final _remarksAir = GlobalKey<FormState>();
+final _airTicketRequest = GlobalKey<FormState>();
 
 // Map<String, int> body;
 
 class _AirTicketRequestState extends State<AirTicketRequest> {
+  final format = DateFormat("yyyy-MM-dd HH:mm");
+  final initialValue = DateTime.now();
+
+  // String from;
+  String fromCityOutbond = '';
+  String fromCityInbond = '';
+  String toCityInbond = '';
+  String toCityOutbond = '';
+
+  String remark = '';
+  String toTimeOutbound;
+
+  String fromTimeOutbound;
+
   List personalFamilyTimesJson = [];
   Map leaveBalanceJson = {};
 
@@ -40,622 +51,142 @@ class _AirTicketRequestState extends State<AirTicketRequest> {
 
   int groupValue;
   String leaveType;
-  String _dateTimeLeave = '';
-  String _dateTimeReturn = '';
-  String _dayLeave = '';
-  String _timeLeave = '';
-  String _dayLeave1 = '';
-  String _timeLeave1 = '';
-  String placeFrom = '';
-  String placeTo = '';
-  String remarksAir = '';
 
   //
-  int _year = 2018;
-  int _month = 11;
-  int _date = 11;
 
   @override
   void initState() {
     super.initState();
     getPersonalFamilyTimes();
-
-    DateTime now = DateTime.now();
-    _year = now.year;
-    _month = now.month;
-    _date = now.day;
-  }
-
-  void _showDateLeave() {
-    DateTime now = DateTime.now();
-
-    DatePicker.showDatePicker(
-      context,
-      minYear: now.year,
-      initialYear: now.year,
-      initialMonth: now.month,
-      initialDate: _date,
-      confirm: Text(
-        'Confirm',
-        style: TextStyle(color: Colors.red),
-      ),
-      cancel: Text(
-        'Cancel',
-        style: TextStyle(color: Colors.cyan),
-      ),
-      locale: 'EN',
-      dateFormat: 'dd-mm-yyyy',
-      onConfirm: (year, month, date) {
-        _changeDateLeave(year, month, date);
-      },
-    );
-  }
-
-  void _showDateReturn() {
-    DateTime now = DateTime.now();
-    DatePicker.showDatePicker(
-      context,
-      minYear: now.year,
-      initialYear: now.year,
-      initialMonth: now.month,
-      initialDate: _date,
-      confirm: Text(
-        'Confirm',
-        style: TextStyle(color: Colors.red),
-      ),
-      cancel: Text(
-        'Cancel',
-        style: TextStyle(color: Colors.cyan),
-      ),
-      locale: 'en',
-      dateFormat: 'dd-mm-yyyy',
-      onConfirm: (year, month, date) {
-        _changeDateReturn(year, month, date);
-      },
-    );
-  }
-
-  void _changeDateLeave(int year, int month, int date) {
-    setState(() {
-      _year = year;
-      _month = month;
-      _date = date;
-      _dateTimeLeave = '$year-$month-$date';
-    });
-  }
-
-  void _changeDateReturn(int year, int month, int date) {
-    setState(() {
-      _year = year;
-      _month = month;
-      _date = date;
-      _dateTimeReturn = '$year-$month-$date';
-    });
-  }
-
-  void _showDay() {
-    DateTime now = DateTime.now();
-
-    DatePicker.showDatePicker(
-      context,
-      minYear: now.year,
-      initialYear: now.year,
-      initialMonth: now.month,
-      initialDate: _date,
-      confirm: Text(
-        'Confirm',
-        style: TextStyle(color: Colors.red),
-      ),
-      cancel: Text(
-        'Cancel',
-        style: TextStyle(color: Colors.cyan),
-      ),
-      locale: 'EN',
-      dateFormat: 'dd',
-      onConfirm: (year, month, date) {
-        _changeDay(year, month, date);
-      },
-    );
-  }
-
-  void _showDTime() {
-    DateTime now = DateTime.now();
-
-    DatePicker.showDatePicker(
-      context,
-      minYear: now.year,
-      initialYear: now.year,
-      initialMonth: now.month,
-      initialDate: _date,
-      confirm: Text(
-        'Confirm',
-        style: TextStyle(color: Colors.red),
-      ),
-      cancel: Text(
-        'Cancel',
-        style: TextStyle(color: Colors.cyan),
-      ),
-      locale: 'EN',
-      dateFormat: 'dd-mm-yyyy',
-      onConfirm: (year, month, date) {
-        _changeTime(year, month, date);
-      },
-    );
-  }
-
-  void _showDay1() {
-    DateTime now = DateTime.now();
-
-    DatePicker.showDatePicker(
-      context,
-      minYear: now.year,
-      initialYear: now.year,
-      initialMonth: now.month,
-      initialDate: _date,
-      confirm: Text(
-        'Confirm',
-        style: TextStyle(color: Colors.red),
-      ),
-      cancel: Text(
-        'Cancel',
-        style: TextStyle(color: Colors.cyan),
-      ),
-      locale: 'EN',
-      dateFormat: 'dd-mm-yyyy',
-      onConfirm: (year, month, date) {
-        _changeDay1(year, month, date);
-      },
-    );
-  }
-
-  void _showTime1() {
-    DateTime now = DateTime.now();
-
-    DatePicker.showDatePicker(
-      context,
-      minYear: now.year,
-      initialYear: now.year,
-      initialMonth: now.month,
-      initialDate: _date,
-      confirm: Text(
-        'Confirm',
-        style: TextStyle(color: Colors.red),
-      ),
-      cancel: Text(
-        'Cancel',
-        style: TextStyle(color: Colors.cyan),
-      ),
-      locale: 'EN',
-      dateFormat: 'dd-mm-yyyy',
-      onConfirm: (year, month, date) {
-        _changeTim1(year, month, date);
-      },
-    );
-  }
-
-  void _changeDay(int year, int month, int date) {
-    setState(() {
-      _year = year;
-      _month = month;
-      _date = date;
-      _dayLeave = '$year-$month-$date';
-    });
-  }
-
-  void _changeTime(int year, int month, int date) {
-    setState(() {
-      _year = year;
-      _month = month;
-      _date = date;
-      _timeLeave = '$year-$month-$date';
-    });
-  }
-
-  void _changeDay1(int year, int month, int date) {
-    setState(() {
-      _year = year;
-      _month = month;
-      _date = date;
-      _dayLeave1 = '$year-$month-$date';
-    });
-  }
-
-  void _changeTim1(int year, int month, int date) {
-    setState(() {
-      _year = year;
-      _month = month;
-      _date = date;
-      _timeLeave1 = '$year-$month-$date';
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-      resizeToAvoidBottomPadding: true, //TODO: put in all page
+      resizeToAvoidBottomPadding: true,
       appBar: appBarLogin(context, 'Air Ticket Request'),
-      body: Container(
-        color: Colors.grey[300],
-        child: ListView(
-          children: <Widget>[
-            GestureDetector(
-              onTap: () {
-                FocusScope.of(context).requestFocus(new FocusNode());
-              },
-              child: Column(
-                children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      SizedBox(
-                        height: 20,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          _showDateLeave();
-                        },
-                        child: Container(
-                          height: 60,
-                          child: Card(
-                            child: Row(
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(new FocusNode());
+        },
+        child: Container(
+          color: Colors.white,
+          child: ListView.builder(
+              itemCount: 3,
+              itemBuilder: (BuildContext context, int index) {
+                return Column(
+                  children: <Widget>[
+                    Container(
+                      child: Text('OutBound'),
+                    ),
+                    Card(
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            child: Text(''),
+                          ),
+                          Form(
+                            key: _airTicketRequest,
+                            child: Column(
                               children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 20.0),
-                                  child: Icon(
-                                    FontAwesomeIcons.calendarAlt,
-                                    color: Colors.purple,
-                                    size: 15,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                Text(_dateTimeLeave == ''
-                                    ? 'Date to leave'
-                                    : _dateTimeLeave == null
-                                        ? 'Date to leave'
-                                        : _dateTimeLeave),
+                                globalForms(context, '', (String value) {
+                                  if (value.trim().isEmpty) {
+                                    return 'From is required';
+                                  }
+                                  return null;
+                                }, (x) {
+                                  setState(() {
+                                    fromCityOutbond = x;
+                                  });
+                                }, 'From City', true, TextInputType.text,
+                                    FontAwesomeIcons.mapMarked, Colors.blue),
+                                globalForms(context, '', (String value) {
+                                  if (value.trim().isEmpty) {
+                                    return 'To is required';
+                                  }
+                                  return null;
+                                }, (x) {
+                                  setState(() {
+                                    toCityOutbond = x;
+                                  });
+                                }, 'To City', true, TextInputType.text,
+                                    FontAwesomeIcons.mapMarkedAlt, Colors.blue),
+                                datePickers(context, (date) {
+                                  toCityOutbond = date.toString();
+                                }, 'Leave To'),
                               ],
                             ),
                           ),
-                        ),
+                          Container(),
+                        ],
                       ),
-                    ],
-                  ),
-                  Column(
-                    children: <Widget>[
-                      SizedBox(
-                        height: 20,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          _showDay();
-                        },
-                        child: Container(
-                          height: 60,
-                          child: Card(
-                            child: Row(
+                    ),
+                    Container(
+                      child: Text('InBound'),
+                    ),
+                    Card(
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            child: Text(''),
+                          ),
+                          Form(
+                            child: Column(
                               children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 20.0),
-                                  child: Icon(
-                                    FontAwesomeIcons.calendarAlt,
-                                    color: Colors.purple,
-                                    size: 15,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                Text(_dayLeave == ''
-                                    ? 'day to leave'
-                                    : _dayLeave == null
-                                        ? 'day to leave'
-                                        : _dayLeave),
+                                globalForms(context, '', (String value) {
+                                  if (value.trim().isEmpty) {
+                                    return 'From is required';
+                                  }
+                                  return null;
+                                }, (x) {
+                                  setState(() {
+                                    fromCityInbond = x;
+                                  });
+                                }, 'From City', true, TextInputType.text,
+                                    FontAwesomeIcons.mapMarked, Colors.blue),
+                                globalForms(context, '', (String value) {
+                                  if (value.trim().isEmpty) {
+                                    return 'To is required';
+                                  }
+                                  return null;
+                                }, (x) {
+                                  setState(() {
+                                    toCityInbond = x;
+                                  });
+                                }, 'To City', true, TextInputType.text,
+                                    FontAwesomeIcons.mapMarkedAlt, Colors.blue),
+                                datePickers(context, (date) {
+                                  toCityInbond = date.toString();
+                                }, 'Leave To'),
                               ],
                             ),
                           ),
-                        ),
+                          Container(),
+                        ],
                       ),
-                    ],
-                  ),
-                  Column(
-                    children: <Widget>[
-                      SizedBox(
-                        height: 20,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          _showDTime();
-                        },
-                        child: Container(
-                          height: 60,
-                          child: Card(
-                            child: Row(
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 20.0),
-                                  child: Icon(
-                                    FontAwesomeIcons.calendarAlt,
-                                    color: Colors.purple,
-                                    size: 15,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                Text(_timeLeave == ''
-                                    ? 'Date to time'
-                                    : _timeLeave == null
-                                        ? 'Date to time'
-                                        : _timeLeave),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: <Widget>[
-                      SizedBox(
-                        height: 20,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          _showDay1();
-                        },
-                        child: Container(
-                          height: 60,
-                          child: Card(
-                            child: Row(
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 20.0),
-                                  child: Icon(
-                                    FontAwesomeIcons.calendarAlt,
-                                    color: Colors.purple,
-                                    size: 15,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                Text(_dayLeave1 == ''
-                                    ? 'Date to day1'
-                                    : _dayLeave1 == null
-                                        ? 'Date to day1'
-                                        : _dayLeave1),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  //TODO: From and TO
-                  Column(
-                    children: <Widget>[
-                      SizedBox(
-                        height: 20,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          _showTime1();
-                        },
-                        child: Container(
-                          height: 60,
-                          child: Card(
-                            child: Row(
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 20.0),
-                                  child: Icon(
-                                    FontAwesomeIcons.calendarAlt,
-                                    color: Colors.purple,
-                                    size: 15,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                Text(_timeLeave1 == ''
-                                    ? 'time1 to leave'
-                                    : _timeLeave1 == null
-                                        ? 'timne1 to leave'
-                                        : _timeLeave1),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  Column(
-                    children: <Widget>[
-                      SizedBox(
-                        height: 10,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          _showDateReturn();
-                        },
-                        child: Container(
-                          height: 60,
-                          child: Card(
-                            child: Row(
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 20.0),
-                                  child: Icon(
-                                    FontAwesomeIcons.calendarAlt,
-                                    color: Colors.purple,
-                                    size: 15,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                Text(_dateTimeReturn == ''
-                                    ? 'Date to Return'
-                                    : _dateTimeReturn == null
-                                        ? 'Date to Return'
-                                        : _dateTimeReturn),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Form(
-                        key: _placeFrom,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            TextFormField(
-                              keyboardType: TextInputType.number,
-                              maxLines: null,
-                              onSaved: (x) {
-                                placeFrom = x;
-                              },
-                              decoration: InputDecoration(
-                                labelText: "Place From",
-                                fillColor: Colors.white,
-                                helperStyle: TextStyle(fontSize: 13),
-                                hintText: 'Please Enter Your Adress want go',
-                                hintStyle: TextStyle(fontSize: 15),
-                                isDense: true,
-                                prefixIcon: Icon(
-                                  FontAwesomeIcons.addressCard,
-                                  size: 15,
-                                  color: Colors.purple,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-
-                      //TODO: Space with text
-
-                      Form(
-                        key: _placeTo,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            TextFormField(
-                              keyboardType: TextInputType.number,
-                              maxLines: null,
-                              onSaved: (x) {
-                                placeTo = x;
-                              },
-                              decoration: InputDecoration(
-                                labelText: "Place To",
-                                fillColor: Colors.white,
-                                helperStyle: TextStyle(fontSize: 13),
-                                hintText: 'Please Enter Your Reason for travel',
-                                hintStyle: TextStyle(fontSize: 15),
-                                isDense: true,
-                                prefixIcon: Icon(
-                                  FontAwesomeIcons.question,
-                                  size: 15,
-                                  color: Colors.purple,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-
-                      SizedBox(
-                        height: 15,
-                      ),
-
-                      Form(
-                        key: _remarksAir,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            TextFormField(
-                              textCapitalization: TextCapitalization.words,
-                              maxLines: null,
-                              onSaved: (x) {
-                                remarksAir = x;
-                              },
-                              decoration: InputDecoration(
-                                labelText: "Remarks",
-                                fillColor: Colors.white,
-                                helperStyle: TextStyle(fontSize: 13),
-                                hintText:
-                                    'Please Enter Your relationship with person',
-                                hintStyle: TextStyle(fontSize: 15),
-                                isDense: true,
-                                prefixIcon: Icon(
-                                  FontAwesomeIcons.users,
-                                  size: 15,
-                                  color: Colors.purple,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                    ],
-                  ),
-                  Container(
-                      height: 35,
-                      width: 80,
-                      decoration: new BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Color(0xFF104C90),
-                            Color(0xFF3773AC),
-                          ],
-                          stops: [
-                            0.7,
-                            0.9,
-                          ],
-                        ),
-                      ),
-                      child: GestureDetector(
-                          onTap: () {
-                            getAirTicketRequest();
-                          },
-                          child: Center(
-                              child: Text(
-                            'Submit',
-                            style: TextStyle(color: Colors.white),
-                          ))))
-                ],
-              ),
-            ),
-          ],
+                    ),
+                    Form(
+                      child: globalForms(context, '', (String value) {
+                        if (value.trim().isEmpty) {
+                          return 'Remark is required';
+                        }
+                        return null;
+                      }, (x) {
+                        setState(() {
+                          remark = x;
+                        });
+                      }, 'Remarks', true, TextInputType.text,
+                          FontAwesomeIcons.question, Colors.blue),
+                    )
+                  ],
+                );
+              }),
         ),
       ),
     );
   }
 
-//TODO: RequestType
   Future getPersonalFamilyTimes() async {
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
@@ -708,15 +239,6 @@ class _AirTicketRequestState extends State<AirTicketRequest> {
   }
 
   Future getAirTicketRequest() async {
-    if (_placeFrom.currentState.validate()) {
-      _placeFrom.currentState.save();
-    }
-    if (_placeTo.currentState.validate()) {
-      _placeTo.currentState.save();
-    }
-    if (_remarksAir.currentState.validate()) {
-      _remarksAir.currentState.save();
-    }
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
     });
@@ -724,23 +246,23 @@ class _AirTicketRequestState extends State<AirTicketRequest> {
     try {
       final response = await http.post(
         Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/web/leaveDuringHolidays'),
+            'https://skylineportal.com/moappad/api/web/airlineTicketReimbursement'),
         headers: {
           "API-KEY": API,
         },
         body: {
           'EmoNumber': studentJson['data']['user_id'],
-          'LeaveFrom': _dateTimeLeave.toString(),
-          'LeaveTo': _dateTimeReturn.toString(),
-          'Placefrom': placeFrom,
-          'Placefrom1': placeTo,
-          'Placeto': placeTo,
-          'Placeto1': placeFrom,
-          'Remarks': remarksAir,
-          'Day': _dayLeave,
-          'Day1': _dayLeave1,
-          'Time': _timeLeave,
-          'Time1': _timeLeave1,
+          'LeaveFrom': fromTimeOutbound,
+          'LeaveTo': toTimeOutbound,
+          'Placefrom': fromCityInbond,
+          'Placefrom1': fromCityOutbond,
+          'Placeto': toCityOutbond,
+          'Placeto1': toCityInbond,
+          'Remarks': remark,
+          'Day': '',
+          'Day1': '',
+          'Time': '',
+          'Time1': '',
           'LoginIp': '1',
           'usertype': studentJson['data']['user_type'],
           'ipaddress': '1',
@@ -769,5 +291,44 @@ class _AirTicketRequestState extends State<AirTicketRequest> {
             getPersonalFamilyTimes);
       }
     }
+  }
+
+  Widget datePickers(BuildContext context, onSaved, labelText) {
+    return Column(children: <Widget>[
+      Padding(
+        padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 5.0),
+        child: DateTimeField(
+          format: format,
+          onShowPicker: (context, currentValue) async {
+            final date = await showDatePicker(
+                context: context,
+                firstDate: DateTime(1900),
+                initialDate: currentValue ?? DateTime.now(),
+                lastDate: DateTime(2100));
+            if (date != null) {
+              final time = await showTimePicker(
+                context: context,
+                initialTime:
+                    TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
+              );
+              return DateTimeField.combine(date, time);
+            } else {
+              return currentValue;
+            }
+          },
+          // validator: validator,
+          initialValue: initialValue,
+          onSaved: onSaved,
+          readOnly: true,
+          decoration: InputDecoration(
+            labelText: labelText,
+            icon: Icon(
+              Icons.date_range,
+              color: Colors.blue,
+            ),
+          ),
+        ),
+      ),
+    ]);
   }
 }

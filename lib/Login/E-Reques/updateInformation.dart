@@ -48,7 +48,7 @@ class _UpdateInformationState extends State<UpdateInformation> {
 
   @override
   void initState() {
-    disableForm = true;
+
     super.initState();
     print(studentInfoJson);
     getStudentInfo();

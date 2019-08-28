@@ -44,7 +44,7 @@ class _LeaveApplicationFormState extends State<LeaveApplicationForm> {
   @override
   void initState() {
     super.initState();
-    disableForm = true;
+
     getLeaveTypes();
   }
 
