@@ -1,14 +1,14 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:skyline_university/Global/appBarLogin.dart';
-import 'package:skyline_university/Global/global.dart';
 import 'package:http/http.dart' as http;
-import 'package:skyline_university/Global/zigzag.dart';
-import 'package:skyline_university/Home/home.dart';
-import 'package:superellipse_shape/superellipse_shape.dart';
+import 'package:skyline_university/Global/appBarLogin.dart';
+import 'package:skyline_university/Global/bottomAppBar.dart';
+import 'package:skyline_university/Global/form.dart';
+import 'package:skyline_university/Global/global.dart';
 
 void main() => runApp(BookRequisition());
 
@@ -19,14 +19,7 @@ class BookRequisition extends StatefulWidget {
   }
 }
 
-final _title = GlobalKey<FormState>();
-final _author = GlobalKey<FormState>();
-final _edition = GlobalKey<FormState>();
-final _publisher = GlobalKey<FormState>();
-final _year = GlobalKey<FormState>();
-final _isbn = GlobalKey<FormState>();
-final _quantity = GlobalKey<FormState>();
-final _price = GlobalKey<FormState>();
+final _bookRequisition = GlobalKey<FormState>();
 
 // Map<String, int> body;
 
@@ -34,16 +27,16 @@ class _BookRequisitionState extends State<BookRequisition> {
   Map bookRequisitionJson = {};
   List libraryMaterialJson = [];
 
-  String bTitle = '';
-  String bAuthor = '';
-  String bEdition = '';
-  String bPublisher = '';
-  String bYear = '';
-  String bIsbn = '';
-  String bQuantity = '';
-  String bPrice = '';
+  String title = '';
+  String author = '';
+  String edition = '';
+  String publisher = '';
+  String year = '';
+  String isbn = '';
+  String quantity = '';
+  String price = '';
 
-  String _type;
+  String type;
 
   @override
   void initState() {
@@ -57,359 +50,40 @@ class _BookRequisitionState extends State<BookRequisition> {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
       resizeToAvoidBottomPadding: false,
+      bottomNavigationBar: bottomappBar(
+        context,
+        () {
+          if (_bookRequisition.currentState.validate()) {
+            _bookRequisition.currentState.save();
+            getBookRequisition();
+          }
+        },
+      ),
       appBar: appBarLogin(context, 'Book Requistion'),
-      body: ListView(
-        children: <Widget>[
-          GestureDetector(
-            onTap: () {
-              FocusScope.of(context).requestFocus(new FocusNode());
-            },
-            child: Container(
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).requestFocus(new FocusNode()),
+        child: ListView(
+          children: <Widget>[
+            Container(
               color: Colors.white,
-              child: Column(
-                children: <Widget>[
-                  SizedBox(
-                    height: 10,
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          width: 450,
-                          height: 60,
-                          child: Card(
-                            shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            elevation: 10,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Center(
-                                child: Text(
-                                  studentJson['data']['name'],
-                                  textAlign: TextAlign.left,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Form(
-                          key: _title,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              TextFormField(
-                                textCapitalization: TextCapitalization.words,
-                                maxLines: null,
-                                onSaved: (x) {
-                                  bTitle = x;
-                                },
-                                decoration: InputDecoration(
-                                  labelText: "Title",
-                                  fillColor: Colors.white,
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please enter title book you want',
-                                  hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(
-                                    FontAwesomeIcons.heading,
-                                    size: 15,
-                                    color: Colors.purple,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Form(
-                          key: _author,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              TextFormField(
-                                textCapitalization: TextCapitalization.words,
-                                maxLines: null,
-                                onSaved: (x) {
-                                  bAuthor = x;
-                                },
-                                decoration: InputDecoration(
-                                  labelText: "Author",
-                                  fillColor: Colors.white,
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please enter author book you want',
-                                  hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(
-                                    FontAwesomeIcons.at,
-                                    size: 15,
-                                    color: Colors.purple,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Form(
-                          key: _edition,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              TextFormField(
-                                textCapitalization: TextCapitalization.words,
-                                maxLines: null,
-                                onSaved: (x) {
-                                  bEdition = x;
-                                },
-                                decoration: InputDecoration(
-                                  labelText: "Edition",
-                                  fillColor: Colors.white,
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText:
-                                      'Please enter edition book you want',
-                                  hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(
-                                    FontAwesomeIcons.iCursor,
-                                    size: 15,
-                                    color: Colors.purple,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Form(
-                          key: _publisher,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              TextFormField(
-                                textCapitalization: TextCapitalization.words,
-                                maxLines: null,
-                                onSaved: (x) {
-                                  bPublisher = x;
-                                },
-                                decoration: InputDecoration(
-                                  labelText: "Publisher",
-                                  fillColor: Colors.white,
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText:
-                                      'Please enter publisher book you want',
-                                  hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(
-                                    FontAwesomeIcons.userTie,
-                                    size: 15,
-                                    color: Colors.purple,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Form(
-                          key: _year,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              TextFormField(
-                                textCapitalization: TextCapitalization.words,
-                                maxLines: null,
-                                onSaved: (x) {
-                                  bYear = x;
-                                },
-                                decoration: InputDecoration(
-                                  labelText: "Year",
-                                  fillColor: Colors.white,
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please enter year book you want',
-                                  hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(
-                                    FontAwesomeIcons.calendarAlt,
-                                    size: 15,
-                                    color: Colors.purple,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Form(
-                          key: _isbn,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              TextFormField(
-                                textCapitalization: TextCapitalization.words,
-                                maxLines: null,
-                                onSaved: (x) {
-                                  bIsbn = x;
-                                },
-                                decoration: InputDecoration(
-                                  labelText: "ISBN No",
-                                  fillColor: Colors.white,
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText:
-                                      'Please enter ISBN No book you want',
-                                  hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(
-                                    FontAwesomeIcons.barcode,
-                                    size: 15,
-                                    color: Colors.purple,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Form(
-                          key: _quantity,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              TextFormField(
-                                textCapitalization: TextCapitalization.words,
-                                maxLines: null,
-                                onSaved: (x) {
-                                  bQuantity = x;
-                                },
-                                decoration: InputDecoration(
-                                  labelText: "Quantity",
-                                  fillColor: Colors.white,
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please enter quantity you want',
-                                  hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(
-                                    FontAwesomeIcons.cartPlus,
-                                    size: 15,
-                                    color: Colors.purple,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Form(
-                          key: _price,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              TextFormField(
-                                textCapitalization: TextCapitalization.words,
-                                maxLines: null,
-                                onSaved: (x) {
-                                  bPrice = x;
-                                },
-                                decoration: InputDecoration(
-                                  labelText: "Price",
-                                  fillColor: Colors.white,
-                                  helperStyle: TextStyle(fontSize: 13),
-                                  hintText: 'Please enter price you aspect',
-                                  hintStyle: TextStyle(fontSize: 15),
-                                  isDense: true,
-                                  prefixIcon: Icon(
-                                    FontAwesomeIcons.moneyCheck,
-                                    size: 15,
-                                    color: Colors.purple,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(
+                      height: 15,
                     ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Container(
-                      alignment: Alignment.centerLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          'Please Select Book Type',
-                          style: TextStyle(color: Colors.grey[500]),
-                        ),
-                      )),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Column(
-                    children: <Widget>[
-                      DropdownButton<String>(
-                        value: _type,
-                        hint: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'Select Type',
-                            style: TextStyle(color: Colors.black),
-                          ),
-                        ),
-                        isExpanded: true,
-                        items: libraryMaterialJson
-                                ?.map(
-                                  (item) => DropdownMenuItem<String>(
-                                    value: item['CatTypeName'].toString(),
-                                    child: Column(
-                                      children: <Widget>[
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(item['CatTypeName']),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                )
-                                ?.toList() ??
-                            [],
-                        onChanged: (value) {
-                          setState(() {
-                            _type = value;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Container(
-                      height: 35,
-                      width: 80,
+                    Container(
+                      width: 500,
+                      height: 50,
+                      alignment: Alignment.center,
                       decoration: new BoxDecoration(
+                        boxShadow: [
+                          new BoxShadow(
+                              color: Colors.black,
+                              offset: new Offset(5.0, 5.0),
+                              blurRadius: 30)
+                        ],
                         gradient: LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
@@ -423,66 +97,194 @@ class _BookRequisitionState extends State<BookRequisition> {
                           ],
                         ),
                       ),
-                      child: GestureDetector(
-                          onTap: () {
-                            getBookRequisition();
-                          },
-                          child: Center(
-                              child: Text(
-                            'Submit',
-                            style: TextStyle(color: Colors.white),
-                          ))))
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _showError(String msg, IconData icon) {
-    showLoading(false, context);
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return WillPopScope(
-            onWillPop: () {},
-            child: new AlertDialog(
-              title: Image.asset(
-                'images/logo.png',
-                height: 50,
-              ),
-              shape: SuperellipseShape(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              content: Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 25.0),
-                      child: new Icon(icon),
+                      child: Text(
+                        studentJson['data']['name'].isEmpty
+                            ? ''
+                            : studentJson['data']['name'] == 'NA'
+                                ? ''
+                                : studentJson['data']['name'],
+                        style: TextStyle(color: Colors.white),
+//
+                      ),
                     ),
-                    new Text(msg)
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Form(
+                            key: _bookRequisition,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                globalForms(context, '', (String value) {
+                                  if (value.trim().isEmpty) {
+                                    return 'Title is required';
+                                  }
+                                  return null;
+                                }, (x) {
+                                  setState(() {
+                                    title = x;
+                                  });
+                                }, 'Title', true, TextInputType.text,
+                                    FontAwesomeIcons.user, Colors.blue),
+                                globalForms(context, '', (String value) {
+                                  if (value.trim().isEmpty) {
+                                    return 'Author name is required';
+                                  }
+                                  return null;
+                                }, (x) {
+                                  setState(() {
+                                    author = x;
+                                  });
+                                }, 'Author', true, TextInputType.text,
+                                    FontAwesomeIcons.user, Colors.blue),
+                                globalForms(context, '', (String value) {
+                                  if (value.trim().isEmpty) {
+                                    return 'Edition is required';
+                                  }
+                                  return null;
+                                }, (x) {
+                                  setState(() {
+                                    edition = x;
+                                  });
+                                }, 'Edition', true, TextInputType.text,
+                                    FontAwesomeIcons.vaadin, Colors.blue),
+                                globalForms(context, '', (String value) {
+                                  if (value.trim().isEmpty) {
+                                    return 'Publisher name is required';
+                                  }
+                                  return null;
+                                }, (x) {
+                                  setState(() {
+                                    publisher = x;
+                                  });
+                                }, 'Publisher Name', true, TextInputType.text,
+                                    FontAwesomeIcons.user, Colors.blue),
+                                globalForms(context, '', (String value) {
+                                  if (value.trim().isEmpty) {
+                                    return 'Year is required';
+                                  }
+                                  return null;
+                                }, (x) {
+                                  setState(() {
+                                    year = x;
+                                  });
+                                }, 'Year', true, TextInputType.number,
+                                    FontAwesomeIcons.calendarAlt, Colors.blue),
+                                globalForms(context, '', (String value) {
+                                  if (value.trim().isEmpty) {
+                                    return 'ISBN is required';
+                                  }
+                                  return null;
+                                }, (x) {
+                                  setState(() {
+                                    isbn = x;
+                                  });
+                                }, 'ISBN Number', true, TextInputType.text,
+                                    FontAwesomeIcons.book, Colors.blue),
+                                globalForms(context, '', (String value) {
+                                  if (value.trim().isEmpty) {
+                                    return 'Quantity is required';
+                                  }
+                                  return null;
+                                }, (x) {
+                                  setState(() {
+                                    quantity = x;
+                                  });
+                                }, 'Quantity', true, TextInputType.number,
+                                    FontAwesomeIcons.book, Colors.blue),
+                                globalForms(context, '', (String value) {
+                                  if (value.trim().isEmpty) {
+                                    return 'Price is required';
+                                  }
+                                  return null;
+                                }, (x) {
+                                  setState(() {
+                                    price = x;
+                                  });
+                                }, 'Unit Price', true, TextInputType.number,
+                                    FontAwesomeIcons.moneyBill, Colors.blue),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Container(
+                                    alignment: Alignment.centerLeft,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        'Please Select Book Type',
+                                        style:
+                                            TextStyle(color: Colors.grey[500]),
+                                      ),
+                                    )),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Column(
+                                  children: <Widget>[
+                                    DropdownButton<String>(
+                                      value: type,
+                                      hint: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          'Select Type',
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                      ),
+                                      isExpanded: true,
+                                      items: libraryMaterialJson
+                                              ?.map(
+                                                (item) =>
+                                                    DropdownMenuItem<String>(
+                                                  value: item['CatTypeName']
+                                                      .toString(),
+                                                  child: Column(
+                                                    children: <Widget>[
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: Text(item[
+                                                            'CatTypeName']),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              )
+                                              ?.toList() ??
+                                          [],
+                                      onChanged: (value) {
+                                        setState(() {
+                                          type = value;
+                                        });
+                                      },
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
-              actions: <Widget>[
-                new FlatButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    getLibraryMaterial();
-                  },
-                  child: new Text('Try again'),
-                ),
-              ],
             ),
-          );
-        });
+          ],
+        ),
+      ),
+    );
   }
 
   Future getLibraryMaterial() async {
@@ -528,30 +330,6 @@ class _BookRequisitionState extends State<BookRequisition> {
   }
 
   Future getBookRequisition() async {
-    if (_title.currentState.validate()) {
-      _title.currentState.save();
-    }
-    if (_author.currentState.validate()) {
-      _author.currentState.save();
-    }
-    if (_edition.currentState.validate()) {
-      _edition.currentState.save();
-    }
-    if (_publisher.currentState.validate()) {
-      _publisher.currentState.save();
-    }
-    if (_year.currentState.validate()) {
-      _year.currentState.save();
-    }
-    if (_isbn.currentState.validate()) {
-      _isbn.currentState.save();
-    }
-    if (_quantity.currentState.validate()) {
-      _quantity.currentState.save();
-    }
-    if (_price.currentState.validate()) {
-      _price.currentState.save();
-    }
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
     });
@@ -566,15 +344,15 @@ class _BookRequisitionState extends State<BookRequisition> {
         body: {
           'user_id': username,
           'username': studentJson['data']['login'],
-          'title': bTitle,
-          'author': bAuthor,
-          'edition': bEdition,
-          'publisher': bPublisher,
-          'year': bYear,
-          'isbn_no': bIsbn,
-          'quantity': bQuantity,
-          'price': bPrice,
-          'type_of_material': _type,
+          'title': title,
+          'author': author,
+          'edition': edition,
+          'publisher': publisher,
+          'year': year,
+          'isbn_no': isbn,
+          'quantity': quantity,
+          'price': price,
+          'type_of_material': type,
           'usertype': studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
@@ -590,16 +368,9 @@ class _BookRequisitionState extends State<BookRequisition> {
         );
         showLoading(false, context);
       }
-      if (bookRequisitionJson['success'] == '0') {
+      if (bookRequisitionJson['success'] == '1') {
         showLoading(false, context);
-        Fluttertoast.showToast(
-            msg: bookRequisitionJson['message'],
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIos: 1,
-            backgroundColor: Colors.grey[400],
-            textColor: Colors.black87,
-            fontSize: 13.0);
+        showDoneInput(bookRequisitionJson['message'], context);
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {

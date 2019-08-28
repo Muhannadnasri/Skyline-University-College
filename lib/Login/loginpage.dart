@@ -3,13 +3,12 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skyline_university/Global/global.dart';
 
 import 'package:skyline_university/Global/zigzag.dart';
 import 'package:skyline_university/Home/home.dart';
-import 'package:superellipse_shape/superellipse_shape.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:skyline_university/Login/home.dart';
@@ -24,7 +23,6 @@ class LoginApp extends StatefulWidget {
 }
 
 class _LoginAppState extends State<LoginApp> {
-  bool _isSelected = false;
   final _logInForm = GlobalKey<FormState>();
 
   void initState() {
@@ -180,7 +178,12 @@ class _LoginAppState extends State<LoginApp> {
                                 ),
                                 Container(
                                   child: TextFormField(
-                                    initialValue: '14147',
+                                    validator: (String value) {
+                                      if (value.trim().isEmpty) {
+                                        return 'Username is required';
+                                      }
+                                      return null;
+                                    },
                                     onSaved: (x) {
                                       username = x;
                                     },
@@ -208,7 +211,12 @@ class _LoginAppState extends State<LoginApp> {
                                 ),
                                 Container(
                                   child: TextFormField(
-                                    initialValue: '14147',
+                                    validator: (String value) {
+                                      if (value.trim().isEmpty) {
+                                        return 'Password is required';
+                                      }
+                                      return null;
+                                    },
                                     onSaved: (x) {
                                       password = x;
                                     },
@@ -241,23 +249,15 @@ class _LoginAppState extends State<LoginApp> {
                             width: 5.0,
                           ),
                           Switch(
-                            activeTrackColor: Colors.lightBlueAccent,
-                            activeColor: Colors.blue,
-                            value: _isSelected,
-                            onChanged: (x) {
-                              setState(() {
-                                _isSelected = x;
-
-                                if (_isSelected) {
-                                  password = '';
-                                  username = '';
-                                } else {}
-                                print(_isSelected);
-                              });
-                            },
-                          ),
-
-                          //TODO:Switch remeber
+                              activeTrackColor: Colors.lightBlueAccent,
+                              activeColor: Colors.blue,
+                              value: isSelected,
+                              onChanged: (x) {
+                                setState(() async {
+                                  print(isSelected);
+                                  isSelected = x;
+                                });
+                              }),
                           Text("Remember me",
                               style: TextStyle(
                                   fontSize: 12, fontFamily: "Poppins-Medium"))
@@ -282,8 +282,15 @@ class _LoginAppState extends State<LoginApp> {
                           child: Material(
                             color: Colors.transparent,
                             child: InkWell(
-                              onTap: () {
-                                logIn();
+                              onTap: () async {
+                                if (_logInForm.currentState.validate()) {
+                                  _logInForm.currentState.save();
+
+                                  logIn();
+                                } else {
+                                  return showErrorInput(
+                                      'Please check your input');
+                                }
                               },
                               child: Center(
                                 child: Text("SIGNIN",
@@ -308,60 +315,7 @@ class _LoginAppState extends State<LoginApp> {
     );
   }
 
-  void _showError(String msg, IconData icon) {
-    showLoading(false, context);
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return WillPopScope(
-            onWillPop: () {},
-            child: new AlertDialog(
-              title: Image.asset(
-                'images/logo.png',
-                height: 50,
-              ),
-              shape: SuperellipseShape(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              content: Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 25.0),
-                      child: new Icon(icon),
-                    ),
-                    new Text(msg)
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                new FlatButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    logIn();
-                  },
-                  child: new Text('Try again'),
-                ),
-                new FlatButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(true);
-                  },
-                  child: new Text('Close'), //TODO: Close Pop
-                ),
-              ],
-            ),
-          );
-        });
-  }
-
   Future logIn() async {
-    if (_logInForm.currentState.validate()) {
-      _logInForm.currentState.save();
-    }
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
     });
@@ -387,6 +341,21 @@ class _LoginAppState extends State<LoginApp> {
       if (response.statusCode == 200) {
         studentJson = json.decode(response.body);
 
+        if (isSelected = true) {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs.setString('username', username);
+          prefs.setString('password', password);
+          loggedin = true;
+        } else {
+          username = '';
+          password = '';
+          loggedin = false;
+
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs.setString('username', username);
+          prefs.setString('password', password);
+        }
+
         if (studentJson['success'] == '1') {
           showLoading(false, context);
 
@@ -404,18 +373,11 @@ class _LoginAppState extends State<LoginApp> {
     } catch (x) {
       print(x);
       if (x.toString().contains("TimeoutException")) {
-        _showError("Time out from server", FontAwesomeIcons.hourglassHalf);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, logIn);
       } else {
         if (studentJson['success'] == '0') {
           showLoading(false, context);
-          Fluttertoast.showToast(
-              msg: studentJson['message'],
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIos: 1,
-              backgroundColor: Colors.grey[400],
-              textColor: Colors.black87,
-              fontSize: 13.0);
         }
 
         showLoading(false, context);

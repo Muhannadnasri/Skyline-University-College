@@ -1,9 +1,15 @@
+import 'dart:convert';
+
 import 'package:device_info/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:skyline_university/Global/global.dart';
+import 'package:skyline_university/Login/home.dart';
 
 void main() => runApp(Home());
 
@@ -15,19 +21,31 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  String formattedDate = DateFormat('yyyy-MM-dd hh:mm').format(DateTime.now());
+
+  String deviceId = 'Unknown';
+
   @override
   initState() {
     super.initState();
 
     // print(lang);
+      qLogin();
 
     getLogs();
+        print(isSelected.toString());
+
   }
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          print(formattedDate);
+        },
+      ),
       appBar: GradientAppBar(
         centerTitle: true,
         title: Container(
@@ -628,22 +646,83 @@ class _HomeState extends State<Home> {
     Future.delayed(Duration.zero, () {});
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-    // print('Running on ${androidInfo.model}');
 
+    // print('Running on ${androidInfo.model}');
     try {
       final response = await http.post(
         Uri.encodeFull('http://muhannadnasri.com/App/logUser.php'),
         body: {
           'username': '',
-          'location': '',
-          'deviceName': '${androidInfo.brand}'
+          'deviceId': deviceId,
+          'deviceName': androidInfo.model.toString(),
+          'date': formattedDate,
         },
       );
       if (response.statusCode == 200) {
-        print('Done');
+        print('done');
       }
     } catch (x) {
       print(x);
     }
   }
+
+  Future qLogin() async {
+
+    Future.delayed(Duration.zero, () {
+      showLoading(true, context);
+    });
+
+    try {
+      http.Response response = await http.post(
+        Uri.encodeFull("https://skylineportal.com/moappad/api/web/login"),
+        headers: {
+          "API-KEY": API,
+        },
+        body: {
+          'username': username,
+          'password': password,
+          'usertype': '1',
+          'ipaddress': '1',
+          'deviceid': '1',
+          'devicetype': '1',
+          'devicetoken': '1',
+          'devicename': '1'
+        },
+      ).timeout(Duration(seconds: 30));
+
+      if (response.statusCode == 200) {
+        studentJson = json.decode(response.body);
+
+        if (studentJson['success'] == '1') {
+          showLoading(false, context);
+
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (BuildContext context) => HomeLogin()),
+              (Route<dynamic> route) => false);
+          loggedin = true;
+          isSelected = true;
+          print(password);
+        } else {
+          username = '';
+          password = '';
+          loggedin = false;
+          isSelected = false;
+
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs.setString('username', username);
+          prefs.setString('password', password);
+          showLoading(false, context);
+          print(password);
+        }
+      } else {}
+    } catch (x) {
+      print(x);
+      if (x.toString().contains("TimeoutException")) {
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, qLogin);
+      } 
+    }
+    }
+  
 }

