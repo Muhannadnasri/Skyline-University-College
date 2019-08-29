@@ -30,11 +30,10 @@ class _HomeState extends State<Home> {
     super.initState();
 
     // print(lang);
-      qLogin();
+    qLogin();
 
     getLogs();
-        print(isSelected.toString());
-
+    print(isSelected.toString());
   }
 
   @override
@@ -633,6 +632,58 @@ class _HomeState extends State<Home> {
                       ],
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0, top: 8),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, "/apptutudeForm");
+                      },
+                      child: Container(
+                        width: 110,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(0.1),
+                          border: Border.all(width: 1.0),
+                          borderRadius: BorderRadius.all(Radius.circular(
+                                  15.0) //         <--- border radius here
+                              ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.white30,
+                              blurRadius:
+                                  100.0, // has the effect of softening the shadow
+                              spreadRadius:
+                                  2, // has the effect of extending the shadow
+                              offset: Offset(
+                                5.0, // horizontal, move right 10
+                                5.0, // vertical, move down 10
+                              ),
+                            )
+                          ],
+                        ),
+                        child: Container(
+                          width: 90,
+                          height: 80,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Image.asset(
+                                'images/gallery.png',
+                                height: 50,
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'Apptutude Test',
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -667,7 +718,6 @@ class _HomeState extends State<Home> {
   }
 
   Future qLogin() async {
-
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
     });
@@ -721,8 +771,7 @@ class _HomeState extends State<Home> {
       if (x.toString().contains("TimeoutException")) {
         showError("Time out from server", FontAwesomeIcons.hourglassHalf,
             context, qLogin);
-      } 
+      }
     }
-    }
-  
+  }
 }

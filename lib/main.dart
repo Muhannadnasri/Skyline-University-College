@@ -9,6 +9,7 @@ import 'package:skyline_university/Home/home.dart';
 
 import 'Home/Admission/admissionForm.dart';
 import 'Home/Admission/home.dart';
+import 'Home/Apptitude/apptutudeForm.dart';
 import 'Home/FAQ/faq.dart';
 import 'Home/Gallery/gallery.dart';
 import 'Home/Info/academicAdvisingAndMentoring.dart';
@@ -96,7 +97,6 @@ import 'Login/home.dart';
 import 'Login/loginpage.dart';
 
 void main() async {
-  
   SystemChrome.setEnabledSystemUIOverlays([]);
   runApp(
     new MyApp(),
@@ -105,10 +105,8 @@ void main() async {
 
 // http://muhannadnasri.com/App/logUser.php
 class MyApp extends StatefulWidget {
-  
   @override
   MyAppState createState() {
-    
     return new MyAppState();
   }
 }
@@ -117,7 +115,6 @@ class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      
       debugShowCheckedModeBanner: false,
       builder: (BuildContext context, Widget child) {
         return new Builder(
@@ -225,8 +222,8 @@ class MyAppState extends State<MyApp> {
         '/courseAllocationMorning': (context) => CourseAllocationMorning(),
         '/courseAllocationEvening': (context) => CourseAllocationEvening(),
         '/courseAllocationWeekend': (context) => CourseAllocationWeekend(),
+        '/apptutudeForm': (context) => ApptutudeForm(),
       },
     );
   }
-
 }

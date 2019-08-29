@@ -11,7 +11,7 @@ String userType = studentJson['data']['user_type'];
 bool container = false;
 
 bool copyRight = false;
-bool isSelected  ;
+bool isSelected;
 
 List courseAllocationJson = [];
 
@@ -23,7 +23,7 @@ String API = '965a0109d2fde592b05b94588bcb43f5';
 //Global String
 
 bool isValidat = true;
-
+List aptitudeJson = [];
 
 bool loggedin = false;
 
