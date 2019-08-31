@@ -5,10 +5,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:skyline_university/Global/global.dart';
 
 import 'package:skyline_university/Global/zigzag.dart';
-import 'package:skyline_university/Home/home.dart';
+
 import 'package:http/http.dart' as http;
 
 import 'package:skyline_university/Login/home.dart';
@@ -27,7 +28,6 @@ class _LoginAppState extends State<LoginApp> {
 
   void initState() {
     super.initState();
-    //  studentJson.clear();
   }
 
   Widget horizontalLine() => Padding(
@@ -241,28 +241,8 @@ class _LoginAppState extends State<LoginApp> {
                   ),
                   SizedBox(height: ScreenUtil.getInstance().setHeight(60)),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          SizedBox(
-                            width: 5.0,
-                          ),
-                          Switch(
-                              activeTrackColor: Colors.lightBlueAccent,
-                              activeColor: Colors.blue,
-                              value: isSelected,
-                              onChanged: (x) {
-                                setState(() async {
-                                  print(isSelected);
-                                  isSelected = x;
-                                });
-                              }),
-                          Text("Remember me",
-                              style: TextStyle(
-                                  fontSize: 12, fontFamily: "Poppins-Medium"))
-                        ],
-                      ),
                       InkWell(
                         child: Container(
                           width: ScreenUtil.getInstance().setWidth(300),
@@ -282,10 +262,9 @@ class _LoginAppState extends State<LoginApp> {
                           child: Material(
                             color: Colors.transparent,
                             child: InkWell(
-                              onTap: () async {
+                              onTap: () {
                                 if (_logInForm.currentState.validate()) {
                                   _logInForm.currentState.save();
-
                                   logIn();
                                 } else {
                                   return showErrorInput(
@@ -303,7 +282,7 @@ class _LoginAppState extends State<LoginApp> {
                             ),
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ],
@@ -341,46 +320,36 @@ class _LoginAppState extends State<LoginApp> {
       if (response.statusCode == 200) {
         studentJson = json.decode(response.body);
 
-        if (isSelected = true) {
+        if (studentJson['success'] == '1') {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           prefs.setString('username', username);
           prefs.setString('password', password);
           loggedin = true;
-        } else {
-          username = '';
-          password = '';
-          loggedin = false;
-
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          prefs.setString('username', username);
-          prefs.setString('password', password);
-        }
-
-        if (studentJson['success'] == '1') {
           showLoading(false, context);
-
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (BuildContext context) => HomeLogin()),
               (Route<dynamic> route) => false);
-        } else {
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (BuildContext context) => Home()),
-              (Route<dynamic> route) => false);
+
+        } else if (studentJson['success'] == '0') {
+          showErrorInput(studentJson['message']);
         }
       }
+         const MethodChannel _kChannel =
+        MethodChannel('plugins.flutter.io/shared_preferences');
+    final Map<Object, Object> fromSystem =
+        await _kChannel.invokeMethod('getAll');
+    print(fromSystem);
     } catch (x) {
       print(x);
       if (x.toString().contains("TimeoutException")) {
+        showLoading(false, context);
         showError("Time out from server", FontAwesomeIcons.hourglassHalf,
             context, logIn);
       } else {
-        if (studentJson['success'] == '0') {
-          showLoading(false, context);
-        }
-
         showLoading(false, context);
+        showError(
+            "Sorry, we can't connect", Icons.perm_scan_wifi, context, logIn);
       }
     }
   }

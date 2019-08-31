@@ -22,18 +22,18 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   String formattedDate = DateFormat('yyyy-MM-dd hh:mm').format(DateTime.now());
-
+  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
   String deviceId = 'Unknown';
 
   @override
   initState() {
     super.initState();
-
-    // print(lang);
-    qLogin();
-
+studentJson={};
+ qLogin();
     getLogs();
-    print(isSelected.toString());
+
+   
+
   }
 
   @override
@@ -695,23 +695,14 @@ class _HomeState extends State<Home> {
 
   Future getLogs() async {
     Future.delayed(Duration.zero, () {});
-    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
 
-    // print('Running on ${androidInfo.model}');
     try {
-      final response = await http.post(
+        await http.post(
         Uri.encodeFull('http://muhannadnasri.com/App/logUser.php'),
         body: {
-          'username': '',
-          'deviceId': deviceId,
-          'deviceName': androidInfo.model.toString(),
           'date': formattedDate,
         },
       );
-      if (response.statusCode == 200) {
-        print('done');
-      }
     } catch (x) {
       print(x);
     }
@@ -729,7 +720,7 @@ class _HomeState extends State<Home> {
           "API-KEY": API,
         },
         body: {
-          'username': username,
+        'username': username,
           'password': password,
           'usertype': '1',
           'ipaddress': '1',
@@ -738,12 +729,14 @@ class _HomeState extends State<Home> {
           'devicetoken': '1',
           'devicename': '1'
         },
-      ).timeout(Duration(seconds: 30));
+      ).timeout(Duration(seconds: 50));
 
       if (response.statusCode == 200) {
         studentJson = json.decode(response.body);
 
         if (studentJson['success'] == '1') {
+                    print('donex');
+
           showLoading(false, context);
 
           Navigator.pushAndRemoveUntil(
@@ -751,19 +744,20 @@ class _HomeState extends State<Home> {
               MaterialPageRoute(builder: (BuildContext context) => HomeLogin()),
               (Route<dynamic> route) => false);
           loggedin = true;
-          isSelected = true;
-          print(password);
-        } else {
+        } else if (studentJson['success'] == '0'){
+
+
+
+                    print('dones');
+
           username = '';
           password = '';
           loggedin = false;
-          isSelected = false;
 
           SharedPreferences prefs = await SharedPreferences.getInstance();
           prefs.setString('username', username);
           prefs.setString('password', password);
           showLoading(false, context);
-          print(password);
         }
       } else {}
     } catch (x) {

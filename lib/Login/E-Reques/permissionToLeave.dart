@@ -201,49 +201,7 @@ class _LeaveHolidayState extends State<LeaveHoliday> {
     );
   }
 
-  void _showError(String msg, IconData icon) {
-    showLoading(false, context);
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return WillPopScope(
-            onWillPop: () {},
-            child: new AlertDialog(
-              title: Image.asset(
-                'images/logo.png',
-                height: 50,
-              ),
-              shape: SuperellipseShape(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              content: Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 25.0),
-                      child: new Icon(icon),
-                    ),
-                    new Text(msg)
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                new FlatButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    getLeaveHoliday();
-                  },
-                  child: new Text('Try again'),
-                ),
-              ],
-            ),
-          );
-        });
-  }
+  
 
   Future getLeaveHoliday() async {
     Future.delayed(Duration.zero, () {
@@ -297,10 +255,14 @@ class _LeaveHolidayState extends State<LeaveHoliday> {
             fontSize: 13.0);
       }
     } catch (x) {
-      if (x.toString().contains("TimeoutException")) {
-        _showError("Time out from server", FontAwesomeIcons.hourglassHalf);
+    if (x.toString().contains("TimeoutException")) {
+        showLoading(false, context);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getLeaveHoliday);
       } else {
-        _showError("Sorry, we can't connect", Icons.perm_scan_wifi);
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getLeaveHoliday);
       }
     }
   }

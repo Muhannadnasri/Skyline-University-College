@@ -1,6 +1,7 @@
 package io.flutter.plugins;
 
 import io.flutter.plugin.common.PluginRegistry;
+import com.notrait.deviceid.DeviceIdPlugin;
 import io.flutter.plugins.deviceinfo.DeviceInfoPlugin;
 import de.esys.esysfluttershare.EsysFlutterSharePlugin;
 import pt.tribeiro.flutter_plugin_pdf_viewer.FlutterPluginPdfViewerPlugin;
@@ -24,6 +25,7 @@ public final class GeneratedPluginRegistrant {
     if (alreadyRegisteredWith(registry)) {
       return;
     }
+    DeviceIdPlugin.registerWith(registry.registrarFor("com.notrait.deviceid.DeviceIdPlugin"));
     DeviceInfoPlugin.registerWith(registry.registrarFor("io.flutter.plugins.deviceinfo.DeviceInfoPlugin"));
     EsysFlutterSharePlugin.registerWith(registry.registrarFor("de.esys.esysfluttershare.EsysFlutterSharePlugin"));
     FlutterPluginPdfViewerPlugin.registerWith(registry.registrarFor("pt.tribeiro.flutter_plugin_pdf_viewer.FlutterPluginPdfViewerPlugin"));

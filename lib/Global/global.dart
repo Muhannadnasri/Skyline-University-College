@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:superellipse_shape/superellipse_shape.dart';
 
 import 'package:url_launcher/url_launcher.dart';
@@ -11,7 +12,6 @@ String userType = studentJson['data']['user_type'];
 bool container = false;
 
 bool copyRight = false;
-bool isSelected;
 
 List courseAllocationJson = [];
 
@@ -57,7 +57,14 @@ logOut(BuildContext context) {
   // set up the buttons
   Widget cancelButton = FlatButton(
     child: Text("Yes"),
-    onPressed: () {
+    onPressed: ()  async {
+     username = '';
+  password = '';
+  loggedin = false;
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  prefs.setString('username', username);
+  prefs.setString('password', password);
       Navigator.of(context)
           .pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
     },
