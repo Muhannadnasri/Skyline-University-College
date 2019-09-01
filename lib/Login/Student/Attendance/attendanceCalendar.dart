@@ -165,6 +165,7 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
                       daysHaveCircularBorder: true,
                       customGridViewPhysics: NeverScrollableScrollPhysics(),
                       markedDatesMap: days,
+
                       markedDateWidget: Container(
                         height: 3,
                         width: 3,

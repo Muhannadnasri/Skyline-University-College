@@ -46,6 +46,7 @@ class _LoginAppState extends State<LoginApp> {
     ScreenUtil.instance =
         ScreenUtil(width: 750, height: 1334, allowFontScaling: true);
     return new Scaffold(
+  
       backgroundColor: Colors.white,
       body: Stack(
         fit: StackFit.expand,
@@ -263,13 +264,7 @@ class _LoginAppState extends State<LoginApp> {
                             color: Colors.transparent,
                             child: InkWell(
                               onTap: () {
-                                if (_logInForm.currentState.validate()) {
-                                  _logInForm.currentState.save();
-                                  logIn();
-                                } else {
-                                  return showErrorInput(
-                                      'Please check your input');
-                                }
+                                logIn();
                               },
                               child: Center(
                                 child: Text("SIGNIN",
@@ -295,6 +290,11 @@ class _LoginAppState extends State<LoginApp> {
   }
 
   Future logIn() async {
+    if (_logInForm.currentState.validate()) {
+      _logInForm.currentState.save();
+    } else {
+      return showErrorInput('Please check your input');
+    }
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
     });
@@ -315,31 +315,37 @@ class _LoginAppState extends State<LoginApp> {
           'devicetoken': '1',
           'devicename': '1'
         },
-      ).timeout(Duration(seconds: 50));
+      );
 
       if (response.statusCode == 200) {
-        studentJson = json.decode(response.body);
+        setState(() {
+          studentJson = json.decode(response.body);
+        });
+      }
 
-        if (studentJson['success'] == '1') {
+      if (studentJson['success'] == '1') {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+
+        prefs.setString('username', username);
+        prefs.setString('password', password);
+
+          loggedin = true;
+          showLoading(false, context);
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (BuildContext context) => HomeLogin()),
+            (Route<dynamic> route) => false);
+      } else if (studentJson['success'] == '0') {
+          username = '';
+          password = '';
+          // loggedin = false;
           SharedPreferences prefs = await SharedPreferences.getInstance();
           prefs.setString('username', username);
           prefs.setString('password', password);
-          loggedin = true;
-          showLoading(false, context);
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (BuildContext context) => HomeLogin()),
-              (Route<dynamic> route) => false);
 
-        } else if (studentJson['success'] == '0') {
-          showErrorInput(studentJson['message']);
-        }
+        showErrorInput(studentJson['message']);
+        Navigator.pop(context);
       }
-         const MethodChannel _kChannel =
-        MethodChannel('plugins.flutter.io/shared_preferences');
-    final Map<Object, Object> fromSystem =
-        await _kChannel.invokeMethod('getAll');
-    print(fromSystem);
     } catch (x) {
       print(x);
       if (x.toString().contains("TimeoutException")) {

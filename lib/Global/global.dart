@@ -5,7 +5,6 @@ import 'package:superellipse_shape/superellipse_shape.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 
-Map studentJson = {};
 String program = studentJson['data']['program'];
 String userType = studentJson['data']['user_type'];
 
@@ -21,6 +20,7 @@ List courseAllocationWeekendJson = [];
 //API-Key
 String API = '965a0109d2fde592b05b94588bcb43f5';
 //Global String
+Map studentJson = {};
 
 bool isValidat = true;
 List aptitudeJson = [];
@@ -57,14 +57,14 @@ logOut(BuildContext context) {
   // set up the buttons
   Widget cancelButton = FlatButton(
     child: Text("Yes"),
-    onPressed: ()  async {
-     username = '';
-  password = '';
-  loggedin = false;
-  SharedPreferences prefs = await SharedPreferences.getInstance();
+    onPressed: () async {
+      username = '';
+      password = '';
+      loggedin = false;
+      SharedPreferences prefs = await SharedPreferences.getInstance();
 
-  prefs.setString('username', username);
-  prefs.setString('password', password);
+      prefs.setString('username', username);
+      prefs.setString('password', password);
       Navigator.of(context)
           .pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
     },

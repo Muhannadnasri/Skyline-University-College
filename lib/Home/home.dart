@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skyline_university/Global/global.dart';
+
 import 'package:skyline_university/Login/home.dart';
 
 void main() => runApp(Home());
@@ -26,25 +27,16 @@ class _HomeState extends State<Home> {
   String deviceId = 'Unknown';
 
   @override
-  initState() {
+  void initState() {
     super.initState();
-studentJson={};
- qLogin();
-    getLogs();
 
-   
-
+    qLogin();
   }
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          print(formattedDate);
-        },
-      ),
       appBar: GradientAppBar(
         centerTitle: true,
         title: Container(
@@ -694,10 +686,8 @@ studentJson={};
   }
 
   Future getLogs() async {
-    Future.delayed(Duration.zero, () {});
-
     try {
-        await http.post(
+      await http.post(
         Uri.encodeFull('http://muhannadnasri.com/App/logUser.php'),
         body: {
           'date': formattedDate,
@@ -713,14 +703,24 @@ studentJson={};
       showLoading(true, context);
     });
 
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    username = (prefs.getString('username') ?? '');
+    password = (prefs.getString('password') ?? '');
+    // const MethodChannel _kChannel =
+    //     MethodChannel('plugins.flutter.io/shared_preferences');
+    // final Map<Object, Object> fromSystem =
+    //     await _kChannel.invokeMethod('getAll');
+    // print(fromSystem.toString());
+
     try {
-      http.Response response = await http.post(
+      final response = await http.post(
         Uri.encodeFull("https://skylineportal.com/moappad/api/web/login"),
         headers: {
           "API-KEY": API,
         },
         body: {
-        'username': username,
+          'username': username,
           'password': password,
           'usertype': '1',
           'ipaddress': '1',
@@ -729,40 +729,38 @@ studentJson={};
           'devicetoken': '1',
           'devicename': '1'
         },
-      ).timeout(Duration(seconds: 50));
-
+      );
       if (response.statusCode == 200) {
-        studentJson = json.decode(response.body);
+        print('non');
+        setState(() {
+          studentJson = json.decode(response.body);
+        });
+      }
 
-        if (studentJson['success'] == '1') {
-                    print('donex');
+      if (studentJson["success"] == "1") {
+        print('enter');
 
-          showLoading(false, context);
+        loggedin = true;
+        showLoading(false, context);
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (BuildContext context) => HomeLogin()),
+            (Route<dynamic> route) => false);
+      } else if (studentJson["success"] == "0") {
+        print('exit');
+        username = '';
+        password = '';
+        loggedin = false;
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString('username', username);
+        prefs.setString('password', password);
 
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (BuildContext context) => HomeLogin()),
-              (Route<dynamic> route) => false);
-          loggedin = true;
-        } else if (studentJson['success'] == '0'){
-
-
-
-                    print('dones');
-
-          username = '';
-          password = '';
-          loggedin = false;
-
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          prefs.setString('username', username);
-          prefs.setString('password', password);
-          showLoading(false, context);
-        }
-      } else {}
+        showLoading(false, context);
+      }
+      getLogs();
     } catch (x) {
-      print(x);
       if (x.toString().contains("TimeoutException")) {
+        showLoading(false, context);
         showError("Time out from server", FontAwesomeIcons.hourglassHalf,
             context, qLogin);
       }

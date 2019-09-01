@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:skyline_university/Global/global.dart';
 import 'package:http/http.dart' as http;
+import 'package:skyline_university/Global/appBarLogin.dart';
+import 'package:skyline_university/Global/global.dart';
 
+void main() => runApp(ApptitudeTest());
 
 class ApptitudeTest extends StatefulWidget {
   @override
@@ -10,12 +14,12 @@ class ApptitudeTest extends StatefulWidget {
 }
 
 class _ApptitudeTestState extends State<ApptitudeTest> {
-  bool loading = true;
-  bool yes = false;
-
   Map sendAptitudesJson = {};
+  int cQuesiton = 0;
+  String btnName = "Next";
+  int answer = -1;
 
-
+  @override
   void initState() {
     super.initState();
   }
@@ -23,94 +27,117 @@ class _ApptitudeTestState extends State<ApptitudeTest> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
-      appBar: AppBar(
-        actions: <Widget>[],
-      ),
-      body: Column(
-              children: <Widget>[
-                Expanded(
-                  child: ListView.builder(
-                      itemCount: aptitudeJson.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return new Card(
-                            child: new Column(
-                          children: <Widget>[
-                            new ListTile(
-                              contentPadding: EdgeInsets.symmetric(
-                                  vertical: 20, horizontal: 2),
-                              title: textUpdate(context),
-
-
-                              subtitle: Padding(
-                                padding: const EdgeInsets.only(right: 30.0),
-                                child: Row(
-                                  children: <Widget>[
-                                    Row(
-                                      children: <Widget>[
-                                        Checkbox(
-                                          activeColor: Colors.blue,
-                                          value: yes,
-                                          onChanged: (value) {
-                                            value = true;
-                                            setState(() {
-                                              yes = value;
-                                            });
-                                          },
-                                        ),
-                                        Text('Yes'),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: <Widget>[
-                                        Checkbox(
-                                          activeColor: Colors.blue,
-                                          value: yes,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              yes = value;
-                                            });
-                                          },
-                                        ),
-                                        Text('No'),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                // child: new Column(
-                                //     mainAxisAlignment: MainAxisAlignment.start,
-                                //     crossAxisAlignment:
-                                //         CrossAxisAlignment.start,
-                                //     children:
-                                //         getAnswers(testJson[index][1], index)
-
-                                //         ),
-                              ),
-                            )
-                          ],
-                        ));
-                      }),
-                ),
-              ],
+        appBar: appBarLogin(context, 'ApptitudeTest'),
+        body: Column(
+          children: <Widget>[
+            SizedBox(
+              height: 20,
             ),
-    );
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: PageView(
+                  children: <Widget>[
+                    Text(aptitudeJson.take(5).toList()[cQuesiton]['question'])
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Card(
+                    color: Colors.grey[200],
+                    elevation: 5,
+                    child: ListTileTheme(
+                      selectedColor: Colors.green,
+                      child: ListTile(
+                        onTap: () {
+                          setState(() {
+                            answer = 1;
+                          });
+                        },
+                        selected: answer == 1,
+                        title: Center(
+                          child: Text(
+                            'Yes',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Card(
+                    color: Colors.grey[200],
+                    elevation: 5,
+                    child: ListTileTheme(
+                      selectedColor: Colors.red,
+                      child: ListTile(
+                        onTap: () {
+                          setState(() {
+                            answer = 0;
+                          });
+                        },
+                        selected: answer == 0,
+                        title: Center(
+                            child: Text(
+                          'No',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        )),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        if (cQuesiton <
+                           aptitudeJson. take(5).toList().length - 1) {
+                          if (answer != -1) {
+                            sendAptitudes();
+                          }
+                          answer = -1;
+                          cQuesiton++;
+                          btnName = "Next"; //remove
+                        } else {
+
+                            btnName = "Finish";
+
+
+                          showDoneInput(sendAptitudesJson['message'], context);
+                        }
+                      });
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Material(
+                        elevation: 3,
+                        shadowColor: Colors.black,
+                        color: Color(0xFF275d9b),
+                        type: MaterialType.button,
+                        child: Padding(
+                          padding: const EdgeInsets.all(13.0),
+                          child: Text(
+                            btnName,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ));
   }
-
-
-Widget textUpdate(BuildContext context) {
-    var i = 0;
-
-return Container(
-
-child: Text(aptitudeJson[i]['q']),
-
-);
-    
-    i++;
-
-}
-
-
 
   Future sendAptitudes() async {
     Future.delayed(Duration.zero, () {
@@ -126,9 +153,9 @@ child: Text(aptitudeJson[i]['q']),
         },
         body: {
           'student_id': username,
-          'question_id': '',
-          'answer': '',
-          'usertype': studentJson['data']['user_type'],
+          'question_id': aptitudeJson[cQuesiton]['id'].toString(),
+          'answer': answer.toString(),
+          'usertype': 'Guest',
           'ipaddress': '1',
           'deviceid': '1',
           'devicename': '1',
@@ -136,18 +163,16 @@ child: Text(aptitudeJson[i]['q']),
       ).timeout(Duration(seconds: 35));
 
       if (response.statusCode == 200) {
+        print('yes');
         setState(
           () {
-            // reinStatementJson = json.decode(response.body);
+            sendAptitudesJson = json.decode(response.body);
           },
         );
         showLoading(false, context);
       }
-
-      if (sendAptitudesJson['success'] == '1') {
-        showLoading(false, context);
-      }
     } catch (x) {
+      print(x);
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 

