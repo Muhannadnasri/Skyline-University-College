@@ -492,15 +492,15 @@ class _ApptutudeFormState extends State<ApptutudeForm> {
           'fname': firstName,
           'mname': middleName,
           'lname': lastName,
-          'mobile_no': mobile,
-          'tel_no': telephone,
+          'mobile_no': mobile.toString(),
+          'tel_no': telephone.toString(),
           'email': email,
           'dob': dob.toString(),
-          'nationality_id': aptitudeNationality,
-          'city': city,
-          'address': address,
-          'program_id': aptitudeProgram,
-          'stud_prof': position,
+          'nationality_id': aptitudeNationality.toString(),
+          'city': city.toString(),
+          'address': address.toString(),
+          'program_id': aptitudeProgram.toString(),
+          'stud_prof': position.toString(),
           'school_university': university,
           'is_skyline_student': groupValue.toString(),
           'usertype': 'STUDENT',
@@ -514,6 +514,7 @@ class _ApptutudeFormState extends State<ApptutudeForm> {
         setState(
           () {
             aptitudeJson = json.decode(response.body)['data']['questions'];
+            aptitudeIDJson=json.decode(response.body)['data'];
             aptitudeMessageJson = json.decode(response.body);
           },
         );
@@ -534,7 +535,9 @@ class _ApptutudeFormState extends State<ApptutudeForm> {
             MaterialPageRoute(builder: (BuildContext context) => Home()),
             (Route<dynamic> route) => false);
       }
+      print(aptitudeIDJson.toString());
     } catch (x) {
+      print(x);
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
         showError("Time out from server", FontAwesomeIcons.hourglassHalf,

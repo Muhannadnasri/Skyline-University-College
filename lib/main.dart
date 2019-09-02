@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:skyline_university/Home/Chat/chat.dart';
@@ -96,6 +97,7 @@ import 'Login/Student/Results/studentGPAProfile.dart';
 import 'Login/home.dart';
 import 'Login/loginpage.dart';
 
+
 void main() async {
   SystemChrome.setEnabledSystemUIOverlays([]);
   runApp(
@@ -107,6 +109,7 @@ void main() async {
 class MyApp extends StatefulWidget {
   @override
   MyAppState createState() {
+    
     return new MyAppState();
   }
 }

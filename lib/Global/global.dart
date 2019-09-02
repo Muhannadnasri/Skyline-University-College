@@ -24,6 +24,7 @@ Map studentJson = {};
 
 bool isValidat = true;
 List aptitudeJson = [];
+Map aptitudeIDJson={};
 
 bool loggedin = false;
 

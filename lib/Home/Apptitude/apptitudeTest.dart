@@ -14,6 +14,7 @@ class ApptitudeTest extends StatefulWidget {
 }
 
 class _ApptitudeTestState extends State<ApptitudeTest> {
+  Map completedAptitudesJson = {};
   Map sendAptitudesJson = {};
   int cQuesiton = 0;
   String btnName = "Next";
@@ -37,9 +38,7 @@ class _ApptitudeTestState extends State<ApptitudeTest> {
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: PageView(
-                  children: <Widget>[
-                    Text(aptitudeJson.take(5).toList()[cQuesiton]['question'])
-                  ],
+                  children: <Widget>[Text(aptitudeJson[cQuesiton]['question'])],
                 ),
               ),
             ),
@@ -97,8 +96,7 @@ class _ApptitudeTestState extends State<ApptitudeTest> {
                   GestureDetector(
                     onTap: () {
                       setState(() {
-                        if (cQuesiton <
-                           aptitudeJson. take(5).toList().length - 1) {
+                        if (cQuesiton < aptitudeJson.length - 1) {
                           if (answer != -1) {
                             sendAptitudes();
                           }
@@ -106,9 +104,8 @@ class _ApptitudeTestState extends State<ApptitudeTest> {
                           cQuesiton++;
                           btnName = "Next"; //remove
                         } else {
-
-                            btnName = "Finish";
-
+                          completedAptitudes();
+                          btnName = "Finish";
 
                           showDoneInput(sendAptitudesJson['message'], context);
                         }
@@ -139,6 +136,56 @@ class _ApptitudeTestState extends State<ApptitudeTest> {
         ));
   }
 
+  Future completedAptitudes() async {
+    Future.delayed(Duration.zero, () {
+      showLoading(true, context);
+    });
+
+    try {
+      final response = await http.post(
+        Uri.encodeFull(
+            'https://skylineportal.com/moappad/api/web/apptitudeCompleted'),
+        headers: {
+          "API-KEY": API,
+        },
+        body: {
+          'stud_id': aptitudeIDJson['id'].toString(),
+          'finish_time': 'NULL',
+          'usertype': 'Guest',
+          'ipaddress': '1',
+          'deviceid': '1',
+          'devicename': '1',
+        },
+      ).timeout(Duration(seconds: 35));
+
+      if (response.statusCode == 200) {
+        setState(
+          () {
+            completedAptitudesJson = json.decode(response.body);
+          },
+        );
+        showLoading(false, context);
+      }
+      if (completedAptitudesJson['success'] == '1') {
+        showDoneInput(completedAptitudesJson['message'], context);
+      } else if (completedAptitudesJson['success'] == '0') {
+        showDoneInput(completedAptitudesJson['message'], context);
+      }
+    } catch (x) {
+      print(x);
+      if (x.toString().contains("TimeoutException")) {
+        showLoading(false, context);
+
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, sendAptitudes);
+      } else {
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            sendAptitudes);
+      }
+    }
+  }
+
   Future sendAptitudes() async {
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
@@ -152,7 +199,7 @@ class _ApptitudeTestState extends State<ApptitudeTest> {
           "API-KEY": API,
         },
         body: {
-          'student_id': username,
+          'student_id': aptitudeIDJson['id'].toString(),
           'question_id': aptitudeJson[cQuesiton]['id'].toString(),
           'answer': answer.toString(),
           'usertype': 'Guest',

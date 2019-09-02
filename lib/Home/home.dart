@@ -1,6 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:device_info/device_info.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -22,6 +25,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final FirebaseMessaging _fcm = FirebaseMessaging();
+  final Firestore _db = Firestore.instance;
+
   String formattedDate = DateFormat('yyyy-MM-dd hh:mm').format(DateTime.now());
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
   String deviceId = 'Unknown';
@@ -29,6 +35,19 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+
+    if (Platform.isIOS) {
+      // iosSubscription = _fcm.onIosSettingsRegistered.listen((data) {
+      //   _saveDeviceToken();
+      // });
+      // _fcm.requestNotificationPermissions(IosNotificationSettings());
+    } else {
+      _saveDeviceToken();
+    }
+
+    _fcm.configure(onMessage: (Map<String, dynamic> message) async {
+      print('hello');
+    });
 
     qLogin();
   }
@@ -764,6 +783,24 @@ class _HomeState extends State<Home> {
         showError("Time out from server", FontAwesomeIcons.hourglassHalf,
             context, qLogin);
       }
+    }
+  }
+
+  _saveDeviceToken() async {
+    String uid = '';
+    String fcmToken = await _fcm.getToken();
+    if (fcmToken != null) {
+      var tokenRef = _db
+          .collection('users')
+          .document(uid)
+          .collection('tokens')
+          .document(fcmToken);
+
+      await tokenRef.setData({
+        'token': fcmToken,
+        'createdAt': FieldValue.serverTimestamp(),
+        'platform': Platform.operatingSystem,
+      });
     }
   }
 }
