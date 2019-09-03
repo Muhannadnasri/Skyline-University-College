@@ -1,9 +1,8 @@
 import 'dart:convert';
-import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:device_info/device_info.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
+
+// import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -25,31 +24,35 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final FirebaseMessaging _fcm = FirebaseMessaging();
-  final Firestore _db = Firestore.instance;
+  // final FirebaseMessaging _fcm = FirebaseMessaging();
+  // final Firestore _db = Firestore.instance;
 
   String formattedDate = DateFormat('yyyy-MM-dd hh:mm').format(DateTime.now());
-  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-  String deviceId = 'Unknown';
+
+  // String deviceId = 'Unknown';
 
   @override
   void initState() {
+    qLogin();
+
+    getLogs();
+
     super.initState();
 
-    if (Platform.isIOS) {
-      // iosSubscription = _fcm.onIosSettingsRegistered.listen((data) {
-      //   _saveDeviceToken();
-      // });
-      // _fcm.requestNotificationPermissions(IosNotificationSettings());
-    } else {
-      _saveDeviceToken();
-    }
+    // if (Platform.isIOS) {
+    //   // iosSubscription = _fcm.onIosSettingsRegistered.listen((data) {
+    //   //   _saveDeviceToken();
+    //   // });
+    //   // _fcm.requestNotificationPermissions(IosNotificationSettings());
+    // } else {
+    //   _saveDeviceToken();
+    // }
 
-    _fcm.configure(onMessage: (Map<String, dynamic> message) async {
-      print('hello');
-    });
+    // _fcm.configure(onMessage: (Map<String, dynamic> message) async {
+    //   print('hello');
+    // });
 
-    qLogin();
+    // qLogin();
   }
 
   @override
@@ -712,6 +715,7 @@ class _HomeState extends State<Home> {
           'date': formattedDate,
         },
       );
+      print('object');
     } catch (x) {
       print(x);
     }
@@ -726,11 +730,6 @@ class _HomeState extends State<Home> {
 
     username = (prefs.getString('username') ?? '');
     password = (prefs.getString('password') ?? '');
-    // const MethodChannel _kChannel =
-    //     MethodChannel('plugins.flutter.io/shared_preferences');
-    // final Map<Object, Object> fromSystem =
-    //     await _kChannel.invokeMethod('getAll');
-    // print(fromSystem.toString());
 
     try {
       final response = await http.post(
@@ -766,41 +765,20 @@ class _HomeState extends State<Home> {
             MaterialPageRoute(builder: (BuildContext context) => HomeLogin()),
             (Route<dynamic> route) => false);
       } else if (studentJson["success"] == "0") {
-        print('exit');
         username = '';
         password = '';
         loggedin = false;
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString('username', username);
         prefs.setString('password', password);
-
         showLoading(false, context);
       }
-      getLogs();
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
         showError("Time out from server", FontAwesomeIcons.hourglassHalf,
             context, qLogin);
       }
-    }
-  }
-
-  _saveDeviceToken() async {
-    String uid = '';
-    String fcmToken = await _fcm.getToken();
-    if (fcmToken != null) {
-      var tokenRef = _db
-          .collection('users')
-          .document(uid)
-          .collection('tokens')
-          .document(fcmToken);
-
-      await tokenRef.setData({
-        'token': fcmToken,
-        'createdAt': FieldValue.serverTimestamp(),
-        'platform': Platform.operatingSystem,
-      });
     }
   }
 }

@@ -6,6 +6,8 @@ import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/global.dart';
 
+import '../home.dart';
+
 void main() => runApp(ApptitudeTest());
 
 class ApptitudeTest extends StatefulWidget {
@@ -27,6 +29,8 @@ class _ApptitudeTestState extends State<ApptitudeTest> {
 
   @override
   Widget build(BuildContext context) {
+    // cQuesiton = 7;
+
     return Scaffold(
         appBar: appBarLogin(context, 'ApptitudeTest'),
         body: Column(
@@ -38,7 +42,9 @@ class _ApptitudeTestState extends State<ApptitudeTest> {
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: PageView(
-                  children: <Widget>[Text(aptitudeJson[cQuesiton]['question'])],
+                  children: <Widget>[
+                    Text(aptitudeJson.take(11).toList()[cQuesiton]['question'])
+                  ],
                 ),
               ),
             ),
@@ -96,19 +102,46 @@ class _ApptitudeTestState extends State<ApptitudeTest> {
                   GestureDetector(
                     onTap: () {
                       setState(() {
-                        if (cQuesiton < aptitudeJson.length - 1) {
+                        if (cQuesiton <
+                            aptitudeJson.take(10).toList().length - 2) {
+                          btnName = "Next";
+
                           if (answer != -1) {
                             sendAptitudes();
+                          } else {
+                            return showErrorInput('Please select one option');
                           }
-                          answer = -1;
-                          cQuesiton++;
-                          btnName = "Next"; //remove
+
+                          print('next');
                         } else {
-                          completedAptitudes();
                           btnName = "Finish";
 
-                          showDoneInput(sendAptitudesJson['message'], context);
+                          // if (cQuesiton ==
+                          //     aptitudeJson.take(10).toList().length ) {
+                          //   print('final');
+                          // } else {
+                          //   return showErrorInput('Please select one option');
+                          // }
                         }
+
+                        // if (answer == 1 ||
+                        //     answer == 0 &&
+                        //         cQuesiton ==
+                        //             aptitudeJson.take(10).toList().length - 2 ||
+                        //     answer == 0 ||
+                        //     answer == 1 &&
+                        //         cQuesiton ==
+                        //             aptitudeJson.take(10).toList().length - 2) {
+                        //   print('done');
+                        //   // completedAptitudes();
+                        // }
+                        // if (cQuesiton ==
+                        //     aptitudeJson.take(10).toList().length - 2) {
+                        //   btnName = "Finish";
+                        // }
+
+                        answer = -1;
+                        cQuesiton++;
                       });
                     },
                     child: Container(
@@ -168,11 +201,15 @@ class _ApptitudeTestState extends State<ApptitudeTest> {
       }
       if (completedAptitudesJson['success'] == '1') {
         showDoneInput(completedAptitudesJson['message'], context);
+
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (BuildContext context) => Home()),
+            (Route<dynamic> route) => false);
       } else if (completedAptitudesJson['success'] == '0') {
         showDoneInput(completedAptitudesJson['message'], context);
       }
     } catch (x) {
-      print(x);
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 
@@ -207,7 +244,7 @@ class _ApptitudeTestState extends State<ApptitudeTest> {
           'deviceid': '1',
           'devicename': '1',
         },
-      ).timeout(Duration(seconds: 35));
+      ).timeout(Duration(seconds: 10));
 
       if (response.statusCode == 200) {
         print('yes');

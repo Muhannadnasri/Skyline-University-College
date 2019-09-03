@@ -96,25 +96,16 @@ class _HomeLoginState extends State<HomeLogin> {
                 ),
               )
             : SizedBox(),
-        body: studentJson['data']['user_type'] == "STUDENT"
+        body: 
+        
+        
+        studentJson['data']['user_type'] == "STUDENT"
             ? Container(
                 child: ListView(
                   shrinkWrap: true,
                   padding: const EdgeInsets.all(10.0),
                   children: <Widget>[
-                    studentJson['data']['user_type'] == "STUDENT" &&
-                            studentJson['data']['user_id'] ==
-                                '15379' /*&&  studentJson ['data'] ['name']  =='MUHANNAD NASRI'*/ ? Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: <Widget>[
-                              GestureDetector(
-                                  onTap: () {
-                                    Navigator.pushNamed(context, "/GPA");
-                                  },
-                                  child: Text('Hello')),
-                            ],
-                          )
-                        : SizedBox(
+                        SizedBox(
                             height: 20,
                           ),
                     FittedBox(
