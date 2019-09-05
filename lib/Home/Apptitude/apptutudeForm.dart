@@ -78,7 +78,7 @@ class _ApptutudeFormState extends State<ApptutudeForm> {
             _apptutudeForm.currentState.save();
             getAptitude();
           } else {
-            print('wrong');
+
           }
         },
       ),
@@ -535,9 +535,9 @@ class _ApptutudeFormState extends State<ApptutudeForm> {
             MaterialPageRoute(builder: (BuildContext context) => Home()),
             (Route<dynamic> route) => false);
       }
-      print(aptitudeIDJson.toString());
+
     } catch (x) {
-      print(x);
+
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
         showError("Time out from server", FontAwesomeIcons.hourglassHalf,

@@ -109,8 +109,6 @@ class _ApptitudeTestState extends State<ApptitudeTest> {
                   GestureDetector(
                     onTap: () {
                       setState(() async {
-                        print(cQuesiton.toString());
-
                         if (cQuesiton == aptitudeJson.length - 2) {
                           btnName = "Finish";
                         }
@@ -233,7 +231,6 @@ class _ApptitudeTestState extends State<ApptitudeTest> {
       ).timeout(Duration(seconds: 10));
 
       if (response.statusCode == 200) {
-        print('yes');
         setState(
           () {
             sendAptitudesJson = json.decode(response.body);
@@ -242,7 +239,6 @@ class _ApptitudeTestState extends State<ApptitudeTest> {
         showLoading(false, context);
       }
     } catch (x) {
-      print(x);
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 

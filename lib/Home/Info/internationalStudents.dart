@@ -28,7 +28,6 @@ class _InternationalStudentsState extends State<InternationalStudents> {
     super.initState();
     infoJson = [];
     getPrograms();
-//print('Image Number'+widget.oneGalleryPhotos);
   }
 
   @override
@@ -38,7 +37,7 @@ class _InternationalStudentsState extends State<InternationalStudents> {
       resizeToAvoidBottomPadding: false,
       appBar: appBar(context, 'Skyline Info'),
       body: ListView.builder(
-// index
+
           itemCount: infoJson.length,
           itemBuilder: (BuildContext context, int index) {
             return Column(
@@ -120,11 +119,11 @@ class _InternationalStudentsState extends State<InternationalStudents> {
         setState(() {
           infoJson = json.decode(response.body)['data'];
         });
-        print(infoJson.toString());
+
         showLoading(false, context);
       }
     } catch (x) {
-      print(x);
+
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 

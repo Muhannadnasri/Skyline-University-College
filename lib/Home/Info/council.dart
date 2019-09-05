@@ -28,7 +28,7 @@ class _CouncilState extends State<Council> {
     super.initState();
     infoJson = [];
     getPrograms();
-//print('Image Number'+widget.oneGalleryPhotos);
+
   }
 
   @override
@@ -120,11 +120,11 @@ class _CouncilState extends State<Council> {
         setState(() {
           infoJson = json.decode(response.body)['data'];
         });
-        print(infoJson.toString());
+
         showLoading(false, context);
       }
     } catch (x) {
-      print(x);
+
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 

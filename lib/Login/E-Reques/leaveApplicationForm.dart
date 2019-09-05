@@ -62,7 +62,7 @@ class _LeaveApplicationFormState extends State<LeaveApplicationForm> {
           }
 
           // getLeaveApplication();
-          // print(value);
+
         },
       ),
       appBar: appBarLogin(context, 'Leave Application'),
@@ -255,15 +255,14 @@ class _LeaveApplicationFormState extends State<LeaveApplicationForm> {
           },
         );
         showLoading(false, context);
-        print(from);
-        print(to);
+
       }
 
       if (leaveApplicationFormJson['success'] == '1') {
         showDoneInput(leaveApplicationFormJson['message'], context);
       }
     } catch (x) {
-      print(x);
+      
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
         showError("Time out from server", FontAwesomeIcons.hourglassHalf,

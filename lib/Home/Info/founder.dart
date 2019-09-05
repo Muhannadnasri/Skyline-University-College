@@ -28,7 +28,7 @@ class _FounderState extends State<Founder> {
     super.initState();
     infoJson = [];
     getPrograms();
-//print('Image Number'+widget.oneGalleryPhotos);
+
   }
 
   @override
@@ -122,11 +122,11 @@ class _FounderState extends State<Founder> {
         setState(() {
           infoJson = json.decode(response.body)['data'];
         });
-        print(infoJson.toString());
+
         showLoading(false, context);
       }
     } catch (x) {
-      print(x);
+
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 

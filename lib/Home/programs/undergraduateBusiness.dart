@@ -32,7 +32,7 @@ class _UndergraduateBusinessState extends State<UndergraduateBusiness> {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      appBar: appBar(context, 'UndergraduateBusiness'),
+      appBar: appBar(context, 'School of Business '),
       body: Container(
         color: Colors.grey[300],
         child: programsJson == null
@@ -40,221 +40,73 @@ class _UndergraduateBusinessState extends State<UndergraduateBusiness> {
             : ListView.builder(
                 itemCount: programsJson.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return GestureDetector(
-                    onTap: () {
-                      print(index);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Card(
-                        shape: BeveledRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0)),
-                        elevation: 10,
-                        child: Container(
-                          child: ExpansionTile(
-                            leading: Icon(
-                              FontAwesomeIcons.info,
-                              size: 20,
-                            ),
-                            title: Html(
-                              data: programsJson[index]['description'].toString(),
-                            ),
-                            children: <Widget>[
-                              Divider(color: Colors.black),
-                              Row(
-                                children: <Widget>[
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(15.0),
-                                      child: Text(
-                                        programsJson[index]['description'],
-                                        style: TextStyle(fontSize: 13),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              UndergraduateProgram(
-                                            programName: programsJson[index]
-                                                ['name'],
-                                            programId: programsJson[index]['id']
-                                                .toString(),
-                                            programdescription:
-                                                programsJson[index]
-                                                    ['description'],
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Icon(
-                                        FontAwesomeIcons.arrowRight,
-                                        size: 20,
-                                        color: Colors.green,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                ],
-                              ),
-                            ],
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Card(
+                      shape: BeveledRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0)),
+                      elevation: 10,
+                      child: Container(
+                        child: ExpansionTile(
+                          leading: Icon(
+                            FontAwesomeIcons.info,
+                            size: 20,
                           ),
+                          title: Html(
+                            data: programsJson[index]['description'].toString(),
+                          ),
+                          children: <Widget>[
+                            Divider(color: Colors.black),
+                            Row(
+                              children: <Widget>[
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(15.0),
+                                    child: Text(
+                                      programsJson[index]['description'],
+                                      style: TextStyle(fontSize: 13),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            UndergraduateProgram(
+                                          programName: programsJson[index]
+                                              ['name'],
+                                          programId: programsJson[index]['id']
+                                              .toString(),
+                                          programdescription:
+                                              programsJson[index]
+                                                  ['description'],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Icon(
+                                      FontAwesomeIcons.arrowRight,
+                                      size: 20,
+                                      color: Colors.green,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
                     ),
-                    // children: <Widget>[
-                    //   GestureDetector(
-                    //     onTap: () {
-                    //       Navigator.pushNamed(context, "/programBusiness");
-                    //     },
-                    //     child: Padding(
-                    //       padding: const EdgeInsets.only(top: 5),
-                    //       child: Card(
-                    //         shape: RoundedRectangleBorder(
-                    //             borderRadius: BorderRadius.all(Radius.circular(10))),
-                    //         elevation: 10,
-                    //         child: DottedBorder(
-                    //           color: Colors.blue,
-                    //           gap: 3,
-                    //           strokeWidth: 1,
-                    //           child: Stack(
-                    //             alignment: Alignment.bottomCenter,
-                    //             children: <Widget>[
-                    //               Container(
-                    //                 width: 400,
-                    //                 height: 130,
-                    //                 decoration: BoxDecoration(
-                    //                     image: DecorationImage(
-                    //                   fit: BoxFit.cover,
-                    //                   image: AssetImage(
-                    //                     'images/1.jpg',
-                    //                   ),
-                    //                 )),
-                    //               ),
-                    //               Container(
-                    //                 color: Colors.black26,
-                    //                 width: 400,
-                    //                 height: 130,
-                    //               ),
-                    //               Align(
-                    //                 alignment: Alignment.bottomCenter,
-                    //                 child: Container(
-                    //                   color: Colors.grey[300],
-                    //                   height: 30,
-                    //                   width: 400,
-                    //                   child: Column(
-                    //                     children: <Widget>[
-                    //                       SizedBox(
-                    //                         height: 3,
-                    //                       ),
-                    //                       Flexible(
-                    //                         child: Center(
-                    //                           child: Text(
-                    //                             "School Of Business",
-                    //                             style: TextStyle(color: Colors.black),
-                    //                           ),
-                    //                         ),
-                    //                       ),
-                    //                       SizedBox(
-                    //                         height: 3,
-                    //                       ),
-                    //                     ],
-                    //                   ),
-                    //                 ),
-                    //               ),
-                    //             ],
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ),
-                    //   GestureDetector(
-                    //     onTap: () {
-                    //       Navigator.pushNamed(context, "/ProgramIT");
-
-                    //       // Navigator.push(
-                    //       //   context,
-                    //       //   MaterialPageRoute(
-                    //       //     builder: (context) => OneGallery(
-                    //       //           oneGalleryPhotos: galleries[index]['photos'],
-                    //       //           oneGalleryTitle: galleries[index]['Event_Name'],
-
-                    //       //         ),
-                    //       //   ),
-                    //       // );
-                    //     },
-                    //     child: Padding(
-                    //       padding: const EdgeInsets.only(top: 5),
-                    //       child: Card(
-                    //         shape: RoundedRectangleBorder(
-                    //             borderRadius: BorderRadius.all(Radius.circular(10))),
-                    //         elevation: 10,
-                    //         child: DottedBorder(
-                    //           color: Colors.blue,
-                    //           gap: 3,
-                    //           strokeWidth: 1,
-                    //           child: Stack(
-                    //             alignment: Alignment.bottomCenter,
-                    //             children: <Widget>[
-                    //               Container(
-                    //                 width: 400,
-                    //                 height: 130,
-                    //                 decoration: BoxDecoration(
-                    //                     image: DecorationImage(
-                    //                   fit: BoxFit.cover,
-                    //                   image: AssetImage(
-                    //                     'images/3.jpg',
-                    //                   ),
-                    //                 )),
-                    //               ),
-                    //               Container(
-                    //                 color: Colors.black26,
-                    //                 width: 400,
-                    //                 height: 130,
-                    //               ),
-                    //               Align(
-                    //                 alignment: Alignment.bottomCenter,
-                    //                 child: Container(
-                    //                   color: Colors.grey[300],
-                    //                   height: 30,
-                    //                   width: 400,
-                    //                   child: Column(
-                    //                     children: <Widget>[
-                    //                       SizedBox(
-                    //                         height: 3,
-                    //                       ),
-                    //                       Flexible(
-                    //                         child: Center(
-                    //                           child: Text(
-                    //                             "School Of IT",
-                    //                             style: TextStyle(color: Colors.black),
-                    //                           ),
-                    //                         ),
-                    //                       ),
-                    //                       SizedBox(
-                    //                         height: 3,
-                    //                       ),
-                    //                     ],
-                    //                   ),
-                    //                 ),
-                    //               ),
-                    //             ],
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ],
                   );
                 }),
       ),
@@ -285,11 +137,10 @@ class _UndergraduateBusinessState extends State<UndergraduateBusiness> {
         setState(() {
           programsJson = json.decode(response.body)['data'];
         });
-        print(programsJson.toString());
+        
         showLoading(false, context);
       }
     } catch (x) {
-      print(x);
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 

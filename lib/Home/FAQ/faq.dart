@@ -1,11 +1,9 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
-import 'package:path_provider/path_provider.dart';
 import 'package:skyline_university/Global/appBar.dart';
 import 'package:skyline_university/Global/global.dart';
 
@@ -17,7 +15,8 @@ class FAQ extends StatefulWidget {
     return _FAQState();
   }
 }
-List faqsJson=[];
+
+List faqsJson = [];
 //List faqs = [];
 //Map faqsJson = {};
 //File dataFile;
@@ -28,7 +27,7 @@ class _FAQState extends State<FAQ> {
   @override
   void initState() {
     super.initState();
-   faqsJson=[];
+    faqsJson = [];
 
     getFaqByType();
   }
@@ -91,75 +90,18 @@ class _FAQState extends State<FAQ> {
             );
           },
         ),
-//        ExpansionTile(
-//          title: Text(''),
-//
-//
-//        ),
       ),
     );
   }
 
-//
-//
-//  Future getFaqByType() async {
-//    new Future.delayed(Duration.zero, () {
-//      showLoading(true, context);
-//    });
-//
-//    body = {};
-//    try {
-//      http.Response response = await http
-//          .post("http://www.muhannadnasri.com/App/faq/data.json", body: body);
-//      print(response.statusCode);
-//      if (response.statusCode == 200) {
-//        var Json = json.decode(response.body);
-//        Directory appDocDir = await getApplicationDocumentsDirectory();
-//        dataFile = new File(appDocDir.path + "/dataFile.json");
-//
-//        if (dataFile.existsSync()) {
-//          if (Json['faq'] != null) {
-//            dataFile.writeAsStringSync(response.body);
-//          }
-//        } else {
-//          dataFile.createSync();
-//          dataFile.writeAsStringSync(response.body);
-//        }
-//
-//        if (Json['faq'] != null) {
-//          faqsJson = Json;
-//        } else {
-//          faqsJson = json.decode(dataFile.readAsStringSync());
-//        }
-//
-//        showLoading(false, context);
-//
-//        setState(() {
-//          faqs = faqsJson["faq"];
-//        });
-//      } else {}
-//    } catch (x) {
-//      if (x.toString().contains("TimeoutException")) {
-//        showLoading(false, context);
-//
-//        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-//            context, getFaqByType);
-//      } else {
-//        showLoading(false, context);
-//        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-//            getFaqByType);
-//      }
-//    }
-//  }
-
   Future getFaqByType() async {
     Future.delayed(Duration.zero, () {
-
       showLoading(true, context);
     });
     try {
       http.Response response = await http.post(
-        Uri.encodeFull("https://skylineportal.com/moappad/api/web/getFaqByType"),
+        Uri.encodeFull(
+            "https://skylineportal.com/moappad/api/web/getFaqByType"),
         headers: {
           "API-KEY": API,
         },
@@ -176,7 +118,7 @@ class _FAQState extends State<FAQ> {
         setState(() {
           faqsJson = json.decode(response.body)['data'];
         });
-        print(faqsJson.toString());
+
         showLoading(false, context);
       }
     } catch (x) {

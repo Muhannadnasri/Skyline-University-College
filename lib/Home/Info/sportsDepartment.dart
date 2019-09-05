@@ -28,7 +28,7 @@ class _SportsDepartmentState extends State<SportsDepartment> {
     super.initState();
     infoJson = [];
     getPrograms();
-//print('Image Number'+widget.oneGalleryPhotos);
+
   }
 
   @override
@@ -120,11 +120,11 @@ class _SportsDepartmentState extends State<SportsDepartment> {
         setState(() {
           infoJson = json.decode(response.body)['data'];
         });
-        print(infoJson.toString());
+        
         showLoading(false, context);
       }
     } catch (x) {
-      print(x);
+      
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 

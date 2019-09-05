@@ -57,8 +57,7 @@ class _MembershipFormState extends State<MembershipForm> {
             return showErrorInput('Please check your input');
           }
 
-          // getLeaveApplication();
-          // print(value);
+
         },
       ),
       appBar: appBarLogin(context, 'MemberShip Form'),

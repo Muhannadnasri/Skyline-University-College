@@ -137,7 +137,6 @@ class _LocationState extends State<Location> {
                         onTap: () {
                           launch('tel:' +
                               locationJson[index]['phone1'].toString());
-                          print(locationJson[index]['phone1'].toString());
                         },
                         child: Container(
                           child: Text(
@@ -210,7 +209,7 @@ class _LocationState extends State<Location> {
             locationJson = json.decode(response.body)['data'];
           },
         );
-        print(locationJson.toString());
+
         showLoading(false, context);
       }
     } catch (x) {

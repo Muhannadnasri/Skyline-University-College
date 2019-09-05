@@ -341,7 +341,7 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
         }
       }
     } catch (x) {
-      print(x);
+      
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
         showError("Time out from server", FontAwesomeIcons.hourglassHalf,
@@ -382,7 +382,7 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
         );
       }
     } catch (x) {
-      print(x);
+      
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
         showError("Time out from server", FontAwesomeIcons.hourglassHalf,

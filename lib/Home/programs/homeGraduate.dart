@@ -41,75 +41,69 @@ class _HomeGraduateState extends State<HomeGraduate> {
             : ListView.builder(
                 itemCount: programsJson.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return GestureDetector(
-                    onTap: () {
-                      print(index);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Card(
-                        shape: BeveledRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0)),
-                        elevation: 10,
-                        child: Container(
-                          child: ExpansionTile(
-                            leading: Icon(
-                              FontAwesomeIcons.info,
-                              size: 20,
-                            ),
-                            title: Html(
-                              data:
-                                  programsJson[index]['description'].toString(),
-                            ),
-                            children: <Widget>[
-                              Divider(color: Colors.black),
-                              Row(
-                                children: <Widget>[
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(15.0),
-                                      child: Text(
-                                        programsJson[index]['description'],
-                                        style: TextStyle(fontSize: 13),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => GraduateProgram(
-                                            programName: programsJson[index]
-                                                ['name'],
-                                            programId: programsJson[index]['id']
-                                                .toString(),
-                                            programdescription:
-                                                programsJson[index]
-                                                    ['description'],
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Icon(
-                                        FontAwesomeIcons.arrowRight,
-                                        size: 20,
-                                        color: Colors.green,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                ],
-                              ),
-                            ],
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Card(
+                      shape: BeveledRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0)),
+                      elevation: 10,
+                      child: Container(
+                        child: ExpansionTile(
+                          leading: Icon(
+                            FontAwesomeIcons.info,
+                            size: 20,
                           ),
+                          title: Html(
+                            data: programsJson[index]['description'].toString(),
+                          ),
+                          children: <Widget>[
+                            Divider(color: Colors.black),
+                            Row(
+                              children: <Widget>[
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(15.0),
+                                    child: Text(
+                                      programsJson[index]['description'],
+                                      style: TextStyle(fontSize: 13),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => GraduateProgram(
+                                          programName: programsJson[index]
+                                              ['name'],
+                                          programId: programsJson[index]['id']
+                                              .toString(),
+                                          programdescription:
+                                              programsJson[index]
+                                                  ['description'],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Icon(
+                                      FontAwesomeIcons.arrowRight,
+                                      size: 20,
+                                      color: Colors.green,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -143,11 +137,10 @@ class _HomeGraduateState extends State<HomeGraduate> {
         setState(() {
           programsJson = json.decode(response.body)['data'];
         });
-        print(programsJson.toString());
+
         showLoading(false, context);
       }
     } catch (x) {
-      print(x);
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 

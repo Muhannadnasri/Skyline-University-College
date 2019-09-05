@@ -113,7 +113,7 @@ class _FabShareState extends State<FabShare> with TickerProviderStateMixin {
         _showLoading(false);
       });
     } catch (e) {
-      print('error: $e');
+
     }
   }
 }

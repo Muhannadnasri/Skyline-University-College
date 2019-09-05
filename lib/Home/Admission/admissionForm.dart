@@ -332,10 +332,10 @@ class _AdmissionFormState extends State<AdmissionForm> {
           },
         );
         showLoading(false, context);
-        print(admissionFormDropdownProgramJson.toString());
+
       }
     } catch (x) {
-      print(x);
+
 
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
@@ -354,7 +354,7 @@ class _AdmissionFormState extends State<AdmissionForm> {
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
     });
-    print(program);
+
     try {
       final response = await http.post(
         Uri.encodeFull(

@@ -58,8 +58,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
             return showErrorInput('Please check your input');
           }
 
-          // getLeaveApplication();
-          // print(value);
+     
         },
       ),
       appBar: appBarLogin(context, 'Online Request'),
@@ -116,7 +115,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
                               [],
                           onChanged: (value) {
                             item = value;
-                            print(onlineRequestTypeJson.toString());
+
                             getAmount();
                           },
                         ),
@@ -347,8 +346,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
           'devicename': '1',
         },
       );
-      print(studentJson['data']['program']);
-      print(studentJson['data']['user_type']);
+
 
       if (response.statusCode == 200) {
         setState(
@@ -416,7 +414,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
         showLoading(false, context);
       }
     } catch (x) {
-      print(x);
+      
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 

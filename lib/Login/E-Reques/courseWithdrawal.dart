@@ -124,7 +124,7 @@ class _CourseWithdrawalState extends State<CourseWithdrawal> {
                             onChanged: (value) {
                               setState(() {
                                 id = value;
-                                print(id);
+
                                 getCourseName();
                               });
                             },
@@ -278,7 +278,7 @@ class _CourseWithdrawalState extends State<CourseWithdrawal> {
             courseNameJson = json.decode(response.body);
           },
         );
-        print(courseNameJson);
+
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
@@ -379,7 +379,7 @@ class _CourseWithdrawalState extends State<CourseWithdrawal> {
         );
       }
     } catch (x) {
-      print(x);
+      
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
         showError("Time out from server", FontAwesomeIcons.hourglassHalf,

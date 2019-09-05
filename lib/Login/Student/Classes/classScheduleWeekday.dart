@@ -219,11 +219,10 @@ class _ClassScheduleWeekdayState extends State<ClassScheduleWeekday> {
         setState(() {
           classScheduleWeekdayJson = json.decode(response.body)['data'];
           classScheduleWeekdayMessageJson = json.decode(response.body);
-        
         });
         showLoading(false, context);
       }
-      print(classScheduleWeekdayJson);
+
       if (classScheduleWeekdayMessageJson['success'] == '0') {
         showLoading(false, context);
         Fluttertoast.showToast(

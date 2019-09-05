@@ -41,11 +41,7 @@ class _EnglishLanguageCentreState extends State<EnglishLanguageCentre> {
                 itemCount: programsJson.length,
                 itemBuilder: (BuildContext context, int index) {
                   return programsJson[index]['id'] == 29
-                      ? GestureDetector(
-                          onTap: () {
-                            print(index);
-                          },
-                          child: Padding(
+                      ?  Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Card(
                               shape: BeveledRectangleBorder(
@@ -115,8 +111,7 @@ class _EnglishLanguageCentreState extends State<EnglishLanguageCentre> {
                                 ),
                               ),
                             ),
-                          ),
-                        )
+                          )
                       : SizedBox();
                 }),
       ),
@@ -147,11 +142,11 @@ class _EnglishLanguageCentreState extends State<EnglishLanguageCentre> {
         setState(() {
           programsJson = json.decode(response.body)['data'];
         });
-        print(programsJson.toString());
+
         showLoading(false, context);
       }
     } catch (x) {
-      print(x);
+      
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 

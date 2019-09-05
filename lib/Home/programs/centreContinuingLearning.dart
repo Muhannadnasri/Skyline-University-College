@@ -63,78 +63,71 @@ class _CentreContinuingLearningState extends State<CentreContinuingLearning> {
                           programsJson[index]['id'] == 76 ||
                           programsJson[index]['id'] == 77 ||
                           programsJson[index]['id'] == 78
-                      ? GestureDetector(
-                          onTap: () {
-                            print(index);
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Card(
-                              shape: BeveledRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15.0)),
-                              elevation: 10,
-                              child: Container(
-                                child: ExpansionTile(
-                                  leading: Icon(
-                                    FontAwesomeIcons.info,
-                                    size: 20,
-                                  ),
-                                  title: Html(
-                                      data: programsJson[index]['name']
-                                          .toString()),
-                                  children: <Widget>[
-                                    Divider(color: Colors.black),
-                                    Row(
-                                      children: <Widget>[
-                                        Expanded(
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(15.0),
-                                            child: Text(
-                                              programsJson[index]
-                                                  ['description'],
-                                              style: TextStyle(fontSize: 13),
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    UndergraduateProgram(
-                                                  programName:
-                                                      programsJson[index]
-                                                          ['name'],
-                                                  programId: programsJson[index]
-                                                          ['id']
-                                                      .toString(),
-                                                  programdescription:
-                                                      programsJson[index]
-                                                          ['description'],
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(10.0),
-                                            child: Icon(
-                                              FontAwesomeIcons.arrowRight,
-                                              size: 20,
-                                              color: Colors.green,
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                      ? Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Card(
+                            shape: BeveledRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0)),
+                            elevation: 10,
+                            child: Container(
+                              child: ExpansionTile(
+                                leading: Icon(
+                                  FontAwesomeIcons.info,
+                                  size: 20,
                                 ),
+                                title: Html(
+                                    data:
+                                        programsJson[index]['name'].toString()),
+                                children: <Widget>[
+                                  Divider(color: Colors.black),
+                                  Row(
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(15.0),
+                                          child: Text(
+                                            programsJson[index]['description'],
+                                            style: TextStyle(fontSize: 13),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  UndergraduateProgram(
+                                                programName: programsJson[index]
+                                                    ['name'],
+                                                programId: programsJson[index]
+                                                        ['id']
+                                                    .toString(),
+                                                programdescription:
+                                                    programsJson[index]
+                                                        ['description'],
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(10.0),
+                                          child: Icon(
+                                            FontAwesomeIcons.arrowRight,
+                                            size: 20,
+                                            color: Colors.green,
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -169,11 +162,10 @@ class _CentreContinuingLearningState extends State<CentreContinuingLearning> {
         setState(() {
           programsJson = json.decode(response.body)['data'];
         });
-        print(programsJson.toString());
+
         showLoading(false, context);
       }
     } catch (x) {
-      print(x);
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 

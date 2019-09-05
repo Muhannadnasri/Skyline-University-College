@@ -55,17 +55,7 @@ class _UndergraduateProgramState extends State<UndergraduateProgram> {
                           videoId: programITJson[index]['content'],
                           context: context,
                         ),
-                        // YoutubePlayer(
-                        //   context: context,
-                        //   source: programITJson[index]['content'],
-                        //   autoPlay: true,
-                        //   quality: YoutubeQuality.HD,
-
-                        //   onVideoEnded: () => _showThankYouDialog(),
-                        //   onError: (error) {
-                        //     print(error);
-                        //   },
-                        // ),
+                      
                       )
                     : programITJson[index]['content_type'] == 'url'
                         ? Container(
@@ -144,11 +134,11 @@ class _UndergraduateProgramState extends State<UndergraduateProgram> {
         setState(() {
           programITJson = json.decode(response.body)['data'];
         });
-        print(programITJson.toString());
+
         showLoading(false, context);
       }
     } catch (x) {
-      print(x);
+      
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 

@@ -28,7 +28,7 @@ class _GoalsState extends State<Goals> {
     super.initState();
     infoJson = [];
     getPrograms();
-//print('Image Number'+widget.oneGalleryPhotos);
+
   }
 
   @override
@@ -38,7 +38,7 @@ class _GoalsState extends State<Goals> {
       resizeToAvoidBottomPadding: false,
       appBar: appBar(context, 'Skyline Info'),
       body: ListView.builder(
-// index
+
           itemCount: infoJson.length,
           itemBuilder: (BuildContext context, int index) {
             return Column(
@@ -120,11 +120,11 @@ class _GoalsState extends State<Goals> {
         setState(() {
           infoJson = json.decode(response.body)['data'];
         });
-        print(infoJson.toString());
+
         showLoading(false, context);
       }
     } catch (x) {
-      print(x);
+
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 

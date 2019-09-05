@@ -63,8 +63,6 @@ class _LeaveHolidayState extends State<LeaveHoliday> {
             getLeaveHoliday();
           }
 
-          // getLeaveApplication();
-          // print(value);
         },
       ),
       appBar: appBarLogin(context, 'Leave During Holiday'),

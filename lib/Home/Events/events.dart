@@ -170,7 +170,7 @@ class _EventsState extends State<Events> {
       http.Response response = await http.post(
           "http://www.muhannadnasri.com/App/news_events/data.json",
           body: body);
-      print(response.statusCode);
+
       if (response.statusCode == 200) {
         var Json = json.decode(response.body);
         Directory appDocDir = await getApplicationDocumentsDirectory();
@@ -196,7 +196,7 @@ class _EventsState extends State<Events> {
         setState(() {
           events = eventsJson["events"];
         });
-        print(events[2]['date']);
+
       } else {}
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {

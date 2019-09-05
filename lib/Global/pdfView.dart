@@ -158,7 +158,7 @@ class _PdfViewState extends State<PdfView>
         _showLoading(false);
       });
     } catch (e) {
-      print('error: $e');
+
     }
   }
 }

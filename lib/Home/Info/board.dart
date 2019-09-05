@@ -7,7 +7,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
-
 import 'package:skyline_university/Global/appBar.dart';
 import 'package:skyline_university/Global/global.dart';
 
@@ -28,7 +27,6 @@ class _BoardState extends State<Board> {
     super.initState();
     infoJson = [];
     getPrograms();
-//print('Image Number'+widget.oneGalleryPhotos);
   }
 
   @override
@@ -38,7 +36,6 @@ class _BoardState extends State<Board> {
       resizeToAvoidBottomPadding: false,
       appBar: appBar(context, 'Skyline Info'),
       body: ListView.builder(
-// index
           itemCount: infoJson.length,
           itemBuilder: (BuildContext context, int index) {
             return Column(
@@ -48,7 +45,6 @@ class _BoardState extends State<Board> {
                         child: Image.network(
                           infoJson[index]['page_content'].toString(),
                           fit: BoxFit.contain,
-                          
                         ),
                       )
                     : SizedBox(),
@@ -120,11 +116,10 @@ class _BoardState extends State<Board> {
         setState(() {
           infoJson = json.decode(response.body)['data'];
         });
-        print(infoJson.toString());
+
         showLoading(false, context);
       }
     } catch (x) {
-      print(x);
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 

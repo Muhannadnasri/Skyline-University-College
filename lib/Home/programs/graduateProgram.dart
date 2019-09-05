@@ -49,25 +49,7 @@ class _GraduateProgramState extends State<GraduateProgram> {
           itemBuilder: (BuildContext context, int index) {
             return Column(
               children: <Widget>[
-                // programITJson[index]['name'] == 'BS IT Video'
-                //     ? Container(
-                //         child: YoutubePlayer(
-                //           videoId: programITJson[index]['content'],
-                //           context: context,
-                //         ),
-                //         // YoutubePlayer(
-                //         //   context: context,
-                //         //   source: programITJson[index]['content'],
-                //         //   autoPlay: true,
-                //         //   quality: YoutubeQuality.HD,
-
-                //         //   onVideoEnded: () => _showThankYouDialog(),
-                //         //   onError: (error) {
-                //         //     print(error);
-                //         //   },
-                //         // ),
-                //       )
-                // :
+             
                 programITJson[index]['content_type'] == 'url'
                     ? Container(
 
@@ -158,11 +140,11 @@ class _GraduateProgramState extends State<GraduateProgram> {
         setState(() {
           programITJson = json.decode(response.body)['data'];
         });
-        print(programITJson.toString());
+
         showLoading(false, context);
       }
     } catch (x) {
-      print(x);
+      
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 

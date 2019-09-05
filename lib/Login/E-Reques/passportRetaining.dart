@@ -101,7 +101,7 @@ class _PassportRetainingState extends State<PassportRetaining> {
                                         setState(() {
                                           terms = value;
                                         });
-                                        print(terms);
+
                                       },
                                     )
                                   ],
@@ -164,7 +164,7 @@ class _PassportRetainingState extends State<PassportRetaining> {
             underTakingJson = json.decode(response.body)['data'];
           },
         );
-        print(underTakingJson['message']);
+
         showLoading(false, context);
       }
     } catch (x) {
@@ -215,7 +215,7 @@ class _PassportRetainingState extends State<PassportRetaining> {
         showLoading(false, context);
       }
 
-      print(terms.toString());
+
 
       if (passportRetainingJson['success'] == '1') {
         showLoading(false, context);
@@ -240,7 +240,7 @@ class _PassportRetainingState extends State<PassportRetaining> {
             fontSize: 13.0);
       }
     } catch (x) {
-      print(x);
+      
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
         showError("Time out from server", FontAwesomeIcons.hourglassHalf,

@@ -52,7 +52,7 @@ phoneCall() async {
   if (await canLaunch("tel:+97165441155")) {
     await launch("tel:+97165441155");
   } else {
-    print('Could not Call');
+
   }
 }
 

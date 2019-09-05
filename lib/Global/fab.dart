@@ -19,7 +19,7 @@ class _NewFabState extends State<NewFab> with TickerProviderStateMixin {
   ];
 
   void _pressFab(int id) {
-    print("button pressed: $id");
+
     switch (id) {
       case 1:
         launch("mailto:info@firstart.ae");

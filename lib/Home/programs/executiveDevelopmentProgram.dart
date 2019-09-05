@@ -44,11 +44,8 @@ class _ExecutiveDevelopmentProgramState
                   return 
                   
                   programsJson[index]['id'] == 79 ?
-                  GestureDetector(
-                    onTap: () {
-                      print(index);
-                    },
-                    child: Padding(
+                 
+ Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Card(
                         shape: BeveledRectangleBorder(
@@ -114,8 +111,7 @@ class _ExecutiveDevelopmentProgramState
                             ],
                           ),
                         ),
-                      ),
-                    ),
+                      )
                   ):SizedBox();
                 }),
       ),
@@ -146,11 +142,11 @@ class _ExecutiveDevelopmentProgramState
         setState(() {
           programsJson = json.decode(response.body)['data'];
         });
-        print(programsJson.toString());
+
         showLoading(false, context);
       }
     } catch (x) {
-      print(x);
+      
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 

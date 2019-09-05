@@ -96,18 +96,15 @@ class _HomeLoginState extends State<HomeLogin> {
                 ),
               )
             : SizedBox(),
-        body: 
-        
-        
-        studentJson['data']['user_type'] == "STUDENT"
+        body: studentJson['data']['user_type'] == "STUDENT"
             ? Container(
                 child: ListView(
                   shrinkWrap: true,
                   padding: const EdgeInsets.all(10.0),
                   children: <Widget>[
-                        SizedBox(
-                            height: 20,
-                          ),
+                    SizedBox(
+                      height: 20,
+                    ),
                     FittedBox(
                       child: Column(
                         children: <Widget>[
@@ -1210,18 +1207,13 @@ class _HomeLoginState extends State<HomeLogin> {
             Uri.encodeFull('https://muhannadnasri.com/App/data.php'),
           )
           .timeout(Duration(seconds: 20));
-      print(response.contentLength);
 
       if (response.body == 'True') {
         copyRight = true;
       } else {
         copyRight = false;
       }
-
-      print(copyRight);
-    } catch (x) {
-      print(x);
-    }
+    } catch (x) {}
   }
 
   Future<bool> _exitApp(BuildContext context) async {
@@ -1239,7 +1231,6 @@ class _HomeLoginState extends State<HomeLogin> {
   Future getLogs() async {
     Future.delayed(Duration.zero, () {});
 
-    // print('Running on ${androidInfo.model}');
     try {
       await http.post(
         Uri.encodeFull('http://muhannadnasri.com/App/logLogin.php'),
@@ -1250,9 +1241,7 @@ class _HomeLoginState extends State<HomeLogin> {
           'date': formattedDate,
         },
       );
-    } catch (x) {
-      print(x);
-    }
+    } catch (x) {}
   }
 }
 //TODO: SystemChrome.setEnabledSystemUIOverlays([]) For hide status Bar

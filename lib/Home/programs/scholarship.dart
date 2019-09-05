@@ -28,7 +28,7 @@ class _ScholarshipState extends State<Scholarship> {
     super.initState();
     infoJson = [];
     getScholarships();
-//print('Image Number'+widget.oneGalleryPhotos);
+
   }
 
   @override
@@ -120,7 +120,7 @@ class _ScholarshipState extends State<Scholarship> {
         setState(() {
           infoJson = json.decode(response.body)['data'];
         });
-        print(infoJson.toString());
+        
         showLoading(false, context);
       }
     } catch (x) {

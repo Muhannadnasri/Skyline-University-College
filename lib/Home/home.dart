@@ -713,10 +713,7 @@ class _HomeState extends State<Home> {
           'date': formattedDate,
         },
       );
-      print('object');
-    } catch (x) {
-      print(x);
-    }
+    } catch (x) {}
   }
 
   Future qLogin() async {
@@ -751,14 +748,11 @@ class _HomeState extends State<Home> {
         },
       );
       if (response.statusCode == 200) {
-
         setState(() {
           studentJson = json.decode(response.body);
         });
 
         if (studentJson["success"] == "1") {
-          print('enter');
-
           loggedin = true;
           showLoading(false, context);
           Navigator.pushAndRemoveUntil(

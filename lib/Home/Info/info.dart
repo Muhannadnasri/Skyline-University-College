@@ -48,13 +48,6 @@ class _InfoState extends State<Info> {
 
 //  rowSection(
 //                   context, 'images/admission.png', 'Committees', '/Calendars'),
-
-
-
-
-
-
-                  
             ],
           ),
         ]),
@@ -62,44 +55,4 @@ class _InfoState extends State<Info> {
     );
   }
 
-  // Future getPrograms() async {
-  //   Future.delayed(Duration.zero, () {
-  //     showLoading(true, context);
-  //   });
-  //   try {
-  //     http.Response response = await http.post(
-  //       Uri.encodeFull("https://skylineportal.com/moappad/api/web/getPageInfo"),
-  //       headers: {
-  //         "API-KEY": API,
-  //       },
-  //       body: {
-  //         'usertype': '1',
-  //         'name': 'SUC Info',
-  //         'ipaddress': '1',
-  //         'deviceid': '1',
-  //         'devicename': '1',
-  //       },
-  //     ).timeout(Duration(seconds: 35));
-
-  //     if (response.statusCode == 200) {
-  //       setState(() {
-  //         infoJson = json.decode(response.body)['data'];
-  //       });
-  //       print(infoJson.toString());
-  //       showLoading(false, context);
-  //     }
-  //   } catch (x) {
-  //     print(x);
-  //     if (x.toString().contains("TimeoutException")) {
-  //       showLoading(false, context);
-
-  //       showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-  //           context, getPrograms);
-  //     } else {
-  //       showLoading(false, context);
-  //       showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-  //           getPrograms);
-  //     }
-  //   }
-  // }
 }

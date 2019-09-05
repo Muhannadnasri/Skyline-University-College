@@ -50,7 +50,7 @@ class _UpdateInformationState extends State<UpdateInformation> {
   void initState() {
 
     super.initState();
-    print(studentInfoJson);
+
     getStudentInfo();
   }
 

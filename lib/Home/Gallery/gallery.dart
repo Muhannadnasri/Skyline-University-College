@@ -142,7 +142,7 @@ class _GalleryState extends State<Gallery> {
       http.Response response = await http.post(
           "http://www.muhannadnasri.com/App/gallery/data.json",
           body: body);
-      print(response.statusCode);
+
       if (response.statusCode == 200) {
         var Json = json.decode(response.body);
         Directory appDocDir = await getApplicationDocumentsDirectory();

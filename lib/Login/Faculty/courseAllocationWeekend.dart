@@ -21,7 +21,6 @@ class _CourseAllocationWeekendState extends State<CourseAllocationWeekend> {
   @override
   void initState() {
     super.initState();
-    print(courseAllocationWeekendJson);
   }
 
   @override

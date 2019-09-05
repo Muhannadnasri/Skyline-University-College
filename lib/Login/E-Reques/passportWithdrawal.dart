@@ -221,7 +221,7 @@ class _PassportWithdrawalState extends State<PassportWithdrawal> {
         showDoneInput(passportWithdrawalJson['message'], context);
       }
     } catch (x) {
-      print(x);
+      
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
         showError("Time out from server", FontAwesomeIcons.hourglassHalf,

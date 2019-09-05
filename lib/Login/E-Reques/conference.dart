@@ -342,7 +342,7 @@ class _ConferenceState extends State<Conference> {
         );
         showLoading(false, context);
       }
-      print(courseWithdrawalJson);
+
       if (courseWithdrawalJson['success'] == '1') {
         showLoading(false, context);
         showDoneInput(courseWithdrawalJson['message'], context);

@@ -107,7 +107,7 @@ class _FacultyState extends State<Faculty> {
     try {
       http.Response response = await http
           .post("http://muhannadnasri.com/App/faculty/data.json", body: body);
-      print(response.statusCode);
+
       if (response.statusCode == 200) {
         var Json = json.decode(response.body);
         Directory appDocDir = await getApplicationDocumentsDirectory();

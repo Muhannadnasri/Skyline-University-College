@@ -107,7 +107,7 @@ class _SalaryCertificateState extends State<SalaryCertificate> {
                             setState(() {
                               purpose = value;
 
-                              print(purpose);
+
                             });
                           },
                         ),

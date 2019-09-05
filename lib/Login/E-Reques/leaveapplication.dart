@@ -63,9 +63,6 @@ class _LeaveApplicationState extends State<LeaveApplication> {
             _leaveApplication.currentState.save();
             getLeaveApplication();
           }
-
-          // getLeaveApplication();
-          // print(value);
         },
       ),
       body: GestureDetector(

@@ -487,7 +487,7 @@ class _AdvisorAppointmentState extends State<AdvisorAppointment> {
             fontSize: 13.0);
       }
     } catch (x) {
-      print(x);
+      
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 

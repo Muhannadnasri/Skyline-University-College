@@ -20,7 +20,8 @@ class AcademicAdvisingAndMentoring extends StatefulWidget {
   }
 }
 
-class _AcademicAdvisingAndMentoringState extends State<AcademicAdvisingAndMentoring> {
+class _AcademicAdvisingAndMentoringState
+    extends State<AcademicAdvisingAndMentoring> {
   List infoJson = [];
 
   @override
@@ -28,7 +29,6 @@ class _AcademicAdvisingAndMentoringState extends State<AcademicAdvisingAndMentor
     super.initState();
     infoJson = [];
     getPrograms();
-//print('Image Number'+widget.oneGalleryPhotos);
   }
 
   @override
@@ -48,7 +48,6 @@ class _AcademicAdvisingAndMentoringState extends State<AcademicAdvisingAndMentor
                         child: Image.network(
                           infoJson[index]['page_content'].toString(),
                           fit: BoxFit.contain,
-                          
                         ),
                       )
                     : SizedBox(),
@@ -120,11 +119,11 @@ class _AcademicAdvisingAndMentoringState extends State<AcademicAdvisingAndMentor
         setState(() {
           infoJson = json.decode(response.body)['data'];
         });
-        print(infoJson.toString());
+
         showLoading(false, context);
       }
     } catch (x) {
-      print(x);
+
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 

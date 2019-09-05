@@ -21,8 +21,6 @@ class _CourseAllocationMorningState extends State<CourseAllocationMorning> {
   @override
   void initState() {
     super.initState();
-    print(courseAllocationMorningJson);
-    // courseAllocationMorningJson = [];
   }
 
   @override

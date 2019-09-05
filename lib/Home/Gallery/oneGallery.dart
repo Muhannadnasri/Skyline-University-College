@@ -29,7 +29,6 @@ class _OneGalleryState extends State<OneGallery> {
   @override
   void initState() {
     super.initState();
-//print('Image Number'+widget.oneGalleryPhotos);
   }
 
   @override

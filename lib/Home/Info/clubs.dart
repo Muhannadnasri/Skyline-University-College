@@ -28,7 +28,6 @@ class _ClubsState extends State<Clubs> {
     super.initState();
     infoJson = [];
     getPrograms();
-//print('Image Number'+widget.oneGalleryPhotos);
   }
 
   @override
@@ -38,7 +37,6 @@ class _ClubsState extends State<Clubs> {
       resizeToAvoidBottomPadding: false,
       appBar: appBar(context, 'Skyline Info'),
       body: ListView.builder(
-// index
           itemCount: infoJson.length,
           itemBuilder: (BuildContext context, int index) {
             return Column(
@@ -48,7 +46,6 @@ class _ClubsState extends State<Clubs> {
                         child: Image.network(
                           infoJson[index]['page_content'].toString(),
                           fit: BoxFit.contain,
-                          
                         ),
                       )
                     : SizedBox(),
@@ -120,11 +117,10 @@ class _ClubsState extends State<Clubs> {
         setState(() {
           infoJson = json.decode(response.body)['data'];
         });
-        print(infoJson.toString());
+
         showLoading(false, context);
       }
     } catch (x) {
-      print(x);
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 
