@@ -33,7 +33,7 @@ class _HomeGraduateState extends State<HomeGraduate> {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      appBar: appBar(context, 'HomeGraduate'),
+      appBar: appBar(context, 'Graduate'),
       body: Container(
         color: Colors.grey[300],
         child: programsJson == null
@@ -94,10 +94,13 @@ class _HomeGraduateState extends State<HomeGraduate> {
                                         ),
                                       );
                                     },
-                                    child: Icon(
-                                      FontAwesomeIcons.arrowRight,
-                                      size: 20,
-                                      color: Colors.green,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Icon(
+                                        FontAwesomeIcons.arrowRight,
+                                        size: 20,
+                                        color: Colors.green,
+                                      ),
                                     ),
                                   ),
                                   SizedBox(

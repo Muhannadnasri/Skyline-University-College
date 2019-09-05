@@ -65,7 +65,6 @@ class _LocationState extends State<Location> {
                         onTap: () {
                           _goTo(index, locationJson[index]['name'],
                               locationJson[index]['address1']);
-                          print('ss');
                         },
                         child: Container(
                           height: 30,
@@ -230,12 +229,17 @@ class _LocationState extends State<Location> {
 
   _openMap(double lat, double long) async {
     // Android
-    var url = 'geo:$lat,$lat';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      // iOS
-      var url = 'http://maps.apple.com/?ll=$lat,$long';
+    var url = 'comgooglemaps://?q=$lat,$long';
+    var urlAndroid = 'geo:$lat,$long';
+
+    if (Platform.isAndroid) {
+      if (await canLaunch(urlAndroid)) {
+        await launch(urlAndroid);
+      } else {
+        throw 'Could not launch $urlAndroid';
+      }
+    }
+    if (Platform.isIOS) {
       if (await canLaunch(url)) {
         await launch(url);
       } else {

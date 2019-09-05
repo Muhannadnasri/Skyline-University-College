@@ -45,6 +45,16 @@ class _InfoState extends State<Info> {
               rowSection(context, 'images/admission.png', 'Dean', '/dean'),
               rowSection(
                   context, 'images/admission.png', 'Committees', '/committees'),
+
+//  rowSection(
+//                   context, 'images/admission.png', 'Committees', '/Calendars'),
+
+
+
+
+
+
+                  
             ],
           ),
         ]),

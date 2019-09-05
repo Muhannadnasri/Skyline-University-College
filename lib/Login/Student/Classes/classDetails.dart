@@ -40,129 +40,153 @@ class _CourseDetailsState extends State<CourseDetails> {
             ? exception(context, FontAwesomeIcons.exclamationTriangle,
                 classScheduleCourseMessageJson['message'])
             : Container(
-                color: Colors.grey[300],
+                color: Colors.white,
                 child: ListView.builder(
                   itemCount: classScheduleCourseJson.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(5))),
-                      elevation: 10,
-                      child: DottedBorder(
-                        color: Colors.blue,
-                        gap: 3,
-                        strokeWidth: 1,
-                        child: Column(
-                          children: <Widget>[
-                            Container(
-                              decoration: new BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(5)),
-                                gradient: LinearGradient(
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
-                                  colors: [
-                                    Color(0xFF104C90),
-                                    Color(0xFF3773AC),
-                                  ],
-                                  stops: [
-                                    0.7,
-                                    0.9,
-                                  ],
+                    return Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(5))),
+                        elevation: 10,
+                        child: DottedBorder(
+                          color: Colors.blue,
+                          gap: 3,
+                          strokeWidth: 1,
+                          child: Column(
+
+                            children: <Widget>[
+                              Container(
+                                decoration: new BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(5)),
+                                  gradient: LinearGradient(
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
+                                    colors: [
+                                      Color(0xFF104C90),
+                                      Color(0xFF3773AC),
+                                    ],
+                                    stops: [
+                                      0.7,
+                                      0.9,
+                                    ],
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(3.0),
+                                          child: Text(
+                                            classScheduleCourseJson[index]
+                                                ['COURSE NAME'],
+                                            style: TextStyle(color: Colors.white),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                              child: Padding(
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Padding(
                                 padding: const EdgeInsets.all(5.0),
                                 child: Row(
                                   children: <Widget>[
-                                    Expanded(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(3.0),
-                                        child: Text(
-                                          classScheduleCourseJson[index]
-                                              ['COURSE NAME'],
-                                          style: TextStyle(color: Colors.white),
+                                    Text('Faculty Name : '),
+                                    Text(
+                                      classScheduleCourseJson[index]
+                                              ['FACULTY NAME']
+                                          .toString(),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text("EXTN:"),
+                                    GestureDetector(
+                                      onTap: () {
+                                        launch('tel:0097165441155' +
+                                                ',1' +
+                                                ',' +
+                                                classScheduleCourseJson[index]
+                                                        ['EXTN']
+                                                    .toString()
+//
+                                            );
+                                      },
+                                      child: Text(
+                                        ' +97165441155 : ' +
+                                            classScheduleCourseJson[index]['EXTN']
+                                                .toString(),
+                                        style: TextStyle(
+                                          color: Colors.blue,
+                                          decoration: TextDecoration.underline,
                                         ),
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Row(
-                              children: <Widget>[
-                                Text('Faculty Name : '),
-                                Text(
-                                  classScheduleCourseJson[index]['FACULTY NAME']
-                                      .toString(),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: <Widget>[
-                                Text("EXTN:"),
-                                GestureDetector(
-                                  onTap: () {
-                                    launch('tel:0097165441155' +
-                                            ',1' +
-                                            ',' +
+                              Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Row(
+                                  children: <Widget>[
+                                    Text("Email: "),
+                                    GestureDetector(
+                                      onTap: () {
+                                        launch('mailto:' +
                                             classScheduleCourseJson[index]
-                                                    ['EXTN']
-                                                .toString()
-//
-                                        );
-                                  },
-                                  child: Text(
-                                    ' +97165441155 : ' +
-                                        classScheduleCourseJson[index]['EXTN']
-                                            .toString(),
-                                    style: TextStyle(
-                                      color: Colors.blue,
-                                      decoration: TextDecoration.underline,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: <Widget>[
-                                Text("Email: "),
-                                GestureDetector(
-                                  onTap: () {
-                                    launch('mailto:' +
+                                                    ['MAILID']
+                                                .toString());
+                                      },
+                                      child: Text(
                                         classScheduleCourseJson[index]['MAILID']
-                                            .toString());
-                                  },
-                                  child: Text(
-                                    classScheduleCourseJson[index]['MAILID']
-                                        .toString(),
-                                    style: TextStyle(
-                                      color: Colors.blue,
-                                      decoration: TextDecoration.underline,
+                                            .toString(),
+                                        style: TextStyle(
+                                          color: Colors.blue,
+                                          decoration: TextDecoration.underline,
+                                        ),
+                                      ),
                                     ),
-                                  ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                            Row(
-                              children: <Widget>[
-                                Text('Course Code : '.padRight(10)),
-                                Text(
-                                  classScheduleCourseJson[index]['CODE']
-                                      .toString(),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Row(
+                                  children: <Widget>[
+                                    Text('Course Code : '.padRight(10)),
+                                    Text(
+                                      classScheduleCourseJson[index]['CODE']
+                                          .toString(),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                          ],
+                              ),
+                             
+                            ],
+                            
+                          ),
+                          
                         ),
+                        
                       ),
                     );
+                    
                   },
                 ),
+                
               ));
   }
 

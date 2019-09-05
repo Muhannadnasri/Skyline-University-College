@@ -21,7 +21,7 @@ class _ApptitudeTestState extends State<ApptitudeTest> {
   int cQuesiton = 0;
   String btnName = "Next";
   int answer = -1;
-
+  bool finish = false;
   @override
   void initState() {
     super.initState();
@@ -30,9 +30,10 @@ class _ApptitudeTestState extends State<ApptitudeTest> {
   @override
   Widget build(BuildContext context) {
     // cQuesiton = 7;
+// btnName = "Next";
 
     return Scaffold(
-        appBar: appBarLogin(context, 'ApptitudeTest'),
+        appBar: appBarLogin(context, 'Apptitude Test'),
         body: Column(
           children: <Widget>[
             SizedBox(
@@ -43,7 +44,13 @@ class _ApptitudeTestState extends State<ApptitudeTest> {
                 padding: const EdgeInsets.all(10.0),
                 child: PageView(
                   children: <Widget>[
-                    Text(aptitudeJson.take(11).toList()[cQuesiton]['question'])
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        aptitudeJson[cQuesiton]['question'],
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -101,47 +108,27 @@ class _ApptitudeTestState extends State<ApptitudeTest> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      setState(() {
-                        if (cQuesiton <
-                            aptitudeJson.take(10).toList().length - 2) {
-                          btnName = "Next";
+                      setState(() async {
+                        print(cQuesiton.toString());
 
+                        if (cQuesiton == aptitudeJson.length - 2) {
+                          btnName = "Finish";
+                        }
+
+                        if (cQuesiton < aptitudeJson.length) {
                           if (answer != -1) {
-                            sendAptitudes();
+                            await sendAptitudes();
+                            if (cQuesiton == aptitudeJson.length - 1) {
+                              completedAptitudes();
+                              return;
+                            }
                           } else {
                             return showErrorInput('Please select one option');
                           }
-
-                          print('next');
-                        } else {
-                          btnName = "Finish";
-
-                          // if (cQuesiton ==
-                          //     aptitudeJson.take(10).toList().length ) {
-                          //   print('final');
-                          // } else {
-                          //   return showErrorInput('Please select one option');
-                          // }
+                          cQuesiton++;
                         }
 
-                        // if (answer == 1 ||
-                        //     answer == 0 &&
-                        //         cQuesiton ==
-                        //             aptitudeJson.take(10).toList().length - 2 ||
-                        //     answer == 0 ||
-                        //     answer == 1 &&
-                        //         cQuesiton ==
-                        //             aptitudeJson.take(10).toList().length - 2) {
-                        //   print('done');
-                        //   // completedAptitudes();
-                        // }
-                        // if (cQuesiton ==
-                        //     aptitudeJson.take(10).toList().length - 2) {
-                        //   btnName = "Finish";
-                        // }
-
                         answer = -1;
-                        cQuesiton++;
                       });
                     },
                     child: Container(
@@ -212,7 +199,6 @@ class _ApptitudeTestState extends State<ApptitudeTest> {
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
-
         showError("Time out from server", FontAwesomeIcons.hourglassHalf,
             context, sendAptitudes);
       } else {

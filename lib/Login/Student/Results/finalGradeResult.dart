@@ -247,90 +247,6 @@ class _FinalTermResultsState extends State<FinalTermResults> {
     );
   }
 
-  void _showLogout() {
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return new AlertDialog(
-            title: Image.asset(
-              'images/logo.png',
-              height: 50,
-            ),
-            content: Row(
-              children: <Widget>[Text('Do You Want Logout')],
-            ),
-            shape: SuperellipseShape(
-              borderRadius: BorderRadius.all(
-                Radius.circular(20),
-              ),
-            ),
-            actions: <Widget>[
-              new FlatButton(
-                onPressed: () {
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) => Home()),
-                      (Route<dynamic> route) => true); //TODO: TO Home Page
-                },
-                child: new Text('Yes'),
-              ),
-              new FlatButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: new Text('No'),
-              ),
-            ],
-          );
-        });
-  }
-
-  void _showError(String msg, IconData icon) {
-    showLoading(false, context);
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return WillPopScope(
-            onWillPop: () {},
-            child: new AlertDialog(
-              title: Image.asset(
-                'images/logo.png',
-                height: 50,
-              ),
-              shape: SuperellipseShape(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              content: Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 25.0),
-                      child: new Icon(icon),
-                    ),
-                    new Text(msg)
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                new FlatButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    getFinalTermResults();
-                  },
-                  child: new Text('Try again'),
-                ),
-              ],
-            ),
-          );
-        });
-  }
-
   Future getFinalTermResults() async {
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
@@ -357,17 +273,6 @@ class _FinalTermResultsState extends State<FinalTermResults> {
           finalTermResultsMessageJson = json.decode(response.body);
         });
         showLoading(false, context);
-      }
-      if (finalTermResultsMessageJson['success'] == '0') {
-        showLoading(false, context);
-        Fluttertoast.showToast(
-            msg: finalTermResultsMessageJson['message'],
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIos: 1,
-            backgroundColor: Colors.grey[400],
-            textColor: Colors.black87,
-            fontSize: 13.0);
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {

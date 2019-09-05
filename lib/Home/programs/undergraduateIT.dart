@@ -93,10 +93,13 @@ class _UndergraduateITState extends State<UndergraduateIT> {
                                         ),
                                       );
                                     },
-                                    child: Icon(
-                                      FontAwesomeIcons.arrowRight,
-                                      size: 20,
-                                      color: Colors.green,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Icon(
+                                        FontAwesomeIcons.arrowRight,
+                                        size: 20,
+                                        color: Colors.green,
+                                      ),
                                     ),
                                   ),
                                   SizedBox(

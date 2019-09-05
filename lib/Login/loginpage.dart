@@ -25,9 +25,11 @@ class LoginApp extends StatefulWidget {
 
 class _LoginAppState extends State<LoginApp> {
   final _logInForm = GlobalKey<FormState>();
+  Map studentMessageJson = {};
 
   void initState() {
     super.initState();
+    studentJson.clear();
   }
 
   Widget horizontalLine() => Padding(
@@ -46,7 +48,6 @@ class _LoginAppState extends State<LoginApp> {
     ScreenUtil.instance =
         ScreenUtil(width: 750, height: 1334, allowFontScaling: true);
     return new Scaffold(
-  
       backgroundColor: Colors.white,
       body: Stack(
         fit: StackFit.expand,
@@ -133,8 +134,6 @@ class _LoginAppState extends State<LoginApp> {
                     height: ScreenUtil.getInstance().setHeight(330),
                   ),
                   Container(
-                    width: double.infinity,
-                    height: ScreenUtil.getInstance().setHeight(450),
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(8.0),
@@ -149,8 +148,8 @@ class _LoginAppState extends State<LoginApp> {
                               blurRadius: 10.0),
                         ]),
                     child: Padding(
-                      padding:
-                          EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
+                      padding: EdgeInsets.only(
+                          left: 16.0, right: 16.0, top: 16.0, bottom: 50),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -230,8 +229,7 @@ class _LoginAppState extends State<LoginApp> {
                                   ),
                                 ),
                                 SizedBox(
-                                  height:
-                                      ScreenUtil.getInstance().setHeight(35),
+                                  height: ScreenUtil.getInstance().setHeight(4),
                                 ),
                               ],
                             ),
@@ -264,7 +262,10 @@ class _LoginAppState extends State<LoginApp> {
                             color: Colors.transparent,
                             child: InkWell(
                               onTap: () {
-                                logIn();
+                                setState(() {
+
+                                  logIn();
+                                });
                               },
                               child: Center(
                                 child: Text("SIGNIN",
@@ -290,6 +291,7 @@ class _LoginAppState extends State<LoginApp> {
   }
 
   Future logIn() async {
+    
     if (_logInForm.currentState.validate()) {
       _logInForm.currentState.save();
     } else {
@@ -320,34 +322,34 @@ class _LoginAppState extends State<LoginApp> {
       if (response.statusCode == 200) {
         setState(() {
           studentJson = json.decode(response.body);
+          studentMessageJson = json.decode(response.body);
         });
-      }
 
-      if (studentJson['success'] == '1') {
-        SharedPreferences prefs = await SharedPreferences.getInstance();
+        if (studentMessageJson['success'] == '1') {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
 
-        prefs.setString('username', username);
-        prefs.setString('password', password);
+          prefs.setString('username', username);
+          prefs.setString('password', password);
 
           loggedin = true;
           showLoading(false, context);
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (BuildContext context) => HomeLogin()),
-            (Route<dynamic> route) => false);
-      } else if (studentJson['success'] == '0') {
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (BuildContext context) => HomeLogin()),
+              (Route<dynamic> route) => false);
+        } else if (studentMessageJson['success'] == '0') {
           username = '';
           password = '';
-          // loggedin = false;
+          loggedin = false;
           SharedPreferences prefs = await SharedPreferences.getInstance();
           prefs.setString('username', username);
           prefs.setString('password', password);
 
-        showErrorInput(studentJson['message']);
-        Navigator.pop(context);
+          showErrorInput(studentMessageJson['message']);
+          Navigator.pop(context);
+        }
       }
     } catch (x) {
-      print(x);
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
         showError("Time out from server", FontAwesomeIcons.hourglassHalf,

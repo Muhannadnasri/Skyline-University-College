@@ -34,9 +34,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     qLogin();
-
     getLogs();
-
     super.initState();
 
     // if (Platform.isIOS) {
@@ -689,7 +687,7 @@ class _HomeState extends State<Home> {
                                 height: 10,
                               ),
                               Text(
-                                'Apptutude Test',
+                                'Aptitude Test',
                                 style: TextStyle(color: Colors.black),
                               ),
                             ],
@@ -731,6 +729,10 @@ class _HomeState extends State<Home> {
     username = (prefs.getString('username') ?? '');
     password = (prefs.getString('password') ?? '');
 
+    if (username == '') {
+      showLoading(false, context);
+      return;
+    }
     try {
       final response = await http.post(
         Uri.encodeFull("https://skylineportal.com/moappad/api/web/login"),
@@ -749,29 +751,29 @@ class _HomeState extends State<Home> {
         },
       );
       if (response.statusCode == 200) {
-        print('non');
+
         setState(() {
           studentJson = json.decode(response.body);
         });
-      }
 
-      if (studentJson["success"] == "1") {
-        print('enter');
+        if (studentJson["success"] == "1") {
+          print('enter');
 
-        loggedin = true;
-        showLoading(false, context);
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (BuildContext context) => HomeLogin()),
-            (Route<dynamic> route) => false);
-      } else if (studentJson["success"] == "0") {
-        username = '';
-        password = '';
-        loggedin = false;
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        prefs.setString('username', username);
-        prefs.setString('password', password);
-        showLoading(false, context);
+          loggedin = true;
+          showLoading(false, context);
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (BuildContext context) => HomeLogin()),
+              (Route<dynamic> route) => false);
+        } else if (studentJson["success"] == "0") {
+          username = '';
+          password = '';
+          loggedin = false;
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs.setString('username', username);
+          prefs.setString('password', password);
+          showLoading(false, context);
+        }
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {

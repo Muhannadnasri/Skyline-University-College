@@ -69,7 +69,6 @@ class _UndergraduateProgramState extends State<UndergraduateProgram> {
                       )
                     : programITJson[index]['content_type'] == 'url'
                         ? Container(
-                          
                             child: Image.network(
                               programITJson[index]['content'],
                               fit: BoxFit.contain,
@@ -119,18 +118,6 @@ class _UndergraduateProgramState extends State<UndergraduateProgram> {
             );
           },
         ));
-  }
-
-  void _showThankYouDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Video Ended"),
-          content: Text("Thank you for trying the plugin!"),
-        );
-      },
-    );
   }
 
   Future getprogramIT() async {

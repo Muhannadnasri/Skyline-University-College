@@ -22,12 +22,11 @@ class StudentGPAProfile extends StatefulWidget {
 
 class _StudentGPAProfileState extends State<StudentGPAProfile> {
   Map studentGPAProfileJson = {};
-
+  Map studentGPAProfileMessageJson = {};
   @override
   void initState() {
     super.initState();
     getStudentGPAProfile();
-    studentGPAProfileJson.clear();
   }
 
   @override
@@ -36,11 +35,11 @@ class _StudentGPAProfileState extends State<StudentGPAProfile> {
 
     return Scaffold(
       appBar: appBarLogin(context, 'GPA'),
-      body: studentGPAProfileJson == null || studentGPAProfileJson.isEmpty
-          ? exception(context, FontAwesomeIcons.exclamationTriangle,
-              "studentGPAProfileJson['message']")
+      body: studentGPAProfileJson.isEmpty
+          ? exception(
+              context, FontAwesomeIcons.exclamationTriangle, "No GPA Details")
           : Container(
-              color: Colors.grey[300],
+              color: Colors.white,
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -50,7 +49,7 @@ class _StudentGPAProfileState extends State<StudentGPAProfile> {
                   child: Card(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10))),
-                    elevation: 10,
+                    elevation: 5,
                     child: DottedBorder(
                       color: Colors.blue,
                       gap: 3,
@@ -82,12 +81,11 @@ class _StudentGPAProfileState extends State<StudentGPAProfile> {
                                   Container(
                                     child: Expanded(
                                       child: Text(
-                                        studentGPAProfileJson['data']
-                                                    ['STUDENT NAME'] ==
+                                        studentGPAProfileJson['STUDENT NAME'] ==
                                                 null
                                             ? ''
-                                            : studentGPAProfileJson['data']
-                                                    ['STUDENT NAME']
+                                            : studentGPAProfileJson[
+                                                    'STUDENT NAME']
                                                 .toString(),
                                         style: TextStyle(
                                           color: Colors.white,
@@ -118,12 +116,9 @@ class _StudentGPAProfileState extends State<StudentGPAProfile> {
                                       width: 5,
                                     ),
                                     Text(
-                                      studentGPAProfileJson['data']
-                                                  ['ADVISOR'] ==
-                                              null
+                                      studentGPAProfileJson['ADVISOR'] == null
                                           ? ''
-                                          : studentGPAProfileJson['data']
-                                              ['ADVISOR'],
+                                          : studentGPAProfileJson['ADVISOR'],
                                       style: TextStyle(
                                         fontSize: 13,
                                         letterSpacing: 0.5,
@@ -152,12 +147,12 @@ class _StudentGPAProfileState extends State<StudentGPAProfile> {
                                       width: 5,
                                     ),
                                     Text(
-                                      studentGPAProfileJson['data'][
+                                      studentGPAProfileJson[
                                                   'TRANSFER OF CREDIT (TOC)'] ==
                                               null
                                           ? ''
-                                          : studentGPAProfileJson['data']
-                                                  ['TRANSFER OF CREDIT (TOC)']
+                                          : studentGPAProfileJson[
+                                                  'TRANSFER OF CREDIT (TOC)']
                                               .toString(),
                                       style: TextStyle(
                                         fontSize: 13,
@@ -187,11 +182,11 @@ class _StudentGPAProfileState extends State<StudentGPAProfile> {
                                       width: 5,
                                     ),
                                     Text(
-                                      studentGPAProfileJson['data'][
+                                      studentGPAProfileJson[
                                                   'TOTAL CREDIT EARNED (INCLUDING TOC)'] ==
                                               null
                                           ? ''
-                                          : studentGPAProfileJson['data'][
+                                          : studentGPAProfileJson[
                                                   'TOTAL CREDIT EARNED (INCLUDING TOC)']
                                               .toString(),
                                       style: TextStyle(
@@ -222,11 +217,9 @@ class _StudentGPAProfileState extends State<StudentGPAProfile> {
                                       width: 5,
                                     ),
                                     Text(
-                                      studentGPAProfileJson['data']['CGPA'] ==
-                                              null
+                                      studentGPAProfileJson['CGPA'] == null
                                           ? ''
-                                          : studentGPAProfileJson['data']
-                                                  ['CGPA']
+                                          : studentGPAProfileJson['CGPA']
                                               .toString(),
                                       style: TextStyle(
                                         fontSize: 13,
@@ -256,11 +249,9 @@ class _StudentGPAProfileState extends State<StudentGPAProfile> {
                                       width: 5,
                                     ),
                                     Text(
-                                      studentGPAProfileJson['data']['LEVEL'] ==
-                                              null
+                                      studentGPAProfileJson['LEVEL'] == null
                                           ? ''
-                                          : studentGPAProfileJson['data']
-                                                  ['LEVEL']
+                                          : studentGPAProfileJson['LEVEL']
                                               .toString(),
                                       style: TextStyle(
                                         fontSize: 13,
@@ -290,12 +281,12 @@ class _StudentGPAProfileState extends State<StudentGPAProfile> {
                                       width: 5,
                                     ),
                                     Text(
-                                      studentGPAProfileJson['data']
-                                                  ['CREDIT TO BE COMPLETED'] ==
+                                      studentGPAProfileJson[
+                                                  'CREDIT TO BE COMPLETED'] ==
                                               null
                                           ? ''
-                                          : studentGPAProfileJson['data']
-                                                  ['CREDIT TO BE COMPLETED']
+                                          : studentGPAProfileJson[
+                                                  'CREDIT TO BE COMPLETED']
                                               .toString(),
                                       style: TextStyle(
                                         fontSize: 13,
@@ -325,12 +316,12 @@ class _StudentGPAProfileState extends State<StudentGPAProfile> {
                                       width: 5,
                                     ),
                                     Text(
-                                      studentGPAProfileJson['data']
-                                                  ['CREDIT ATTENDED'] ==
+                                      studentGPAProfileJson[
+                                                  'CREDIT ATTENDED'] ==
                                               null
                                           ? ''
-                                          : studentGPAProfileJson['data']
-                                                  ['CREDIT ATTENDED']
+                                          : studentGPAProfileJson[
+                                                  'CREDIT ATTENDED']
                                               .toString(),
                                       style: TextStyle(
                                         fontSize: 13,
@@ -385,7 +376,8 @@ class _StudentGPAProfileState extends State<StudentGPAProfile> {
 
       if (response.statusCode == 200) {
         setState(() {
-          studentGPAProfileJson = json.decode(response.body);
+          studentGPAProfileJson = json.decode(response.body)['data'];
+          studentGPAProfileMessageJson = json.decode(response.body);
         });
 
         showLoading(false, context);

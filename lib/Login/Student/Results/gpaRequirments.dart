@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
+import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/global.dart';
 
 void main() => runApp(GetGPARequirments());
@@ -21,6 +22,7 @@ class GetGPARequirments extends StatefulWidget {
 
 class _GetGPARequirmentsState extends State<GetGPARequirments> {
   List gpaRequirmentsJson = [];
+  Map gpaRequirmentsMessageJson = {};
 
   @override
   void initState() {
@@ -34,75 +36,88 @@ class _GetGPARequirmentsState extends State<GetGPARequirments> {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
         appBar: appBarLogin(context, 'GPA Requirments'),
-        body: Container(
-          color: Colors.grey[300],
-          child: ListView.builder(
-            itemCount: gpaRequirmentsJson.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: Card(
-                  shape: BeveledRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0)),
-                  elevation: 15,
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        height: 30,
-                        decoration: new BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              Color(0xFF104C90),
-                              Color(0xFF3773AC),
-                            ],
-                            stops: [
-                              0.7,
-                              0.9,
-                            ],
-                          ),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.only(left: 15.0),
-                              child: Text(
-                                gpaRequirmentsJson.toString().contains('BBA')
-                                    ? 'BBA REQUIREMENTS'
-                                    : 'MBA REQUIREMENTS',
-                                style: TextStyle(color: Colors.white),
-                              ),
+        body:
+
+            // null
+            gpaRequirmentsJson == null
+                ? exception(context, FontAwesomeIcons.exclamationTriangle,
+                    gpaRequirmentsMessageJson['message'])
+                : Container(
+                    color: Colors.grey[300],
+                    child: ListView.builder(
+                      itemCount: gpaRequirmentsJson.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Card(
+                            shape: BeveledRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0)),
+                            elevation: 15,
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  height: 30,
+                                  decoration: new BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                    gradient: LinearGradient(
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                      colors: [
+                                        Color(0xFF104C90),
+                                        Color(0xFF3773AC),
+                                      ],
+                                      stops: [
+                                        0.7,
+                                        0.9,
+                                      ],
+                                    ),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 15.0),
+                                        child: Text(
+                                          gpaRequirmentsJson
+                                                  .toString()
+                                                  .contains('BBA')
+                                              ? 'BBA REQUIREMENTS'
+                                              : 'MBA REQUIREMENTS',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 15.0),
+                                    child: Text(gpaRequirmentsJson
+                                            .toString()
+                                            .contains('BBA')
+                                        ? gpaRequirmentsJson[index]
+                                            ['BBA REQUIREMENTS']
+                                        : gpaRequirmentsJson[index]
+                                            ['MBA REQUIREMENTS']),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 15.0),
-                          child: Text(gpaRequirmentsJson
-                                  .toString()
-                                  .contains('BBA')
-                              ? gpaRequirmentsJson[index]['BBA REQUIREMENTS']
-                              : gpaRequirmentsJson[index]['MBA REQUIREMENTS']),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            },
-          ),
-        ));
+                          ),
+                        );
+                      },
+                    ),
+                  ));
   }
 
   Future getGpaRequirments() async {
@@ -128,6 +143,7 @@ class _GetGPARequirmentsState extends State<GetGPARequirments> {
       if (response.statusCode == 200) {
         setState(() {
           gpaRequirmentsJson = json.decode(response.body)['data'];
+          gpaRequirmentsMessageJson = json.decode(response.body);
         });
       }
       showLoading(false, context);

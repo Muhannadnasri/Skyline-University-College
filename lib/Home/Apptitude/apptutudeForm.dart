@@ -82,7 +82,7 @@ class _ApptutudeFormState extends State<ApptutudeForm> {
           }
         },
       ),
-      appBar: appBarLogin(context, 'Leave Application'),
+      appBar: appBarLogin(context, 'Aptitude Register'),
       body: GestureDetector(
         onTap: () {
           FocusScope.of(context).requestFocus(new FocusNode());

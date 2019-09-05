@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:skyline_university/Home/home.dart';
+import 'package:skyline_university/Login/home.dart';
 import 'package:superellipse_shape/superellipse_shape.dart';
 
 import 'package:url_launcher/url_launcher.dart';
@@ -24,7 +26,7 @@ Map studentJson = {};
 
 bool isValidat = true;
 List aptitudeJson = [];
-Map aptitudeIDJson={};
+Map aptitudeIDJson = {};
 
 bool loggedin = false;
 
@@ -54,58 +56,103 @@ phoneCall() async {
   }
 }
 
-logOut(BuildContext context) {
-  // set up the buttons
-  Widget cancelButton = FlatButton(
-    child: Text("Yes"),
-    onPressed: () async {
-      username = '';
-      password = '';
-      loggedin = false;
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-
-      prefs.setString('username', username);
-      prefs.setString('password', password);
-      Navigator.of(context)
-          .pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
-    },
-  );
-  Widget continueButton = FlatButton(
-    textColor: Colors.grey,
-    child: Text("No"),
-    onPressed: () {
-      Navigator.pop(context);
-    },
-  );
-  // set up the AlertDialog
-
-  AlertDialog alert = AlertDialog(
-    shape: SuperellipseShape(
-      borderRadius: BorderRadius.all(
-        Radius.circular(20),
-      ),
-    ),
-    title: Image.asset(
-      'images/logo.png',
-      height: 50,
-    ),
-    content: Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Text("Are you sure you want to logout ?"),
-    ),
-    actions: [
-      cancelButton,
-      continueButton,
-    ],
-  );
+void logOut(context) {
   showDialog(
-    barrierDismissible: false,
     context: context,
+    barrierDismissible: false,
     builder: (BuildContext context) {
-      return alert;
+      return AlertDialog(
+        title: Image.asset(
+          'images/logo.png',
+          height: 50,
+        ),
+        content: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Text("Are you sure you want to logout ?"),
+        ),
+        actions: <Widget>[
+          new FlatButton(
+            child: new Text("Yes"),
+            onPressed: () async {
+              // Navigator.of(context).pop();
+              username = '';
+              password = '';
+              loggedin = false;
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+
+              prefs.setString('username', username);
+              prefs.setString('password', password);
+
+              // Navigator.popUntil(context, ModalRoute.withName());
+
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (BuildContext context) => Home()),
+                  (Route<dynamic> route) => true);
+            },
+          ),
+          new FlatButton(
+            child: new Text("No"),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
     },
   );
 }
+
+// logOut(BuildContext context) {
+//   Widget cancelButton = FlatButton(
+//     child: Text("Yes"),
+//     onPressed: () async {
+//       username = '';
+//       password = '';
+//       loggedin = false;
+//       SharedPreferences prefs = await SharedPreferences.getInstance();
+
+//       prefs.setString('username', username);
+//       prefs.setString('password', password);
+//       Navigator.of(context).pushReplacementNamed('/');
+//     },
+//   );
+//   Widget continueButton = FlatButton(
+//     textColor: Colors.grey,
+//     child: Text("No"),
+//     onPressed: () {
+//       Navigator.pop(context);
+//     },
+//   );
+//   // set up the AlertDialog
+
+//   AlertDialog alert = AlertDialog(
+//     shape: SuperellipseShape(
+//       borderRadius: BorderRadius.all(
+//         Radius.circular(20),
+//       ),
+//     ),
+//     title: Image.asset(
+//       'images/logo.png',
+//       height: 50,
+//     ),
+//     content: Padding(
+//       padding: const EdgeInsets.all(10.0),
+//       child: Text("Are you sure you want to logout ?"),
+//     ),
+//     actions: [
+//       cancelButton,
+//       continueButton,
+//     ],
+//   );
+//   showDialog(
+//     barrierDismissible: false,
+//     context: context,
+//     builder: (BuildContext context) {
+//       return alert;
+//     },
+//   );
+// }
 
 void showLoading(isLoading, context) {
   if (isLoading) {
@@ -192,6 +239,7 @@ void showError(String msg, IconData icon, context, action) {
               new FlatButton(
                 onPressed: () {
                   Navigator.pop(context);
+
                   action();
                 },
                 child: new Text('Try again'),

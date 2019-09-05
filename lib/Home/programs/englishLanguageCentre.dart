@@ -97,10 +97,13 @@ class _EnglishLanguageCentreState extends State<EnglishLanguageCentre> {
                                               ),
                                             );
                                           },
-                                          child: Icon(
-                                            FontAwesomeIcons.arrowRight,
-                                            size: 20,
-                                            color: Colors.green,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(10.0),
+                                            child: Icon(
+                                              FontAwesomeIcons.arrowRight,
+                                              size: 20,
+                                              color: Colors.green,
+                                            ),
                                           ),
                                         ),
                                         SizedBox(

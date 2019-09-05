@@ -1,16 +1,15 @@
 import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/bottomAppBar.dart';
 import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
-import 'package:http/http.dart' as http;
-import 'package:skyline_university/Home/home.dart';
-import 'package:superellipse_shape/superellipse_shape.dart';
 
 void main() => runApp(CourseWithdrawal());
 
@@ -66,143 +65,146 @@ class _CourseWithdrawalState extends State<CourseWithdrawal> {
       ),
       appBar: appBarLogin(context, 'Course Withdrawal'),
       body: Container(
-        color: Colors.grey[300],
-        child: ListView(
-          children: <Widget>[
-            ExpansionTile(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text(policyDetailsJson.isEmpty
-                      ? ''
-                      : policyDetailsJson['data']['description']),
-                ),
-              ],
-              title: Text('Policy Details'),
-            ),
-            GestureDetector(
-              onTap: () {
-                FocusScope.of(context).requestFocus(new FocusNode());
-              },
-              child: Column(
+        color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ListView(
+            children: <Widget>[
+              ExpansionTile(
                 children: <Widget>[
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Text(
-                        'Course Code',
-                        style: TextStyle(color: Colors.grey[600]),
-                      ),
-                    ),
-                  ),
-                  Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: DropdownButton<String>(
-                          isDense: true,
-                          hint: Text(
-                            'Select Option',
-                            style: TextStyle(color: Colors.black),
-                          ),
-                          isExpanded: true,
-                          value: id,
-                          items: courseWithdrawalCoursesJson
-                                  ?.map(
-                                    (item) => DropdownMenuItem<String>(
-                                      value: item['CDD_ID'].toString(),
-                                      child: Text(item['Cdd_COde']),
-                                    ),
-                                  )
-                                  ?.toList() ??
-                              [],
-                          onChanged: (value) {
-                            setState(() {
-                              id = value;
-                              print(id);
-                              getCourseName();
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
                   Padding(
                     padding: const EdgeInsets.all(5.0),
-                    child: Container(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Course Title',
-                          style: TextStyle(color: Colors.grey[600]),
-                        )),
+                    child: Text(policyDetailsJson.isEmpty
+                        ? ''
+                        : policyDetailsJson['data']['description']),
                   ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 5.0, right: 5),
-                    child: Container(
-                      height: 50,
-                      decoration: new BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Color(0xFF104C90),
-                            Color(0xFF3773AC),
-                          ],
-                          stops: [
-                            0.7,
-                            0.9,
-                          ],
-                        ),
-                      ),
+                ],
+                title: Text('Policy Details'),
+              ),
+              GestureDetector(
+                onTap: () {
+                  FocusScope.of(context).requestFocus(new FocusNode());
+                },
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
                       alignment: Alignment.centerLeft,
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
-                        child: Center(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Text(
+                          'Course Code',
+                          style: TextStyle(color: Colors.grey[600]),
+                        ),
+                      ),
+                    ),
+                    Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: DropdownButton<String>(
+                            isDense: true,
+                            hint: Text(
+                              'Select Option',
+                              style: TextStyle(color: Colors.black),
+                            ),
+                            isExpanded: true,
+                            value: id,
+                            items: courseWithdrawalCoursesJson
+                                    ?.map(
+                                      (item) => DropdownMenuItem<String>(
+                                        value: item['CDD_ID'].toString(),
+                                        child: Text(item['Cdd_COde']),
+                                      ),
+                                    )
+                                    ?.toList() ??
+                                [],
+                            onChanged: (value) {
+                              setState(() {
+                                id = value;
+                                print(id);
+                                getCourseName();
+                              });
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Container(
+                          alignment: Alignment.centerLeft,
                           child: Text(
-                            courseNameJson.isEmpty
-                                ? ''
-                                : courseNameJson['data']['CourseName'],
-                            style: TextStyle(color: Colors.white),
+                            'Course Title',
+                            style: TextStyle(color: Colors.grey[600]),
+                          )),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 5.0, right: 5),
+                      child: Container(
+                        height: 50,
+                        decoration: new BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Color(0xFF104C90),
+                              Color(0xFF3773AC),
+                            ],
+                            stops: [
+                              0.7,
+                              0.9,
+                            ],
+                          ),
+                        ),
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: Center(
+                            child: Text(
+                              courseNameJson.isEmpty
+                                  ? ''
+                                  : courseNameJson['data']['CourseName'],
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Form(
-                          key: _remarkCourse,
-                          child: globalForms(context, '', (String value) {
-                            if (value.trim().isEmpty) {
-                              return 'Your reason is required';
-                            }
-                            return null;
-                          }, (x) {
-                            setState(() {
-                              remarkCourse = x;
-                            });
-                          }, 'Reason', true, TextInputType.text, FontAwesomeIcons.question,
-                              Colors.blue)),
-                    ],
-                  ),
-                ],
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Form(
+                            key: _remarkCourse,
+                            child: globalForms(context, '', (String value) {
+                              if (value.trim().isEmpty) {
+                                return 'Your reason is required';
+                              }
+                              return null;
+                            }, (x) {
+                              setState(() {
+                                remarkCourse = x;
+                              });
+                            }, 'Reason', true, TextInputType.text,
+                                FontAwesomeIcons.question, Colors.blue)),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

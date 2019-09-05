@@ -94,19 +94,19 @@ class _GalleryState extends State<Gallery> {
                                 Align(
                                   alignment: Alignment.bottomCenter,
                                   child: Container(
-                                    color: Colors.white54,
+                                    color: Colors.black.withOpacity(0.7),
                                     height: 45,
                                     width: 400,
                                     child: Column(
                                       children: <Widget>[
                                         SizedBox(
-                                          height: 3,
+                                          height: 5,
                                         ),
                                         Flexible(
                                           child: Text(
                                             galleries[index]['Event_Name'],
                                             style:
-                                                TextStyle(color: Colors.black),
+                                                TextStyle(color: Colors.white),
                                           ),
                                         ),
                                         SizedBox(
@@ -114,7 +114,7 @@ class _GalleryState extends State<Gallery> {
                                         ),
                                         Text(
                                           galleries[index]['Image_Number'],
-                                          style: TextStyle(color: Colors.black),
+                                          style: TextStyle(color: Colors.white54),
                                         ),
                                       ],
                                     ),
