@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skyline_university/Home/home.dart';
 import 'package:skyline_university/Login/home.dart';
+import 'package:skyline_university/Login/loginpage.dart';
 import 'package:superellipse_shape/superellipse_shape.dart';
 
 import 'package:url_launcher/url_launcher.dart';
@@ -51,9 +52,7 @@ List finalxJson = [];
 phoneCall() async {
   if (await canLaunch("tel:+97165441155")) {
     await launch("tel:+97165441155");
-  } else {
-
-  }
+  } else {}
 }
 
 void logOut(context) {
@@ -74,7 +73,6 @@ void logOut(context) {
           new FlatButton(
             child: new Text("Yes"),
             onPressed: () async {
-              // Navigator.of(context).pop();
               username = '';
               password = '';
               loggedin = false;
@@ -82,13 +80,10 @@ void logOut(context) {
 
               prefs.setString('username', username);
               prefs.setString('password', password);
-
-              // Navigator.popUntil(context, ModalRoute.withName());
-
               Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(builder: (BuildContext context) => Home()),
-                  (Route<dynamic> route) => true);
+                  (Route<dynamic> route) => false);
             },
           ),
           new FlatButton(
