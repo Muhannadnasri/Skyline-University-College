@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:skyline_university/Home/home.dart';
-import 'package:skyline_university/Login/home.dart';
-import 'package:skyline_university/Login/loginpage.dart';
 import 'package:superellipse_shape/superellipse_shape.dart';
-
 import 'package:url_launcher/url_launcher.dart';
 
 String program = studentJson['data']['program'];
@@ -79,11 +75,16 @@ void logOut(context) {
               SharedPreferences prefs = await SharedPreferences.getInstance();
 
               prefs.setString('username', username);
+
               prefs.setString('password', password);
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (BuildContext context) => Home()),
-                  (Route<dynamic> route) => false);
+
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                  '/LoginApp', (Route<dynamic> route) => false);
+
+              // Navigator.pushAndRemoveUntil(
+              //     context,
+              //     MaterialPageRoute(builder: (BuildContext context) => Home()),
+              //     (Route<dynamic> route) => false);
             },
           ),
           new FlatButton(

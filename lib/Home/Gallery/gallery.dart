@@ -44,7 +44,7 @@ class _GalleryState extends State<Gallery> {
       resizeToAvoidBottomPadding: false,
       appBar: appBar(context, 'Gallery'),
       body: Container(
-        color: Colors.grey[300],
+        color: Colors.white,
         child: ListView.builder(
             itemCount: galleries.length,
             itemBuilder: (BuildContext context, int index) {
@@ -91,33 +91,29 @@ class _GalleryState extends State<Gallery> {
                                   width: 400,
                                   height: 130,
                                 ),
-                                Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: Container(
-                                    color: Colors.black.withOpacity(0.7),
-                                    height: 45,
-                                    width: 400,
-                                    child: Column(
-                                      children: <Widget>[
-                                        SizedBox(
-                                          height: 5,
+                                Container(
+                                  color: Colors.black.withOpacity(0.6),
+                                  height: 70,
+                                  width: 400,
+                                  child: Column(
+                                    children: <Widget>[
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Flexible(
+                                        child: Text(
+                                          galleries[index]['Event_Name'],
+                                          style: TextStyle(color: Colors.white),
                                         ),
-                                        Flexible(
-                                          child: Text(
-                                            galleries[index]['Event_Name'],
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 3,
-                                        ),
-                                        Text(
-                                          galleries[index]['Image_Number'],
-                                          style: TextStyle(color: Colors.white54),
-                                        ),
-                                      ],
-                                    ),
+                                      ),
+                                      SizedBox(
+                                        height: 2,
+                                      ),
+                                      Text(
+                                        galleries[index]['Image_Number'],
+                                        style: TextStyle(color: Colors.white54),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ],
@@ -126,8 +122,7 @@ class _GalleryState extends State<Gallery> {
                         ),
                       ),
               );
-            }
-            ),
+            }),
       ),
     );
   }

@@ -1,6 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:dotted_border/dotted_border.dart';
+import 'package:esys_flutter_share/esys_flutter_share.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -9,6 +13,7 @@ import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/pdfView.dart';
+import 'package:superellipse_shape/superellipse_shape.dart';
 
 void main() => runApp(CDPDownload());
 
@@ -21,14 +26,21 @@ class CDPDownload extends StatefulWidget {
 
 // Map<String, int> body;
 
-class _CDPDownloadState extends State<CDPDownload> {
+class _CDPDownloadState extends State<CDPDownload>
+    with TickerProviderStateMixin {
   List cdpCourseJson = [];
   Map cdpCourseMessageJson = {};
+  AnimationController _controller;
+
   @override
   void initState() {
     getCDPCourse();
     super.initState();
     cdpCourseJson = [];
+    _controller = new AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
   }
 
   @override
@@ -109,15 +121,17 @@ class _CDPDownloadState extends State<CDPDownload> {
                                 children: <Widget>[
                                   GestureDetector(
                                       onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => PdfView(
-                                              url:
-                                                  'https://www.skylineportal.com/Report/Pages/SkylineCPD-Display.aspx?path1=${cdpCourseJson[index]['Faculty_id']}&batch=${cdpCourseJson[index]['BatchCode']}&studid=$username&reqid=2&cdp=0',
-                                            ),
-                                          ),
-                                        );
+                                        shareCDP(
+                                            'https://www.skylineportal.com/Report/Pages/SkylineCPD-Display.aspx?path1=${cdpCourseJson[index]['Faculty_id']}&batch=${cdpCourseJson[index]['BatchCode']}&studid=$username&reqid=2&cdp=0');
+
+                                        // Navigator.push(
+                                        //   context,
+                                        //   MaterialPageRoute(
+                                        //     builder: (context) => PdfView(
+                                        //       url: '',
+                                        //     ),
+                                        //   ),
+                                        // );
                                       },
                                       child: Container(
                                           child: Text(
@@ -139,6 +153,49 @@ class _CDPDownloadState extends State<CDPDownload> {
               ),
             ),
     );
+  }
+
+  void _showLoading(isLoading) {
+    if (isLoading) {
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return WillPopScope(
+              onWillPop: () {},
+              child: new AlertDialog(
+                title: Image.asset(
+                  'images/logo.png',
+                  height: 50,
+                ),
+                shape: SuperellipseShape(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(20),
+                  ),
+                ),
+                content: Padding(
+                  padding: const EdgeInsets.only(left: 50.0),
+                  child: Row(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(right: 25.0),
+                        child: new CircularProgressIndicator(
+                          strokeWidth: 2,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 12),
+                        child: new Text('Please Wait....'),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          });
+    } else {
+      Navigator.pop(context);
+    }
   }
 
   Future getCDPCourse() async {
@@ -194,5 +251,19 @@ class _CDPDownloadState extends State<CDPDownload> {
             getCDPCourse);
       }
     }
+  }
+
+  Future<void> shareCDP(link) async {
+    _showLoading(true);
+    try {
+      var request = await HttpClient().getUrl(Uri.parse(link));
+      var response = await request.close();
+      Uint8List bytes = await consolidateHttpClientResponseBytes(response);
+      await Share.file(
+          'Share Document', 'Document.pdf', bytes, 'application/pdf');
+      Future.delayed(const Duration(seconds: 1), () {
+        _showLoading(false);
+      });
+    } catch (e) {}
   }
 }

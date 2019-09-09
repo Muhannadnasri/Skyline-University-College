@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
@@ -78,22 +79,34 @@ class _NewsState extends State<News> {
                             strokeWidth: 1,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
-                                Container(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Hero(
-                                      tag: news[index]['image_big'],
-                                      child: Center(
-                                        child: FadeInImage.memoryNetwork(
-                                          fit: BoxFit.contain,
-                                          placeholder: kTransparentImage,
-                                          image: news[index]['image_big'],
-                                          height: 80,
-                                          width: 100,
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Container(
+                                    width: 100,
+                                    height: 80,
+                                    child: Stack(
+                                      children: <Widget>[
+                                        Center(
+                                          child: SpinKitRing(
+                                            size: 35,
+                                            lineWidth: 2,
+                                            color: Colors.blue,
+                                          ),
                                         ),
-                                      ),
+                                        Hero(
+                                          tag: news[index]['image_big'],
+                                          child: Center(
+                                            child: FadeInImage.memoryNetwork(
+                                              image: news[index]['image_big'],
+                                              fit: BoxFit.contain,
+                                              placeholder: kTransparentImage,
+                                              height: 80,
+                                              width: 100,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ), //TODO: Image news
@@ -198,7 +211,6 @@ class _NewsState extends State<News> {
         setState(() {
           news = newsJson["news"];
         });
-
       } else {}
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {

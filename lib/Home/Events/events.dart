@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
@@ -33,7 +34,7 @@ class _EventsState extends State<Events> {
   @override
   void initState() {
     super.initState();
-    events=[];
+    events = [];
     getEvents();
   }
 
@@ -81,20 +82,52 @@ class _EventsState extends State<Events> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
                                 Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Hero(
-                                    tag: events[index]['image_big'],
-                                    child: Center(
-                                      child: FadeInImage.memoryNetwork(
-                                        fit: BoxFit.contain,
-                                        placeholder: kTransparentImage,
-                                        image: events[index]['image_big'],
-                                        height: 80,
-                                        width: 100,
-                                      ),
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Container(
+                                    width: 100,
+                                    height: 80,
+                                    child: Stack(
+                                      children: <Widget>[
+                                        Center(
+                                          child: SpinKitRing(
+                                            size: 35,
+                                            lineWidth: 2,
+                                            color: Colors.blue,
+                                          ),
+                                        ),
+                                        Hero(
+                                          tag: events[index]['image_big'],
+                                          child: Center(
+                                            child: FadeInImage.memoryNetwork(
+                                              image: events[index]['image_big'],
+                                              fit: BoxFit.contain,
+                                              placeholder: kTransparentImage,
+                                              height: 80,
+                                              width: 100,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
+                                // Padding(
+                                //   padding: const EdgeInsets.all(8.0),
+                                //   child: Hero(
+
+                                //     tag: events[index]['image_big'],
+                                //     child: Center(
+                                //       child: FadeInImage.memoryNetwork(
+                                //         fit: BoxFit.contain,
+                                //         placeholder: kTransparentImage,
+                                //         image: events[index]['image_big'],
+                                //         height: 80,
+                                //         width: 100,
+                                //       ),
+                                //     ),
+                                //   ),
+                                // ),
+
                                 Container(
                                   child: Column(
                                     crossAxisAlignment:
@@ -196,7 +229,6 @@ class _EventsState extends State<Events> {
         setState(() {
           events = eventsJson["events"];
         });
-
       } else {}
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {

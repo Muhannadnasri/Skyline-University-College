@@ -17,8 +17,7 @@ class PdfView extends StatefulWidget {
   _PdfViewState createState() => _PdfViewState();
 }
 
-class _PdfViewState extends State<PdfView>
-    with TickerProviderStateMixin {
+class _PdfViewState extends State<PdfView> with TickerProviderStateMixin {
   AnimationController _controller;
 
   bool _isLoading = true;
@@ -27,7 +26,7 @@ class _PdfViewState extends State<PdfView>
   void initState() {
     super.initState();
     _controller = new AnimationController(
-      vsync: this,
+      // vsync: this,
       duration: const Duration(milliseconds: 500),
     );
 
@@ -157,8 +156,6 @@ class _PdfViewState extends State<PdfView>
       Future.delayed(const Duration(seconds: 1), () {
         _showLoading(false);
       });
-    } catch (e) {
-
-    }
+    } catch (e) {}
   }
 }
