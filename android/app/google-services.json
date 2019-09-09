@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "441142061635",
+    "firebase_url": "https://skyline-9704e.firebaseio.com",
+    "project_id": "skyline-9704e",
+    "storage_bucket": "skyline-9704e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:441142061635:android:06505340376e92deea02f6",
+        "android_client_info": {
+          "package_name": "com.skylineuniversity.skyline"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "441142061635-0gevscjbp31sm3b4i2mcf7dh2ipm7qpi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.skylineuniversity.skyline",
+            "certificate_hash": "46adf858e5760ce45bc40a6b423496a6ddc14123"
+          }
+        },
+        {
+          "client_id": "441142061635-3lefog0qg1t2gnpb9m1fa48tf22bt235.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCy2yOWo7yLSQRDHrs2C8M4esP1Wdv70EE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "441142061635-3lefog0qg1t2gnpb9m1fa48tf22bt235.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "441142061635-0ffq5b83us4k32kuh33fcihrdsrh63db.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.skylineuniversity.skyline"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
