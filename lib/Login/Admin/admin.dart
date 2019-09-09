@@ -1,12 +1,11 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:skyline_university/Global/global.dart';
 import 'package:http/http.dart' as http;
-
-import 'package:superellipse_shape/superellipse_shape.dart';
+import 'package:skyline_university/Global/global.dart';
 
 void main() => runApp(GPA());
 
@@ -66,7 +65,6 @@ class _GPAState extends State<GPA> {
                 ),
               ],
             ),
-
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
@@ -132,7 +130,6 @@ class _GPAState extends State<GPA> {
                 ],
               ),
             ),
-            //TODO: Put all Icon Container
           ],
         ),
       ),
@@ -357,9 +354,7 @@ class _GPAState extends State<GPA> {
         });
         Navigator.pushNamed(context, "/GPASS");
       }
-
     } catch (x) {
-      
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 
@@ -402,11 +397,8 @@ class _GPAState extends State<GPA> {
           showLoading(false, context);
         });
         Navigator.pushNamed(context, "/GPASS");
-
-
       }
     } catch (x) {
-      
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 
@@ -449,11 +441,8 @@ class _GPAState extends State<GPA> {
           showLoading(false, context);
         });
         Navigator.pushNamed(context, "/GPASS");
-
-
       }
     } catch (x) {
-      
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 
@@ -496,11 +485,8 @@ class _GPAState extends State<GPA> {
           showLoading(false, context);
         });
         Navigator.pushNamed(context, "/GPASS");
-
-
       }
     } catch (x) {
-      
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 
@@ -546,7 +532,6 @@ class _GPAState extends State<GPA> {
         Navigator.pushNamed(context, "/GPAS");
       }
     } catch (x) {
-      
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 
@@ -592,7 +577,6 @@ class _GPAState extends State<GPA> {
         Navigator.pushNamed(context, "/GPASS");
       }
     } catch (x) {
-      
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 
@@ -638,7 +622,6 @@ class _GPAState extends State<GPA> {
         Navigator.pushNamed(context, "/GPASS");
       }
     } catch (x) {
-      
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 

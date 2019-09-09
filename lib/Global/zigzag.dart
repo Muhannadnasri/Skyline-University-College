@@ -24,7 +24,7 @@ class ZigZagClipper extends CustomClipper<Path> {
 
   @override
   Path getClip(Size size) {
-    // TODO: implement getClip
+
     Path path = Path();
     if (clipType == ClipType.pointed)
       createPointedTraingle(size, path);

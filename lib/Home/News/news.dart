@@ -109,7 +109,7 @@ class _NewsState extends State<News> {
                                       ],
                                     ),
                                   ),
-                                ), //TODO: Image news
+                                ),
                                 Container(
                                   child: Column(
                                     crossAxisAlignment:
@@ -150,7 +150,6 @@ class _NewsState extends State<News> {
                                           ]),
                                         ),
                                       ),
-//                    /TODO: Date
                                       SizedBox(
                                         height: 10,
                                       ),
@@ -160,7 +159,7 @@ class _NewsState extends State<News> {
                                           news[index]['title'],
                                           textAlign: TextAlign.left,
                                         ),
-                                      ), //TODO: Title
+                                      ),
                                     ],
                                   ),
                                 ),

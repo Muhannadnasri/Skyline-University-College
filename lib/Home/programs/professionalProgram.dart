@@ -55,7 +55,6 @@ class _ProfessionalProgramState extends State<ProfessionalProgram> {
                           videoId: programITJson[index]['content'],
                           context: context,
                         ),
-                       
                       )
                     : programITJson[index]['content_type'] == 'url'
                         ? Container(
@@ -110,18 +109,6 @@ class _ProfessionalProgramState extends State<ProfessionalProgram> {
         ));
   }
 
-  void _showThankYouDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Video Ended"),
-          content: Text("Thank you for trying the plugin!"),
-        );
-      },
-    );
-  }
-
   Future getprogramIT() async {
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
@@ -150,7 +137,6 @@ class _ProfessionalProgramState extends State<ProfessionalProgram> {
         showLoading(false, context);
       }
     } catch (x) {
-      
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 

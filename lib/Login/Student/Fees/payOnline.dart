@@ -8,7 +8,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
-import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/global.dart';
 
 void main() => runApp(PayOnline());

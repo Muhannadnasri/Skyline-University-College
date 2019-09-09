@@ -68,8 +68,7 @@ class _HomeClassState extends State<HomeClass> {
                     ),
                   ],
                 )
-              : SizedBox()), //TODO: Class List
-
+              : SizedBox()),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(250.0),
         child: Stack(
@@ -198,8 +197,7 @@ class _HomeClassState extends State<HomeClass> {
                           ),
                         ),
                       ],
-                    ), //TODO: Name and years and type
-
+                    ),
                     height: 250,
                     decoration: new BoxDecoration(
                       gradient: LinearGradient(
@@ -219,7 +217,6 @@ class _HomeClassState extends State<HomeClass> {
                 ),
               ],
             ),
-
             Padding(
               padding: const EdgeInsets.only(top: 70.0, right: 10),
               child: Row(
@@ -263,10 +260,10 @@ class _HomeClassState extends State<HomeClass> {
                               ),
                             ),
                           ),
-                        ), //TODO: Image Profile
+                        ),
                 ],
               ),
-            ), //TODO: Image Profile
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[

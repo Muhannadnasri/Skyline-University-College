@@ -79,7 +79,7 @@ void logOut(context) {
               prefs.setString('password', password);
 
               Navigator.of(context).pushNamedAndRemoveUntil(
-                  '/LoginApp', (Route<dynamic> route) => false);
+                  '/', (Route<dynamic> route) => false);
 
               // Navigator.pushAndRemoveUntil(
               //     context,
@@ -98,57 +98,6 @@ void logOut(context) {
     },
   );
 }
-
-// logOut(BuildContext context) {
-//   Widget cancelButton = FlatButton(
-//     child: Text("Yes"),
-//     onPressed: () async {
-//       username = '';
-//       password = '';
-//       loggedin = false;
-//       SharedPreferences prefs = await SharedPreferences.getInstance();
-
-//       prefs.setString('username', username);
-//       prefs.setString('password', password);
-//       Navigator.of(context).pushReplacementNamed('/');
-//     },
-//   );
-//   Widget continueButton = FlatButton(
-//     textColor: Colors.grey,
-//     child: Text("No"),
-//     onPressed: () {
-//       Navigator.pop(context);
-//     },
-//   );
-//   // set up the AlertDialog
-
-//   AlertDialog alert = AlertDialog(
-//     shape: SuperellipseShape(
-//       borderRadius: BorderRadius.all(
-//         Radius.circular(20),
-//       ),
-//     ),
-//     title: Image.asset(
-//       'images/logo.png',
-//       height: 50,
-//     ),
-//     content: Padding(
-//       padding: const EdgeInsets.all(10.0),
-//       child: Text("Are you sure you want to logout ?"),
-//     ),
-//     actions: [
-//       cancelButton,
-//       continueButton,
-//     ],
-//   );
-//   showDialog(
-//     barrierDismissible: false,
-//     context: context,
-//     builder: (BuildContext context) {
-//       return alert;
-//     },
-//   );
-// }
 
 void showLoading(isLoading, context) {
   if (isLoading) {

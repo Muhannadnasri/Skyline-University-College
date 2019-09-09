@@ -239,7 +239,7 @@ class _HomeResultState extends State<HomeResult> {
                               ),
                             ),
                           ),
-                        ), //TODO: Image Profile
+                        ),
                 ],
               ),
             ),

@@ -7,7 +7,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBar.dart';
 import 'package:skyline_university/Global/global.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 void main() => runApp(GraduateProgram());
 
@@ -49,10 +48,8 @@ class _GraduateProgramState extends State<GraduateProgram> {
           itemBuilder: (BuildContext context, int index) {
             return Column(
               children: <Widget>[
-             
                 programITJson[index]['content_type'] == 'url'
                     ? Container(
-
                         child: Image.network(
                           programITJson[index]['content'],
                           fit: BoxFit.contain,
@@ -104,18 +101,6 @@ class _GraduateProgramState extends State<GraduateProgram> {
         ));
   }
 
-  void _showThankYouDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Video Ended"),
-          content: Text("Thank you for trying the plugin!"),
-        );
-      },
-    );
-  }
-
   Future getprogramIT() async {
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
@@ -144,7 +129,6 @@ class _GraduateProgramState extends State<GraduateProgram> {
         showLoading(false, context);
       }
     } catch (x) {
-      
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 

@@ -1709,8 +1709,7 @@ class _HomeERequestState extends State<HomeERequest> {
                           ),
                         ),
                       ],
-                    ), //TODO: Name and years and type
-
+                    ),
                     height: 250,
                     decoration: new BoxDecoration(
                       gradient: LinearGradient(
@@ -1730,7 +1729,6 @@ class _HomeERequestState extends State<HomeERequest> {
                 ),
               ],
             ),
-
             Padding(
               padding: const EdgeInsets.only(top: 70.0, right: 10),
               child: Row(
@@ -1774,10 +1772,10 @@ class _HomeERequestState extends State<HomeERequest> {
                               ),
                             ),
                           ),
-                        ), //TODO: Image Profile
+                        ),
                 ],
               ),
-            ), //TODO: Image Profile
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -1834,12 +1832,9 @@ class _HomeERequestState extends State<HomeERequest> {
                 ),
               ],
             ),
-
-            //TODO: Put all Icon Container
           ],
         ),
       ),
     );
   }
 }
-//TODO: SystemChrome.setEnabledSystemUIOverlays([]) For hide status Bar

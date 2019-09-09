@@ -137,14 +137,14 @@ class _AdmissionFormState extends State<AdmissionForm> {
                               children: <Widget>[
                                 Expanded(
                                   child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding: const EdgeInsets.all(5.0),
                                     child: Column(
                                       children: <Widget>[
                                         Container(
                                             alignment: Alignment.centerLeft,
                                             child: Padding(
                                               padding:
-                                                  const EdgeInsets.all(8.0),
+                                                  const EdgeInsets.all(5.0),
                                               child: Text(
                                                 'Country',
                                                 style: TextStyle(
@@ -155,7 +155,7 @@ class _AdmissionFormState extends State<AdmissionForm> {
                                           value: country,
                                           isExpanded: true,
                                           hint: Padding(
-                                            padding: const EdgeInsets.all(8.0),
+                                            padding: const EdgeInsets.all(5.0),
                                             child: Text('Select Option',
                                                 style: TextStyle(
                                                     color: Colors.black)),
@@ -171,7 +171,7 @@ class _AdmissionFormState extends State<AdmissionForm> {
                                                                 padding:
                                                                     const EdgeInsets
                                                                             .all(
-                                                                        8.0),
+                                                                        5.0),
                                                                 child: Text(item[
                                                                     'country']),
                                                               )))
@@ -216,7 +216,7 @@ class _AdmissionFormState extends State<AdmissionForm> {
                                                 value: item['id'].toString(),
                                                 child: Padding(
                                                   padding:
-                                                      const EdgeInsets.all(8.0),
+                                                      const EdgeInsets.all(5.0),
                                                   child: Text(item['program']
                                                       .toString()),
                                                 )))
@@ -236,7 +236,7 @@ class _AdmissionFormState extends State<AdmissionForm> {
                                 Container(
                                   alignment: Alignment.centerLeft,
                                   child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding: const EdgeInsets.all(5.0),
                                     child: Text(
                                       'How did you come to know?',
                                       style: TextStyle(color: Colors.grey[600]),
@@ -247,7 +247,7 @@ class _AdmissionFormState extends State<AdmissionForm> {
                                   value: know,
                                   isExpanded: true,
                                   hint: Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding: const EdgeInsets.all(5.0),
                                     child: Text(
                                       'Select Option',
                                       style: TextStyle(color: Colors.black),
@@ -274,7 +274,7 @@ class _AdmissionFormState extends State<AdmissionForm> {
                                                   child: Padding(
                                                     padding:
                                                         const EdgeInsets.all(
-                                                            8.0),
+                                                            5.0),
                                                     child: Text(item),
                                                   )))
                                           ?.toList() ??
@@ -332,11 +332,8 @@ class _AdmissionFormState extends State<AdmissionForm> {
           },
         );
         showLoading(false, context);
-
       }
     } catch (x) {
-
-
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 

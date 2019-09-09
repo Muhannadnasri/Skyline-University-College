@@ -111,22 +111,7 @@ class _EventsState extends State<Events> {
                                     ),
                                   ),
                                 ),
-                                // Padding(
-                                //   padding: const EdgeInsets.all(8.0),
-                                //   child: Hero(
 
-                                //     tag: events[index]['image_big'],
-                                //     child: Center(
-                                //       child: FadeInImage.memoryNetwork(
-                                //         fit: BoxFit.contain,
-                                //         placeholder: kTransparentImage,
-                                //         image: events[index]['image_big'],
-                                //         height: 80,
-                                //         width: 100,
-                                //       ),
-                                //     ),
-                                //   ),
-                                // ),
 
                                 Container(
                                   child: Column(
@@ -168,7 +153,7 @@ class _EventsState extends State<Events> {
                                           ]),
                                         ),
                                       ),
-//                    /TODO: Date
+
                                       SizedBox(
                                         height: 10,
                                       ),
@@ -178,7 +163,7 @@ class _EventsState extends State<Events> {
                                           events[index]['title'],
                                           textAlign: TextAlign.left,
                                         ),
-                                      ), //TODO: Title
+                                      ), 
                                     ],
                                   ),
                                 ),

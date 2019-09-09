@@ -41,8 +41,7 @@ class _HomeFeesState extends State<HomeFees> {
           ],
         ),
       ),
-      appBar:
-       PreferredSize(
+      appBar: PreferredSize(
         preferredSize: Size.fromHeight(250.0),
         child: Stack(
           children: <Widget>[
@@ -233,7 +232,7 @@ class _HomeFeesState extends State<HomeFees> {
                               ),
                             ),
                           ),
-                        ), //TODO: Image Profile
+                        ),
                 ],
               ),
             ),

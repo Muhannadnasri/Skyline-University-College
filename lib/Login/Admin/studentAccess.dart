@@ -3,8 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:skyline_university/Global/global.dart';
 
-import 'package:skyline_university/Global/global.dart';
-
 void main() => runApp(GPASS());
 
 class GPASS extends StatefulWidget {
@@ -15,7 +13,7 @@ class GPASS extends StatefulWidget {
 }
 
 // Map<String, int> body;
-final _userId = GlobalKey<FormState>();
+
 String userids = '';
 
 class _GPASSState extends State<GPASS> {
@@ -121,7 +119,7 @@ class _GPASSState extends State<GPASS> {
                   ],
                 ),
               ),
-              //TODO: Put all Icon Container
+
             ],
           ),
         ),

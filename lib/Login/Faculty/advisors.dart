@@ -7,7 +7,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/global.dart';
-import 'package:superellipse_shape/superellipse_shape.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void main() => runApp(Advisors());
@@ -272,50 +271,6 @@ class _AdvisorsState extends State<Advisors> {
             },
           ),
         ));
-  }
-
-  void _showError(String msg, IconData icon) {
-    showLoading(false, context);
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return WillPopScope(
-            onWillPop: () {},
-            child: new AlertDialog(
-              title: Image.asset(
-                'images/logo.png',
-                height: 50,
-              ),
-              shape: SuperellipseShape(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              content: Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 25.0),
-                      child: new Icon(icon),
-                    ),
-                    new Text(msg)
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                new FlatButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    getAdvisors();
-                  },
-                  child: new Text('Try again'),
-                ),
-              ],
-            ),
-          );
-        });
   }
 
   Future getAdvisors() async {

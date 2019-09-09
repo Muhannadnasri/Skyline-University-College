@@ -12,7 +12,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/global.dart';
-import 'package:skyline_university/Global/pdfView.dart';
 import 'package:superellipse_shape/superellipse_shape.dart';
 
 void main() => runApp(CDPDownload());

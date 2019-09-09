@@ -1,15 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_html/flutter_html.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBar.dart';
-import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/rowSection.dart';
-import 'package:skyline_university/Home/programs/professionalProgram.dart';
-import 'package:skyline_university/Home/programs/undergraduateProgram.dart';
 
 void main() => runApp(ProfessionalCourses());
 

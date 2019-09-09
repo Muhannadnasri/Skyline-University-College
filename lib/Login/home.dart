@@ -1,20 +1,14 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
-import 'package:path_provider/path_provider.dart';
+import 'package:intl/intl.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/zigzag.dart';
-import 'package:skyline_university/Home/home.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:intl/intl.dart';
-
-import 'loginpage.dart';
 
 void main() => runApp(HomeLogin());
 
@@ -1092,8 +1086,7 @@ class _HomeLoginState extends State<HomeLogin> {
                             ),
                           ),
                         ],
-                      ), //TODO: Name and years and type
-
+                      ),
                       height: 250,
                       decoration: new BoxDecoration(
                         gradient: LinearGradient(
@@ -1157,10 +1150,10 @@ class _HomeLoginState extends State<HomeLogin> {
                                 ),
                               ),
                             ),
-                          ), //TODO: Image Profile
+                          ), 
                   ],
                 ),
-              ), //TODO: Image Profile
+              ), 
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
@@ -1168,12 +1161,8 @@ class _HomeLoginState extends State<HomeLogin> {
                     padding: const EdgeInsets.all(15),
                     child: GestureDetector(
                       onTap: () {
-
-                        
-  
                         setState(() {
-                                                  logOut(context);
-
+                          logOut(context);
                         });
                       },
                       child: Row(
@@ -1199,7 +1188,6 @@ class _HomeLoginState extends State<HomeLogin> {
                   ),
                 ],
               ),
-
             ],
           ),
         ),

@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -12,7 +11,6 @@ import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/bottomAppBar.dart';
 import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
-import 'package:superellipse_shape/superellipse_shape.dart';
 
 void main() => runApp(LeaveHoliday());
 
@@ -62,7 +60,6 @@ class _LeaveHolidayState extends State<LeaveHoliday> {
             _addressLeave.currentState.save();
             getLeaveHoliday();
           }
-
         },
       ),
       appBar: appBarLogin(context, 'Leave During Holiday'),
@@ -199,8 +196,6 @@ class _LeaveHolidayState extends State<LeaveHoliday> {
     );
   }
 
-  
-
   Future getLeaveHoliday() async {
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
@@ -253,7 +248,7 @@ class _LeaveHolidayState extends State<LeaveHoliday> {
             fontSize: 13.0);
       }
     } catch (x) {
-    if (x.toString().contains("TimeoutException")) {
+      if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
         showError("Time out from server", FontAwesomeIcons.hourglassHalf,
             context, getLeaveHoliday);

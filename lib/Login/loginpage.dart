@@ -30,6 +30,7 @@ class _LoginAppState extends State<LoginApp> {
   void initState() {
     super.initState();
     studentJson.clear();
+    qLogin();
   }
 
   Widget horizontalLine() => Padding(
@@ -263,7 +264,6 @@ class _LoginAppState extends State<LoginApp> {
                             child: InkWell(
                               onTap: () {
                                 setState(() {
-
                                   logIn();
                                 });
                               },
@@ -291,7 +291,6 @@ class _LoginAppState extends State<LoginApp> {
   }
 
   Future logIn() async {
-    
     if (_logInForm.currentState.validate()) {
       _logInForm.currentState.save();
     } else {
@@ -358,6 +357,68 @@ class _LoginAppState extends State<LoginApp> {
         showLoading(false, context);
         showError(
             "Sorry, we can't connect", Icons.perm_scan_wifi, context, logIn);
+      }
+    }
+  }
+
+  Future qLogin() async {
+    Future.delayed(Duration.zero, () {
+      showLoading(true, context);
+    });
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    username = (prefs.getString('username') ?? '');
+    password = (prefs.getString('password') ?? '');
+
+    if (username == '') {
+      showLoading(false, context);
+      return;
+    }
+    try {
+      final response = await http.post(
+        Uri.encodeFull("https://skylineportal.com/moappad/api/web/login"),
+        headers: {
+          "API-KEY": API,
+        },
+        body: {
+          'username': username,
+          'password': password,
+          'usertype': '1',
+          'ipaddress': '1',
+          'deviceid': '1',
+          'devicetype': '1',
+          'devicetoken': '1',
+          'devicename': '1'
+        },
+      );
+      if (response.statusCode == 200) {
+        setState(() {
+          studentJson = json.decode(response.body);
+        });
+
+        if (studentJson["success"] == "1") {
+          loggedin = true;
+          showLoading(false, context);
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (BuildContext context) => HomeLogin()),
+              (Route<dynamic> route) => false);
+        } else if (studentJson["success"] == "0") {
+          username = '';
+          password = '';
+          loggedin = false;
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs.setString('username', username);
+          prefs.setString('password', password);
+          showLoading(false, context);
+        }
+      }
+    } catch (x) {
+      if (x.toString().contains("TimeoutException")) {
+        showLoading(false, context);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, qLogin);
       }
     }
   }
