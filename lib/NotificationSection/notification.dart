@@ -72,38 +72,34 @@ class _NotificationsState extends State<Notifications> {
                                 child: Padding(
                                   padding: const EdgeInsets.only(left: 10.0),
                                   child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
                                       Text(
                                         notificationsJson[index]['title'],
                                         style: TextStyle(color: Colors.white),
                                       ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          notificationsJson[index]
+                                                  ['published_datetime']
+                                              .toString(),
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      )
                                     ],
                                   ),
                                 ),
                               ),
                             ),
                             SizedBox(
-                              height: 10,
+                              height: 15,
                             ),
-                            Column(
-                              children: <Widget>[
-                                Text(notificationsJson[index]['description']),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    children: <Widget>[
-                                      Icon(Icons.timer),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text(notificationsJson[index]
-                                              ['published_datetime']
-                                          .toString()),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            )
+                            Text(notificationsJson[index]['description']),
+                            SizedBox(
+                              height: 15,
+                            ),
                           ],
                         ),
                       ),

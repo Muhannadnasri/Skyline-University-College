@@ -32,9 +32,13 @@ class _LocationState extends State<Location> {
   }
 
   final Set<Marker> _markers = Set();
-  final double _zoom = 10;
+  final double _zoom = 15;
   CameraPosition _initialPosition =
-      CameraPosition(target: LatLng(25.3174292, 55.3705209));
+      CameraPosition(target: LatLng(25.2912193,55.4672391));
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -44,10 +48,12 @@ class _LocationState extends State<Location> {
         children: <Widget>[
           Expanded(
             child: GoogleMap(
+// minMaxZoomPreference: MinMaxZoomPreference(50, 70),
               markers: _markers,
               mapType: _defaultMapType,
               myLocationButtonEnabled: false,
               onMapCreated: _onMapCreated,
+
               initialCameraPosition: _initialPosition,
             ),
           ),

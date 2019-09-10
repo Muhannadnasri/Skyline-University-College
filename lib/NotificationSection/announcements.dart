@@ -35,7 +35,8 @@ class _AnnouncementsState extends State<Announcements> {
     return Scaffold(
         appBar: appBarLogin(context, 'Announcements'),
         body: announcementsJson == null
-            ? exception(context, FontAwesomeIcons.exclamationTriangle, announcementsMessageJson['message'])
+            ? exception(context, FontAwesomeIcons.exclamationTriangle,
+                announcementsMessageJson['message'])
             : Container(
                 color: Colors.white,
                 child: ListView.builder(
@@ -68,37 +69,32 @@ class _AnnouncementsState extends State<Announcements> {
                                 child: Padding(
                                   padding: const EdgeInsets.only(left: 10.0),
                                   child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
                                       Text(
                                         announcementsJson[index]['title'],
                                         style: TextStyle(color: Colors.white),
                                       ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          announcementsJson[index]['date_time'],
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      )
                                     ],
                                   ),
                                 ),
                               ),
                             ),
                             SizedBox(
-                              height: 10,
+                              height: 15,
                             ),
-                            Column(
-                              children: <Widget>[
-                                Text(announcementsJson[index]['description']),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    children: <Widget>[
-                                      Icon(Icons.timer),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text(announcementsJson[index]
-                                          ['date_time']),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            )
+                            Text(announcementsJson[index]['description']),
+                            SizedBox(
+                              height: 15,
+                            ),
                           ],
                         ),
                       ),
@@ -120,7 +116,6 @@ class _AnnouncementsState extends State<Announcements> {
           "API-KEY": API,
         },
         body: {
-          
           'usertype': 'Guset',
           'ipaddress': '1',
           'deviceid': '1',
