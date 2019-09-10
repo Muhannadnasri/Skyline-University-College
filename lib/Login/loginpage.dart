@@ -25,12 +25,11 @@ class LoginApp extends StatefulWidget {
 
 class _LoginAppState extends State<LoginApp> {
   final _logInForm = GlobalKey<FormState>();
-  Map studentMessageJson = {};
+  // Map studentMessageJson = {};
 
   void initState() {
     super.initState();
-    studentJson.clear();
-    qLogin();
+    // qLogin();
   }
 
   Widget horizontalLine() => Padding(
@@ -321,10 +320,10 @@ class _LoginAppState extends State<LoginApp> {
       if (response.statusCode == 200) {
         setState(() {
           studentJson = json.decode(response.body);
-          studentMessageJson = json.decode(response.body);
+          // studentMessageJson = json.decode(response.body);
         });
 
-        if (studentMessageJson['success'] == '1') {
+        if (studentJson['success'] == "1") {
           SharedPreferences prefs = await SharedPreferences.getInstance();
 
           prefs.setString('username', username);
@@ -336,7 +335,7 @@ class _LoginAppState extends State<LoginApp> {
               context,
               MaterialPageRoute(builder: (BuildContext context) => HomeLogin()),
               (Route<dynamic> route) => false);
-        } else if (studentMessageJson['success'] == '0') {
+        } else if (studentJson['success'] == "0") {
           username = '';
           password = '';
           loggedin = false;
@@ -344,11 +343,13 @@ class _LoginAppState extends State<LoginApp> {
           prefs.setString('username', username);
           prefs.setString('password', password);
 
-          showErrorInput(studentMessageJson['message']);
+          showErrorInput(studentJson['message']);
           Navigator.pop(context);
+          studentJson = {};
         }
       }
     } catch (x) {
+      print(studentJson.toString());
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
         showError("Time out from server", FontAwesomeIcons.hourglassHalf,
@@ -361,65 +362,67 @@ class _LoginAppState extends State<LoginApp> {
     }
   }
 
-  Future qLogin() async {
-    Future.delayed(Duration.zero, () {
-      showLoading(true, context);
-    });
+  // Future qLogin() async {
+  //   Future.delayed(Duration.zero, () {
+  //     showLoading(true, context);
+  //   });
 
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    username = (prefs.getString('username') ?? '');
-    password = (prefs.getString('password') ?? '');
+  //   username = (prefs.getString('username') ?? '');
+  //   password = (prefs.getString('password') ?? '');
 
-    if (username == '') {
-      showLoading(false, context);
-      return;
-    }
-    try {
-      final response = await http.post(
-        Uri.encodeFull("https://skylineportal.com/moappad/api/web/login"),
-        headers: {
-          "API-KEY": API,
-        },
-        body: {
-          'username': username,
-          'password': password,
-          'usertype': '1',
-          'ipaddress': '1',
-          'deviceid': '1',
-          'devicetype': '1',
-          'devicetoken': '1',
-          'devicename': '1'
-        },
-      );
-      if (response.statusCode == 200) {
-        setState(() {
-          studentJson = json.decode(response.body);
-        });
+  //   if (username == '') {
+  //     setState(() {
+  //       showLoading(false, context);
+  //     });
+  //     return;
+  //   } else {}
+  //   try {
+  //     final response = await http.post(
+  //       Uri.encodeFull("https://skylineportal.com/moappad/api/web/login"),
+  //       headers: {
+  //         "API-KEY": API,
+  //       },
+  //       body: {
+  //         'username': username,
+  //         'password': password,
+  //         'usertype': '1',
+  //         'ipaddress': '1',
+  //         'deviceid': '1',
+  //         'devicetype': '1',
+  //         'devicetoken': '1',
+  //         'devicename': '1'
+  //       },
+  //     );
+  //     if (response.statusCode == 200) {
+  //       setState(() {
+  //         studentJson = json.decode(response.body);
+  //       });
 
-        if (studentJson["success"] == "1") {
-          loggedin = true;
-          showLoading(false, context);
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (BuildContext context) => HomeLogin()),
-              (Route<dynamic> route) => false);
-        } else if (studentJson["success"] == "0") {
-          username = '';
-          password = '';
-          loggedin = false;
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          prefs.setString('username', username);
-          prefs.setString('password', password);
-          showLoading(false, context);
-        }
-      }
-    } catch (x) {
-      if (x.toString().contains("TimeoutException")) {
-        showLoading(false, context);
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-            context, qLogin);
-      }
-    }
-  }
+  //       if (studentJson["success"] == "1") {
+  //         loggedin = true;
+  //         showLoading(false, context);
+  //         Navigator.pushAndRemoveUntil(
+  //             context,
+  //             MaterialPageRoute(builder: (BuildContext context) => HomeLogin()),
+  //             (Route<dynamic> route) => false);
+  //       } else if (studentJson["success"] == "0") {
+  //         username = '';
+  //         password = '';
+  //         loggedin = false;
+  //         SharedPreferences prefs = await SharedPreferences.getInstance();
+  //         prefs.setString('username', username);
+  //         prefs.setString('password', password);
+  //         showLoading(false, context);
+  //       }
+  //     }
+  //   } catch (x) {
+  //     if (x.toString().contains("TimeoutException")) {
+  //       showLoading(false, context);
+  //       showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+  //           context, qLogin);
+  //     }
+  //   }
+  // }
 }

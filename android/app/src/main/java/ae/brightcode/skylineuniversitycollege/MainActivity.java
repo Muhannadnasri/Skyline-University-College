@@ -1,4 +1,4 @@
-package ae.brightcode.skylineuniversitycollege;
+package com.skylineuniversity.skylinecollege;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

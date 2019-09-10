@@ -1106,7 +1106,6 @@ class _HomeLoginState extends State<HomeLogin> {
                   ),
                 ],
               ),
-
               Padding(
                 padding: const EdgeInsets.only(top: 70.0, right: 10),
                 child: Row(
@@ -1150,13 +1149,22 @@ class _HomeLoginState extends State<HomeLogin> {
                                 ),
                               ),
                             ),
-                          ), 
+                          ),
                   ],
                 ),
-              ), 
+              ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
+                  GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, "/notifications");
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Icon(Icons.notifications_active,
+                            color: Colors.white),
+                      )),
                   Padding(
                     padding: const EdgeInsets.all(15),
                     child: GestureDetector(

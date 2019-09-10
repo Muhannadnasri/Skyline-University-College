@@ -10,7 +10,7 @@
     <application
     
         android:name="io.flutter.app.FlutterApplication"
-        android:label="skylineuniversity"
+        android:label="Skyline"
         android:icon="@mipmap/launcher_icon">
         
         <activity
@@ -33,6 +33,6 @@
             </intent-filter>
         </activity>
          <meta-data android:name="com.google.android.geo.API_KEY"
-                android:value="AIzaSyCwI9iThhHEB59SKgcWIXqUIMtcmyOK-cI"/>
+                android:value="AIzaSyCzmuEa0s-FA-CuAvoBmzfKcYjCFwrAI2Q"/>
     </application>
 </manifest>

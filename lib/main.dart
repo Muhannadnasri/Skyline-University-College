@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:skyline_university/Home/Chat/chat.dart';
@@ -96,7 +95,8 @@ import 'Login/Student/Results/resultHome.dart';
 import 'Login/Student/Results/studentGPAProfile.dart';
 import 'Login/home.dart';
 import 'Login/loginpage.dart';
-
+import 'NotificationSection/announcements.dart';
+import 'NotificationSection/notification.dart';
 
 void main() async {
   SystemChrome.setEnabledSystemUIOverlays([]);
@@ -109,7 +109,6 @@ void main() async {
 class MyApp extends StatefulWidget {
   @override
   MyAppState createState() {
-    
     return new MyAppState();
   }
 }
@@ -226,6 +225,8 @@ class MyAppState extends State<MyApp> {
         '/courseAllocationEvening': (context) => CourseAllocationEvening(),
         '/courseAllocationWeekend': (context) => CourseAllocationWeekend(),
         '/apptutudeForm': (context) => ApptutudeForm(),
+        '/announcements': (context) => Announcements(),
+        '/notifications': (context) => Notifications(),
       },
     );
   }

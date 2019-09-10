@@ -1,18 +1,8 @@
-import 'dart:convert';
-
-// import 'package:cloud_firestore/cloud_firestore.dart';
-
-// import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:skyline_university/Global/global.dart';
-
-import 'package:skyline_university/Login/home.dart';
 
 void main() => runApp(Home());
 
@@ -33,7 +23,6 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    // qLogin();
     getLogs();
     super.initState();
 
@@ -83,6 +72,16 @@ class _HomeState extends State<Home> {
             0.9,
           ],
         ),
+        actions: <Widget>[
+          GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, "/announcements");
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Icon(Icons.notifications_active),
+              )),
+        ],
       ),
 
       // PreferredSize(
@@ -714,67 +713,5 @@ class _HomeState extends State<Home> {
         },
       );
     } catch (x) {}
-  }
-
-  Future qLogin() async {
-    Future.delayed(Duration.zero, () {
-      showLoading(true, context);
-    });
-
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    username = (prefs.getString('username') ?? '');
-    password = (prefs.getString('password') ?? '');
-
-    if (username == '') {
-      showLoading(false, context);
-      return;
-    }
-    try {
-      final response = await http.post(
-        Uri.encodeFull("https://skylineportal.com/moappad/api/web/login"),
-        headers: {
-          "API-KEY": API,
-        },
-        body: {
-          'username': username,
-          'password': password,
-          'usertype': '1',
-          'ipaddress': '1',
-          'deviceid': '1',
-          'devicetype': '1',
-          'devicetoken': '1',
-          'devicename': '1'
-        },
-      );
-      if (response.statusCode == 200) {
-        setState(() {
-          studentJson = json.decode(response.body);
-        });
-
-        if (studentJson["success"] == "1") {
-          loggedin = true;
-          showLoading(false, context);
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (BuildContext context) => HomeLogin()),
-              (Route<dynamic> route) => false);
-        } else if (studentJson["success"] == "0") {
-          username = '';
-          password = '';
-          loggedin = false;
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          prefs.setString('username', username);
-          prefs.setString('password', password);
-          showLoading(false, context);
-        }
-      }
-    } catch (x) {
-      if (x.toString().contains("TimeoutException")) {
-        showLoading(false, context);
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-            context, qLogin);
-      }
-    }
   }
 }
