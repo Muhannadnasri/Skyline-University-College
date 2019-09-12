@@ -47,9 +47,7 @@ import 'Home/programs/scholarship.dart';
 import 'Home/programs/undergraduateBusiness.dart';
 import 'Home/programs/undergraduateIT.dart';
 import 'Home/programs/undergraduateProgram.dart';
-import 'Login/Admin/admin.dart';
-import 'Login/Admin/staffAccess.dart';
-import 'Login/Admin/studentAccess.dart';
+
 import 'Login/Circulars/circulars.dart';
 import 'Login/ContactsList/contactList.dart';
 import 'Login/E-Reques/airTicketRequest.dart';
@@ -182,9 +180,6 @@ class MyAppState extends State<MyApp> {
         '/Gallery': (context) => Gallery(),
         '/Conference': (context) => Conference(),
         '/Advisors': (context) => Advisors(),
-        '/GPA': (context) => GPA(),
-        '/GPAS': (context) => GPAS(),
-        '/GPASS': (context) => GPASS(),
         '/HomeClass': (context) => HomeClass(),
         '/UndergraduateProgram': (context) => UndergraduateProgram(),
         '/virtual': (context) => Virtual(),
