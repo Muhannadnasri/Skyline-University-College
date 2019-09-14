@@ -13,6 +13,8 @@ IOS
 		<string>comgooglemaps</string>
 	</array>
 
+<key>io.flutter.embedded_views_preview</key>
+<string>YES</string>
 
     Android 
 
