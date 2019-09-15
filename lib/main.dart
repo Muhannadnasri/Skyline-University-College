@@ -19,7 +19,6 @@ import 'Home/Info/committees.dart';
 import 'Home/Info/council.dart';
 import 'Home/Info/dean.dart';
 import 'Home/Info/faculty.dart';
-
 import 'Home/Info/founder.dart';
 import 'Home/Info/glance.dart';
 import 'Home/Info/goals.dart';
@@ -31,7 +30,6 @@ import 'Home/Info/studentEventCommittees.dart';
 import 'Home/Info/studentLife.dart';
 import 'Home/Info/studentServicesDepartment.dart';
 import 'Home/Info/virtual.dart';
-
 import 'Home/programs/ProfessionalCourses.dart';
 import 'Home/programs/centreContinuingLearning.dart';
 import 'Home/programs/englishLanguageCentre.dart';
@@ -41,13 +39,11 @@ import 'Home/programs/homeGraduate.dart';
 import 'Home/programs/homePrograms.dart';
 import 'Home/programs/homeUndergraduate.dart';
 import 'Home/programs/mastersQualifyingProgram.dart';
-
 import 'Home/programs/professionalProgram.dart';
 import 'Home/programs/scholarship.dart';
 import 'Home/programs/undergraduateBusiness.dart';
 import 'Home/programs/undergraduateIT.dart';
 import 'Home/programs/undergraduateProgram.dart';
-
 import 'Login/Circulars/circulars.dart';
 import 'Login/ContactsList/contactList.dart';
 import 'Login/E-Reques/airTicketRequest.dart';
@@ -78,6 +74,7 @@ import 'Login/Student/Assessment/assessmentMarkCourses.dart';
 import 'Login/Student/Attendance/attendance.dart';
 import 'Login/Student/Attendance/attendanceCalendar.dart';
 import 'Login/Student/CDP/cdp.dart';
+import 'Login/Student/CDP/cdpFaculty.dart';
 import 'Login/Student/Classes/ClassHome.dart';
 import 'Login/Student/Classes/classDetails.dart';
 import 'Login/Student/Classes/classScheduleMqpWeekday.dart';
@@ -222,6 +219,7 @@ class MyAppState extends State<MyApp> {
         '/apptutudeForm': (context) => ApptutudeForm(),
         '/announcements': (context) => Announcements(),
         '/notifications': (context) => Notifications(),
+        '/cdpFaculty': (context) => CdpFaculty(),
       },
     );
   }

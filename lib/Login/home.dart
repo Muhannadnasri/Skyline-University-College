@@ -941,6 +941,53 @@ class _HomeLoginState extends State<HomeLogin> {
                                           ),
                                         ),
                                       ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.pushNamed(
+                                              context, "/cdpFaculty");
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 8.0, top: 8),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              border: Border.all(width: 1.0),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(
+                                                      15.0) //         <--- border radius here
+                                                  ),
+                                            ),
+                                            width: 110,
+                                            height: 100,
+                                            child: Container(
+                                              width: 80,
+                                              height: 80,
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 8.0),
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    Image.asset(
+                                                      'images/contactslist.png',
+                                                      height: 50,
+                                                    ),
+                                                    SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    Text(
+                                                      'CDP',
+                                                      style: TextStyle(
+                                                          color: Colors.black),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
