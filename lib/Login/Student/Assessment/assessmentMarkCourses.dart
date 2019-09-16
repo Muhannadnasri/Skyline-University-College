@@ -41,7 +41,7 @@ class _AssessmentMarkCoursesState extends State<AssessmentMarkCourses> {
             ? exception(context, FontAwesomeIcons.exclamationTriangle,
                 assessmentMarkCoursesJsonMessage['message'])
             : Container(
-                color: Colors.grey[300],
+                color: Colors.white,
                 child: ListView.builder(
                   itemCount: assessmentMarkCoursesJson.length,
                   itemBuilder: (BuildContext context, int index) {

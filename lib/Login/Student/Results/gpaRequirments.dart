@@ -43,7 +43,7 @@ class _GetGPARequirmentsState extends State<GetGPARequirments> {
                 ? exception(context, FontAwesomeIcons.exclamationTriangle,
                     gpaRequirmentsMessageJson['message'])
                 : Container(
-                    color: Colors.grey[300],
+                    color: Colors.white,
                     child: ListView.builder(
                       itemCount: gpaRequirmentsJson.length,
                       itemBuilder: (BuildContext context, int index) {

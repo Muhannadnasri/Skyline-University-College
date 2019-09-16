@@ -47,10 +47,8 @@ class _AssessmentMarksState extends State<AssessmentMarks> {
       body: assessmentMarksJson == null
           ? exception(context, FontAwesomeIcons.exclamationTriangle,
               assessmentMarksJsonMessage['message'])
-          : Container(
-              color: Colors.grey[300],
-              child: Container(
-                color: Colors.grey[300],
+          :  Container(
+                color: Colors.white,
                 child: ListView.builder(
                   itemCount: assessmentMarksJson.length,
                   itemBuilder: (BuildContext context, int index) {
@@ -145,7 +143,7 @@ class _AssessmentMarksState extends State<AssessmentMarks> {
                   },
                 ),
               ),
-            ),
+
     );
   }
 

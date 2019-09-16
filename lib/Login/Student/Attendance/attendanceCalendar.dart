@@ -96,9 +96,11 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
                                   children: <Widget>[
                                     Padding(
                                       padding: const EdgeInsets.only(left: 10),
-                                      child: Text(
-                                        studentJson['data']['name'],
-                                        style: TextStyle(color: Colors.white),
+                                      child: FittedBox(
+                                                                              child: Text(
+                                          studentJson['data']['name'],
+                                          style: TextStyle(color: Colors.white),
+                                        ),
                                       ),
                                     ),
                                     Padding(
@@ -125,11 +127,13 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
                                 height: 10,
                               ),
                               Container(
-                                child: Row(
-                                  children: <Widget>[
-                                    Text('Course Name : '),
-                                    Text(widget.className)
-                                  ],
+                                child: FittedBox(
+                                                                  child: Row(
+                                    children: <Widget>[
+                                      Text('Course Name : '),
+                                      Text(widget.className)
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],
@@ -150,8 +154,10 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
                                 _selectedEvents = events;
                               });
                             },
+                            childAspectRatio: 1.3,
                             showOnlyCurrentMonthDate: true,
-                            thisMonthDayBorderColor: Colors.transparent,
+                            
+                            thisMonthDayBorderColor: Colors.blue,
                             selectedDayButtonColor: Color(0xFF30A9B2),
                             selectedDayBorderColor: Color(0xFF30A9B2),
                             todayButtonColor: Colors.redAccent,
@@ -169,7 +175,8 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
                             showHeader: true,
                             isScrollable: true,
                             weekFormat: false,
-                            height: 380.0,
+                            
+                            height: 350.0,
                             headerTitleTouchable: false,
                             daysHaveCircularBorder: true,
                             customGridViewPhysics:
@@ -221,7 +228,7 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
             onTap: () {
               setState(() {
                 showAttendance(
-                    context, 'Date' + ' ' + events[index].date.toString());
+                    context, 'Date' + " : "+' ' + events[index].date.toString());
               });
             },
           ),

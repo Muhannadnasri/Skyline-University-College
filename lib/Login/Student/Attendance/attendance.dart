@@ -43,7 +43,7 @@ class _AttendanceState extends State<Attendance> {
             ? exception(context, FontAwesomeIcons.exclamationTriangle,
                 attendanceMessageJson['message'])
             : Container(
-                color: Colors.grey[300],
+                color: Colors.white,
                 child: ListView.builder(
                   itemCount: attendanceJson.length,
                   itemBuilder: (BuildContext context, int index) {
@@ -228,7 +228,6 @@ class _AttendanceState extends State<Attendance> {
         showLoading(false, context);
       }
     } catch (x) {
-      
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 

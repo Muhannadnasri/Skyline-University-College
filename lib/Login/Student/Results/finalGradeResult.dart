@@ -46,7 +46,7 @@ class _FinalTermResultsState extends State<FinalTermResults> {
           ? exception(context, FontAwesomeIcons.exclamationTriangle,
               finalTermResultsMessageJson['message'])
           : Container(
-              color: Colors.grey[300],
+              color: Colors.white,
               child: ListView.builder(
                 itemCount: finalTermResultsJson.length,
                 itemBuilder: (BuildContext context, int index) {

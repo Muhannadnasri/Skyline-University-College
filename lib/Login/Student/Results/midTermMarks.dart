@@ -40,7 +40,7 @@ class _MidTermMarksState extends State<MidTermMarks> {
           ? exception(context, FontAwesomeIcons.exclamationTriangle,
               midTermMarksMessageJson['message'])
           : Container(
-              color: Colors.grey[300],
+              color: Colors.white,
               child: ListView.builder(
                 itemCount: midTermMarksJson.length,
                 itemBuilder: (BuildContext context, int index) {

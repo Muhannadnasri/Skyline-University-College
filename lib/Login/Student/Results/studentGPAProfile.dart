@@ -122,13 +122,6 @@ class _StudentGPAProfileState extends State<StudentGPAProfile> {
                                       style: TextStyle(
                                         fontSize: 13,
                                         letterSpacing: 0.5,
-                                        shadows: <Shadow>[
-                                          Shadow(
-                                            offset: Offset(0.0, 4.0),
-                                            blurRadius: 10,
-                                            color: Colors.black,
-                                          ),
-                                        ],
                                       ),
                                     ),
                                   ],
@@ -157,13 +150,6 @@ class _StudentGPAProfileState extends State<StudentGPAProfile> {
                                       style: TextStyle(
                                         fontSize: 13,
                                         letterSpacing: 0.5,
-                                        shadows: <Shadow>[
-                                          Shadow(
-                                            offset: Offset(0.0, 4.0),
-                                            blurRadius: 10,
-                                            color: Colors.black,
-                                          ),
-                                        ],
                                       ),
                                     ),
                                   ],
@@ -192,13 +178,6 @@ class _StudentGPAProfileState extends State<StudentGPAProfile> {
                                       style: TextStyle(
                                         fontSize: 13,
                                         letterSpacing: 0.5,
-                                        shadows: <Shadow>[
-                                          Shadow(
-                                            offset: Offset(0.0, 4.0),
-                                            blurRadius: 10,
-                                            color: Colors.black,
-                                          ),
-                                        ],
                                       ),
                                     ),
                                   ],
@@ -224,13 +203,6 @@ class _StudentGPAProfileState extends State<StudentGPAProfile> {
                                       style: TextStyle(
                                         fontSize: 13,
                                         letterSpacing: 0.5,
-                                        shadows: <Shadow>[
-                                          Shadow(
-                                            offset: Offset(0.0, 4.0),
-                                            blurRadius: 10,
-                                            color: Colors.black,
-                                          ),
-                                        ],
                                       ),
                                     ),
                                   ],
@@ -256,13 +228,6 @@ class _StudentGPAProfileState extends State<StudentGPAProfile> {
                                       style: TextStyle(
                                         fontSize: 13,
                                         letterSpacing: 0.5,
-                                        shadows: <Shadow>[
-                                          Shadow(
-                                            offset: Offset(0.0, 4.0),
-                                            blurRadius: 10,
-                                            color: Colors.black,
-                                          ),
-                                        ],
                                       ),
                                     ),
                                   ],
@@ -291,13 +256,6 @@ class _StudentGPAProfileState extends State<StudentGPAProfile> {
                                       style: TextStyle(
                                         fontSize: 13,
                                         letterSpacing: 0.5,
-                                        shadows: <Shadow>[
-                                          Shadow(
-                                            offset: Offset(0.0, 4.0),
-                                            blurRadius: 10,
-                                            color: Colors.black,
-                                          ),
-                                        ],
                                       ),
                                     ),
                                   ],
@@ -326,13 +284,6 @@ class _StudentGPAProfileState extends State<StudentGPAProfile> {
                                       style: TextStyle(
                                         fontSize: 13,
                                         letterSpacing: 0.5,
-                                        shadows: <Shadow>[
-                                          Shadow(
-                                            offset: Offset(0.0, 4.0),
-                                            blurRadius: 10,
-                                            color: Colors.black,
-                                          ),
-                                        ],
                                       ),
                                     ),
                                   ],
