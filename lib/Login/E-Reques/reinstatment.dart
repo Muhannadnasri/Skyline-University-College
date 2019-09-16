@@ -76,7 +76,10 @@ class _ReinStatementState extends State<ReinStatement> {
         },
       ),
       appBar: appBarLogin(context, 'Reinstatement'),
-      body: Container(
+      body: 
+      
+      
+      Container(
         color: Colors.white,
         child: ListView(
           children: <Widget>[

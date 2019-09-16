@@ -19,12 +19,6 @@ class AdmissionKit extends StatefulWidget {
   }
 }
 
-String ledger = 'ledger';
-String invoices = 'invoices';
-
-String admissionkit = 'admissionkit';
-// Map<String, int> body;
-
 class _AdmissionKitState extends State<AdmissionKit> {
   Map admissionKitJson = {};
   Map invoicesJson = {};
@@ -48,6 +42,7 @@ class _AdmissionKitState extends State<AdmissionKit> {
               invoicesJson == null
           ? exception(context, FontAwesomeIcons.exclamationTriangle, '')
           : Container(
+              color: Colors.white,
               child: Row(
                 children: <Widget>[
                   Column(
@@ -59,6 +54,7 @@ class _AdmissionKitState extends State<AdmissionKit> {
                         height: 50,
                         width: MediaQuery.of(context).size.width,
                         child: Card(
+                          
                           shape: RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
@@ -84,14 +80,11 @@ class _AdmissionKitState extends State<AdmissionKit> {
                                       style: TextStyle(color: Colors.blue),
                                     ),
                                     onTap: () {
-
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) => PdfView(
-                                              url: myLedgerJson['data']
-
-                                          ),
+                                              url: myLedgerJson['data']),
                                         ),
                                       );
                                     },
@@ -212,7 +205,7 @@ class _AdmissionKitState extends State<AdmissionKit> {
         },
         body: {
           'user_id': username,
-          'type': ledger,
+          'type': 'ledger',
           'usertype': studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
@@ -251,7 +244,7 @@ class _AdmissionKitState extends State<AdmissionKit> {
         },
         body: {
           'user_id': username,
-          'type': admissionkit,
+          'type': 'admissionkit',
           'usertype': studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
@@ -290,7 +283,7 @@ class _AdmissionKitState extends State<AdmissionKit> {
         },
         body: {
           'user_id': username,
-          'type': invoices,
+          'type': 'invoices',
           'usertype': studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',

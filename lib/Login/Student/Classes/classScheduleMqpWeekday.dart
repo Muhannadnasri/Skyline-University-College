@@ -35,7 +35,7 @@ class _ClassScheduleMqpWeekDayState extends State<ClassScheduleMqpWeekDay> {
     return Scaffold(
         appBar: appBarLogin(context, 'Class Schedule MQP WeekDay"'),
         body: Container(
-          color: Colors.grey[300],
+          color: Colors.white,
           child: ListView.builder(
             itemCount: scheduleMqpWeekDayJson.length,
             itemBuilder: (BuildContext context, int index) {

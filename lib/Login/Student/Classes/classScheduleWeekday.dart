@@ -36,7 +36,7 @@ class _ClassScheduleWeekdayState extends State<ClassScheduleWeekday> {
     return Scaffold(
         appBar: appBarLogin(context, 'Class Schedule WeekDay'),
         body: Container(
-          color: Colors.grey[300],
+          color: Colors.white,
           child: ListView.builder(
             itemCount: classScheduleWeekdayJson.length,
             itemBuilder: (BuildContext context, int index) {

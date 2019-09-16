@@ -35,6 +35,7 @@ class _AdvisorsState extends State<Advisors> {
     return Scaffold(
         appBar: appBarLogin(context, 'Advisors Students'),
         body: Container(
+          color: Colors.white,
           child: ListView.builder(
             itemCount: myAdvisorsJson.length,
             itemBuilder: (BuildContext context, int index) {

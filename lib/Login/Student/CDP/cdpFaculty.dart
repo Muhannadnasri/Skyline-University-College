@@ -87,7 +87,7 @@ class _CdpFacultyState extends State<CdpFaculty> with TickerProviderStateMixin {
                                     Padding(
                                       padding: const EdgeInsets.only(left: 5),
                                       child: Text(
-                                        cdpCourseJson[index]['Name'],
+                                        cdpCourseJson[index]['cname'].toString(),
                                         style: TextStyle(color: Colors.white),
                                       ),
                                     ),
@@ -104,7 +104,7 @@ class _CdpFacultyState extends State<CdpFaculty> with TickerProviderStateMixin {
                                 children: <Widget>[
                                   Text('Batch Code : '),
                                   Text(
-                                    cdpCourseJson[index]['BatchCode'],
+                                    cdpCourseJson[index]['batchcode'].toString(),
                                   ),
                                 ],
                               ),
@@ -120,7 +120,7 @@ class _CdpFacultyState extends State<CdpFaculty> with TickerProviderStateMixin {
                                   GestureDetector(
                                       onTap: () {
                                         shareCDP(
-                                            'https://www.skylineportal.com/Report/Pages/SkylineCPD-Display.aspx?path1=${cdpCourseJson[index]['empid']}&batch=${cdpCourseJson[index]['batchcode']}&reqid=2&cdp=${cdpCourseJson[index]['CDP_ID']}');
+                                            'https://www.skylineportal.com/Report/Pages/SkylineCPD-Display.aspx?path1=${cdpCourseJson[index]['empid'].toString()}&batch=${cdpCourseJson[index]['batchcode'].toString()}&reqid=2&cdp=${cdpCourseJson[index]['CDP_ID'].toString()}');
 
                                         // Navigator.push(
                                         //   context,
@@ -133,7 +133,7 @@ class _CdpFacultyState extends State<CdpFaculty> with TickerProviderStateMixin {
                                       },
                                       child: Container(
                                           child: Text(
-                                        'View',
+                                        'Download',
                                         style: TextStyle(
                                             decoration:
                                                 TextDecoration.underline,
@@ -197,6 +197,7 @@ class _CdpFacultyState extends State<CdpFaculty> with TickerProviderStateMixin {
   }
 
   Future getCDPCourse() async {
+    print(username);
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
     });
@@ -209,7 +210,7 @@ class _CdpFacultyState extends State<CdpFaculty> with TickerProviderStateMixin {
           "API-KEY": API,
         },
         body: {
-          'faculty_id': username,
+          'faculty_id': studentJson['data']['user_id'],
           'usertype': studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',

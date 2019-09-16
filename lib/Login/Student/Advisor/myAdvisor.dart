@@ -42,7 +42,7 @@ class _MyAdvisorState extends State<MyAdvisor> {
             ? exception(context, FontAwesomeIcons.exclamationTriangle,
                 myAdvisorMessageJson['message'])
             : Container(
-                color: Colors.grey[300],
+                color: Colors.white,
                 child: ListView.builder(
                   itemCount: myAdvisorJson.length,
                   itemBuilder: (BuildContext context, int index) {
@@ -50,7 +50,8 @@ class _MyAdvisorState extends State<MyAdvisor> {
                       padding: const EdgeInsets.all(8.0),
                       child: Card(
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(5))),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
                         elevation: 10,
                         child: DottedBorder(
                           color: Colors.blue,
@@ -75,7 +76,7 @@ class _MyAdvisorState extends State<MyAdvisor> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.all(5),
+                                        padding: const EdgeInsets.all(10),
                                         child: GestureDetector(
                                             onTap: () {
                                               Navigator.push(
@@ -101,7 +102,7 @@ class _MyAdvisorState extends State<MyAdvisor> {
                                     ]),
                                 decoration: new BoxDecoration(
                                     borderRadius:
-                                        BorderRadius.all(Radius.circular(5)),
+                                        BorderRadius.all(Radius.circular(10)),
                                     gradient: LinearGradient(
                                         begin: Alignment.topLeft,
                                         end: Alignment.bottomRight,

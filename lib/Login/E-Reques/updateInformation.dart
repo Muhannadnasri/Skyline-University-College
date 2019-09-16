@@ -71,430 +71,433 @@ class _UpdateInformationState extends State<UpdateInformation> {
         },
       ),
       appBar: appBarLogin(context, 'Update Information'),
-      body: studentInfoJson.isEmpty
-          ? exception(
-              context, FontAwesomeIcons.exclamationTriangle, 'No Information')
-          : ListView(
-              children: <Widget>[
-                GestureDetector(
-                  onTap: () {
-                    FocusScope.of(context).requestFocus(new FocusNode());
-                  },
-                  child: Container(
-                    color: Colors.white,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              left: 15.0,
-                            ),
-                            child: Column(
-                              children: <Widget>[
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Text('Visa Student'),
-                                    Row(
-                                      children: <Widget>[
-                                        Text('Yes'),
-                                        Radio(
-                                          value: 1,
-                                          groupValue: visaValue,
-                                          onChanged: (int e) {
-                                            setState(() {
-                                              visaValue = e;
-                                            });
-                                          },
-                                          activeColor: Colors.blue,
-                                        ),
-                                        Text('No'),
-                                        Radio(
-                                          value: 2,
-                                          groupValue: visaValue,
-                                          onChanged: (int e) {
-                                            setState(() {
-                                              visaValue = e;
-                                            });
-                                          },
-                                          activeColor: Colors.blue,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Text('Dependent'),
-                                    Row(
-                                      children: <Widget>[
-                                        Text('Yes'),
-                                        Radio(
-                                          value: 1,
-                                          groupValue: dependentValue,
-                                          onChanged: (int e) {
-                                            setState(() {
-                                              dependentValue = e;
-                                            });
-                                          },
-                                          activeColor: Colors.blue,
-                                        ),
-                                        Text('No'),
-                                        Radio(
-                                          value: 2,
-                                          groupValue: dependentValue,
-                                          onChanged: (int e) {
-                                            setState(() {
-                                              dependentValue = e;
-                                            });
-                                          },
-                                          activeColor: Colors.blue,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Text('Staying in Hostel'),
-                                    Row(
-                                      children: <Widget>[
-                                        Text('Yes'),
-                                        Radio(
-                                          value: 1,
-                                          groupValue: hostelValue,
-                                          onChanged: (int e) {
-                                            setState(() {
-                                              hostelValue = e;
-                                            });
-                                          },
-                                          activeColor: Colors.blue,
-                                        ),
-                                        Text('No'),
-                                        Radio(
-                                          value: 2,
-                                          groupValue: hostelValue,
-                                          onChanged: (int e) {
-                                            setState(() {
-                                              hostelValue = e;
-                                            });
-                                          },
-                                          activeColor: Colors.blue,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                            width: 450,
-                            height: 30,
-                            decoration: new BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [
-                                  Color(0xFF104C90),
-                                  Color(0xFF3773AC),
-                                ],
-                                stops: [
-                                  0.7,
-                                  0.9,
+      body: Container(
+        color: Colors.white,
+        child: studentInfoJson.isEmpty
+            ? exception(
+                context, FontAwesomeIcons.exclamationTriangle, 'No Information')
+            : ListView(
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: () {
+                      FocusScope.of(context).requestFocus(new FocusNode());
+                    },
+                    child: Container(
+                      color: Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                left: 15.0,
+                              ),
+                              child: Column(
+                                children: <Widget>[
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Text('Visa Student'),
+                                      Row(
+                                        children: <Widget>[
+                                          Text('Yes'),
+                                          Radio(
+                                            value: 1,
+                                            groupValue: visaValue,
+                                            onChanged: (int e) {
+                                              setState(() {
+                                                visaValue = e;
+                                              });
+                                            },
+                                            activeColor: Colors.blue,
+                                          ),
+                                          Text('No'),
+                                          Radio(
+                                            value: 2,
+                                            groupValue: visaValue,
+                                            onChanged: (int e) {
+                                              setState(() {
+                                                visaValue = e;
+                                              });
+                                            },
+                                            activeColor: Colors.blue,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Text('Dependent'),
+                                      Row(
+                                        children: <Widget>[
+                                          Text('Yes'),
+                                          Radio(
+                                            value: 1,
+                                            groupValue: dependentValue,
+                                            onChanged: (int e) {
+                                              setState(() {
+                                                dependentValue = e;
+                                              });
+                                            },
+                                            activeColor: Colors.blue,
+                                          ),
+                                          Text('No'),
+                                          Radio(
+                                            value: 2,
+                                            groupValue: dependentValue,
+                                            onChanged: (int e) {
+                                              setState(() {
+                                                dependentValue = e;
+                                              });
+                                            },
+                                            activeColor: Colors.blue,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Text('Staying in Hostel'),
+                                      Row(
+                                        children: <Widget>[
+                                          Text('Yes'),
+                                          Radio(
+                                            value: 1,
+                                            groupValue: hostelValue,
+                                            onChanged: (int e) {
+                                              setState(() {
+                                                hostelValue = e;
+                                              });
+                                            },
+                                            activeColor: Colors.blue,
+                                          ),
+                                          Text('No'),
+                                          Radio(
+                                            value: 2,
+                                            groupValue: hostelValue,
+                                            onChanged: (int e) {
+                                              setState(() {
+                                                hostelValue = e;
+                                              });
+                                            },
+                                            activeColor: Colors.blue,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ],
                               ),
                             ),
-                            child: Center(
-                                child: Text(
-                              'Student Details',
-                              style: TextStyle(color: Colors.white),
-                            )),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Form(
-                            key: _information,
-                            child: Column(
-                              children: <Widget>[
-                                globalForms(
-                                    context, studentInfoJson['data']['Email'],
-                                    (String value) {
-                                  if (value.trim().isEmpty) {
-                                    return 'Email is required';
-                                  }
-                                  return null;
-                                }, (x) {
-                                  setState(() {
-                                    email = x;
-                                  });
-                                }, 'Email', true, TextInputType.emailAddress,
-                                    Icons.flight_takeoff, Colors.red),
-                                globalForms(context,
-                                    studentInfoJson['data']['MobileNo'],
-                                    (String value) {
-                                  if (value.trim().isEmpty) {
-                                    return 'Mobile No is required';
-                                  }
-                                  return null;
-                                }, (x) {
-                                  setState(() {
-                                    mobileNumber = x;
-                                  });
-                                }, 'MobileNo', true, TextInputType.number,
-                                    Icons.flight_takeoff, Colors.red),
-                                globalForms(context,
-                                    studentInfoJson['data']['EmiratesID'],
-                                    (String value) {
-                                  if (value.trim().isEmpty) {
-                                    return 'Emirates ID is required';
-                                  }
-                                  return null;
-                                }, (x) {
-                                  setState(() {
-                                    eid = x;
-                                  });
-                                }, 'EmiratesID', true, TextInputType.number,
-                                    Icons.flight_takeoff, Colors.red),
-                                globalForms(context,
-                                    studentInfoJson['data']['PassportNo'],
-                                    (String value) {
-                                  if (value.trim().isEmpty) {
-                                    return 'Passport is required';
-                                  }
-                                  return null;
-                                }, (x) {
-                                  setState(() {
-                                    passport = x;
-                                  });
-                                }, 'Passport', true, TextInputType.text,
-                                    Icons.flight_takeoff, Colors.red),
-                                globalForms(
-                                    context, studentInfoJson['data']['Visa'],
-                                    (String value) {
-                                  if (value.trim().isEmpty) {
-                                    return 'Visa is required';
-                                  }
-                                  return null;
-                                }, (x) {
-                                  setState(() {
-                                    visa = x;
-                                  });
-                                }, 'Visa', true, TextInputType.text,
-                                    Icons.flight_takeoff, Colors.red),
-                                Container(
-                                  width: 450,
-                                  height: 30,
-                                  decoration: new BoxDecoration(
-                                    gradient: LinearGradient(
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter,
-                                      colors: [
-                                        Color(0xFF104C90),
-                                        Color(0xFF3773AC),
-                                      ],
-                                      stops: [
-                                        0.7,
-                                        0.9,
-                                      ],
-                                    ),
-                                  ),
-                                  child: Center(
-                                      child: Text(
-                                    'Parent Details',
-                                    style: TextStyle(color: Colors.white),
-                                  )),
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                globalForms(context,
-                                    studentInfoJson['data']['ParentName'],
-                                    (String value) {
-                                  if (value.trim().isEmpty) {
-                                    return 'Parent Name is required';
-                                  }
-                                  return null;
-                                }, (x) {
-                                  setState(() {
-                                    parentName = x;
-                                  });
-                                }, 'ParentName', true, TextInputType.text,
-                                    Icons.flight_takeoff, Colors.red),
-                                globalForms(
-                                    context,
-                                    studentInfoJson['data']
-                                        ['ParentEmiratesIDNo'], (String value) {
-                                  if (value.trim().isEmpty) {
-                                    return 'Parent Emirates ID is required';
-                                  }
-                                  return null;
-                                }, (x) {
-                                  setState(() {
-                                    parentEmiratesID = x;
-                                  });
-                                },
-                                    'Parent Emirates ID',
-                                    true,
-                                    TextInputType.number,
-                                    Icons.flight_takeoff,
-                                    Colors.red),
-                                globalForms(context,
-                                    studentInfoJson['data']['Parent Mobile No'],
-                                    (String value) {
-                                  if (value.trim().isEmpty) {
-                                    return 'Parent Mobile is required';
-                                  }
-                                  return null;
-                                }, (x) {
-                                  setState(() {
-                                    parentMobileNumber = x;
-                                  });
-                                },
-                                    'Parent Mobile Number',
-                                    true,
-                                    TextInputType.number,
-                                    Icons.flight_takeoff,
-                                    Colors.red),
-                                globalForms(context,
-                                    studentInfoJson['data']['Parent Email'],
-                                    (String value) {
-                                  if (value.trim().isEmpty) {
-                                    return 'Parent Email is required';
-                                  }
-                                  return null;
-                                }, (x) {
-                                  setState(() {
-                                    parentEmail = x;
-                                  });
-                                }, 'Parent Email', true, TextInputType.number,
-                                    Icons.flight_takeoff, Colors.red),
-                                globalForms(context,
-                                    studentInfoJson['data']['ResidenceNumber'],
-                                    (String value) {
-                                  if (value.trim().isEmpty) {
-                                    return 'Residence Number is required';
-                                  }
-                                  return null;
-                                }, (x) {
-                                  setState(() {
-                                    residenceMobileNumber = x;
-                                  });
-                                },
-                                    'Residence Number',
-                                    true,
-                                    TextInputType.number,
-                                    Icons.flight_takeoff,
-                                    Colors.red),
-                                globalForms(context,
-                                    studentInfoJson['data']['ParentWorkPlace'],
-                                    (String value) {
-                                  if (value.trim().isEmpty) {
-                                    return 'Parent Work Place is required';
-                                  }
-                                  return null;
-                                }, (x) {
-                                  setState(() {
-                                    parentWork = x;
-                                  });
-                                },
-                                    'Parent Work Place',
-                                    true,
-                                    TextInputType.text,
-                                    Icons.flight_takeoff,
-                                    Colors.red),
-                                globalForms(context,
-                                    studentInfoJson['data']['Designation'],
-                                    (String value) {
-                                  if (value.trim().isEmpty) {
-                                    return 'Designation is required';
-                                  }
-                                  return null;
-                                }, (x) {
-                                  setState(() {
-                                    parentDesignation = x;
-                                  });
-                                }, 'Designation', true, TextInputType.text,
-                                    Icons.flight_takeoff, Colors.red),
-                                globalForms(context,
-                                    studentInfoJson['data']['Po BoxNumber'],
-                                    (String value) {
-                                  if (value.trim().isEmpty) {
-                                    return 'BoxNumber is required';
-                                  }
-                                  return null;
-                                }, (x) {
-                                  setState(() {
-                                    boxNumber = x;
-                                  });
-                                }, 'BoxNumber', true, TextInputType.number,
-                                    Icons.flight_takeoff, Colors.red),
-                              ],
+                            SizedBox(
+                              height: 10,
                             ),
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 15.0),
-                            child: Column(
-                              children: <Widget>[
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Text('Working Student'),
-                                    Row(
-                                      children: <Widget>[
-                                        Text('Yes'),
-                                        Radio(
-                                          value: 1,
-                                          groupValue: workingValue,
-                                          onChanged: (int e) {
-                                            setState(() {
-                                              workingValue = e;
-                                            });
-                                          },
-                                          activeColor: Colors.blue,
-                                        ),
-                                        Text('No'),
-                                        Radio(
-                                          value: 2,
-                                          groupValue: workingValue,
-                                          onChanged: (int e) {
-                                            setState(() {
-                                              workingValue = e;
-                                            });
-                                          },
-                                          activeColor: Colors.blue,
-                                        ),
-                                      ],
-                                    ),
+                            Container(
+                              width: 450,
+                              height: 30,
+                              decoration: new BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    Color(0xFF104C90),
+                                    Color(0xFF3773AC),
+                                  ],
+                                  stops: [
+                                    0.7,
+                                    0.9,
                                   ],
                                 ),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                              ],
+                              ),
+                              child: Center(
+                                  child: Text(
+                                'Student Details',
+                                style: TextStyle(color: Colors.white),
+                              )),
                             ),
-                          ),
-                        ],
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Form(
+                              key: _information,
+                              child: Column(
+                                children: <Widget>[
+                                  globalForms(
+                                      context, studentInfoJson['data']['Email'],
+                                      (String value) {
+                                    if (value.trim().isEmpty) {
+                                      return 'Email is required';
+                                    }
+                                    return null;
+                                  }, (x) {
+                                    setState(() {
+                                      email = x;
+                                    });
+                                  }, 'Email', true, TextInputType.emailAddress,
+                                      Icons.flight_takeoff, Colors.red),
+                                  globalForms(context,
+                                      studentInfoJson['data']['MobileNo'],
+                                      (String value) {
+                                    if (value.trim().isEmpty) {
+                                      return 'Mobile No is required';
+                                    }
+                                    return null;
+                                  }, (x) {
+                                    setState(() {
+                                      mobileNumber = x;
+                                    });
+                                  }, 'MobileNo', true, TextInputType.number,
+                                      Icons.flight_takeoff, Colors.red),
+                                  globalForms(context,
+                                      studentInfoJson['data']['EmiratesID'],
+                                      (String value) {
+                                    if (value.trim().isEmpty) {
+                                      return 'Emirates ID is required';
+                                    }
+                                    return null;
+                                  }, (x) {
+                                    setState(() {
+                                      eid = x;
+                                    });
+                                  }, 'EmiratesID', true, TextInputType.number,
+                                      Icons.flight_takeoff, Colors.red),
+                                  globalForms(context,
+                                      studentInfoJson['data']['PassportNo'],
+                                      (String value) {
+                                    if (value.trim().isEmpty) {
+                                      return 'Passport is required';
+                                    }
+                                    return null;
+                                  }, (x) {
+                                    setState(() {
+                                      passport = x;
+                                    });
+                                  }, 'Passport', true, TextInputType.text,
+                                      Icons.flight_takeoff, Colors.red),
+                                  globalForms(
+                                      context, studentInfoJson['data']['Visa'],
+                                      (String value) {
+                                    if (value.trim().isEmpty) {
+                                      return 'Visa is required';
+                                    }
+                                    return null;
+                                  }, (x) {
+                                    setState(() {
+                                      visa = x;
+                                    });
+                                  }, 'Visa', true, TextInputType.text,
+                                      Icons.flight_takeoff, Colors.red),
+                                  Container(
+                                    width: 450,
+                                    height: 30,
+                                    decoration: new BoxDecoration(
+                                      gradient: LinearGradient(
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                        colors: [
+                                          Color(0xFF104C90),
+                                          Color(0xFF3773AC),
+                                        ],
+                                        stops: [
+                                          0.7,
+                                          0.9,
+                                        ],
+                                      ),
+                                    ),
+                                    child: Center(
+                                        child: Text(
+                                      'Parent Details',
+                                      style: TextStyle(color: Colors.white),
+                                    )),
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  globalForms(context,
+                                      studentInfoJson['data']['ParentName'],
+                                      (String value) {
+                                    if (value.trim().isEmpty) {
+                                      return 'Parent Name is required';
+                                    }
+                                    return null;
+                                  }, (x) {
+                                    setState(() {
+                                      parentName = x;
+                                    });
+                                  }, 'ParentName', true, TextInputType.text,
+                                      Icons.flight_takeoff, Colors.red),
+                                  globalForms(
+                                      context,
+                                      studentInfoJson['data']
+                                          ['ParentEmiratesIDNo'], (String value) {
+                                    if (value.trim().isEmpty) {
+                                      return 'Parent Emirates ID is required';
+                                    }
+                                    return null;
+                                  }, (x) {
+                                    setState(() {
+                                      parentEmiratesID = x;
+                                    });
+                                  },
+                                      'Parent Emirates ID',
+                                      true,
+                                      TextInputType.number,
+                                      Icons.flight_takeoff,
+                                      Colors.red),
+                                  globalForms(context,
+                                      studentInfoJson['data']['Parent Mobile No'],
+                                      (String value) {
+                                    if (value.trim().isEmpty) {
+                                      return 'Parent Mobile is required';
+                                    }
+                                    return null;
+                                  }, (x) {
+                                    setState(() {
+                                      parentMobileNumber = x;
+                                    });
+                                  },
+                                      'Parent Mobile Number',
+                                      true,
+                                      TextInputType.number,
+                                      Icons.flight_takeoff,
+                                      Colors.red),
+                                  globalForms(context,
+                                      studentInfoJson['data']['Parent Email'],
+                                      (String value) {
+                                    if (value.trim().isEmpty) {
+                                      return 'Parent Email is required';
+                                    }
+                                    return null;
+                                  }, (x) {
+                                    setState(() {
+                                      parentEmail = x;
+                                    });
+                                  }, 'Parent Email', true, TextInputType.number,
+                                      Icons.flight_takeoff, Colors.red),
+                                  globalForms(context,
+                                      studentInfoJson['data']['ResidenceNumber'],
+                                      (String value) {
+                                    if (value.trim().isEmpty) {
+                                      return 'Residence Number is required';
+                                    }
+                                    return null;
+                                  }, (x) {
+                                    setState(() {
+                                      residenceMobileNumber = x;
+                                    });
+                                  },
+                                      'Residence Number',
+                                      true,
+                                      TextInputType.number,
+                                      Icons.flight_takeoff,
+                                      Colors.red),
+                                  globalForms(context,
+                                      studentInfoJson['data']['ParentWorkPlace'],
+                                      (String value) {
+                                    if (value.trim().isEmpty) {
+                                      return 'Parent Work Place is required';
+                                    }
+                                    return null;
+                                  }, (x) {
+                                    setState(() {
+                                      parentWork = x;
+                                    });
+                                  },
+                                      'Parent Work Place',
+                                      true,
+                                      TextInputType.text,
+                                      Icons.flight_takeoff,
+                                      Colors.red),
+                                  globalForms(context,
+                                      studentInfoJson['data']['Designation'],
+                                      (String value) {
+                                    if (value.trim().isEmpty) {
+                                      return 'Designation is required';
+                                    }
+                                    return null;
+                                  }, (x) {
+                                    setState(() {
+                                      parentDesignation = x;
+                                    });
+                                  }, 'Designation', true, TextInputType.text,
+                                      Icons.flight_takeoff, Colors.red),
+                                  globalForms(context,
+                                      studentInfoJson['data']['Po BoxNumber'],
+                                      (String value) {
+                                    if (value.trim().isEmpty) {
+                                      return 'BoxNumber is required';
+                                    }
+                                    return null;
+                                  }, (x) {
+                                    setState(() {
+                                      boxNumber = x;
+                                    });
+                                  }, 'BoxNumber', true, TextInputType.number,
+                                      Icons.flight_takeoff, Colors.red),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 30,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 15.0),
+                              child: Column(
+                                children: <Widget>[
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Text('Working Student'),
+                                      Row(
+                                        children: <Widget>[
+                                          Text('Yes'),
+                                          Radio(
+                                            value: 1,
+                                            groupValue: workingValue,
+                                            onChanged: (int e) {
+                                              setState(() {
+                                                workingValue = e;
+                                              });
+                                            },
+                                            activeColor: Colors.blue,
+                                          ),
+                                          Text('No'),
+                                          Radio(
+                                            value: 2,
+                                            groupValue: workingValue,
+                                            onChanged: (int e) {
+                                              setState(() {
+                                                workingValue = e;
+                                              });
+                                            },
+                                            activeColor: Colors.blue,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
+      ),
     );
   }
 

@@ -74,300 +74,309 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
               FocusScope.of(context).requestFocus(new FocusNode());
             },
             child: Container(
-              height: MediaQuery.of(context).size.height,
               color: Colors.white,
-              child: Column(
-                children: <Widget>[
-                  SizedBox(
-                    height: 35,
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 10.0),
-                      child: Text(
-                        'Case Category',
-                        style: TextStyle(color: Colors.grey[600]),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(
+                      height: 25,
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: Text(
+                          'Case Category',
+                          style: TextStyle(color: Colors.grey[600]),
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Column(
-                    children: <Widget>[
-                      DropdownButton<String>(
-                        isExpanded: true,
-                        value: _caseType,
-                        hint: Padding(
-                          padding: const EdgeInsets.only(left: 8.0),
-                          child: Text(
-                            'Select Option',
-                            style: TextStyle(color: Colors.black),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Column(
+                      children: <Widget>[
+                        DropdownButton<String>(
+                          isExpanded: true,
+                          value: _caseType,
+                          hint: Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Text(
+                              'Select Option',
+                              style: TextStyle(color: Colors.black),
+                            ),
                           ),
-                        ),
-                        items: [
-                              'General Appointment',
-                              'Suggestions',
-                              'Complaints',
-                              'Improverments'
-                            ]
-                                ?.map(
-                                  (item) => DropdownMenuItem<String>(
-                                    value: item,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(left: 8.0),
-                                      child: Text(item),
+                          items: [
+                                'General Appointment',
+                                'Suggestions',
+                                'Complaints',
+                                'Improverments'
+                              ]
+                                  ?.map(
+                                    (item) => DropdownMenuItem<String>(
+                                      value: item,
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 8.0),
+                                        child: Text(item),
+                                      ),
                                     ),
-                                  ),
-                                )
-                                ?.toList() ??
-                            [],
-                        onChanged: (value) {
-                          setState(() {
-                            _caseType = value;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Case Category',
-                        style: TextStyle(color: Colors.grey[600]),
+                                  )
+                                  ?.toList() ??
+                              [],
+                          onChanged: (value) {
+                            setState(() {
+                              _caseType = value;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Case Category',
+                          style: TextStyle(color: Colors.grey[600]),
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Column(
-                    children: <Widget>[
-                      DropdownButton<String>(
-                        isExpanded: true,
-                        value: _categoryID,
-                        hint: Padding(
-                          padding: const EdgeInsets.only(left: 8.0),
-                          child: Text(
-                            'Select Option',
-                            style: TextStyle(color: Colors.black),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Column(
+                      children: <Widget>[
+                        DropdownButton<String>(
+                          isExpanded: true,
+                          value: _categoryID,
+                          hint: Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Text(
+                              'Select Option',
+                              style: TextStyle(color: Colors.black),
+                            ),
                           ),
+                          items: generalAPPtJson
+                                  ?.map(
+                                    (item) => DropdownMenuItem<String>(
+                                      value: item['CATEGORY_ID'].toString(),
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 10.0),
+                                        child: Text(item['CATEGORY_DESCRIPTION']
+                                            .toString()),
+                                      ),
+                                    ),
+                                  )
+                                  ?.toList() ??
+                              [],
+                          onChanged: (value) {
+                            setState(() {
+                              _categoryID = value;
+                              getGeneralApptCatDeptTime();
+                            });
+                          },
                         ),
-                        items: generalAPPtJson
-                                ?.map(
-                                  (item) => DropdownMenuItem<String>(
-                                    value: item['CATEGORY_ID'].toString(),
-                                    child: Padding(
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    _caseType == 'General Appointment'
+                        ? Column(
+                            children: <Widget>[
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'Department',
+                                    style: TextStyle(color: Colors.grey[600]),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Column(
+                                children: <Widget>[
+                                  DropdownButton<String>(
+                                    isExpanded: true,
+                                    value: _departmentID,
+                                    hint: Padding(
                                       padding:
                                           const EdgeInsets.only(left: 10.0),
-                                      child: Text(item['CATEGORY_DESCRIPTION']
-                                          .toString()),
+                                      child: Text(
+                                        'Select option',
+                                        style: TextStyle(color: Colors.black),
+                                      ),
                                     ),
+                                    items: generalAPPtDepartmentJson
+                                            ?.map(
+                                              (item) =>
+                                                  DropdownMenuItem<String>(
+                                                value: item['EmpNumber'],
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 10.0),
+                                                      child: Text(
+                                                          item['Department']),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            )
+                                            ?.toList() ??
+                                        [],
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _departmentID = value;
+                                        getGeneralApptDate();
+                                      });
+                                    },
                                   ),
-                                )
-                                ?.toList() ??
-                            [],
-                        onChanged: (value) {
+                                ],
+                              ),
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'Appointment Date',
+                                    style: TextStyle(color: Colors.grey[600]),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Column(
+                                children: <Widget>[
+                                  DropdownButton<String>(
+                                    isExpanded: true,
+                                    value: _appointDate,
+                                    hint: Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 10.0),
+                                      child: Text(
+                                        'Select option',
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                    ),
+                                    items: generalApptDate
+                                            ?.map(
+                                              (item) =>
+                                                  DropdownMenuItem<String>(
+                                                value: item.toString(),
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 10.0),
+                                                      child: Text(item['date']
+                                                          .toString()),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            )
+                                            ?.toList() ??
+                                        [],
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _appointDate = value;
+                                        getGeneralApptCatDeptTime();
+                                      });
+                                    },
+                                  ),
+                                ],
+                              ),
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'Appointment Time',
+                                    style: TextStyle(color: Colors.grey[600]),
+                                  ),
+                                ),
+                              ),
+                              Column(
+                                children: <Widget>[
+                                  DropdownButton<String>(
+                                    isExpanded: true,
+                                    value: _appointTime,
+                                    hint: Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 10.0),
+                                      child: Text(
+                                        'Select option',
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                    ),
+                                    items: generalAPPtTimeJson
+                                            ?.map(
+                                              (item) =>
+                                                  DropdownMenuItem<String>(
+                                                value: item.toString(),
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 10.0),
+                                                      child: Text(
+                                                          item['timevalue']
+                                                              .toString()),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            )
+                                            ?.toList() ??
+                                        [],
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _appointTime = value;
+                                      });
+                                    },
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                            ],
+                          )
+                        : SizedBox(),
+                    Container(
+                      alignment: Alignment.center,
+                      child: Form(
+                        key: _generalAppointment,
+                        child: globalForms(context, '', (String value) {
+                          if (value.trim().isEmpty) {
+                            return 'Reason is required';
+                          }
+                          return null;
+                        }, (x) {
                           setState(() {
-                            _categoryID = value;
-                            getGeneralApptCatDeptTime();
+                            remarkAppointment = x;
                           });
-                        },
+                        }, 'Reason', true, TextInputType.text,
+                            FontAwesomeIcons.question, Colors.blue),
                       ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  _caseType == 'General Appointment'
-                      ? Column(
-                          children: <Widget>[
-                            Container(
-                              alignment: Alignment.centerLeft,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  'Department',
-                                  style: TextStyle(color: Colors.grey[600]),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Column(
-                              children: <Widget>[
-                                DropdownButton<String>(
-                                  isExpanded: true,
-                                  value: _departmentID,
-                                  hint: Padding(
-                                    padding: const EdgeInsets.only(left: 10.0),
-                                    child: Text(
-                                      'Select option',
-                                      style: TextStyle(color: Colors.black),
-                                    ),
-                                  ),
-                                  items: generalAPPtDepartmentJson
-                                          ?.map(
-                                            (item) => DropdownMenuItem<String>(
-                                              value: item['EmpNumber'],
-                                              child: Column(
-                                                children: <Widget>[
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 10.0),
-                                                    child: Text(
-                                                        item['Department']),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          )
-                                          ?.toList() ??
-                                      [],
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _departmentID = value;
-                                      getGeneralApptDate();
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
-                            Container(
-                              alignment: Alignment.centerLeft,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  'Appointment Date',
-                                  style: TextStyle(color: Colors.grey[600]),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Column(
-                              children: <Widget>[
-                                DropdownButton<String>(
-                                  isExpanded: true,
-                                  value: _appointDate,
-                                  hint: Padding(
-                                    padding: const EdgeInsets.only(left: 10.0),
-                                    child: Text(
-                                      'Select option',
-                                      style: TextStyle(color: Colors.black),
-                                    ),
-                                  ),
-                                  items: generalApptDate
-                                          ?.map(
-                                            (item) => DropdownMenuItem<String>(
-                                              value: item.toString(),
-                                              child: Column(
-                                                children: <Widget>[
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 10.0),
-                                                    child: Text(item['date']
-                                                        .toString()),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          )
-                                          ?.toList() ??
-                                      [],
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _appointDate = value;
-                                      getGeneralApptCatDeptTime();
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
-                            Container(
-                              alignment: Alignment.centerLeft,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  'Appointment Time',
-                                  style: TextStyle(color: Colors.grey[600]),
-                                ),
-                              ),
-                            ),
-                            Column(
-                              children: <Widget>[
-                                DropdownButton<String>(
-                                  isExpanded: true,
-                                  value: _appointTime,
-                                  hint: Padding(
-                                    padding: const EdgeInsets.only(left: 10.0),
-                                    child: Text(
-                                      'Select option',
-                                      style: TextStyle(color: Colors.black),
-                                    ),
-                                  ),
-                                  items: generalAPPtTimeJson
-                                          ?.map(
-                                            (item) => DropdownMenuItem<String>(
-                                              value: item.toString(),
-                                              child: Column(
-                                                children: <Widget>[
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 10.0),
-                                                    child: Text(
-                                                        item['timevalue']
-                                                            .toString()),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          )
-                                          ?.toList() ??
-                                      [],
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _appointTime = value;
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                          ],
-                        )
-                      : SizedBox(),
-                  Container(
-                    alignment: Alignment.center,
-                    child: Form(
-                      key: _generalAppointment,
-                      child: globalForms(context, '', (String value) {
-                        if (value.trim().isEmpty) {
-                          return 'Reason is required';
-                        }
-                        return null;
-                      }, (x) {
-                        setState(() {
-                          remarkAppointment = x;
-                        });
-                      }, 'Reason', true, TextInputType.text,
-                          FontAwesomeIcons.question, Colors.blue),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

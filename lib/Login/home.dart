@@ -970,7 +970,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                                       MainAxisAlignment.center,
                                                   children: <Widget>[
                                                     Image.asset(
-                                                      'images/contactslist.png',
+                                                      'images/cdp.png',
                                                       height: 50,
                                                     ),
                                                     SizedBox(

@@ -1,6 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:dotted_border/dotted_border.dart';
+import 'package:esys_flutter_share/esys_flutter_share.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -8,6 +12,7 @@ import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/global.dart';
+import 'package:superellipse_shape/superellipse_shape.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void main() => runApp(Circulars());
@@ -19,7 +24,7 @@ class Circulars extends StatefulWidget {
   }
 }
 
-String circular = 'circular';
+
 // Map<String, int> body;
 
 class _CircularsState extends State<Circulars> {
@@ -40,7 +45,7 @@ class _CircularsState extends State<Circulars> {
             ? exception(context, FontAwesomeIcons.exclamationTriangle,
                 circularsMessageJson['message'])
             : Container(
-                color: Colors.grey[300],
+                color: Colors.white,
                 child: circularsJson == null
                     ? Center(child: Text(''))
                     : ListView.builder(
@@ -133,7 +138,11 @@ class _CircularsState extends State<Circulars> {
                                           ),
                                         ],
                                       ),
+                                       SizedBox(
+                                        height: 10,
+                                      ),
                                     ],
+                                    
                                   ),
                                 ),
                               ),
@@ -142,6 +151,49 @@ class _CircularsState extends State<Circulars> {
                         },
                       ),
               ));
+  }
+
+  void _showLoading(isLoading) {
+    if (isLoading) {
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return WillPopScope(
+              onWillPop: () {},
+              child: new AlertDialog(
+                title: Image.asset(
+                  'images/logo.png',
+                  height: 50,
+                ),
+                shape: SuperellipseShape(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(20),
+                  ),
+                ),
+                content: Padding(
+                  padding: const EdgeInsets.only(left: 50.0),
+                  child: Row(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(right: 25.0),
+                        child: new CircularProgressIndicator(
+                          strokeWidth: 2,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 12),
+                        child: new Text('Please Wait....'),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          });
+    } else {
+      Navigator.pop(context);
+    }
   }
 
   Future getStudentCirculars() async {
@@ -157,7 +209,7 @@ class _CircularsState extends State<Circulars> {
         },
         body: {
           'student_id': username,
-          'type': circular,
+          'type': 'circular',
           'usertype': studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
@@ -184,5 +236,19 @@ class _CircularsState extends State<Circulars> {
             getStudentCirculars);
       }
     }
+  }
+
+  Future<void> shareCIR(link) async {
+    _showLoading(true);
+    try {
+      var request = await HttpClient().getUrl(Uri.parse(link));
+      var response = await request.close();
+      Uint8List bytes = await consolidateHttpClientResponseBytes(response);
+      await Share.file(
+          'Share Document', 'Document.pdf', bytes, 'application/pdf');
+      Future.delayed(const Duration(seconds: 1), () {
+        _showLoading(false);
+      });
+    } catch (e) {}
   }
 }

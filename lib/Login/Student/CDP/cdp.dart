@@ -50,6 +50,7 @@ class _CDPDownloadState extends State<CDPDownload>
       body: cdpCourseJson == null
           ? Center(child: Text(''))
           : Container(
+              color: Colors.white,
               child: ListView.builder(
                 itemCount: cdpCourseJson.length,
                 itemBuilder: (BuildContext context, int index) {
@@ -134,7 +135,7 @@ class _CDPDownloadState extends State<CDPDownload>
                                       },
                                       child: Container(
                                           child: Text(
-                                        'View',
+                                        'Download',
                                         style: TextStyle(
                                             decoration:
                                                 TextDecoration.underline,

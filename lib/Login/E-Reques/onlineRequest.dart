@@ -39,7 +39,6 @@ class _OnlineRequestState extends State<OnlineRequest> {
     super.initState();
     onlineRequestTypeJson = [];
 
-
     getRequestType();
   }
 
@@ -57,8 +56,6 @@ class _OnlineRequestState extends State<OnlineRequest> {
           } else {
             return showErrorInput('Please check your input');
           }
-
-     
         },
       ),
       appBar: appBarLogin(context, 'Online Request'),
@@ -67,208 +64,202 @@ class _OnlineRequestState extends State<OnlineRequest> {
           FocusScope.of(context).requestFocus(new FocusNode());
         },
         child: Container(
-          color: Colors.grey[300],
-          child: Container(
-            color: Colors.grey[300],
-            child: ListView(
-              children: <Widget>[
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(
-                      height: 25,
-                    ),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          'Request Type',
-                          style: TextStyle(color: Colors.grey[600]),
-                        ),
+          color: Colors.white,
+          child: ListView(
+            children: <Widget>[
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(
+                    height: 25,
+                  ),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'Request Type',
+                        style: TextStyle(color: Colors.grey[600]),
                       ),
                     ),
-                    Column(
-                      children: <Widget>[
-                        DropdownButton<String>(
-                          style: TextStyle(fontSize: 13, color: Colors.black),
-                          isExpanded: true,
-                          value: item,
-                          hint: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              'Select Option',
-                              style: TextStyle(color: Colors.black),
-                            ),
+                  ),
+                  Column(
+                    children: <Widget>[
+                      DropdownButton<String>(
+                        style: TextStyle(fontSize: 13, color: Colors.black),
+                        isExpanded: true,
+                        value: item,
+                        hint: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'Select Option',
+                            style: TextStyle(color: Colors.black),
                           ),
-                          items: onlineRequestTypeJson
-                                  ?.map(
-                                    (item) => DropdownMenuItem<String>(
-                                      value: item['DetailsID'].toString(),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(item['Item'].toString()),
-                                      ),
+                        ),
+                        items: onlineRequestTypeJson
+                                ?.map(
+                                  (item) => DropdownMenuItem<String>(
+                                    value: item['DetailsID'].toString(),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(item['Item'].toString()),
                                     ),
-                                  )
-                                  ?.toList() ??
-                              [],
-                          onChanged: (value) {
-                            item = value;
+                                  ),
+                                )
+                                ?.toList() ??
+                            [],
+                        onChanged: (value) {
+                          item = value;
 
-                            getAmount();
-                          },
+                          getAmount();
+                        },
+                      ),
+                    ],
+                  ),
+                  Card(
+                    color: Colors.white,
+                    elevation: 10,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Column(
+                          children: <Widget>[
+                            Container(
+                              height: 30,
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'Normal Amount',
+                                  style: TextStyle(color: Colors.grey[600]),
+                                ),
+                              ),
+                            ),
+                            Column(
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Container(
+                                      child: Text(requestAmountJson.isEmpty
+                                          ? ''
+                                          : requestAmountJson['data']
+                                                      ['NormalAmount'] ==
+                                                  ("NA")
+                                              ? "Not Avalible"
+                                              : requestAmountJson['data']
+                                                      ['NormalAmount']
+                                                  .toString()),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                    Card(
-                      color: Colors.grey[300],
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          Column(
-                            children: <Widget>[
-                              Container(
-                                height: 30,
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    'Normal Amount',
-                                    style: TextStyle(color: Colors.grey[600]),
-                                  ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Card(
+                    color: Colors.white,
+                    elevation: 10,
+                    child: Row(
+                      children: <Widget>[
+                        Column(
+                          children: <Widget>[
+                            Container(
+                              height: 30,
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'Urgent Amount',
+                                  style: TextStyle(color: Colors.grey[600]),
                                 ),
                               ),
-                              Column(
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Container(
-                                        child: Text(requestAmountJson.isEmpty
-                                            ? ''
-                                            : requestAmountJson['data']
-                                                        ['NormalAmount'] ==
-                                                    ("NA")
-                                                ? "Not Avalible"
-                                                : requestAmountJson['data']
-                                                        ['NormalAmount']
-                                                    .toString()),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      decoration: UnderlineTabIndicator(
-                          borderSide: BorderSide(width: 0.4)),
-                    ),
-                    Card(
-                      color: Colors.grey[300],
-                      child: Row(
-                        children: <Widget>[
-                          Column(
-                            children: <Widget>[
-                              Container(
-                                height: 30,
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    'Urgent Amount',
-                                    style: TextStyle(color: Colors.grey[600]),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(requestAmountJson.isEmpty
-                                      ? ''
-                                      : requestAmountJson['data']
-                                                  ['UrgentAmount'] ==
-                                              ("NA")
-                                          ? "Not Avalible"
-                                          : requestAmountJson['data']
-                                                  ['UrgentAmount']
-                                              .toString()),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      decoration: UnderlineTabIndicator(
-                          borderSide: BorderSide(width: 0.4)),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Form(
-                            key: _onlineRequest,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                globalForms(context, '', (String value) {
-                                  if (value.trim().isEmpty) {
-                                    return 'Address  is required';
-                                  }
-                                  return null;
-                                }, (x) {
-                                  setState(() {
-                                    address = x;
-                                  });
-                                }, 'Address', true, TextInputType.text,
-                                    FontAwesomeIcons.mapMarkedAlt, Colors.blue),
-                                globalForms(context, '', (String value) {
-                                  if (value.trim().isEmpty) {
-                                    return 'Remark is required';
-                                  }
-                                  return null;
-                                }, (x) {
-                                  setState(() {
-                                    remark = x;
-                                  });
-                                }, 'Remark', true, TextInputType.text,
-                                    FontAwesomeIcons.phoneAlt, Colors.blue),
-                              ],
                             ),
-                          ),
-                        ],
-                      ),
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(requestAmountJson.isEmpty
+                                    ? ''
+                                    : requestAmountJson['data']
+                                                ['UrgentAmount'] ==
+                                            ("NA")
+                                        ? "Not Avalible"
+                                        : requestAmountJson['data']
+                                                ['UrgentAmount']
+                                            .toString()),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Column(
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Row(
+                        Form(
+                          key: _onlineRequest,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              Icon(
-                                FontAwesomeIcons.moneyCheck,
-                                size: 20,
-                                color: Colors.blue,
-                              ),
-                              SizedBox(
-                                width: 15,
-                              ),
-                              Text("Pay Amount"),
+                              globalForms(context, '', (String value) {
+                                if (value.trim().isEmpty) {
+                                  return 'Address  is required';
+                                }
+                                return null;
+                              }, (x) {
+                                setState(() {
+                                  address = x;
+                                });
+                              }, 'Address', true, TextInputType.text,
+                                  FontAwesomeIcons.mapMarkedAlt, Colors.blue),
+                              globalForms(context, '', (String value) {
+                                if (value.trim().isEmpty) {
+                                  return 'Remark is required';
+                                }
+                                return null;
+                              }, (x) {
+                                setState(() {
+                                  remark = x;
+                                });
+                              }, 'Remark', true, TextInputType.text,
+                                  FontAwesomeIcons.phoneAlt, Colors.blue),
                             ],
                           ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Icon(
+                              FontAwesomeIcons.moneyCheck,
+                              size: 20,
+                              color: Colors.blue,
+                            ),
+                            SizedBox(
+                              width: 15,
+                            ),
+                            Text("Pay Amount"),
+                          ],
                         ),
                         Row(
                           children: <Widget>[
@@ -312,13 +303,13 @@ class _OnlineRequestState extends State<OnlineRequest> {
                         ),
                       ],
                     ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
@@ -338,7 +329,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
           "API-KEY": API,
         },
         body: {
-          'user_id': '14146',
+          'user_id': username,
           'program': studentJson['data']['program'],
           'usertype': studentJson['data']['user_type'],
           'ipaddress': '1',
@@ -346,7 +337,6 @@ class _OnlineRequestState extends State<OnlineRequest> {
           'devicename': '1',
         },
       );
-
 
       if (response.statusCode == 200) {
         setState(
@@ -414,7 +404,6 @@ class _OnlineRequestState extends State<OnlineRequest> {
         showLoading(false, context);
       }
     } catch (x) {
-      
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 

@@ -23,7 +23,6 @@ class PayOnline extends StatefulWidget {
 
 class _PayOnlineState extends State<PayOnline> {
   Map payOnlineJson;
-  String feesPayOnline = 'feespayonline';
 
   void initState() {
     super.initState();
@@ -41,12 +40,14 @@ class _PayOnlineState extends State<PayOnline> {
         child: payOnlineJson == null
             ? SizedBox()
             : WebviewScaffold(
+              
                 hidden: true,
                 withZoom: true,
                 enableAppScheme: true,
                 clearCache: true,
                 clearCookies: true,
                 scrollBar: true,
+                
                 url: payOnlineJson == null
                     ? 'https://skylineuniversity.ac.ae/'
                     : payOnlineJson['data']),
@@ -68,7 +69,7 @@ class _PayOnlineState extends State<PayOnline> {
         },
         body: {
           'user_id': username,
-          'pay_for': feesPayOnline,
+          'pay_for': 'feespayonline',
           'usertype': studentJson['data']['user_type'],
           'ipaddress': '1',
           'deviceid': '1',
