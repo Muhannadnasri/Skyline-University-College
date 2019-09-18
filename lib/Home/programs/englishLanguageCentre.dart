@@ -34,7 +34,7 @@ class _EnglishLanguageCentreState extends State<EnglishLanguageCentre> {
       resizeToAvoidBottomPadding: false,
       appBar: appBar(context, 'English Language Centre'),
       body: Container(
-        color: Colors.grey[300],
+        color: Colors.white,
         child: programsJson == null
             ? SizedBox()
             : ListView.builder(

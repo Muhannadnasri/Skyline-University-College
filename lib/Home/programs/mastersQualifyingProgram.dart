@@ -34,7 +34,7 @@ class _MastersQualifyingProgramState extends State<MastersQualifyingProgram> {
       resizeToAvoidBottomPadding: false,
       appBar: appBar(context, 'Masters Qualifying Program'),
       body: Container(
-        color: Colors.grey[300],
+        color: Colors.white,
         child: programsJson == null
             ? SizedBox()
             : ListView.builder(

@@ -48,7 +48,7 @@ class _NewsState extends State<News> {
           ? exception(context, FontAwesomeIcons.exclamationTriangle,
               'No news available')
           : Container(
-              color: Colors.grey[300],
+              color: Colors.white,
               child: ListView.builder(
                   itemCount: news.length,
                   itemBuilder: (BuildContext context, int index) {
@@ -135,12 +135,16 @@ class _NewsState extends State<News> {
                                         ),
                                         child: Padding(
                                           padding: const EdgeInsets.all(5.0),
-                                          child: Row(children: <Widget>[
+                                          child: 
+                                          Row(
+                                            children: <Widget>[
+
                                             Icon(
-                                              Icons.update,
+                                             FontAwesomeIcons.calendarDay,
                                               size: 10,
                                               color: Colors.white,
                                             ),
+                                            SizedBox(width: 5,),
                                             Text(
                                               news[index]['date'],
                                               style: TextStyle(

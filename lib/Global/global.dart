@@ -99,6 +99,11 @@ void logOut(context) {
   );
 }
 
+void home(context) {
+  Navigator.of(context)
+      .pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
+}
+
 void showLoading(isLoading, context) {
   if (isLoading) {
     showDialog(

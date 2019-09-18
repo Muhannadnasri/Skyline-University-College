@@ -48,14 +48,20 @@ class _OneGalleryState extends State<OneGallery> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => PhotoView(
-                      maxScale: PhotoViewComputedScale.covered * 1,
-                      minScale: PhotoViewComputedScale.contained * 1,
-                      imageProvider: NetworkImage(
-                        widget.oneGalleryPhotos[index],
-                      ),
-                    ),
-                  ),
+                      builder: (context) => Column(
+                            children: <Widget>[
+                              appBar(context, widget.oneGalleryTitle),
+                              Expanded(
+                                                              child: PhotoView(
+                                  maxScale: PhotoViewComputedScale.covered * 1,
+                                  minScale: PhotoViewComputedScale.contained * 1,
+                                  imageProvider: NetworkImage(
+                                    widget.oneGalleryPhotos[index],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )),
                 );
               },
               child: Container(

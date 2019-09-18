@@ -49,7 +49,7 @@ class _EventsState extends State<Events> {
           ? exception(context, FontAwesomeIcons.exclamationTriangle,
               'No events available')
           : Container(
-              color: Colors.grey[300],
+              color: Colors.white,
               child: ListView.builder(
                   itemCount: events.length,
                   itemBuilder: (BuildContext context, int index) {
@@ -139,11 +139,12 @@ class _EventsState extends State<Events> {
                                         child: Padding(
                                           padding: const EdgeInsets.all(5.0),
                                           child: Row(children: <Widget>[
-                                            Icon(
-                                              Icons.update,
+                                              Icon(
+                                             FontAwesomeIcons.calendarDay,
                                               size: 10,
                                               color: Colors.white,
                                             ),
+                                            SizedBox(width: 5,),
                                             Text(
                                               events[index]['date'],
                                               style: TextStyle(

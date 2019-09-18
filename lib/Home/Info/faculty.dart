@@ -40,7 +40,7 @@ class _FacultyState extends State<Faculty> {
       resizeToAvoidBottomPadding: false,
       appBar: appBar(context, 'Faculty members'),
       body: Container(
-        color: Colors.grey[300],
+        color: Colors.white,
         child: ListView.builder(
             itemCount: faculty.length,
             itemBuilder: (BuildContext context, int index) {

@@ -34,7 +34,7 @@ class _UndergraduateITState extends State<UndergraduateIT> {
       resizeToAvoidBottomPadding: false,
       appBar: appBar(context, 'School of Information Technology'),
       body: Container(
-        color: Colors.grey[300],
+        color: Colors.white,
         child: programsJson == null
             ? SizedBox()
             : ListView.builder(

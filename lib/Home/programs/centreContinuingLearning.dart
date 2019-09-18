@@ -34,7 +34,7 @@ class _CentreContinuingLearningState extends State<CentreContinuingLearning> {
       resizeToAvoidBottomPadding: false,
       appBar: appBar(context, 'Centre Continuing Learning'),
       body: Container(
-        color: Colors.grey[300],
+        color: Colors.white,
         child: programsJson == null
             ? SizedBox()
             : ListView.builder(

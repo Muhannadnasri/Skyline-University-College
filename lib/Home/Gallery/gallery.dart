@@ -93,14 +93,14 @@ class _GalleryState extends State<Gallery> {
                                 ),
                                 Container(
                                   color: Colors.black.withOpacity(0.6),
-                                  height: 70,
+                                  height: 50,
                                   width: 400,
                                   child: Column(
                                     children: <Widget>[
                                       SizedBox(
                                         height: 5,
                                       ),
-                                      Flexible(
+                                      FittedBox(
                                         child: Text(
                                           galleries[index]['Event_Name'],
                                           style: TextStyle(color: Colors.white),

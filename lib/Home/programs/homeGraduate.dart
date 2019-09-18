@@ -35,7 +35,7 @@ class _HomeGraduateState extends State<HomeGraduate> {
       resizeToAvoidBottomPadding: false,
       appBar: appBar(context, 'Graduate'),
       body: Container(
-        color: Colors.grey[300],
+        color: Colors.white,
         child: programsJson == null
             ? SizedBox()
             : ListView.builder(

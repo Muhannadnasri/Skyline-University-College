@@ -1002,137 +1002,143 @@ class _HomeLoginState extends State<HomeLogin> {
                         ),
                       )
                     : SizedBox(),
-        appBar: PreferredSize(
+        appBar: 
+        PreferredSize(
           preferredSize: Size.fromHeight(250.0),
           child: Stack(
+
             children: <Widget>[
+              
               Column(
                 children: <Widget>[
                   ZigZag(
                     clipType: ClipType.waved,
                     child: Container(
-                      child: Row(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Row(
-                                  children: <Widget>[
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.white,
-                                            blurRadius:
-                                                12.0, // has the effect of softening the shadow
-                                            spreadRadius:
-                                                3.0, // has the effect of extending the shadow
-                                          )
-                                        ],
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 30),
+                        child: Row(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 20),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Row(
+                                    children: <Widget>[
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.white,
+                                              blurRadius:
+                                                  12.0, // has the effect of softening the shadow
+                                              spreadRadius:
+                                                  3.0, // has the effect of extending the shadow
+                                            )
+                                          ],
+                                        ),
+                                        child: Image.asset(
+                                          studentJson['data']['user_type'] ==
+                                                  'FAC'
+                                              ? 'images/professor-male.png'
+                                              : studentJson['data']['Gender'] ==
+                                                      'M'
+                                                  ? 'images/male.png'
+                                                  : studentJson['data']
+                                                              ['Gender'] ==
+                                                          'F'
+                                                      ? 'images/female.png'
+                                                      : 'images/professor-male.png',
+                                          height: 25,
+                                        ),
                                       ),
-                                      child: Image.asset(
-                                        studentJson['data']['user_type'] ==
-                                                'FAC'
-                                            ? 'images/professor-male.png'
-                                            : studentJson['data']['Gender'] ==
-                                                    'M'
-                                                ? 'images/male.png'
-                                                : studentJson['data']
-                                                            ['Gender'] ==
-                                                        'F'
-                                                    ? 'images/female.png'
-                                                    : 'images/professor-male.png',
-                                        height: 25,
+                                      SizedBox(
+                                        width: 10,
                                       ),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        studentJson['data']['name'].toString(),
-                                        style: TextStyle(color: Colors.white),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          studentJson['data']['name'].toString(),
+                                          style: TextStyle(color: Colors.white),
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                studentJson['data']['user_type'] == 'STF'
-                                    ? SizedBox(
-                                        height: 10,
-                                      )
-                                    : Row(
-                                        children: <Widget>[
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Colors.white,
-                                                  blurRadius:
-                                                      12.0, // has the effect of softening the shadow
-                                                  spreadRadius:
-                                                      3.0, // has the effect of extending the shadow
-                                                )
-                                              ],
+                                    ],
+                                  ),
+                                  studentJson['data']['user_type'] == 'STF'
+                                      ? SizedBox(
+                                          height: 10,
+                                        )
+                                      : Row(
+                                          children: <Widget>[
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.white,
+                                                    blurRadius:
+                                                        12.0, // has the effect of softening the shadow
+                                                    spreadRadius:
+                                                        3.0, // has the effect of extending the shadow
+                                                  )
+                                                ],
+                                              ),
+                                              child: Image.asset(
+                                                'images/degree.png',
+                                                height: 25,
+                                              ),
                                             ),
-                                            child: Image.asset(
-                                              'images/degree.png',
-                                              height: 25,
+                                            SizedBox(
+                                              width: 10,
                                             ),
-                                          ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              studentJson['data']['program']
-                                                  .toString(),
-                                              style: TextStyle(
-                                                  color: Colors.white),
+                                            Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                studentJson['data']['program']
+                                                    .toString(),
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
+                                  Row(
+                                    children: <Widget>[
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.white,
+                                              blurRadius:
+                                                  12.0, // has the effect of softening the shadow
+                                              spreadRadius:
+                                                  3.0, // has the effect of extending the shadow
+                                            )
+                                          ],
+                                        ),
+                                        child: Image.asset(
+                                          'images/year.png',
+                                          height: 25,
+                                        ),
                                       ),
-                                Row(
-                                  children: <Widget>[
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.white,
-                                            blurRadius:
-                                                12.0, // has the effect of softening the shadow
-                                            spreadRadius:
-                                                3.0, // has the effect of extending the shadow
-                                          )
-                                        ],
+                                      SizedBox(
+                                        width: 10,
                                       ),
-                                      child: Image.asset(
-                                        'images/year.png',
-                                        height: 25,
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          studentJson['data']['acadyear_desc']
+                                              .toString(),
+                                          style: TextStyle(color: Colors.white),
+                                        ),
                                       ),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        studentJson['data']['acadyear_desc']
-                                            .toString(),
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                       height: 250,
                       decoration: new BoxDecoration(
@@ -1153,11 +1159,12 @@ class _HomeLoginState extends State<HomeLogin> {
                   ),
                 ],
               ),
+              
               Padding(
-                padding: const EdgeInsets.only(top: 70.0, right: 10),
+                padding: const EdgeInsets.only(top: 80.0, right: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+
                   children: <Widget>[
                     studentJson['photo'].toString() ==
                             "https:\/\/skylineportal.com\/sitgmioxg\/professor.png"
@@ -1200,52 +1207,57 @@ class _HomeLoginState extends State<HomeLogin> {
                   ],
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, "/notifications");
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Icon(Icons.notifications_active,
-                            color: Colors.white),
-                      )),
-                  Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          logOut(context);
-                        });
-                      },
-                      child: Row(
-                        children: <Widget>[
-                          SizedBox(
-                            height: 30,
-                          ),
-                          Icon(
-                            FontAwesomeIcons.powerOff,
-                            color: Colors.red,
-                            size: 17,
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            'Logout',
-                            style: TextStyle(fontSize: 17, color: Colors.red),
-                          ),
-                        ],
+
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, "/notifications");
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Icon(Icons.notifications_active,
+                              color: Colors.white),
+                        )),
+                    Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            logOut(context);
+                          });
+                        },
+                        child: Row(
+                          children: <Widget>[
+                            SizedBox(
+                              height: 30,
+                            ),
+                            Icon(
+                              FontAwesomeIcons.powerOff,
+                              color: Colors.red,
+                              size: 17,
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              'Logout',
+                              style: TextStyle(fontSize: 17, color: Colors.red),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),
         ),
+     
       ),
     );
   }

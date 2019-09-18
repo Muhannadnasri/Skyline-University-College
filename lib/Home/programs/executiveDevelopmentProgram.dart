@@ -35,7 +35,7 @@ class _ExecutiveDevelopmentProgramState
       resizeToAvoidBottomPadding: false,
       appBar: appBar(context, 'Executive Development Program'),
       body: Container(
-        color: Colors.grey[300],
+        color: Colors.white,
         child: programsJson == null
             ? SizedBox()
             : ListView.builder(
