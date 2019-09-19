@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -26,7 +27,7 @@ class LoginApp extends StatefulWidget {
 class _LoginAppState extends State<LoginApp> {
   final _logInForm = GlobalKey<FormState>();
   // Map studentMessageJson = {};
-
+   final focus = FocusNode();
   void initState() {
     super.initState();
     // qLogin();
@@ -178,6 +179,11 @@ class _LoginAppState extends State<LoginApp> {
                                 ),
                                 Container(
                                   child: TextFormField(
+                                     onFieldSubmitted: (v){
+                FocusScope.of(context).requestFocus(focus);
+              },
+              autofocus: true,
+                                      textInputAction: TextInputAction.next,
                                     validator: (String value) {
                                       if (value.trim().isEmpty) {
                                         return 'Username is required';
@@ -211,6 +217,13 @@ class _LoginAppState extends State<LoginApp> {
                                 ),
                                 Container(
                                   child: TextFormField(
+                                                  autofocus: true,
+                                                                focusNode: focus,
+                                    onFieldSubmitted: (term){
+                                      
+logIn();
+},
+                                      textInputAction: TextInputAction.done,
                                     validator: (String value) {
                                       if (value.trim().isEmpty) {
                                         return 'Password is required';
