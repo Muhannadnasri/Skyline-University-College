@@ -761,10 +761,7 @@ class _HomeState extends State<Home> {
       showLoading(true, context);
     });
 
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    username = (prefs.getString('username') ?? '');
-    password = (prefs.getString('password') ?? '');
+    
 
     try {
       final response = await http.post(
