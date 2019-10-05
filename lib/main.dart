@@ -93,6 +93,8 @@ import 'Login/loginpage.dart';
 import 'NotificationSection/announcements.dart';
 import 'NotificationSection/notification.dart';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
+
 void main() async {
   SystemChrome.setEnabledSystemUIOverlays([]);
   runApp(
@@ -109,6 +111,8 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
+  
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

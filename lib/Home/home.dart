@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -30,27 +32,47 @@ class _HomeState extends State<Home> {
 
   String formattedDate = DateFormat('yyyy-MM-dd hh:mm').format(DateTime.now());
 
-  // String deviceId = 'Unknown';
-
+  String _homeScreenText = "Waiting for token...";
+  String _messageText = "Waiting for message...";
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   @override
   void initState() {
-    getLogs();
     super.initState();
-
-    // if (Platform.isIOS) {
-    //   // iosSubscription = _fcm.onIosSettingsRegistered.listen((data) {
-    //   //   _saveDeviceToken();
-    //   // });
-    //   // _fcm.requestNotificationPermissions(IosNotificationSettings());
-    // } else {
-    //   _saveDeviceToken();
-    // }
-
-    // _fcm.configure(onMessage: (Map<String, dynamic> message) async {
-    //   print('hello');
-    // });
-
+    getLogs();
     // qLogin();
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        setState(() {
+          _messageText = "Push Messaging message: $message";
+        });
+        print("onMessage: $message");
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        setState(() {
+          _messageText = "Push Messaging message: $message";
+        });
+        print("onLaunch: $message");
+      },
+      onResume: (Map<String, dynamic> message) async {
+        setState(() {
+          _messageText = "Push Messaging message: $message";
+        });
+        print("onResume: $message");
+      },
+    );
+    _firebaseMessaging.requestNotificationPermissions(
+        const IosNotificationSettings(sound: true, badge: true, alert: true));
+    _firebaseMessaging.onIosSettingsRegistered
+        .listen((IosNotificationSettings settings) {
+      print("Settings registered: $settings");
+    });
+    _firebaseMessaging.getToken().then((String token) {
+      assert(token != null);
+      setState(() {
+        _homeScreenText = "Push Messaging token: $token";
+      });
+      print(_homeScreenText);
+    });
   }
 
   @override
@@ -146,6 +168,7 @@ class _HomeState extends State<Home> {
         body: Container(
           child: ListView(
             children: <Widget>[
+        
               FittedBox(
                 child: Column(
                   children: <Widget>[
@@ -761,8 +784,6 @@ class _HomeState extends State<Home> {
       showLoading(true, context);
     });
 
-    
-
     try {
       final response = await http.post(
         Uri.encodeFull("https://skylineportal.com/moappad/api/web/login"),
@@ -818,8 +839,7 @@ class _HomeState extends State<Home> {
     new Timer(Duration(seconds: 5), () {
       _exit = 0;
     });
-    final snackBar =
-        SnackBar(content: Text('Press back again for exit'));
+    final snackBar = SnackBar(content: Text('Press back again for exit'));
     _scaffoldKey.currentState.showSnackBar(snackBar);
     return false;
   }
