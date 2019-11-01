@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1068042711317",
+    "firebase_url": "https://skylineuniversity-4acec.firebaseio.com",
+    "project_id": "skylineuniversity-4acec",
+    "storage_bucket": "skylineuniversity-4acec.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1068042711317:android:67791b1f9011763f39f91c",
+        "android_client_info": {
+          "package_name": "com.skylineuniversity.skyline"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1068042711317-aq0ijq6dmo6i7j6kdubie50i04fjeeeu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.skylineuniversity.skyline",
+            "certificate_hash": "3b0d9ae33203c1e971aa87c1652fb505b94e32cd"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4DyaJ0jJDIiEXEH3KZBBEMSOM6XTWoWo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1068042711317-ajt9r16bvnp89l389o2hepjvplaalfnk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.skylineuniversity.skyline",
+                "app_store_id": "1300445743"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
