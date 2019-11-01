@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:skyline_university/Global/appBar.dart';
+import 'package:skyline_university/Global/global.dart';
 
 
 import 'package:skyline_university/Global/rowSection.dart';
@@ -26,7 +27,6 @@ class _HomeAdmissionState extends State<HomeAdmission> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Colors.white,
         child: ListView(
           children: <Widget>[
             SizedBox(
@@ -34,7 +34,7 @@ class _HomeAdmissionState extends State<HomeAdmission> {
             ),
 
 
-            rowSection(context,'images/admission.png','Application Form','/AdmissionForm'),
+            rowSection(context,isDark(context)?'images-white/admission.png':'images/admission.png','Application Form','/AdmissionForm'),
 
           ],
         ),

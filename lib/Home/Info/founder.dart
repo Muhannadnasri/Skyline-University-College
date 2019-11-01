@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:skyline_university/Global/appBar.dart';
 import 'package:skyline_university/Global/global.dart';
+import 'package:skyline_university/Global/htmlSecation.dart';
 
 void main() => runApp(Founder());
 
@@ -28,7 +29,6 @@ class _FounderState extends State<Founder> {
     super.initState();
     infoJson = [];
     getPrograms();
-
   }
 
   @override
@@ -41,60 +41,12 @@ class _FounderState extends State<Founder> {
 // index
           itemCount: infoJson.length,
           itemBuilder: (BuildContext context, int index) {
-            return Column(
-              children: <Widget>[
-                infoJson[index]['type'] == 'url'
-                    ? Container(
-                        child: Image.network(
-                          infoJson[index]['page_content'].toString(),
-                          fit: BoxFit.contain,
-                          
-                        ),
-                      )
-                    : SizedBox(),
-                Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      infoJson[index]['type'] == 'url'
-                          ? SizedBox()
-                          : Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Text(
-                                infoJson[index]['title'],
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 15.0, top: 5),
-                        child: infoJson[index]['type'] == 'url'
-                            ? SizedBox()
-                            : Container(
-                                width: 100,
-                                decoration: UnderlineTabIndicator(
-                                    borderSide: BorderSide(
-                                        width: 3,
-                                        color: Colors.blue,
-                                        style: BorderStyle.solid)),
-                              ),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: infoJson[index]['type'] == 'url'
-                            ? SizedBox()
-                            : Html(
-                              
-                              data: infoJson[index]['page_content']),
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            );
+            return htmlSecation(
+                context,
+                infoJson[index]['type'] == 'url',
+                infoJson[index]['page_content'],
+                infoJson[index]['title'],
+                infoJson[index]['page_content']);
           }),
     );
   }
@@ -126,7 +78,6 @@ class _FounderState extends State<Founder> {
         showLoading(false, context);
       }
     } catch (x) {
-
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 

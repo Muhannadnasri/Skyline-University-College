@@ -121,7 +121,11 @@ class _HomeLoginState extends State<HomeLogin> {
                                       width: 110,
                                       height: 100,
                                       decoration: BoxDecoration(
-                                        border: Border.all(width: 1.0),
+                                        border: Border.all(
+                                            width: 1.0,
+                                            color: isDark(context)
+                                                ? Colors.white60
+                                                : Colors.black),
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(
                                                 15.0) //         <--- border radius here
@@ -144,7 +148,10 @@ class _HomeLoginState extends State<HomeLogin> {
                                             Text(
                                               'Attendance',
                                               style: TextStyle(
-                                                  color: Colors.black),
+                                                color: isDark(context)
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -164,7 +171,11 @@ class _HomeLoginState extends State<HomeLogin> {
                                       width: 110,
                                       height: 100,
                                       decoration: BoxDecoration(
-                                        border: Border.all(width: 1.0),
+                                        border: Border.all(
+                                            width: 1.0,
+                                            color: isDark(context)
+                                                ? Colors.white60
+                                                : Colors.black),
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(
                                                 15.0) //         <--- border radius here
@@ -187,7 +198,10 @@ class _HomeLoginState extends State<HomeLogin> {
                                             Text(
                                               'Assessment',
                                               style: TextStyle(
-                                                  color: Colors.black),
+                                                color: isDark(context)
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -204,7 +218,11 @@ class _HomeLoginState extends State<HomeLogin> {
                                         left: 8.0, top: 8),
                                     child: Container(
                                       decoration: BoxDecoration(
-                                        border: Border.all(width: 1.0),
+                                        border: Border.all(
+                                            width: 1.0,
+                                            color: isDark(context)
+                                                ? Colors.white60
+                                                : Colors.black),
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(
                                                 15.0) //         <--- border radius here
@@ -229,7 +247,10 @@ class _HomeLoginState extends State<HomeLogin> {
                                             Text(
                                               'Result',
                                               style: TextStyle(
-                                                  color: Colors.black),
+                                                color: isDark(context)
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -257,7 +278,11 @@ class _HomeLoginState extends State<HomeLogin> {
                                         left: 8.0, top: 8),
                                     child: Container(
                                       decoration: BoxDecoration(
-                                        border: Border.all(width: 1.0),
+                                        border: Border.all(
+                                            width: 1.0,
+                                            color: isDark(context)
+                                                ? Colors.white60
+                                                : Colors.black),
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(
                                                 15.0) //         <--- border radius here
@@ -282,7 +307,10 @@ class _HomeLoginState extends State<HomeLogin> {
                                             Text(
                                               'Classes',
                                               style: TextStyle(
-                                                  color: Colors.black),
+                                                color: isDark(context)
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -299,7 +327,11 @@ class _HomeLoginState extends State<HomeLogin> {
                                         left: 8.0, top: 8),
                                     child: Container(
                                       decoration: BoxDecoration(
-                                        border: Border.all(width: 1.0),
+                                        border: Border.all(
+                                            width: 1.0,
+                                            color: isDark(context)
+                                                ? Colors.white60
+                                                : Colors.black),
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(
                                                 15.0) //         <--- border radius here
@@ -324,7 +356,10 @@ class _HomeLoginState extends State<HomeLogin> {
                                             Text(
                                               'Advisor',
                                               style: TextStyle(
-                                                  color: Colors.black),
+                                                color: isDark(context)
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -341,7 +376,11 @@ class _HomeLoginState extends State<HomeLogin> {
                                         left: 8.0, top: 8),
                                     child: Container(
                                       decoration: BoxDecoration(
-                                        border: Border.all(width: 1.0),
+                                        border: Border.all(
+                                            width: 1.0,
+                                            color: isDark(context)
+                                                ? Colors.white60
+                                                : Colors.black),
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(
                                                 15.0) //         <--- border radius here
@@ -366,7 +405,10 @@ class _HomeLoginState extends State<HomeLogin> {
                                             Text(
                                               'Circulars',
                                               style: TextStyle(
-                                                  color: Colors.black),
+                                                color: isDark(context)
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -394,7 +436,11 @@ class _HomeLoginState extends State<HomeLogin> {
                                         left: 8.0, top: 8),
                                     child: Container(
                                       decoration: BoxDecoration(
-                                        border: Border.all(width: 1.0),
+                                        border: Border.all(
+                                            width: 1.0,
+                                            color: isDark(context)
+                                                ? Colors.white60
+                                                : Colors.black),
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(
                                                 15.0) //         <--- border radius here
@@ -419,7 +465,10 @@ class _HomeLoginState extends State<HomeLogin> {
                                             Text(
                                               'Fees',
                                               style: TextStyle(
-                                                  color: Colors.black),
+                                                color: isDark(context)
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -439,7 +488,11 @@ class _HomeLoginState extends State<HomeLogin> {
                                       width: 110,
                                       height: 100,
                                       decoration: BoxDecoration(
-                                        border: Border.all(width: 1.0),
+                                        border: Border.all(
+                                            width: 1.0,
+                                            color: isDark(context)
+                                                ? Colors.white60
+                                                : Colors.black),
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(
                                                 15.0) //         <--- border radius here
@@ -462,7 +515,10 @@ class _HomeLoginState extends State<HomeLogin> {
                                             Text(
                                               'E-Request',
                                               style: TextStyle(
-                                                  color: Colors.black),
+                                                color: isDark(context)
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -482,7 +538,11 @@ class _HomeLoginState extends State<HomeLogin> {
                                       width: 110,
                                       height: 100,
                                       decoration: BoxDecoration(
-                                        border: Border.all(width: 1.0),
+                                        border: Border.all(
+                                            width: 1.0,
+                                            color: isDark(context)
+                                                ? Colors.white60
+                                                : Colors.black),
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(
                                                 15.0) //         <--- border radius here
@@ -505,7 +565,10 @@ class _HomeLoginState extends State<HomeLogin> {
                                             Text(
                                               'CDP',
                                               style: TextStyle(
-                                                  color: Colors.black),
+                                                color: isDark(context)
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -555,7 +618,11 @@ class _HomeLoginState extends State<HomeLogin> {
                                           left: 8.0, top: 8),
                                       child: Container(
                                         decoration: BoxDecoration(
-                                          border: Border.all(width: 1.0),
+                                          border: Border.all(
+                                              width: 1.0,
+                                              color: isDark(context)
+                                                  ? Colors.white60
+                                                  : Colors.black),
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(
                                                   15.0) //         <--- border radius here
@@ -580,7 +647,10 @@ class _HomeLoginState extends State<HomeLogin> {
                                               Text(
                                                 'Circulars',
                                                 style: TextStyle(
-                                                    color: Colors.black),
+                                                  color: isDark(context)
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -598,7 +668,11 @@ class _HomeLoginState extends State<HomeLogin> {
                                           left: 8.0, top: 8),
                                       child: Container(
                                         decoration: BoxDecoration(
-                                          border: Border.all(width: 1.0),
+                                          border: Border.all(
+                                              width: 1.0,
+                                              color: isDark(context)
+                                                  ? Colors.white60
+                                                  : Colors.black),
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(
                                                   15.0) //         <--- border radius here
@@ -623,7 +697,10 @@ class _HomeLoginState extends State<HomeLogin> {
                                               Text(
                                                 'E-Request',
                                                 style: TextStyle(
-                                                    color: Colors.black),
+                                                  color: isDark(context)
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -641,7 +718,11 @@ class _HomeLoginState extends State<HomeLogin> {
                                           left: 8.0, top: 8),
                                       child: Container(
                                         decoration: BoxDecoration(
-                                          border: Border.all(width: 1.0),
+                                          border: Border.all(
+                                              width: 1.0,
+                                              color: isDark(context)
+                                                  ? Colors.white60
+                                                  : Colors.black),
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(
                                                   15.0) //         <--- border radius here
@@ -669,7 +750,10 @@ class _HomeLoginState extends State<HomeLogin> {
                                                 Text(
                                                   'Contact List',
                                                   style: TextStyle(
-                                                      color: Colors.black),
+                                                    color: isDark(context)
+                                                        ? Colors.white
+                                                        : Colors.black,
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -716,7 +800,11 @@ class _HomeLoginState extends State<HomeLogin> {
                                               left: 8.0, top: 8),
                                           child: Container(
                                             decoration: BoxDecoration(
-                                              border: Border.all(width: 1.0),
+                                              border: Border.all(
+                                                  width: 1.0,
+                                                  color: isDark(context)
+                                                      ? Colors.white60
+                                                      : Colors.black),
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(
                                                       15.0) //         <--- border radius here
@@ -744,7 +832,10 @@ class _HomeLoginState extends State<HomeLogin> {
                                                     Text(
                                                       'Courses',
                                                       style: TextStyle(
-                                                          color: Colors.black),
+                                                        color: isDark(context)
+                                                            ? Colors.white
+                                                            : Colors.black,
+                                                      ),
                                                     ),
                                                   ],
                                                 ),
@@ -763,7 +854,11 @@ class _HomeLoginState extends State<HomeLogin> {
                                               left: 8.0, top: 8),
                                           child: Container(
                                             decoration: BoxDecoration(
-                                              border: Border.all(width: 1.0),
+                                              border: Border.all(
+                                                  width: 1.0,
+                                                  color: isDark(context)
+                                                      ? Colors.white60
+                                                      : Colors.black),
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(
                                                       15.0) //         <--- border radius here
@@ -788,7 +883,10 @@ class _HomeLoginState extends State<HomeLogin> {
                                                   Text(
                                                     'Advisor',
                                                     style: TextStyle(
-                                                        color: Colors.black),
+                                                      color: isDark(context)
+                                                          ? Colors.white
+                                                          : Colors.black,
+                                                    ),
                                                   ),
                                                 ],
                                               ),
@@ -806,7 +904,11 @@ class _HomeLoginState extends State<HomeLogin> {
                                               left: 8.0, top: 8),
                                           child: Container(
                                             decoration: BoxDecoration(
-                                              border: Border.all(width: 1.0),
+                                              border: Border.all(
+                                                  width: 1.0,
+                                                  color: isDark(context)
+                                                      ? Colors.white60
+                                                      : Colors.black),
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(
                                                       15.0) //         <--- border radius here
@@ -831,7 +933,10 @@ class _HomeLoginState extends State<HomeLogin> {
                                                   Text(
                                                     'Circulars',
                                                     style: TextStyle(
-                                                        color: Colors.black),
+                                                      color: isDark(context)
+                                                          ? Colors.white
+                                                          : Colors.black,
+                                                    ),
                                                   ),
                                                 ],
                                               ),
@@ -861,7 +966,11 @@ class _HomeLoginState extends State<HomeLogin> {
                                               left: 8.0, top: 8),
                                           child: Container(
                                             decoration: BoxDecoration(
-                                              border: Border.all(width: 1.0),
+                                              border: Border.all(
+                                                  width: 1.0,
+                                                  color: isDark(context)
+                                                      ? Colors.white60
+                                                      : Colors.black),
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(
                                                       15.0) //         <--- border radius here
@@ -886,7 +995,10 @@ class _HomeLoginState extends State<HomeLogin> {
                                                   Text(
                                                     'E-Request',
                                                     style: TextStyle(
-                                                        color: Colors.black),
+                                                      color: isDark(context)
+                                                          ? Colors.white
+                                                          : Colors.black,
+                                                    ),
                                                   ),
                                                 ],
                                               ),
@@ -904,7 +1016,11 @@ class _HomeLoginState extends State<HomeLogin> {
                                               left: 8.0, top: 8),
                                           child: Container(
                                             decoration: BoxDecoration(
-                                              border: Border.all(width: 1.0),
+                                              border: Border.all(
+                                                  width: 1.0,
+                                                  color: isDark(context)
+                                                      ? Colors.white60
+                                                      : Colors.black),
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(
                                                       15.0) //         <--- border radius here
@@ -932,7 +1048,10 @@ class _HomeLoginState extends State<HomeLogin> {
                                                     Text(
                                                       'Contact List',
                                                       style: TextStyle(
-                                                          color: Colors.black),
+                                                        color: isDark(context)
+                                                            ? Colors.white
+                                                            : Colors.black,
+                                                      ),
                                                     ),
                                                   ],
                                                 ),
@@ -951,7 +1070,11 @@ class _HomeLoginState extends State<HomeLogin> {
                                               left: 8.0, top: 8),
                                           child: Container(
                                             decoration: BoxDecoration(
-                                              border: Border.all(width: 1.0),
+                                              border: Border.all(
+                                                  width: 1.0,
+                                                  color: isDark(context)
+                                                      ? Colors.white60
+                                                      : Colors.black),
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(
                                                       15.0) //         <--- border radius here
@@ -979,7 +1102,10 @@ class _HomeLoginState extends State<HomeLogin> {
                                                     Text(
                                                       'CDP',
                                                       style: TextStyle(
-                                                          color: Colors.black),
+                                                        color: isDark(context)
+                                                            ? Colors.white
+                                                            : Colors.black,
+                                                      ),
                                                     ),
                                                   ],
                                                 ),
@@ -1002,13 +1128,10 @@ class _HomeLoginState extends State<HomeLogin> {
                         ),
                       )
                     : SizedBox(),
-        appBar: 
-        PreferredSize(
+        appBar: PreferredSize(
           preferredSize: Size.fromHeight(250.0),
           child: Stack(
-
             children: <Widget>[
-              
               Column(
                 children: <Widget>[
                   ZigZag(
@@ -1019,7 +1142,8 @@ class _HomeLoginState extends State<HomeLogin> {
                         child: Row(
                           children: <Widget>[
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 20),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1059,7 +1183,8 @@ class _HomeLoginState extends State<HomeLogin> {
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(
-                                          studentJson['data']['name'].toString(),
+                                          studentJson['data']['name']
+                                              .toString(),
                                           style: TextStyle(color: Colors.white),
                                         ),
                                       ),
@@ -1092,7 +1217,8 @@ class _HomeLoginState extends State<HomeLogin> {
                                               width: 10,
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.all(8.0),
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
                                               child: Text(
                                                 studentJson['data']['program']
                                                     .toString(),
@@ -1142,29 +1268,40 @@ class _HomeLoginState extends State<HomeLogin> {
                       ),
                       height: 250,
                       decoration: new BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Color(0xFF104C90),
-                            Color(0xFF3773AC),
-                          ],
-                          stops: [
-                            0.7,
-                            0.9,
-                          ],
-                        ),
+                        gradient: isDark(context)
+                            ? LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Color(0xFF1F1F1F),
+                                  Color(0xFF1F1F1F),
+                                ],
+                                stops: [
+                                  0.7,
+                                  0.9,
+                                ],
+                              )
+                            : LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Color(0xFF104C90),
+                                  Color(0xFF3773AC),
+                                ],
+                                stops: [
+                                  0.7,
+                                  0.9,
+                                ],
+                              ),
                       ),
                     ),
                   ),
                 ],
               ),
-              
               Padding(
                 padding: const EdgeInsets.only(top: 80.0, right: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
-
                   children: <Widget>[
                     studentJson['photo'].toString() ==
                             "https:\/\/skylineportal.com\/sitgmioxg\/professor.png"
@@ -1207,7 +1344,6 @@ class _HomeLoginState extends State<HomeLogin> {
                   ],
                 ),
               ),
-
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 child: Row(
@@ -1257,7 +1393,6 @@ class _HomeLoginState extends State<HomeLogin> {
             ],
           ),
         ),
-     
       ),
     );
   }

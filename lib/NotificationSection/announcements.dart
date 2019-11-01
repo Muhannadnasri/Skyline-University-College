@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:skyline_university/Global/appBar.dart';
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/global.dart';
@@ -33,12 +34,14 @@ class _AnnouncementsState extends State<Announcements> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-        appBar: appBarLogin(context, 'Announcements'),
+        appBar:
+        
+         appBar(context, 'Announcements'),
+     
         body: announcementsJson == null
             ? exception(context, FontAwesomeIcons.exclamationTriangle,
-                announcementsMessageJson['message'])
+                announcementsMessageJson['message'],)
             : Container(
-                color: Colors.white,
                 child: ListView.builder(
                   itemCount: announcementsJson.length,
                   itemBuilder: (BuildContext context, int index) {

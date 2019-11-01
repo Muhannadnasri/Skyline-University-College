@@ -34,11 +34,7 @@ class _LocationState extends State<Location> {
   final Set<Marker> _markers = Set();
   final double _zoom = 15;
   CameraPosition _initialPosition =
-      CameraPosition(target: LatLng(25.2912193,55.4672391));
-
-
-
-
+      CameraPosition(target: LatLng(25.2912193, 55.4672391));
 
   @override
   Widget build(BuildContext context) {
@@ -76,18 +72,31 @@ class _LocationState extends State<Location> {
                           height: 30,
                           decoration: new BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(5)),
-                            gradient: LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              colors: [
-                                Color(0xFF104C90),
-                                Color(0xFF3773AC),
-                              ],
-                              stops: [
-                                0.7,
-                                0.9,
-                              ],
-                            ),
+                            gradient: isDark(context)
+                                ? LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: [
+                                      Color(0xFF1F1F1F),
+                                      Color(0xFF1F1F1F),
+                                    ],
+                                    stops: [
+                                      0.7,
+                                      0.9,
+                                    ],
+                                  )
+                                : LinearGradient(
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
+                                    colors: [
+                                      Color(0xFF104C90),
+                                      Color(0xFF3773AC),
+                                    ],
+                                    stops: [
+                                      0.7,
+                                      0.9,
+                                    ],
+                                  ),
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),
@@ -117,7 +126,13 @@ class _LocationState extends State<Location> {
                         height: 10,
                       ),
                       Container(
-                        child: Text(locationJson[index]['address1']),
+                        child: Text(
+                          locationJson[index]['address1'],
+                          style: TextStyle(
+                              color: isDark(context)
+                                  ? Colors.white
+                                  : Colors.black),
+                        ),
                       ),
                       SizedBox(
                         height: 10,
@@ -127,13 +142,26 @@ class _LocationState extends State<Location> {
                           launch('mailto:' +
                               locationJson[index]['email'].toString());
                         },
-                        child: Container(
-                          child: Text(
-                            locationJson[index]['email'],
-                            style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                color: Colors.blue),
-                          ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(FontAwesomeIcons.envelope,
+                                size: 15,
+                                color: isDark(context)
+                                    ? Colors.white
+                                    : Colors.black),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Container(
+                              child: Text(
+                                locationJson[index]['email'],
+                                style: TextStyle(
+                                    decoration: TextDecoration.underline,
+                                    color: Colors.blue),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       SizedBox(
@@ -144,13 +172,26 @@ class _LocationState extends State<Location> {
                           launch('tel:' +
                               locationJson[index]['phone1'].toString());
                         },
-                        child: Container(
-                          child: Text(
-                            locationJson[index]['phone1'],
-                            style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                color: Colors.blue),
-                          ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(FontAwesomeIcons.phoneAlt,
+                                size: 15,
+                                color: isDark(context)
+                                    ? Colors.white
+                                    : Colors.black),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Container(
+                              child: Text(
+                                locationJson[index]['phone1'],
+                                style: TextStyle(
+                                    decoration: TextDecoration.underline,
+                                    color: Colors.blue),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       SizedBox(

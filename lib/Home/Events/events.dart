@@ -49,7 +49,6 @@ class _EventsState extends State<Events> {
           ? exception(context, FontAwesomeIcons.exclamationTriangle,
               'No events available')
           : Container(
-              color: Colors.white,
               child: ListView.builder(
                   itemCount: events.length,
                   itemBuilder: (BuildContext context, int index) {
@@ -68,108 +67,101 @@ class _EventsState extends State<Events> {
                         );
                       },
                       child: Padding(
-                        padding: const EdgeInsets.only(top: 5),
+                        padding: const EdgeInsets.all(5),
                         child: Card(
                           shape: RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
                           elevation: 10,
-                          child: DottedBorder(
-                            color: Colors.blue,
-                            gap: 3,
-                            strokeWidth: 1,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: Container(
-                                    width: 100,
-                                    height: 80,
-                                    child: Stack(
-                                      children: <Widget>[
-                                        Center(
-                                          child: SpinKitRing(
-                                            size: 35,
-                                            lineWidth: 2,
-                                            color: Colors.blue,
-                                          ),
-                                        ),
-                                        Hero(
-                                          tag: events[index]['image_big'],
-                                          child: Center(
-                                            child: FadeInImage.memoryNetwork(
-                                              image: events[index]['image_big'],
-                                              fit: BoxFit.contain,
-                                              placeholder: kTransparentImage,
-                                              height: 80,
-                                              width: 100,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-
-
-                                Container(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Container(
+                                  width: 100,
+                                  height: 80,
+                                  child: Stack(
                                     children: <Widget>[
-                                      Container(
-                                        height: 20,
-                                        decoration: new BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10)),
-                                          gradient: LinearGradient(
-                                            begin: Alignment.topLeft,
-                                            end: Alignment.bottomRight,
-                                            colors: [
-                                              Color(0xFF104C90),
-                                              Color(0xFF3773AC),
-                                            ],
-                                            stops: [
-                                              0.7,
-                                              0.9,
-                                            ],
+                                      Center(
+                                        child: SpinKitRing(
+                                          size: 35,
+                                          lineWidth: 2,
+                                          color: Colors.blue,
+                                        ),
+                                      ),
+                                      Hero(
+                                        tag: events[index]['image_big'],
+                                        child: Center(
+                                          child: FadeInImage.memoryNetwork(
+                                            image: events[index]['image_big'],
+                                            fit: BoxFit.contain,
+                                            placeholder: kTransparentImage,
+                                            height: 80,
+                                            width: 100,
                                           ),
                                         ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(5.0),
-                                          child: Row(children: <Widget>[
-                                              Icon(
-                                             FontAwesomeIcons.calendarDay,
-                                              size: 10,
-                                              color: Colors.white,
-                                            ),
-                                            SizedBox(width: 5,),
-                                            Text(
-                                              events[index]['date'],
-                                              style: TextStyle(
-                                                  fontSize: 10,
-                                                  color: Colors.white),
-                                            )
-                                          ]),
-                                        ),
                                       ),
-
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Container(
-                                        width: c_width,
-                                        child: Text(
-                                          events[index]['title'],
-                                          textAlign: TextAlign.left,
-                                        ),
-                                      ), 
                                     ],
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                              Container(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Container(
+                                      height: 20,
+                                      decoration: new BoxDecoration(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10)),
+                                        gradient: LinearGradient(
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
+                                          colors: [
+                                            Color(0xFF104C90),
+                                            Color(0xFF3773AC),
+                                          ],
+                                          stops: [
+                                            0.7,
+                                            0.9,
+                                          ],
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: Row(children: <Widget>[
+                                          Icon(
+                                            FontAwesomeIcons.calendarDay,
+                                            size: 10,
+                                            color: Colors.white,
+                                          ),
+                                          SizedBox(
+                                            width: 5,
+                                          ),
+                                          Text(
+                                            events[index]['date'],
+                                            style: TextStyle(
+                                                fontSize: 10,
+                                                color: Colors.white),
+                                          )
+                                        ]),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Container(
+                                      width: c_width,
+                                      child: Text(
+                                        events[index]['title'],
+                                        textAlign: TextAlign.left,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),

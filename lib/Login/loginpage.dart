@@ -27,7 +27,7 @@ class LoginApp extends StatefulWidget {
 class _LoginAppState extends State<LoginApp> {
   final _logInForm = GlobalKey<FormState>();
   // Map studentMessageJson = {};
-   final focus = FocusNode();
+  final focus = FocusNode();
   void initState() {
     super.initState();
     // qLogin();
@@ -49,7 +49,7 @@ class _LoginAppState extends State<LoginApp> {
     ScreenUtil.instance =
         ScreenUtil(width: 750, height: 1334, allowFontScaling: true);
     return new Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: isDark(context) ? Color(0xFF1F1F1F) : Colors.white,
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
@@ -60,18 +60,31 @@ class _LoginAppState extends State<LoginApp> {
                 child: Container(
                   height: MediaQuery.of(context).size.height / 2,
                   decoration: new BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Color(0xFF104C90),
-                        Color(0xFF3773AC),
-                      ],
-                      stops: [
-                        0.7,
-                        0.9,
-                      ],
-                    ),
+                    gradient: isDark(context)
+                        ? LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Color(0xFF1F1F1F),
+                              Color(0xFF1F1F1F),
+                            ],
+                            stops: [
+                              0.7,
+                              0.9,
+                            ],
+                          )
+                        : LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Color(0xFF104C90),
+                              Color(0xFF3773AC),
+                            ],
+                            stops: [
+                              0.7,
+                              0.9,
+                            ],
+                          ),
                   ),
                   child: Column(
                     children: <Widget>[
@@ -136,7 +149,11 @@ class _LoginAppState extends State<LoginApp> {
                   ),
                   Container(
                     decoration: BoxDecoration(
-                        color: Colors.white,
+                        border: Border.all(
+                            color:
+                                isDark(context) ? Colors.white : Colors.black,
+                            width: 0.4),
+                        color: isDark(context) ? Colors.black : Colors.white,
                         borderRadius: BorderRadius.circular(8.0),
                         boxShadow: [
                           BoxShadow(
@@ -156,6 +173,9 @@ class _LoginAppState extends State<LoginApp> {
                         children: <Widget>[
                           Text("Login",
                               style: TextStyle(
+                                  color: isDark(context)
+                                      ? Colors.white
+                                      : Colors.black,
                                   fontSize: ScreenUtil.getInstance().setSp(45),
                                   fontFamily: "Poppins-Bold",
                                   letterSpacing: .6)),
@@ -171,6 +191,9 @@ class _LoginAppState extends State<LoginApp> {
                                     children: <Widget>[
                                       Text("Username",
                                           style: TextStyle(
+                                              color: isDark(context)
+                                                  ? Colors.white
+                                                  : Colors.black,
                                               fontFamily: "Poppins-Medium",
                                               fontSize: ScreenUtil.getInstance()
                                                   .setSp(26))),
@@ -179,11 +202,16 @@ class _LoginAppState extends State<LoginApp> {
                                 ),
                                 Container(
                                   child: TextFormField(
-                                     onFieldSubmitted: (v){
-                FocusScope.of(context).requestFocus(focus);
-              },
-              autofocus: true,
-                                      textInputAction: TextInputAction.next,
+                                    style: TextStyle(
+                                        color: isDark(context)
+                                            ? Colors.white
+                                            : Colors.black),
+                                    onFieldSubmitted: (v) {
+                                      FocusScope.of(context)
+                                          .requestFocus(focus);
+                                    },
+                                    autofocus: true,
+                                    textInputAction: TextInputAction.next,
                                     validator: (String value) {
                                       if (value.trim().isEmpty) {
                                         return 'Username is required';
@@ -194,10 +222,11 @@ class _LoginAppState extends State<LoginApp> {
                                       username = x;
                                     },
                                     decoration: InputDecoration(
+                                       focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red),
+                   ),  
                                         hintText: "Username",
-                                        hintStyle: TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 12.0)),
+                                        hintStyle: TextStyle(fontSize: 12.0)),
                                   ),
                                 ),
                                 SizedBox(
@@ -209,6 +238,9 @@ class _LoginAppState extends State<LoginApp> {
                                     children: <Widget>[
                                       Text("Password",
                                           style: TextStyle(
+                                              color: isDark(context)
+                                                  ? Colors.white
+                                                  : Colors.black,
                                               fontFamily: "Poppins-Medium",
                                               fontSize: ScreenUtil.getInstance()
                                                   .setSp(26))),
@@ -217,13 +249,16 @@ class _LoginAppState extends State<LoginApp> {
                                 ),
                                 Container(
                                   child: TextFormField(
-                                                  autofocus: true,
-                                                                focusNode: focus,
-                                    onFieldSubmitted: (term){
-                                      
-logIn();
-},
-                                      textInputAction: TextInputAction.done,
+                                    style: TextStyle(
+                                        color: isDark(context)
+                                            ? Colors.white
+                                            : Colors.black),
+                                    autofocus: true,
+                                    focusNode: focus,
+                                    onFieldSubmitted: (term) {
+                                      logIn();
+                                    },
+                                    textInputAction: TextInputAction.done,
                                     validator: (String value) {
                                       if (value.trim().isEmpty) {
                                         return 'Password is required';
@@ -235,6 +270,9 @@ logIn();
                                     },
                                     obscureText: true,
                                     decoration: InputDecoration(
+                                       focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red),
+                   ),  
                                         hintText: "Password",
                                         hintStyle: TextStyle(
                                             color: Colors.grey,
@@ -260,15 +298,20 @@ logIn();
                           width: ScreenUtil.getInstance().setWidth(300),
                           height: ScreenUtil.getInstance().setHeight(95),
                           decoration: BoxDecoration(
-                              gradient: LinearGradient(colors: [
-                                Color(0xFF104C90),
-                                Color(0xFF3773AC)
-                              ]),
+                              gradient: isDark(context)
+                                  ? LinearGradient(colors: [
+                                      Color(0xFF1F1F1F),
+                                      Color(0xFF1F1F1F),
+                                    ])
+                                  : LinearGradient(colors: [
+                                      Color(0xFF104C90),
+                                      Color(0xFF3773AC)
+                                    ]),
                               borderRadius: BorderRadius.circular(6.0),
                               boxShadow: [
                                 BoxShadow(
-                                    color: Color(0xFF3773AC).withOpacity(.3),
-                                    offset: Offset(0.0, 8.0),
+                                    color: Colors.white.withOpacity(.3),
+                                    offset: Offset(0.5, 5.0),
                                     blurRadius: 8.0)
                               ]),
                           child: Material(

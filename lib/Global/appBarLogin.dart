@@ -27,7 +27,23 @@ Widget appBarLogin(BuildContext context, header) {
       header,
       style: TextStyle(fontSize: 17),
     ),
-    gradient: LinearGradient(
+    gradient:
+     isDark(context) ?
+          
+           LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+             Color(0xFF1F1F1F),
+              Color(0xFF1F1F1F),
+            ],
+            stops: [
+              0.7,
+              0.9,
+            ],
+          ):
+    
+     LinearGradient(
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
       colors: [

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:skyline_university/Global/appBar.dart';
+import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/rowSection.dart';
 
 // Centre for continuing learning
@@ -42,18 +43,18 @@ class _HomeProgramsState extends State<HomePrograms> {
               SizedBox(
                 height: 15,
               ),
-              rowSection(context, 'images/admission.png',
+              rowSection(context, isDark(context)?'images-white/admission.png':'images/admission.png',
                   'Undergraduate Programs', "/homeUndergraduate"),
-              rowSection(context, 'images/admission.png', 'Graduate Programs',
+              rowSection(context, isDark(context)?'images-white/admission.png':'images/admission.png', 'Graduate Programs',
                   "/homeGraduate"),
-              rowSection(context, 'images/admission.png',
+              rowSection(context, isDark(context)?'images-white/admission.png':'images/admission.png',
                   'Professional Courses', "/professionalCourses"),
-              rowSection(context, 'images/admission.png', 'Scholarship',
+              rowSection(context, isDark(context)?'images-white/admission.png':'images/admission.png', 'Scholarship',
                   "/scholarship"
 
 
               ),
-              rowSection(context, 'images/admission.png', 'Fee Structure',
+              rowSection(context, isDark(context)?'images-white/admission.png':'images/admission.png', 'Fee Structure',
                   "/feeStructures"),
             ],
           ),

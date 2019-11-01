@@ -48,7 +48,6 @@ class _NewsState extends State<News> {
           ? exception(context, FontAwesomeIcons.exclamationTriangle,
               'No news available')
           : Container(
-              color: Colors.white,
               child: ListView.builder(
                   itemCount: news.length,
                   itemBuilder: (BuildContext context, int index) {
@@ -67,16 +66,13 @@ class _NewsState extends State<News> {
                         );
                       },
                       child: Padding(
-                        padding: const EdgeInsets.only(top: 5),
+                        padding: const EdgeInsets.all(5),
                         child: Card(
                           shape: RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
                           elevation: 10,
-                          child: DottedBorder(
-                            color: Colors.blue,
-                            gap: 3,
-                            strokeWidth: 1,
+                         
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
@@ -91,7 +87,7 @@ class _NewsState extends State<News> {
                                           child: SpinKitRing(
                                             size: 35,
                                             lineWidth: 2,
-                                            color: Colors.blue,
+                                            color: isDark(context)?Colors.white:Colors.black,
                                           ),
                                         ),
                                         Hero(
@@ -120,7 +116,23 @@ class _NewsState extends State<News> {
                                         decoration: new BoxDecoration(
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(10)),
-                                          gradient: LinearGradient(
+                                          gradient: 
+                                          
+                                          isDark(context) ?
+          
+           LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+             Color(0xFF1F1F1F),
+              Color(0xFF1F1F1F),
+            ],
+            stops: [
+              0.7,
+              0.9,
+            ],
+          ):
+                                          LinearGradient(
                                             begin: Alignment.topLeft,
                                             end: Alignment.bottomRight,
                                             colors: [
@@ -161,7 +173,7 @@ class _NewsState extends State<News> {
                                         width: c_width,
                                         child: Text(
                                           news[index]['title'],
-                                          textAlign: TextAlign.left,
+                                          textAlign: TextAlign.left,style: TextStyle(color: isDark(context)?Colors.white:Colors.black),
                                         ),
                                       ),
                                     ],
@@ -169,7 +181,7 @@ class _NewsState extends State<News> {
                                 ),
                               ],
                             ),
-                          ),
+                          
                         ),
                       ),
                     );

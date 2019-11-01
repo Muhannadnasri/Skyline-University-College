@@ -40,7 +40,6 @@ class _FacultyState extends State<Faculty> {
       resizeToAvoidBottomPadding: false,
       appBar: appBar(context, 'Faculty members'),
       body: Container(
-        color: Colors.white,
         child: ListView.builder(
             itemCount: faculty.length,
             itemBuilder: (BuildContext context, int index) {
@@ -58,7 +57,6 @@ class _FacultyState extends State<Faculty> {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
                             elevation: 10,
-                            color: Colors.grey[100],
                             child: Column(
                               children: <Widget>[
                                 SizedBox(
@@ -74,13 +72,13 @@ class _FacultyState extends State<Faculty> {
                                 ),
                                 Text(
                                   faculty[index]['Name'],
-                                  style: TextStyle(color: Colors.black),
+                                  style: TextStyle(color: isDark(context)?Colors.white:Colors.black),
                                 ),
                                 SizedBox(
                                   height: 5,
                                 ),
                                 Text(faculty[index]['Job_Title'],
-                                    style: TextStyle(color: Colors.grey[600])),
+                                    style: TextStyle(color: isDark(context)?Colors.white38:Colors.grey[600])),
                                 SizedBox(
                                   height: 10,
                                 ),

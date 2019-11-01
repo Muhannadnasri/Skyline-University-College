@@ -116,6 +116,15 @@ class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      darkTheme: ThemeData(
+
+iconTheme: IconThemeData(color: Colors.black),
+textTheme: TextTheme(
+  body1: TextStyle(color: Colors.black),
+  
+),
+    brightness: Brightness.dark,
+  ),
       debugShowCheckedModeBanner: false,
       builder: (BuildContext context, Widget child) {
         return new Builder(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:skyline_university/Global/appBar.dart';
+import 'package:skyline_university/Global/global.dart';
 
 void main() => runApp(OneNews());
 
@@ -38,8 +39,7 @@ class _OneNewsState extends State<OneNews> {
       resizeToAvoidBottomPadding: false,
       appBar: appBar(context, 'New'),
       body: Container(
-        child: 
-        ListView(
+        child: ListView(
           children: <Widget>[
             Column(
               children: <Widget>[
@@ -63,7 +63,13 @@ class _OneNewsState extends State<OneNews> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(15.0),
-                        child: Text(widget.oneNewsTitle),
+                        child: Text(
+                          widget.oneNewsTitle,
+                          style: TextStyle(
+                              color: isDark(context)
+                                  ? Colors.white
+                                  : Colors.black),
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 15.0, top: 5),
@@ -72,7 +78,7 @@ class _OneNewsState extends State<OneNews> {
                           decoration: UnderlineTabIndicator(
                               borderSide: BorderSide(
                                   width: 3,
-                                  color: Colors.blue,
+                                  color: isDark(context)?Colors.white:Colors.black,
                                   style: BorderStyle.solid)),
                         ),
                       ),
@@ -81,14 +87,26 @@ class _OneNewsState extends State<OneNews> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(15.0),
-                        child: Text(widget.oneNewsDate),
+                        child: Text(
+                          widget.oneNewsDate,
+                          style: TextStyle(
+                              color: isDark(context)
+                                  ? Colors.white
+                                  : Colors.black),
+                        ),
                       ),
                       SizedBox(
                         height: 10,
                       ),
                       Padding(
                         padding: const EdgeInsets.all(15.0),
-                        child: Text(widget.oneNewsContent),
+                        child: Text(
+                          widget.oneNewsContent,
+                          style: TextStyle(
+                              color: isDark(context)
+                                  ? Colors.white
+                                  : Colors.black),
+                        ),
                       )
                     ],
                   ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:skyline_university/Global/appBar.dart';
+import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/rowSection.dart';
 
 void main() => runApp(HomeInfo());
@@ -43,14 +44,14 @@ class _HomeInfoState extends State<HomeInfo> {
                   SizedBox(
                     height: 15,
                   ),
-                  rowSection(context, 'images/admission.png', 'Virtual Tour',
+                  rowSection(context, isDark(context)?'images-white/admission.png':'images/admission.png', 'Virtual Tour',
                       '/virtual'),
-                  rowSection(context, 'images/admission.png', 'Faculty Members',
+                  rowSection(context, isDark(context)?'images-white/admission.png':'images/admission.png', 'Faculty Members',
                       '/Faculty'),
                   rowSection(
-                      context, 'images/admission.png', 'SUC Info', '/info'),
+                      context, isDark(context)?'images-white/admission.png':'images/admission.png', 'SUC Info', '/info'),
                   rowSection(
-                      context, 'images/admission.png', 'Student Life', '/studentLife'),
+                      context, isDark(context)?'images-white/admission.png':'images/admission.png', 'Student Life', '/studentLife'),
 
 
 

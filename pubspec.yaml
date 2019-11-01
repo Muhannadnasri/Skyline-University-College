@@ -21,6 +21,7 @@ dependencies:
   url_launcher: ^5.0.3
   flutter_spinkit: ^4.0.0
   transparent_image: ^1.0.0
+  carousel_slider: ^1.3.1
   dotted_border: ^0.1.1
   datetime_picker_formfield: ^0.4.2
   fluttertoast: ^3.1.0
@@ -32,7 +33,7 @@ dependencies:
   shared_preferences: ^0.5.1+2
   flutter_webview_plugin: ^0.3.5
   flutter_calendar: ^0.0.8
-  flutter_html: ^0.10.4
+  flutter_html: ^0.11.0
   google_maps_flutter: ^0.5.21
   youtube_player_flutter: ^4.1.0
   flutter_plugin_pdf_viewer: any
@@ -71,6 +72,7 @@ flutter:
     - images/questions.png
     - images/info.png
     - images/gallery.png
+    - images/aptitude.png 
     - images/news.png
     - images/login.png
     - images/attendance.png
@@ -94,6 +96,22 @@ flutter:
     - images/skyline_white.png
     - images/1.jpg
     - images/3.jpg
+    - images-white/admission.png
+    - images-white/register.png
+    - images-white/programs.png
+    - images-white/news.png
+    - images-white/location.png
+    - images-white/info.png 
+    - images-white/login.png 
+    - images-white/events.png 
+    - images-white/questions.png 
+    - images-white/gallery.png 
+    - images-white/aptitude.png 
+    
+
+
+
+    
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see

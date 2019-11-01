@@ -135,7 +135,11 @@ Column(children: <Widget>[
           ),
           height: 220,
           decoration: new BoxDecoration(
-            gradient: LinearGradient(
+            gradient:
+            
+            
+            
+             LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [

@@ -4,6 +4,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:superellipse_shape/superellipse_shape.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+bool isDark(context) {
+  return Theme.of(context).brightness == Brightness.dark;
+}
+
 String program = studentJson['data']['program'];
 String userType = studentJson['data']['user_type'];
 
@@ -113,10 +117,23 @@ void showLoading(isLoading, context) {
           return WillPopScope(
             onWillPop: () {},
             child: new AlertDialog(
-              title: Image.asset(
+              title:
+              
+              
+              
+               Stack(
+                 children: <Widget>[
+                   Image.asset(
                 'images/logo.png',
                 height: 50,
+                color: isDark(context)?Colors.white:Colors.black,
               ),
+                   Image.asset(
+                    'images/logo.png',
+                    height: 50,
+              ),
+                 ],
+               ),
               shape: SuperellipseShape(
                 borderRadius: BorderRadius.all(
                   Radius.circular(20),
@@ -155,9 +172,18 @@ void showError(String msg, IconData icon, context, action) {
         return WillPopScope(
           onWillPop: () {},
           child: new AlertDialog(
-            title: Image.asset(
-              'images/logo.png',
-              height: 50,
+            title: Stack(
+              children: <Widget>[
+                Image.asset(
+                  'images/logo.png',
+                  color: Colors.white,
+                  height: 50,
+                ),
+                Image.asset(
+                  'images/logo.png',
+                  height: 50,
+                ),
+              ],
             ),
             shape: SuperellipseShape(
               borderRadius: BorderRadius.all(
@@ -171,7 +197,10 @@ void showError(String msg, IconData icon, context, action) {
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(right: 25.0),
-                      child: new Icon(icon),
+                      child: new Icon(
+                        icon,
+                        color: isDark(context) ? Colors.white : Colors.black,
+                      ),
                     ),
                     new Text(msg)
                   ],
