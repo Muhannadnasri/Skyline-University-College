@@ -37,8 +37,8 @@ final _scaffoldKey = GlobalKey<ScaffoldState>();
 class _HomeState extends State<Home> {
   int _exit = 0;
 
-  // final FirebaseMessaging _fcm = FirebaseMessaging();
-  // final Firestore _db = Firestore.instance;
+   final FirebaseMessaging _fcm = FirebaseMessaging();
+//   final Firestore _db = Firestore.instance;
 
   String formattedDate = DateFormat('yyyy-MM-dd hh:mm').format(DateTime.now());
 
@@ -53,39 +53,39 @@ class _HomeState extends State<Home> {
     getLogs();
 
     // qLogin();
-    // _firebaseMessaging.configure(
-    //   onMessage: (Map<String, dynamic> message) async {
-    //     setState(() {
-    //       _messageText = "Push Messaging message: $message";
-    //     });
-    //     print("onMessage: $message");
-    //   },
-    //   onLaunch: (Map<String, dynamic> message) async {
-    //     setState(() {
-    //       _messageText = "Push Messaging message: $message";
-    //     });
-    //     print("onLaunch: $message");
-    //   },
-    //   onResume: (Map<String, dynamic> message) async {
-    //     setState(() {
-    //       _messageText = "Push Messaging message: $message";
-    //     });
-    //     print("onResume: $message");
-    //   },
-    // );
-    // _firebaseMessaging.requestNotificationPermissions(
-    //     const IosNotificationSettings(sound: true, badge: true, alert: true));
-    // _firebaseMessaging.onIosSettingsRegistered
-    //     .listen((IosNotificationSettings settings) {
-    //   print("Settings registered: $settings");
-    // });
-    // _firebaseMessaging.getToken().then((String token) {
-    //   assert(token != null);
-    //   setState(() {
-    //     _homeScreenText = "Push Messaging token: $token";
-    //   });
-    //   print(_homeScreenText);
-    // });
+     _firebaseMessaging.configure(
+       onMessage: (Map<String, dynamic> message) async {
+         setState(() {
+           _messageText = "Push Messaging message: $message";
+         });
+         print("onMessage: $message");
+       },
+       onLaunch: (Map<String, dynamic> message) async {
+         setState(() {
+           _messageText = "Push Messaging message: $message";
+         });
+         print("onLaunch: $message");
+       },
+       onResume: (Map<String, dynamic> message) async {
+         setState(() {
+           _messageText = "Push Messaging message: $message";
+         });
+         print("onResume: $message");
+       },
+     );
+     _firebaseMessaging.requestNotificationPermissions(
+         const IosNotificationSettings(sound: true, badge: true, alert: true));
+     _firebaseMessaging.onIosSettingsRegistered
+         .listen((IosNotificationSettings settings) {
+       print("Settings registered: $settings");
+     });
+     _firebaseMessaging.getToken().then((String token) {
+       assert(token != null);
+       setState(() {
+         _homeScreenText = "Push Messaging token: $token";
+       });
+       print(_homeScreenText);
+     });
   }
 
   @override
@@ -148,11 +148,17 @@ class _HomeState extends State<Home> {
           color: isDark(context) ? Color(0xFF121212) : Colors.white,
           child: Column(
             children: <Widget>[
-              PhotoSlider(sliders),
+              GestureDetector(
+                  onTap: (){
+                    print(_homeScreenText);
+                  },
+
+                  child: PhotoSlider(sliders)),
               Expanded(
                 child: Container(
                   child: ListView(
                     children: <Widget>[
+                      Text(_homeScreenText),
                       FittedBox(
                         child: Column(
                           children: <Widget>[
