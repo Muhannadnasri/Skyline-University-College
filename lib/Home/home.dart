@@ -10,6 +10,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skyline_university/Global/global.dart';
@@ -37,13 +38,14 @@ final _scaffoldKey = GlobalKey<ScaffoldState>();
 class _HomeState extends State<Home> {
   int _exit = 0;
 
-   final FirebaseMessaging _fcm = FirebaseMessaging();
+  final FirebaseMessaging _fcm = FirebaseMessaging();
 //   final Firestore _db = Firestore.instance;
 
   String formattedDate = DateFormat('yyyy-MM-dd hh:mm').format(DateTime.now());
 
   String _homeScreenText = "Waiting for token...";
-  String _messageText = "Waiting for message...";
+  String _messageText;
+
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   @override
   void initState() {
@@ -53,39 +55,55 @@ class _HomeState extends State<Home> {
     getLogs();
 
     // qLogin();
-     _firebaseMessaging.configure(
-       onMessage: (Map<String, dynamic> message) async {
-         setState(() {
-           _messageText = "Push Messaging message: $message";
-         });
-         print("onMessage: $message");
-       },
-       onLaunch: (Map<String, dynamic> message) async {
-         setState(() {
-           _messageText = "Push Messaging message: $message";
-         });
-         print("onLaunch: $message");
-       },
-       onResume: (Map<String, dynamic> message) async {
-         setState(() {
-           _messageText = "Push Messaging message: $message";
-         });
-         print("onResume: $message");
-       },
-     );
-     _firebaseMessaging.requestNotificationPermissions(
-         const IosNotificationSettings(sound: true, badge: true, alert: true));
-     _firebaseMessaging.onIosSettingsRegistered
-         .listen((IosNotificationSettings settings) {
-       print("Settings registered: $settings");
-     });
-     _firebaseMessaging.getToken().then((String token) {
-       assert(token != null);
-       setState(() {
-         _homeScreenText = "Push Messaging token: $token";
-       });
-       print(_homeScreenText);
-     });
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        setState(() {
+          final title = message['notification']['title'];
+          final body = message['notification']['body'];
+
+          showSimpleNotification(
+            Text(title),
+            background: Color(0xFF104C90),
+
+            subtitle: Text(body),
+          );
+//          showSimpleNotification(
+//
+//            Center(
+//                child: Text(title)
+//            ),
+//
+//         elevation: 10,
+//            background:  Color(0xFF104C90),
+//            subtitle: Text(body),
+//            autoDismiss: true,
+//            slideDismiss: true,
+//          );
+        });
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        setState(() {});
+      },
+      onResume: (Map<String, dynamic> message) async {
+        setState(() {
+
+
+        });
+      },
+    );
+    _firebaseMessaging.requestNotificationPermissions(
+        const IosNotificationSettings(sound: true, badge: true, alert: true));
+    _firebaseMessaging.onIosSettingsRegistered
+        .listen((IosNotificationSettings settings) {
+      print("Settings registered: $settings");
+    });
+    _firebaseMessaging.getToken().then((String token) {
+      assert(token != null);
+      setState(() {
+        _homeScreenText = "Push Messaging token: $token";
+      });
+      print(_homeScreenText);
+    });
   }
 
   @override
@@ -149,16 +167,15 @@ class _HomeState extends State<Home> {
           child: Column(
             children: <Widget>[
               GestureDetector(
-                  onTap: (){
-                    print(_homeScreenText);
+                  onTap: () {
+                    print(_messageText);
                   },
-
                   child: PhotoSlider(sliders)),
               Expanded(
                 child: Container(
                   child: ListView(
                     children: <Widget>[
-                      Text(_homeScreenText),
+                      Text(_messageText.toString()),
                       FittedBox(
                         child: Column(
                           children: <Widget>[
@@ -287,9 +304,9 @@ class _HomeState extends State<Home> {
                                                   MainAxisAlignment.center,
                                               children: <Widget>[
                                                 Image.asset(
-                                                     isDark(context)
-                                                      ?'images-white/programs.png':
-                                                  'images/programs.png',
+                                                  isDark(context)
+                                                      ? 'images-white/programs.png'
+                                                      : 'images/programs.png',
                                                   height: 50,
                                                 ),
                                                 SizedBox(
@@ -355,8 +372,9 @@ class _HomeState extends State<Home> {
                                                 MainAxisAlignment.center,
                                             children: <Widget>[
                                               Image.asset(
-                                                isDark(context)?'images-white/news.png':
-                                                'images/news.png',
+                                                isDark(context)
+                                                    ? 'images-white/news.png'
+                                                    : 'images/news.png',
                                                 height: 50,
                                               ),
                                               SizedBox(
@@ -433,8 +451,9 @@ class _HomeState extends State<Home> {
                                                 MainAxisAlignment.center,
                                             children: <Widget>[
                                               Image.asset(
-                                                isDark(context)?'images-white/location.png':
-                                                'images/location.png',
+                                                isDark(context)
+                                                    ? 'images-white/location.png'
+                                                    : 'images/location.png',
                                                 height: 50,
                                               ),
                                               SizedBox(
@@ -500,8 +519,9 @@ class _HomeState extends State<Home> {
                                                 MainAxisAlignment.center,
                                             children: <Widget>[
                                               Image.asset(
-                                                isDark(context)?'images-white/info.png':
-                                                'images/info.png',
+                                                isDark(context)
+                                                    ? 'images-white/info.png'
+                                                    : 'images/info.png',
                                                 height: 50,
                                               ),
                                               SizedBox(
@@ -584,8 +604,9 @@ class _HomeState extends State<Home> {
                                                 MainAxisAlignment.center,
                                             children: <Widget>[
                                               Image.asset(
-                                                isDark(context)?'images-white/login.png':
-                                                'images/login.png',
+                                                isDark(context)
+                                                    ? 'images-white/login.png'
+                                                    : 'images/login.png',
                                                 height: 50,
                                               ),
                                               SizedBox(
@@ -665,8 +686,9 @@ class _HomeState extends State<Home> {
                                                   MainAxisAlignment.center,
                                               children: <Widget>[
                                                 Image.asset(
-                                                  isDark(context)?'images-white/events.png':
-                                                  'images/events.png',
+                                                  isDark(context)
+                                                      ? 'images-white/events.png'
+                                                      : 'images/events.png',
                                                   height: 50,
                                                 ),
                                                 Text(
@@ -729,8 +751,9 @@ class _HomeState extends State<Home> {
                                                 MainAxisAlignment.center,
                                             children: <Widget>[
                                               Image.asset(
-                                                isDark(context)?'images-white/questions.png':
-                                                'images/questions.png',
+                                                isDark(context)
+                                                    ? 'images-white/questions.png'
+                                                    : 'images/questions.png',
                                                 height: 50,
                                               ),
                                               SizedBox(
@@ -796,8 +819,9 @@ class _HomeState extends State<Home> {
                                                 MainAxisAlignment.center,
                                             children: <Widget>[
                                               Image.asset(
-                                                isDark(context)?'images-white/gallery.png':
-                                                'images/gallery.png',
+                                                isDark(context)
+                                                    ? 'images-white/gallery.png'
+                                                    : 'images/gallery.png',
                                                 height: 50,
                                               ),
                                               SizedBox(
@@ -865,8 +889,9 @@ class _HomeState extends State<Home> {
                                           MainAxisAlignment.center,
                                       children: <Widget>[
                                         Image.asset(
-                                          isDark(context)?'images-white/aptitude.png':
-                                          'images/aptitude.png',
+                                          isDark(context)
+                                              ? 'images-white/aptitude.png'
+                                              : 'images/aptitude.png',
                                           height: 50,
                                         ),
                                         SizedBox(
