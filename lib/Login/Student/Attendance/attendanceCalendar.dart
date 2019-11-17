@@ -245,17 +245,15 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
     try {
       http.Response response = await http.post(
         Uri.encodeFull(
-            "https://skylineportal.com/moappad/api/web/getStudentAttendanceDetails"),
+            "https://skylineportal.com/moappad/api/test/StudentAttendanceDetails"),
         headers: {
           "API-KEY": API,
         },
         body: {
           'student_id': username,
           'class_section_id': widget.classSectionID,
-          'usertype': studentJson['data']['user_type'],
-          'ipaddress': '1',
-          'deviceid': '1',
-          'devicename': '1',
+
+
         },
       ).timeout(Duration(seconds: 35));
 
