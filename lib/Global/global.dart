@@ -7,7 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 bool isDark(context) {
   return Theme.of(context).brightness == Brightness.dark;
 }
-
+String deviceId = 'Unknown';
 String program = studentJson['data']['program'];
 String userType = studentJson['data']['user_type'];
 
