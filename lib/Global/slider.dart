@@ -20,7 +20,7 @@ class PhotoSlider extends StatelessWidget {
               items: <Widget>[
                 Image.network(
                   sliders[index]['image'],
-fit: BoxFit.contain,
+                  fit: BoxFit.contain,
                 ),
               ],
             ),
