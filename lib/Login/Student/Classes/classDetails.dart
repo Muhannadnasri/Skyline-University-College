@@ -122,7 +122,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                                                 classScheduleCourseJson[index]
                                                         ['EXTN']
                                                     .toString()
-//
+
                                             );
                                       },
                                       child: Text(
