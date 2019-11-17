@@ -205,16 +205,12 @@ class _AttendanceState extends State<Attendance> {
     try {
       http.Response response = await http.post(
         Uri.encodeFull(
-            "https://skylineportal.com/moappad/api/web/getStudentAttendance"),
+            "https://skylineportal.com/moappad/api/test/StudentAttendance"),
         headers: {
           "API-KEY": API,
         },
         body: {
           'student_id': username,
-          'usertype': studentJson['data']['user_type'],
-          'ipaddress': '1',
-          'deviceid': '1',
-          'devicename': '1',
         },
       ).timeout(Duration(seconds: 35));
 
