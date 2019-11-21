@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -26,11 +25,13 @@ class LoginApp extends StatefulWidget {
 
 class _LoginAppState extends State<LoginApp> {
   final _logInForm = GlobalKey<FormState>();
+
   // Map studentMessageJson = {};
+  String deviceToken = '';
   final focus = FocusNode();
   void initState() {
     super.initState();
-    // qLogin();
+    quick();
   }
 
   Widget horizontalLine() => Padding(
@@ -210,7 +211,6 @@ class _LoginAppState extends State<LoginApp> {
                                       FocusScope.of(context)
                                           .requestFocus(focus);
                                     },
-                                    autofocus: true,
                                     textInputAction: TextInputAction.next,
                                     validator: (String value) {
                                       if (value.trim().isEmpty) {
@@ -222,9 +222,10 @@ class _LoginAppState extends State<LoginApp> {
                                       username = x;
                                     },
                                     decoration: InputDecoration(
-                                       focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red),
-                   ),  
+                                        focusedBorder: UnderlineInputBorder(
+                                          borderSide:
+                                              BorderSide(color: Colors.red),
+                                        ),
                                         hintText: "Username",
                                         hintStyle: TextStyle(fontSize: 12.0)),
                                   ),
@@ -253,7 +254,6 @@ class _LoginAppState extends State<LoginApp> {
                                         color: isDark(context)
                                             ? Colors.white
                                             : Colors.black),
-                                    autofocus: true,
                                     focusNode: focus,
                                     onFieldSubmitted: (term) {
                                       logIn();
@@ -270,9 +270,10 @@ class _LoginAppState extends State<LoginApp> {
                                     },
                                     obscureText: true,
                                     decoration: InputDecoration(
-                                       focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red),
-                   ),  
+                                        focusedBorder: UnderlineInputBorder(
+                                          borderSide:
+                                              BorderSide(color: Colors.red),
+                                        ),
                                         hintText: "Password",
                                         hintStyle: TextStyle(
                                             color: Colors.grey,
@@ -357,7 +358,69 @@ class _LoginAppState extends State<LoginApp> {
 
     try {
       http.Response response = await http.post(
-        Uri.encodeFull("https://skylineportal.com/moappad/api/web/login"),
+        Uri.encodeFull("https://skylineportal.com/moappad/api/test/login"),
+        headers: {
+          "API-KEY": API,
+        },
+        body: {
+          'username': username,
+          'password': password,
+          'usertype': '1',
+          'ipaddress': '1',
+          'deviceid': deviceId,
+          'devicetype': '1',
+          'devicetoken': deviceToken,
+          'devicename': '1'
+        },
+      );
+
+      if (response.statusCode == 200) {
+        setState(() {
+          studentJson = json.decode(response.body);
+        });
+        if (studentJson['success'] == "1") {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs.setString('username', username);
+          prefs.setString('password', password);
+          loggedin = true;
+          showLoading(false, context);
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (BuildContext context) => HomeLogin()),
+              (Route<dynamic> route) => false);
+        } else if (studentJson['success'] == "0") {
+          username = '';
+          password = '';
+          loggedin = false;
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs.setString('username', username);
+          prefs.setString('password', password);
+          showErrorInput(studentJson['message']);
+          Navigator.pop(context);
+          studentJson = {};
+        }
+      }
+    } catch (x) {
+      if (x.toString().contains("TimeoutException")) {
+        showLoading(false, context);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, logIn);
+      } else {
+        showLoading(false, context);
+        showError(
+            "Sorry, we can't connect", Icons.perm_scan_wifi, context, logIn);
+      }
+    }
+  }
+
+  Future qLogin() async {
+    Future.delayed(Duration.zero, () {
+      showLoading(true, context);
+    });
+
+    try {
+      final response = await http.post(
+        Uri.encodeFull("https://skylineportal.com/moappad/api/test/login"),
         headers: {
           "API-KEY": API,
         },
@@ -372,113 +435,49 @@ class _LoginAppState extends State<LoginApp> {
           'devicename': '1'
         },
       );
-
       if (response.statusCode == 200) {
         setState(() {
           studentJson = json.decode(response.body);
-          // studentMessageJson = json.decode(response.body);
         });
 
-        if (studentJson['success'] == "1") {
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-
-          prefs.setString('username', username);
-          prefs.setString('password', password);
-
+        if (studentJson["success"] == "1") {
+          print(studentJson['user_id']);
           loggedin = true;
           showLoading(false, context);
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (BuildContext context) => HomeLogin()),
               (Route<dynamic> route) => false);
-        } else if (studentJson['success'] == "0") {
+        } else if (studentJson["success"] == "0") {
           username = '';
           password = '';
           loggedin = false;
           SharedPreferences prefs = await SharedPreferences.getInstance();
           prefs.setString('username', username);
           prefs.setString('password', password);
-
-          showErrorInput(studentJson['message']);
-          Navigator.pop(context);
-          studentJson = {};
+          showLoading(false, context);
         }
       }
     } catch (x) {
-      print(studentJson.toString());
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
         showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-            context, logIn);
-      } else {
-        showLoading(false, context);
-        showError(
-            "Sorry, we can't connect", Icons.perm_scan_wifi, context, logIn);
+            context, qLogin);
       }
     }
   }
 
-  // Future qLogin() async {
-  //   Future.delayed(Duration.zero, () {
-  //     showLoading(true, context);
-  //   });
+  Future quick() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
 
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+    username = (prefs.getString('username') ?? '');
+    password = (prefs.getString('password') ?? '');
 
-  //   username = (prefs.getString('username') ?? '');
-  //   password = (prefs.getString('password') ?? '');
-
-  //   if (username == '') {
-  //     setState(() {
-  //       showLoading(false, context);
-  //     });
-  //     return;
-  //   } else {}
-  //   try {
-  //     final response = await http.post(
-  //       Uri.encodeFull("https://skylineportal.com/moappad/api/web/login"),
-  //       headers: {
-  //         "API-KEY": API,
-  //       },
-  //       body: {
-  //         'username': username,
-  //         'password': password,
-  //         'usertype': '1',
-  //         'ipaddress': '1',
-  //         'deviceid': '1',
-  //         'devicetype': '1',
-  //         'devicetoken': '1',
-  //         'devicename': '1'
-  //       },
-  //     );
-  //     if (response.statusCode == 200) {
-  //       setState(() {
-  //         studentJson = json.decode(response.body);
-  //       });
-
-  //       if (studentJson["success"] == "1") {
-  //         loggedin = true;
-  //         showLoading(false, context);
-  //         Navigator.pushAndRemoveUntil(
-  //             context,
-  //             MaterialPageRoute(builder: (BuildContext context) => HomeLogin()),
-  //             (Route<dynamic> route) => false);
-  //       } else if (studentJson["success"] == "0") {
-  //         username = '';
-  //         password = '';
-  //         loggedin = false;
-  //         SharedPreferences prefs = await SharedPreferences.getInstance();
-  //         prefs.setString('username', username);
-  //         prefs.setString('password', password);
-  //         showLoading(false, context);
-  //       }
-  //     }
-  //   } catch (x) {
-  //     if (x.toString().contains("TimeoutException")) {
-  //       showLoading(false, context);
-  //       showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-  //           context, qLogin);
-  //     }
-  //   }
-  // }
+    if (username == '') {
+    } else {
+      setState(() {
+        qLogin();
+      });
+    }
+  }
 }
