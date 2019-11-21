@@ -94,8 +94,6 @@ import 'Login/loginpage.dart';
 import 'NotificationSection/announcements.dart';
 import 'NotificationSection/notification.dart';
 
-import 'package:firebase_messaging/firebase_messaging.dart';
-
 void main() async {
   SystemChrome.setEnabledSystemUIOverlays([]);
   runApp(
@@ -112,22 +110,17 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
-  
-
   @override
   Widget build(BuildContext context) {
     return OverlaySupport(
-
       child: MaterialApp(
         darkTheme: ThemeData(
-
-iconTheme: IconThemeData(color: Colors.black),
-textTheme: TextTheme(
-  body1: TextStyle(color: Colors.black),
-
-),
-      brightness: Brightness.dark,
-  ),
+          iconTheme: IconThemeData(color: Colors.black),
+          textTheme: TextTheme(
+            body1: TextStyle(color: Colors.black),
+          ),
+          brightness: Brightness.dark,
+        ),
         debugShowCheckedModeBanner: false,
         builder: (BuildContext context, Widget child) {
           return new Builder(
@@ -223,7 +216,8 @@ textTheme: TextTheme(
           '/studentLife': (context) => StudentLife(),
           '/internationalStudents': (context) => InternationalStudents(),
           '/knowMoreAboutSkyline': (context) => KnowMoreAboutSkyline(),
-          '/studentServicesDepartment': (context) => StudentServicesDepartment(),
+          '/studentServicesDepartment': (context) =>
+              StudentServicesDepartment(),
           '/academicAdvisingAndMentoring': (context) =>
               AcademicAdvisingAndMentoring(),
           '/clubs': (context) => Clubs(),

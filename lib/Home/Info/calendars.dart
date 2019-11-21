@@ -36,7 +36,10 @@ class _CalendarsState extends State<Calendars> {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: appBar(context, 'Fee Structures'),
-      body: infoJson.isEmpty
+      body:
+
+
+      infoJson.isEmpty
           ? exception(context, FontAwesomeIcons.exclamationTriangle, '')
           : ListView(
               children: <Widget>[
