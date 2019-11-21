@@ -1,12 +1,15 @@
 import 'dart:async';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:skyline_university/Global/global.dart';
+import 'package:skyline_university/Global/homeBox.dart';
 import 'package:skyline_university/Global/zigzag.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -28,7 +31,9 @@ class HomeLogin extends StatefulWidget {
 
 class _HomeLoginState extends State<HomeLogin> {
   String formattedDate = DateFormat('yyyy-MM-dd hh:mm').format(DateTime.now());
+  String _messageText = "Waiting for message...";
 
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   Map<String, String> body;
 
@@ -38,8 +43,35 @@ class _HomeLoginState extends State<HomeLogin> {
   @override
   void initState() {
     super.initState();
-    getLogs();
-    getCopyRight();
+//    getLogs();
+//    getCopyRight();
+
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        setState(() {
+          showSimpleNotification(
+              Text(message['notification']['title'].toString() +
+                  '\n' +
+                  message['notification']['body'].toString()),
+              background: Colors.green);
+        });
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        setState(() {});
+      },
+      onResume: (Map<String, dynamic> message) async {
+        setState(() {});
+      },
+    );
+    _firebaseMessaging.requestNotificationPermissions(
+        const IosNotificationSettings(sound: true, badge: true, alert: true));
+    _firebaseMessaging.onIosSettingsRegistered
+        .listen((IosNotificationSettings settings) {
+      print("Settings registered: $settings");
+    });
+    _firebaseMessaging.subscribeToTopic(studentJson['data']['user_id']);
+    _firebaseMessaging.subscribeToTopic(studentJson['data']['user_type']);
+    _firebaseMessaging.subscribeToTopic('ALL');
   }
 
   @override
@@ -110,153 +142,79 @@ class _HomeLoginState extends State<HomeLogin> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: <Widget>[
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.pushNamed(context, "/Attendance");
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 8.0, top: 8),
-                                    child: Container(
-                                      width: 110,
-                                      height: 100,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            width: 1.0,
-                                            color: isDark(context)
-                                                ? Colors.white60
-                                                : Colors.black),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(
-                                                15.0) //         <--- border radius here
-                                            ),
-                                      ),
-                                      child: Container(
-                                        width: 80,
-                                        height: 80,
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            Image.asset(
-                                              'images/attendance.png',
-                                              height: 50,
-                                            ),
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                            Text(
-                                              'Attendance',
-                                              style: TextStyle(
-                                                color: isDark(context)
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                                homeBox(
+                                  context,
+                                  'images/attendance.png',
+                                  'images/attendance.png',
+                                  "/Attendance",
+                                  Colors.white60,
+                                  Colors.black,
+                                  'Attendance',
+                                  Colors.white,
+                                  Colors.black,
                                 ),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                        context, "/AssessmentMarkCourses");
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 8.0, top: 8),
-                                    child: Container(
-                                      width: 110,
-                                      height: 100,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            width: 1.0,
-                                            color: isDark(context)
-                                                ? Colors.white60
-                                                : Colors.black),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(
-                                                15.0) //         <--- border radius here
-                                            ),
-                                      ),
-                                      child: Container(
-                                        width: 80,
-                                        height: 80,
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            Image.asset(
-                                              'images/assessment.png',
-                                              height: 50,
-                                            ),
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                            Text(
-                                              'Assessment',
-                                              style: TextStyle(
-                                                color: isDark(context)
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                                homeBox(
+                                  context,
+                                  'images/assessment.png',
+                                  'images/assessment.png',
+                                  "/AssessmentMarkCourses",
+                                  Colors.white60,
+                                  Colors.black,
+                                  'Assessment',
+                                  Colors.white,
+                                  Colors.black,
                                 ),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.pushNamed(context, "/HomeResult");
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 8.0, top: 8),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            width: 1.0,
-                                            color: isDark(context)
-                                                ? Colors.white60
-                                                : Colors.black),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(
-                                                15.0) //         <--- border radius here
-                                            ),
-                                      ),
-                                      width: 110,
-                                      height: 100,
-                                      child: Container(
-                                        width: 80,
-                                        height: 80,
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            Image.asset(
-                                              'images/result.png',
-                                              height: 50,
-                                            ),
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                            Text(
-                                              'Result',
-                                              style: TextStyle(
-                                                color: isDark(context)
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                                homeBox(
+                                  context,
+                                  'images/result.png',
+                                  'images/result.png',
+                                  "/HomeResult",
+                                  Colors.white60,
+                                  Colors.black,
+                                  'Result',
+                                  Colors.white,
+                                  Colors.black,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: <Widget>[
+                                homeBox(
+                                  context,
+                                  'images/class.png',
+                                  'images/class.png',
+                                  "/HomeClass",
+                                  Colors.white60,
+                                  Colors.black,
+                                  'Classes',
+                                  Colors.white,
+                                  Colors.black,
+                                ),
+                                homeBox(
+                                  context,
+                                  'images/advisor.png',
+                                  'images/advisor.png',
+                                  "/MyAdvisor",
+                                  Colors.white60,
+                                  Colors.black,
+                                  'Advisor',
+                                  Colors.white,
+                                  Colors.black,
+                                ),
+                                homeBox(
+                                  context,
+                                  'images/circulars.png',
+                                  'images/circulars.png',
+                                  "/Circulars",
+                                  Colors.white60,
+                                  Colors.black,
+                                  'Circulars',
+                                  Colors.white,
+                                  Colors.black,
                                 ),
                               ],
                             ),
@@ -269,312 +227,38 @@ class _HomeLoginState extends State<HomeLogin> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: <Widget>[
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.pushNamed(context, '/HomeClass');
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 8.0, top: 8),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            width: 1.0,
-                                            color: isDark(context)
-                                                ? Colors.white60
-                                                : Colors.black),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(
-                                                15.0) //         <--- border radius here
-                                            ),
-                                      ),
-                                      width: 110,
-                                      height: 100,
-                                      child: Container(
-                                        width: 80,
-                                        height: 80,
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            Image.asset(
-                                              'images/class.png',
-                                              height: 50,
-                                            ),
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                            Text(
-                                              'Classes',
-                                              style: TextStyle(
-                                                color: isDark(context)
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                                homeBox(
+                                  context,
+                                  'images/fees.png',
+                                  'images/fees.png',
+                                  "/HomeFees",
+                                  Colors.white60,
+                                  Colors.black,
+                                  'Fees',
+                                  Colors.white,
+                                  Colors.black,
                                 ),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.pushNamed(context, "/MyAdvisor");
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 8.0, top: 8),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            width: 1.0,
-                                            color: isDark(context)
-                                                ? Colors.white60
-                                                : Colors.black),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(
-                                                15.0) //         <--- border radius here
-                                            ),
-                                      ),
-                                      width: 110,
-                                      height: 100,
-                                      child: Container(
-                                        width: 90,
-                                        height: 80,
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            Image.asset(
-                                              'images/advisor.png',
-                                              height: 50,
-                                            ),
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                            Text(
-                                              'Advisor',
-                                              style: TextStyle(
-                                                color: isDark(context)
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                                homeBox(
+                                  context,
+                                  'images/erequest.png',
+                                  'images/erequest.png',
+                                  "/HomeERequest",
+                                  Colors.white60,
+                                  Colors.black,
+                                  'E-Request',
+                                  Colors.white,
+                                  Colors.black,
                                 ),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.pushNamed(context, "/Circulars");
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 8.0, top: 8),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            width: 1.0,
-                                            color: isDark(context)
-                                                ? Colors.white60
-                                                : Colors.black),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(
-                                                15.0) //         <--- border radius here
-                                            ),
-                                      ),
-                                      width: 110,
-                                      height: 100,
-                                      child: Container(
-                                        width: 80,
-                                        height: 80,
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            Image.asset(
-                                              'images/circulars.png',
-                                              height: 50,
-                                            ),
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                            Text(
-                                              'Circulars',
-                                              style: TextStyle(
-                                                color: isDark(context)
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: <Widget>[
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.pushNamed(context, "/HomeFees");
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 8.0, top: 8),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            width: 1.0,
-                                            color: isDark(context)
-                                                ? Colors.white60
-                                                : Colors.black),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(
-                                                15.0) //         <--- border radius here
-                                            ),
-                                      ),
-                                      width: 110,
-                                      height: 100,
-                                      child: Container(
-                                        width: 80,
-                                        height: 80,
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            Image.asset(
-                                              'images/fees.png',
-                                              height: 50,
-                                            ),
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                            Text(
-                                              'Fees',
-                                              style: TextStyle(
-                                                color: isDark(context)
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                        context, "/HomeERequest");
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 8.0, top: 8),
-                                    child: Container(
-                                      width: 110,
-                                      height: 100,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            width: 1.0,
-                                            color: isDark(context)
-                                                ? Colors.white60
-                                                : Colors.black),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(
-                                                15.0) //         <--- border radius here
-                                            ),
-                                      ),
-                                      child: Container(
-                                        width: 90,
-                                        height: 80,
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            Image.asset(
-                                              'images/erequest.png',
-                                              height: 50,
-                                            ),
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                            Text(
-                                              'E-Request',
-                                              style: TextStyle(
-                                                color: isDark(context)
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                        context, "/CDPDownload");
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 8.0, top: 8),
-                                    child: Container(
-                                      width: 110,
-                                      height: 100,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            width: 1.0,
-                                            color: isDark(context)
-                                                ? Colors.white60
-                                                : Colors.black),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(
-                                                15.0) //         <--- border radius here
-                                            ),
-                                      ),
-                                      child: Container(
-                                        width: 80,
-                                        height: 80,
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            Image.asset(
-                                              'images/cdp.png',
-                                              height: 50,
-                                            ),
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                            Text(
-                                              'CDP',
-                                              style: TextStyle(
-                                                color: isDark(context)
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                                homeBox(
+                                  context,
+                                  'images/cdp.png',
+                                  'images/cdp.png',
+                                  "/CDPDownload",
+                                  Colors.white60,
+                                  Colors.black,
+                                  'CDP',
+                                  Colors.white,
+                                  Colors.black,
                                 ),
                               ],
                             ),
@@ -608,159 +292,38 @@ class _HomeLoginState extends State<HomeLogin> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: <Widget>[
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.pushNamed(
-                                          context, "/Circulars");
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 8.0, top: 8),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                              width: 1.0,
-                                              color: isDark(context)
-                                                  ? Colors.white60
-                                                  : Colors.black),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(
-                                                  15.0) //         <--- border radius here
-                                              ),
-                                        ),
-                                        width: 110,
-                                        height: 100,
-                                        child: Container(
-                                          width: 80,
-                                          height: 80,
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              Image.asset(
-                                                'images/circulars.png',
-                                                height: 50,
-                                              ),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              Text(
-                                                'Circulars',
-                                                style: TextStyle(
-                                                  color: isDark(context)
-                                                      ? Colors.white
-                                                      : Colors.black,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                                  homeBox(
+                                    context,
+                                    'images/circulars.png',
+                                    'images/circulars.png',
+                                    "/Circulars",
+                                    Colors.white60,
+                                    Colors.black,
+                                    'Circulars',
+                                    Colors.white,
+                                    Colors.black,
                                   ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.pushNamed(
-                                          context, "/HomeERequest");
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 8.0, top: 8),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                              width: 1.0,
-                                              color: isDark(context)
-                                                  ? Colors.white60
-                                                  : Colors.black),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(
-                                                  15.0) //         <--- border radius here
-                                              ),
-                                        ),
-                                        width: 110,
-                                        height: 100,
-                                        child: Container(
-                                          width: 90,
-                                          height: 80,
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              Image.asset(
-                                                'images/erequest.png',
-                                                height: 50,
-                                              ),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              Text(
-                                                'E-Request',
-                                                style: TextStyle(
-                                                  color: isDark(context)
-                                                      ? Colors.white
-                                                      : Colors.black,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                                  homeBox(
+                                    context,
+                                    'images/erequest.png',
+                                    'images/erequest.png',
+                                    "/HomeERequest",
+                                    Colors.white60,
+                                    Colors.black,
+                                    'E-Request',
+                                    Colors.white,
+                                    Colors.black,
                                   ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.pushNamed(
-                                          context, "/ContactList");
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 8.0, top: 8),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                              width: 1.0,
-                                              color: isDark(context)
-                                                  ? Colors.white60
-                                                  : Colors.black),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(
-                                                  15.0) //         <--- border radius here
-                                              ),
-                                        ),
-                                        width: 110,
-                                        height: 100,
-                                        child: Container(
-                                          width: 80,
-                                          height: 80,
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 8.0),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: <Widget>[
-                                                Image.asset(
-                                                  'images/contactslist.png',
-                                                  height: 50,
-                                                ),
-                                                SizedBox(
-                                                  height: 10,
-                                                ),
-                                                Text(
-                                                  'Contact List',
-                                                  style: TextStyle(
-                                                    color: isDark(context)
-                                                        ? Colors.white
-                                                        : Colors.black,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                                  homeBox(
+                                    context,
+                                    'images/contactslist.png',
+                                    'images/contactslist.png',
+                                    "/ContactList",
+                                    Colors.white60,
+                                    Colors.black,
+                                    'Contact List',
+                                    Colors.white,
+                                    Colors.black,
                                   ),
                                 ],
                               ),
@@ -790,159 +353,38 @@ class _HomeLoginState extends State<HomeLogin> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: <Widget>[
-                                      GestureDetector(
-                                        onTap: () {
-                                          Navigator.pushNamed(
-                                              context, "/CourseAllocation");
-                                        },
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 8.0, top: 8),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  width: 1.0,
-                                                  color: isDark(context)
-                                                      ? Colors.white60
-                                                      : Colors.black),
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(
-                                                      15.0) //         <--- border radius here
-                                                  ),
-                                            ),
-                                            width: 110,
-                                            height: 100,
-                                            child: Container(
-                                              width: 80,
-                                              height: 80,
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 8.0),
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: <Widget>[
-                                                    Image.asset(
-                                                      'images/allocation.png',
-                                                      height: 50,
-                                                    ),
-                                                    SizedBox(
-                                                      height: 10,
-                                                    ),
-                                                    Text(
-                                                      'Courses',
-                                                      style: TextStyle(
-                                                        color: isDark(context)
-                                                            ? Colors.white
-                                                            : Colors.black,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
+                                      homeBox(
+                                        context,
+                                        'images/allocation.png',
+                                        'images/allocation.png',
+                                        "/CourseAllocation",
+                                        Colors.white60,
+                                        Colors.black,
+                                        'Courses',
+                                        Colors.white,
+                                        Colors.black,
                                       ),
-                                      GestureDetector(
-                                        onTap: () {
-                                          Navigator.pushNamed(
-                                              context, "/Advisors");
-                                        },
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 8.0, top: 8),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  width: 1.0,
-                                                  color: isDark(context)
-                                                      ? Colors.white60
-                                                      : Colors.black),
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(
-                                                      15.0) //         <--- border radius here
-                                                  ),
-                                            ),
-                                            width: 110,
-                                            height: 100,
-                                            child: Container(
-                                              width: 90,
-                                              height: 80,
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: <Widget>[
-                                                  Image.asset(
-                                                    'images/advisor.png',
-                                                    height: 50,
-                                                  ),
-                                                  SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  Text(
-                                                    'Advisor',
-                                                    style: TextStyle(
-                                                      color: isDark(context)
-                                                          ? Colors.white
-                                                          : Colors.black,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
+                                      homeBox(
+                                        context,
+                                        'images/advisor.png',
+                                        'images/advisor.png',
+                                        "/Advisors",
+                                        Colors.white60,
+                                        Colors.black,
+                                        'Advisors',
+                                        Colors.white,
+                                        Colors.black,
                                       ),
-                                      GestureDetector(
-                                        onTap: () {
-                                          Navigator.pushNamed(
-                                              context, "/Circulars");
-                                        },
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 8.0, top: 8),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  width: 1.0,
-                                                  color: isDark(context)
-                                                      ? Colors.white60
-                                                      : Colors.black),
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(
-                                                      15.0) //         <--- border radius here
-                                                  ),
-                                            ),
-                                            width: 110,
-                                            height: 100,
-                                            child: Container(
-                                              width: 80,
-                                              height: 80,
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: <Widget>[
-                                                  Image.asset(
-                                                    'images/circulars.png',
-                                                    height: 50,
-                                                  ),
-                                                  SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  Text(
-                                                    'Circulars',
-                                                    style: TextStyle(
-                                                      color: isDark(context)
-                                                          ? Colors.white
-                                                          : Colors.black,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
+                                      homeBox(
+                                        context,
+                                        'images/circulars.png',
+                                        'images/circulars.png',
+                                        "/Circulars",
+                                        Colors.white60,
+                                        Colors.black,
+                                        'Circulars',
+                                        Colors.white,
+                                        Colors.black,
                                       ),
                                     ],
                                   ),
@@ -956,163 +398,38 @@ class _HomeLoginState extends State<HomeLogin> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: <Widget>[
-                                      GestureDetector(
-                                        onTap: () {
-                                          Navigator.pushNamed(
-                                              context, "/HomeERequest");
-                                        },
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 8.0, top: 8),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  width: 1.0,
-                                                  color: isDark(context)
-                                                      ? Colors.white60
-                                                      : Colors.black),
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(
-                                                      15.0) //         <--- border radius here
-                                                  ),
-                                            ),
-                                            width: 110,
-                                            height: 100,
-                                            child: Container(
-                                              width: 90,
-                                              height: 80,
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: <Widget>[
-                                                  Image.asset(
-                                                    'images/erequest.png',
-                                                    height: 50,
-                                                  ),
-                                                  SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  Text(
-                                                    'E-Request',
-                                                    style: TextStyle(
-                                                      color: isDark(context)
-                                                          ? Colors.white
-                                                          : Colors.black,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
+                                      homeBox(
+                                        context,
+                                        'images/erequest.png',
+                                        'images/erequest.png',
+                                        "/HomeERequest",
+                                        Colors.white60,
+                                        Colors.black,
+                                        'E-Request',
+                                        Colors.white,
+                                        Colors.black,
                                       ),
-                                      GestureDetector(
-                                        onTap: () {
-                                          Navigator.pushNamed(
-                                              context, "/ContactList");
-                                        },
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 8.0, top: 8),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  width: 1.0,
-                                                  color: isDark(context)
-                                                      ? Colors.white60
-                                                      : Colors.black),
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(
-                                                      15.0) //         <--- border radius here
-                                                  ),
-                                            ),
-                                            width: 110,
-                                            height: 100,
-                                            child: Container(
-                                              width: 80,
-                                              height: 80,
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 8.0),
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: <Widget>[
-                                                    Image.asset(
-                                                      'images/contactslist.png',
-                                                      height: 50,
-                                                    ),
-                                                    SizedBox(
-                                                      height: 10,
-                                                    ),
-                                                    Text(
-                                                      'Contact List',
-                                                      style: TextStyle(
-                                                        color: isDark(context)
-                                                            ? Colors.white
-                                                            : Colors.black,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
+                                      homeBox(
+                                        context,
+                                        'images/contactslist.png',
+                                        'images/contactslist.png',
+                                        "/ContactList",
+                                        Colors.white60,
+                                        Colors.black,
+                                        'ContactList',
+                                        Colors.white,
+                                        Colors.black,
                                       ),
-                                      GestureDetector(
-                                        onTap: () {
-                                          Navigator.pushNamed(
-                                              context, "/cdpFaculty");
-                                        },
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 8.0, top: 8),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  width: 1.0,
-                                                  color: isDark(context)
-                                                      ? Colors.white60
-                                                      : Colors.black),
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(
-                                                      15.0) //         <--- border radius here
-                                                  ),
-                                            ),
-                                            width: 110,
-                                            height: 100,
-                                            child: Container(
-                                              width: 80,
-                                              height: 80,
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 8.0),
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: <Widget>[
-                                                    Image.asset(
-                                                      'images/cdp.png',
-                                                      height: 50,
-                                                    ),
-                                                    SizedBox(
-                                                      height: 10,
-                                                    ),
-                                                    Text(
-                                                      'CDP',
-                                                      style: TextStyle(
-                                                        color: isDark(context)
-                                                            ? Colors.white
-                                                            : Colors.black,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
+                                      homeBox(
+                                        context,
+                                        'images/cdp.png',
+                                        'images/cdp.png',
+                                        "/cdpFaculty",
+                                        Colors.white60,
+                                        Colors.black,
+                                        'CDP',
+                                        Colors.white,
+                                        Colors.black,
                                       ),
                                     ],
                                   ),
@@ -1344,8 +661,11 @@ class _HomeLoginState extends State<HomeLogin> {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
+              SafeArea(
+                bottom: false,
+                left: true,
+                right: true,
+                top: true,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
