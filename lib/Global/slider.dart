@@ -1,6 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
 class PhotoSlider extends StatefulWidget {
   List sliders = [];
@@ -25,12 +24,12 @@ class _PhotoSliderState extends State<PhotoSlider> {
               child: CarouselSlider(
                 aspectRatio: 3,
                 items: <Widget>[
-                  CachedNetworkImage(
-                    fadeOutDuration: new Duration(seconds: 1),
-                    fadeInDuration: new Duration(seconds: 1),
-                    fit: BoxFit.cover,
-                    imageUrl: widget.sliders[index]['image'],
-                  ),
+                  // CachedNetworkImage(
+                  //   fadeOutDuration: new Duration(seconds: 1),
+                  //   fadeInDuration: new Duration(seconds: 1),
+                  //   fit: BoxFit.cover,
+                  //   imageUrl: widget.sliders[index]['image'],
+                  // ),
                 ],
               ),
             ),

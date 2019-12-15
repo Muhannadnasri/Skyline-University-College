@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -11,30 +10,34 @@ import 'package:path_provider/path_provider.dart';
 import 'package:skyline_university/Global/appBar.dart';
 import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/global.dart';
-import 'package:skyline_university/Home/Events/oneEvent.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-void main() => runApp(Events());
+import 'listscontent.dart';
 
-class Events extends StatefulWidget {
+class Lists extends StatefulWidget {
+  final String title;
+  final String value;
+
+  const Lists({Key key, this.title, this.value}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
-    return _EventsState();
+    return _ListsState();
   }
 }
 
-List events = [];
+List lists = [];
 
 File dataFile;
 
 Map<String, String> body;
 Map eventsJson = {};
 
-class _EventsState extends State<Events> {
+class _ListsState extends State<Lists> {
   @override
   void initState() {
     super.initState();
-    events = [];
+    lists = [];
     getEvents();
   }
 
@@ -44,24 +47,24 @@ class _EventsState extends State<Events> {
     double c_width = MediaQuery.of(context).size.width * 0.6;
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      appBar: appBar(context, 'Events'),
-      body: events == null
+      appBar: appBar(context, '${widget.title}'),
+      body: lists == null
           ? exception(context, FontAwesomeIcons.exclamationTriangle,
-              'No events available')
+              'No ${widget.title} available')
           : Container(
               child: ListView.builder(
-                  itemCount: events.length,
+                  itemCount: lists.length,
                   itemBuilder: (BuildContext context, int index) {
                     return GestureDetector(
                       onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => OneEvents(
-                              oneEventsTitle: events[index]['title'],
-                              oneEventsContent: events[index]['content'],
-                              oneEventsImage: events[index]['image_big'],
-                              oneEventsDate: events[index]['date'],
+                            builder: (context) => ListsContent(
+                              contentTitle: lists[index]['title'],
+                              contentContent: lists[index]['content'],
+                              contentImage: lists[index]['image_big'],
+                              contentDate: lists[index]['date'],
                             ),
                           ),
                         );
@@ -91,10 +94,10 @@ class _EventsState extends State<Events> {
                                         ),
                                       ),
                                       Hero(
-                                        tag: events[index]['image_big'],
+                                        tag: lists[index]['image_big'],
                                         child: Center(
                                           child: FadeInImage.memoryNetwork(
-                                            image: events[index]['image_big'],
+                                            image: lists[index]['image_big'],
                                             fit: BoxFit.contain,
                                             placeholder: kTransparentImage,
                                             height: 80,
@@ -113,21 +116,33 @@ class _EventsState extends State<Events> {
                                     Container(
                                       height: 20,
                                       decoration: new BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10)),
-                                        gradient: LinearGradient(
-                                          begin: Alignment.topLeft,
-                                          end: Alignment.bottomRight,
-                                          colors: [
-                                            Color(0xFF104C90),
-                                            Color(0xFF3773AC),
-                                          ],
-                                          stops: [
-                                            0.7,
-                                            0.9,
-                                          ],
-                                        ),
-                                      ),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10)),
+                                          gradient: isDark(context)
+                                              ? LinearGradient(
+                                                  begin: Alignment.topCenter,
+                                                  end: Alignment.bottomCenter,
+                                                  colors: [
+                                                    Color(0xFF1F1F1F),
+                                                    Color(0xFF1F1F1F),
+                                                  ],
+                                                  stops: [
+                                                    0.7,
+                                                    0.9,
+                                                  ],
+                                                )
+                                              : LinearGradient(
+                                                  begin: Alignment.topLeft,
+                                                  end: Alignment.bottomRight,
+                                                  colors: [
+                                                    Color(0xFF104C90),
+                                                    Color(0xFF3773AC),
+                                                  ],
+                                                  stops: [
+                                                    0.7,
+                                                    0.9,
+                                                  ],
+                                                )),
                                       child: Padding(
                                         padding: const EdgeInsets.all(5.0),
                                         child: Row(children: <Widget>[
@@ -140,7 +155,7 @@ class _EventsState extends State<Events> {
                                             width: 5,
                                           ),
                                           Text(
-                                            events[index]['date'],
+                                            lists[index]['date'],
                                             style: TextStyle(
                                                 fontSize: 10,
                                                 color: Colors.white),
@@ -154,8 +169,12 @@ class _EventsState extends State<Events> {
                                     Container(
                                       width: c_width,
                                       child: Text(
-                                        events[index]['title'],
+                                        lists[index]['title'],
                                         textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            color: isDark(context)
+                                                ? Colors.white
+                                                : Colors.black),
                                       ),
                                     ),
                                   ],
@@ -187,15 +206,6 @@ class _EventsState extends State<Events> {
         Directory appDocDir = await getApplicationDocumentsDirectory();
         dataFile = new File(appDocDir.path + "/dataFile.json");
 
-        if (dataFile.existsSync()) {
-          if (Json['events'] != null) {
-            dataFile.writeAsStringSync(response.body);
-          }
-        } else {
-          dataFile.createSync();
-          dataFile.writeAsStringSync(response.body);
-        }
-
         if (Json['events'] != null) {
           eventsJson = Json;
         } else {
@@ -205,18 +215,17 @@ class _EventsState extends State<Events> {
         showLoading(false, context);
 
         setState(() {
-          events = eventsJson["events"];
+          lists = eventsJson['${widget.value}'];
         });
       } else {}
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-            context, getEvents);
+        ;
+        showErrorServer(context, getEvents());
       } else {
         showLoading(false, context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-            getEvents);
+        showErrorConnect(context, getEvents());
       }
     }
   }

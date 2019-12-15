@@ -1,12 +1,18 @@
+import 'package:easy_dialog/easy_dialog.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:superellipse_shape/superellipse_shape.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'customDialog.dart';
+import 'loader.dart';
+
 bool isDark(context) {
   return Theme.of(context).brightness == Brightness.dark;
 }
+
 String deviceId = 'Unknown';
 String program = studentJson['data']['program'];
 String userType = studentJson['data']['user_type'];
@@ -117,23 +123,19 @@ void showLoading(isLoading, context) {
           return WillPopScope(
             onWillPop: () {},
             child: new AlertDialog(
-              title:
-              
-              
-              
-               Stack(
-                 children: <Widget>[
-                   Image.asset(
-                'images/logo.png',
-                height: 50,
-                color: isDark(context)?Colors.white:Colors.black,
-              ),
-                   Image.asset(
+              title: Stack(
+                children: <Widget>[
+                  Image.asset(
                     'images/logo.png',
                     height: 50,
+                    color: isDark(context) ? Colors.white : Colors.black,
+                  ),
+                  Image.asset(
+                    'images/logo.png',
+                    height: 50,
+                  ),
+                ],
               ),
-                 ],
-               ),
               shape: SuperellipseShape(
                 borderRadius: BorderRadius.all(
                   Radius.circular(20),
@@ -143,16 +145,8 @@ void showLoading(isLoading, context) {
                 padding: const EdgeInsets.only(left: 50.0),
                 child: Row(
                   children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 25.0),
-                      child: new CircularProgressIndicator(
-                        strokeWidth: 2,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 12),
-                      child: new Text('Please Wait....'),
-                    ),
+                    Loader(),
+                    new Text('Please Wait....'),
                   ],
                 ),
               ),
@@ -164,70 +158,307 @@ void showLoading(isLoading, context) {
   }
 }
 
-void showError(String msg, IconData icon, context, action) {
-  showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return WillPopScope(
-          onWillPop: () {},
-          child: new AlertDialog(
-            title: Stack(
-              children: <Widget>[
-                Image.asset(
-                  'images/logo.png',
-                  color: Colors.white,
-                  height: 50,
-                ),
-                Image.asset(
-                  'images/logo.png',
-                  height: 50,
-                ),
-              ],
-            ),
-            shape: SuperellipseShape(
-              borderRadius: BorderRadius.all(
-                Radius.circular(20),
-              ),
-            ),
-            content: Padding(
-              padding: const EdgeInsets.only(left: 30.0),
-              child: FittedBox(
-                child: new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 25.0),
-                      child: new Icon(
-                        icon,
-                        color: isDark(context) ? Colors.white : Colors.black,
-                      ),
-                    ),
-                    new Text(msg)
-                  ],
-                ),
-              ),
-            ),
-            actions: <Widget>[
-              new FlatButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  Navigator.pop(context);
-                },
-                child: new Text('Back'),
-              ),
-              new FlatButton(
-                onPressed: () {
-                  Navigator.pop(context);
-
-                  action();
-                },
-                child: new Text('Try again'),
-              ),
+void showSuccessSnackBar(BuildContext context, message) {
+  Flushbar(
+    duration: Duration(seconds: 2),
+    // aroundPadding: EdgeInsets.all(10),
+    borderRadius: 30,
+    backgroundGradient: LinearGradient(
+      colors: isDark(context)
+          ? [
+              Color(0xFF1F1F1F),
+              Color(0xFF1F1F1F),
+            ]
+          : [
+              Color(0xFF104C90),
+              Color(0xFF3773AC),
             ],
-          ),
-        );
-      });
+      stops: [0.7, 0.9],
+    ),
+    boxShadows: [
+      BoxShadow(
+        color: Colors.black45,
+        offset: Offset(3, 3),
+        blurRadius: 10,
+      ),
+    ],
+    // All of the previous Flushbars could be dismissed by swiping down
+    // now we want to swipe to the sides
+    dismissDirection: FlushbarDismissDirection.VERTICAL,
+    // The default curve is Curves.easeOut
+    forwardAnimationCurve: Curves.fastLinearToSlowEaseIn,
+    title: 'Success',
+    message: message,
+  )..show(context);
 }
+
+void showfailureSnackBar(BuildContext context, message) {
+  Flushbar(
+    duration: Duration(seconds: 2),
+    // aroundPadding: EdgeInsets.all(10),
+    borderRadius: 30,
+    backgroundGradient: LinearGradient(
+      colors: isDark(context)
+          ? [
+              Color(0xFF1F1F1F),
+              Color(0xFF1F1F1F),
+            ]
+          : [
+              Color(0xFF104C90),
+              Color(0xFF3773AC),
+            ],
+      stops: [0.7, 0.9],
+    ),
+    boxShadows: [
+      BoxShadow(
+        color: Colors.black45,
+        offset: Offset(3, 3),
+        blurRadius: 10,
+      ),
+    ],
+    // All of the previous Flushbars could be dismissed by swiping down
+    // now we want to swipe to the sides
+    dismissDirection: FlushbarDismissDirection.VERTICAL,
+    // The default curve is Curves.easeOut
+    forwardAnimationCurve: Curves.fastLinearToSlowEaseIn,
+    title: 'Failure',
+    message: message,
+  )..show(context);
+}
+textField(){
+return null;
+  
+}
+
+// void showError(context, title, yes) {
+//   EasyDialog(
+//     title: Text(
+//       title,
+//       style: TextStyle(
+//           fontSize: 17, fontWeight: FontWeight.bold, color: Colors.black54),
+//     ),
+//     closeButton: false,
+//     cornerRadius: 20,
+//     fogOpacity: 0.60,
+//     //TODO: Change fogOpacity
+//     height: MediaQuery.of(context).size.height / 5,
+//     contentList: [
+//       SizedBox(
+//         height: 20,
+//       ),
+//       Row(
+//         mainAxisAlignment: MainAxisAlignment.spaceAround,
+//         children: <Widget>[
+//           Align(
+//             alignment: Alignment.centerLeft,
+//             child: Container(
+//               alignment: Alignment.center,
+//               child: RaisedButton(
+//                   elevation: 5.0,
+//                   color: Colors.green[300],
+//                   child: Text(
+//                     'Yes',
+//                     style: TextStyle(color: Colors.white),
+//                   ),
+//                   onPressed: yes),
+//             ),
+//           ),
+//           Align(
+//             alignment: Alignment.centerRight,
+//             child: Container(
+//               alignment: Alignment.center,
+//               child: RaisedButton(
+//                   elevation: 5.0,
+//                   color: Colors.red[300],
+//                   child: Text(
+//                     'No',
+//                     style: TextStyle(color: Colors.white),
+//                   ),
+//                   onPressed: () {
+//                     Navigator.pop(context);
+//                   }),
+//             ),
+//           ),
+//         ],
+//       ),
+//     ],
+//   ).show(context);
+// }
+
+void showErrorServer(context, yes) {
+  EasyDialog(
+    title: Text(
+      "Time out from server",
+      style: TextStyle(
+          fontSize: 17, fontWeight: FontWeight.bold, color: Colors.black54),
+    ),
+    closeButton: false,
+    cornerRadius: 20,
+    fogOpacity: 0.60,
+    //TODO: Change fogOpacity
+    height: MediaQuery.of(context).size.height / 5,
+    contentList: [
+      SizedBox(
+        height: 20,
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Container(
+              alignment: Alignment.center,
+              child: RaisedButton(
+                  elevation: 5.0,
+                  color: Colors.green[300],
+                  child: Text(
+                    'Yes',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: yes),
+            ),
+          ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Container(
+              alignment: Alignment.center,
+              child: RaisedButton(
+                  elevation: 5.0,
+                  color: Colors.red[300],
+                  child: Text(
+                    'No',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  }),
+            ),
+          ),
+        ],
+      ),
+    ],
+  ).show(context);
+}
+
+void showErrorConnect(context, yes) {
+  EasyDialog(
+    title: Text(
+      "Sorry, we can't connect",
+      style: TextStyle(
+          fontSize: 17, fontWeight: FontWeight.bold, color: Colors.black54),
+    ),
+    closeButton: false,
+    cornerRadius: 20,
+    fogOpacity: 0.60,
+    //TODO: Change fogOpacity
+    height: MediaQuery.of(context).size.height / 5,
+    contentList: [
+      SizedBox(
+        height: 20,
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Container(
+              alignment: Alignment.center,
+              child: RaisedButton(
+                  elevation: 5.0,
+                  color: Colors.green[300],
+                  child: Text(
+                    'Yes',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: yes),
+            ),
+          ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Container(
+              alignment: Alignment.center,
+              child: RaisedButton(
+                  elevation: 5.0,
+                  color: Colors.red[300],
+                  child: Text(
+                    'No',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  }),
+            ),
+          ),
+        ],
+      ),
+    ],
+  ).show(context);
+}
+
+// void showError(String msg, IconData icon, context, action) {
+//   showDialog(
+//       context: context,
+//       barrierDismissible: false,
+//       builder: (BuildContext context) {
+//         return WillPopScope(
+//           onWillPop: () {},
+//           child: new AlertDialog(
+//             title: Stack(
+//               children: <Widget>[
+//                 Image.asset(
+//                   'images/logo.png',
+//                   color: Colors.white,
+//                   height: 50,
+//                 ),
+//                 Image.asset(
+//                   'images/logo.png',
+//                   height: 50,
+//                 ),
+//               ],
+//             ),
+//             shape: SuperellipseShape(
+//               borderRadius: BorderRadius.all(
+//                 Radius.circular(20),
+//               ),
+//             ),
+//             content: Padding(
+//               padding: const EdgeInsets.only(left: 30.0),
+//               child: FittedBox(
+//                 child: new Row(
+//                   children: <Widget>[
+//                     Padding(
+//                       padding: const EdgeInsets.only(right: 25.0),
+//                       child: new Icon(
+//                         icon,
+//                         color: isDark(context) ? Colors.white : Colors.black,
+//                       ),
+//                     ),
+//                     new Text(msg)
+//                   ],
+//                 ),
+//               ),
+//             ),
+//             actions: <Widget>[
+//               new FlatButton(
+//                 onPressed: () {
+//                   Navigator.pop(context);
+//                   Navigator.pop(context);
+//                 },
+//                 child: new Text('Back'),
+//               ),
+//               new FlatButton(
+//                 onPressed: () {
+//                   Navigator.pop(context);
+
+//                   action();
+//                 },
+//                 child: new Text('Try again'),
+//               ),
+//             ],
+//           ),
+//         );
+//       });
+// }
 
 void showErrorInput(String msg) {
   Fluttertoast.showToast(
@@ -253,7 +484,7 @@ void showDoneInput(String msg, context) {
       fontSize: 13.0);
 }
 
-void showAttendance(context, msg) {
+void showAttendance(context, msg, msg2, msg2Color) {
   showDialog(
       barrierDismissible: false,
       context: context,
@@ -276,16 +507,34 @@ void showAttendance(context, msg) {
               Radius.circular(20),
             ),
           ),
-          content: FittedBox(
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                new Text(
-                  msg,
-                  style: TextStyle(fontSize: 14),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Center(
+                child: Column(
+                  children: <Widget>[
+                    new Text(
+                      msg,
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text('Status' + " : " + ' ',
+                            style: TextStyle(fontSize: 20)),
+                        new Text(
+                          msg2,
+                          style: TextStyle(fontSize: 20, color: msg2Color),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         );
       });

@@ -44,9 +44,9 @@ class _HomeUndergraduateState extends State<HomeUndergraduate> {
                   SizedBox(
                     height: 15,
                   ),
-                  rowSection(context, 'images/admission.png',
+                  rowSection(context, 'images/admission.png', 'images-white/admission.png',
                       'School Of Business', '/undergraduateBusiness'),
-                  rowSection(context, 'images/admission.png',
+                  rowSection(context, 'images/admission.png', 'images-white/admission.png',
                       'School Of Information Technology', '/undergraduateIT'),
                 ],
               ),

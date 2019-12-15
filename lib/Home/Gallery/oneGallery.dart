@@ -52,9 +52,10 @@ class _OneGalleryState extends State<OneGallery> {
                             children: <Widget>[
                               appBar(context, widget.oneGalleryTitle),
                               Expanded(
-                                                              child: PhotoView(
+                                child: PhotoView(
                                   maxScale: PhotoViewComputedScale.covered * 1,
-                                  minScale: PhotoViewComputedScale.contained * 1,
+                                  minScale:
+                                      PhotoViewComputedScale.contained * 1,
                                   imageProvider: NetworkImage(
                                     widget.oneGalleryPhotos[index],
                                   ),

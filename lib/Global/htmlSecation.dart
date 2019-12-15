@@ -3,14 +3,13 @@ import 'package:flutter_html/flutter_html.dart';
 
 import 'global.dart';
 
-Widget htmlSecation(
-    BuildContext context, url, image, title,data) {
+Widget htmlSecation(BuildContext context, url, image, title, data) {
   return Column(
     children: <Widget>[
       url
           ? Container(
               child: Image.network(
-               image,
+                image,
                 fit: BoxFit.contain,
               ),
             )
@@ -55,7 +54,7 @@ Widget htmlSecation(
                   : Html(
                       defaultTextStyle: TextStyle(
                           color: isDark(context) ? Colors.white : Colors.black),
-                      data:data),
+                      data: data),
             )
           ],
         ),

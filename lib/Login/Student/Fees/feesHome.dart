@@ -32,9 +32,9 @@ class _HomeFeesState extends State<HomeFees> {
                 SizedBox(
                   height: 15,
                 ),
-                rowSection(context, 'images/admission.png', 'Pay Online',
+                rowSection(context, 'images/admission.png', 'images-white/admission.png', 'Pay Online',
                     "/PayOnline"),
-                rowSection(context, 'images/admission.png', 'Admission Kit',
+                rowSection(context, 'images/admission.png', 'images-white/admission.png', 'Admission Kit',
                     "/AdmissionKit"),
               ],
             ),

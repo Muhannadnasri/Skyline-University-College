@@ -263,12 +263,10 @@ class _LocationState extends State<Location> {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-            context, getLocation);
+        showErrorServer(context, getLocation());
       } else {
         showLoading(false, context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-            getLocation);
+        showErrorConnect(context, getLocation());
       }
     }
   }

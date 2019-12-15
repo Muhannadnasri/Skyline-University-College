@@ -77,9 +77,7 @@ class _ApptutudeFormState extends State<ApptutudeForm> {
           if (_apptutudeForm.currentState.validate()) {
             _apptutudeForm.currentState.save();
             getAptitude();
-          } else {
-
-          }
+          } else {}
         },
       ),
       appBar: appBarLogin(context, 'Aptitude Register'),
@@ -116,8 +114,8 @@ class _ApptutudeFormState extends State<ApptutudeForm> {
                               setState(() {
                                 firstName = x;
                               });
-                            }, 'First Name', false, TextInputType.text,
-                                FontAwesomeIcons.user, Colors.blue),
+                            }, 'First Name', TextInputType.text,
+                                ),
                             globalForms(context, '', (String value) {
                               if (value.trim().isEmpty) {
                                 return 'Middle name is required';
@@ -127,8 +125,8 @@ class _ApptutudeFormState extends State<ApptutudeForm> {
                               setState(() {
                                 middleName = x;
                               });
-                            }, 'Middle Name', false, TextInputType.text,
-                                FontAwesomeIcons.user, Colors.blue),
+                            }, 'Middle Name', TextInputType.text,
+                                ),
                             globalForms(context, '', (String value) {
                               if (value.trim().isEmpty) {
                                 return 'Last name is required';
@@ -138,8 +136,8 @@ class _ApptutudeFormState extends State<ApptutudeForm> {
                               setState(() {
                                 lastName = x;
                               });
-                            }, 'Last Name', false, TextInputType.text,
-                                FontAwesomeIcons.user, Colors.blue),
+                            }, 'Last Name', TextInputType.text,
+                                ),
                             globalForms(context, '', (String value) {
                               if (value.trim().isEmpty) {
                                 return 'Email is required';
@@ -149,8 +147,8 @@ class _ApptutudeFormState extends State<ApptutudeForm> {
                               setState(() {
                                 email = x;
                               });
-                            }, 'Email ', false, TextInputType.emailAddress,
-                                FontAwesomeIcons.inbox, Colors.blue),
+                            }, 'Email ', TextInputType.emailAddress,
+                               ),
                             globalForms(context, '', (String value) {
                               if (value.trim().isEmpty) {
                                 return 'Mobile Number is required';
@@ -160,8 +158,8 @@ class _ApptutudeFormState extends State<ApptutudeForm> {
                               setState(() {
                                 mobile = x;
                               });
-                            }, 'Mobile Number', false, TextInputType.number,
-                                FontAwesomeIcons.phoneAlt, Colors.blue),
+                            }, 'Mobile Number', TextInputType.number,
+                                ),
                             globalForms(context, '', (String value) {
                               if (value.trim().isEmpty) {
                                 return 'Telephone number is required';
@@ -171,8 +169,8 @@ class _ApptutudeFormState extends State<ApptutudeForm> {
                               setState(() {
                                 telephone = x;
                               });
-                            }, 'Telephone Number', false, TextInputType.number,
-                                FontAwesomeIcons.phoneAlt, Colors.blue),
+                            }, 'Telephone Number', TextInputType.number,
+                                ),
                             datePickers(context, (date) {
                               dob = date.toString();
                             }, 'Date of Birth'),
@@ -241,8 +239,8 @@ class _ApptutudeFormState extends State<ApptutudeForm> {
                               setState(() {
                                 city = x;
                               });
-                            }, 'City', false, TextInputType.text,
-                                FontAwesomeIcons.mapMarked, Colors.blue),
+                            }, 'City', TextInputType.text,
+                                ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
@@ -355,12 +353,8 @@ class _ApptutudeFormState extends State<ApptutudeForm> {
                               setState(() {
                                 university = x;
                               });
-                            },
-                                'Name of school/university',
-                                false,
-                                TextInputType.text,
-                                FontAwesomeIcons.building,
-                                Colors.blue),
+                            }, 'Name of school/university', TextInputType.text,
+                               ),
                             globalForms(context, '', (String value) {
                               if (value.trim().isEmpty) {
                                 return 'Address is required';
@@ -370,8 +364,8 @@ class _ApptutudeFormState extends State<ApptutudeForm> {
                               setState(() {
                                 address = x;
                               });
-                            }, 'Address', false, TextInputType.text,
-                                FontAwesomeIcons.mapMarked, Colors.blue),
+                            }, 'Address', TextInputType.text,
+                               ),
                             SizedBox(
                               height: 10,
                             ),
@@ -466,12 +460,10 @@ class _ApptutudeFormState extends State<ApptutudeForm> {
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-            context, getProgramAndNationality);
+        showErrorServer(context, getProgramAndNationality());
       } else {
         showLoading(false, context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-            getProgramAndNationality);
+        showErrorConnect(context, getProgramAndNationality());
       }
     }
   }
@@ -514,7 +506,7 @@ class _ApptutudeFormState extends State<ApptutudeForm> {
         setState(
           () {
             aptitudeJson = json.decode(response.body)['data']['questions'];
-            aptitudeIDJson=json.decode(response.body)['data'];
+            aptitudeIDJson = json.decode(response.body)['data'];
             aptitudeMessageJson = json.decode(response.body);
           },
         );
@@ -535,17 +527,13 @@ class _ApptutudeFormState extends State<ApptutudeForm> {
             MaterialPageRoute(builder: (BuildContext context) => Home()),
             (Route<dynamic> route) => false);
       }
-
     } catch (x) {
-
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-            context, getAptitude());
+        showErrorServer(context, getAptitude());
       } else {
         showLoading(false, context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-            getAptitude());
+        showErrorConnect(context, getAptitude());
       }
     }
   }

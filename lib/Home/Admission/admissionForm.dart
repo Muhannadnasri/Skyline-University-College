@@ -8,6 +8,7 @@ import 'package:skyline_university/Global/appBar.dart';
 import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/bottomAppBar.dart';
+import 'package:skyline_university/Global/global.dart' as prefix0;
 
 void main() => runApp(AdmissionForm());
 
@@ -109,8 +110,8 @@ class _AdmissionFormState extends State<AdmissionForm> {
                               setState(() {
                                 fullName = x;
                               });
-                            }, 'Full Name', true, TextInputType.text,
-                                FontAwesomeIcons.user, Colors.blue),
+                            }, 'Full Name', TextInputType.text,
+                              ),
                             globalForms(context, '', (String value) {
                               if (value.trim().isEmpty) {
                                 return 'Email name is requiblue';
@@ -120,8 +121,8 @@ class _AdmissionFormState extends State<AdmissionForm> {
                               setState(() {
                                 email = x;
                               });
-                            }, 'Email', true, TextInputType.emailAddress,
-                                FontAwesomeIcons.envelope, Colors.blue),
+                            }, 'Email', TextInputType.emailAddress,
+                                ),
                             globalForms(context, '', (String value) {
                               if (value.trim().isEmpty) {
                                 return 'Mobile is requiblue';
@@ -131,8 +132,8 @@ class _AdmissionFormState extends State<AdmissionForm> {
                               setState(() {
                                 mobile = x;
                               });
-                            }, 'Mobile', true, TextInputType.number,
-                                FontAwesomeIcons.phoneAlt, Colors.blue),
+                            }, 'Mobile', TextInputType.number,
+                              ),
                             Row(
                               children: <Widget>[
                                 Expanded(
@@ -337,12 +338,10 @@ class _AdmissionFormState extends State<AdmissionForm> {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-            context, getAdmissionFormDropdownRecords);
+        showErrorServer(context, getAdmissionFormDropdownRecords());
       } else {
         showLoading(false, context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-            getAdmissionFormDropdownRecords);
+        showErrorConnect(context, getAdmissionFormDropdownRecords());
       }
     }
   }
@@ -392,12 +391,10 @@ class _AdmissionFormState extends State<AdmissionForm> {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-            context, getAdmissionFormDropdownRecords);
+        showErrorServer(context, getAdmissionFormDropdownRecords());
       } else {
         showLoading(false, context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-            getAdmissionFormDropdownRecords);
+        showErrorConnect(context, getAdmissionFormDropdownRecords());
       }
     }
   }

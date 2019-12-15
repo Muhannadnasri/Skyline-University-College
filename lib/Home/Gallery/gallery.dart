@@ -44,7 +44,6 @@ class _GalleryState extends State<Gallery> {
       resizeToAvoidBottomPadding: false,
       appBar: appBar(context, 'Gallery'),
       body: Container(
-        color: Colors.white,
         child: ListView.builder(
             itemCount: galleries.length,
             itemBuilder: (BuildContext context, int index) {
@@ -71,10 +70,8 @@ class _GalleryState extends State<Gallery> {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
                           elevation: 10,
-                          child: DottedBorder(
-                            color: Colors.blue,
-                            gap: 3,
-                            strokeWidth: 1,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
                             child: Stack(
                               alignment: Alignment.bottomCenter,
                               children: <Widget>[
@@ -168,12 +165,10 @@ class _GalleryState extends State<Gallery> {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-            context, getGallery);
+        showErrorServer(context, getGallery());
       } else {
         showLoading(false, context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-            getGallery);
+        showErrorConnect(context, getGallery());
       }
     }
   }

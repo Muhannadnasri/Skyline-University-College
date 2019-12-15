@@ -44,14 +44,14 @@ class _HomeInfoState extends State<HomeInfo> {
                   SizedBox(
                     height: 15,
                   ),
-                  rowSection(context, isDark(context)?'images-white/admission.png':'images/admission.png', 'Virtual Tour',
+                  rowSection(context, isDark(context)?'images-white/admission.png':'images/admission.png', 'images-white/admission.png', 'Virtual Tour',
                       '/virtual'),
-                  rowSection(context, isDark(context)?'images-white/admission.png':'images/admission.png', 'Faculty Members',
+                  rowSection(context, isDark(context)?'images-white/admission.png':'images/admission.png', 'images-white/admission.png', 'Faculty Members',
                       '/Faculty'),
                   rowSection(
-                      context, isDark(context)?'images-white/admission.png':'images/admission.png', 'SUC Info', '/info'),
+                      context, isDark(context)?'images-white/admission.png':'images/admission.png', 'images-white/admission.png', 'SUC Info', '/info'),
                   rowSection(
-                      context, isDark(context)?'images-white/admission.png':'images/admission.png', 'Student Life', '/studentLife'),
+                      context, isDark(context)?'images-white/admission.png':'images/admission.png', 'images-white/admission.png', 'Student Life', '/studentLife'),
 
 
 

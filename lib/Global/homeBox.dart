@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'global.dart';
 
-Widget homeBox(BuildContext context, darkModeImage, whiteModeImage,to,darkModeColor,whiteModeColor,title,darkModeTitle,whiteModeTitle) {
+Widget homeBox(BuildContext context, darkModeImage, whiteModeImage, to,
+    darkModeColor, whiteModeColor, title, darkModeTitle, whiteModeTitle) {
   return GestureDetector(
     onTap: () {
       Navigator.pushNamed(context, to);
@@ -23,9 +24,8 @@ Widget homeBox(BuildContext context, darkModeImage, whiteModeImage,to,darkModeCo
               ),
             )
           ],
-          color: isDark(context)
-              ? whiteModeColor
-              :darkModeColor.withOpacity(0.1),
+          color:
+              isDark(context) ? whiteModeColor : darkModeColor.withOpacity(0.1),
           border: Border.all(
               width: 1.0,
               color: isDark(context) ? Colors.white60 : Colors.black),
@@ -33,8 +33,8 @@ Widget homeBox(BuildContext context, darkModeImage, whiteModeImage,to,darkModeCo
               Radius.circular(15.0) //         <--- border radius here
               ),
         ),
-        width: 110,
-        height: 100,
+        width: 120,
+        height: 110,
         child: Container(
           width: 80,
           height: 80,
@@ -43,9 +43,7 @@ Widget homeBox(BuildContext context, darkModeImage, whiteModeImage,to,darkModeCo
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Image.asset(
-                  isDark(context)
-                      ? darkModeImage
-                      : whiteModeImage,
+                  isDark(context) ? darkModeImage : whiteModeImage,
                   height: 50,
                 ),
                 SizedBox(
@@ -54,13 +52,13 @@ Widget homeBox(BuildContext context, darkModeImage, whiteModeImage,to,darkModeCo
                 Text(
                   title,
                   style: TextStyle(
-                    color: isDark(context) ? darkModeTitle: whiteModeTitle,
+                    color: isDark(context) ? darkModeTitle : whiteModeTitle,
                   ),
                 ),
               ],
             ),
           ),
-        ), 
+        ),
       ),
     ),
   );

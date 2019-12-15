@@ -195,8 +195,8 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
                         setState(() {
                           reason = x;
                         });
-                      }, 'Reason', true, TextInputType.text,
-                          FontAwesomeIcons.question, Colors.blue)),
+                      }, 'Reason', TextInputType.text,
+                          )),
                 ],
               ),
             ),
@@ -239,12 +239,10 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-            context, getCurrentAndNewShift);
+        showErrorServer(context, getCurrentAndNewShift());
       } else {
         showLoading(false, context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-            getCurrentAndNewShift);
+        showErrorConnect(context, getCurrentAndNewShift());
       }
     }
   }
@@ -286,12 +284,10 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-            context, getCurrentAndNewShift);
+        showErrorServer(context, getCurrentAndNewShift());
       } else {
         showLoading(false, context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-            getCurrentAndNewShift);
+        showErrorConnect(context, getCurrentAndNewShift());
       }
     }
   }
@@ -341,15 +337,12 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
         }
       }
     } catch (x) {
-      
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-            context, getCurrentAndNewShift);
+        showErrorServer(context, getCurrentAndNewShift());
       } else {
         showLoading(false, context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-            getCurrentAndNewShift);
+        showErrorConnect(context, getCurrentAndNewShift());
       }
     }
   }
@@ -382,15 +375,12 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
         );
       }
     } catch (x) {
-      
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-            context, getPolicyDetails);
+        showErrorServer(context, getPolicyDetails());
       } else {
         showLoading(false, context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-            getPolicyDetails);
+        showErrorConnect(context, getPolicyDetails());
       }
     }
   }

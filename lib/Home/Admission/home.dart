@@ -34,7 +34,7 @@ class _HomeAdmissionState extends State<HomeAdmission> {
             ),
 
 
-            rowSection(context,isDark(context)?'images-white/admission.png':'images/admission.png','Application Form','/AdmissionForm'),
+            rowSection(context,isDark(context)?'images-white/admission.png':'images/admission.png', 'images-white/admission.png','Application Form','/AdmissionForm'),
 
           ],
         ),

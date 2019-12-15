@@ -144,7 +144,7 @@ class _HomeLoginState extends State<HomeLogin> {
                               children: <Widget>[
                                 homeBox(
                                   context,
-                                  'images/attendance.png',
+                                  'images-white/attendance.png',
                                   'images/attendance.png',
                                   "/Attendance",
                                   Colors.white60,
@@ -155,7 +155,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                 ),
                                 homeBox(
                                   context,
-                                  'images/assessment.png',
+                                  'images-white/assessment.png',
                                   'images/assessment.png',
                                   "/AssessmentMarkCourses",
                                   Colors.white60,
@@ -166,7 +166,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                 ),
                                 homeBox(
                                   context,
-                                  'images/result.png',
+                                  'images-white/result.png',
                                   'images/result.png',
                                   "/HomeResult",
                                   Colors.white60,
@@ -185,7 +185,7 @@ class _HomeLoginState extends State<HomeLogin> {
                               children: <Widget>[
                                 homeBox(
                                   context,
-                                  'images/class.png',
+                                  'images-white/class.png',
                                   'images/class.png',
                                   "/HomeClass",
                                   Colors.white60,
@@ -196,7 +196,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                 ),
                                 homeBox(
                                   context,
-                                  'images/advisor.png',
+                                  'images-white/advisor.png',
                                   'images/advisor.png',
                                   "/MyAdvisor",
                                   Colors.white60,
@@ -207,7 +207,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                 ),
                                 homeBox(
                                   context,
-                                  'images/circulars.png',
+                                  'images-white/circulars.png',
                                   'images/circulars.png',
                                   "/Circulars",
                                   Colors.white60,
@@ -229,7 +229,7 @@ class _HomeLoginState extends State<HomeLogin> {
                               children: <Widget>[
                                 homeBox(
                                   context,
-                                  'images/fees.png',
+                                  'images-white/fees.png',
                                   'images/fees.png',
                                   "/HomeFees",
                                   Colors.white60,
@@ -240,7 +240,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                 ),
                                 homeBox(
                                   context,
-                                  'images/erequest.png',
+                                  'images-white/erequest.png',
                                   'images/erequest.png',
                                   "/HomeERequest",
                                   Colors.white60,
@@ -251,7 +251,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                 ),
                                 homeBox(
                                   context,
-                                  'images/cdp.png',
+                                  'images-white/cdp.png',
                                   'images/cdp.png',
                                   "/CDPDownload",
                                   Colors.white60,
@@ -294,7 +294,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                 children: <Widget>[
                                   homeBox(
                                     context,
-                                    'images/circulars.png',
+                                    'images-white/circulars.png',
                                     'images/circulars.png',
                                     "/Circulars",
                                     Colors.white60,
@@ -305,7 +305,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                   ),
                                   homeBox(
                                     context,
-                                    'images/erequest.png',
+                                    'images-white/erequest.png',
                                     'images/erequest.png',
                                     "/HomeERequest",
                                     Colors.white60,
@@ -316,7 +316,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                   ),
                                   homeBox(
                                     context,
-                                    'images/contactslist.png',
+                                    'images-white/contactslist.png',
                                     'images/contactslist.png',
                                     "/ContactList",
                                     Colors.white60,
@@ -355,7 +355,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                     children: <Widget>[
                                       homeBox(
                                         context,
-                                        'images/allocation.png',
+                                        'images-white/allocation.png',
                                         'images/allocation.png',
                                         "/CourseAllocation",
                                         Colors.white60,
@@ -366,7 +366,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                       ),
                                       homeBox(
                                         context,
-                                        'images/advisor.png',
+                                        'images-white/advisor.png',
                                         'images/advisor.png',
                                         "/Advisors",
                                         Colors.white60,
@@ -377,7 +377,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                       ),
                                       homeBox(
                                         context,
-                                        'images/circulars.png',
+                                        'images-white/circulars.png',
                                         'images/circulars.png',
                                         "/Circulars",
                                         Colors.white60,
@@ -400,7 +400,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                     children: <Widget>[
                                       homeBox(
                                         context,
-                                        'images/erequest.png',
+                                        'images-white/erequest.png',
                                         'images/erequest.png',
                                         "/HomeERequest",
                                         Colors.white60,
@@ -411,7 +411,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                       ),
                                       homeBox(
                                         context,
-                                        'images/contactslist.png',
+                                        'images-white/contactslist.png',
                                         'images/contactslist.png',
                                         "/ContactList",
                                         Colors.white60,
@@ -422,7 +422,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                       ),
                                       homeBox(
                                         context,
-                                        'images/cdp.png',
+                                        'images-white/cdp.png',
                                         'images/cdp.png',
                                         "/cdpFaculty",
                                         Colors.white60,

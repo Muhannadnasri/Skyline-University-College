@@ -4,16 +4,6 @@ Widget bottomappBar(BuildContext context, onTap) {
   return BottomAppBar(
       child: GestureDetector(
     onTap: onTap,
-    // () {
-    // setState(() {
-    //   if (_reason.currentState.validate() && newShift != null) {
-    //     _reason.currentState.save();
-
-    //     getChangeClassTiming();
-    //   }
-    // });
-
-    // },
     child: Material(
       elevation: 3,
       shadowColor: Colors.black,

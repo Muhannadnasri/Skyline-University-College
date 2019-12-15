@@ -1,38 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:skyline_university/Global/appBar.dart';
-import 'package:skyline_university/Global/global.dart';
 
-void main() => runApp(OneNews());
+import 'global.dart';
 
-class OneNews extends StatefulWidget {
-  final String oneNewsTitle;
-  final String oneNewsContent;
-  final String oneNewsImage;
-  final String oneNewsDate;
+class ListsContent extends StatefulWidget {
+  final String contentTitle;
+  final String contentContent;
+  final String contentImage;
+  final String contentDate;
 
-  const OneNews(
+  const ListsContent(
       {Key key,
-      this.oneNewsTitle,
-      this.oneNewsContent,
-      this.oneNewsImage,
-      this.oneNewsDate})
+      this.contentTitle,
+      this.contentContent,
+      this.contentImage,
+      this.contentDate})
       : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _OneNewsState();
+    return _ListsContentState();
   }
 }
 
-class _OneNewsState extends State<OneNews> {
+class _ListsContentState extends State<ListsContent> {
   @override
   void initState() {
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context) {
+Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
 
     return Scaffold(
@@ -44,10 +43,10 @@ class _OneNewsState extends State<OneNews> {
             Column(
               children: <Widget>[
                 Hero(
-                  tag: widget.oneNewsImage,
+                  tag: widget.contentImage,
                   child: Container(
                     child: Image.network(
-                      widget.oneNewsImage,
+                      widget.contentImage,
                       filterQuality: FilterQuality.medium,
                       width: MediaQuery.of(context).size.width,
                       fit: BoxFit.contain,
@@ -64,7 +63,7 @@ class _OneNewsState extends State<OneNews> {
                       Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: Text(
-                          widget.oneNewsTitle,
+                          widget.contentTitle,
                           style: TextStyle(
                               color: isDark(context)
                                   ? Colors.white
@@ -88,7 +87,7 @@ class _OneNewsState extends State<OneNews> {
                       Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: Text(
-                          widget.oneNewsDate,
+                          widget.contentDate,
                           style: TextStyle(
                               color: isDark(context)
                                   ? Colors.white
@@ -101,7 +100,7 @@ class _OneNewsState extends State<OneNews> {
                       Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: Text(
-                          widget.oneNewsContent,
+                          widget.contentContent,
                           style: TextStyle(
                               color: isDark(context)
                                   ? Colors.white

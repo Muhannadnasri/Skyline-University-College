@@ -27,29 +27,47 @@ class _HomeClassState extends State<HomeClass> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          child:  ListView(
-                  children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        SizedBox(
-                          height: 15,
-                        ),
-                        rowSection(context, 'images/admission.png',
-                            'Course Details', "/CourseDetails"),
-                        rowSection(context, 'images/admission.png',
-                            'Class Schedule Weekday', "/ClassScheduleWeekday"),
-                        rowSection(context, 'images/admission.png',
-                            'Class Schedule Weekend', "/ClassScheduleWeekend"),
-                        rowSection(
-                            context,
-                            'images/admission.png',
-                            'Class Schedule Mqp WeekDay',
-                            "/ClassScheduleMqpWeekDay")
-                      ],
-                    ),
-                  ],
-                )
+          child: ListView(
+        children: <Widget>[
+          Column(
+            children: <Widget>[
+              SizedBox(
+                height: 15,
               ),
+              rowSection(
+                  context,
+                  'images/admission.png',
+                  'images-white/admission.png',
+                  'Course Details',
+                  "/CourseDetails"),
+
+
+
+
+
+                  
+              rowSection(
+                  context,
+                  'images/admission.png',
+                  'images-white/admission.png',
+                  'Class Schedule Weekday',
+                  "/ClassScheduleWeekday"),
+              rowSection(
+                  context,
+                  'images/admission.png',
+                  'images-white/admission.png',
+                  'Class Schedule Weekend',
+                  "/ClassScheduleWeekend"),
+              rowSection(
+                  context,
+                  'images/admission.png',
+                  'images-white/admission.png',
+                  'Class Schedule Mqp WeekDay',
+                  "/ClassScheduleMqpWeekDay")
+            ],
+          ),
+        ],
+      )),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(250.0),
         child: Stack(
@@ -187,18 +205,31 @@ class _HomeClassState extends State<HomeClass> {
                     ),
                     height: 250,
                     decoration: new BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Color(0xFF104C90),
-                          Color(0xFF3773AC),
-                        ],
-                        stops: [
-                          0.7,
-                          0.9,
-                        ],
-                      ),
+                      gradient: isDark(context)
+                          ? LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Color(0xFF1F1F1F),
+                                Color(0xFF1F1F1F),
+                              ],
+                              stops: [
+                                0.7,
+                                0.9,
+                              ],
+                            )
+                          : LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Color(0xFF104C90),
+                                Color(0xFF3773AC),
+                              ],
+                              stops: [
+                                0.7,
+                                0.9,
+                              ],
+                            ),
                     ),
                   ),
                 ),

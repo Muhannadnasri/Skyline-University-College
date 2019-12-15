@@ -132,8 +132,8 @@ class _BookRequisitionState extends State<BookRequisition> {
                                   setState(() {
                                     title = x;
                                   });
-                                }, 'Title', true, TextInputType.text,
-                                    FontAwesomeIcons.user, Colors.blue),
+                                }, 'Title', TextInputType.text,
+                                    ),
                                 globalForms(context, '', (String value) {
                                   if (value.trim().isEmpty) {
                                     return 'Author name is required';
@@ -143,8 +143,8 @@ class _BookRequisitionState extends State<BookRequisition> {
                                   setState(() {
                                     author = x;
                                   });
-                                }, 'Author', true, TextInputType.text,
-                                    FontAwesomeIcons.user, Colors.blue),
+                                }, 'Author', TextInputType.text,
+                                   ),
                                 globalForms(context, '', (String value) {
                                   if (value.trim().isEmpty) {
                                     return 'Edition is required';
@@ -154,8 +154,8 @@ class _BookRequisitionState extends State<BookRequisition> {
                                   setState(() {
                                     edition = x;
                                   });
-                                }, 'Edition', true, TextInputType.text,
-                                    FontAwesomeIcons.vaadin, Colors.blue),
+                                }, 'Edition', TextInputType.text,
+                                    ),
                                 globalForms(context, '', (String value) {
                                   if (value.trim().isEmpty) {
                                     return 'Publisher name is required';
@@ -165,8 +165,8 @@ class _BookRequisitionState extends State<BookRequisition> {
                                   setState(() {
                                     publisher = x;
                                   });
-                                }, 'Publisher Name', true, TextInputType.text,
-                                    FontAwesomeIcons.user, Colors.blue),
+                                }, 'Publisher Name', TextInputType.text,
+                                    ),
                                 globalForms(context, '', (String value) {
                                   if (value.trim().isEmpty) {
                                     return 'Year is required';
@@ -176,8 +176,8 @@ class _BookRequisitionState extends State<BookRequisition> {
                                   setState(() {
                                     year = x;
                                   });
-                                }, 'Year', true, TextInputType.number,
-                                    FontAwesomeIcons.calendarAlt, Colors.blue),
+                                }, 'Year', TextInputType.number,
+                                    ),
                                 globalForms(context, '', (String value) {
                                   if (value.trim().isEmpty) {
                                     return 'ISBN is required';
@@ -187,8 +187,8 @@ class _BookRequisitionState extends State<BookRequisition> {
                                   setState(() {
                                     isbn = x;
                                   });
-                                }, 'ISBN Number', true, TextInputType.text,
-                                    FontAwesomeIcons.book, Colors.blue),
+                                }, 'ISBN Number', TextInputType.text,
+                                   ),
                                 globalForms(context, '', (String value) {
                                   if (value.trim().isEmpty) {
                                     return 'Quantity is required';
@@ -198,8 +198,8 @@ class _BookRequisitionState extends State<BookRequisition> {
                                   setState(() {
                                     quantity = x;
                                   });
-                                }, 'Quantity', true, TextInputType.number,
-                                    FontAwesomeIcons.book, Colors.blue),
+                                }, 'Quantity', TextInputType.number,
+                                    ),
                                 globalForms(context, '', (String value) {
                                   if (value.trim().isEmpty) {
                                     return 'Price is required';
@@ -209,8 +209,8 @@ class _BookRequisitionState extends State<BookRequisition> {
                                   setState(() {
                                     price = x;
                                   });
-                                }, 'Unit Price', true, TextInputType.number,
-                                    FontAwesomeIcons.moneyBill, Colors.blue),
+                                }, 'Unit Price', TextInputType.number,
+                                   ),
                                 SizedBox(
                                   height: 10,
                                 ),
@@ -318,13 +318,10 @@ class _BookRequisitionState extends State<BookRequisition> {
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
-
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-            context, getLibraryMaterial);
+        showErrorServer(context, getLibraryMaterial());
       } else {
         showLoading(false, context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-            getLibraryMaterial);
+        showErrorConnect(context, getLibraryMaterial());
       }
     }
   }
@@ -375,13 +372,10 @@ class _BookRequisitionState extends State<BookRequisition> {
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
-
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-            context, getLibraryMaterial);
+        showErrorServer(context, getLibraryMaterial());
       } else {
         showLoading(false, context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-            getLibraryMaterial);
+        showErrorConnect(context, getLibraryMaterial());
       }
     }
   }

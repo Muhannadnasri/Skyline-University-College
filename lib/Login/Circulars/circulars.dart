@@ -24,7 +24,6 @@ class Circulars extends StatefulWidget {
   }
 }
 
-
 // Map<String, int> body;
 
 class _CircularsState extends State<Circulars> {
@@ -138,11 +137,10 @@ class _CircularsState extends State<Circulars> {
                                           ),
                                         ],
                                       ),
-                                       SizedBox(
+                                      SizedBox(
                                         height: 10,
                                       ),
                                     ],
-                                    
                                   ),
                                 ),
                               ),
@@ -228,12 +226,11 @@ class _CircularsState extends State<Circulars> {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-            context, getStudentCirculars);
+        showErrorServer(context, getStudentCirculars());
       } else {
         showLoading(false, context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-            getStudentCirculars);
+
+        showErrorConnect(context, getStudentCirculars());
       }
     }
   }

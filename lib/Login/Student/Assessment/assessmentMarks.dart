@@ -47,30 +47,36 @@ class _AssessmentMarksState extends State<AssessmentMarks> {
       body: assessmentMarksJson == null
           ? exception(context, FontAwesomeIcons.exclamationTriangle,
               assessmentMarksJsonMessage['message'])
-          :  Container(
-                color: Colors.white,
-                child: ListView.builder(
-                  itemCount: assessmentMarksJson.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        elevation: 10,
-                        child: DottedBorder(
-                          color: Colors.blue,
-                          gap: 3,
-                          strokeWidth: 1,
-                          child: Column(
-                            children: <Widget>[
-                              Container(
-                                height: 25,
-                                decoration: new BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
-                                    gradient: LinearGradient(
+          : Container(
+              child: ListView.builder(
+                itemCount: assessmentMarksJson.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      elevation: 10,
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            decoration: new BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                                gradient: isDark(context)
+                                    ? LinearGradient(
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                        colors: [
+                                          Color(0xFF1F1F1F),
+                                          Color(0xFF1F1F1F),
+                                        ],
+                                        stops: [
+                                          0.7,
+                                          0.9,
+                                        ],
+                                      )
+                                    : LinearGradient(
                                         begin: Alignment.topLeft,
                                         end: Alignment.bottomRight,
                                         colors: [
@@ -80,70 +86,77 @@ class _AssessmentMarksState extends State<AssessmentMarks> {
                                         stops: [
                                           0.7,
                                           0.9,
-                                        ])),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: Row(
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 5),
-                                          child: Text(
-                                            assessmentMarksJson[index]['cname'],
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                                        ],
+                                      )),
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Text(
+                                      assessmentMarksJson[index]['cname'],
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Row(
+                              children: <Widget>[
+                                Text('Assessment Name : ',
+                                    style: TextStyle(
+                                        color: isDark(context)
+                                            ? Colors.white
+                                            : Colors.black)),
+                                Expanded(
+                                  child: Text(
+                                    assessmentMarksJson[index]
+                                            ['assessmenttools']
+                                        .toString(),
+                                    style: TextStyle(
+                                        color: isDark(context)
+                                            ? Colors.white
+                                            : Colors.black),
                                   ),
                                 ),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Row(
-                                  children: <Widget>[
-                                    Text('Assessment Name : '),
-                                    Expanded(
-                                      child: Text(
-                                        assessmentMarksJson[index]
-                                                ['assessmenttools']
-                                            .toString(),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text("Marks : "),
-                                    Expanded(
-                                      child: Text(assessmentMarksJson[index]
-                                              ['total']
-                                          .toString()),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                Text("Marks : ",
+                                    style: TextStyle(
+                                        color: isDark(context)
+                                            ? Colors.white
+                                            : Colors.black)),
+                                Expanded(
+                                  child: Text(
+                                      assessmentMarksJson[index]['total']
+                                          .toString(),
+                                      style: TextStyle(
+                                          color: isDark(context)
+                                              ? Colors.white
+                                              : Colors.black)),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  );
+                },
               ),
-
+            ),
     );
   }
 

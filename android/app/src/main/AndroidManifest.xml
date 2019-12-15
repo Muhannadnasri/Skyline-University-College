@@ -10,7 +10,7 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="skyline"
         android:icon="@mipmap/launcher_icon">
-    <meta-data android:name="com.google.android.geo.API_KEY"
+          <meta-data android:name="com.google.android.geo.API_KEY"
                android:value="AIzaSyBbampy9e0sXvdhiXEEOFxXEhnA97SpAaw"/>
         <activity
             android:name=".MainActivity"

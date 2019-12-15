@@ -2,35 +2,42 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 Widget globalForms(BuildContext context, initialValue, validators, onSaveds,
-    label, container, keyboardType, icon, color) {
+    label, keyboardType) {
   return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
+      SizedBox(
+        height: 20,
+      ),
       Padding(
-        padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 5.0),
+        padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 5.0),
+        child: Text(
+          label,
+          style: TextStyle(
+            color: Color(0xFF104C90),
+          ),
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 5.0),
         child: TextFormField(
           initialValue: initialValue,
           onSaved: onSaveds,
           validator: validators,
           keyboardType: keyboardType,
+
           textCapitalization: TextCapitalization.words,
           style: TextStyle(fontSize: 16.0, color: Colors.black),
-
           decoration: new InputDecoration(
-            icon: Padding(
-              padding: const EdgeInsets.only(top: 10.0),
-              child: Icon(
-                icon,
-                color: color,
-                size: 17,
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: Color(0xFF3773AC),
               ),
             ),
-            labelText: label,
-
-            // fillColor: Colors.green
+            fillColor: Colors.green,
           ),
           // decoration: InputDecoration(
           //   border: OutlineInputBorder(
-
           //   ),
           //   hintText: hintText,
           //   suffixIcon: Icon(
@@ -43,15 +50,6 @@ Widget globalForms(BuildContext context, initialValue, validators, onSaveds,
           // ),
         ),
       ),
-      SizedBox(
-        height: 20,
-      ),
-      container == true
-          ? Container(
-              height: 1.0,
-              color: Colors.grey[400],
-            )
-          : SizedBox()
     ],
   );
 }

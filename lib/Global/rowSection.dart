@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'global.dart';
 
-Widget rowSection(BuildContext context, image, text, location) {
+Widget rowSection(BuildContext context, image, imageWhite, text, location) {
   return Column(
     children: <Widget>[
       FittedBox(
@@ -38,15 +38,12 @@ Widget rowSection(BuildContext context, image, text, location) {
                           width: 15,
                         ),
                         Image.asset(
-                          // 'images/admission.png'
-                          image,
+                          // 'images/admission.png', 'images-white/admission.png'
+                          isDark(context) ? imageWhite : image,
                           height: 30,
                         ),
                         SizedBox(
                           width: 20,
-                        ),
-                        SizedBox(
-                          height: 10,
                         ),
                         Text(
                           // 'GPA Requirments'

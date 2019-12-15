@@ -1,7 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart';
@@ -10,9 +8,9 @@ import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:skyline_university/Global/exceptionWait.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/homeBox.dart';
+import 'package:skyline_university/Global/lists.dart';
 import 'package:skyline_university/Global/slider.dart';
 
 void main() => runApp(Home());
@@ -144,10 +142,10 @@ class _HomeState extends State<Home> {
                   ? Container(
                       height: 140,
                       child: Center(
-                      child: new CircularProgressIndicator(
-                        strokeWidth: 2,
+                        child: new CircularProgressIndicator(
+                          strokeWidth: 2,
+                        ),
                       ),
-                    ),
                     )
                   : PhotoSlider(sliders),
               Expanded(
@@ -189,7 +187,7 @@ class _HomeState extends State<Home> {
                                     context,
                                     'images-white/news.png',
                                     'images/news.png',
-                                    "/News",
+                                    "/news",
                                     Colors.white60,
                                     Colors.black,
                                     'News',
@@ -219,7 +217,6 @@ class _HomeState extends State<Home> {
                                     Colors.white,
                                     Colors.black,
                                   ),
-
                                   homeBox(
                                     context,
                                     'images-white/info.png',
@@ -242,92 +239,6 @@ class _HomeState extends State<Home> {
                                     Colors.white,
                                     Colors.black,
                                   ),
-
-                                  // GestureDetector(
-                                  //   onTap: () async {
-                                  //     SharedPreferences prefs =
-                                  //         await SharedPreferences.getInstance();
-
-                                  //     username =
-                                  //         (prefs.getString('username') ?? '');
-                                  //     password =
-                                  //         (prefs.getString('password') ?? '');
-
-                                  //     if (username == '') {
-                                  //       Navigator.pushNamed(
-                                  //           context, "/LoginApp");
-                                  //     } else {
-                                  //       setState(() {
-                                  //         Navigator.pushNamed(
-                                  //             context, "/LoginApp");
-                                  //         qLogin();
-                                  //       });
-                                  //     }
-                                  //     // Navigator.pushNamed(context, "/LoginApp");
-                                  //   },
-                                  //   child: Padding(
-                                  //     padding: const EdgeInsets.only(
-                                  //         left: 8.0, top: 8),
-                                  //     child: Container(
-                                  //       width: 110,
-                                  //       decoration: BoxDecoration(
-                                  //         color: isDark(context)
-                                  //             ? Color(0xFF1E1E1E)
-                                  //             : Colors.grey.withOpacity(0.1),
-                                  //         border: Border.all(
-                                  //             width: 1.0,
-                                  //             color: isDark(context)
-                                  //                 ? Colors.white60
-                                  //                 : Colors.black),
-                                  //         borderRadius: BorderRadius.all(
-                                  //             Radius.circular(
-                                  //                 15.0) //         <--- border radius here
-                                  //             ),
-                                  //         boxShadow: [
-                                  //           BoxShadow(
-                                  //             color: Colors.white30,
-                                  //             blurRadius:
-                                  //                 100.0, // has the effect of softening the shadow
-                                  //             spreadRadius:
-                                  //                 2, // has the effect of extending the shadow
-                                  //             offset: Offset(
-                                  //               5.0, // horizontal, move right 10
-                                  //               5.0, // vertical, move down 10
-                                  //             ),
-                                  //           ),
-                                  //         ],
-                                  //       ),
-                                  //       height: 100,
-                                  //       child: Container(
-                                  //         width: 80,
-                                  //         height: 80,
-                                  //         child: Column(
-                                  //           mainAxisAlignment:
-                                  //               MainAxisAlignment.center,
-                                  //           children: <Widget>[
-                                  //             Image.asset(
-                                  //               isDark(context)
-                                  //                   ? 'images-white/login.png'
-                                  //                   : 'images/login.png',
-                                  //               height: 50,
-                                  //             ),
-                                  //             SizedBox(
-                                  //               height: 10,
-                                  //             ),
-                                  //             Text(
-                                  //               'SUC Login',
-                                  //               style: TextStyle(
-                                  //                 color: isDark(context)
-                                  //                     ? Colors.white
-                                  //                     : Colors.black,
-                                  //               ),
-                                  //             ),
-                                  //           ],
-                                  //         ),
-                                  //       ),
-                                  //     ),
-                                  //   ),
-                                  // ),
                                 ],
                               ),
                             ),
@@ -341,7 +252,7 @@ class _HomeState extends State<Home> {
                                     context,
                                     'images-white/events.png',
                                     'images/events.png',
-                                    "/Events",
+                                    "/events",
                                     Colors.white60,
                                     Colors.black,
                                     'Events',

@@ -403,12 +403,10 @@ class _LoginAppState extends State<LoginApp> {
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-            context, logIn);
+        showErrorServer(context, logIn());
       } else {
         showLoading(false, context);
-        showError(
-            "Sorry, we can't connect", Icons.perm_scan_wifi, context, logIn);
+        showErrorConnect(context, logIn());
       }
     }
   }
@@ -461,8 +459,8 @@ class _LoginAppState extends State<LoginApp> {
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-            context, qLogin);
+
+        showErrorServer(context, qLogin());
       }
     }
   }
