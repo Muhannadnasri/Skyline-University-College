@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:skyline_university/Global/global.dart';
 
 Widget globalForms(BuildContext context, initialValue, validators, onSaveds,
     label, keyboardType) {
@@ -14,7 +15,7 @@ Widget globalForms(BuildContext context, initialValue, validators, onSaveds,
         child: Text(
           label,
           style: TextStyle(
-            color: Color(0xFF104C90),
+            color: isDark(context) ? Colors.white : Colors.black,
           ),
         ),
       ),
@@ -25,29 +26,16 @@ Widget globalForms(BuildContext context, initialValue, validators, onSaveds,
           onSaved: onSaveds,
           validator: validators,
           keyboardType: keyboardType,
-
           textCapitalization: TextCapitalization.words,
           style: TextStyle(fontSize: 16.0, color: Colors.black),
           decoration: new InputDecoration(
             enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(
-                color: Color(0xFF3773AC),
+                color: isDark(context) ? Colors.white : Colors.black,
               ),
             ),
             fillColor: Colors.green,
           ),
-          // decoration: InputDecoration(
-          //   border: OutlineInputBorder(
-          //   ),
-          //   hintText: hintText,
-          //   suffixIcon: Icon(
-          //     icons,
-          //     size: 15,
-          //     color: colors,
-          //   ),
-          //   hintStyle: TextStyle(fontSize: 14.0),
-
-          // ),
         ),
       ),
     ],

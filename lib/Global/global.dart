@@ -13,6 +13,8 @@ bool isDark(context) {
   return Theme.of(context).brightness == Brightness.dark;
 }
 
+//TODO:  Color(0xFF121212) for dark mode color
+
 String deviceId = 'Unknown';
 String program = studentJson['data']['program'];
 String userType = studentJson['data']['user_type'];

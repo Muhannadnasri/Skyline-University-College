@@ -34,7 +34,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
   String remark = '';
   String ex1 = "No value selected";
   int groupValue;
-  String item;
+  String requestId;
 
   @override
   void initState() {
@@ -54,7 +54,8 @@ class _OnlineRequestState extends State<OnlineRequest> {
           : bottomappBar(
               context,
               () {
-                if (_onlineRequest.currentState.validate() && item != null) {
+                if (_onlineRequest.currentState.validate() &&
+                    requestId != null) {
                   _onlineRequest.currentState.save();
                   getOnlineRequest();
                 } else {
@@ -86,8 +87,11 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                 const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 5.0),
                             child: Text(
                               'Request Type',
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 12),
+                              style: TextStyle(
+                                  color: isDark(context)
+                                      ? Colors.white
+                                      : Colors.black,
+                                  fontSize: 12),
                             ),
                           ),
                         ),
@@ -105,14 +109,19 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                             child: Padding(
                                               padding:
                                                   const EdgeInsets.all(8.0),
-                                              child:
-                                                  Text(item['Item'].toString()),
+                                              child: Text(
+                                                item['Item'].toString(),
+                                                style: TextStyle(
+                                                    color: isDark(context)
+                                                        ? Colors.white
+                                                        : Colors.black),
+                                              ),
                                             ),
                                           ),
                                         )
                                         ?.toList() ??
                                     [],
-                                value: item,
+                                value: requestId,
                                 hint: new Text('Select One'),
                                 searchHint: new Text(
                                   'Select One',
@@ -120,10 +129,10 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                 ),
                                 onChanged: (value) {
                                   setState(() {
-                                    // getAmount();
-                                    item = value;
+                                    requestId = value;
+
+                                    getAmount();
                                   });
-                                  print(item);
                                 },
                               ),
                             ),
@@ -132,7 +141,9 @@ class _OnlineRequestState extends State<OnlineRequest> {
                         Padding(
                           padding: const EdgeInsets.all(5.0),
                           child: Card(
-                            color: Colors.white,
+                            color: isDark(context)
+                                ? Color(0xFF121212)
+                                : Colors.white,
                             elevation: 5,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -145,7 +156,9 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                         child: Text(
                                           'Normal Amount',
                                           style: TextStyle(
-                                              color: Colors.grey[600]),
+                                              color: isDark(context)
+                                                  ? Colors.white
+                                                  : Colors.black),
                                         ),
                                       ),
                                     ),
@@ -153,15 +166,21 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                       padding: const EdgeInsets.all(10.0),
                                       child: Container(
                                         height: 25,
-                                        child: Text(requestAmountJson.isEmpty
-                                            ? ''
-                                            : requestAmountJson['data']
-                                                        ['NormalAmount'] ==
-                                                    ("NA")
-                                                ? "Not Avalible"
-                                                : requestAmountJson['data']
-                                                        ['NormalAmount']
-                                                    .toString()),
+                                        child: Text(
+                                          requestAmountJson.isEmpty
+                                              ? ''
+                                              : requestAmountJson['data']
+                                                          ['NormalAmount'] ==
+                                                      ("NA")
+                                                  ? "Not Avalible"
+                                                  : requestAmountJson['data']
+                                                          ['NormalAmount']
+                                                      .toString(),
+                                          style: TextStyle(
+                                              color: isDark(context)
+                                                  ? Colors.white
+                                                  : Colors.black),
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -176,7 +195,9 @@ class _OnlineRequestState extends State<OnlineRequest> {
                         Padding(
                           padding: const EdgeInsets.all(5.0),
                           child: Card(
-                            color: Colors.white,
+                            color: isDark(context)
+                                ? Color(0xFF121212)
+                                : Colors.white,
                             elevation: 5,
                             child: Row(
                               children: <Widget>[
@@ -188,7 +209,9 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                         child: Text(
                                           'Urgent Amount',
                                           style: TextStyle(
-                                              color: Colors.grey[600]),
+                                              color: isDark(context)
+                                                  ? Colors.white
+                                                  : Colors.black),
                                         ),
                                       ),
                                     ),
@@ -196,15 +219,21 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                       padding: const EdgeInsets.all(10.0),
                                       child: Container(
                                         height: 25,
-                                        child: Text(requestAmountJson.isEmpty
-                                            ? ''
-                                            : requestAmountJson['data']
-                                                        ['UrgentAmount'] ==
-                                                    ("NA")
-                                                ? "Not Avalible"
-                                                : requestAmountJson['data']
-                                                        ['UrgentAmount']
-                                                    .toString()),
+                                        child: Text(
+                                          requestAmountJson.isEmpty
+                                              ? ''
+                                              : requestAmountJson['data']
+                                                          ['UrgentAmount'] ==
+                                                      ("NA")
+                                                  ? "Not Avalible"
+                                                  : requestAmountJson['data']
+                                                          ['UrgentAmount']
+                                                      .toString(),
+                                          style: TextStyle(
+                                              color: isDark(context)
+                                                  ? Colors.white
+                                                  : Colors.black),
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -261,7 +290,13 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
                                     alignment: Alignment.centerLeft,
-                                    child: Text("Pay Amount")),
+                                    child: Text(
+                                      "Pay Amount",
+                                      style: TextStyle(
+                                          color: isDark(context)
+                                              ? Colors.white
+                                              : Colors.black),
+                                    )),
                               ),
                               Row(
                                 children: <Widget>[
@@ -275,7 +310,11 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                     },
                                     activeColor: Colors.blue,
                                   ),
-                                  Text('Normal'),
+                                  Text('Normal',
+                                      style: TextStyle(
+                                          color: isDark(context)
+                                              ? Colors.white
+                                              : Colors.black)),
                                 ],
                               ),
                               Row(
@@ -290,7 +329,11 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                     },
                                     activeColor: Colors.red,
                                   ),
-                                  Text('Urgent'),
+                                  Text('Urgent',
+                                      style: TextStyle(
+                                          color: isDark(context)
+                                              ? Colors.white
+                                              : Colors.black)),
                                 ],
                               ),
                             ],
@@ -316,17 +359,13 @@ class _OnlineRequestState extends State<OnlineRequest> {
     try {
       final response = await http.post(
         Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/web/getOnlineRequestTypes'),
+            'https://skylineportal.com/moappad/api/test/OnlineRequestTypes'),
         headers: {
           "API-KEY": API,
         },
         body: {
           'user_id': username,
           'program': studentJson['data']['program'],
-          'usertype': studentJson['data']['user_type'],
-          'ipaddress': '1',
-          'deviceid': '1',
-          'devicename': '1',
         },
       );
 
@@ -372,16 +411,12 @@ class _OnlineRequestState extends State<OnlineRequest> {
     try {
       final response = await http.post(
         Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/tes/OnlineRequestAmount'),
+            'https://skylineportal.com/moappad/api/test/OnlineRequestAmount'),
         headers: {
           "API-KEY": API,
         },
         body: {
-          'req_type_id': item,
-          'usertype': studentJson['data']['user_type'],
-          'ipaddress': '1',
-          'deviceid': '1',
-          'devicename': '1',
+          'req_type_id': requestId,
         },
       ).timeout(Duration(seconds: 35));
 
@@ -395,9 +430,12 @@ class _OnlineRequestState extends State<OnlineRequest> {
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
+        print('object');
         showLoading(false, context);
         showErrorServer(context, getAmount());
       } else {
+        print('object2');
+
         showLoading(false, context);
         showErrorConnect(context, getAmount());
       }
@@ -412,7 +450,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
     try {
       final response = await http.post(
         Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/web/onlineRequest'),
+            'https://skylineportal.com/moappad/api/test/onlineRequest'),
         headers: {
           "API-KEY": API,
         },
@@ -424,10 +462,6 @@ class _OnlineRequestState extends State<OnlineRequest> {
           'remarks': remark,
           'amount': groupValue == 1 ? "NormalAmount" : "UrgentAmount",
           'token': '1',
-          'usertype': studentJson['data']['user_type'],
-          'ipaddress': '1',
-          'deviceid': '1',
-          'devicename': '1',
         },
       ).timeout(Duration(seconds: 35));
 
