@@ -403,10 +403,12 @@ class _LoginAppState extends State<LoginApp> {
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
-        showErrorServer(context, logIn());
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, logIn);
       } else {
         showLoading(false, context);
-        showErrorConnect(context, logIn());
+        showError(
+            "Sorry, we can't connect", Icons.perm_scan_wifi, context, logIn);
       }
     }
   }
@@ -425,12 +427,6 @@ class _LoginAppState extends State<LoginApp> {
         body: {
           'username': username,
           'password': password,
-          'usertype': '1',
-          'ipaddress': '1',
-          'deviceid': '1',
-          'devicetype': '1',
-          'devicetoken': '1',
-          'devicename': '1'
         },
       );
       if (response.statusCode == 200) {
@@ -460,7 +456,17 @@ class _LoginAppState extends State<LoginApp> {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 
-        showErrorServer(context, qLogin());
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, qLogin);
+      } else {
+//ToDo:here
+        showLoading(false, context);
+//
+        showError(
+            "Sorry, we can't connect", Icons.perm_scan_wifi, context, qLogin);
+
+        //
+
       }
     }
   }

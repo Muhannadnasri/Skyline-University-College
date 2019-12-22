@@ -338,10 +338,10 @@ class _AdmissionFormState extends State<AdmissionForm> {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 
-        showErrorServer(context, getAdmissionFormDropdownRecords());
+        // showErrorServer(context, getAdmissionFormDropdownRecords());
       } else {
         showLoading(false, context);
-        showErrorConnect(context, getAdmissionFormDropdownRecords());
+        // showErrorConnect(context, getAdmissionFormDropdownRecords());
       }
     }
   }
@@ -391,10 +391,10 @@ class _AdmissionFormState extends State<AdmissionForm> {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 
-        showErrorServer(context, getAdmissionFormDropdownRecords());
+        // showErrorServer(context, getAdmissionFormDropdownRecords());
       } else {
         showLoading(false, context);
-        showErrorConnect(context, getAdmissionFormDropdownRecords());
+        // showErrorConnect(context, getAdmissionFormDropdownRecords());
       }
     }
   }

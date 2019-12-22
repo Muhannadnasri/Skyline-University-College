@@ -270,7 +270,7 @@ class _DropdownDialogState extends State<DropdownDialog> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             titleBar(),
-            searchBar(),
+            // searchBar(),
             list(),
             buttonWrapper(),
           ],
@@ -290,69 +290,69 @@ class _DropdownDialogState extends State<DropdownDialog> {
       : new Container();
   }
 
-  Widget searchBar() {
-    return new Container(
-      child: new Stack(
-        children: <Widget>[
-          new TextField(
-            controller: txtSearch,
-            decoration: InputDecoration(
-                contentPadding: EdgeInsets.symmetric(
-                    horizontal: 32,
-                    vertical: 12
-                )
-            ),
-            autofocus: true,
-            onChanged: (value) {
-              _updateShownIndexes(value);
-              setState(() {
+  // Widget searchBar() {
+  //   return new Container(
+  //     child: new Stack(
+  //       children: <Widget>[
+  //         new TextField(
+  //           controller: txtSearch,
+  //           decoration: InputDecoration(
+  //               contentPadding: EdgeInsets.symmetric(
+  //                   horizontal: 32,
+  //                   vertical: 12
+  //               )
+  //           ),
+  //           autofocus: true,
+  //           onChanged: (value) {
+  //             _updateShownIndexes(value);
+  //             setState(() {
 
-              });
-            },
-          ),
-          new Positioned(
-            left: 0,
-            top: 0,
-            bottom: 0,
-            child: new Center(
-              child: new Icon(
-                Icons.search,
-                size: 24,
-              ),
-            ),
-          ),
-          txtSearch.text.isNotEmpty
-              ? new Positioned(
-            right: 0,
-            top: 0,
-            bottom: 0,
-            child: new Center(
-              child: new InkWell(
-                onTap: (){
-                  _updateShownIndexes('');
-                  setState(() {
-                    txtSearch.text = '';
-                  });
-                },
-                borderRadius: BorderRadius.all(Radius.circular(32)),
-                child: new Container(
-                  width: 32,
-                  height: 32,
-                  child: new Center(
-                    child: new Icon(
-                      Icons.close,
-                      size: 24,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          )
-              : new Container(),
-        ],
-      ),
-    );
-  }
+  //             });
+  //           },
+  //         ),
+  //         new Positioned(
+  //           left: 0,
+  //           top: 0,
+  //           bottom: 0,
+  //           child: new Center(
+  //             child: new Icon(
+  //               Icons.search,
+  //               size: 24,
+  //             ),
+  //           ),
+  //         ),
+  //         txtSearch.text.isNotEmpty
+  //             ? new Positioned(
+  //           right: 0,
+  //           top: 0,
+  //           bottom: 0,
+  //           child: new Center(
+  //             child: new InkWell(
+  //               onTap: (){
+  //                 _updateShownIndexes('');
+  //                 setState(() {
+  //                   txtSearch.text = '';
+  //                 });
+  //               },
+  //               borderRadius: BorderRadius.all(Radius.circular(32)),
+  //               child: new Container(
+  //                 width: 32,
+  //                 height: 32,
+  //                 child: new Center(
+  //                   child: new Icon(
+  //                     Icons.close,
+  //                     size: 24,
+  //                   ),
+  //                 ),
+  //               ),
+  //             ),
+  //           ),
+  //         )
+  //             : new Container(),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget list() {
     return new Expanded(

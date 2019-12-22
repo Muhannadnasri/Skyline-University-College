@@ -197,10 +197,10 @@ class _ApptitudeTestState extends State<ApptitudeTest> {
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
-        showErrorServer(context, sendAptitudes());
+        // showErrorServer(context, sendAptitudes());
       } else {
         showLoading(false, context);
-        showErrorConnect(context, sendAptitudes);
+        // showErrorConnect(context, sendAptitudes);
       }
     }
   }
@@ -239,10 +239,10 @@ class _ApptitudeTestState extends State<ApptitudeTest> {
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
-        showErrorServer(context, sendAptitudes());
+        // showErrorServer(context, sendAptitudes());
       } else {
         showLoading(false, context);
-        showErrorConnect(context, sendAptitudes());
+        // showErrorConnect(context, sendAptitudes());
       }
     }
   }

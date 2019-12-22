@@ -34,211 +34,202 @@ class _HomeERequestState extends State<HomeERequest> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-      body: studentJson['data']['user_type'] == "STUDENT"
-          ? Container(
-              child: ListView(
-                children: <Widget>[
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Column(
-                    children: <Widget>[
-                      rowSection(
-                          context,
-                          'images/admission.png',
-                          'images-white/admission.png',
-                          'Online Request',
-                          "/OnlineRequest"),
-                      rowSection(
-                          context,
-                          'images/admission.png',
-                          'images-white/admission.png',
-                          'Change Class Time',
-                          "/ChangeClassTime"),
-                      rowSection(
-                          context,
-                          'images/admission.png',
-                          'images-white/admission.png',
-                          'ReinStatement',
-                          "/ReinStatement"),
-                      rowSection(
-                          context,
-                          'images/admission.png',
-                          'images-white/admission.png',
-                          'Course Withdrawal',
-                          "/CourseWithdrawal"),
-                      rowSection(
-                          context,
-                          'images/admission.png',
-                          'images-white/admission.png',
-                          'Update Information',
-                          "/UpdateInformation"),
-                      rowSection(
-                          context,
-                          'images/admission.png',
-                          'images-white/admission.png',
-                          'Passport Withdrawal',
-                          "/PassportWithdrawal"),
-                      rowSection(
-                          context,
-                          'images/admission.png',
-                          'images-white/admission.png',
-                          'General Appointment',
-                          "/GeneralAppointment"),
-                      rowSection(
-                          context,
-                          'images/admission.png',
-                          'images-white/admission.png',
-                          'Leave Application Form',
-                          "/leaveApplicationForm"),
-                      rowSection(
-                          context,
-                          'images/admission.png',
-                          'images-white/admission.png',
-                          'Online Request',
-                          "/OnlineRequest"),
-                    ],
-                  ),
-                ],
-              ),
-            )
-          : studentJson['data']['user_type'] == "STF"
-              ? Container(
-                  child: ListView(
-                    children: <Widget>[
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Column(
-                        children: <Widget>[
-                          rowSection(
-                              context,
-                              'images/admission.png',
-                              'images-white/admission.png',
-                              'Passport Retaining',
-                              "/PassportRetaining"),
-                          rowSection(
-                              context,
-                              'images/admission.png',
-                              'images-white/admission.png',
-                              'Salary Certificate',
-                              "/SalaryCertificate"),
-                          rowSection(
-                              context,
-                              'images/admission.png',
-                              'images-white/admission.png',
-                              'Leave Application',
-                              "/LeaveApplication"),
-                          rowSection(
-                              context,
-                              'images/admission.png',
-                              'images-white/admission.png',
-                              'Passport Withdrawal',
-                              "/PassportWithdrawal"),
-                          rowSection(
-                              context,
-                              'images/admission.png',
-                              'images-white/admission.png',
-                              'Leave Holiday',
-                              "/LeaveHoliday"),
-                          rowSection(
-                              context,
-                              'images/admission.png',
-                              'images-white/admission.png',
-                              'Book Requisition',
-                              "/BookRequisition"),
-                          rowSection(
-                              context,
-                              'images/admission.png',
-                              'images-white/admission.png',
-                              'Membership Form',
-                              "/MembershipForm"),
-                          rowSection(
-                              context,
-                              'images/admission.png',
-                              'images-white/admission.png',
-                              'Leave Application Form',
-                              "/leaveApplicationForm"),
+        body: studentJson['data']['user_type'] == "STUDENT"
+            ? Container(
+                child: ListView(
+                  children: <Widget>[
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Column(
+                      children: <Widget>[
+                        rowSection(
+                            context,
+                            'images/admission.png',
+                            'images-white/admission.png',
+                            'Online Request',
+                            "/onlineRequest"),
+                        rowSection(
+                            context,
+                            'images/admission.png',
+                            'images-white/admission.png',
+                            'Change Class Time',
+                            "/ChangeClassTime"),
+                        rowSection(
+                            context,
+                            'images/admission.png',
+                            'images-white/admission.png',
+                            'ReinStatement',
+                            "/reinStatement"),
+                        rowSection(
+                            context,
+                            'images/admission.png',
+                            'images-white/admission.png',
+                            'Course Withdrawal',
+                            "/courseWithdrawal"),
+                        rowSection(
+                            context,
+                            'images/admission.png',
+                            'images-white/admission.png',
+                            'Update Information',
+                            "/UpdateInformation"),
+                        rowSection(
+                            context,
+                            'images/admission.png',
+                            'images-white/admission.png',
+                            'Passport Withdrawal',
+                            "/passportWithdrawal"),
+                        rowSection(
+                            context,
+                            'images/admission.png',
+                            'images-white/admission.png',
+                            'General Appointment',
+                            "/generalAppointment"),
+                        rowSection(
+                            context,
+                            'images/admission.png',
+                            'images-white/admission.png',
+                            'Leave Application Form',
+                            "/leaveApplicationForm"),
+                      ],
+                    ),
+                  ],
+                ),
+              )
+            : studentJson['data']['user_type'] == "STF"
+                ? Container(
+                    child: ListView(
+                      children: <Widget>[
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Column(
+                          children: <Widget>[
+                            rowSection(
+                                context,
+                                'images/admission.png',
+                                'images-white/admission.png',
+                                'Passport Retaining',
+                                "/PassportRetaining"),
+                            rowSection(
+                                context,
+                                'images/admission.png',
+                                'images-white/admission.png',
+                                'Salary Certificate',
+                                "/SalaryCertificate"),
+                            rowSection(
+                                context,
+                                'images/admission.png',
+                                'images-white/admission.png',
+                                'Leave Application',
+                                "/LeaveApplication"),
+                            rowSection(
+                                context,
+                                'images/admission.png',
+                                'images-white/admission.png',
+                                'Passport Withdrawal',
+                                "/passportWithdrawal"),
+                            rowSection(
+                                context,
+                                'images/admission.png',
+                                'images-white/admission.png',
+                                'Leave Holiday',
+                                "/LeaveHoliday"),
+                            rowSection(
+                                context,
+                                'images/admission.png',
+                                'images-white/admission.png',
+                                'Book Requisition',
+                                "/BookRequisition"),
+                            rowSection(
+                                context,
+                                'images/admission.png',
+                                'images-white/admission.png',
+                                'Membership Form',
+                                "/MembershipForm"),
+                            rowSection(
+                                context,
+                                'images/admission.png',
+                                'images-white/admission.png',
+                                'Leave Application Form',
+                                "/leaveApplicationForm"),
 // rowSection(context, 'images/admission.png', 'images-white/admission.png', 'AirTicket Request', "/AirTicketRequest"),
-                        ],
+                          ],
+                        )
+                      ],
+                    ),
+                  )
+                : studentJson['data']['user_type'] == "FAC"
+                    ? Container(
+                        child: ListView(
+                          children: <Widget>[
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Column(
+                              children: <Widget>[
+                                rowSection(
+                                    context,
+                                    'images/admission.png',
+                                    'images-white/admission.png',
+                                    'Passport Retaining',
+                                    "/PassportRetaining"),
+                                rowSection(
+                                    context,
+                                    'images/admission.png',
+                                    'images-white/admission.png',
+                                    'Salary Certificate',
+                                    "/SalaryCertificate"),
+                                rowSection(
+                                    context,
+                                    'images/admission.png',
+                                    'images-white/admission.png',
+                                    'Leave Application',
+                                    "/LeaveApplication"),
+                                rowSection(
+                                    context,
+                                    'images/admission.png',
+                                    'images-white/admission.png',
+                                    'Passport Withdrawal',
+                                    "/passportWithdrawal"),
+                                rowSection(
+                                    context,
+                                    'images/admission.png',
+                                    'images-white/admission.png',
+                                    'Leave Holiday',
+                                    "/LeaveHoliday"),
+                                rowSection(
+                                    context,
+                                    'images/admission.png',
+                                    'images-white/admission.png',
+                                    'Book Requisition',
+                                    "/BookRequisition"),
+                                rowSection(
+                                    context,
+                                    'images/admission.png',
+                                    'images-white/admission.png',
+                                    'Membership Form',
+                                    "/MembershipForm"),
+                                rowSection(
+                                    context,
+                                    'images/admission.png',
+                                    'images-white/admission.png',
+                                    'Leave Application Form',
+                                    "/leaveApplicationForm"),
+// rowSection(context, 'images/admission.png', 'images-white/admission.png', 'AirTicket Request', "/AirTicketRequest"),
+                                rowSection(
+                                    context,
+                                    'images/admission.png',
+                                    'images-white/admission.png',
+                                    'Conference',
+                                    "/Conference"),
+                              ],
+                            )
+                          ],
+                        ),
                       )
-                    ],
-                  ),
-                )
-              : studentJson['data']['user_type'] == "FAC"
-                  ? Container(
-                      child: ListView(
-                        children: <Widget>[
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Column(
-                            children: <Widget>[
-                              rowSection(
-                                  context,
-                                  'images/admission.png',
-                                  'images-white/admission.png',
-                                  'Passport Retaining',
-                                  "/PassportRetaining"),
-                              rowSection(
-                                  context,
-                                  'images/admission.png',
-                                  'images-white/admission.png',
-                                  'Salary Certificate',
-                                  "/SalaryCertificate"),
-                              rowSection(
-                                  context,
-                                  'images/admission.png',
-                                  'images-white/admission.png',
-                                  'Leave Application',
-                                  "/LeaveApplication"),
-                              rowSection(
-                                  context,
-                                  'images/admission.png',
-                                  'images-white/admission.png',
-                                  'Passport Withdrawal',
-                                  "/PassportWithdrawal"),
-                              rowSection(
-                                  context,
-                                  'images/admission.png',
-                                  'images-white/admission.png',
-                                  'Leave Holiday',
-                                  "/LeaveHoliday"),
-                              rowSection(
-                                  context,
-                                  'images/admission.png',
-                                  'images-white/admission.png',
-                                  'Book Requisition',
-                                  "/BookRequisition"),
-                              rowSection(
-                                  context,
-                                  'images/admission.png',
-                                  'images-white/admission.png',
-                                  'Membership Form',
-                                  "/MembershipForm"),
-                              rowSection(
-                                  context,
-                                  'images/admission.png',
-                                  'images-white/admission.png',
-                                  'Leave Application Form',
-                                  "/leaveApplicationForm"),
-// rowSection(context, 'images/admission.png', 'images-white/admission.png', 'AirTicket Request', "/AirTicketRequest"),
-                              rowSection(
-                                  context,
-                                  'images/admission.png',
-                                  'images-white/admission.png',
-                                  'Conference',
-                                  "/Conference"),
-                            ],
-                          )
-                        ],
-                      ),
-                    )
-                  : SizedBox(),
-      key: _scaffoldKey,
-      appBar: 
-      
-      appBarLoginImage(context)
-    );
+                    : SizedBox(),
+        key: _scaffoldKey,
+        appBar: appBarLoginImage(context));
   }
 }

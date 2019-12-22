@@ -25,12 +25,10 @@ class ChangeClassTime extends StatefulWidget {
 class _ChangeClassTimeState extends State<ChangeClassTime> {
   final _reason = GlobalKey<FormState>();
 
-  Map policyChangeTimeJson = {};
   Map currentTimeMessageJson = {};
   Map currentTimeJson = {};
   List currentAndNewShiftJson = [];
   Map changeClassTimingJson = {};
-  Map policyDetailsJson = {};
   String reason = '';
 
   String newShift;
@@ -40,7 +38,6 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
     super.initState();
 
     getCurrentAndNewShift();
-    getPolicyDetails();
     currentTimeJson.clear();
   }
 
@@ -49,202 +46,185 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      bottomNavigationBar: bottomappBar(
-        context,
-        () {
-          setState(() {
-            if (_reason.currentState.validate() && newShift != null) {
-              _reason.currentState.save();
+      bottomNavigationBar: currentTimeJson.isEmpty
+          ? Container()
+          : bottomappBar(
+              context,
+              () {
+                setState(() {
+                  if (_reason.currentState.validate() && newShift != null) {
+                    _reason.currentState.save();
 
-              getChangeClassTiming();
-            }
-          });
-        },
-      ),
+                    sendChangeClassTiming();
+                  }
+                });
+              },
+            ),
       appBar: appBarLogin(
         context,
         'Change Class Time',
       ),
-      body: Container(
-        color: Colors.white,
-        child: ListView(
-          children: <Widget>[
-            ExpansionTile(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text(policyDetailsJson.isEmpty
-                      ? ''
-                      : policyDetailsJson['data']['description']),
-                ),
-              ],
-              title: Text('Policy Details'),
-            ),
-            GestureDetector(
+      body: currentTimeJson.isEmpty
+          ? Container()
+          : GestureDetector(
               onTap: () {
                 FocusScope.of(context).requestFocus(new FocusNode());
               },
-              child: Column(
+              child: ListView(
                 children: <Widget>[
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 5.0),
-                      child: Text(
-                        'Current Timings',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Container(
-                    width: 500,
-                    height: 50,
-                    alignment: Alignment.center,
-                    decoration: new BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Color(0xFF104C90),
-                          Color(0xFF3773AC),
-                        ],
-                        stops: [
-                          0.7,
-                          0.9,
-                        ],
-                      ),
-                    ),
-                    child: Text(
-                      currentTimeJson.isEmpty
-                          ? ''
-                          : currentTimeJson['Shift_Desc'] == 'NA'
-                              ? ''
-                              : currentTimeJson['Shift_Desc'],
-                      style: TextStyle(color: Colors.white),
-//
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
                   Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Padding(
-                        padding:
-                            const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 5.0),
-                        child: Text(
-                          'New Timings',
-                          style: TextStyle(color: Colors.black),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        child: Padding(
+                          padding:
+                              const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 5.0),
+                          child: Text(
+                            'Current Timings',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: isDark(context)
+                                    ? Colors.white
+                                    : Colors.black),
+                          ),
                         ),
                       ),
                       SizedBox(
                         height: 5,
                       ),
-                      Padding(
-                        padding:
-                            const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 5.0),
-                        child: DropdownButton<String>(
-                          hint: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              'Please Select Option',
-                              style: TextStyle(color: Colors.grey[600]),
-                            ),
-                          ),
-                          isExpanded: true,
-                          value: newShift,
-                          items: currentAndNewShiftJson
-                                  ?.map(
-                                    (item) => DropdownMenuItem<String>(
-                                      value: item['Shift_Desc'],
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(item['Shift_Desc']),
-                                      ),
-                                    ),
-                                  )
-                                  ?.toList() ??
-                              [],
-                          onChanged: (value) {
-                            setState(() {
-                              newShift = value;
-                            });
-                          },
+                      Container(
+                        width: 500,
+                        height: 50,
+                        alignment: Alignment.center,
+                        decoration: new BoxDecoration(
+                          gradient: isDark(context)
+                              ? LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    Color(0xFF1F1F1F),
+                                    Color(0xFF1F1F1F),
+                                  ],
+                                  stops: [
+                                    0.7,
+                                    0.9,
+                                  ],
+                                )
+                              : LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    Color(0xFF104C90),
+                                    Color(0xFF3773AC),
+                                  ],
+                                  stops: [
+                                    0.7,
+                                    0.9,
+                                  ],
+                                ),
+                        ),
+                        child: Text(
+                          currentTimeJson.isEmpty
+                              ? ''
+                              : currentTimeJson['Shift_Desc'] == 'NA'
+                                  ? ''
+                                  : currentTimeJson['Shift_Desc'],
+                          style: TextStyle(color: Colors.white),
+//
                         ),
                       ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Padding(
+                            padding:
+                                const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 5.0),
+                            child: Text(
+                              'New Timings',
+                              style: TextStyle(
+                                  color: isDark(context)
+                                      ? Colors.white
+                                      : Colors.black),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 5.0),
+                            child: DropdownButton<String>(
+                              hint: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'Please Select Option',
+                                  style: TextStyle(
+                                      color: isDark(context)
+                                          ? Colors.white
+                                          : Colors.black),
+                                ),
+                              ),
+                              underline: Container(
+                                height: 1,
+                                color: Color(0xFF2f2f2f),
+                              ),
+                              isExpanded: true,
+                              value: newShift,
+                              items: currentAndNewShiftJson
+                                      ?.map(
+                                        (item) => DropdownMenuItem<String>(
+                                          value: item['Shift_Desc'],
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(item['Shift_Desc']),
+                                          ),
+                                        ),
+                                      )
+                                      ?.toList() ??
+                                  [],
+                              onChanged: (value) {
+                                setState(() {
+                                  newShift = value;
+                                });
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Form(
+                          key: _reason,
+                          child: globalForms(
+                            context,
+                            '',
+                            (String value) {
+                              if (value.trim().isEmpty) {
+                                return 'Your Reason is required';
+                              }
+                              return null;
+                            },
+                            (x) {
+                              setState(() {
+                                reason = x;
+                              });
+                            },
+                            'Reason',
+                            TextInputType.text,
+                          )),
                     ],
                   ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Form(
-                      key: _reason,
-                      child: globalForms(context, '', (String value) {
-                        if (value.trim().isEmpty) {
-                          return 'Your Reason is required';
-                        }
-                        return null;
-                      }, (x) {
-                        setState(() {
-                          reason = x;
-                        });
-                      }, 'Reason', TextInputType.text,
-                          )),
                 ],
               ),
             ),
-          ],
-        ),
-      ),
     );
-  }
-
-  Future getRequestFormsText() async {
-    Future.delayed(Duration.zero, () {
-      showLoading(true, context);
-    });
-
-    try {
-      final response = await http.post(
-        Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/web/getRequestFormsText'),
-        headers: {
-          "API-KEY": API,
-        },
-        body: {
-          'user_id': username,
-          'name': 'changeclasstimings',
-          'usertype': studentJson['data']['user_type'],
-          'ipaddress': '1',
-          'deviceid': '1',
-          'devicename': '1',
-        },
-      );
-      if (response.statusCode == 200) {
-        setState(
-          () {
-            policyChangeTimeJson = json.decode(response.body)['data'];
-          },
-        );
-
-        showLoading(false, context);
-      }
-    } catch (x) {
-      if (x.toString().contains("TimeoutException")) {
-        showLoading(false, context);
-        showErrorServer(context, getCurrentAndNewShift());
-      } else {
-        showLoading(false, context);
-        showErrorConnect(context, getCurrentAndNewShift());
-      }
-    }
   }
 
   Future getCurrentAndNewShift() async {
@@ -255,16 +235,12 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
     try {
       final response = await http.post(
         Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/web/getCurrentAndNewShift'),
+            'https://skylineportal.com/moappad/api/test/CurrentAndNewShift'),
         headers: {
           "API-KEY": API,
         },
         body: {
           'user_id': username,
-          'usertype': studentJson['data']['user_type'],
-          'ipaddress': '1',
-          'deviceid': '1',
-          'devicename': '1',
         },
       );
       if (response.statusCode == 200) {
@@ -284,15 +260,17 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
-        showErrorServer(context, getCurrentAndNewShift());
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getCurrentAndNewShift);
       } else {
         showLoading(false, context);
-        showErrorConnect(context, getCurrentAndNewShift());
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getCurrentAndNewShift);
       }
     }
   }
 
-  Future getChangeClassTiming() async {
+  Future sendChangeClassTiming() async {
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
     });
@@ -300,19 +278,15 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
     try {
       final response = await http.post(
         Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/web/changeClassTiming'),
+            'https://skylineportal.com/moappad/api/test/changeClassTiming'),
         headers: {
           "API-KEY": API,
         },
         body: {
           'user_id': username,
-          'current_timing': currentTimeJson['Shift_Desc'],
-          'new_timing': newShift,
+          'currentTiming': currentTimeJson['Shift_Desc'],
+          'newTiming': newShift,
           'reason': reason,
-          'usertype': studentJson['data']['user_type'],
-          'ipaddress': '1',
-          'deviceid': '1',
-          'devicename': '1',
         },
       ).timeout(Duration(seconds: 35));
 
@@ -324,63 +298,17 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
         );
         showLoading(false, context);
 
-        if (changeClassTimingJson['success'] == '1') {
-          showLoading(false, context);
-          Fluttertoast.showToast(
-              msg: changeClassTimingJson['message'],
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIos: 2,
-              backgroundColor: Colors.grey[400],
-              textColor: Colors.black87,
-              fontSize: 13.0);
-        }
+        showSuccessSnackBar(context, changeClassTimingJson['message']);
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
-        showErrorServer(context, getCurrentAndNewShift());
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getCurrentAndNewShift);
       } else {
         showLoading(false, context);
-        showErrorConnect(context, getCurrentAndNewShift());
-      }
-    }
-  }
-
-  Future getPolicyDetails() async {
-    Future.delayed(Duration.zero, () {});
-
-    try {
-      final response = await http.post(
-        Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/web/getRequestFormsText'),
-        headers: {
-          "API-KEY": API,
-        },
-        body: {
-          'user_id': username,
-          'name': 'changeClassTimings',
-          'usertype': studentJson['data']['user_type'],
-          'ipaddress': '1',
-          'deviceid': '1',
-          'devicename': '1',
-        },
-      ).timeout(Duration(seconds: 35));
-
-      if (response.statusCode == 200) {
-        setState(
-          () {
-            policyDetailsJson = json.decode(response.body);
-          },
-        );
-      }
-    } catch (x) {
-      if (x.toString().contains("TimeoutException")) {
-        showLoading(false, context);
-        showErrorServer(context, getPolicyDetails());
-      } else {
-        showLoading(false, context);
-        showErrorConnect(context, getPolicyDetails());
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getCurrentAndNewShift);
       }
     }
   }

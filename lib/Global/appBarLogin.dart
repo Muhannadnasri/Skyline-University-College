@@ -34,8 +34,8 @@ Widget appBarLogin(BuildContext context, header) {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-             Color(0xFF1F1F1F),
-              Color(0xFF1F1F1F),
+             Color(0xFF121212),
+              Color(0xFF121212),
             ],
             stops: [
               0.7,

@@ -165,10 +165,10 @@ class _GalleryState extends State<Gallery> {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 
-        showErrorServer(context, getGallery());
+        // showErrorServer(context, getGallery());
       } else {
         showLoading(false, context);
-        showErrorConnect(context, getGallery());
+        // showErrorConnect(context, getGallery());
       }
     }
   }

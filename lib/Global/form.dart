@@ -20,18 +20,22 @@ Widget globalForms(BuildContext context, initialValue, validators, onSaveds,
         ),
       ),
       Padding(
-        padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 5.0),
+        padding: const EdgeInsets.fromLTRB(10.0, 0.0, 20.0, 5.0),
         child: TextFormField(
           initialValue: initialValue,
           onSaved: onSaveds,
           validator: validators,
           keyboardType: keyboardType,
           textCapitalization: TextCapitalization.words,
-          style: TextStyle(fontSize: 16.0, color: Colors.black),
+          style: TextStyle(
+              fontSize: 16.0,
+              color: isDark(context) ? Colors.white : Colors.black),
           decoration: new InputDecoration(
             enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(
-                color: isDark(context) ? Colors.white : Colors.black,
+                color: isDark(context)
+                    ? Colors.white.withOpacity(0.2)
+                    : Colors.black,
               ),
             ),
             fillColor: Colors.green,

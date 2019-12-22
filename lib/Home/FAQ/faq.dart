@@ -124,10 +124,10 @@ class _FAQState extends State<FAQ> {
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
-        showErrorServer(context, getFaqByType());
+        // showErrorServer(context, getFaqByType());
       } else {
         showLoading(false, context);
-        showErrorConnect(context, getFaqByType());
+        // showErrorConnect(context, getFaqByType());
       }
     }
   }

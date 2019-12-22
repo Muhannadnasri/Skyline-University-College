@@ -40,11 +40,10 @@ class _CircularsState extends State<Circulars> {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
         appBar: appBarLogin(context, "Circulars"),
-        body: circularsJson == null
+        body: circularsJson.isEmpty
             ? exception(context, FontAwesomeIcons.exclamationTriangle,
                 circularsMessageJson['message'])
             : Container(
-                color: Colors.white,
                 child: circularsJson == null
                     ? Center(child: Text(''))
                     : ListView.builder(
@@ -58,20 +57,29 @@ class _CircularsState extends State<Circulars> {
                                       BorderRadius.all(Radius.circular(10))),
                               elevation: 10,
                               child: Container(
-                                child: DottedBorder(
-                                  color: Colors.blue,
-                                  gap: 3,
-                                  strokeWidth: 1,
-                                  child: Column(
-                                    children: <Widget>[
-                                      Container(
-                                        height: 30,
-                                        decoration: new BoxDecoration(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(10)),
-                                            gradient: LinearGradient(
-                                                begin: Alignment.topLeft,
-                                                end: Alignment.bottomRight,
+                                child: Column(
+                                  children: <Widget>[
+                                    Container(
+                                      height: 30,
+                                      decoration: new BoxDecoration(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10)),
+                                        gradient: isDark(context)
+                                            ? LinearGradient(
+                                                begin: Alignment.topCenter,
+                                                end: Alignment.bottomCenter,
+                                                colors: [
+                                                  Color(0xFF1F1F1F),
+                                                  Color(0xFF1F1F1F),
+                                                ],
+                                                stops: [
+                                                  0.7,
+                                                  0.9,
+                                                ],
+                                              )
+                                            : LinearGradient(
+                                                begin: Alignment.topCenter,
+                                                end: Alignment.bottomCenter,
                                                 colors: [
                                                   Color(0xFF104C90),
                                                   Color(0xFF3773AC),
@@ -79,69 +87,70 @@ class _CircularsState extends State<Circulars> {
                                                 stops: [
                                                   0.7,
                                                   0.9,
-                                                ])),
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 10.0),
-                                          child: Row(
-                                            children: <Widget>[
-                                              Icon(
-                                                Icons.access_time,
-                                                color: Colors.white,
-                                                size: 20,
+                                                ],
                                               ),
-                                              SizedBox(
-                                                width: 10,
-                                              ),
-                                              Text(
-                                                circularsJson[index]
-                                                    ['published_datetime'],
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                              ),
-                                            ],
-                                          ),
+                                      ),
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 10.0),
+                                        child: Row(
+                                          children: <Widget>[
+                                            Icon(
+                                              Icons.access_time,
+                                              color: Colors.white,
+                                              size: 20,
+                                            ),
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            Text(
+                                              circularsJson[index]
+                                                  ['published_datetime'],
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                      SizedBox(
-                                        height: 15,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 10),
-                                              child: Text(
-                                                circularsJson[index]['title']
-                                                    .toString(),
-                                              ),
+                                    ),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: Padding(
+                                            padding:
+                                                const EdgeInsets.only(left: 10),
+                                            child: Text(
+                                              circularsJson[index]['title']
+                                                  .toString(),
                                             ),
                                           ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: 15),
-                                            child: InkWell(
-                                              child: Text(
-                                                'Download',
-                                                style: TextStyle(
-                                                    color: Colors.blue),
-                                              ),
-                                              onTap: () {
-                                                launch(circularsJson[index]
-                                                    ['path']);
-                                              },
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 15),
+                                          child: InkWell(
+                                            child: Text(
+                                              'Download',
+                                              style:
+                                                  TextStyle(color: Colors.blue),
                                             ),
+                                            onTap: () {
+                                              launch(
+                                                  circularsJson[index]['path']);
+                                            },
                                           ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                    ],
-                                  ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
@@ -226,11 +235,11 @@ class _CircularsState extends State<Circulars> {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 
-        showErrorServer(context, getStudentCirculars());
+        // showErrorServer(context, getStudentCirculars());
       } else {
         showLoading(false, context);
 
-        showErrorConnect(context, getStudentCirculars());
+        // showErrorConnect(context, getStudentCirculars());
       }
     }
   }

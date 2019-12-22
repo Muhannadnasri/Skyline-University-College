@@ -460,10 +460,10 @@ class _ApptutudeFormState extends State<ApptutudeForm> {
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
-        showErrorServer(context, getProgramAndNationality());
+        // showErrorServer(context, getProgramAndNationality());
       } else {
         showLoading(false, context);
-        showErrorConnect(context, getProgramAndNationality());
+        // showErrorConnect(context, getProgramAndNationality());
       }
     }
   }
@@ -530,10 +530,10 @@ class _ApptutudeFormState extends State<ApptutudeForm> {
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
-        showErrorServer(context, getAptitude());
+        // showErrorServer(context, getAptitude());
       } else {
         showLoading(false, context);
-        showErrorConnect(context, getAptitude());
+        // showErrorConnect(context, getAptitude());
       }
     }
   }

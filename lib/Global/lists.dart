@@ -222,10 +222,10 @@ class _ListsState extends State<Lists> {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
         ;
-        showErrorServer(context, getEvents());
+        // showErrorServer(context, getEvents());
       } else {
         showLoading(false, context);
-        showErrorConnect(context, getEvents());
+        // showErrorConnect(context, getEvents());
       }
     }
   }

@@ -228,10 +228,10 @@ class _ContactListState extends State<ContactList> {
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
-        showErrorServer(context, getContactList());
+        // showErrorServer(context, getContactList());
       } else {
         showLoading(false, context);
-        showErrorConnect(context, getContactList());
+        // showErrorConnect(context, getContactList());
       }
     }
   }

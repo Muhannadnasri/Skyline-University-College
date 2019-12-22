@@ -27,13 +27,12 @@ final _onlineRequest = GlobalKey<FormState>();
 
 class _OnlineRequestState extends State<OnlineRequest> {
   List onlineRequestTypeJson = [];
-  Map onlineRequestTypeMessageJson = {};
   Map onlineRequestJson = {};
   Map requestAmountJson = {};
   String address = '';
   String remark = '';
   String ex1 = "No value selected";
-  int groupValue;
+  int groupValue = 1;
   String requestId;
 
   @override
@@ -70,282 +69,300 @@ class _OnlineRequestState extends State<OnlineRequest> {
               onTap: () {
                 FocusScope.of(context).requestFocus(new FocusNode());
               },
-              child: Container(
-                color: Colors.transparent,
-                child: ListView(
-                  children: <Widget>[
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 5.0),
-                            child: Text(
-                              'Request Type',
-                              style: TextStyle(
-                                  color: isDark(context)
-                                      ? Colors.white
-                                      : Colors.black,
-                                  fontSize: 12),
-                            ),
+              child: ListView(
+                children: <Widget>[
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding:
+                              const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 5.0),
+                          child: Text(
+                            'Request Type',
+                            style: TextStyle(
+                                color: isDark(context)
+                                    ? Colors.white
+                                    : Colors.black,
+                                fontSize: 12),
                           ),
                         ),
-                        Column(
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(
-                                  20.0, 0.0, 20.0, 5.0),
-                              child: CustomDropDown(
-                                isExpanded: true,
-                                items: onlineRequestTypeJson
-                                        ?.map(
-                                          (item) => DropdownMenuItem<String>(
-                                            value: item['DetailsID'].toString(),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                item['Item'].toString(),
-                                                style: TextStyle(
-                                                    color: isDark(context)
-                                                        ? Colors.white
-                                                        : Colors.black),
-                                              ),
+                      ),
+                      Column(
+                        children: <Widget>[
+                          Padding(
+                            padding:
+                                const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 5.0),
+                            child: CustomDropDown(
+                              isExpanded: true,
+                              items: onlineRequestTypeJson
+                                      ?.map(
+                                        (item) => DropdownMenuItem<String>(
+                                          value: item['DetailsID'].toString(),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              item['Item'].toString(),
+                                              style: TextStyle(
+                                                  color: isDark(context)
+                                                      ? Colors.white
+                                                      : Colors.black),
                                             ),
                                           ),
-                                        )
-                                        ?.toList() ??
-                                    [],
-                                value: requestId,
-                                hint: new Text('Select One'),
-                                searchHint: new Text(
-                                  'Select One',
-                                  style: new TextStyle(fontSize: 20),
-                                ),
-                                onChanged: (value) {
-                                  setState(() {
-                                    requestId = value;
+                                        ),
+                                      )
+                                      ?.toList() ??
+                                  [],
+                              value: requestId,
+                              hint: new Text(
+                                'Select One',
+                                style: TextStyle(
+                                    color: isDark(context)
+                                        ? Colors.white
+                                        : Colors.black),
+                              ),
+                              underline: Container(
+                                height: 1,
+                                color: Color(0xFF2f2f2f),
+                              ),
+                              searchHint: new Text(
+                                'Select One',
+                                style: new TextStyle(
+                                    fontSize: 20,
+                                    color: isDark(context)
+                                        ? Colors.white
+                                        : Colors.black),
+                              ),
+                              onChanged: (value) {
+                                setState(() {
+                                  requestId = value;
 
-                                    getAmount();
-                                  });
-                                },
+                                  getAmount();
+                                });
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Card(
+                          color: isDark(context)
+                              ? Color(0xFF121212)
+                              : Colors.white,
+                          elevation: 5,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Column(
+                                children: <Widget>[
+                                  Container(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Text(
+                                        'Normal Amount',
+                                        style: TextStyle(
+                                            color: isDark(context)
+                                                ? Colors.white
+                                                : Colors.black),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Container(
+                                      height: 25,
+                                      child: Text(
+                                        requestAmountJson.isEmpty
+                                            ? ''
+                                            : requestAmountJson['data']
+                                                        ['NormalAmount'] ==
+                                                    ("NA")
+                                                ? "Not Avalible"
+                                                : requestAmountJson['data']
+                                                        ['NormalAmount']
+                                                    .toString(),
+                                        style: TextStyle(
+                                            color: isDark(context)
+                                                ? Colors.white
+                                                : Colors.black),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Card(
+                          color: isDark(context)
+                              ? Color(0xFF121212)
+                              : Colors.white,
+                          elevation: 5,
+                          child: Row(
+                            children: <Widget>[
+                              Column(
+                                children: <Widget>[
+                                  Container(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Text(
+                                        'Urgent Amount',
+                                        style: TextStyle(
+                                            color: isDark(context)
+                                                ? Colors.white
+                                                : Colors.black),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Container(
+                                      height: 25,
+                                      child: Text(
+                                        requestAmountJson.isEmpty
+                                            ? ''
+                                            : requestAmountJson['data']
+                                                        ['UrgentAmount'] ==
+                                                    ("NA")
+                                                ? "Not Avalible"
+                                                : requestAmountJson['data']
+                                                        ['UrgentAmount']
+                                                    .toString(),
+                                        style: TextStyle(
+                                            color: isDark(context)
+                                                ? Colors.white
+                                                : Colors.black),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Form(
+                              key: _onlineRequest,
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  globalForms(context, '', (String value) {
+                                    if (value.trim().isEmpty) {
+                                      return 'Address  is required';
+                                    }
+                                    return null;
+                                  }, (x) {
+                                    setState(() {
+                                      address = x;
+                                    });
+                                  }, 'Address', TextInputType.text),
+                                  globalForms(context, '', (String value) {
+                                    if (value.trim().isEmpty) {
+                                      return 'Remark is required';
+                                    }
+                                    return null;
+                                  }, (x) {
+                                    setState(() {
+                                      remark = x;
+                                    });
+                                  }, 'Remark', TextInputType.text),
+                                ],
                               ),
                             ),
                           ],
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Card(
-                            color: isDark(context)
-                                ? Color(0xFF121212)
-                                : Colors.white,
-                            elevation: 5,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                        padding:
+                            const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 5.0),
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  "Pay Amount",
+                                  style: TextStyle(
+                                      color: isDark(context)
+                                          ? Colors.white
+                                          : Colors.black),
+                                )),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Row(
                               children: <Widget>[
-                                Column(
+                                Row(
                                   children: <Widget>[
-                                    Container(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: Text(
-                                          'Normal Amount',
-                                          style: TextStyle(
-                                              color: isDark(context)
-                                                  ? Colors.white
-                                                  : Colors.black),
-                                        ),
-                                      ),
+                                    Radio(
+                                      value: 1,
+                                      groupValue: groupValue,
+                                      onChanged: (int e) {
+                                        setState(() {
+                                          groupValue = e;
+                                        });
+                                      },
+                                      activeColor: Colors.blue,
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Container(
-                                        height: 25,
-                                        child: Text(
-                                          requestAmountJson.isEmpty
-                                              ? ''
-                                              : requestAmountJson['data']
-                                                          ['NormalAmount'] ==
-                                                      ("NA")
-                                                  ? "Not Avalible"
-                                                  : requestAmountJson['data']
-                                                          ['NormalAmount']
-                                                      .toString(),
-                                          style: TextStyle(
-                                              color: isDark(context)
-                                                  ? Colors.white
-                                                  : Colors.black),
-                                        ),
-                                      ),
+                                    Text('Normal',
+                                        style: TextStyle(
+                                            color: isDark(context)
+                                                ? Colors.white
+                                                : Colors.black)),
+                                  ],
+                                ),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Radio(
+                                      value: 2,
+                                      groupValue: groupValue,
+                                      onChanged: (int e) {
+                                        setState(() {
+                                          groupValue = e;
+                                        });
+                                      },
+                                      activeColor: Colors.red,
                                     ),
+                                    Text('Urgent',
+                                        style: TextStyle(
+                                            color: isDark(context)
+                                                ? Colors.white
+                                                : Colors.black)),
                                   ],
                                 ),
                               ],
                             ),
-                          ),
+                          ],
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Card(
-                            color: isDark(context)
-                                ? Color(0xFF121212)
-                                : Colors.white,
-                            elevation: 5,
-                            child: Row(
-                              children: <Widget>[
-                                Column(
-                                  children: <Widget>[
-                                    Container(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: Text(
-                                          'Urgent Amount',
-                                          style: TextStyle(
-                                              color: isDark(context)
-                                                  ? Colors.white
-                                                  : Colors.black),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Container(
-                                        height: 25,
-                                        child: Text(
-                                          requestAmountJson.isEmpty
-                                              ? ''
-                                              : requestAmountJson['data']
-                                                          ['UrgentAmount'] ==
-                                                      ("NA")
-                                                  ? "Not Avalible"
-                                                  : requestAmountJson['data']
-                                                          ['UrgentAmount']
-                                                      .toString(),
-                                          style: TextStyle(
-                                              color: isDark(context)
-                                                  ? Colors.white
-                                                  : Colors.black),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Container(
-                          alignment: Alignment.center,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Form(
-                                key: _onlineRequest,
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    globalForms(context, '', (String value) {
-                                      if (value.trim().isEmpty) {
-                                        return 'Address  is required';
-                                      }
-                                      return null;
-                                    }, (x) {
-                                      setState(() {
-                                        address = x;
-                                      });
-                                    }, 'Address', TextInputType.text),
-                                    globalForms(context, '', (String value) {
-                                      if (value.trim().isEmpty) {
-                                        return 'Remark is required';
-                                      }
-                                      return null;
-                                    }, (x) {
-                                      setState(() {
-                                        remark = x;
-                                      });
-                                    }, 'Remark', TextInputType.text),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Column(
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      "Pay Amount",
-                                      style: TextStyle(
-                                          color: isDark(context)
-                                              ? Colors.white
-                                              : Colors.black),
-                                    )),
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Radio(
-                                    value: 1,
-                                    groupValue: groupValue,
-                                    onChanged: (int e) {
-                                      setState(() {
-                                        groupValue = e;
-                                      });
-                                    },
-                                    activeColor: Colors.blue,
-                                  ),
-                                  Text('Normal',
-                                      style: TextStyle(
-                                          color: isDark(context)
-                                              ? Colors.white
-                                              : Colors.black)),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Radio(
-                                    value: 2,
-                                    groupValue: groupValue,
-                                    onChanged: (int e) {
-                                      setState(() {
-                                        groupValue = e;
-                                      });
-                                    },
-                                    activeColor: Colors.red,
-                                  ),
-                                  Text('Urgent',
-                                      style: TextStyle(
-                                          color: isDark(context)
-                                              ? Colors.white
-                                              : Colors.black)),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
     );
@@ -373,32 +390,19 @@ class _OnlineRequestState extends State<OnlineRequest> {
         setState(
           () {
             onlineRequestTypeJson = json.decode(response.body)['data'];
-            onlineRequestTypeMessageJson = json.decode(response.body);
           },
         );
         showLoading(false, context);
       }
-
-      if (onlineRequestTypeMessageJson["success"] == "0") {
-        showLoading(false, context);
-        Fluttertoast.showToast(
-            msg: onlineRequestTypeMessageJson["message"],
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIos: 1,
-            backgroundColor: Colors.grey[400],
-            textColor: Colors.black87,
-            fontSize: 13.0);
-        Navigator.pop(context);
-      }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
-
-        showErrorServer(context, getRequestType());
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getRequestType);
       } else {
         showLoading(false, context);
-        showErrorConnect(context, getRequestType());
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getRequestType);
       }
     }
   }
@@ -430,14 +434,13 @@ class _OnlineRequestState extends State<OnlineRequest> {
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
-        print('object');
         showLoading(false, context);
-        showErrorServer(context, getAmount());
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getAmount);
       } else {
-        print('object2');
-
         showLoading(false, context);
-        showErrorConnect(context, getAmount());
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getAmount);
       }
     }
   }
@@ -461,7 +464,6 @@ class _OnlineRequestState extends State<OnlineRequest> {
           'address': address,
           'remarks': remark,
           'amount': groupValue == 1 ? "NormalAmount" : "UrgentAmount",
-          'token': '1',
         },
       ).timeout(Duration(seconds: 35));
 
@@ -471,17 +473,20 @@ class _OnlineRequestState extends State<OnlineRequest> {
             onlineRequestJson = json.decode(response.body);
           },
         );
+
         showLoading(false, context);
+
+        showSuccessSnackBar(context, onlineRequestJson['message']);
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
-
-        showErrorServer(context, getOnlineRequest());
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getOnlineRequest);
       } else {
         showLoading(false, context);
-
-        showErrorConnect(context, getOnlineRequest());
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getOnlineRequest);
       }
     }
   }

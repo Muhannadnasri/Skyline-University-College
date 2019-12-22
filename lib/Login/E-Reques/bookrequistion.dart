@@ -318,10 +318,10 @@ class _BookRequisitionState extends State<BookRequisition> {
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
-        showErrorServer(context, getLibraryMaterial());
+        // showErrorServer(context, getLibraryMaterial());
       } else {
         showLoading(false, context);
-        showErrorConnect(context, getLibraryMaterial());
+        // showErrorConnect(context, getLibraryMaterial());
       }
     }
   }
@@ -372,10 +372,10 @@ class _BookRequisitionState extends State<BookRequisition> {
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
-        showErrorServer(context, getLibraryMaterial());
+        // showErrorServer(context, getLibraryMaterial());
       } else {
         showLoading(false, context);
-        showErrorConnect(context, getLibraryMaterial());
+        // showErrorConnect(context, getLibraryMaterial());
       }
     }
   }

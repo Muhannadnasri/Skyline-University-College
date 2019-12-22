@@ -287,180 +287,70 @@ return null;
 //   ).show(context);
 // }
 
-void showErrorServer(context, yes) {
-  EasyDialog(
-    title: Text(
-      "Time out from server",
-      style: TextStyle(
-          fontSize: 17, fontWeight: FontWeight.bold, color: Colors.black54),
-    ),
-    closeButton: false,
-    cornerRadius: 20,
-    fogOpacity: 0.60,
-    //TODO: Change fogOpacity
-    height: MediaQuery.of(context).size.height / 5,
-    contentList: [
-      SizedBox(
-        height: 20,
-      ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Container(
-              alignment: Alignment.center,
-              child: RaisedButton(
-                  elevation: 5.0,
-                  color: Colors.green[300],
-                  child: Text(
-                    'Yes',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onPressed: yes),
+void showError(String msg, IconData icon, context, action) {
+  showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return WillPopScope(
+          onWillPop: () {},
+          child: new AlertDialog(
+            title: Stack(
+              children: <Widget>[
+                Image.asset(
+                  'images/logo.png',
+                  color: Colors.white,
+                  height: 50,
+                ),
+                Image.asset(
+                  'images/logo.png',
+                  height: 50,
+                ),
+              ],
             ),
-          ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: Container(
-              alignment: Alignment.center,
-              child: RaisedButton(
-                  elevation: 5.0,
-                  color: Colors.red[300],
-                  child: Text(
-                    'No',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  }),
+            shape: SuperellipseShape(
+              borderRadius: BorderRadius.all(
+                Radius.circular(20),
+              ),
             ),
+            content: Padding(
+              padding: const EdgeInsets.only(left: 30.0),
+              child: FittedBox(
+                child: new Row(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(right: 25.0),
+                      child: new Icon(
+                        icon,
+                        color: isDark(context) ? Colors.white : Colors.black,
+                      ),
+                    ),
+                    new Text(msg)
+                  ],
+                ),
+              ),
+            ),
+            actions: <Widget>[
+              new FlatButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                },
+                child: new Text('Back'),
+              ),
+              new FlatButton(
+                onPressed: () {
+                  Navigator.pop(context);
+
+                  action();
+                },
+                child: new Text('Try again'),
+              ),
+            ],
           ),
-        ],
-      ),
-    ],
-  ).show(context);
+        );
+      });
 }
-
-void showErrorConnect(context, yes) {
-  EasyDialog(
-    title: Text(
-      "Sorry, we can't connect",
-      style: TextStyle(
-          fontSize: 17, fontWeight: FontWeight.bold, color: Colors.black54),
-    ),
-    closeButton: false,
-    cornerRadius: 20,
-    fogOpacity: 0.60,
-    //TODO: Change fogOpacity
-    height: MediaQuery.of(context).size.height / 5,
-    contentList: [
-      SizedBox(
-        height: 20,
-      ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Container(
-              alignment: Alignment.center,
-              child: RaisedButton(
-                  elevation: 5.0,
-                  color: Colors.green[300],
-                  child: Text(
-                    'Yes',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onPressed: yes),
-            ),
-          ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: Container(
-              alignment: Alignment.center,
-              child: RaisedButton(
-                  elevation: 5.0,
-                  color: Colors.red[300],
-                  child: Text(
-                    'No',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  }),
-            ),
-          ),
-        ],
-      ),
-    ],
-  ).show(context);
-}
-
-// void showError(String msg, IconData icon, context, action) {
-//   showDialog(
-//       context: context,
-//       barrierDismissible: false,
-//       builder: (BuildContext context) {
-//         return WillPopScope(
-//           onWillPop: () {},
-//           child: new AlertDialog(
-//             title: Stack(
-//               children: <Widget>[
-//                 Image.asset(
-//                   'images/logo.png',
-//                   color: Colors.white,
-//                   height: 50,
-//                 ),
-//                 Image.asset(
-//                   'images/logo.png',
-//                   height: 50,
-//                 ),
-//               ],
-//             ),
-//             shape: SuperellipseShape(
-//               borderRadius: BorderRadius.all(
-//                 Radius.circular(20),
-//               ),
-//             ),
-//             content: Padding(
-//               padding: const EdgeInsets.only(left: 30.0),
-//               child: FittedBox(
-//                 child: new Row(
-//                   children: <Widget>[
-//                     Padding(
-//                       padding: const EdgeInsets.only(right: 25.0),
-//                       child: new Icon(
-//                         icon,
-//                         color: isDark(context) ? Colors.white : Colors.black,
-//                       ),
-//                     ),
-//                     new Text(msg)
-//                   ],
-//                 ),
-//               ),
-//             ),
-//             actions: <Widget>[
-//               new FlatButton(
-//                 onPressed: () {
-//                   Navigator.pop(context);
-//                   Navigator.pop(context);
-//                 },
-//                 child: new Text('Back'),
-//               ),
-//               new FlatButton(
-//                 onPressed: () {
-//                   Navigator.pop(context);
-
-//                   action();
-//                 },
-//                 child: new Text('Try again'),
-//               ),
-//             ],
-//           ),
-//         );
-//       });
-// }
 
 void showErrorInput(String msg) {
   Fluttertoast.showToast(

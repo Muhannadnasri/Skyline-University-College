@@ -263,10 +263,10 @@ class _LocationState extends State<Location> {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 
-        showErrorServer(context, getLocation());
+        // showErrorServer(context, getLocation());
       } else {
         showLoading(false, context);
-        showErrorConnect(context, getLocation());
+        // showErrorConnect(context, getLocation());
       }
     }
   }
