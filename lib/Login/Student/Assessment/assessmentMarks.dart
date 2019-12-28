@@ -15,13 +15,7 @@ void main() => runApp(AssessmentMarks());
 class AssessmentMarks extends StatefulWidget {
   final String classID;
 
-  final int index;
-
-  AssessmentMarks({
-    Key key,
-    this.classID,
-    this.index,
-  }) : super(key: key);
+  AssessmentMarks({Key key, this.classID}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -44,10 +38,12 @@ class _AssessmentMarksState extends State<AssessmentMarks> {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
       appBar: appBarLogin(context, 'Assessment Marks'),
-      body: assessmentMarksJson == null
+      body: assessmentMarksJson == null || assessmentMarksJson.isEmpty
           ? exception(context, FontAwesomeIcons.exclamationTriangle,
-              assessmentMarksJsonMessage['message'])
-          : Container(
+              '')
+          : 
+          
+          Container(
               child: ListView.builder(
                 itemCount: assessmentMarksJson.length,
                 itemBuilder: (BuildContext context, int index) {

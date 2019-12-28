@@ -40,25 +40,25 @@ class _HomeClassState extends State<HomeClass> {
                     'images/admission.png',
                     'images-white/admission.png',
                     'Course Details',
-                    "/CourseDetails"),
+                    "/courseDetails"),
                 rowSection(
                     context,
                     'images/admission.png',
                     'images-white/admission.png',
                     'Class Schedule Weekday',
-                    "/ClassScheduleWeekday"),
+                    "/classScheduleWeekday"),
                 rowSection(
                     context,
                     'images/admission.png',
                     'images-white/admission.png',
                     'Class Schedule Weekend',
-                    "/ClassScheduleWeekend"),
+                    "/classScheduleWeekend"),
                 rowSection(
                     context,
                     'images/admission.png',
                     'images-white/admission.png',
                     'Class Schedule Mqp WeekDay',
-                    "/ClassScheduleMqpWeekDay")
+                    "/classScheduleMqpWeekDay")
               ],
             ),
           ],

@@ -56,7 +56,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
                 if (_onlineRequest.currentState.validate() &&
                     requestId != null) {
                   _onlineRequest.currentState.save();
-                  getOnlineRequest();
+                  sendOnlineRequest();
                 } else {
                   return showErrorInput('Please check your input');
                 }
@@ -445,7 +445,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
     }
   }
 
-  Future getOnlineRequest() async {
+  Future sendOnlineRequest() async {
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
     });
@@ -482,11 +482,11 @@ class _OnlineRequestState extends State<OnlineRequest> {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
         showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-            context, getOnlineRequest);
+            context, sendOnlineRequest);
       } else {
         showLoading(false, context);
         showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-            getOnlineRequest);
+            sendOnlineRequest);
       }
     }
   }

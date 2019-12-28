@@ -23,7 +23,6 @@ bool container = false;
 
 bool copyRight = false;
 
-List courseAllocationJson = [];
 
 List courseAllocationMorningJson = [];
 List courseAllocationEveningJson = [];
@@ -227,9 +226,9 @@ void showfailureSnackBar(BuildContext context, message) {
     message: message,
   )..show(context);
 }
-textField(){
-return null;
-  
+
+textField() {
+  return null;
 }
 
 // void showError(context, title, yes) {

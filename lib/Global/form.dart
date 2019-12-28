@@ -22,6 +22,7 @@ Widget globalForms(BuildContext context, initialValue, validators, onSaveds,
       Padding(
         padding: const EdgeInsets.fromLTRB(10.0, 0.0, 20.0, 5.0),
         child: TextFormField(
+          
           initialValue: initialValue,
           onSaved: onSaveds,
           validator: validators,

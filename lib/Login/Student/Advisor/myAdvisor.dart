@@ -57,7 +57,7 @@ class _MyAdvisorState extends State<MyAdvisor> {
             child: Padding(
               padding: const EdgeInsets.all(13.0),
               child: Text(
-                "Submit",
+                "Make Appointment",
                 textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
@@ -95,34 +95,6 @@ class _MyAdvisorState extends State<MyAdvisor> {
                                           style: TextStyle(color: Colors.white),
                                         ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(10),
-                                      child: GestureDetector(
-                                          onTap: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    AdvisorAppointment(
-                                                        myAdvisorId:
-                                                            myAdvisorJson[index]
-                                                                    [
-                                                                    'FACULTY_ID']
-                                                                .toString(),
-                                                        myAdvisorName:
-                                                            myAdvisorJson[index]
-                                                                    [
-                                                                    'NAME OF THE FACULTY']
-                                                                .toString()),
-                                              ),
-                                            );
-                                          },
-                                          child: Icon(
-                                            FontAwesomeIcons.calendarAlt,
-                                            color: Colors.white,
-                                            size: 20,
-                                          )),
                                     ),
                                   ]),
                               decoration: new BoxDecoration(

@@ -11,9 +11,7 @@ Widget rowSection(BuildContext context, image, imageWhite, text, location) {
           children: <Widget>[
             GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, location
-                    // "/GetGPARequirments"
-                    );
+                Navigator.pushNamed(context, location);
               },
               child: Padding(
                 padding: const EdgeInsets.only(left: 8.0, top: 8, right: 8.0),
@@ -23,7 +21,7 @@ Widget rowSection(BuildContext context, image, imageWhite, text, location) {
                   decoration: BoxDecoration(
                     color:
                         isDark(context) ? Color(0xFF1F1F1F) : Colors.grey[100],
-                    border: Border.all(width: 1.0),
+                    border: Border.all(width: 1.0, color: Colors.white),
                     borderRadius: BorderRadius.all(
                         Radius.circular(10.0) //         <--- border radius here
                         ),
@@ -38,7 +36,6 @@ Widget rowSection(BuildContext context, image, imageWhite, text, location) {
                           width: 15,
                         ),
                         Image.asset(
-                          // 'images/admission.png', 'images-white/admission.png'
                           isDark(context) ? imageWhite : image,
                           height: 30,
                         ),
@@ -46,7 +43,6 @@ Widget rowSection(BuildContext context, image, imageWhite, text, location) {
                           width: 20,
                         ),
                         Text(
-                          // 'GPA Requirments'
                           text,
                           style: TextStyle(
                               color: isDark(context)

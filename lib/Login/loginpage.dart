@@ -211,6 +211,7 @@ class _LoginAppState extends State<LoginApp> {
                                       FocusScope.of(context)
                                           .requestFocus(focus);
                                     },
+                                    initialValue: 'deepak.kalra',
                                     textInputAction: TextInputAction.next,
                                     validator: (String value) {
                                       if (value.trim().isEmpty) {
@@ -250,6 +251,7 @@ class _LoginAppState extends State<LoginApp> {
                                 ),
                                 Container(
                                   child: TextFormField(
+                                    initialValue: 'Adsky#2020',
                                     style: TextStyle(
                                         color: isDark(context)
                                             ? Colors.white

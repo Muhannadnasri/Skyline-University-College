@@ -61,10 +61,7 @@ class _ReinStatementState extends State<ReinStatement> {
         },
       ),
       appBar: appBarLogin(context, 'Reinstatement'),
-      body:
-      
-      
-       GestureDetector(
+      body: GestureDetector(
         onTap: () {
           FocusScope.of(context).requestFocus(new FocusNode());
         },

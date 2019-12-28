@@ -1,3 +1,4 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -5,18 +6,21 @@ import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/global.dart';
 
-void main() => runApp(CourseAllocationEvening());
+void main() => runApp(CourseAllocations());
 
-class CourseAllocationEvening extends StatefulWidget {
+class CourseAllocations extends StatefulWidget {
+  final List data;
+
+  const CourseAllocations({Key key, this.data}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
-    return _CourseAllocationEveningState();
+    return _CourseAllocationsState();
   }
 }
 
 // Map<String, int> body;
 
-class _CourseAllocationEveningState extends State<CourseAllocationEvening> {
+class _CourseAllocationsState extends State<CourseAllocations> {
   @override
   void initState() {
     super.initState();
@@ -26,14 +30,13 @@ class _CourseAllocationEveningState extends State<CourseAllocationEvening> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-        appBar: appBarLogin(context, 'Class Evening'),
-        body: courseAllocationEveningJson == null ||
-                courseAllocationEveningJson.isEmpty
+        appBar: appBarLogin(context, 'Class Morning'),
+        body: widget.data == null || widget.data.isEmpty
             ? exception(context, FontAwesomeIcons.exclamationTriangle,
                 'No Class available')
             : Container(
                 child: ListView.builder(
-                  itemCount: courseAllocationEveningJson.length,
+                  itemCount: widget.data.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Card(
                       shape: RoundedRectangleBorder(
@@ -46,7 +49,7 @@ class _CourseAllocationEveningState extends State<CourseAllocationEvening> {
                             decoration: new BoxDecoration(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10)),
-                              gradient:isDark(context)
+                              gradient: isDark(context)
                                   ? LinearGradient(
                                       begin: Alignment.topCenter,
                                       end: Alignment.bottomCenter,
@@ -76,53 +79,30 @@ class _CourseAllocationEveningState extends State<CourseAllocationEvening> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  courseAllocationEveningJson[index]
-                                      ['SemName'],
+                                  widget.data[index]['WeekDays'],
                                   style: TextStyle(color: Colors.white),
                                 ),
                               )
                             ]),
                           ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text('WeekDays : ',
-                                    style: TextStyle(
-                                        color: isDark(context)
-                                            ? Colors.white
-                                            : Colors.black)),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  courseAllocationEveningJson[index]
-                                                  ['WeekDays']
-                                              .toString() ==
-                                          "null"
-                                      ? ""
-                                      : courseAllocationEveningJson[index]
-                                              ['WeekDays']
-                                          .toString(),
-                                  style: TextStyle(
-                                      color: isDark(context)
-                                          ? Colors.white
-                                          : Colors.black),
-                                ),
-                              ),
-                            ],
-                          ),
                           _rowWidget(
-                              courseAllocationEveningJson[index]['Session1'],
-                              'Session 1 : '),
+                              widget.data[index]['Session1'], 'section 1 : '),
                           _rowWidget(
-                              courseAllocationEveningJson[index]['Session2'],
-                              'Session 2 : '),
+                              widget.data[index]['Session2'], 'section 2 : '),
                           _rowWidget(
-                              courseAllocationEveningJson[index]['Session3'],
-                              'Session 3 : ')
+                              widget.data[index]['Session3'], 'section 3 : '),
+                          _rowWidget(
+                              widget.data[index]['Session4'], 'section 4 : '),
+                          _rowWidget(
+                              widget.data[index]['Session5'], 'section 5 : '),
+                          _rowWidget(
+                              widget.data[index]['Session6'], 'section 6 : '),
+                          _rowWidget(
+                              widget.data[index]['Session7'], 'section 7 : '),
+                          _rowWidget(
+                              widget.data[index]['Session8'], 'section 8 : '),
+                          _rowWidget(
+                              widget.data[index]['Session9'], 'section 9 : '),
                         ],
                       ),
                     );
@@ -138,9 +118,14 @@ class _CourseAllocationEveningState extends State<CourseAllocationEvening> {
         children: <Widget>[
           Row(
             children: <Widget>[
+              Text(
+                '$text',
+                style: TextStyle(
+                    color: isDark(context) ? Colors.white : Colors.black),
+              ),
               Expanded(
                 child: Text(
-                  data.toString() == "null" ? "" : text + ' ' + data.toString(),
+                  data.toString() == "null" ? "" : data.toString(),
                   style: TextStyle(
                       color: isDark(context) ? Colors.white : Colors.black),
                 ),

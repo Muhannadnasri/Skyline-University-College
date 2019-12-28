@@ -40,9 +40,8 @@ class _CircularsState extends State<Circulars> {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
         appBar: appBarLogin(context, "Circulars"),
-        body: circularsJson.isEmpty
-            ? exception(context, FontAwesomeIcons.exclamationTriangle,
-                circularsMessageJson['message'])
+        body: circularsJson.isEmpty|| circularsJson.isEmpty
+            ? Container()
             : Container(
                 child: circularsJson == null
                     ? Center(child: Text(''))

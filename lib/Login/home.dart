@@ -147,7 +147,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                   context,
                                   'images-white/attendance.png',
                                   'images/attendance.png',
-                                  "/Attendance",
+                                  "/attendance",
                                   Colors.white60,
                                   Colors.black,
                                   'Attendance',
@@ -158,7 +158,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                   context,
                                   'images-white/assessment.png',
                                   'images/assessment.png',
-                                  "/AssessmentMarkCourses",
+                                  "/assessmentMarkCourses",
                                   Colors.white60,
                                   Colors.black,
                                   'Assessment',
@@ -169,7 +169,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                   context,
                                   'images-white/result.png',
                                   'images/result.png',
-                                  "/HomeResult",
+                                  "/homeResult",
                                   Colors.white60,
                                   Colors.black,
                                   'Result',
@@ -346,101 +346,100 @@ class _HomeLoginState extends State<HomeLogin> {
                             SizedBox(
                               height: 20,
                             ),
-                            Column(
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: <Widget>[
-                                      homeBox(
-                                        context,
-                                        'images-white/allocation.png',
-                                        'images/allocation.png',
-                                        "/CourseAllocation",
-                                        Colors.white60,
-                                        Colors.black,
-                                        'Courses',
-                                        Colors.white,
-                                        Colors.black,
-                                      ),
-                                      homeBox(
-                                        context,
-                                        'images-white/advisor.png',
-                                        'images/advisor.png',
-                                        "/Advisors",
-                                        Colors.white60,
-                                        Colors.black,
-                                        'Advisors',
-                                        Colors.white,
-                                        Colors.black,
-                                      ),
-                                      homeBox(
-                                        context,
-                                        'images-white/circulars.png',
-                                        'images/circulars.png',
-                                        "/circulars",
-                                        Colors.white60,
-                                        Colors.black,
-                                        'Circulars',
-                                        Colors.white,
-                                        Colors.black,
-                                      ),
-                                    ],
+                            FittedBox(
+                              child: Column(
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: <Widget>[
+                                        homeBox(
+                                          context,
+                                          'images-white/allocation.png',
+                                          'images/allocation.png',
+                                          "/courseAllocation",
+                                          Colors.white60,
+                                          Colors.black,
+                                          'Courses',
+                                          Colors.white,
+                                          Colors.black,
+                                        ),
+                                        homeBox(
+                                          context,
+                                          'images-white/advisor.png',
+                                          'images/advisor.png',
+                                          "/advisors",
+                                          Colors.white60,
+                                          Colors.black,
+                                          'Advisors',
+                                          Colors.white,
+                                          Colors.black,
+                                        ),
+                                        homeBox(
+                                          context,
+                                          'images-white/circulars.png',
+                                          'images/circulars.png',
+                                          "/circulars",
+                                          Colors.white60,
+                                          Colors.black,
+                                          'Circulars',
+                                          Colors.white,
+                                          Colors.black,
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: <Widget>[
-                                      homeBox(
-                                        context,
-                                        'images-white/erequest.png',
-                                        'images/erequest.png',
-                                        "/HomeERequest",
-                                        Colors.white60,
-                                        Colors.black,
-                                        'E-Request',
-                                        Colors.white,
-                                        Colors.black,
-                                      ),
-                                      homeBox(
-                                        context,
-                                        'images-white/contactslist.png',
-                                        'images/contactslist.png',
-                                        "/ContactList",
-                                        Colors.white60,
-                                        Colors.black,
-                                        'ContactList',
-                                        Colors.white,
-                                        Colors.black,
-                                      ),
-                                      homeBox(
-                                        context,
-                                        'images-white/cdp.png',
-                                        'images/cdp.png',
-                                        "/cdpFaculty",
-                                        Colors.white60,
-                                        Colors.black,
-                                        'CDP',
-                                        Colors.white,
-                                        Colors.black,
-                                      ),
-                                    ],
+                                  Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: <Widget>[
+                                        homeBox(
+                                          context,
+                                          'images-white/erequest.png',
+                                          'images/erequest.png',
+                                          "/HomeERequest",
+                                          Colors.white60,
+                                          Colors.black,
+                                          'E-Request',
+                                          Colors.white,
+                                          Colors.black,
+                                        ),
+                                        homeBox(
+                                          context,
+                                          'images-white/contactslist.png',
+                                          'images/contactslist.png',
+                                          "/ContactList",
+                                          Colors.white60,
+                                          Colors.black,
+                                          'ContactList',
+                                          Colors.white,
+                                          Colors.black,
+                                        ),
+                                        homeBox(
+                                          context,
+                                          'images-white/cdp.png',
+                                          'images/cdp.png',
+                                          "/cdpFaculty",
+                                          Colors.white60,
+                                          Colors.black,
+                                          'CDP',
+                                          Colors.white,
+                                          Colors.black,
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                Image.asset(
-                                  'images/logo.png',
-                                  height: 150,
-                                  width: 230,
-                                ),
-                              ],
+                                  Image.asset(
+                                    'images/logo.png',
+                                    height: 150,
+                                    width: 230,
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
@@ -669,13 +668,13 @@ class _HomeLoginState extends State<HomeLogin> {
                   children: <Widget>[
                     GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, "/announcements");
+                        Navigator.pushNamed(context, "/notifications");
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: Icon(
                           Icons.notifications,
-                          size: 15,
+                          size: 20,
                           color: Colors.white,
                         ),
                       ),

@@ -41,6 +41,7 @@ class _AdvisorAppointmentState extends State<AdvisorAppointment> {
 
   String time;
   String date;
+  bool checkValue = false;
   String caseDescription;
   String dates;
   @override
@@ -58,326 +59,369 @@ class _AdvisorAppointmentState extends State<AdvisorAppointment> {
       resizeToAvoidBottomPadding: false,
       bottomNavigationBar: bottomappBar(context, () {
         setState(() {
-          if (_studentProblem.currentState.validate() &&
-                  date != null &&
-                  time != null &&
-                  caseDescription != null &&
-                  groupValue == 1 ||
+          if (groupValue == 1 &&
               _studentProblem.currentState.validate() &&
-                  date != null &&
-                  time != null) {
-            getAdvisorAppointment();
+              date != null &&
+              time != null &&
+              caseDescription != null) {
+            _studentProblem.currentState.save();
+            sendAdvisorAppointment();
           } else {
-            return showErrorInput('Please check your input');
+            checkValue = true;
+          }
+
+          if (groupValue == 2 && date != null && time != null) {
+            sendAdvisorAppointment();
+          } else {
+            checkValue = true;
           }
         });
       }),
       appBar: appBarLogin(context, 'Advisor Appointment'),
-      body: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).unfocus();
-        },
-        child: ListView(
-          children: <Widget>[
-            SizedBox(
-              height: 25,
-            ),
-            Container(
-              height: MediaQuery.of(context).size.height,
-              child: Column(
+      body: advisorApptTimeJson == null && advisorApptTimeJson.isEmpty
+          ? Container()
+          : GestureDetector(
+              onTap: () {
+                FocusScope.of(context).requestFocus(new FocusNode());
+              },
+              child: ListView(
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      child: Center(
-                        child: FittedBox(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              widget.myAdvisorName == null
-                                  ? ''
-                                  : widget.myAdvisorName,
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                        ),
-                      ),
-                      decoration: new BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(5)),
-                        gradient: isDark(context)
-                            ? LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [
-                                  Color(0xFF1F1F1F),
-                                  Color(0xFF1F1F1F),
-                                ],
-                                stops: [
-                                  0.7,
-                                  0.9,
-                                ],
-                              )
-                            : LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [
-                                  Color(0xFF104C90),
-                                  Color(0xFF3773AC),
-                                ],
-                                stops: [
-                                  0.7,
-                                  0.9,
-                                ],
-                              ),
-                      ),
-                    ),
-                  ),
                   SizedBox(
-                    height: 10,
+                    height: 25,
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
+                  Container(
+                    height: MediaQuery.of(context).size.height,
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'Appointment Date',
-                            style: TextStyle(color: Colors.grey[600]),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 15.0),
-                        child: DropdownButton<String>(
-                          underline: Container(
-                            height: 1,
-                            color: Colors.white.withOpacity(0.2),
-                          ),
-                          isExpanded: true,
-                          hint: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              'Date',
-                              style: TextStyle(color: Colors.black),
+                          child: Container(
+                            child: Center(
+                              child: FittedBox(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    widget.myAdvisorName == null
+                                        ? ''
+                                        : widget.myAdvisorName,
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
-                          value: date,
-                          items: advisorDateJson
-                                  ?.map(
-                                    (item) => DropdownMenuItem<String>(
-                                      value: item['days'],
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(item['days']),
-                                      ),
+                            decoration: new BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(5)),
+                              gradient: isDark(context)
+                                  ? LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                        Color(0xFF1F1F1F),
+                                        Color(0xFF1F1F1F),
+                                      ],
+                                      stops: [
+                                        0.7,
+                                        0.9,
+                                      ],
+                                    )
+                                  : LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                        Color(0xFF104C90),
+                                        Color(0xFF3773AC),
+                                      ],
+                                      stops: [
+                                        0.7,
+                                        0.9,
+                                      ],
                                     ),
-                                  )
-                                  ?.toList() ??
-                              [],
-                          onChanged: (value) {
-                            setState(() {
-                              date = value;
-                              getAdvisorApptTime();
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 10.0),
-                          child: Text(
-                            'Appointment Time',
-                            style: TextStyle(color: Colors.grey[600]),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 15.0),
-                        child: DropdownButton<String>(
-                          underline: Container(
-                            height: 1,
-                            color: Colors.white.withOpacity(0.2),
-                          ),
-                          value: time,
-                          isExpanded: true,
-                          hint: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              'Time',
-                              style: TextStyle(color: Colors.black),
                             ),
                           ),
-                          items: advisorApptTimeJson
-                                  ?.map((item) => DropdownMenuItem<String>(
-                                      value: item['Session_Time'],
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(item['Session_Time']),
-                                      )))
-                                  ?.toList() ??
-                              [],
-                          onChanged: (value) {
-                            setState(() {
-                              time = value;
-                            });
-                          },
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: Text(
-                          "Register New Case",
-                          style: TextStyle(color: Colors.grey[600]),
+                        SizedBox(
+                          height: 10,
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 10.0),
-                        child: Row(
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                Text(
-                                  'Yes',
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.fromLTRB(
+                                    10.0, 0.0, 20.0, 5.0),
+                                child: Text(
+                                  'Appointment Date',
                                   style: TextStyle(
                                       color: isDark(context)
                                           ? Colors.white
                                           : Colors.black),
                                 ),
-                                Radio(
-                                  value: 1,
-                                  groupValue: groupValue,
-                                  onChanged: (int e) {
-                                    setState(() {
-                                      groupValue = e;
-                                    });
-                                  },
-                                  activeColor: Colors.blue,
-                                ),
-                              ],
-                            ),
-                            Text(
-                              'No',
-                              style: TextStyle(
-                                  color: isDark(context)
-                                      ? Colors.white
-                                      : Colors.black),
-                            ),
-                            Radio(
-                              value: 2,
-                              groupValue: groupValue,
-                              onChanged: (int e) {
-                                setState(() {
-                                  groupValue = e;
-                                });
-                              },
-                              activeColor: Colors.blue,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  groupValue == 2
-                      ? SizedBox()
-                      : Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              alignment: Alignment.centerLeft,
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 10.0),
-                                child: Text(
-                                  'Case Description',
-                                  style: TextStyle(color: Colors.grey[600]),
-                                ),
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left: 15.0),
+                              padding: const EdgeInsets.fromLTRB(
+                                  20.0, 0.0, 20.0, 5.0),
                               child: DropdownButton<String>(
                                 underline: Container(
                                   height: 1,
-                                  color: Colors.white.withOpacity(0.2),
+                                  color: checkValue
+                                      ? date == null
+                                          ? Colors.red
+                                          : Colors.white.withOpacity(0.2)
+                                      : null,
                                 ),
                                 isExpanded: true,
-                                value: caseDescription,
-                                hint: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'Case Description',
-                                      style: TextStyle(color: Colors.black),
-                                    ),
-                                  ),
+                                hint: Text(
+                                  'Date',
+                                  style: TextStyle(
+                                      color: isDark(context)
+                                          ? Colors.white
+                                          : Colors.black),
                                 ),
-                                items: advisorCaseJson
-                                        ?.map((item) =>
-                                            DropdownMenuItem<String>(
-                                                value: item['case_desc'],
-                                                child: Text(item['case_desc'])))
+                                value: date,
+                                items: advisorDateJson
+                                        ?.map(
+                                          (item) => DropdownMenuItem<String>(
+                                            value: item['days'],
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(item['days']),
+                                            ),
+                                          ),
+                                        )
                                         ?.toList() ??
                                     [],
                                 onChanged: (value) {
                                   setState(() {
-                                    caseDescription = value;
+                                    date = value;
+                                    getAdvisorApptTime();
                                   });
                                 },
-                              ),
-                            ),
-                            Form(
-                              key: _studentProblem,
-                              child: globalForms(
-                                context,
-                                '',
-                                (String value) {
-                                  if (value.trim().isEmpty) {
-                                    return 'Student problem is required';
-                                  }
-                                  return null;
-                                },
-                                (x) {
-                                  setState(() {
-                                    studentProblem = x;
-                                  });
-                                },
-                                'Student Problem',
-                                TextInputType.text,
                               ),
                             ),
                           ],
                         ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.fromLTRB(
+                                    10.0, 0.0, 20.0, 5.0),
+                                child: Text(
+                                  'Appointment Time',
+                                  style: TextStyle(
+                                      color: isDark(context)
+                                          ? Colors.white
+                                          : Colors.black),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(
+                                  20.0, 0.0, 20.0, 5.0),
+                              child: DropdownButton<String>(
+                                underline: Container(
+                                  height: 1,
+                                  color: checkValue
+                                      ? time == null
+                                          ? Colors.red
+                                          : Colors.white.withOpacity(0.2)
+                                      : null,
+                                ),
+                                value: time,
+                                isExpanded: true,
+                                hint: Text(
+                                  'Time',
+                                  style: TextStyle(
+                                      color: isDark(context)
+                                          ? Colors.white
+                                          : Colors.black),
+                                ),
+                                items: advisorApptTimeJson
+                                        ?.map(
+                                            (item) => DropdownMenuItem<String>(
+                                                value: item['Session_Time'],
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                      item['Session_Time']),
+                                                )))
+                                        ?.toList() ??
+                                    [],
+                                onChanged: (value) {
+                                  setState(() {
+                                    time = value;
+                                  });
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10.0),
+                              child: Text(
+                                "Register New Case",
+                                style: TextStyle(
+                                    color: isDark(context)
+                                        ? Colors.white
+                                        : Colors.black),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 10.0),
+                              child: Row(
+                                children: <Widget>[
+                                  Row(
+                                    children: <Widget>[
+                                      Text(
+                                        'Yes',
+                                        style: TextStyle(
+                                            color: isDark(context)
+                                                ? Colors.white
+                                                : Colors.black),
+                                      ),
+                                      Radio(
+                                        value: 1,
+                                        groupValue: groupValue,
+                                        onChanged: (int e) {
+                                          setState(() {
+                                            groupValue = e;
+                                          });
+                                        },
+                                        activeColor: Colors.blue,
+                                      ),
+                                    ],
+                                  ),
+                                  Text(
+                                    'No',
+                                    style: TextStyle(
+                                        color: isDark(context)
+                                            ? Colors.white
+                                            : Colors.black),
+                                  ),
+                                  Radio(
+                                    value: 2,
+                                    groupValue: groupValue,
+                                    onChanged: (int e) {
+                                      setState(() {
+                                        groupValue = e;
+                                      });
+                                    },
+                                    activeColor: Colors.blue,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        groupValue == 2
+                            ? SizedBox()
+                            : Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Container(
+                                    alignment: Alignment.centerLeft,
+                                    child: Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          10.0, 0.0, 20.0, 5.0),
+                                      child: Text(
+                                        'Case Description',
+                                        style: TextStyle(
+                                            color: isDark(context)
+                                                ? Colors.white
+                                                : Colors.black),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        20.0, 0.0, 20.0, 5.0),
+                                    child: DropdownButton<String>(
+                                      underline: Container(
+                                        height: 1,
+                                        color: groupValue == 1
+                                            ? checkValue
+                                                ? caseDescription == null
+                                                    ? Colors.red
+                                                    : Colors.white
+                                                        .withOpacity(0.2)
+                                                : null
+                                            : null,
+                                      ),
+                                      isExpanded: true,
+                                      value: caseDescription,
+                                      hint: Text(
+                                        'Case Description',
+                                        style: TextStyle(
+                                            color: isDark(context)
+                                                ? Colors.white
+                                                : Colors.black),
+                                      ),
+                                      items: advisorCaseJson
+                                              ?.map((item) => DropdownMenuItem<
+                                                      String>(
+                                                  value: item['CATEGORY_ID']
+                                                      .toString(),
+                                                  child: Text(item[
+                                                      'CATEGORY_DESCRIPTION'])))
+                                              ?.toList() ??
+                                          [],
+                                      onChanged: (value) {
+                                        setState(() {
+                                          caseDescription = value;
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                  Form(
+                                    key: _studentProblem,
+                                    child: globalForms(
+                                      context,
+                                      '',
+                                      (String value) {
+                                        if (value.trim().isEmpty) {
+                                          return 'Student problem is required';
+                                        }
+                                        return null;
+                                      },
+                                      (x) {
+                                        setState(() {
+                                          studentProblem = x;
+                                        });
+                                      },
+                                      'Student Problem',
+                                      TextInputType.text,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
-          ],
-        ),
-      ),
     );
   }
 
@@ -389,16 +433,12 @@ class _AdvisorAppointmentState extends State<AdvisorAppointment> {
     try {
       final response = await http.post(
         Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/web/getAdvisorNameDateCasedesc'),
+            'https://skylineportal.com/moappad/api/test/AdvisorNameDateCasedesc'),
         headers: {
           "API-KEY": API,
         },
         body: {
           'user_id': username,
-          'usertype': studentJson['data']['user_type'],
-          'ipaddress': '1',
-          'deviceid': '1',
-          'devicename': '1',
         },
       ).timeout(Duration(seconds: 35));
 
@@ -436,18 +476,13 @@ class _AdvisorAppointmentState extends State<AdvisorAppointment> {
     try {
       final response = await http.post(
         Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/web/getAdvisorApptTime'),
+            'https://skylineportal.com/moappad/api/test/AdvisorApptTime'),
         headers: {
           "API-KEY": API,
         },
         body: {
           'user_id': username,
           'appt_date': date,
-          'token': '1',
-          'usertype': studentJson['data']['user_type'],
-          'ipaddress': '1',
-          'deviceid': '1',
-          'devicename': '1',
         },
       ).timeout(Duration(seconds: 35));
 
@@ -473,10 +508,7 @@ class _AdvisorAppointmentState extends State<AdvisorAppointment> {
     }
   }
 
-  Future getAdvisorAppointment() async {
-    if (_studentProblem.currentState.validate()) {
-      _studentProblem.currentState.save();
-    }
+  Future sendAdvisorAppointment() async {
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
     });
@@ -495,7 +527,6 @@ class _AdvisorAppointmentState extends State<AdvisorAppointment> {
           'AppoinmentTime': time,
           'CaseDescription': caseDescription,
           'StudentProblem': studentProblem,
-          'usertype': studentJson['data']['user_type'],
         },
       ).timeout(Duration(seconds: 35));
 
@@ -508,22 +539,17 @@ class _AdvisorAppointmentState extends State<AdvisorAppointment> {
         showLoading(false, context);
       }
 
-      if (advisorAppointmentJson['success'] == '0') {
-        showfailureSnackBar(context, advisorAppointmentJson['message']);
-      }
-      if (advisorAppointmentJson['success'] == '1') {
-        showSuccessSnackBar(context, advisorAppointmentJson['message']);
-      }
+      showSuccessSnackBar(context, advisorAppointmentJson['message']);
     } catch (x) {
       print(x);
 
-      // if (x.toString().contains("TimeoutException")) {
-      //   showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-      //       context, getAdvisorDate);
-      // } else {
-      //   showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-      //       getAdvisorDate);
-      // }
+      if (x.toString().contains("TimeoutException")) {
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, sendAdvisorAppointment);
+      } else {
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            sendAdvisorAppointment);
+      }
     }
   }
 }
