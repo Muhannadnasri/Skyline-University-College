@@ -116,7 +116,7 @@ class _HomeERequestState extends State<HomeERequest> {
                                 'images/admission.png',
                                 'images-white/admission.png',
                                 'Salary Certificate',
-                                "/SalaryCertificate"),
+                                "/salaryCertificate"),
                             rowSection(
                                 context,
                                 'images/admission.png',
@@ -179,7 +179,7 @@ class _HomeERequestState extends State<HomeERequest> {
                                     'images/admission.png',
                                     'images-white/admission.png',
                                     'Salary Certificate',
-                                    "/SalaryCertificate"),
+                                    "/salaryCertificate"),
                                 rowSection(
                                     context,
                                     'images/admission.png',

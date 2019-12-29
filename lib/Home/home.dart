@@ -7,7 +7,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:loading_animations/loading_animations.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/homeBox.dart';
@@ -229,7 +228,6 @@ class _HomeState extends State<Home> {
                                     Colors.white,
                                     Colors.black,
                                   ),
-                               
                                   homeBox(
                                     context,
                                     'images-white/login.png',

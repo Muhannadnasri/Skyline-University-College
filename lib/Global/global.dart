@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_dialog/easy_dialog.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +24,6 @@ String userType = studentJson['data']['user_type'];
 bool container = false;
 
 bool copyRight = false;
-
 
 List courseAllocationMorningJson = [];
 List courseAllocationEveningJson = [];
@@ -54,6 +55,8 @@ List marksJson = [];
 List staffPJson = [];
 List studentPJson = [];
 List finalxJson = [];
+bool internet = true;
+bool data = true;
 //
 
 phoneCall() async {

@@ -21,6 +21,7 @@ import 'Home/programs/homePrograms.dart';
 import 'Home/programs/homeUndergraduate.dart';
 import 'Login/Circulars/circulars.dart';
 import 'Login/ContactsList/contactList.dart';
+import 'Login/ContactsList/internet.dart';
 import 'Login/E-Reques/bookrequistion.dart';
 import 'Login/E-Reques/changeClassTime.dart';
 import 'Login/E-Reques/courseWithdrawal.dart';
@@ -31,6 +32,7 @@ import 'Login/E-Reques/onlineRequest.dart';
 import 'Login/E-Reques/passportRetaining.dart';
 import 'Login/E-Reques/passportWithdrawal.dart';
 import 'Login/E-Reques/reinstatment.dart';
+import 'Login/E-Reques/salaryCertificate.dart';
 import 'Login/Faculty/CourseAllocations.dart';
 import 'Login/Faculty/advisors.dart';
 import 'Login/Faculty/classScheduleFAC.dart';
@@ -152,7 +154,7 @@ class MyAppState extends State<MyApp> {
           '/passportWithdrawal': (context) => PassportWithdrawal(),
           '/ContactList': (context) => ContactList(),
           '/passportRetaining': (context) => PassportRetaining(),
-          // '/SalaryCertificate': (context) => SalaryCertificate(),
+          '/salaryCertificate': (context) => SalaryCertificate(),
           // '/LeaveHoliday': (context) => LeaveHoliday(),
           '/BookRequisition': (context) => BookRequisition(),
           // '/MembershipForm': (context) => MembershipForm(),
@@ -177,6 +179,7 @@ class MyAppState extends State<MyApp> {
           '/leaveApplicationForm': (context) => LeaveApplicationForm(),
           '/info': (context) => Info(),
           '/professionalCourses': (context) => ProfessionalCourses(),
+
           // '/glance': (context) => Glance(),
           // '/goals': (context) => Goals(),
           // '/board': (context) => Board(),
@@ -218,6 +221,8 @@ class MyAppState extends State<MyApp> {
           // '/announcements': (context) => Announcements(),
           '/notifications': (context) => Notifications(),
           '/cdpFaculty': (context) => CdpFaculty(),
+          // '/': (context) => Internet(),
+          //internet
         },
       ),
     );

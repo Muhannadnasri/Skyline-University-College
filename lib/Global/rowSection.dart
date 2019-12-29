@@ -21,7 +21,10 @@ Widget rowSection(BuildContext context, image, imageWhite, text, location) {
                   decoration: BoxDecoration(
                     color:
                         isDark(context) ? Color(0xFF1F1F1F) : Colors.grey[100],
-                    border: Border.all(width: 1.0, color: Colors.white),
+                    border: Border.all(
+                      width: 1.0,
+                      color: isDark(context) ? Colors.white : Colors.black,
+                    ),
                     borderRadius: BorderRadius.all(
                         Radius.circular(10.0) //         <--- border radius here
                         ),

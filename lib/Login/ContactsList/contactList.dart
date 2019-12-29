@@ -39,47 +39,44 @@ class _ContactListState extends State<ContactList> {
       appBar: appBarLogin(context, 'Contact List'),
       body: itemsJson == null || itemsJson.isEmpty
           ? Container()
-          :    CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            automaticallyImplyLeading: false,
-            expandedHeight: 50.0,
-            snap: true,
-            floating: true,
-            pinned: false,
-            flexibleSpace: Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 15,
+          : CustomScrollView(
+              slivers: <Widget>[
+                SliverAppBar(
+                  automaticallyImplyLeading: false,
+                  expandedHeight: 50.0,
+                  snap: true,
+                  floating: true,
+                  pinned: false,backgroundColor: Colors.transparent,
+                  flexibleSpace: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 15,
+                        ),
+                        child: TextField(
+                          controller: seachCnt,
+                          decoration: InputDecoration(hintText: 'Search'),
+                          onChanged: (x) {
+                            selectedName = x;
+                            searchItems();
+                          },
+                        ),
+                      ),
+                    ],
                   ),
-                  child: TextField(
-                    controller: seachCnt,
-                    decoration: InputDecoration(hintText: 'Search'),
-                    onChanged: (x) {
-                      selectedName = x;
-                      searchItems();
+                ),
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) {
+                      return buildItems(index);
                     },
+                    childCount: itemsToShow.length,
                   ),
                 ),
               ],
             ),
-          ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) {
-                return buildItems(index);
-              },
-              childCount: itemsToShow.length,
-            ),
-          ),
-        ],
-      ),
     );
   }
-
-
-
 
   buildItems(index) {
     return Padding(
@@ -257,7 +254,7 @@ class _ContactListState extends State<ContactList> {
     try {
       http.Response response = await http.post(
         Uri.encodeFull(
-            "https://skylineportal.com/moappad/api/web/getStaffContactsList"),
+            "https://skylineportal.com/moappad/api/test/StaffContactsList"),
         headers: {
           "API-KEY": API,
         },
@@ -271,19 +268,17 @@ class _ContactListState extends State<ContactList> {
 
       if (response.statusCode == 200) {
         setState(() {
-            itemsJson = json.decode(response.body)['data'];
-            itemsToShow = itemsJson;
-            selectedName = '';
-            seachCnt.text = '';
+          itemsJson = json.decode(response.body)['data'];
+          itemsToShow = itemsJson;
+          selectedName = '';
+          seachCnt.text = '';
           // contactListJson = json.decode(response.body)['data'];
         });
+        showLoading(false, context);
       }
-
-      showLoading(false, context);
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
-
         showError("Time out from server", FontAwesomeIcons.hourglassHalf,
             context, getContactList);
       } else {
