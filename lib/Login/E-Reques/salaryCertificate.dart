@@ -92,7 +92,10 @@ class _SalaryCertificateState extends State<SalaryCertificate> {
                               const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 5.0),
                           child: Text(
                             'Select',
-                            style: TextStyle(color: Colors.black),
+                            style: TextStyle(
+                              color:
+                                  isDark(context) ? Colors.white : Colors.black,
+                            ),
                           ),
                         ),
                         value: purpose,
@@ -101,12 +104,8 @@ class _SalaryCertificateState extends State<SalaryCertificate> {
                                   (item) => DropdownMenuItem<String>(
                                       value: item['purposeid'].toString(),
                                       child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            bottom: 8.0, left: 8),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(item['PurposeName']),
-                                        ),
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(item['PurposeName']),
                                       )),
                                 )
                                 ?.toList() ??
@@ -129,7 +128,7 @@ class _SalaryCertificateState extends State<SalaryCertificate> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                          globalForms(context, '', (String value) {
+                            globalForms(context, '', (String value) {
                               if (value.trim().isEmpty) {
                                 return 'Address is required';
                               }
@@ -279,7 +278,7 @@ class _SalaryCertificateState extends State<SalaryCertificate> {
           "API-KEY": API,
         },
         body: {
-          // 'empid': empid,
+          'empid': studentJson['data']['user_id'],
           'PurposeID': purpose,
           'City': city,
           'Others': other,
@@ -295,17 +294,7 @@ class _SalaryCertificateState extends State<SalaryCertificate> {
           },
         );
       }
-      if (salaryCertificateJson['success'] == '0') {
-        showLoading(false, context);
-        Fluttertoast.showToast(
-            msg: salaryCertificateJson['message'],
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIos: 1,
-            backgroundColor: Colors.grey[400],
-            textColor: Colors.black87,
-            fontSize: 13.0);
-      }
+      showSuccessSnackBar(context, salaryCertificateJson['message']);
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);

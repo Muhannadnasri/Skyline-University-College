@@ -65,7 +65,6 @@ class _BookRequisitionState extends State<BookRequisition> {
         child: ListView(
           children: <Widget>[
             Container(
-              color: Colors.white,
               child: Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: Column(
@@ -84,18 +83,31 @@ class _BookRequisitionState extends State<BookRequisition> {
                               offset: new Offset(5.0, 5.0),
                               blurRadius: 30)
                         ],
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Color(0xFF104C90),
-                            Color(0xFF3773AC),
-                          ],
-                          stops: [
-                            0.7,
-                            0.9,
-                          ],
-                        ),
+                        gradient: isDark(context)
+                            ? LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Color(0xFF1F1F1F),
+                                  Color(0xFF1F1F1F),
+                                ],
+                                stops: [
+                                  0.7,
+                                  0.9,
+                                ],
+                              )
+                            : LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Color(0xFF104C90),
+                                  Color(0xFF3773AC),
+                                ],
+                                stops: [
+                                  0.7,
+                                  0.9,
+                                ],
+                              ),
                       ),
                       child: Text(
                         studentJson['data']['name'].isEmpty
@@ -123,105 +135,157 @@ class _BookRequisitionState extends State<BookRequisition> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                                globalForms(context, '', (String value) {
-                                  if (value.trim().isEmpty) {
-                                    return 'Title is required';
-                                  }
-                                  return null;
-                                }, (x) {
-                                  setState(() {
-                                    title = x;
-                                  });
-                                }, 'Title', TextInputType.text,
-                                    ),
-                                globalForms(context, '', (String value) {
-                                  if (value.trim().isEmpty) {
-                                    return 'Author name is required';
-                                  }
-                                  return null;
-                                }, (x) {
-                                  setState(() {
-                                    author = x;
-                                  });
-                                }, 'Author', TextInputType.text,
-                                   ),
-                                globalForms(context, '', (String value) {
-                                  if (value.trim().isEmpty) {
-                                    return 'Edition is required';
-                                  }
-                                  return null;
-                                }, (x) {
-                                  setState(() {
-                                    edition = x;
-                                  });
-                                }, 'Edition', TextInputType.text,
-                                    ),
-                                globalForms(context, '', (String value) {
-                                  if (value.trim().isEmpty) {
-                                    return 'Publisher name is required';
-                                  }
-                                  return null;
-                                }, (x) {
-                                  setState(() {
-                                    publisher = x;
-                                  });
-                                }, 'Publisher Name', TextInputType.text,
-                                    ),
-                                globalForms(context, '', (String value) {
-                                  if (value.trim().isEmpty) {
-                                    return 'Year is required';
-                                  }
-                                  return null;
-                                }, (x) {
-                                  setState(() {
-                                    year = x;
-                                  });
-                                }, 'Year', TextInputType.number,
-                                    ),
-                                globalForms(context, '', (String value) {
-                                  if (value.trim().isEmpty) {
-                                    return 'ISBN is required';
-                                  }
-                                  return null;
-                                }, (x) {
-                                  setState(() {
-                                    isbn = x;
-                                  });
-                                }, 'ISBN Number', TextInputType.text,
-                                   ),
-                                globalForms(context, '', (String value) {
-                                  if (value.trim().isEmpty) {
-                                    return 'Quantity is required';
-                                  }
-                                  return null;
-                                }, (x) {
-                                  setState(() {
-                                    quantity = x;
-                                  });
-                                }, 'Quantity', TextInputType.number,
-                                    ),
-                                globalForms(context, '', (String value) {
-                                  if (value.trim().isEmpty) {
-                                    return 'Price is required';
-                                  }
-                                  return null;
-                                }, (x) {
-                                  setState(() {
-                                    price = x;
-                                  });
-                                }, 'Unit Price', TextInputType.number,
-                                   ),
+                                globalForms(
+                                  context,
+                                  '',
+                                  (String value) {
+                                    if (value.trim().isEmpty) {
+                                      return 'Title is required';
+                                    }
+                                    return null;
+                                  },
+                                  (x) {
+                                    setState(() {
+                                      title = x;
+                                    });
+                                  },
+                                  'Title',
+                                  TextInputType.text,
+                                ),
+                                globalForms(
+                                  context,
+                                  '',
+                                  (String value) {
+                                    if (value.trim().isEmpty) {
+                                      return 'Author name is required';
+                                    }
+                                    return null;
+                                  },
+                                  (x) {
+                                    setState(() {
+                                      author = x;
+                                    });
+                                  },
+                                  'Author',
+                                  TextInputType.text,
+                                ),
+                                globalForms(
+                                  context,
+                                  '',
+                                  (String value) {
+                                    if (value.trim().isEmpty) {
+                                      return 'Edition is required';
+                                    }
+                                    return null;
+                                  },
+                                  (x) {
+                                    setState(() {
+                                      edition = x;
+                                    });
+                                  },
+                                  'Edition',
+                                  TextInputType.text,
+                                ),
+                                globalForms(
+                                  context,
+                                  '',
+                                  (String value) {
+                                    if (value.trim().isEmpty) {
+                                      return 'Publisher name is required';
+                                    }
+                                    return null;
+                                  },
+                                  (x) {
+                                    setState(() {
+                                      publisher = x;
+                                    });
+                                  },
+                                  'Publisher Name',
+                                  TextInputType.text,
+                                ),
+                                globalForms(
+                                  context,
+                                  '',
+                                  (String value) {
+                                    if (value.trim().isEmpty) {
+                                      return 'Year is required';
+                                    }
+                                    return null;
+                                  },
+                                  (x) {
+                                    setState(() {
+                                      year = x;
+                                    });
+                                  },
+                                  'Year',
+                                  TextInputType.number,
+                                ),
+                                globalForms(
+                                  context,
+                                  '',
+                                  (String value) {
+                                    if (value.trim().isEmpty) {
+                                      return 'ISBN is required';
+                                    }
+                                    return null;
+                                  },
+                                  (x) {
+                                    setState(() {
+                                      isbn = x;
+                                    });
+                                  },
+                                  'ISBN Number',
+                                  TextInputType.text,
+                                ),
+                                globalForms(
+                                  context,
+                                  '',
+                                  (String value) {
+                                    if (value.trim().isEmpty) {
+                                      return 'Quantity is required';
+                                    }
+                                    return null;
+                                  },
+                                  (x) {
+                                    setState(() {
+                                      quantity = x;
+                                    });
+                                  },
+                                  'Quantity',
+                                  TextInputType.number,
+                                ),
+                                globalForms(
+                                  context,
+                                  '',
+                                  (String value) {
+                                    if (value.trim().isEmpty) {
+                                      return 'Price is required';
+                                    }
+                                    return null;
+                                  },
+                                  (x) {
+                                    setState(() {
+                                      price = x;
+                                    });
+                                  },
+                                  'Unit Price',
+                                  TextInputType.number,
+                                ),
                                 SizedBox(
                                   height: 10,
                                 ),
                                 Container(
                                     alignment: Alignment.centerLeft,
                                     child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
+                                      padding: const EdgeInsets.fromLTRB(
+                                          20.0, 0.0, 20.0, 5.0),
                                       child: Text(
                                         'Please Select Book Type',
-                                        style:
-                                            TextStyle(color: Colors.grey[500]),
+                                        style: TextStyle(
+                                          color: isDark(context)
+                                              ? Colors.white
+                                              : Colors.black,
+                                        ),
                                       ),
                                     )),
                                 SizedBox(
@@ -232,10 +296,15 @@ class _BookRequisitionState extends State<BookRequisition> {
                                     DropdownButton<String>(
                                       value: type,
                                       hint: Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                        padding: const EdgeInsets.fromLTRB(
+                                            20.0, 0.0, 20.0, 5.0),
                                         child: Text(
                                           'Select Type',
-                                          style: TextStyle(color: Colors.black),
+                                          style: TextStyle(
+                                            color: isDark(context)
+                                                ? Colors.white
+                                                : Colors.black,
+                                          ),
                                         ),
                                       ),
                                       isExpanded: true,
@@ -245,16 +314,12 @@ class _BookRequisitionState extends State<BookRequisition> {
                                                     DropdownMenuItem<String>(
                                                   value: item['CatTypeName']
                                                       .toString(),
-                                                  child: Column(
-                                                    children: <Widget>[
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child: Text(item[
-                                                            'CatTypeName']),
-                                                      ),
-                                                    ],
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Text(
+                                                        item['CatTypeName']),
                                                   ),
                                                 ),
                                               )
@@ -295,15 +360,9 @@ class _BookRequisitionState extends State<BookRequisition> {
     try {
       final response = await http.post(
         Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/web/getLibraryMaterial'),
+            'https://skylineportal.com/moappad/api/test/LibraryMaterial'),
         headers: {
           "API-KEY": API,
-        },
-        body: {
-          'usertype': studentJson['data']['user_type'],
-          'ipaddress': '1',
-          'deviceid': '1',
-          'devicename': '1',
         },
       ).timeout(Duration(seconds: 35));
 
@@ -334,26 +393,22 @@ class _BookRequisitionState extends State<BookRequisition> {
     try {
       final response = await http.post(
         Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/web/libraryBookRequisition'),
+            'https://skylineportal.com/moappad/api/test/libraryBookRequisition'),
         headers: {
           "API-KEY": API,
         },
         body: {
-          'user_id': username,
-          'username': studentJson['data']['login'],
-          'title': title,
-          'author': author,
-          'edition': edition,
-          'publisher': publisher,
-          'year': year,
-          'isbn_no': isbn,
-          'quantity': quantity,
-          'price': price,
-          'type_of_material': type,
-          'usertype': studentJson['data']['user_type'],
-          'ipaddress': '1',
-          'deviceid': '1',
-          'devicename': '1',
+          'UserID': studentJson['data']['user_id'],
+          'username': username,
+          'Title': title,
+          'Author': author,
+          'Edition': edition,
+          'Publisher': publisher,
+          'Year': year,
+          'IsbnNo': isbn,
+          'Quantity': quantity,
+          'UnitPrice': price,
+          'TypeofMaterial': type,
         },
       ).timeout(Duration(seconds: 35));
 

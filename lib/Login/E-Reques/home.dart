@@ -122,7 +122,7 @@ class _HomeERequestState extends State<HomeERequest> {
                                 'images/admission.png',
                                 'images-white/admission.png',
                                 'Leave Application',
-                                "/LeaveApplication"),
+                                "/leaveApplication"),
                             rowSection(
                                 context,
                                 'images/admission.png',
@@ -134,25 +134,20 @@ class _HomeERequestState extends State<HomeERequest> {
                                 'images/admission.png',
                                 'images-white/admission.png',
                                 'Leave Holiday',
-                                "/LeaveHoliday"),
+                                "/leaveHoliday"),
                             rowSection(
                                 context,
                                 'images/admission.png',
                                 'images-white/admission.png',
                                 'Book Requisition',
-                                "/BookRequisition"),
-                            rowSection(
-                                context,
-                                'images/admission.png',
-                                'images-white/admission.png',
-                                'Membership Form',
-                                "/MembershipForm"),
-                            rowSection(
-                                context,
-                                'images/admission.png',
-                                'images-white/admission.png',
-                                'Leave Application Form',
-                                "/leaveApplicationForm"),
+                                "/bookRequisition"),
+                            // rowSection(
+                            //     context,
+                            //     'images/admission.png',
+                            //     'images-white/admission.png',
+                            //     'Membership Form',
+                            //     "/membershipForm"),
+
 // rowSection(context, 'images/admission.png', 'images-white/admission.png', 'AirTicket Request', "/AirTicketRequest"),
                           ],
                         )
@@ -185,7 +180,7 @@ class _HomeERequestState extends State<HomeERequest> {
                                     'images/admission.png',
                                     'images-white/admission.png',
                                     'Leave Application',
-                                    "/LeaveApplication"),
+                                    "/leaveApplication"),
                                 rowSection(
                                     context,
                                     'images/admission.png',
@@ -197,32 +192,27 @@ class _HomeERequestState extends State<HomeERequest> {
                                     'images/admission.png',
                                     'images-white/admission.png',
                                     'Leave Holiday',
-                                    "/LeaveHoliday"),
+                                    "/leaveHoliday"),
                                 rowSection(
                                     context,
                                     'images/admission.png',
                                     'images-white/admission.png',
                                     'Book Requisition',
-                                    "/BookRequisition"),
-                                rowSection(
-                                    context,
-                                    'images/admission.png',
-                                    'images-white/admission.png',
-                                    'Membership Form',
-                                    "/MembershipForm"),
-                                rowSection(
-                                    context,
-                                    'images/admission.png',
-                                    'images-white/admission.png',
-                                    'Leave Application Form',
-                                    "/leaveApplicationForm"),
+                                    "/mookRequisition"),
+                                // rowSection(
+                                //     context,
+                                //     'images/admission.png',
+                                //     'images-white/admission.png',
+                                //     'Membership Form',
+                                //     "/membershipForm"),
+
 // rowSection(context, 'images/admission.png', 'images-white/admission.png', 'AirTicket Request', "/AirTicketRequest"),
                                 rowSection(
                                     context,
                                     'images/admission.png',
                                     'images-white/admission.png',
                                     'Conference',
-                                    "/Conference"),
+                                    "/conference"),
                               ],
                             )
                           ],

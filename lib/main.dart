@@ -24,13 +24,17 @@ import 'Login/ContactsList/contactList.dart';
 import 'Login/ContactsList/internet.dart';
 import 'Login/E-Reques/bookrequistion.dart';
 import 'Login/E-Reques/changeClassTime.dart';
+import 'Login/E-Reques/conference.dart';
 import 'Login/E-Reques/courseWithdrawal.dart';
 import 'Login/E-Reques/generalAppointment.dart';
 import 'Login/E-Reques/home.dart';
 import 'Login/E-Reques/leaveApplicationForm.dart';
+import 'Login/E-Reques/leaveapplication.dart';
+import 'Login/E-Reques/membershipForm.dart';
 import 'Login/E-Reques/onlineRequest.dart';
 import 'Login/E-Reques/passportRetaining.dart';
 import 'Login/E-Reques/passportWithdrawal.dart';
+import 'Login/E-Reques/permissionToLeave.dart';
 import 'Login/E-Reques/reinstatment.dart';
 import 'Login/E-Reques/salaryCertificate.dart';
 import 'Login/Faculty/CourseAllocations.dart';
@@ -150,14 +154,14 @@ class MyAppState extends State<MyApp> {
           '/courseWithdrawal': (context) => CourseWithdrawal(),
           // '/UpdateInformation': (context) => UpdateInformation(),
           '/cdpDownload': (context) => CDPDownload(),
-          // '/LeaveApplication': (context) => LeaveApplication(),
+          '/leaveApplication': (context) => LeaveApplication(),
           '/passportWithdrawal': (context) => PassportWithdrawal(),
           '/ContactList': (context) => ContactList(),
           '/passportRetaining': (context) => PassportRetaining(),
           '/salaryCertificate': (context) => SalaryCertificate(),
-          // '/LeaveHoliday': (context) => LeaveHoliday(),
-          '/BookRequisition': (context) => BookRequisition(),
-          // '/MembershipForm': (context) => MembershipForm(),
+          '/leaveHoliday': (context) => LeaveHoliday(),
+          '/bookRequisition': (context) => BookRequisition(),
+          // '/membershipForm': (context) => MembershipForm(),
           '/AdmissionForm': (context) => AdmissionForm(),
           '/generalAppointment': (context) => GeneralAppointment(),
           '/courseAllocation': (context) => CourseAllocation(),
@@ -166,7 +170,7 @@ class MyAppState extends State<MyApp> {
           '/FAQ': (context) => FAQ(),
           // '/AirTicketRequest': (context) => AirTicketRequest(),
           '/Gallery': (context) => Gallery(),
-          // '/Conference': (context) => Conference(),
+          '/conference': (context) => Conference(),
           '/advisors': (context) => Advisors(),
           '/HomeClass': (context) => HomeClass(),
           // '/UndergraduateProgram': (context) => UndergraduateProgram(),

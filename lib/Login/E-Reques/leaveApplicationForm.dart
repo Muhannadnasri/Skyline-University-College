@@ -312,6 +312,7 @@ class _LeaveApplicationFormState extends State<LeaveApplicationForm> {
           initialValue: initialValue,
           onSaved: onSaved,
           readOnly: true,
+          
           decoration: InputDecoration(
             enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(

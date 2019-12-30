@@ -85,10 +85,9 @@ class _OnlineRequestState extends State<OnlineRequest> {
                           child: Text(
                             'Request Type',
                             style: TextStyle(
-                                color: isDark(context)
-                                    ? Colors.white
-                                    : Colors.black,
-                                fontSize: 12),
+                              color:
+                                  isDark(context) ? Colors.white : Colors.black,
+                            ),
                           ),
                         ),
                       ),
