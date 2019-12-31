@@ -8,7 +8,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:skyline_university/Global/appBarLoginImage.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/homeBox.dart';
 import 'package:skyline_university/Global/zigzag.dart';
