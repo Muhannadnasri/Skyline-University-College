@@ -208,12 +208,15 @@ class _ConferenceState extends State<Conference> {
                                     height: 1,
                                     color: Color(0xFF2f2f2f),
                                   ),
-                                  hint: Text(
-                                    'Select Option',
-                                    style: TextStyle(
-                                      color: isDark(context)
-                                          ? Colors.white
-                                          : Colors.black,
+                                  hint: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'Select Option',
+                                      style: TextStyle(
+                                        color: isDark(context)
+                                            ? Colors.white
+                                            : Colors.black,
+                                      ),
                                     ),
                                   ),
                                   isExpanded: true,

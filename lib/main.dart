@@ -13,12 +13,22 @@ import 'Home/Admission/home.dart';
 import 'Home/Apptitude/apptutudeForm.dart';
 import 'Home/FAQ/faq.dart';
 import 'Home/Gallery/gallery.dart';
+import 'Home/Info/faculty.dart';
 import 'Home/Info/info.dart';
 import 'Home/Info/studentLife.dart';
 import 'Home/Info/virtual.dart';
 import 'Home/programs/ProfessionalCourses.dart';
+import 'Home/programs/centreContinuingLearning.dart';
+import 'Home/programs/englishLanguageCentre.dart';
+import 'Home/programs/executiveDevelopmentProgram.dart';
+import 'Home/programs/feeStructures.dart';
+import 'Home/programs/homeGraduate.dart';
 import 'Home/programs/homePrograms.dart';
 import 'Home/programs/homeUndergraduate.dart';
+import 'Home/programs/mastersQualifyingProgram.dart';
+import 'Home/programs/scholarship.dart';
+import 'Home/programs/undergraduateBusiness.dart';
+import 'Home/programs/undergraduateIT.dart';
 import 'Login/Circulars/circulars.dart';
 import 'Login/ContactsList/contactList.dart';
 import 'Login/ContactsList/internet.dart';
@@ -165,7 +175,7 @@ class MyAppState extends State<MyApp> {
           '/AdmissionForm': (context) => AdmissionForm(),
           '/generalAppointment': (context) => GeneralAppointment(),
           '/courseAllocation': (context) => CourseAllocation(),
-          // '/Faculty': (context) => Faculty(),
+          '/faculty': (context) => Faculty(),
           '/HomeAdmission': (context) => HomeAdmission(),
           '/FAQ': (context) => FAQ(),
           // '/AirTicketRequest': (context) => AirTicketRequest(),
@@ -177,8 +187,8 @@ class MyAppState extends State<MyApp> {
           '/virtual': (context) => Virtual(),
           // '/attendanceCalendar': (context) => AttendanceCalendar(),
           '/homePrograms': (context) => HomePrograms(),
-          // '/undergraduateBusiness': (context) => UndergraduateBusiness(),
-          // '/undergraduateIT': (context) => UndergraduateIT(),
+          '/underGraduateBusiness': (context) => UndergraduateBusiness(),
+          '/underGraduateIT': (context) => UndergraduateIT(),
           '/homeUndergraduate': (context) => HomeUndergraduate(),
           '/leaveApplicationForm': (context) => LeaveApplicationForm(),
           '/info': (context) => Info(),
@@ -191,15 +201,15 @@ class MyAppState extends State<MyApp> {
           // '/council': (context) => Council(),
           // '/dean': (context) => Dean(),
           // '/committees': (context) => Committees(),
-          // '/homeGraduate': (context) => HomeGraduate(),
+          '/homeGraduate': (context) => HomeGraduate(),
           // '/professionalProgram': (context) => ProfessionalProgram(),
-          // '/centreContinuingLearning': (context) => CentreContinuingLearning(),
-          // '/executiveDevelopmentProgram': (context) =>
-          //     ExecutiveDevelopmentProgram(),
-          // '/englishLanguageCentre': (context) => EnglishLanguageCentre(),
-          // '/mastersQualifyingProgram': (context) => MastersQualifyingProgram(),
-          // '/scholarship': (context) => Scholarship(),
-          // '/feeStructures': (context) => FeeStructures(),
+          '/centreContinuingLearning': (context) => CentreContinuingLearning(),
+          '/executiveDevelopmentProgram': (context) =>
+              ExecutiveDevelopmentProgram(),
+          '/englishLanguageCentre': (context) => EnglishLanguageCentre(),
+          '/mastersQualifyingProgram': (context) => MastersQualifyingProgram(),
+          '/scholarship': (context) => Scholarship(),
+          '/feeStructures': (context) => FeeStructures(),
           '/studentLife': (context) => StudentLife(),
           // '/internationalStudents': (context) => InternationalStudents(),
           // '/knowMoreAboutSkyline': (context) => KnowMoreAboutSkyline(),

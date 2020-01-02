@@ -43,7 +43,7 @@ class _HomeLoginState extends State<HomeLogin> {
   @override
   void initState() {
     super.initState();
-//    getLogs();
+   getLogs();
 //    getCopyRight();
 
     _firebaseMessaging.configure(
@@ -294,17 +294,6 @@ class _HomeLoginState extends State<HomeLogin> {
                                 children: <Widget>[
                                   homeBox(
                                     context,
-                                    'images-white/circulars.png',
-                                    'images/circulars.png',
-                                    "/circulars",
-                                    Colors.white60,
-                                    Colors.black,
-                                    'Circulars',
-                                    Colors.white,
-                                    Colors.black,
-                                  ),
-                                  homeBox(
-                                    context,
                                     'images-white/erequest.png',
                                     'images/erequest.png',
                                     "/HomeERequest",
@@ -378,12 +367,12 @@ class _HomeLoginState extends State<HomeLogin> {
                                         ),
                                         homeBox(
                                           context,
-                                          'images-white/circulars.png',
-                                          'images/circulars.png',
-                                          "/circulars",
+                                          'images-white/erequest.png',
+                                          'images/erequest.png',
+                                          "/HomeERequest",
                                           Colors.white60,
                                           Colors.black,
-                                          'Circulars',
+                                          'E-Request',
                                           Colors.white,
                                           Colors.black,
                                         ),
@@ -396,17 +385,6 @@ class _HomeLoginState extends State<HomeLogin> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceAround,
                                       children: <Widget>[
-                                        homeBox(
-                                          context,
-                                          'images-white/erequest.png',
-                                          'images/erequest.png',
-                                          "/HomeERequest",
-                                          Colors.white60,
-                                          Colors.black,
-                                          'E-Request',
-                                          Colors.white,
-                                          Colors.black,
-                                        ),
                                         homeBox(
                                           context,
                                           'images-white/contactslist.png',
@@ -496,12 +474,23 @@ class _HomeLoginState extends State<HomeLogin> {
                                       SizedBox(
                                         width: 10,
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          studentJson['data']['name']
-                                              .toString(),
-                                          style: TextStyle(color: Colors.white),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.5,
+                                        child: Column(
+                                          children: <Widget>[
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                studentJson['data']['name']
+                                                    .toString(),
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ],

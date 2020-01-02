@@ -47,7 +47,7 @@ class _HomeInfoState extends State<HomeInfo> {
                   rowSection(context, isDark(context)?'images-white/admission.png':'images/admission.png', 'images-white/admission.png', 'Virtual Tour',
                       '/virtual'),
                   rowSection(context, isDark(context)?'images-white/admission.png':'images/admission.png', 'images-white/admission.png', 'Faculty Members',
-                      '/Faculty'),
+                      '/faculty'),
                   rowSection(
                       context, isDark(context)?'images-white/admission.png':'images/admission.png', 'images-white/admission.png', 'SUC Info', '/info'),
                   rowSection(

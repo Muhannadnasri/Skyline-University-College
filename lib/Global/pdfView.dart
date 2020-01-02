@@ -26,7 +26,7 @@ class _PdfViewState extends State<PdfView> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     _controller = new AnimationController(
-           vsync: this,
+      vsync: this,
       duration: const Duration(milliseconds: 500),
     );
 
@@ -34,6 +34,8 @@ class _PdfViewState extends State<PdfView> with TickerProviderStateMixin {
   }
 
   loadDocument() async {
+
+    
     document = await PDFDocument.fromURL(widget.url);
     setState(() => _isLoading = false);
   }

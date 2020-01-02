@@ -69,7 +69,6 @@ class _LocationState extends State<Location> {
                               locationJson[index]['address1']);
                         },
                         child: Container(
-                          height: 30,
                           decoration: new BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(5)),
                             gradient: isDark(context)
@@ -101,16 +100,29 @@ class _LocationState extends State<Location> {
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 5),
-                                    child: Center(
-                                      child: Text(
-                                        locationJson[index]['name'],
-                                        style: TextStyle(color: Colors.white),
-                                      ),
+                                Center(
+                                    child: Icon(
+                                  Icons.near_me,
+                                  color: isDark(context)
+                                      ? Colors.white
+                                      : Colors.black,
+                                  size: 23,
+                                )
+                                    // Text(
+                                    //   'Location',
+                                    //   style: TextStyle(color: Colors.white),
+                                    // ),
                                     ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Center(
+                                  child: Text(
+                                    locationJson[index]['name'],
+                                    style: TextStyle(color: Colors.white),
                                   ),
                                 ),
                               ],

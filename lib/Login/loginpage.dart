@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -211,7 +212,7 @@ class _LoginAppState extends State<LoginApp> {
                                       FocusScope.of(context)
                                           .requestFocus(focus);
                                     },
-                                    initialValue: 'deepak.kalra',
+                                    initialValue: 'abdul.majid',
                                     textInputAction: TextInputAction.next,
                                     validator: (String value) {
                                       if (value.trim().isEmpty) {
@@ -251,7 +252,7 @@ class _LoginAppState extends State<LoginApp> {
                                 ),
                                 Container(
                                   child: TextFormField(
-                                    initialValue: 'Adsky#2020',
+                                    initialValue: 'AMsuc1920',
                                     style: TextStyle(
                                         color: isDark(context)
                                             ? Colors.white
@@ -297,6 +298,11 @@ class _LoginAppState extends State<LoginApp> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
                       InkWell(
+                        onTap: () {
+                          setState(() {
+                            logIn();
+                          });
+                        },
                         child: Container(
                           width: ScreenUtil.getInstance().setWidth(300),
                           height: ScreenUtil.getInstance().setHeight(95),
@@ -319,20 +325,13 @@ class _LoginAppState extends State<LoginApp> {
                               ]),
                           child: Material(
                             color: Colors.transparent,
-                            child: InkWell(
-                              onTap: () {
-                                setState(() {
-                                  logIn();
-                                });
-                              },
-                              child: Center(
-                                child: Text("SIGNIN",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontFamily: "Poppins-Bold",
-                                        fontSize: 18,
-                                        letterSpacing: 1.0)),
-                              ),
+                            child: Center(
+                              child: Text("SIGNIN",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: "Poppins-Bold",
+                                      fontSize: 18,
+                                      letterSpacing: 1.0)),
                             ),
                           ),
                         ),

@@ -198,7 +198,7 @@ class _HomeERequestState extends State<HomeERequest> {
                                     'images/admission.png',
                                     'images-white/admission.png',
                                     'Book Requisition',
-                                    "/mookRequisition"),
+                                    "/bookRequisition"),
                                 // rowSection(
                                 //     context,
                                 //     'images/admission.png',

@@ -53,6 +53,7 @@ class _GalleryState extends State<Gallery> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => OneGallery(
+                        
                         oneGalleryPhotos: galleries[index]['photos'],
                         oneGalleryTitle: galleries[index]['Event_Name'],
                       ),

@@ -1,16 +1,15 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:flutter/material.dart';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/homeBox.dart';
-import 'package:skyline_university/Global/lists.dart';
 import 'package:skyline_university/Global/slider.dart';
 
 void main() => runApp(Home());
@@ -347,4 +346,5 @@ class _HomeState extends State<Home> {
       }
     } catch (x) {}
   }
+
 }

@@ -85,7 +85,6 @@ class _AdmissionFormState extends State<AdmissionForm> {
           FocusScope.of(context).requestFocus(new FocusNode());
         },
         child: Container(
-          color: Colors.white,
           child: ListView(
             children: <Widget>[
               Padding(
@@ -101,125 +100,167 @@ class _AdmissionFormState extends State<AdmissionForm> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            globalForms(context, '', (String value) {
-                              if (value.trim().isEmpty) {
-                                return 'First name is requiblue';
-                              }
-                              return null;
-                            }, (x) {
-                              setState(() {
-                                fullName = x;
-                              });
-                            }, 'Full Name', TextInputType.text,
-                              ),
-                            globalForms(context, '', (String value) {
-                              if (value.trim().isEmpty) {
-                                return 'Email name is requiblue';
-                              }
-                              return null;
-                            }, (x) {
-                              setState(() {
-                                email = x;
-                              });
-                            }, 'Email', TextInputType.emailAddress,
-                                ),
-                            globalForms(context, '', (String value) {
-                              if (value.trim().isEmpty) {
-                                return 'Mobile is requiblue';
-                              }
-                              return null;
-                            }, (x) {
-                              setState(() {
-                                mobile = x;
-                              });
-                            }, 'Mobile', TextInputType.number,
-                              ),
-                            Row(
+                            globalForms(
+                              context,
+                              '',
+                              (String value) {
+                                if (value.trim().isEmpty) {
+                                  return 'First name is requiblue';
+                                }
+                                return null;
+                              },
+                              (x) {
+                                setState(() {
+                                  fullName = x;
+                                });
+                              },
+                              'Full Name',
+                              TextInputType.text,
+                            ),
+                            globalForms(
+                              context,
+                              '',
+                              (String value) {
+                                if (value.trim().isEmpty) {
+                                  return 'Email name is requiblue';
+                                }
+                                return null;
+                              },
+                              (x) {
+                                setState(() {
+                                  email = x;
+                                });
+                              },
+                              'Email',
+                              TextInputType.emailAddress,
+                            ),
+                            globalForms(
+                              context,
+                              '',
+                              (String value) {
+                                if (value.trim().isEmpty) {
+                                  return 'Mobile is requiblue';
+                                }
+                                return null;
+                              },
+                              (x) {
+                                setState(() {
+                                  mobile = x;
+                                });
+                              },
+                              'Mobile',
+                              TextInputType.number,
+                            ),
+                            Column(
                               children: <Widget>[
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Column(
-                                      children: <Widget>[
-                                        Container(
-                                            alignment: Alignment.centerLeft,
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(5.0),
-                                              child: Text(
-                                                'Country',
-                                                style: TextStyle(
-                                                    color: Colors.grey[600]),
-                                              ),
-                                            )),
-                                        DropdownButton<String>(
-                                          value: country,
-                                          isExpanded: true,
-                                          hint: Padding(
-                                            padding: const EdgeInsets.all(5.0),
-                                            child: Text('Select Option',
-                                                style: TextStyle(
-                                                    color: Colors.black)),
-                                          ),
-                                          items:
-                                              admissionFormDropdownCountriesJson
-                                                      ?.map((item) =>
-                                                          DropdownMenuItem<
-                                                                  String>(
-                                                              value: item['id']
-                                                                  .toString(),
-                                                              child: Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                            .all(
-                                                                        5.0),
-                                                                child: Text(item[
-                                                                    'country']),
-                                                              )))
-                                                      ?.toList() ??
-                                                  [],
-                                          onChanged: (value) {
-                                            setState(() {
-                                              country = value;
-                                            });
-                                          },
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Container(
+                                    alignment: Alignment.centerLeft,
+                                    child: Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          20.0, 0.0, 20.0, 5.0),
+                                      child: Text(
+                                        'Country',
+                                        style: TextStyle(
+                                          color: isDark(context)
+                                              ? Colors.white
+                                              : Colors.black,
                                         ),
-                                      ],
+                                      ),
+                                    )),
+                                DropdownButton<String>(
+                                  underline: Container(
+                                    height: 1,
+                                    color: Color(0xFF2f2f2f),
+                                  ),
+                                  value: country,
+                                  isExpanded: true,
+                                  hint: Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        20.0, 0.0, 20.0, 5.0),
+                                    child: Text(
+                                      'Select Option',
+                                      style: TextStyle(
+                                          color: isDark(context)
+                                              ? Colors.white
+                                              : Colors.black),
                                     ),
                                   ),
+                                  items: admissionFormDropdownCountriesJson
+                                          ?.map((item) => DropdownMenuItem<
+                                                  String>(
+                                              value: item['NationalityID']
+                                                  .toString(),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Text(
+                                                    item['NationalityName']),
+                                              )))
+                                          ?.toList() ??
+                                      [],
+                                  onChanged: (value) {
+                                    setState(() {
+                                      country = value;
+                                    });
+                                  },
                                 ),
                               ],
                             ),
                             Column(
                               children: <Widget>[
+                                SizedBox(
+                                  height: 10,
+                                ),
                                 Container(
                                   alignment: Alignment.centerLeft,
                                   child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
+                                    padding: const EdgeInsets.fromLTRB(
+                                        20.0, 0.0, 20.0, 5.0),
                                     child: Text(
                                       'Program',
-                                      style: TextStyle(color: Colors.grey[600]),
+                                      style: TextStyle(
+                                        color: isDark(context)
+                                            ? Colors.white
+                                            : Colors.black,
+                                      ),
                                     ),
                                   ),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(5.0),
                                   child: DropdownButton<String>(
+                                    underline: Container(
+                                      height: 1,
+                                      color: Color(0xFF2f2f2f),
+                                    ),
                                     value: program,
                                     isExpanded: true,
-                                    hint: Text(
-                                      'Select Option',
-                                      style: TextStyle(color: Colors.black),
+                                    hint: Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          20.0, 0.0, 20.0, 5.0),
+                                      child: Text(
+                                        'Select Option',
+                                        style: TextStyle(
+                                          color: isDark(context)
+                                              ? Colors.white
+                                              : Colors.black,
+                                        ),
+                                      ),
                                     ),
                                     items: admissionFormDropdownProgramJson
                                             ?.map((item) => DropdownMenuItem<
                                                     String>(
-                                                value: item['id'].toString(),
+                                                value: item['DegreeType_Id']
+                                                    .toString(),
                                                 child: Padding(
                                                   padding:
-                                                      const EdgeInsets.all(5.0),
-                                                  child: Text(item['program']
-                                                      .toString()),
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                      item['DegreeType_Desc']
+                                                          .toString()),
                                                 )))
                                             ?.toList() ??
                                         [],
@@ -234,24 +275,41 @@ class _AdmissionFormState extends State<AdmissionForm> {
                             ),
                             Column(
                               children: <Widget>[
+                                SizedBox(
+                                  height: 10,
+                                ),
                                 Container(
                                   alignment: Alignment.centerLeft,
                                   child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
+                                    padding: const EdgeInsets.fromLTRB(
+                                        20.0, 0.0, 20.0, 5.0),
                                     child: Text(
                                       'How did you come to know?',
-                                      style: TextStyle(color: Colors.grey[600]),
+                                      style: TextStyle(
+                                        color: isDark(context)
+                                            ? Colors.white
+                                            : Colors.black,
+                                      ),
                                     ),
                                   ),
                                 ),
                                 DropdownButton<String>(
+                                  underline: Container(
+                                    height: 1,
+                                    color: Color(0xFF2f2f2f),
+                                  ),
                                   value: know,
                                   isExpanded: true,
                                   hint: Padding(
-                                    padding: const EdgeInsets.all(5.0),
+                                    padding: const EdgeInsets.fromLTRB(
+                                        20.0, 0.0, 20.0, 5.0),
                                     child: Text(
                                       'Select Option',
-                                      style: TextStyle(color: Colors.black),
+                                      style: TextStyle(
+                                        color: isDark(context)
+                                            ? Colors.white
+                                            : Colors.black,
+                                      ),
                                     ),
                                   ),
                                   items: <String>[
@@ -275,7 +333,7 @@ class _AdmissionFormState extends State<AdmissionForm> {
                                                   child: Padding(
                                                     padding:
                                                         const EdgeInsets.all(
-                                                            5.0),
+                                                            8.0),
                                                     child: Text(item),
                                                   )))
                                           ?.toList() ??
@@ -310,16 +368,9 @@ class _AdmissionFormState extends State<AdmissionForm> {
     try {
       final response = await http.post(
         Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/web/getAdmissionFormDropdownRecords'),
+            'https://skylineportal.com/moappad/api/test/AdmissionFormDropdownRecords'),
         headers: {
           "API-KEY": API,
-        },
-        body: {
-          'usertype': '1',
-          'ipaddress': '1',
-          'token': '1',
-          'deviceid': '1',
-          'devicename': '1',
         },
       ).timeout(Duration(seconds: 35));
 
