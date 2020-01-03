@@ -263,9 +263,7 @@ class _LeaveApplicationFormState extends State<LeaveApplicationForm> {
         showLoading(false, context);
       }
 
-      if (leaveApplicationFormJson['success'] == '1') {
-        showDoneInput(leaveApplicationFormJson['message'], context);
-      }
+      showSuccessSnackBar(context, leaveApplicationFormJson['message']);
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
@@ -312,7 +310,6 @@ class _LeaveApplicationFormState extends State<LeaveApplicationForm> {
           initialValue: initialValue,
           onSaved: onSaved,
           readOnly: true,
-          
           decoration: InputDecoration(
             enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(

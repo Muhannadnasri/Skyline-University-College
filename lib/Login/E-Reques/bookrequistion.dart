@@ -420,10 +420,8 @@ class _BookRequisitionState extends State<BookRequisition> {
         );
         showLoading(false, context);
       }
-      if (bookRequisitionJson['success'] == '1') {
-        showLoading(false, context);
-        showDoneInput(bookRequisitionJson['message'], context);
-      }
+
+      showSuccessSnackBar(bookRequisitionJson['message'], context);
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);

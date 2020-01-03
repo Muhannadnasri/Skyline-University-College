@@ -105,72 +105,108 @@ class _ApptutudeFormState extends State<ApptutudeForm> {
                             SizedBox(
                               height: 10,
                             ),
-                            globalForms(context, '', (String value) {
-                              if (value.trim().isEmpty) {
-                                return 'First name is required';
-                              }
-                              return null;
-                            }, (x) {
-                              setState(() {
-                                firstName = x;
-                              });
-                            }, 'First Name', TextInputType.text,
-                                ),
-                            globalForms(context, '', (String value) {
-                              if (value.trim().isEmpty) {
-                                return 'Middle name is required';
-                              }
-                              return null;
-                            }, (x) {
-                              setState(() {
-                                middleName = x;
-                              });
-                            }, 'Middle Name', TextInputType.text,
-                                ),
-                            globalForms(context, '', (String value) {
-                              if (value.trim().isEmpty) {
-                                return 'Last name is required';
-                              }
-                              return null;
-                            }, (x) {
-                              setState(() {
-                                lastName = x;
-                              });
-                            }, 'Last Name', TextInputType.text,
-                                ),
-                            globalForms(context, '', (String value) {
-                              if (value.trim().isEmpty) {
-                                return 'Email is required';
-                              }
-                              return null;
-                            }, (x) {
-                              setState(() {
-                                email = x;
-                              });
-                            }, 'Email ', TextInputType.emailAddress,
-                               ),
-                            globalForms(context, '', (String value) {
-                              if (value.trim().isEmpty) {
-                                return 'Mobile Number is required';
-                              }
-                              return null;
-                            }, (x) {
-                              setState(() {
-                                mobile = x;
-                              });
-                            }, 'Mobile Number', TextInputType.number,
-                                ),
-                            globalForms(context, '', (String value) {
-                              if (value.trim().isEmpty) {
-                                return 'Telephone number is required';
-                              }
-                              return null;
-                            }, (x) {
-                              setState(() {
-                                telephone = x;
-                              });
-                            }, 'Telephone Number', TextInputType.number,
-                                ),
+                            globalForms(
+                              context,
+                              '',
+                              (String value) {
+                                if (value.trim().isEmpty) {
+                                  return 'First name is required';
+                                }
+                                return null;
+                              },
+                              (x) {
+                                setState(() {
+                                  firstName = x;
+                                });
+                              },
+                              'First Name',
+                              TextInputType.text,
+                            ),
+                            globalForms(
+                              context,
+                              '',
+                              (String value) {
+                                if (value.trim().isEmpty) {
+                                  return 'Middle name is required';
+                                }
+                                return null;
+                              },
+                              (x) {
+                                setState(() {
+                                  middleName = x;
+                                });
+                              },
+                              'Middle Name',
+                              TextInputType.text,
+                            ),
+                            globalForms(
+                              context,
+                              '',
+                              (String value) {
+                                if (value.trim().isEmpty) {
+                                  return 'Last name is required';
+                                }
+                                return null;
+                              },
+                              (x) {
+                                setState(() {
+                                  lastName = x;
+                                });
+                              },
+                              'Last Name',
+                              TextInputType.text,
+                            ),
+                            globalForms(
+                              context,
+                              '',
+                              (String value) {
+                                if (value.trim().isEmpty) {
+                                  return 'Email is required';
+                                }
+                                return null;
+                              },
+                              (x) {
+                                setState(() {
+                                  email = x;
+                                });
+                              },
+                              'Email ',
+                              TextInputType.emailAddress,
+                            ),
+                            globalForms(
+                              context,
+                              '',
+                              (String value) {
+                                if (value.trim().isEmpty) {
+                                  return 'Mobile Number is required';
+                                }
+                                return null;
+                              },
+                              (x) {
+                                setState(() {
+                                  mobile = x;
+                                });
+                              },
+                              'Mobile Number',
+                              TextInputType.number,
+                            ),
+                            globalForms(
+                              context,
+                              '',
+                              (String value) {
+                                if (value.trim().isEmpty) {
+                                  return 'Telephone number is required';
+                                }
+                                return null;
+                              },
+                              (x) {
+                                setState(() {
+                                  telephone = x;
+                                });
+                              },
+                              'Telephone Number',
+                              TextInputType.number,
+                            ),
                             datePickers(context, (date) {
                               dob = date.toString();
                             }, 'Date of Birth'),
@@ -230,17 +266,23 @@ class _ApptutudeFormState extends State<ApptutudeForm> {
                                 ],
                               ),
                             ),
-                            globalForms(context, '', (String value) {
-                              if (value.trim().isEmpty) {
-                                return 'Address is required';
-                              }
-                              return null;
-                            }, (x) {
-                              setState(() {
-                                city = x;
-                              });
-                            }, 'City', TextInputType.text,
-                                ),
+                            globalForms(
+                              context,
+                              '',
+                              (String value) {
+                                if (value.trim().isEmpty) {
+                                  return 'Address is required';
+                                }
+                                return null;
+                              },
+                              (x) {
+                                setState(() {
+                                  city = x;
+                                });
+                              },
+                              'City',
+                              TextInputType.text,
+                            ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
@@ -344,28 +386,40 @@ class _ApptutudeFormState extends State<ApptutudeForm> {
                                 ],
                               ),
                             ),
-                            globalForms(context, '', (String value) {
-                              if (value.trim().isEmpty) {
-                                return 'University is required';
-                              }
-                              return null;
-                            }, (x) {
-                              setState(() {
-                                university = x;
-                              });
-                            }, 'Name of school/university', TextInputType.text,
-                               ),
-                            globalForms(context, '', (String value) {
-                              if (value.trim().isEmpty) {
-                                return 'Address is required';
-                              }
-                              return null;
-                            }, (x) {
-                              setState(() {
-                                address = x;
-                              });
-                            }, 'Address', TextInputType.text,
-                               ),
+                            globalForms(
+                              context,
+                              '',
+                              (String value) {
+                                if (value.trim().isEmpty) {
+                                  return 'University is required';
+                                }
+                                return null;
+                              },
+                              (x) {
+                                setState(() {
+                                  university = x;
+                                });
+                              },
+                              'Name of school/university',
+                              TextInputType.text,
+                            ),
+                            globalForms(
+                              context,
+                              '',
+                              (String value) {
+                                if (value.trim().isEmpty) {
+                                  return 'Address is required';
+                                }
+                                return null;
+                              },
+                              (x) {
+                                setState(() {
+                                  address = x;
+                                });
+                              },
+                              'Address',
+                              TextInputType.text,
+                            ),
                             SizedBox(
                               height: 10,
                             ),
@@ -520,7 +574,7 @@ class _ApptutudeFormState extends State<ApptutudeForm> {
                 builder: (BuildContext context) => ApptitudeTest()),
             (Route<dynamic> route) => false);
       } else if (aptitudeMessageJson['success'] == '0') {
-        showDoneInput(aptitudeMessageJson['message'], context);
+        showSuccessSnackBar(aptitudeMessageJson['message'], context);
 
         Navigator.pushAndRemoveUntil(
             context,

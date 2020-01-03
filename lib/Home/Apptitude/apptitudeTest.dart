@@ -121,7 +121,7 @@ class _ApptitudeTestState extends State<ApptitudeTest> {
                               return;
                             }
                           } else {
-                            return showErrorInput('Please select one option');
+                            // return showErrorInput('Please select one option');
                           }
                           cQuesiton++;
                         }
@@ -185,14 +185,14 @@ class _ApptitudeTestState extends State<ApptitudeTest> {
         showLoading(false, context);
       }
       if (completedAptitudesJson['success'] == '1') {
-        showDoneInput(completedAptitudesJson['message'], context);
+        showSuccessSnackBar(completedAptitudesJson['message'], context);
 
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (BuildContext context) => Home()),
             (Route<dynamic> route) => false);
       } else if (completedAptitudesJson['success'] == '0') {
-        showDoneInput(completedAptitudesJson['message'], context);
+        showSuccessSnackBar(completedAptitudesJson['message'], context);
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {

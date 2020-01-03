@@ -74,9 +74,9 @@ class _AdmissionFormState extends State<AdmissionForm> {
 
             getAdmissionForm();
           } else {
-            showErrorInput(
-              'Please Check Your Input',
-            );
+            // showErrorInput(
+            //   'Please Check Your Input',
+            // );
           }
         },
       ),
@@ -429,15 +429,10 @@ class _AdmissionFormState extends State<AdmissionForm> {
             admissionForm = json.decode(response.body);
           },
         );
-        if (admissionForm['success'] == "1") {
-          showLoading(false, context);
-
-          showDoneInput(admissionForm['message'], context);
-        } else if (admissionForm['success'] == "0") {
-          showLoading(false, context);
-          showErrorInput(admissionForm['message']);
-        }
       }
+      showLoading(false, context);
+
+      showSuccessSnackBar(admissionForm['message'], context);
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);

@@ -2,17 +2,14 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:dotted_border/dotted_border.dart';
 import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/global.dart';
-import 'package:skyline_university/Global/pdfView.dart';
 import 'package:superellipse_shape/superellipse_shape.dart';
 
 void main() => runApp(CDPDownload());
@@ -246,17 +243,17 @@ class _CDPDownloadState extends State<CDPDownload>
         });
         showLoading(false, context);
       }
-      if (cdpCourseMessageJson['success'] == '0') {
-        showLoading(false, context);
-        Fluttertoast.showToast(
-            msg: cdpCourseMessageJson['message'],
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIos: 1,
-            backgroundColor: Colors.grey[400],
-            textColor: Colors.black87,
-            fontSize: 13.0);
-      }
+      // if (cdpCourseMessageJson['success'] == '0') {
+      //   showLoading(false, context);
+      //   Fluttertoast.showToast(
+      //       msg: cdpCourseMessageJson['message'],
+      //       toastLength: Toast.LENGTH_SHORT,
+      //       gravity: ToastGravity.BOTTOM,
+      //       timeInSecForIos: 1,
+      //       backgroundColor: Colors.grey[400],
+      //       textColor: Colors.black87,
+      //       fontSize: 13.0);
+      // }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);

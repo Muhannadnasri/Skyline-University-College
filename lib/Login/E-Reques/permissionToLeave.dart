@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -257,17 +256,17 @@ class _LeaveHolidayState extends State<LeaveHoliday> {
         );
         showLoading(false, context);
       }
-      if (leaveHolidayJson['success'] == '0') {
-        showLoading(false, context);
-        Fluttertoast.showToast(
-            msg: leaveHolidayJson['message'],
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIos: 1,
-            backgroundColor: Colors.grey[400],
-            textColor: Colors.black87,
-            fontSize: 13.0);
-      }
+      // if (leaveHolidayJson['success'] == '0') {
+      //   showLoading(false, context);
+      //   Fluttertoast.showToast(
+      //       msg: leaveHolidayJson['message'],
+      //       toastLength: Toast.LENGTH_SHORT,
+      //       gravity: ToastGravity.BOTTOM,
+      //       timeInSecForIos: 1,
+      //       backgroundColor: Colors.grey[400],
+      //       textColor: Colors.black87,
+      //       fontSize: 13.0);
+      // }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);

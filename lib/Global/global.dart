@@ -1,14 +1,11 @@
 import 'dart:io';
 
-import 'package:easy_dialog/easy_dialog.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:superellipse_shape/superellipse_shape.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'customDialog.dart';
 import 'loader.dart';
 
 bool isDark(context) {
@@ -352,30 +349,6 @@ void showError(String msg, IconData icon, context, action) {
           ),
         );
       });
-}
-
-void showErrorInput(String msg) {
-  Fluttertoast.showToast(
-      msg: msg,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIos: 2,
-      backgroundColor: Colors.grey[200],
-      textColor: Colors.black,
-      fontSize: 15.0);
-}
-
-void showDoneInput(String msg, context) {
-  Navigator.pop(context);
-
-  Fluttertoast.showToast(
-      msg: msg,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIos: 2,
-      backgroundColor: Colors.grey[400],
-      textColor: Colors.black87,
-      fontSize: 13.0);
 }
 
 void showAttendance(context, msg, msg2, msg2Color) {

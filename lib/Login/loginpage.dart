@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -351,7 +350,7 @@ class _LoginAppState extends State<LoginApp> {
     if (_logInForm.currentState.validate()) {
       _logInForm.currentState.save();
     } else {
-      return showErrorInput('Please check your input');
+      // return showErrorInput('Please check your input');
     }
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
@@ -396,7 +395,7 @@ class _LoginAppState extends State<LoginApp> {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           prefs.setString('username', username);
           prefs.setString('password', password);
-          showErrorInput(studentJson['message']);
+          // showErrorInput(studentJson['message']);
           Navigator.pop(context);
           studentJson = {};
         }

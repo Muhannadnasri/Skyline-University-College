@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -53,7 +52,6 @@ class _GalleryState extends State<Gallery> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => OneGallery(
-                        
                         oneGalleryPhotos: galleries[index]['photos'],
                         oneGalleryTitle: galleries[index]['Event_Name'],
                       ),

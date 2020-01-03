@@ -1,13 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
-
-import 'package:dotted_border/dotted_border.dart';
 import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
@@ -63,33 +60,34 @@ class _CdpFacultyState extends State<CdpFaculty> with TickerProviderStateMixin {
                           Container(
                             height: 30,
                             decoration: new BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                                gradient: isDark(context)
-                    ? LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Color(0xFF1F1F1F),
-                          Color(0xFF1F1F1F),
-                        ],
-                        stops: [
-                          0.7,
-                          0.9,
-                        ],
-                      )
-                    : LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Color(0xFF104C90),
-                          Color(0xFF3773AC),
-                        ],
-                        stops: [
-                          0.7,
-                          0.9,
-                        ],
-                      ),),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                              gradient: isDark(context)
+                                  ? LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                        Color(0xFF1F1F1F),
+                                        Color(0xFF1F1F1F),
+                                      ],
+                                      stops: [
+                                        0.7,
+                                        0.9,
+                                      ],
+                                    )
+                                  : LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                        Color(0xFF104C90),
+                                        Color(0xFF3773AC),
+                                      ],
+                                      stops: [
+                                        0.7,
+                                        0.9,
+                                      ],
+                                    ),
+                            ),
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: Row(
@@ -145,8 +143,7 @@ class _CdpFacultyState extends State<CdpFaculty> with TickerProviderStateMixin {
                                         child: Text(
                                       'Download',
                                       style: TextStyle(
-                                          decoration:
-                                              TextDecoration.underline,
+                                          decoration: TextDecoration.underline,
                                           color: Colors.blue),
                                     ))),
                               ],
@@ -234,17 +231,16 @@ class _CdpFacultyState extends State<CdpFaculty> with TickerProviderStateMixin {
         });
         showLoading(false, context);
       }
-      if (cdpCourseMessageJson['success'] == '0') {
-        showLoading(false, context);
-        Fluttertoast.showToast(
-            msg: cdpCourseMessageJson['message'],
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIos: 1,
-            backgroundColor: Colors.grey[400],
-            textColor: Colors.black87,
-            fontSize: 13.0);
-      }
+      showLoading(false, context);
+      // Fluttertoast.showToast(
+      //     msg: cdpCourseMessageJson['message'],
+      //     toastLength: Toast.LENGTH_SHORT,
+      //     gravity: ToastGravity.BOTTOM,
+      //     timeInSecForIos: 1,
+      //     backgroundColor: Colors.grey[400],
+      //     textColor: Colors.black87,
+      //     fontSize: 13.0);
+
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);

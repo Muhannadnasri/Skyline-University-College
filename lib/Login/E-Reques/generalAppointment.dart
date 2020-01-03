@@ -558,9 +558,7 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
         showLoading(false, context);
       }
 
-      if (generalRequestJson['success'] == '1') {
-        showDoneInput(generalRequestJson['message'], context);
-      }
+      showSuccessSnackBar(generalRequestJson['message'], context);
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
