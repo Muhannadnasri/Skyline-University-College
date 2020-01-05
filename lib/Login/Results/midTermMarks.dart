@@ -37,8 +37,7 @@ class _MidTermMarksState extends State<MidTermMarks> {
       body: midTermMarksJson == null ||
               midTermMarksJson.isEmpty &&
                   midTermMarksMessageJson['success'] == 0
-          ? exception(context, 
-              midTermMarksMessageJson['message'])
+          ? exception(context, midTermMarksMessageJson['message'])
           : Container(
               child: ListView.builder(
                 itemCount: midTermMarksJson.length,

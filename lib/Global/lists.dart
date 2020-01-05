@@ -44,13 +44,11 @@ class _ListsState extends State<Lists> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
-    double c_width = MediaQuery.of(context).size.width * 0.6;
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: appBar(context, '${widget.title}'),
       body: lists == null
-          ? exception(context, 
-              'No ${widget.title} available')
+          ? exception(context, 'No ${widget.title} available')
           : Container(
               child: ListView.builder(
                   itemCount: lists.length,
@@ -167,7 +165,8 @@ class _ListsState extends State<Lists> {
                                       height: 10,
                                     ),
                                     Container(
-                                      width: c_width,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.6,
                                       child: Text(
                                         lists[index]['title'],
                                         textAlign: TextAlign.left,
@@ -221,7 +220,6 @@ class _ListsState extends State<Lists> {
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
-        ;
         // showErrorServer(context, getEvents());
       } else {
         showLoading(false, context);

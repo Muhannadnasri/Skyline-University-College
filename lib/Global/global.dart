@@ -1,17 +1,12 @@
-import 'dart:io';
-
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:superellipse_shape/superellipse_shape.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
 bool isDark(context) {
   return Theme.of(context).brightness == Brightness.dark;
 }
-
-//TODO:  Color(0xFF121212) for dark mode color
 
 String deviceId = 'Unknown';
 String program = studentJson['data']['program'];
@@ -145,7 +140,6 @@ void showLoading(isLoading, context) {
                 padding: const EdgeInsets.only(left: 50.0),
                 child: Row(
                   children: <Widget>[
-
                     new Text('Please Wait....'),
                   ],
                 ),
@@ -229,61 +223,6 @@ void showfailureSnackBar(BuildContext context, message) {
 textField() {
   return null;
 }
-
-// void showError(context, title, yes) {
-//   EasyDialog(
-//     title: Text(
-//       title,
-//       style: TextStyle(
-//           fontSize: 17, fontWeight: FontWeight.bold, color: Colors.black54),
-//     ),
-//     closeButton: false,
-//     cornerRadius: 20,
-//     fogOpacity: 0.60,
-//     //TODO: Change fogOpacity
-//     height: MediaQuery.of(context).size.height / 5,
-//     contentList: [
-//       SizedBox(
-//         height: 20,
-//       ),
-//       Row(
-//         mainAxisAlignment: MainAxisAlignment.spaceAround,
-//         children: <Widget>[
-//           Align(
-//             alignment: Alignment.centerLeft,
-//             child: Container(
-//               alignment: Alignment.center,
-//               child: RaisedButton(
-//                   elevation: 5.0,
-//                   color: Colors.green[300],
-//                   child: Text(
-//                     'Yes',
-//                     style: TextStyle(color: Colors.white),
-//                   ),
-//                   onPressed: yes),
-//             ),
-//           ),
-//           Align(
-//             alignment: Alignment.centerRight,
-//             child: Container(
-//               alignment: Alignment.center,
-//               child: RaisedButton(
-//                   elevation: 5.0,
-//                   color: Colors.red[300],
-//                   child: Text(
-//                     'No',
-//                     style: TextStyle(color: Colors.white),
-//                   ),
-//                   onPressed: () {
-//                     Navigator.pop(context);
-//                   }),
-//             ),
-//           ),
-//         ],
-//       ),
-//     ],
-//   ).show(context);
-// }
 
 void showError(String msg, IconData icon, context, action) {
   showDialog(

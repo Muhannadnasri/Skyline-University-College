@@ -2,8 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/bottomAppBar.dart';
@@ -20,8 +18,6 @@ class BookRequisition extends StatefulWidget {
 }
 
 final _bookRequisition = GlobalKey<FormState>();
-
-// Map<String, int> body;
 
 class _BookRequisitionState extends State<BookRequisition> {
   Map bookRequisitionJson = {};
@@ -42,7 +38,6 @@ class _BookRequisitionState extends State<BookRequisition> {
   void initState() {
     super.initState();
     getLibraryMaterial();
-    bookRequisitionJson = {};
   }
 
   @override

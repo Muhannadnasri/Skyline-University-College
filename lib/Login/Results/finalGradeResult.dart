@@ -17,7 +17,6 @@ class FinalTermResults extends StatefulWidget {
   }
 }
 
-
 class _FinalTermResultsState extends State<FinalTermResults> {
   List finalTermResultsJson = [];
   Map finalTermResultsMessageJson = {};
@@ -35,8 +34,7 @@ class _FinalTermResultsState extends State<FinalTermResults> {
     return Scaffold(
       appBar: appBarLogin(context, 'Final Reults'),
       body: finalTermResultsJson == null || finalTermResultsJson.isEmpty
-          ? exception(context,
-              finalTermResultsMessageJson['message'])
+          ? exception(context, finalTermResultsMessageJson['message'])
           : Container(
               child: ListView.builder(
                 itemCount: finalTermResultsJson.length,
@@ -192,6 +190,9 @@ class _FinalTermResultsState extends State<FinalTermResults> {
                                               ? Colors.white
                                               : Colors.black),
                                     ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
                                     Text(
                                       finalTermResultsJson[index]
                                           ['Over All Grade'],
@@ -210,6 +211,9 @@ class _FinalTermResultsState extends State<FinalTermResults> {
                                           color: isDark(context)
                                               ? Colors.white
                                               : Colors.black),
+                                    ),
+                                    SizedBox(
+                                      height: 5,
                                     ),
                                     Container(
                                       child: finalTermResultsJson[index]
@@ -230,9 +234,19 @@ class _FinalTermResultsState extends State<FinalTermResults> {
                                                   finalTermResultsJson[index]
                                                       ['Results'],
                                                   style: TextStyle(
-                                                      color: Colors.blue),
+                                                      color: Colors.green),
                                                 )
-                                              : SizedBox,
+                                              : finalTermResultsJson[index]
+                                                              ['Results']
+                                                          .toString() ==
+                                                      "ABSENT"
+                                                  ? Text(
+                                                      finalTermResultsJson[
+                                                          index]['Results'],
+                                                      style: TextStyle(
+                                                          color: Colors.red),
+                                                    )
+                                                  : Text('NOT AVAILABLE'),
                                     ),
                                   ],
                                 ),
@@ -245,12 +259,41 @@ class _FinalTermResultsState extends State<FinalTermResults> {
                                               ? Colors.white
                                               : Colors.black),
                                     ),
-                                    Text(
-                                      finalTermResultsJson[index]['Status'],
-                                      style: TextStyle(
-                                          color: isDark(context)
-                                              ? Colors.white
-                                              : Colors.black),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Container(
+                                      child: finalTermResultsJson[index]
+                                                      ['Status']
+                                                  .toString() ==
+                                              "F"
+                                          ? Text(
+                                              finalTermResultsJson[index]
+                                                  ['Status'],
+                                              style:
+                                                  TextStyle(color: Colors.red),
+                                            )
+                                          : finalTermResultsJson[index]
+                                                          ['Status']
+                                                      .toString() ==
+                                                  "P"
+                                              ? Text(
+                                                  finalTermResultsJson[index]
+                                                      ['Status'],
+                                                  style: TextStyle(
+                                                      color: Colors.green),
+                                                )
+                                              : finalTermResultsJson[index]
+                                                              ['Status']
+                                                          .toString() ==
+                                                      "AB"
+                                                  ? Text(
+                                                      finalTermResultsJson[
+                                                          index]['Status'],
+                                                      style: TextStyle(
+                                                          color: Colors.red),
+                                                    )
+                                                  : Text('NOT AVAILABLE'),
                                     ),
                                   ],
                                 ),

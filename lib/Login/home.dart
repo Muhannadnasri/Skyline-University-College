@@ -43,7 +43,7 @@ class _HomeLoginState extends State<HomeLogin> {
   @override
   void initState() {
     super.initState();
-   getLogs();
+    getLogs();
 //    getCopyRight();
 
     _firebaseMessaging.configure(

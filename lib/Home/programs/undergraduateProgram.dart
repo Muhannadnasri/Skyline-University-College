@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:html/dom.dart' as dom;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';

@@ -35,9 +35,6 @@ class _HomeState extends State<Home> {
 
   String formattedDate = DateFormat('yyyy-MM-dd hh:mm').format(DateTime.now());
 
-  String _homeScreenText = "Waiting for token...";
-  String _messageText;
-
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   @override
   void initState() {
@@ -346,5 +343,4 @@ class _HomeState extends State<Home> {
       }
     } catch (x) {}
   }
-
 }
