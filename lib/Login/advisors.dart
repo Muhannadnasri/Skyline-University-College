@@ -40,7 +40,7 @@ class _AdvisorsState extends State<Advisors> {
     return Scaffold(
       appBar: appBarLogin(context, 'Advisors Students'),
       body: itemsToShow == null || itemsToShow.isEmpty
-          ? exception(context, 'No course available')
+          ? exception(context,)
           : CustomScrollView(
               slivers: <Widget>[
                 SliverAppBar(

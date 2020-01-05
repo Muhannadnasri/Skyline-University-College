@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/bottomAppBar.dart';
+import 'package:skyline_university/Global/dropDownWidget.dart';
 import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
 
@@ -77,67 +78,12 @@ class _LeaveApplicationState extends State<LeaveApplication> {
                   SizedBox(
                     height: 10,
                   ),
-                  Column(
-                    children: <Widget>[
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
-                          padding:
-                              const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 5.0),
-                          child: Text(
-                            'Leave Type',
-                            style: TextStyle(
-                              color:
-                                  isDark(context) ? Colors.white : Colors.black,
-                            ),
-                          ),
-                        ),
-                      ),
-                      DropdownButton<String>(
-                        underline: Container(
-                          height: 1,
-                          color: Color(0xFF2f2f2f),
-                        ),
-                        hint: Padding(
-                          padding:
-                              const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 5.0),
-                          child: Text(
-                            'Select Option',
-                            style: TextStyle(
-                                color: isDark(context)
-                                    ? Colors.white
-                                    : Colors.black),
-                          ),
-                        ),
-                        isExpanded: true,
-                        value: leaveType,
-                        items: leaveTypesJson
-                                ?.map(
-                                  (item) => DropdownMenuItem<String>(
-                                    value: item['leaveid'].toString(),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        item['leavetype'].toString(),
-                                        style: TextStyle(
-                                            color: isDark(context)
-                                                ? Colors.white
-                                                : Colors.black),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                                ?.toList() ??
-                            [],
-                        onChanged: (value) {
-                          setState(() {
-                            leaveType = value;
-                            getLeaveBalance();
-                          });
-                        },
-                      ),
-                    ],
-                  ),
+                  dropDownWidget(context, 'Select Option', leaveType,
+                      leaveTypesJson, 'leaveid', 'leavetype', (value) {
+                    setState(() {
+                      leaveType = value;
+                    });
+                  }, 'Leave Type'),
                   SizedBox(
                     height: 10,
                   ),

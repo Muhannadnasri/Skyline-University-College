@@ -7,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/bottomAppBar.dart';
+import 'package:skyline_university/Global/dropDownWidget.dart';
 import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
 
@@ -72,61 +73,20 @@ class _CourseWithdrawalState extends State<CourseWithdrawal> {
                 SizedBox(
                   height: 10,
                 ),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 5.0),
-                    child: Text(
-                      'Course Code',
-                      style: TextStyle(
-                        color: isDark(context) ? Colors.white : Colors.black,
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 5.0),
-                      child: DropdownButton<String>(
-                        underline: Container(
-                          height: 1,
-                          color: checkValue
-                              ? id == null ? Colors.red : Color(0xFF2f2f2f)
-                              : null,
-                        ),
-                        isDense: true,
-                        hint: Text(
-                          'Select Option',
-                          style: TextStyle(
-                            color:
-                                isDark(context) ? Colors.white : Colors.black,
-                          ),
-                        ),
-                        isExpanded: true,
-                        value: id,
-                        items: courseWithdrawalCoursesJson
-                                ?.map(
-                                  (item) => DropdownMenuItem<String>(
-                                    value: item['CDD_ID'].toString(),
-                                    child: Text(item['Cdd_COde']),
-                                  ),
-                                )
-                                ?.toList() ??
-                            [],
-                        onChanged: (value) {
-                          setState(() {
-                            id = value;
-
-                            getCourseName();
-                          });
-                        },
-                      ),
-                    ),
-                  ],
+                dropDownWidget(
+                  context,
+                  'Select Option',
+                  id,
+                  courseWithdrawalCoursesJson,
+                  'CDD_ID',
+                  'Cdd_COde',
+                  (value) {
+                    setState(() {
+                      id = value;
+                      getCourseName();
+                    });
+                  },
+                  'Course Code',
                 ),
                 SizedBox(
                   height: 10,
@@ -266,7 +226,9 @@ class _CourseWithdrawalState extends State<CourseWithdrawal> {
   }
 
   Future getCourseName() async {
-    Future.delayed(Duration.zero, () {});
+    Future.delayed(Duration.zero, () {
+      showLoading(true, context);
+    });
 
     try {
       final response = await http.post(
@@ -285,6 +247,7 @@ class _CourseWithdrawalState extends State<CourseWithdrawal> {
             courseNameJson = json.decode(response.body);
           },
         );
+        showLoading(false, context);
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {

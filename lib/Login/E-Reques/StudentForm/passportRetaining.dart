@@ -55,7 +55,7 @@ class _PassportRetainingState extends State<PassportRetaining> {
               },
             ),
       body: underTakingJson == null || underTakingJson.isEmpty
-          ? exception(context, 'No Class available')
+          ? exception(context)
           : Container(
               child: ListView(
                 children: <Widget>[

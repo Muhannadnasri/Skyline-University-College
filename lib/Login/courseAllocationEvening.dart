@@ -30,7 +30,7 @@ class _CourseAllocationEveningState extends State<CourseAllocationEvening> {
         body: courseAllocationEveningJson == null ||
                 courseAllocationEveningJson.isEmpty
             ? exception(context, 
-                'No Class available')
+                )
             : Container(
                 child: ListView.builder(
                   itemCount: courseAllocationEveningJson.length,

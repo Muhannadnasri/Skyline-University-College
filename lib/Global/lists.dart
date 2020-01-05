@@ -48,7 +48,7 @@ class _ListsState extends State<Lists> {
       resizeToAvoidBottomPadding: false,
       appBar: appBar(context, '${widget.title}'),
       body: lists == null
-          ? exception(context, 'No ${widget.title} available')
+          ? exception(context)
           : Container(
               child: ListView.builder(
                   itemCount: lists.length,

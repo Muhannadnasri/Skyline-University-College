@@ -9,7 +9,7 @@ import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'advisorAppointment.dart';
+import 'E-Reques/StudentForm/advisorAppointment.dart';
 
 void main() => runApp(MyAdvisor());
 
@@ -24,49 +24,50 @@ class MyAdvisor extends StatefulWidget {
 
 class _MyAdvisorState extends State<MyAdvisor> {
   List myAdvisorJson = [];
-  Map myAdvisorMessageJson = {};
   @override
   void initState() {
     super.initState();
     getMyAdvisor();
-    myAdvisorJson = [];
   }
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-        bottomNavigationBar: BottomAppBar(
-            child: GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => AdvisorAppointment(
-                    myAdvisorId: myAdvisorJson[0]['FACULTY_ID'].toString(),
-                    myAdvisorName:
-                        myAdvisorJson[0]['NAME OF THE FACULTY'].toString()),
-              ),
-            );
-          },
-          child: Material(
-            elevation: 3,
-            shadowColor: Colors.black,
-            color: isDark(context) ? Color(0xFF121212) : Color(0xFF275d9b),
-            child: Padding(
-              padding: const EdgeInsets.all(13.0),
-              child: Text(
-                "Make Appointment",
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-            ),
-          ),
-        )),
+        bottomNavigationBar: myAdvisorJson == null || myAdvisorJson.isEmpty
+            ? SizedBox()
+            : BottomAppBar(
+                child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AdvisorAppointment(
+                          myAdvisorId:
+                              myAdvisorJson[0]['FACULTY_ID'].toString(),
+                          myAdvisorName: myAdvisorJson[0]['NAME OF THE FACULTY']
+                              .toString()),
+                    ),
+                  );
+                },
+                child: Material(
+                  elevation: 3,
+                  shadowColor: Colors.black,
+                  color:
+                      isDark(context) ? Color(0xFF121212) : Color(0xFF275d9b),
+                  child: Padding(
+                    padding: const EdgeInsets.all(13.0),
+                    child: Text(
+                      "Make Appointment",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                  ),
+                ),
+              )),
         appBar: appBarLogin(context, 'Advisor Details'),
-        body: myAdvisorJson == null
-            ? exception(context,
-                myAdvisorMessageJson['message'])
+        body: myAdvisorJson == null || myAdvisorJson.isEmpty
+            ? exception(context)
             : Container(
                 child: ListView.builder(
                   itemCount: myAdvisorJson.length,
@@ -301,7 +302,6 @@ class _MyAdvisorState extends State<MyAdvisor> {
         setState(
           () {
             myAdvisorJson = json.decode(response.body)['data'];
-            myAdvisorMessageJson = json.decode(response.body);
           },
         );
 

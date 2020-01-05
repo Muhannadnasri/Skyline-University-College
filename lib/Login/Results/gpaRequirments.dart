@@ -22,13 +22,11 @@ class GetGPARequirments extends StatefulWidget {
 
 class _GetGPARequirmentsState extends State<GetGPARequirments> {
   List gpaRequirmentsJson = [];
-  Map gpaRequirmentsMessageJson = {};
 
   @override
   void initState() {
     super.initState();
     getGpaRequirments();
-    gpaRequirmentsJson = [];
   }
 
   @override
@@ -40,8 +38,8 @@ class _GetGPARequirmentsState extends State<GetGPARequirments> {
 
             // null
             gpaRequirmentsJson == null
-                ? exception(context, 
-                    gpaRequirmentsMessageJson['message'])
+                ? exception(context 
+                   )
                 : Container(
                     child: ListView.builder(
                       itemCount: gpaRequirmentsJson.length,
@@ -160,7 +158,6 @@ class _GetGPARequirmentsState extends State<GetGPARequirments> {
       if (response.statusCode == 200) {
         setState(() {
           gpaRequirmentsJson = json.decode(response.body)['data'];
-          gpaRequirmentsMessageJson = json.decode(response.body);
         });
       }
       showLoading(false, context);

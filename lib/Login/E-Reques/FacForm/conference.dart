@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/bottomAppBar.dart';
+import 'package:skyline_university/Global/dropDownWidget.dart';
 import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
 
@@ -94,6 +95,9 @@ class _ConferenceState extends State<Conference> {
                               conferenceName = x;
                             });
                           }, 'Name', TextInputType.text),
+                          SizedBox(
+                            height: 5,
+                          ),
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Padding(
@@ -115,137 +119,39 @@ class _ConferenceState extends State<Conference> {
                           SizedBox(
                             height: 5,
                           ),
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(
-                                  20.0, 0.0, 20.0, 5.0),
-                              child: Text(
-                                'From Time',
-                                style: TextStyle(
-                                  color: isDark(context)
-                                      ? Colors.white
-                                      : Colors.black,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Column(
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    20.0, 0.0, 20.0, 5.0),
-                                child: Container(
-                                  child: DropdownButton<String>(
-                                    underline: Container(
-                                      height: 1,
-                                      color: Color(0xFF2f2f2f),
-                                    ),
-                                    hint: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        'Select Option',
-                                        style: TextStyle(
-                                          color: isDark(context)
-                                              ? Colors.white
-                                              : Colors.black,
-                                        ),
-                                      ),
-                                    ),
-                                    isExpanded: true,
-                                    value: fromTime,
-                                    items: personalFamilyTimesJson
-                                            ?.map(
-                                              (item) =>
-                                                  DropdownMenuItem<String>(
-                                                value: item['time_value']
-                                                    .toString(),
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child:
-                                                      Text(item['time_value']),
-                                                ),
-                                              ),
-                                            )
-                                            ?.toList() ??
-                                        [],
-                                    onChanged: (value) {
-                                      setState(() {
-                                        fromTime = value;
-                                      });
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ],
+                          dropDownWidget(
+                            context,
+                            'Select Option',
+                            fromTime,
+                            personalFamilyTimesJson,
+                            'time_text',
+                            'time_text',
+                            (value) {
+                              setState(() {
+                                fromTime = value;
+                              });
+                            },
+                            'From Time',
                           ),
                           SizedBox(
-                            height: 10,
+                            height: 5,
                           ),
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(
-                                  20.0, 0.0, 20.0, 5.0),
-                              child: Text(
-                                'To Time',
-                                style: TextStyle(
-                                  color: isDark(context)
-                                      ? Colors.white
-                                      : Colors.black,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Column(
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    20.0, 0.0, 20.0, 5.0),
-                                child: DropdownButton<String>(
-                                  underline: Container(
-                                    height: 1,
-                                    color: Color(0xFF2f2f2f),
-                                  ),
-                                  hint: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'Select Option',
-                                      style: TextStyle(
-                                        color: isDark(context)
-                                            ? Colors.white
-                                            : Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                  isExpanded: true,
-                                  value: toTime,
-                                  items: personalFamilyTimesJson
-                                          ?.map(
-                                            (item) => DropdownMenuItem<String>(
-                                              value:
-                                                  item['time_value'].toString(),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Text(item['time_value']),
-                                              ),
-                                            ),
-                                          )
-                                          ?.toList() ??
-                                      [],
-                                  onChanged: (value) {
-                                    setState(() {
-                                      toTime = value;
-                                    });
-                                  },
-                                ),
-                              ),
-                            ],
+                          dropDownWidget(
+                            context,
+                            'Select Option',
+                            toTime,
+                            personalFamilyTimesJson,
+                            'time_text',
+                            'time_text',
+                            (value) {
+                              setState(() {
+                                toTime = value;
+                              });
+                            },
+                            'To Time',
                           ),
                           SizedBox(
-                            height: 15,
+                            height: 5,
                           ),
                           Container(
                             alignment: Alignment.centerLeft,
@@ -308,7 +214,7 @@ class _ConferenceState extends State<Conference> {
                             ],
                           ),
                           SizedBox(
-                            height: 15,
+                            height: 5,
                           ),
                           globalForms(context, '', (String value) {
                             if (value.trim().isEmpty) {
@@ -340,20 +246,16 @@ class _ConferenceState extends State<Conference> {
     try {
       final response = await http.post(
         Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/test/PersonalFamilyTimes'),
+            'https://skylineportal.com/moappad/api/test/OutdoorEventTime'),
         headers: {
           "API-KEY": API,
-        },
-        body: {
-          'emp_id': studentJson['data']['user_id'],
         },
       ).timeout(Duration(seconds: 35));
 
       if (response.statusCode == 200) {
         setState(
           () {
-            personalFamilyTimesJson =
-                json.decode(response.body)['data']['times'];
+            personalFamilyTimesJson = json.decode(response.body)['data'];
           },
         );
         showLoading(false, context);
@@ -448,6 +350,7 @@ class _ConferenceState extends State<Conference> {
           onSaved: onSaved,
           readOnly: true,
           decoration: InputDecoration(
+            contentPadding: EdgeInsets.fromLTRB(15.0, 15.0, 0, 0),
             enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(
                 color: isDark(context)

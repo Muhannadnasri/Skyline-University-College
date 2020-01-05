@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/bottomAppBar.dart';
+import 'package:skyline_university/Global/dropDownWidget.dart';
 import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
 
@@ -142,67 +143,61 @@ class _AdvisorAppointmentState extends State<AdvisorAppointment> {
                         SizedBox(
                           height: 10,
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Container(
-                              alignment: Alignment.centerLeft,
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    10.0, 0.0, 20.0, 5.0),
-                                child: Text(
-                                  'Appointment Date',
-                                  style: TextStyle(
-                                      color: isDark(context)
-                                          ? Colors.white
-                                          : Colors.black),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(
-                                  20.0, 0.0, 20.0, 5.0),
-                              child: DropdownButton<String>(
-                                underline: Container(
-                                  height: 1,
-                                  color: checkValue
-                                      ? date == null
-                                          ? Colors.red
-                                          : Colors.white.withOpacity(0.2)
-                                      : null,
-                                ),
-                                isExpanded: true,
-                                hint: Text(
-                                  'Date',
-                                  style: TextStyle(
-                                      color: isDark(context)
-                                          ? Colors.white
-                                          : Colors.black),
-                                ),
-                                value: date,
-                                items: advisorDateJson
-                                        ?.map(
-                                          (item) => DropdownMenuItem<String>(
-                                            value: item['days'],
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(item['days']),
-                                            ),
-                                          ),
-                                        )
-                                        ?.toList() ??
-                                    [],
-                                onChanged: (value) {
-                                  setState(() {
-                                    date = value;
-                                    getAdvisorApptTime();
-                                  });
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
+
+                        dropDownWidget(context, 'Select Option', date,
+                            advisorDateJson, 'days', 'days', (value) {
+                          setState(() {
+                            date = value;
+                          });
+                        }, 'Appointment Date'),
+                        // Column(
+                        //   crossAxisAlignment: CrossAxisAlignment.start,
+                        //   children: <Widget>[
+
+                        //     Padding(
+                        //       padding: const EdgeInsets.fromLTRB(
+                        //           20.0, 0.0, 20.0, 5.0),
+                        //       child: DropdownButton<String>(
+                        //         underline: Container(
+                        //           height: 1,
+                        //           color: checkValue
+                        //               ? date == null
+                        //                   ? Colors.red
+                        //                   : Colors.white.withOpacity(0.2)
+                        //               : null,
+                        //         ),
+                        //         isExpanded: true,
+                        //         hint: Text(
+                        //           'Date',
+                        //           style: TextStyle(
+                        //               color: isDark(context)
+                        //                   ? Colors.white
+                        //                   : Colors.black),
+                        //         ),
+                        //         value: date,
+                        //         items: advisorDateJson
+                        //                 ?.map(
+                        //                   (item) => DropdownMenuItem<String>(
+                        //                     value: item['days'],
+                        //                     child: Padding(
+                        //                       padding:
+                        //                           const EdgeInsets.all(8.0),
+                        //                       child: Text(item['days']),
+                        //                     ),
+                        //                   ),
+                        //                 )
+                        //                 ?.toList() ??
+                        //             [],
+                        //         onChanged: (value) {
+                        //           setState(() {
+                        //             date = value;
+                        //             getAdvisorApptTime();
+                        //           });
+                        //         },
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
                         SizedBox(
                           height: 10,
                         ),
@@ -223,46 +218,57 @@ class _AdvisorAppointmentState extends State<AdvisorAppointment> {
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(
-                                  20.0, 0.0, 20.0, 5.0),
-                              child: DropdownButton<String>(
-                                underline: Container(
-                                  height: 1,
-                                  color: checkValue
-                                      ? time == null
-                                          ? Colors.red
-                                          : Colors.white.withOpacity(0.2)
-                                      : null,
-                                ),
-                                value: time,
-                                isExpanded: true,
-                                hint: Text(
-                                  'Time',
-                                  style: TextStyle(
-                                      color: isDark(context)
-                                          ? Colors.white
-                                          : Colors.black),
-                                ),
-                                items: advisorApptTimeJson
-                                        ?.map(
-                                            (item) => DropdownMenuItem<String>(
-                                                value: item['Session_Time'],
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Text(
-                                                      item['Session_Time']),
-                                                )))
-                                        ?.toList() ??
-                                    [],
-                                onChanged: (value) {
-                                  setState(() {
-                                    time = value;
-                                  });
-                                },
-                              ),
-                            ),
+                            dropDownWidget(
+                                context,
+                                'Select Option',
+                                time,
+                                advisorApptTimeJson,
+                                'time_text',
+                                'time_text', (value) {
+                              setState(() {
+                                time = value;
+                              });
+                            }, 'Time'),
+                            // Padding(
+                            //   padding: const EdgeInsets.fromLTRB(
+                            //       20.0, 0.0, 20.0, 5.0),
+                            //   child: DropdownButton<String>(
+                            //     underline: Container(
+                            //       height: 1,
+                            //       color: checkValue
+                            //           ? time == null
+                            //               ? Colors.red
+                            //               : Colors.white.withOpacity(0.2)
+                            //           : null,
+                            //     ),
+                            //     value: time,
+                            //     isExpanded: true,
+                            //     hint: Text(
+                            //       'Time',
+                            //       style: TextStyle(
+                            //           color: isDark(context)
+                            //               ? Colors.white
+                            //               : Colors.black),
+                            //     ),
+                            //     items: advisorApptTimeJson
+                            //             ?.map(
+                            //                 (item) => DropdownMenuItem<String>(
+                            //                     value: item['Session_Time'],
+                            //                     child: Padding(
+                            //                       padding:
+                            //                           const EdgeInsets.all(8.0),
+                            //                       child: Text(
+                            //                           item['Session_Time']),
+                            //                     )))
+                            //             ?.toList() ??
+                            //         [],
+                            //     onChanged: (value) {
+                            //       setState(() {
+                            //         time = value;
+                            //       });
+                            //     },
+                            //   ),
+                            // ),
                           ],
                         ),
                         SizedBox(
@@ -339,60 +345,59 @@ class _AdvisorAppointmentState extends State<AdvisorAppointment> {
                                   SizedBox(
                                     height: 10,
                                   ),
-                                  Container(
-                                    alignment: Alignment.centerLeft,
-                                    child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          10.0, 0.0, 20.0, 5.0),
-                                      child: Text(
-                                        'Case Description',
-                                        style: TextStyle(
-                                            color: isDark(context)
-                                                ? Colors.white
-                                                : Colors.black),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        20.0, 0.0, 20.0, 5.0),
-                                    child: DropdownButton<String>(
-                                      underline: Container(
-                                        height: 1,
-                                        color: groupValue == 1
-                                            ? checkValue
-                                                ? caseDescription == null
-                                                    ? Colors.red
-                                                    : Colors.white
-                                                        .withOpacity(0.2)
-                                                : null
-                                            : null,
-                                      ),
-                                      isExpanded: true,
-                                      value: caseDescription,
-                                      hint: Text(
-                                        'Case Description',
-                                        style: TextStyle(
-                                            color: isDark(context)
-                                                ? Colors.white
-                                                : Colors.black),
-                                      ),
-                                      items: advisorCaseJson
-                                              ?.map((item) => DropdownMenuItem<
-                                                      String>(
-                                                  value: item['CATEGORY_ID']
-                                                      .toString(),
-                                                  child: Text(item[
-                                                      'CATEGORY_DESCRIPTION'])))
-                                              ?.toList() ??
-                                          [],
-                                      onChanged: (value) {
-                                        setState(() {
-                                          caseDescription = value;
-                                        });
-                                      },
-                                    ),
-                                  ),
+
+                                  dropDownWidget(
+                                      context,
+                                      'Select Option',
+                                      caseDescription,
+                                      advisorCaseJson,
+                                      'CATEGORY_ID',
+                                      'CATEGORY_DESCRIPTION', (value) {
+                                    setState(() {
+                                      caseDescription = value;
+                                    });
+                                  }, 'Case Description'),
+
+                                  // Padding(
+                                  //   padding: const EdgeInsets.fromLTRB(
+                                  //       20.0, 0.0, 20.0, 5.0),
+                                  //   child: DropdownButton<String>(
+                                  //     underline: Container(
+                                  //       height: 1,
+                                  //       color: groupValue == 1
+                                  //           ? checkValue
+                                  //               ? caseDescription == null
+                                  //                   ? Colors.red
+                                  //                   : Colors.white
+                                  //                       .withOpacity(0.2)
+                                  //               : null
+                                  //           : null,
+                                  //     ),
+                                  //     isExpanded: true,
+                                  //     value: caseDescription,
+                                  //     hint: Text(
+                                  //       'Case Description',
+                                  //       style: TextStyle(
+                                  //           color: isDark(context)
+                                  //               ? Colors.white
+                                  //               : Colors.black),
+                                  //     ),
+                                  //     items: advisorCaseJson
+                                  //             ?.map((item) => DropdownMenuItem<
+                                  //                     String>(
+                                  //                 value: item['CATEGORY_ID']
+                                  //                     .toString(),
+                                  //                 child: Text(item[
+                                  //                     'CATEGORY_DESCRIPTION'])))
+                                  //             ?.toList() ??
+                                  //         [],
+                                  //     onChanged: (value) {
+                                  //       setState(() {
+                                  //         caseDescription = value;
+                                  //       });
+                                  //     },
+                                  //   ),
+                                  // ),
                                   Form(
                                     key: _studentProblem,
                                     child: globalForms(

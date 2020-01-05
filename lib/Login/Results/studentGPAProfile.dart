@@ -21,7 +21,6 @@ class StudentGPAProfile extends StatefulWidget {
 
 class _StudentGPAProfileState extends State<StudentGPAProfile> {
   Map studentGPAProfileJson = {};
-  Map studentGPAProfileMessageJson = {};
   @override
   void initState() {
     super.initState();
@@ -36,7 +35,7 @@ class _StudentGPAProfileState extends State<StudentGPAProfile> {
       appBar: appBarLogin(context, 'GPA'),
       body: studentGPAProfileJson.isEmpty
           ? exception(
-              context, "No GPA Details")
+              context,)
           : Container(
               child: Container(
                 decoration: BoxDecoration(
@@ -381,7 +380,6 @@ class _StudentGPAProfileState extends State<StudentGPAProfile> {
       if (response.statusCode == 200) {
         setState(() {
           studentGPAProfileJson = json.decode(response.body)['data'];
-          studentGPAProfileMessageJson = json.decode(response.body);
         });
 
         showLoading(false, context);

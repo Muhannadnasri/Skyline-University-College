@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/bottomAppBar.dart';
 import 'package:skyline_university/Global/customdropdown.dart';
+import 'package:skyline_university/Global/dropDownWidget.dart';
 import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
 
@@ -33,9 +34,11 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
 
   String _categoryID;
   String _departmentID;
+  String _empId;
   String _appointDate;
   String _caseType;
   String _appointTime;
+  Map twoValue;
   @override
   void initState() {
     super.initState();
@@ -95,6 +98,7 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
                       SizedBox(
                         height: 5,
                       ),
+                      //TODO: Make Same As @dropDownWidget
                       Column(
                         children: <Widget>[
                           DropdownButton<String>(
@@ -140,65 +144,26 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
                       SizedBox(
                         height: 10,
                       ),
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'Case Category',
-                            style: TextStyle(color: Colors.grey[600]),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Column(
-                        children: <Widget>[
-                          DropdownButton<String>(
-                            underline: Container(
-                              height: 1,
-                              color: Color(0xFF2f2f2f),
-                            ),
-                            isExpanded: true,
-                            value: _categoryID,
-                            hint: Padding(
-                              padding: const EdgeInsets.only(left: 8.0),
-                              child: Text(
-                                'Select Option',
-                                style: TextStyle(color: Colors.black),
-                              ),
-                            ),
-                            items: generalAPPtJson
-                                    ?.map(
-                                      (item) => DropdownMenuItem<String>(
-                                        value: item['CATEGORY_ID'].toString(),
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 10.0),
-                                          child: Text(
-                                              item['CATEGORY_DESCRIPTION']
-                                                  .toString()),
-                                        ),
-                                      ),
-                                    )
-                                    ?.toList() ??
-                                [],
-                            onChanged: (value) {
-                              setState(() {
-                                _categoryID = value;
-                                getGeneralApptCatDeptTime();
-                              });
-                            },
-                          ),
-                        ],
-                      ),
+                      dropDownWidget(
+                          context,
+                          'Select Option',
+                          _categoryID,
+                          generalAPPtJson,
+                          'CATEGORY_ID',
+                          'CATEGORY_DESCRIPTION', (value) {
+                        setState(() {
+                          _categoryID = value;
+                          getGeneralApptCatDeptTime();
+                        });
+                      }, 'Case Category'),
+
                       SizedBox(
                         height: 10,
                       ),
                       _caseType == 'General Appointment'
                           ? Column(
                               children: <Widget>[
+                                //TODO: Same Like @ dropDownWidget
                                 Container(
                                   alignment: Alignment.centerLeft,
                                   child: Padding(
@@ -214,14 +179,17 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
                                 ),
                                 Column(
                                   children: <Widget>[
+                                    //ToDo: Here
                                     CustomDropDown(
                                       isExpanded: true,
                                       items: generalAPPtDepartmentJson
                                               ?.map(
                                                 (item) =>
                                                     DropdownMenuItem<String>(
-                                                  value: item['EmpNumber']
-                                                      .toString(),
+                                                  // value:
+                                                  //  item['EmpNumber'] +
+                                                  //     item['Department']
+                                                  //         .toString(),
                                                   child: Padding(
                                                     padding:
                                                         const EdgeInsets.all(
@@ -239,7 +207,9 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
                                               )
                                               ?.toList() ??
                                           [],
-                                      value: _departmentID,
+                                      // value:
+
+                                      // twoValue,
                                       hint: new Text(
                                         'Select One',
                                         style: TextStyle(
@@ -261,14 +231,27 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
                                       ),
                                       onChanged: (value) {
                                         setState(() {
-                                          _departmentID = value;
-
-                                          getGeneralApptDate();
+                                          // _departmentID = value[0];
+                                          // _empId = value[1];
+                                          // getGeneralApptDate();
                                         });
                                       },
                                     ),
                                   ],
                                 ),
+                                dropDownWidget(
+                                    context,
+                                    'Select Option',
+                                    _appointDate,
+                                    generalApptDate,
+                                    'date',
+                                    'Dates', (value) {
+                                  setState(() {
+                                    _appointDate = value;
+                                    getGeneralApptCatDeptTime();
+                                  });
+                                }, 'Appointment Date'),
+
                                 Container(
                                   alignment: Alignment.centerLeft,
                                   child: Padding(
@@ -428,19 +411,14 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
     try {
       final response = await http.post(
         Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/web/getGeneralApptDate'),
+            'https://skylineportal.com/moappad/api/test/GeneralApptDate'),
         headers: {
           "API-KEY": API,
         },
         body: {
           'user_id': username,
-          'usertype': studentJson['data']['user_type'],
-          'emp_no': _departmentID,
-          'department': '1',
-          'token': '1',
-          'ipaddress': '1',
-          'deviceid': '1',
-          'devicename': '1',
+          'emp_no': _empId,
+          'department': _departmentID,
         },
       ).timeout(Duration(seconds: 35));
 
@@ -518,35 +496,31 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
     try {
       final response = await http.post(
         Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/web/generalAppointment'),
+            'https://skylineportal.com/moappad/api/test/generalAppointment'),
         headers: {
           "API-KEY": API,
         },
         body: {
-          'user_id': username,
-          'case_type': _caseType,
-          'case_category': _categoryID,
-          'department': _caseType == 'Suggestions'
+          'Stud_ID': username,
+          'CASETYPE_ID': _caseType,
+          'CATEGORY_ID': _categoryID,
+          'EmpNumber': _empId,
+          'Department_ID': _caseType == 'Suggestions'
               ? "null"
               : _caseType == 'Complaints'
                   ? "null"
                   : _caseType == 'Improverments' ? "null" : _departmentID,
-          'appt_date': _caseType == 'Suggestions'
+          'AppointMentDate': _caseType == 'Suggestions'
               ? "null"
               : _caseType == 'Complaints'
                   ? "null"
                   : _caseType == 'Improverments' ? "null" : _appointDate,
-          'appt_time': _caseType == 'Suggestions'
+          'AppointmentTime': _caseType == 'Suggestions'
               ? "null"
               : _caseType == 'Complaints'
                   ? "null"
                   : _caseType == 'Improverments' ? "null" : '',
-          'description': remarkAppointment,
-          'token': '1',
-          'usertype': studentJson['data']['user_type'],
-          'ipaddress': '1',
-          'deviceid': '1',
-          'devicename': '1',
+          'StudentRemarks': remarkAppointment,
         },
       );
       if (response.statusCode == 200) {

@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/bottomAppBar.dart';
+import 'package:skyline_university/Global/dropDownWidget.dart';
 import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
 
@@ -65,58 +66,15 @@ class _SalaryCertificateState extends State<SalaryCertificate> {
             children: <Widget>[
               Column(
                 children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      Padding(
-                        padding:
-                            const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 5.0),
-                        child: Container(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Purpose of the application',
-                              style: TextStyle(
-                                  color: isDark(context)
-                                      ? Colors.white
-                                      : Colors.black),
-                            )),
-                      ),
-                      DropdownButton<String>(
-                        underline: Container(
-                          height: 1,
-                          color: Color(0xFF2f2f2f),
-                        ),
-                        isExpanded: true,
-                        hint: Padding(
-                          padding:
-                              const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 5.0),
-                          child: Text(
-                            'Select',
-                            style: TextStyle(
-                              color:
-                                  isDark(context) ? Colors.white : Colors.black,
-                            ),
-                          ),
-                        ),
-                        value: purpose,
-                        items: purposeJson
-                                ?.map(
-                                  (item) => DropdownMenuItem<String>(
-                                      value: item['purposeid'].toString(),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(item['PurposeName']),
-                                      )),
-                                )
-                                ?.toList() ??
-                            [],
-                        onChanged: (value) {
-                          setState(() {
-                            purpose = value;
-                          });
-                        },
-                      ),
-                    ],
+                  SizedBox(
+                    height: 20,
                   ),
+                  dropDownWidget(context, 'Select Option', purpose, purposeJson,
+                      'purposeid', 'PurposeName', (value) {
+                    setState(() {
+                      purpose = value;
+                    });
+                  }, 'Purpose of the application'),
                   SizedBox(
                     height: 15,
                   ),
@@ -168,57 +126,12 @@ class _SalaryCertificateState extends State<SalaryCertificate> {
                       SizedBox(
                         height: 15,
                       ),
-                      Column(
-                        children: <Widget>[
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(
-                                  20.0, 0.0, 20.0, 5.0),
-                              child: Text(
-                                'Country',
-                                style: TextStyle(
-                                    color: isDark(context)
-                                        ? Colors.white
-                                        : Colors.black),
-                              ),
-                            ),
-                          ),
-                          DropdownButton<String>(
-                            underline: Container(
-                              height: 1,
-                              color: Color(0xFF2f2f2f),
-                            ),
-                            value: country,
-                            isExpanded: true,
-                            hint: Padding(
-                              padding: const EdgeInsets.fromLTRB(
-                                  20.0, 0.0, 20.0, 5.0),
-                              child: Text(
-                                'Select',
-                                style: TextStyle(color: Colors.black),
-                              ),
-                            ),
-                            items: countryJson
-                                    ?.map((item) => DropdownMenuItem<String>(
-                                        value: item['id'].toString(),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(item['country']),
-                                        )))
-                                    ?.toList() ??
-                                [],
-                            onChanged: (value) {
-                              setState(() {
-                                country = value;
-                              });
-                            },
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                        ],
-                      ),
+                      dropDownWidget(context, 'Select Option', country,
+                          countryJson, 'id', 'country', (value) {
+                        setState(() {
+                          country = value;
+                        });
+                      }, 'Country'),
                     ],
                   ),
                 ],

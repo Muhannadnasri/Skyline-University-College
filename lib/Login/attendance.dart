@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:showcaseview/showcase_widget.dart';
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/global.dart';
@@ -23,8 +24,7 @@ class Attendance extends StatefulWidget {
 
 class _AttendanceState extends State<Attendance> {
   List attendanceJson = [];
-
-  Map attendanceMessageJson = {};
+  GlobalKey _fabKey = GlobalObjectKey("fab");
 
   @override
   void initState() {
@@ -33,38 +33,31 @@ class _AttendanceState extends State<Attendance> {
     attendanceJson = [];
   }
 
-  @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      body: ShowCaseWidget(
+        builder: Builder(
+          builder: (context) => body(context),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget body(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
         appBar: appBarLogin(context, 'Attendance'),
         body: attendanceJson == null
-            ? exception(context, 
-                attendanceMessageJson['message'])
+            ? exception(context)
             : Container(
-
                 child: ListView.builder(
                   itemCount: attendanceJson.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => AttendanceCalendar(
-                              index: index,
-                              classSectionID: attendanceJson[index]
-                                      ['ClassSectionID']
-                                  .toString(),
-                              className: attendanceJson[index]
-                                      ['Cdd_Description']
-                                  .toString(),
-                            ),
-                          ),
-                        );
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GestureDetector(
+                        onTap: () {},
                         child: Card(
                           shape: RoundedRectangleBorder(
                               borderRadius:
@@ -73,7 +66,6 @@ class _AttendanceState extends State<Attendance> {
                           child: Column(
                             children: <Widget>[
                               Container(
-                                
                                 decoration: new BoxDecoration(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10)),
@@ -118,11 +110,37 @@ class _AttendanceState extends State<Attendance> {
                                           ),
                                         ),
                                       ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  AttendanceCalendar(
+                                                index: index,
+                                                classSectionID:
+                                                    attendanceJson[index]
+                                                            ['ClassSectionID']
+                                                        .toString(),
+                                                className: attendanceJson[index]
+                                                        ['Cdd_Description']
+                                                    .toString(),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5.0),
+                                          child: Icon(
+                                            FontAwesomeIcons.ellipsisH,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
                               ),
-                            
                               Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Row(
@@ -147,7 +165,6 @@ class _AttendanceState extends State<Attendance> {
                                   ],
                                 ),
                               ),
-                            
                               Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Row(
@@ -175,7 +192,6 @@ class _AttendanceState extends State<Attendance> {
                                   ],
                                 ),
                               ),
-                             
                               Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Row(
@@ -201,7 +217,6 @@ class _AttendanceState extends State<Attendance> {
                                   ],
                                 ),
                               ),
-                             
                               Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Row(children: <Widget>[
@@ -253,8 +268,6 @@ class _AttendanceState extends State<Attendance> {
       if (response.statusCode == 200) {
         setState(() {
           attendanceJson = json.decode(response.body)['data'];
-
-          attendanceMessageJson = json.decode(response.body);
         });
 
         showLoading(false, context);

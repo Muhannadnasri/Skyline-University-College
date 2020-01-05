@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'global.dart';
 
-Widget exception(BuildContext context, msg) {
+Widget exception(BuildContext context) {
   return Center(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.center,

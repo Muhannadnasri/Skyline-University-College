@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/bottomAppBar.dart';
+import 'package:skyline_university/Global/dropDownWidget.dart';
 import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
 
@@ -74,9 +76,9 @@ class _BookRequisitionState extends State<BookRequisition> {
                       decoration: new BoxDecoration(
                         boxShadow: [
                           new BoxShadow(
-                              color: Colors.black,
-                              offset: new Offset(5.0, 5.0),
-                              blurRadius: 30)
+                              color: Colors.grey,
+                              offset: new Offset(2.0, 2.0),
+                              blurRadius: 20)
                         ],
                         gradient: isDark(context)
                             ? LinearGradient(
@@ -269,64 +271,22 @@ class _BookRequisitionState extends State<BookRequisition> {
                                 SizedBox(
                                   height: 10,
                                 ),
-                                Container(
-                                    alignment: Alignment.centerLeft,
-                                    child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          20.0, 0.0, 20.0, 5.0),
-                                      child: Text(
-                                        'Please Select Book Type',
-                                        style: TextStyle(
-                                          color: isDark(context)
-                                              ? Colors.white
-                                              : Colors.black,
-                                        ),
-                                      ),
-                                    )),
                                 SizedBox(
                                   height: 5,
                                 ),
-                                Column(
-                                  children: <Widget>[
-                                    DropdownButton<String>(
-                                      value: type,
-                                      hint: Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            20.0, 0.0, 20.0, 5.0),
-                                        child: Text(
-                                          'Select Type',
-                                          style: TextStyle(
-                                            color: isDark(context)
-                                                ? Colors.white
-                                                : Colors.black,
-                                          ),
-                                        ),
-                                      ),
-                                      isExpanded: true,
-                                      items: libraryMaterialJson
-                                              ?.map(
-                                                (item) =>
-                                                    DropdownMenuItem<String>(
-                                                  value: item['CatTypeName']
-                                                      .toString(),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: Text(
-                                                        item['CatTypeName']),
-                                                  ),
-                                                ),
-                                              )
-                                              ?.toList() ??
-                                          [],
-                                      onChanged: (value) {
-                                        setState(() {
-                                          type = value;
-                                        });
-                                      },
-                                    ),
-                                  ],
+                                dropDownWidget(
+                                  context,
+                                  'Select Type',
+                                  type,
+                                  libraryMaterialJson,
+                                  'CatTypeName',
+                                  'CatTypeName',
+                                  (value) {
+                                    setState(() {
+                                      type = value;
+                                    });
+                                  },
+                                  'Please Select Book Type',
                                 ),
                                 SizedBox(
                                   height: 15,
@@ -394,7 +354,7 @@ class _BookRequisitionState extends State<BookRequisition> {
         },
         body: {
           'UserID': studentJson['data']['user_id'],
-          'username': username,
+          'UserName': username,
           'Title': title,
           'Author': author,
           'Edition': edition,
@@ -420,10 +380,12 @@ class _BookRequisitionState extends State<BookRequisition> {
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
-        // showErrorServer(context, getLibraryMaterial());
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getLibraryMaterial);
       } else {
         showLoading(false, context);
-        // showErrorConnect(context, getLibraryMaterial());
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getLibraryMaterial);
       }
     }
   }

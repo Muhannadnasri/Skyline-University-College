@@ -39,7 +39,6 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
   EventList<Event> days = new EventList(events: {});
   List _selectedEvents = [];
 
-  Map attendanceDetailsJsonMessage = {};
   @override
   void initState() {
     super.initState();
@@ -52,9 +51,8 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
 
     return Scaffold(
       appBar: appBarLogin(context, 'Attendance Calendar'),
-      body: attendanceDetailsJson == null
-          ? exception(context, 
-              attendanceDetailsJsonMessage['message'])
+      body: attendanceDetailsJson == null||attendanceDetailsJson.isEmpty
+          ? exception(context)
           : ListView(
               children: <Widget>[
                 Container(
@@ -249,7 +247,6 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
       if (response.statusCode == 200) {
         setState(() {
           attendanceDetailsJson = json.decode(response.body)['data'];
-          attendanceDetailsJsonMessage = json.decode(response.body);
 
           if (attendanceDetailsJson != null) {
             attendanceDetailsJson.forEach((event) {

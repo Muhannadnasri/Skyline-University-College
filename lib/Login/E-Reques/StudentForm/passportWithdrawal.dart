@@ -50,7 +50,6 @@ class _PassportWithdrawalState extends State<PassportWithdrawal> {
   void initState() {
     super.initState();
 
-    // getPassportWithdrawal();
   }
 
   @override

@@ -31,8 +31,8 @@ class _CourseAllocationsState extends State<CourseAllocations> {
     return Scaffold(
         appBar: appBarLogin(context, 'Class Morning'),
         body: widget.data == null || widget.data.isEmpty
-            ? exception(context, 
-                'No Class available')
+            ? exception(context 
+               )
             : Container(
                 child: ListView.builder(
                   itemCount: widget.data.length,

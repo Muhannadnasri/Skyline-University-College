@@ -22,7 +22,6 @@ class CourseDetails extends StatefulWidget {
 
 class _CourseDetailsState extends State<CourseDetails> {
   List classScheduleCourseJson = [];
-  Map classScheduleCourseMessageJson = {};
 
   @override
   void initState() {
@@ -35,9 +34,8 @@ class _CourseDetailsState extends State<CourseDetails> {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
         appBar: appBarLogin(context, 'Class Details'),
-        body: classScheduleCourseJson == null
-            ? exception(context, 
-                classScheduleCourseMessageJson['message'])
+        body: classScheduleCourseJson == null||classScheduleCourseJson.isEmpty
+            ? exception(context)
             : Container(
                 child: ListView.builder(
                   itemCount: classScheduleCourseJson.length,
@@ -232,7 +230,6 @@ class _CourseDetailsState extends State<CourseDetails> {
       if (response.statusCode == 200) {
         setState(() {
           classScheduleCourseJson = json.decode(response.body)['data'];
-          classScheduleCourseMessageJson = json.decode(response.body);
         });
         showLoading(false, context);
       }

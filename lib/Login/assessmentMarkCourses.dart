@@ -22,7 +22,6 @@ class AssessmentMarkCourses extends StatefulWidget {
 // Map<String, int> body;
 
 class _AssessmentMarkCoursesState extends State<AssessmentMarkCourses> {
-  Map assessmentMarkCoursesJsonMessage = {};
   List assessmentMarkCoursesJson = [];
   @override
   void initState() {
@@ -36,10 +35,9 @@ class _AssessmentMarkCoursesState extends State<AssessmentMarkCourses> {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
         appBar: appBarLogin(context, 'Assessment Courses'),
-        body: assessmentMarkCoursesJson == null &&
+        body: assessmentMarkCoursesJson == null ||
                 assessmentMarkCoursesJson.isEmpty
-            ? exception(context, 
-                assessmentMarkCoursesJsonMessage['message'])
+            ? exception(context)
             : Container(
                 child: ListView.builder(
                   itemCount: assessmentMarkCoursesJson.length,
@@ -209,7 +207,6 @@ class _AssessmentMarkCoursesState extends State<AssessmentMarkCourses> {
       if (response.statusCode == 200) {
         setState(() {
           assessmentMarkCoursesJson = json.decode(response.body)['data'];
-          assessmentMarkCoursesJsonMessage = json.decode(response.body);
         });
         showLoading(false, context);
       }

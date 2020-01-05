@@ -24,12 +24,10 @@ class AssessmentMarks extends StatefulWidget {
 
 class _AssessmentMarksState extends State<AssessmentMarks> {
   List assessmentMarksJson = [];
-  Map assessmentMarksJsonMessage = {};
   @override
   void initState() {
     super.initState();
     getStudentAssessmentMarks();
-    assessmentMarksJson = [];
   }
 
   @override
@@ -38,8 +36,7 @@ class _AssessmentMarksState extends State<AssessmentMarks> {
     return Scaffold(
       appBar: appBarLogin(context, 'Assessment Marks'),
       body: assessmentMarksJson == null || assessmentMarksJson.isEmpty
-          ? exception(context, 
-              '')
+          ? exception(context)
           : 
           
           Container(
@@ -223,7 +220,6 @@ class _AssessmentMarksState extends State<AssessmentMarks> {
       if (response.statusCode == 200) {
         setState(() {
           assessmentMarksJson = json.decode(response.body)['data'];
-          assessmentMarksJsonMessage = json.decode(response.body);
         });
 
         showLoading(false, context);

@@ -21,7 +21,6 @@ class MidTermMarks extends StatefulWidget {
 
 class _MidTermMarksState extends State<MidTermMarks> {
   List midTermMarksJson = [];
-  Map midTermMarksMessageJson = {};
   @override
   void initState() {
     super.initState();
@@ -35,9 +34,8 @@ class _MidTermMarksState extends State<MidTermMarks> {
     return Scaffold(
       appBar: appBarLogin(context, 'Mid Term Marks'),
       body: midTermMarksJson == null ||
-              midTermMarksJson.isEmpty &&
-                  midTermMarksMessageJson['success'] == 0
-          ? exception(context, midTermMarksMessageJson['message'])
+              midTermMarksJson.isEmpty
+          ? exception(context)
           : Container(
               child: ListView.builder(
                 itemCount: midTermMarksJson.length,
@@ -227,7 +225,6 @@ class _MidTermMarksState extends State<MidTermMarks> {
       if (response.statusCode == 200) {
         setState(() {
           midTermMarksJson = json.decode(response.body)['data'];
-          midTermMarksMessageJson = json.decode(response.body);
         });
         showLoading(false, context);
       }

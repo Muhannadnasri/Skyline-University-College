@@ -24,7 +24,6 @@ class _NotificationsState extends State<Notifications> {
   var now = new DateTime.now();
   var formatter = new DateFormat('yyyy-MM-dd');
   List notificationsJson = [];
-  Map notificationsMessageJson = {};
   @override
   void initState() {
     print(username);
@@ -38,8 +37,8 @@ class _NotificationsState extends State<Notifications> {
     return Scaffold(
         appBar: appBarLogin(context, 'Notifications'),
         body: notificationsJson == null
-            ? exception(context, 
-                notificationsMessageJson['message'])
+            ? exception(context
+              )
             : Container(
                 child: ListView.builder(
                   itemCount: notificationsJson.length,
@@ -155,7 +154,6 @@ class _NotificationsState extends State<Notifications> {
       if (response.statusCode == 200) {
         setState(() {
           notificationsJson = json.decode(response.body)['data'];
-          notificationsMessageJson = json.decode(response.body);
         });
 
         showLoading(false, context);

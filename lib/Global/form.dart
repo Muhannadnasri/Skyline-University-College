@@ -11,7 +11,7 @@ Widget globalForms(BuildContext context, initialValue, validators, onSaveds,
         height: 20,
       ),
       Padding(
-        padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 5.0),
+        padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
         child: Text(
           label,
           style: TextStyle(
@@ -22,7 +22,6 @@ Widget globalForms(BuildContext context, initialValue, validators, onSaveds,
       Padding(
         padding: const EdgeInsets.fromLTRB(10.0, 0.0, 20.0, 5.0),
         child: TextFormField(
-          
           initialValue: initialValue,
           onSaved: onSaveds,
           validator: validators,
@@ -32,6 +31,7 @@ Widget globalForms(BuildContext context, initialValue, validators, onSaveds,
               fontSize: 16.0,
               color: isDark(context) ? Colors.white : Colors.black),
           decoration: new InputDecoration(
+            contentPadding: const EdgeInsets.fromLTRB(15.0, 0.0, 20.0, 5.0),
             enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(
                 color: isDark(context)

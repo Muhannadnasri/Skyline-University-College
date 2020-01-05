@@ -7,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/bottomAppBar.dart';
+import 'package:skyline_university/Global/dropDownWidget.dart';
 import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
 
@@ -138,64 +139,17 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
                       SizedBox(
                         height: 20,
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Padding(
-                            padding:
-                                const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 5.0),
-                            child: Text(
-                              'New Timings',
-                              style: TextStyle(
-                                  color: isDark(context)
-                                      ? Colors.white
-                                      : Colors.black),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 5.0),
-                            child: DropdownButton<String>(
-                              hint: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  'Please Select Option',
-                                  style: TextStyle(
-                                      color: isDark(context)
-                                          ? Colors.white
-                                          : Colors.black),
-                                ),
-                              ),
-                              underline: Container(
-                                height: 1,
-                                color: Color(0xFF2f2f2f),
-                              ),
-                              isExpanded: true,
-                              value: newShift,
-                              items: currentAndNewShiftJson
-                                      ?.map(
-                                        (item) => DropdownMenuItem<String>(
-                                          value: item['Shift_Desc'],
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(item['Shift_Desc']),
-                                          ),
-                                        ),
-                                      )
-                                      ?.toList() ??
-                                  [],
-                              onChanged: (value) {
-                                setState(() {
-                                  newShift = value;
-                                });
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
+                      dropDownWidget(
+                          context,
+                          'Select Option',
+                          newShift,
+                          currentAndNewShiftJson,
+                          'Shift_Desc',
+                          'Shift_Desc', (value) {
+                        setState(() {
+                          newShift = value;
+                        });
+                      }, 'New Timings'),
                       SizedBox(
                         height: 5,
                       ),
