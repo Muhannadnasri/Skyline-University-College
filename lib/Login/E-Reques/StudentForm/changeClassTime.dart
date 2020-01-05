@@ -236,10 +236,10 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
           "API-KEY": API,
         },
         body: {
-          'user_id': username,
-          'currentTiming': currentTimeJson['Shift_Desc'],
-          'newTiming': newShift,
-          'reason': reason,
+          'UserID': username,
+          'CurrentTiming': currentTimeJson['Shift_Desc'],
+          'NewTiming': newShift,
+          'Reason': reason,
         },
       ).timeout(Duration(seconds: 35));
 
