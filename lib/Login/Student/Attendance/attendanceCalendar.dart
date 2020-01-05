@@ -53,7 +53,7 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
     return Scaffold(
       appBar: appBarLogin(context, 'Attendance Calendar'),
       body: attendanceDetailsJson == null
-          ? exception(context, FontAwesomeIcons.exclamationTriangle,
+          ? exception(context, 
               attendanceDetailsJsonMessage['message'])
           : ListView(
               children: <Widget>[

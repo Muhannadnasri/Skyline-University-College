@@ -40,7 +40,7 @@
 
 
 //       infoJson.isEmpty
-//           ? exception(context, FontAwesomeIcons.exclamationTriangle, '')
+//           ? exception(context,  '')
 //           : ListView(
 //               children: <Widget>[
 //                 Column(

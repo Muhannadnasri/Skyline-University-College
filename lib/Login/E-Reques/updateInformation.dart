@@ -75,7 +75,7 @@
 //         color: Colors.white,
 //         child: studentInfoJson.isEmpty
 //             ? exception(
-//                 context, FontAwesomeIcons.exclamationTriangle, 'No Information')
+//                 context,  'No Information')
 //             : ListView(
 //                 children: <Widget>[
 //                   GestureDetector(

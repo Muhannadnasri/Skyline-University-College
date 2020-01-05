@@ -37,7 +37,7 @@ class _MidTermMarksState extends State<MidTermMarks> {
       body: midTermMarksJson == null ||
               midTermMarksJson.isEmpty &&
                   midTermMarksMessageJson['success'] == 0
-          ? exception(context, FontAwesomeIcons.exclamationTriangle,
+          ? exception(context, 
               midTermMarksMessageJson['message'])
           : Container(
               child: ListView.builder(

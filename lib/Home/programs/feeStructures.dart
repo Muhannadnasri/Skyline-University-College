@@ -38,7 +38,7 @@ class _FeeStructuresState extends State<FeeStructures> {
       resizeToAvoidBottomPadding: false,
       appBar: appBar(context, 'Fee Structures'),
       body: infoJson.isEmpty
-          ? exception(context, FontAwesomeIcons.exclamationTriangle, '')
+          ? exception(context,  '')
           : Container(
             child: ListView(
                 children: <Widget>[

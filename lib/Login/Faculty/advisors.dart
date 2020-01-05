@@ -39,53 +39,52 @@ class _AdvisorsState extends State<Advisors> {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
       appBar: appBarLogin(context, 'Advisors Students'),
-      body:
-          // itemsToShow == null || itemsToShow.isEmpty
-          //     ? exception(context, FontAwesomeIcons.exclamationTriangle,
-          //         'No course available')
-          //     :
-          CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            automaticallyImplyLeading: false,
-            expandedHeight: 50.0,
-            snap: true,
-            floating: true,
-            pinned: false,
-            flexibleSpace: Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 15,
+      body: itemsToShow == null || itemsToShow.isEmpty
+          ? exception(context, 'No course available')
+          : CustomScrollView(
+              slivers: <Widget>[
+                SliverAppBar(
+                  automaticallyImplyLeading: false,
+                  expandedHeight: 50.0,
+
+                  backgroundColor: Colors.transparent,
+                  floating: false,
+                  
+                  pinned: false,
+                  flexibleSpace: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 15,
+                        ),
+                        child: TextField(
+                          controller: seachCnt,
+                          decoration: InputDecoration(hintText: 'Search'),
+                          onChanged: (x) {
+                            selectedName = x;
+                            searchItems();
+                          },
+                        ),
+                      ),
+                    ],
                   ),
-                  child: TextField(
-                    controller: seachCnt,
-                    decoration: InputDecoration(hintText: 'Search'),
-                    onChanged: (x) {
-                      selectedName = x;
-                      searchItems();
+                ),
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) {
+                      return buildItems(index);
                     },
+                    childCount: itemsToShow.length,
                   ),
                 ),
               ],
             ),
-          ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) {
-                return buildItems(index);
-              },
-              childCount: itemsToShow.length,
-            ),
-          ),
-        ],
-      ),
     );
   }
 
   buildItems(index) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(10.0),
       child: Card(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(10))),

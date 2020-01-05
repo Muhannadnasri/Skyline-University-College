@@ -65,7 +65,7 @@ class _MyAdvisorState extends State<MyAdvisor> {
         )),
         appBar: appBarLogin(context, 'Advisor Details'),
         body: myAdvisorJson == null
-            ? exception(context, FontAwesomeIcons.exclamationTriangle,
+            ? exception(context,
                 myAdvisorMessageJson['message'])
             : Container(
                 child: ListView.builder(

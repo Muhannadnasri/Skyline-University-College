@@ -36,7 +36,7 @@ class _StudentGPAProfileState extends State<StudentGPAProfile> {
       appBar: appBarLogin(context, 'GPA'),
       body: studentGPAProfileJson.isEmpty
           ? exception(
-              context, FontAwesomeIcons.exclamationTriangle, "No GPA Details")
+              context, "No GPA Details")
           : Container(
               child: Container(
                 decoration: BoxDecoration(

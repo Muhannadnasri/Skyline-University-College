@@ -34,7 +34,7 @@ class _CourseAllocationState extends State<CourseAllocation> {
     return Scaffold(
         appBar: appBarLogin(context, 'Course Faculty'),
         body: courseAllocationJson == null || courseAllocationJson.isEmpty
-            ? exception(context, FontAwesomeIcons.exclamationTriangle,
+            ? exception(context, 
                 'No course available')
             : Container(
                 child: Column(

@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/bottomAppBar.dart';
+import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
 
@@ -42,17 +43,19 @@ class _PassportRetainingState extends State<PassportRetaining> {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
       appBar: appBarLogin(context, 'Passport Retaining'),
-      bottomNavigationBar: bottomappBar(
-        context,
-        () {
-          if (_reasonPassportRetaining.currentState.validate()) {
-            _reasonPassportRetaining.currentState.save();
-            sendPassportRetaining();
-          }
-        },
-      ),
+      bottomNavigationBar: underTakingJson == null || underTakingJson.isEmpty
+          ? SizedBox()
+          : bottomappBar(
+              context,
+              () {
+                if (_reasonPassportRetaining.currentState.validate()) {
+                  _reasonPassportRetaining.currentState.save();
+                  sendPassportRetaining();
+                }
+              },
+            ),
       body: underTakingJson == null || underTakingJson.isEmpty
-          ? Container()
+          ? exception(context, 'No Class available')
           : Container(
               child: ListView(
                 children: <Widget>[

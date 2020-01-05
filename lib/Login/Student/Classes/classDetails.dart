@@ -36,7 +36,7 @@ class _CourseDetailsState extends State<CourseDetails> {
     return Scaffold(
         appBar: appBarLogin(context, 'Class Details'),
         body: classScheduleCourseJson == null
-            ? exception(context, FontAwesomeIcons.exclamationTriangle,
+            ? exception(context, 
                 classScheduleCourseMessageJson['message'])
             : Container(
                 child: ListView.builder(

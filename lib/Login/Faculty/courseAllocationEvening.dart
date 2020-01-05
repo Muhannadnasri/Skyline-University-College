@@ -29,7 +29,7 @@ class _CourseAllocationEveningState extends State<CourseAllocationEvening> {
         appBar: appBarLogin(context, 'Class Evening'),
         body: courseAllocationEveningJson == null ||
                 courseAllocationEveningJson.isEmpty
-            ? exception(context, FontAwesomeIcons.exclamationTriangle,
+            ? exception(context, 
                 'No Class available')
             : Container(
                 child: ListView.builder(

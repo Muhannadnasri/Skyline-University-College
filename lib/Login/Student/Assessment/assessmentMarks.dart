@@ -38,7 +38,7 @@ class _AssessmentMarksState extends State<AssessmentMarks> {
     return Scaffold(
       appBar: appBarLogin(context, 'Assessment Marks'),
       body: assessmentMarksJson == null || assessmentMarksJson.isEmpty
-          ? exception(context, FontAwesomeIcons.exclamationTriangle,
+          ? exception(context, 
               '')
           : 
           

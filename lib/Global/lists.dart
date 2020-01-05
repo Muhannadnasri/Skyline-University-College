@@ -49,7 +49,7 @@ class _ListsState extends State<Lists> {
       resizeToAvoidBottomPadding: false,
       appBar: appBar(context, '${widget.title}'),
       body: lists == null
-          ? exception(context, FontAwesomeIcons.exclamationTriangle,
+          ? exception(context, 
               'No ${widget.title} available')
           : Container(
               child: ListView.builder(

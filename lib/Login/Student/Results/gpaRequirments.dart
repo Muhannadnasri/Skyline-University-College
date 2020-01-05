@@ -40,7 +40,7 @@ class _GetGPARequirmentsState extends State<GetGPARequirments> {
 
             // null
             gpaRequirmentsJson == null
-                ? exception(context, FontAwesomeIcons.exclamationTriangle,
+                ? exception(context, 
                     gpaRequirmentsMessageJson['message'])
                 : Container(
                     child: ListView.builder(

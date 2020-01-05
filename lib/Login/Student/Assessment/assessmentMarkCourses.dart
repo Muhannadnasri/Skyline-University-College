@@ -38,7 +38,7 @@ class _AssessmentMarkCoursesState extends State<AssessmentMarkCourses> {
         appBar: appBarLogin(context, 'Assessment Courses'),
         body: assessmentMarkCoursesJson == null &&
                 assessmentMarkCoursesJson.isEmpty
-            ? exception(context, FontAwesomeIcons.exclamationTriangle,
+            ? exception(context, 
                 assessmentMarkCoursesJsonMessage['message'])
             : Container(
                 child: ListView.builder(

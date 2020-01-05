@@ -6,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:superellipse_shape/superellipse_shape.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'loader.dart';
 
 bool isDark(context) {
   return Theme.of(context).brightness == Brightness.dark;
@@ -146,7 +145,7 @@ void showLoading(isLoading, context) {
                 padding: const EdgeInsets.only(left: 50.0),
                 child: Row(
                   children: <Widget>[
-                    Loader(),
+
                     new Text('Please Wait....'),
                   ],
                 ),

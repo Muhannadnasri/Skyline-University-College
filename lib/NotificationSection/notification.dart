@@ -38,7 +38,7 @@ class _NotificationsState extends State<Notifications> {
     return Scaffold(
         appBar: appBarLogin(context, 'Notifications'),
         body: notificationsJson == null
-            ? exception(context, FontAwesomeIcons.exclamationTriangle,
+            ? exception(context, 
                 notificationsMessageJson['message'])
             : Container(
                 child: ListView.builder(

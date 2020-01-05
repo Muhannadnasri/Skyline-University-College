@@ -39,7 +39,7 @@
 //          appBar(context, 'Announcements'),
      
 //         body: announcementsJson == null
-//             ? exception(context, FontAwesomeIcons.exclamationTriangle,
+//             ? exception(context, 
 //                 announcementsMessageJson['message'],)
 //             : Container(
 //                 child: ListView.builder(

@@ -17,7 +17,6 @@ class FinalTermResults extends StatefulWidget {
   }
 }
 
-// Map<String, int> body;
 
 class _FinalTermResultsState extends State<FinalTermResults> {
   List finalTermResultsJson = [];
@@ -26,7 +25,6 @@ class _FinalTermResultsState extends State<FinalTermResults> {
   @override
   void initState() {
     super.initState();
-
     getFinalTermResults();
   }
 
@@ -36,8 +34,8 @@ class _FinalTermResultsState extends State<FinalTermResults> {
 
     return Scaffold(
       appBar: appBarLogin(context, 'Final Reults'),
-      body: finalTermResultsJson == null && finalTermResultsJson.isEmpty
-          ? exception(context, FontAwesomeIcons.exclamationTriangle,
+      body: finalTermResultsJson == null || finalTermResultsJson.isEmpty
+          ? exception(context,
               finalTermResultsMessageJson['message'])
           : Container(
               child: ListView.builder(

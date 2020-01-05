@@ -39,7 +39,7 @@ class _AttendanceState extends State<Attendance> {
     return Scaffold(
         appBar: appBarLogin(context, 'Attendance'),
         body: attendanceJson == null
-            ? exception(context, FontAwesomeIcons.exclamationTriangle,
+            ? exception(context, 
                 attendanceMessageJson['message'])
             : Container(
 

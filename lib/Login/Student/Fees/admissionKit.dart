@@ -40,7 +40,7 @@
 //       body: admissionKitJson == null ||
 //               myLedgerJson == null ||
 //               invoicesJson == null
-//           ? exception(context, FontAwesomeIcons.exclamationTriangle, '')
+//           ? exception(context,'')
 //           : Container(
 //               color: Colors.white,
 //               child: Row(

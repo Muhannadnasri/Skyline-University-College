@@ -31,7 +31,7 @@ class _CourseAllocationsState extends State<CourseAllocations> {
     return Scaffold(
         appBar: appBarLogin(context, 'Class Morning'),
         body: widget.data == null || widget.data.isEmpty
-            ? exception(context, FontAwesomeIcons.exclamationTriangle,
+            ? exception(context, 
                 'No Class available')
             : Container(
                 child: ListView.builder(
@@ -85,23 +85,23 @@ class _CourseAllocationsState extends State<CourseAllocations> {
                             ]),
                           ),
                           _rowWidget(
-                              widget.data[index]['Session1'], 'section 1 : '),
+                              widget.data[index]['Session1'], 'Session 1 : '),
                           _rowWidget(
-                              widget.data[index]['Session2'], 'section 2 : '),
+                              widget.data[index]['Session2'], 'Session 2 : '),
                           _rowWidget(
-                              widget.data[index]['Session3'], 'section 3 : '),
+                              widget.data[index]['Session3'], 'Session 3 : '),
                           _rowWidget(
-                              widget.data[index]['Session4'], 'section 4 : '),
+                              widget.data[index]['Session4'], 'Session 4 : '),
                           _rowWidget(
-                              widget.data[index]['Session5'], 'section 5 : '),
+                              widget.data[index]['Session5'], 'Session 5 : '),
                           _rowWidget(
-                              widget.data[index]['Session6'], 'section 6 : '),
+                              widget.data[index]['Session6'], 'Session 6 : '),
                           _rowWidget(
-                              widget.data[index]['Session7'], 'section 7 : '),
+                              widget.data[index]['Session7'], 'Session 7 : '),
                           _rowWidget(
-                              widget.data[index]['Session8'], 'section 8 : '),
+                              widget.data[index]['Session8'], 'Session 8 : '),
                           _rowWidget(
-                              widget.data[index]['Session9'], 'section 9 : '),
+                              widget.data[index]['Session9'], 'Session 9 : '),
                         ],
                       ),
                     );
