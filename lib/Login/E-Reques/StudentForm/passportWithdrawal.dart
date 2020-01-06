@@ -49,7 +49,6 @@ class _PassportWithdrawalState extends State<PassportWithdrawal> {
   @override
   void initState() {
     super.initState();
-
   }
 
   @override
@@ -205,22 +204,18 @@ class _PassportWithdrawalState extends State<PassportWithdrawal> {
     try {
       final response = await http.post(
         Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/test/passportRetaining'),
+            'https://skylineportal.com/moappad/api/test/passportWithdrawal'),
         headers: {
           "API-KEY": API,
         },
         body: {
-          'user_id': username,
-          'local_person': localName,
-          'local_contact': localNumber,
-          'intl_person': internationalName,
-          'intl_contact': internationalNumber,
-          'return_date': value,
-          'reason': reasonPassport,
-          'usertype': studentJson['data']['user_type'],
-          'ipaddress': '1',
-          'deviceid': '1',
-          'devicename': '1',
+          'Stud_ID': username,
+          'LocalPersonName': localName,
+          'LocalMobileNo': localNumber,
+          'InternationalPersonName': internationalName,
+          'InternationalMobileNo': internationalNumber,
+          'ReturnDate': value,
+          'Reason': reasonPassport,
         },
       ).timeout(Duration(seconds: 35));
 
@@ -231,6 +226,9 @@ class _PassportWithdrawalState extends State<PassportWithdrawal> {
           },
         );
         showLoading(false, context);
+      }
+      if (passportWithdrawalJson['success'] == '0') {
+        showfailureSnackBar(context, passportWithdrawalJson['message']);
       }
       if (passportWithdrawalJson['success'] == '1') {
         showSuccessSnackBar(context, passportWithdrawalJson['message']);
@@ -262,7 +260,7 @@ class _PassportWithdrawalState extends State<PassportWithdrawal> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 5.0),
+            padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 5.0),
             child: DateTimeField(
               format: format,
               onShowPicker: (context, currentValue) async {
@@ -300,6 +298,7 @@ class _PassportWithdrawalState extends State<PassportWithdrawal> {
               resetIcon: showResetIcon ? Icon(Icons.delete) : null,
               readOnly: readOnly,
               decoration: InputDecoration(
+                contentPadding: const EdgeInsets.fromLTRB(15.0, 15.0, 0.0, 0.0),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
                     color: isDark(context)

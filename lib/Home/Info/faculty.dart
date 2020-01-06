@@ -9,6 +9,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:skyline_university/Global/appBar.dart';
+import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:transparent_image/transparent_image.dart';
 
@@ -43,7 +44,7 @@ class _FacultyState extends State<Faculty> {
       resizeToAvoidBottomPadding: false,
       appBar: appBar(context, 'Faculty members'),
       body: faculty == null || faculty.isEmpty
-          ? Container()
+          ? exception(context)
           : Container(
               child: ListView.builder(
                   itemCount: faculty.length,

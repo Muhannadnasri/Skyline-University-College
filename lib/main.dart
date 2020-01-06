@@ -36,7 +36,7 @@ import 'Login/E-Reques/FacForm/bookrequistion.dart';
 import 'Login/E-Reques/FacForm/conference.dart';
 import 'Login/E-Reques/FacForm/leaveapplication.dart';
 import 'Login/E-Reques/FacForm/permissionToLeave.dart';
-import 'Login/E-Reques/FacForm/reinstatment.dart';
+import 'Login/E-Reques/StudentForm/reinstatment.dart';
 import 'Login/E-Reques/FacForm/salaryCertificate.dart';
 import 'Login/E-Reques/StudentForm/changeClassTime.dart';
 import 'Login/E-Reques/StudentForm/courseWithdrawal.dart';
@@ -189,7 +189,9 @@ class MyAppState extends State<MyApp> {
           // '/attendanceCalendar': (context) => AttendanceCalendar(),
           '/homePrograms': (context) => HomePrograms(),
           '/underGraduateBusiness': (context) => UndergraduateBusiness(),
-          '/underGraduateIT': (context) => UndergraduateIT(),
+          '/underGraduateIT': (context) => UndergraduateIT(
+            
+          ),
           '/homeUndergraduate': (context) => HomeUndergraduate(),
           '/leaveApplicationForm': (context) => LeaveApplicationForm(),
           '/info': (context) => Info(),

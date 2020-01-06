@@ -6,6 +6,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBar.dart';
+import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Home/programs/undergraduateProgram.dart';
 
@@ -18,9 +19,9 @@ class CentreContinuingLearning extends StatefulWidget {
   }
 }
 
-List programsJson = [];
-
 class _CentreContinuingLearningState extends State<CentreContinuingLearning> {
+  List programsJson = [];
+  Map programsJsonMessage = {};
   @override
   void initState() {
     super.initState();
@@ -34,8 +35,8 @@ class _CentreContinuingLearningState extends State<CentreContinuingLearning> {
       resizeToAvoidBottomPadding: false,
       appBar: appBar(context, 'Centre Continuing Learning'),
       body: Container(
-        child: programsJson == null
-            ? SizedBox()
+        child: programsJson == null || programsJson.isEmpty
+            ? exception(context)
             : ListView.builder(
                 itemCount: programsJson.length,
                 itemBuilder: (BuildContext context, int index) {
@@ -148,25 +149,25 @@ class _CentreContinuingLearningState extends State<CentreContinuingLearning> {
     try {
       http.Response response = await http.post(
         Uri.encodeFull(
-            "https://skylineportal.com/moappad/api/web/getProgramsByCategory"),
+            "https://skylineportal.com/moappad/api/test/ProgramsByCategory"),
         headers: {
           "API-KEY": API,
         },
         body: {
-          'usertype': '1',
           'category_id': '3',
-          'ipaddress': '1',
-          'deviceid': '1',
-          'devicename': '1',
         },
       ).timeout(Duration(seconds: 35));
 
       if (response.statusCode == 200) {
         setState(() {
           programsJson = json.decode(response.body)['data'];
+          programsJsonMessage = json.decode(response.body);
         });
 
         showLoading(false, context);
+        if (programsJsonMessage['success'] == '0') {
+          showfailureSnackBar(context, programsJsonMessage['message']);
+        }
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {

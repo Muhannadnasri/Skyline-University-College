@@ -33,9 +33,10 @@ class _StudentGPAProfileState extends State<StudentGPAProfile> {
 
     return Scaffold(
       appBar: appBarLogin(context, 'GPA'),
-      body: studentGPAProfileJson.isEmpty
+      body: studentGPAProfileJson.isEmpty || studentGPAProfileJson == null
           ? exception(
-              context,)
+              context,
+            )
           : Container(
               child: Container(
                 decoration: BoxDecoration(
@@ -107,38 +108,6 @@ class _StudentGPAProfileState extends State<StudentGPAProfile> {
                           padding: const EdgeInsets.all(10.0),
                           child: Column(
                             children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Row(
-                                  children: <Widget>[
-                                    Expanded(
-                                      child: Text(
-                                        'My Advisor : ',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: isDark(context)
-                                                ? Colors.white
-                                                : Colors.black),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    Text(
-                                      studentGPAProfileJson['ADVISOR'] == null
-                                          ? ''
-                                          : studentGPAProfileJson['ADVISOR'],
-                                      style: TextStyle(
-                                        color: isDark(context)
-                                            ? Colors.white
-                                            : Colors.black,
-                                        fontSize: 13,
-                                        letterSpacing: 0.5,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
                               Padding(
                                 padding: const EdgeInsets.all(5.0),
                                 child: Row(
@@ -373,7 +342,7 @@ class _StudentGPAProfileState extends State<StudentGPAProfile> {
           "API-KEY": API,
         },
         body: {
-          'user_id': username,
+          'StudID': username,
         },
       ).timeout(Duration(seconds: 35));
 

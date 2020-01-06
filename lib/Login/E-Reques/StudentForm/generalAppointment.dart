@@ -91,7 +91,10 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
                           padding: const EdgeInsets.only(left: 10.0),
                           child: Text(
                             'Case Category',
-                            style: TextStyle(color: Colors.grey[600]),
+                            style: TextStyle(
+                                color: isDark(context)
+                                    ? Colors.white
+                                    : Colors.black),
                           ),
                         ),
                       ),

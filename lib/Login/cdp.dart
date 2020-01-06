@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
+import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:superellipse_shape/superellipse_shape.dart';
 
@@ -45,8 +46,8 @@ class _CDPDownloadState extends State<CDPDownload>
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
       appBar: appBarLogin(context, 'CDP'),
-      body: cdpCourseJson.isEmpty
-          ? Container()
+      body: cdpCourseJson == null || cdpCourseJson.isEmpty
+          ? exception(context)
           : Container(
               child: ListView.builder(
                 itemCount: cdpCourseJson.length,
@@ -222,17 +223,12 @@ class _CDPDownloadState extends State<CDPDownload>
 
     try {
       http.Response response = await http.post(
-        Uri.encodeFull(
-            "https://skylineportal.com/moappad/api/web/getCDPCourse"),
+        Uri.encodeFull("https://skylineportal.com/moappad/api/test/CDPCourse"),
         headers: {
           "API-KEY": API,
         },
         body: {
           'user_id': username,
-          'usertype': studentJson['data']['user_type'],
-          'ipaddress': '1',
-          'deviceid': '1',
-          'devicename': '1'
         },
       ).timeout(Duration(seconds: 50));
 
@@ -242,18 +238,13 @@ class _CDPDownloadState extends State<CDPDownload>
           cdpCourseMessageJson = json.decode(response.body);
         });
         showLoading(false, context);
+        if (cdpCourseMessageJson['success'] == '0') {
+          showfailureSnackBar(context, cdpCourseMessageJson['message']);
+        }
+        if (cdpCourseMessageJson['success'] == '1') {
+          showSuccessSnackBar(context, cdpCourseMessageJson['message']);
+        }
       }
-      // if (cdpCourseMessageJson['success'] == '0') {
-      //   showLoading(false, context);
-      //   Fluttertoast.showToast(
-      //       msg: cdpCourseMessageJson['message'],
-      //       toastLength: Toast.LENGTH_SHORT,
-      //       gravity: ToastGravity.BOTTOM,
-      //       timeInSecForIos: 1,
-      //       backgroundColor: Colors.grey[400],
-      //       textColor: Colors.black87,
-      //       fontSize: 13.0);
-      // }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);

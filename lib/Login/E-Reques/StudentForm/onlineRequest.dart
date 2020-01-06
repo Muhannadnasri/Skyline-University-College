@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/bottomAppBar.dart';
 import 'package:skyline_university/Global/customdropdown.dart';
+import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
 
@@ -37,7 +38,6 @@ class _OnlineRequestState extends State<OnlineRequest> {
   @override
   void initState() {
     super.initState();
-    onlineRequestTypeJson = [];
 
     getRequestType();
   }
@@ -47,23 +47,24 @@ class _OnlineRequestState extends State<OnlineRequest> {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
       resizeToAvoidBottomPadding: true,
-      bottomNavigationBar: onlineRequestTypeJson.isEmpty
-          ? Container()
-          : bottomappBar(
-              context,
-              () {
-                if (_onlineRequest.currentState.validate() &&
-                    requestId != null) {
-                  _onlineRequest.currentState.save();
-                  sendOnlineRequest();
-                } else {
-                  // return showErrorInput('Please check your input');
-                }
-              },
-            ),
+      bottomNavigationBar:
+          onlineRequestTypeJson == null || onlineRequestTypeJson.isEmpty
+              ? Container()
+              : bottomappBar(
+                  context,
+                  () {
+                    if (_onlineRequest.currentState.validate() &&
+                        requestId != null) {
+                      _onlineRequest.currentState.save();
+                      sendOnlineRequest();
+                    } else {
+                      // return showErrorInput('Please check your input');
+                    }
+                  },
+                ),
       appBar: appBarLogin(context, 'Online Request'),
-      body: onlineRequestTypeJson.isEmpty
-          ? Container()
+      body: onlineRequestTypeJson == null || onlineRequestTypeJson.isEmpty
+          ? exception(context)
           : GestureDetector(
               onTap: () {
                 FocusScope.of(context).requestFocus(new FocusNode());
@@ -175,7 +176,8 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                     child: Container(
                                       height: 25,
                                       child: Text(
-                                        requestAmountJson.isEmpty
+                                        requestAmountJson.isEmpty ||
+                                                requestAmountJson == null
                                             ? ''
                                             : requestAmountJson['data']
                                                         ['NormalAmount'] ==
@@ -228,7 +230,8 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                     child: Container(
                                       height: 25,
                                       child: Text(
-                                        requestAmountJson.isEmpty
+                                        requestAmountJson.isEmpty ||
+                                                requestAmountJson == null
                                             ? ''
                                             : requestAmountJson['data']
                                                         ['UrgentAmount'] ==
@@ -473,8 +476,12 @@ class _OnlineRequestState extends State<OnlineRequest> {
         );
 
         showLoading(false, context);
-
-        showSuccessSnackBar(context, onlineRequestJson['message']);
+        if (onlineRequestJson['success'] == '0') {
+          showfailureSnackBar(context, onlineRequestJson['message']);
+        }
+        if (onlineRequestJson['success'] == '1') {
+          showSuccessSnackBar(context, onlineRequestJson['message']);
+        }
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {

@@ -22,12 +22,11 @@ class FeeStructures extends StatefulWidget {
 
 class _FeeStructuresState extends State<FeeStructures> {
   List infoJson = [];
-
+  Map infoJsonMessage = {};
   @override
   void initState() {
     super.initState();
     getPrograms();
-
   }
 
   @override
@@ -36,10 +35,12 @@ class _FeeStructuresState extends State<FeeStructures> {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: appBar(context, 'Fee Structures'),
-      body: infoJson.isEmpty
-          ? exception(context,)
+      body: infoJson == null || infoJson.isEmpty
+          ? exception(
+              context,
+            )
           : Container(
-            child: ListView(
+              child: ListView(
                 children: <Widget>[
                   Column(
                     children: <Widget>[
@@ -85,7 +86,9 @@ class _FeeStructuresState extends State<FeeStructures> {
                                                   style: TextStyle(
                                                       decoration: TextDecoration
                                                           .underline,
-                                                      color: isDark(context)?Colors.white:Colors.black),
+                                                      color: isDark(context)
+                                                          ? Colors.white
+                                                          : Colors.black),
                                                 )),
                                           ],
                                         ),
@@ -111,7 +114,9 @@ class _FeeStructuresState extends State<FeeStructures> {
                                                   style: TextStyle(
                                                       decoration: TextDecoration
                                                           .underline,
-                                                         color: isDark(context)?Colors.white:Colors.black),
+                                                      color: isDark(context)
+                                                          ? Colors.white
+                                                          : Colors.black),
                                                 )),
                                           ],
                                         ),
@@ -137,7 +142,9 @@ class _FeeStructuresState extends State<FeeStructures> {
                                                   style: TextStyle(
                                                       decoration: TextDecoration
                                                           .underline,
-                                                         color: isDark(context)?Colors.white:Colors.black),
+                                                      color: isDark(context)
+                                                          ? Colors.white
+                                                          : Colors.black),
                                                 )),
                                           ],
                                         ),
@@ -163,7 +170,9 @@ class _FeeStructuresState extends State<FeeStructures> {
                                                   style: TextStyle(
                                                       decoration: TextDecoration
                                                           .underline,
-                                                         color: isDark(context)?Colors.white:Colors.black),
+                                                      color: isDark(context)
+                                                          ? Colors.white
+                                                          : Colors.black),
                                                 )),
                                           ],
                                         ),
@@ -189,7 +198,9 @@ class _FeeStructuresState extends State<FeeStructures> {
                                                   style: TextStyle(
                                                       decoration: TextDecoration
                                                           .underline,
-                                                         color: isDark(context)?Colors.white:Colors.black),
+                                                      color: isDark(context)
+                                                          ? Colors.white
+                                                          : Colors.black),
                                                 )),
                                           ],
                                         ),
@@ -229,7 +240,9 @@ class _FeeStructuresState extends State<FeeStructures> {
                                                   style: TextStyle(
                                                       decoration: TextDecoration
                                                           .underline,
-                                                         color: isDark(context)?Colors.white:Colors.black),
+                                                      color: isDark(context)
+                                                          ? Colors.white
+                                                          : Colors.black),
                                                 )),
                                           ],
                                         ),
@@ -255,7 +268,9 @@ class _FeeStructuresState extends State<FeeStructures> {
                                                   style: TextStyle(
                                                       decoration: TextDecoration
                                                           .underline,
-                                                         color: isDark(context)?Colors.white:Colors.black),
+                                                      color: isDark(context)
+                                                          ? Colors.white
+                                                          : Colors.black),
                                                 )),
                                           ],
                                         ),
@@ -281,7 +296,9 @@ class _FeeStructuresState extends State<FeeStructures> {
                                                   style: TextStyle(
                                                       decoration: TextDecoration
                                                           .underline,
-                                                         color: isDark(context)?Colors.white:Colors.black),
+                                                      color: isDark(context)
+                                                          ? Colors.white
+                                                          : Colors.black),
                                                 )),
                                           ],
                                         ),
@@ -307,7 +324,9 @@ class _FeeStructuresState extends State<FeeStructures> {
                                                   style: TextStyle(
                                                       decoration: TextDecoration
                                                           .underline,
-                                                         color: isDark(context)?Colors.white:Colors.black),
+                                                      color: isDark(context)
+                                                          ? Colors.white
+                                                          : Colors.black),
                                                 )),
                                           ],
                                         ),
@@ -333,7 +352,9 @@ class _FeeStructuresState extends State<FeeStructures> {
                                                   style: TextStyle(
                                                       decoration: TextDecoration
                                                           .underline,
-                                                         color: isDark(context)?Colors.white:Colors.black),
+                                                      color: isDark(context)
+                                                          ? Colors.white
+                                                          : Colors.black),
                                                 )),
                                           ],
                                         ),
@@ -359,7 +380,9 @@ class _FeeStructuresState extends State<FeeStructures> {
                                                   style: TextStyle(
                                                       decoration: TextDecoration
                                                           .underline,
-                                                         color: isDark(context)?Colors.white:Colors.black),
+                                                      color: isDark(context)
+                                                          ? Colors.white
+                                                          : Colors.black),
                                                 )),
                                           ],
                                         ),
@@ -385,7 +408,9 @@ class _FeeStructuresState extends State<FeeStructures> {
                                                   style: TextStyle(
                                                       decoration: TextDecoration
                                                           .underline,
-                                                         color: isDark(context)?Colors.white:Colors.black),
+                                                      color: isDark(context)
+                                                          ? Colors.white
+                                                          : Colors.black),
                                                 )),
                                           ],
                                         ),
@@ -411,7 +436,9 @@ class _FeeStructuresState extends State<FeeStructures> {
                                                   style: TextStyle(
                                                       decoration: TextDecoration
                                                           .underline,
-                                                         color: isDark(context)?Colors.white:Colors.black),
+                                                      color: isDark(context)
+                                                          ? Colors.white
+                                                          : Colors.black),
                                                 )),
                                           ],
                                         ),
@@ -451,7 +478,9 @@ class _FeeStructuresState extends State<FeeStructures> {
                                                   style: TextStyle(
                                                       decoration: TextDecoration
                                                           .underline,
-                                                         color: isDark(context)?Colors.white:Colors.black),
+                                                      color: isDark(context)
+                                                          ? Colors.white
+                                                          : Colors.black),
                                                 )),
                                           ],
                                         ),
@@ -477,7 +506,9 @@ class _FeeStructuresState extends State<FeeStructures> {
                                                   style: TextStyle(
                                                       decoration: TextDecoration
                                                           .underline,
-                                                         color: isDark(context)?Colors.white:Colors.black),
+                                                      color: isDark(context)
+                                                          ? Colors.white
+                                                          : Colors.black),
                                                 )),
                                           ],
                                         ),
@@ -503,7 +534,9 @@ class _FeeStructuresState extends State<FeeStructures> {
                                                   style: TextStyle(
                                                       decoration: TextDecoration
                                                           .underline,
-                                                         color: isDark(context)?Colors.white:Colors.black),
+                                                      color: isDark(context)
+                                                          ? Colors.white
+                                                          : Colors.black),
                                                 )),
                                           ],
                                         ),
@@ -529,7 +562,9 @@ class _FeeStructuresState extends State<FeeStructures> {
                                                   style: TextStyle(
                                                       decoration: TextDecoration
                                                           .underline,
-                                                         color: isDark(context)?Colors.white:Colors.black),
+                                                      color: isDark(context)
+                                                          ? Colors.white
+                                                          : Colors.black),
                                                 )),
                                           ],
                                         ),
@@ -555,7 +590,9 @@ class _FeeStructuresState extends State<FeeStructures> {
                                                   style: TextStyle(
                                                       decoration: TextDecoration
                                                           .underline,
-                                                         color: isDark(context)?Colors.white:Colors.black),
+                                                      color: isDark(context)
+                                                          ? Colors.white
+                                                          : Colors.black),
                                                 )),
                                           ],
                                         ),
@@ -575,7 +612,7 @@ class _FeeStructuresState extends State<FeeStructures> {
                   ),
                 ],
               ),
-          ),
+            ),
     );
   }
 
@@ -585,28 +622,27 @@ class _FeeStructuresState extends State<FeeStructures> {
     });
     try {
       http.Response response = await http.post(
-        Uri.encodeFull("https://skylineportal.com/moappad/api/web/getPageInfo"),
+        Uri.encodeFull("https://skylineportal.com/moappad/api/test/PageInfo"),
         headers: {
           "API-KEY": API,
         },
         body: {
-          'usertype': '1',
           'name': 'Fee Structures',
-          'ipaddress': '1',
-          'deviceid': '1',
-          'devicename': '1',
         },
       ).timeout(Duration(seconds: 35));
 
       if (response.statusCode == 200) {
         setState(() {
           infoJson = json.decode(response.body)['data'];
+          infoJsonMessage = json.decode(response.body);
         });
-        
+
         showLoading(false, context);
+        if (infoJsonMessage['success'] == '0') {
+          showfailureSnackBar(context, infoJsonMessage['message']);
+        }
       }
     } catch (x) {
-      
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 

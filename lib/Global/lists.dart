@@ -47,7 +47,7 @@ class _ListsState extends State<Lists> {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: appBar(context, '${widget.title}'),
-      body: lists == null
+      body: lists == null || lists.isEmpty
           ? exception(context)
           : Container(
               child: ListView.builder(

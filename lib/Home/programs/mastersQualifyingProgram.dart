@@ -6,6 +6,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBar.dart';
+import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Home/programs/undergraduateProgram.dart';
 
@@ -18,9 +19,9 @@ class MastersQualifyingProgram extends StatefulWidget {
   }
 }
 
-List programsJson = [];
-
 class _MastersQualifyingProgramState extends State<MastersQualifyingProgram> {
+  List programsJson = [];
+  Map programsJsonMessage = {};
   @override
   void initState() {
     super.initState();
@@ -34,8 +35,8 @@ class _MastersQualifyingProgramState extends State<MastersQualifyingProgram> {
       resizeToAvoidBottomPadding: false,
       appBar: appBar(context, 'Masters Qualifying Program'),
       body: Container(
-        child: programsJson == null
-            ? SizedBox()
+        child: programsJson == null || programsJson.isEmpty
+            ? exception(context)
             : ListView.builder(
                 itemCount: programsJson.length,
                 itemBuilder: (BuildContext context, int index) {
@@ -142,9 +143,13 @@ class _MastersQualifyingProgramState extends State<MastersQualifyingProgram> {
       if (response.statusCode == 200) {
         setState(() {
           programsJson = json.decode(response.body)['data'];
+          programsJsonMessage = json.decode(response.body);
         });
 
         showLoading(false, context);
+        if (programsJsonMessage['success'] == '0') {
+          showfailureSnackBar(context, programsJsonMessage['message']);
+        }
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {

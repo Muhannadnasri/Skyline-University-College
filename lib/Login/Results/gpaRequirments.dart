@@ -38,8 +38,7 @@ class _GetGPARequirmentsState extends State<GetGPARequirments> {
 
             // null
             gpaRequirmentsJson == null
-                ? exception(context 
-                   )
+                ? exception(context)
                 : Container(
                     child: ListView.builder(
                       itemCount: gpaRequirmentsJson.length,
@@ -142,16 +141,12 @@ class _GetGPARequirmentsState extends State<GetGPARequirments> {
     try {
       http.Response response = await http.post(
         Uri.encodeFull(
-            "https://skylineportal.com/moappad/api/web/getGPARequirments"),
+            "https://skylineportal.com/moappad/api/test/GPARequirments"),
         headers: {
           "API-KEY": API,
         },
         body: {
           'user_id': username,
-          'usertype': studentJson['data']['user_type'],
-          'ipaddress': '1',
-          'deviceid': '1',
-          'devicename': '1',
         },
       ).timeout(Duration(seconds: 35));
 

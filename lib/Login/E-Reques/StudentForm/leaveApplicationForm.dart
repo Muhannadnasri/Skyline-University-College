@@ -85,7 +85,7 @@ class _LeaveApplicationFormState extends State<LeaveApplicationForm> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           SizedBox(
-                            height: 10,
+                            height: 5,
                           ),
                           Align(
                             alignment: Alignment.centerLeft,
@@ -126,9 +126,6 @@ class _LeaveApplicationFormState extends State<LeaveApplicationForm> {
                           datePickers(context, (date) {
                             to = date.toString();
                           }, 'Leave To'),
-                          SizedBox(
-                            height: 10,
-                          ),
                           globalForms(
                             context,
                             '',
@@ -262,8 +259,12 @@ class _LeaveApplicationFormState extends State<LeaveApplicationForm> {
         );
         showLoading(false, context);
       }
-
-      showSuccessSnackBar(context, leaveApplicationFormJson['message']);
+      if (leaveApplicationFormJson['success'] == '0') {
+        showfailureSnackBar(context, leaveApplicationFormJson['message']);
+      }
+      if (leaveApplicationFormJson['success'] == '1') {
+        showSuccessSnackBar(context, leaveApplicationFormJson['message']);
+      }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
@@ -311,6 +312,7 @@ class _LeaveApplicationFormState extends State<LeaveApplicationForm> {
           onSaved: onSaved,
           readOnly: true,
           decoration: InputDecoration(
+            contentPadding: const EdgeInsets.fromLTRB(15.0, 15.0, 0.0, 0.0),
             enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(
                 color: isDark(context)

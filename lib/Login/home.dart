@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -207,12 +208,12 @@ class _HomeLoginState extends State<HomeLogin> {
                                 ),
                                 homeBox(
                                   context,
-                                  'images-white/circulars.png',
-                                  'images/circulars.png',
-                                  "/circulars",
+                                  'images-white/fees.png',
+                                  'images/fees.png',
+                                  "/HomeFees",
                                   Colors.white60,
                                   Colors.black,
-                                  'Circulars',
+                                  'Fees',
                                   Colors.white,
                                   Colors.black,
                                 ),
@@ -227,17 +228,6 @@ class _HomeLoginState extends State<HomeLogin> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: <Widget>[
-                                homeBox(
-                                  context,
-                                  'images-white/fees.png',
-                                  'images/fees.png',
-                                  "/HomeFees",
-                                  Colors.white60,
-                                  Colors.black,
-                                  'Fees',
-                                  Colors.white,
-                                  Colors.black,
-                                ),
                                 homeBox(
                                   context,
                                   'images-white/erequest.png',
@@ -431,6 +421,7 @@ class _HomeLoginState extends State<HomeLogin> {
                   ZigZag(
                     clipType: ClipType.waved,
                     child: Container(
+                      width: MediaQuery.of(context).size.width,
                       child: Padding(
                         padding: const EdgeInsets.only(top: 30),
                         child: Row(
@@ -475,22 +466,14 @@ class _HomeLoginState extends State<HomeLogin> {
                                         width: 10,
                                       ),
                                       Container(
+                                        padding: const EdgeInsets.all(8.0),
                                         width:
-                                            MediaQuery.of(context).size.width *
-                                                0.5,
-                                        child: Column(
-                                          children: <Widget>[
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                studentJson['data']['name']
-                                                    .toString(),
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                              ),
-                                            ),
-                                          ],
+                                            MediaQuery.of(context).size.width /
+                                                2,
+                                        child: Text(
+                                          studentJson['data']['name']
+                                              .toString(),
+                                          style: TextStyle(color: Colors.white),
                                         ),
                                       ),
                                     ],
@@ -521,9 +504,13 @@ class _HomeLoginState extends State<HomeLogin> {
                                             SizedBox(
                                               width: 10,
                                             ),
-                                            Padding(
+                                            Container(
                                               padding:
                                                   const EdgeInsets.all(8.0),
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  2,
                                               child: Text(
                                                 studentJson['data']['program']
                                                     .toString(),
@@ -555,8 +542,11 @@ class _HomeLoginState extends State<HomeLogin> {
                                       SizedBox(
                                         width: 10,
                                       ),
-                                      Padding(
+                                      Container(
                                         padding: const EdgeInsets.all(8.0),
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                2,
                                         child: Text(
                                           studentJson['data']['acadyear_desc']
                                               .toString(),

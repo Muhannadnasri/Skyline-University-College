@@ -184,23 +184,26 @@ class _ApptitudeTestState extends State<ApptitudeTest> {
         );
         showLoading(false, context);
       }
-      if (completedAptitudesJson['success'] == '1') {
-        showSuccessSnackBar(completedAptitudesJson['message'], context);
 
+      if (completedAptitudesJson['success'] == '0') {
+        showfailureSnackBar(context, completedAptitudesJson['message']);
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (BuildContext context) => Home()),
             (Route<dynamic> route) => false);
-      } else if (completedAptitudesJson['success'] == '0') {
-        showSuccessSnackBar(completedAptitudesJson['message'], context);
+      }
+      if (completedAptitudesJson['success'] == '1') {
+        showSuccessSnackBar(context, completedAptitudesJson['message']);
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
-        // showErrorServer(context, sendAptitudes());
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, completedAptitudes);
       } else {
         showLoading(false, context);
-        // showErrorConnect(context, sendAptitudes);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            completedAptitudes);
       }
     }
   }
@@ -213,7 +216,7 @@ class _ApptitudeTestState extends State<ApptitudeTest> {
     try {
       final response = await http.post(
         Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/web/apptitudeAnswer'),
+            'https://skylineportal.com/moappad/api/test/apptitudeAnswer'),
         headers: {
           "API-KEY": API,
         },
@@ -239,10 +242,12 @@ class _ApptitudeTestState extends State<ApptitudeTest> {
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
-        // showErrorServer(context, sendAptitudes());
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, sendAptitudes);
       } else {
         showLoading(false, context);
-        // showErrorConnect(context, sendAptitudes());
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            sendAptitudes);
       }
     }
   }

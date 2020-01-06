@@ -6,6 +6,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBar.dart';
+import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/global.dart';
 
 void main() => runApp(GraduateProgram());
@@ -30,6 +31,7 @@ class GraduateProgram extends StatefulWidget {
 
 class _GraduateProgramState extends State<GraduateProgram> {
   List programITJson = [];
+  Map programITJsonMessage = {};
   @override
   void initState() {
     getprogramIT();
@@ -43,78 +45,84 @@ class _GraduateProgramState extends State<GraduateProgram> {
     return Scaffold(
         resizeToAvoidBottomPadding: false,
         appBar: appBar(context, 'Program'),
-        body: ListView.builder(
-          itemCount: programITJson.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Column(
-              children: <Widget>[
-                programITJson[index]['content_type'] == 'url'
-                    ? Container(
-                        child: Image.network(
-                          programITJson[index]['content'],
-                          fit: BoxFit.contain,
-                        ),
-                      )
-                    : SizedBox(),
-                Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+        body: programITJson == null || programITJson.isEmpty
+            ? exception(context)
+            : ListView.builder(
+                itemCount: programITJson.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Column(
                     children: <Widget>[
                       programITJson[index]['content_type'] == 'url'
-                          ? SizedBox()
-                          : Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Text(
-                                programITJson[index]['name'],
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: isDark(context)
-                                        ? Colors.white
-                                        : Colors.black),
+                          ? Container(
+                              child: Image.network(
+                                programITJson[index]['content'],
+                                fit: BoxFit.contain,
                               ),
+                            )
+                          : SizedBox(),
+                      Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            programITJson[index]['content_type'] == 'url'
+                                ? SizedBox()
+                                : Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Text(
+                                      programITJson[index]['name'],
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: isDark(context)
+                                              ? Colors.white
+                                              : Colors.black),
+                                    ),
+                                  ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 15.0, top: 5),
+                              child:
+                                  programITJson[index]['content_type'] == 'url'
+                                      ? SizedBox()
+                                      : Container(
+                                          width: 100,
+                                          decoration: UnderlineTabIndicator(
+                                              borderSide: BorderSide(
+                                                  width: 3,
+                                                  color: Colors.blue,
+                                                  style: BorderStyle.solid)),
+                                        ),
                             ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 15.0, top: 5),
-                        child: programITJson[index]['content_type'] == 'url'
-                            ? SizedBox()
-                            : Container(
-                                width: 100,
-                                decoration: UnderlineTabIndicator(
-                                    borderSide: BorderSide(
-                                        width: 3,
-                                        color: Colors.blue,
-                                        style: BorderStyle.solid)),
-                              ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: programITJson[index]['content_type'] ==
+                                      'url'
+                                  ? SizedBox()
+                                  : Container(
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: new BorderRadius.only(
+                                            topLeft: Radius.circular(35.0),
+                                            topRight: Radius.circular(35.0),
+                                          )),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Html(
+                                            data: programITJson[index]
+                                                ['content']),
+                                      ),
+                                    ),
+                            )
+                          ],
+                        ),
                       ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: programITJson[index]['content_type'] == 'url'
-                            ? SizedBox()
-                            : Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: new BorderRadius.only(
-                                      topLeft: Radius.circular(35.0),
-                                      topRight: Radius.circular(35.0),
-                                    )),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Html(
-                                      data: programITJson[index]['content']),
-                                ),
-                              ),
-                      )
                     ],
-                  ),
-                ),
-              ],
-            );
-          },
-        ));
+                  );
+                },
+              ));
   }
 
   Future getprogramIT() async {
@@ -140,9 +148,13 @@ class _GraduateProgramState extends State<GraduateProgram> {
       if (response.statusCode == 200) {
         setState(() {
           programITJson = json.decode(response.body)['data'];
+          programITJsonMessage = json.decode(response.body);
         });
 
         showLoading(false, context);
+        if (programITJsonMessage['success'] == '0') {
+          showfailureSnackBar(context, programITJsonMessage['message']);
+        }
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {

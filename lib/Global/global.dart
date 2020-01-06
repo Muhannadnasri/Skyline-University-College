@@ -164,8 +164,8 @@ void showSuccessSnackBar(BuildContext context, message) {
               Color(0xFF1F1F1F),
             ]
           : [
-              Color(0xFF104C90),
-              Color(0xFF3773AC),
+              Color(0xFF67B26F),
+              Color(0xFF4ca2cd),
             ],
       stops: [0.7, 0.9],
     ),
@@ -181,6 +181,9 @@ void showSuccessSnackBar(BuildContext context, message) {
     dismissDirection: FlushbarDismissDirection.VERTICAL,
     // The default curve is Curves.easeOut
     forwardAnimationCurve: Curves.fastLinearToSlowEaseIn,
+    onStatusChanged: (FlushbarStatus) {
+      Navigator.pop(context);
+    },
     title: 'Success',
     message: message,
   )..show(context);
@@ -198,8 +201,8 @@ void showfailureSnackBar(BuildContext context, message) {
               Color(0xFF1F1F1F),
             ]
           : [
-              Color(0xFF104C90),
-              Color(0xFF3773AC),
+              Color(0xFFe52d27),
+              Color(0xFFb31217),
             ],
       stops: [0.7, 0.9],
     ),
@@ -210,6 +213,9 @@ void showfailureSnackBar(BuildContext context, message) {
         blurRadius: 10,
       ),
     ],
+    onStatusChanged: (FlushbarStatus) {
+      Navigator.pop(context);
+    },
     // All of the previous Flushbars could be dismissed by swiping down
     // now we want to swipe to the sides
     dismissDirection: FlushbarDismissDirection.VERTICAL,
@@ -223,8 +229,6 @@ void showfailureSnackBar(BuildContext context, message) {
 textField() {
   return null;
 }
-
-
 
 void showError(String msg, IconData icon, context, action) {
   showDialog(

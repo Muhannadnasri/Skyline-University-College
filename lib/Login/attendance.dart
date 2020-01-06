@@ -24,27 +24,15 @@ class Attendance extends StatefulWidget {
 
 class _AttendanceState extends State<Attendance> {
   List attendanceJson = [];
-  GlobalKey _fabKey = GlobalObjectKey("fab");
 
   @override
   void initState() {
     super.initState();
     getStudentAttendance();
-    attendanceJson = [];
-  }
-
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: ShowCaseWidget(
-        builder: Builder(
-          builder: (context) => body(context),
-        ),
-      ),
-    );
   }
 
   @override
-  Widget body(BuildContext context) {
+  Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
         appBar: appBarLogin(context, 'Attendance'),
@@ -134,6 +122,7 @@ class _AttendanceState extends State<Attendance> {
                                           child: Icon(
                                             FontAwesomeIcons.ellipsisH,
                                             color: Colors.white,
+                                            size: 18,
                                           ),
                                         ),
                                       ),

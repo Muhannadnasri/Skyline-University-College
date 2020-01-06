@@ -106,9 +106,7 @@ class _LocationState extends State<Location> {
                                 Center(
                                     child: Icon(
                                   Icons.near_me,
-                                  color: isDark(context)
-                                      ? Colors.white
-                                      : Colors.black,
+                                  color: Colors.white,
                                   size: 23,
                                 )
                                     // Text(

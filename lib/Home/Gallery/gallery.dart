@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:skyline_university/Global/appBar.dart';
+import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:transparent_image/transparent_image.dart';
 
@@ -20,18 +21,16 @@ class Gallery extends StatefulWidget {
   }
 }
 
-List galleries = [];
-
-File dataFile;
-
-Map galleryJson = {};
-Map<String, String> body;
-
 class _GalleryState extends State<Gallery> {
+  List galleries = [];
+
+  File dataFile;
+
+  Map galleryJson = {};
+  Map<String, String> body;
   @override
   void initState() {
     super.initState();
-    galleries.clear();
     getGallery();
   }
 
@@ -41,84 +40,88 @@ class _GalleryState extends State<Gallery> {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: appBar(context, 'Gallery'),
-      body: Container(
-        child: ListView.builder(
-            itemCount: galleries.length,
-            itemBuilder: (BuildContext context, int index) {
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => OneGallery(
-                        oneGalleryPhotos: galleries[index]['photos'],
-                        oneGalleryTitle: galleries[index]['Event_Name'],
-                      ),
-                    ),
-                  );
-                },
-                child: galleries[index]['photos'].isEmpty |
-                        galleries[index]['Image_Number'].isEmpty |
-                        galleries[index]['Event_Name'].isEmpty
-                    ? SizedBox()
-                    : Padding(
-                        padding: const EdgeInsets.only(top: 5),
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          elevation: 10,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Stack(
-                              alignment: Alignment.bottomCenter,
-                              children: <Widget>[
-                                FadeInImage.memoryNetwork(
-                                  fadeOutCurve: Curves.easeOut,
-                                  fit: BoxFit.cover,
-                                  placeholder: kTransparentImage,
-                                  image: galleries[index]['Back_Image'],
-                                  width: 400,
-                                  height: 130,
-                                ),
-                                Container(
-                                  color: Colors.black26,
-                                  width: 400,
-                                  height: 130,
-                                ),
-                                Container(
-                                  color: Colors.black.withOpacity(0.6),
-                                  height: 50,
-                                  width: 400,
-                                  child: Column(
+      body: galleries == null || galleries.isEmpty
+          ? exception(context)
+          : Container(
+              child: ListView.builder(
+                  itemCount: galleries.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => OneGallery(
+                              oneGalleryPhotos: galleries[index]['photos'],
+                              oneGalleryTitle: galleries[index]['Event_Name'],
+                            ),
+                          ),
+                        );
+                      },
+                      child: galleries[index]['photos'].isEmpty |
+                              galleries[index]['Image_Number'].isEmpty |
+                              galleries[index]['Event_Name'].isEmpty
+                          ? SizedBox()
+                          : Padding(
+                              padding: const EdgeInsets.only(top: 5),
+                              child: Card(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                                elevation: 10,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Stack(
+                                    alignment: Alignment.bottomCenter,
                                     children: <Widget>[
-                                      SizedBox(
-                                        height: 5,
+                                      FadeInImage.memoryNetwork(
+                                        fadeOutCurve: Curves.easeOut,
+                                        fit: BoxFit.cover,
+                                        placeholder: kTransparentImage,
+                                        image: galleries[index]['Back_Image'],
+                                        width: 400,
+                                        height: 130,
                                       ),
-                                      FittedBox(
-                                        child: Text(
-                                          galleries[index]['Event_Name'],
-                                          style: TextStyle(color: Colors.white),
+                                      Container(
+                                        color: Colors.black26,
+                                        width: 400,
+                                        height: 130,
+                                      ),
+                                      Container(
+                                        color: Colors.black.withOpacity(0.6),
+                                        height: 50,
+                                        width: 400,
+                                        child: Column(
+                                          children: <Widget>[
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            FittedBox(
+                                              child: Text(
+                                                galleries[index]['Event_Name'],
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 2,
+                                            ),
+                                            Text(
+                                              galleries[index]['Image_Number'],
+                                              style: TextStyle(
+                                                  color: Colors.white54),
+                                            ),
+                                          ],
                                         ),
-                                      ),
-                                      SizedBox(
-                                        height: 2,
-                                      ),
-                                      Text(
-                                        galleries[index]['Image_Number'],
-                                        style: TextStyle(color: Colors.white54),
                                       ),
                                     ],
                                   ),
                                 ),
-                              ],
+                              ),
                             ),
-                          ),
-                        ),
-                      ),
-              );
-            }),
-      ),
+                    );
+                  }),
+            ),
     );
   }
 

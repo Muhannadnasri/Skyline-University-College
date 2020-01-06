@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/bottomAppBar.dart';
 import 'package:skyline_university/Global/dropDownWidget.dart';
+import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
 
@@ -20,12 +21,10 @@ class ChangeClassTime extends StatefulWidget {
   }
 }
 
-// Map<String, int> body;
-
 class _ChangeClassTimeState extends State<ChangeClassTime> {
   final _reason = GlobalKey<FormState>();
 
-  Map currentTimeMessageJson = {};
+
   Map currentTimeJson = {};
   List currentAndNewShiftJson = [];
   Map changeClassTimingJson = {};
@@ -38,7 +37,6 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
     super.initState();
 
     getCurrentAndNewShift();
-    currentTimeJson.clear();
   }
 
   @override
@@ -46,7 +44,7 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      bottomNavigationBar: currentTimeJson.isEmpty
+      bottomNavigationBar: currentTimeJson == null || currentTimeJson.isEmpty
           ? Container()
           : bottomappBar(
               context,
@@ -64,8 +62,8 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
         context,
         'Change Class Time',
       ),
-      body: currentTimeJson.isEmpty
-          ? Container()
+      body: currentTimeJson == null || currentTimeJson.isEmpty
+          ? exception(context)
           : GestureDetector(
               onTap: () {
                 FocusScope.of(context).requestFocus(new FocusNode());
@@ -127,7 +125,7 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
                                 ),
                         ),
                         child: Text(
-                          currentTimeJson.isEmpty
+                          currentTimeJson.isEmpty || currentTimeJson == null
                               ? ''
                               : currentTimeJson['Shift_Desc'] == 'NA'
                                   ? ''
@@ -199,7 +197,6 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
       if (response.statusCode == 200) {
         setState(
           () {
-            currentTimeMessageJson = json.decode(response.body);
             currentTimeJson =
                 json.decode(response.body)['data']['current_shift'];
 
@@ -209,6 +206,7 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
         );
 
         showLoading(false, context);
+       
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
@@ -250,8 +248,12 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
           },
         );
         showLoading(false, context);
-
-        showSuccessSnackBar(context, changeClassTimingJson['message']);
+        if (changeClassTimingJson['success'] == '0') {
+          showfailureSnackBar(context, changeClassTimingJson['message']);
+        }
+        if (changeClassTimingJson['success'] == '1') {
+          showSuccessSnackBar(context, changeClassTimingJson['message']);
+        }
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {

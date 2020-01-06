@@ -42,126 +42,92 @@ class _AssessmentMarkCoursesState extends State<AssessmentMarkCourses> {
                 child: ListView.builder(
                   itemCount: assessmentMarkCoursesJson.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => AssessmentMarks(
-                                classID: assessmentMarkCoursesJson[index]['cid']
-                                    .toString()),
-                          ),
-                        );
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          elevation: 10,
-                          child: Column(
-                            children: <Widget>[
-                              Container(
-                                decoration: new BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
-                                    gradient: isDark(context)
-                                        ? LinearGradient(
-                                            begin: Alignment.topCenter,
-                                            end: Alignment.bottomCenter,
-                                            colors: [
-                                              Color(0xFF1F1F1F),
-                                              Color(0xFF1F1F1F),
-                                            ],
-                                            stops: [
-                                              0.7,
-                                              0.9,
-                                            ],
-                                          )
-                                        : LinearGradient(
-                                            begin: Alignment.topLeft,
-                                            end: Alignment.bottomRight,
-                                            colors: [
-                                              Color(0xFF104C90),
-                                              Color(0xFF3773AC),
-                                            ],
-                                            stops: [
-                                              0.7,
-                                              0.9,
-                                            ],
-                                          )),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: Row(
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 5),
-                                          child: Text(
-                                            assessmentMarkCoursesJson[index]
-                                                ['cname'],
-                                            style: TextStyle(
-                                                color: isDark(context)
-                                                    ? Colors.white
-                                                    : Colors.white),
-                                          ),
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        elevation: 10,
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              decoration: new BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)),
+                                  gradient: isDark(context)
+                                      ? LinearGradient(
+                                          begin: Alignment.topCenter,
+                                          end: Alignment.bottomCenter,
+                                          colors: [
+                                            Color(0xFF1F1F1F),
+                                            Color(0xFF1F1F1F),
+                                          ],
+                                          stops: [
+                                            0.7,
+                                            0.9,
+                                          ],
+                                        )
+                                      : LinearGradient(
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
+                                          colors: [
+                                            Color(0xFF104C90),
+                                            Color(0xFF3773AC),
+                                          ],
+                                          stops: [
+                                            0.7,
+                                            0.9,
+                                          ],
+                                        )),
+                              child: Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(left: 5),
+                                        child: Text(
+                                          assessmentMarkCoursesJson[index]
+                                              ['cname'],
+                                          style: TextStyle(
+                                              color: isDark(context)
+                                                  ? Colors.white
+                                                  : Colors.white),
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Row(
-                                  children: <Widget>[
-                                    Text('Faculty Name : ',
-                                        style: TextStyle(
-                                            color: isDark(context)
-                                                ? Colors.white
-                                                : Colors.black)),
-                                    Expanded(
-                                      child: Text(
-                                          assessmentMarkCoursesJson[index]
-                                                  ['staff_name']
-                                              .toString(),
-                                          style: TextStyle(
-                                              color: isDark(context)
-                                                  ? Colors.white
-                                                  : Colors.black)),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => AssessmentMarks(
+                                                classID:
+                                                    assessmentMarkCoursesJson[
+                                                            index]['cid']
+                                                        .toString()),
+                                          ),
+                                        );
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: Icon(
+                                          FontAwesomeIcons.ellipsisH,
+                                          color: Colors.white,
+                                          size: 18,
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text("Batch Code : ",
-                                        style: TextStyle(
-                                            color: isDark(context)
-                                                ? Colors.white
-                                                : Colors.black)),
-                                    Expanded(
-                                      child: Text(
-                                          assessmentMarkCoursesJson[index]
-                                                  ['cid']
-                                              .toString(),
-                                          style: TextStyle(
-                                              color: isDark(context)
-                                                  ? Colors.white
-                                                  : Colors.black)),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Row(children: <Widget>[
-                                  Text("Semester  : ",
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Row(
+                                children: <Widget>[
+                                  Text('Faculty Name : ',
                                       style: TextStyle(
                                           color: isDark(context)
                                               ? Colors.white
@@ -169,17 +135,59 @@ class _AssessmentMarkCoursesState extends State<AssessmentMarkCourses> {
                                   Expanded(
                                     child: Text(
                                         assessmentMarkCoursesJson[index]
-                                                ['SemesterName']
+                                                ['staff_name']
                                             .toString(),
                                         style: TextStyle(
                                             color: isDark(context)
                                                 ? Colors.white
                                                 : Colors.black)),
                                   ),
-                                ]),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  Text("Batch Code : ",
+                                      style: TextStyle(
+                                          color: isDark(context)
+                                              ? Colors.white
+                                              : Colors.black)),
+                                  Expanded(
+                                    child: Text(
+                                        assessmentMarkCoursesJson[index]['cid']
+                                            .toString(),
+                                        style: TextStyle(
+                                            color: isDark(context)
+                                                ? Colors.white
+                                                : Colors.black)),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Row(children: <Widget>[
+                                Text("Semester  : ",
+                                    style: TextStyle(
+                                        color: isDark(context)
+                                            ? Colors.white
+                                            : Colors.black)),
+                                Expanded(
+                                  child: Text(
+                                      assessmentMarkCoursesJson[index]
+                                              ['SemesterName']
+                                          .toString(),
+                                      style: TextStyle(
+                                          color: isDark(context)
+                                              ? Colors.white
+                                              : Colors.black)),
+                                ),
+                              ]),
+                            ),
+                          ],
                         ),
                       ),
                     );

@@ -52,7 +52,7 @@ class _ReinStatementState extends State<ReinStatement> {
             if (_documentry.currentState.validate()) {
               _documentry.currentState.save();
 
-              getReinStatement();
+              sendReinStatement();
             } else {
               checkValue = true;
             }
@@ -318,7 +318,7 @@ class _ReinStatementState extends State<ReinStatement> {
     );
   }
 
-  Future getReinStatement() async {
+  Future sendReinStatement() async {
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
     });
@@ -350,17 +350,21 @@ class _ReinStatementState extends State<ReinStatement> {
         );
         showLoading(false, context);
       }
-
-      showSuccessSnackBar(context, reinStatementJson['message']);
+      if (reinStatementJson['success'] == '0') {
+        showfailureSnackBar(context, reinStatementJson['message']);
+      }
+      if (reinStatementJson['success'] == '1') {
+        showSuccessSnackBar(context, reinStatementJson['message']);
+      }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
         showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-            context, getReinStatement);
+            context, sendReinStatement);
       } else {
         showLoading(false, context);
         showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-            getReinStatement);
+            sendReinStatement);
       }
     }
   }
