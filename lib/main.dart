@@ -12,12 +12,17 @@ import 'Home/Chat/chat.dart';
 import 'Home/FAQ/faq.dart';
 import 'Home/Gallery/gallery.dart';
 import 'Home/Info/HomeInfo.dart';
+
 import 'Home/Info/faculty.dart';
 import 'Home/Info/info.dart';
+import 'Home/Info/infoDetails.dart';
+
 import 'Home/Info/studentLife.dart';
+
 import 'Home/Info/virtual.dart';
 import 'Home/Location/location.dart';
 import 'Home/home.dart';
+import 'Home/profile.dart';
 import 'Home/programs/ProfessionalCourses.dart';
 import 'Home/programs/centreContinuingLearning.dart';
 import 'Home/programs/englishLanguageCentre.dart';
@@ -31,13 +36,12 @@ import 'Home/programs/scholarship.dart';
 import 'Home/programs/undergraduateBusiness.dart';
 import 'Home/programs/undergraduateIT.dart';
 import 'Login/ClassHome.dart';
-
 import 'Login/E-Reques/FacForm/bookrequistion.dart';
 import 'Login/E-Reques/FacForm/conference.dart';
 import 'Login/E-Reques/FacForm/leaveapplication.dart';
 import 'Login/E-Reques/FacForm/permissionToLeave.dart';
-import 'Login/E-Reques/StudentForm/reinstatment.dart';
 import 'Login/E-Reques/FacForm/salaryCertificate.dart';
+import 'Login/E-Reques/StudentForm/advisorAppointment.dart';
 import 'Login/E-Reques/StudentForm/changeClassTime.dart';
 import 'Login/E-Reques/StudentForm/courseWithdrawal.dart';
 import 'Login/E-Reques/StudentForm/generalAppointment.dart';
@@ -45,14 +49,13 @@ import 'Login/E-Reques/StudentForm/leaveApplicationForm.dart';
 import 'Login/E-Reques/StudentForm/onlineRequest.dart';
 import 'Login/E-Reques/StudentForm/passportRetaining.dart';
 import 'Login/E-Reques/StudentForm/passportWithdrawal.dart';
+import 'Login/E-Reques/StudentForm/reinstatment.dart';
 import 'Login/E-Reques/home.dart';
-
 import 'Login/Results/finalGradeResult.dart';
 import 'Login/Results/gpaRequirments.dart';
 import 'Login/Results/midTermMarks.dart';
 import 'Login/Results/resultHome.dart';
 import 'Login/Results/studentGPAProfile.dart';
-import 'Login/E-Reques/StudentForm/advisorAppointment.dart';
 import 'Login/advisors.dart';
 import 'Login/assessmentMarkCourses.dart';
 import 'Login/attendance.dart';
@@ -163,7 +166,8 @@ class MyAppState extends State<MyApp> {
           '/ChangeClassTime': (context) => ChangeClassTime(),
           '/reinStatement': (context) => ReinStatement(),
           '/courseWithdrawal': (context) => CourseWithdrawal(),
-          // '/UpdateInformation': (context) => UpdateInformation(),
+          
+          '/UpdateInformation': (context) => Profile(),
           '/cdpDownload': (context) => CDPDownload(),
           '/leaveApplication': (context) => LeaveApplication(),
           '/passportWithdrawal': (context) => PassportWithdrawal(),
@@ -189,21 +193,34 @@ class MyAppState extends State<MyApp> {
           // '/attendanceCalendar': (context) => AttendanceCalendar(),
           '/homePrograms': (context) => HomePrograms(),
           '/underGraduateBusiness': (context) => UndergraduateBusiness(),
-          '/underGraduateIT': (context) => UndergraduateIT(
-            
-          ),
+          '/underGraduateIT': (context) => UndergraduateIT(),
           '/homeUndergraduate': (context) => HomeUndergraduate(),
           '/leaveApplicationForm': (context) => LeaveApplicationForm(),
           '/info': (context) => Info(),
           '/professionalCourses': (context) => ProfessionalCourses(),
+          '/glance': (context) => InfoDetails(
+                name: 'SUC Info',
+              ),
+          '/goals': (context) => InfoDetails(
+                name: 'SUC Goals',
+              ),
+          '/board': (context) => InfoDetails(
+                name: 'SUC Board',
+              ),
 
-          // '/glance': (context) => Glance(),
-          // '/goals': (context) => Goals(),
-          // '/board': (context) => Board(),
-          // '/founder': (context) => Founder(),
-          // '/council': (context) => Council(),
-          // '/dean': (context) => Dean(),
-          // '/committees': (context) => Committees(),
+          '/founder': (context) => InfoDetails(
+                name: 'SUC Founder',
+              ),
+          '/council': (context) => InfoDetails(
+                name: 'SUC Council',
+              ),
+
+          '/committees': (context) => InfoDetails(
+                name: 'SUC Committees',
+              ),
+          '/dean': (context) => InfoDetails(
+                name: 'SUC Dean',
+              ),
           '/homeGraduate': (context) => HomeGraduate(),
           // '/professionalProgram': (context) => ProfessionalProgram(),
           '/centreContinuingLearning': (context) => CentreContinuingLearning(),
@@ -214,10 +231,17 @@ class MyAppState extends State<MyApp> {
           '/scholarship': (context) => Scholarship(),
           '/feeStructures': (context) => FeeStructures(),
           '/studentLife': (context) => StudentLife(),
-          // '/internationalStudents': (context) => InternationalStudents(),
-          // '/knowMoreAboutSkyline': (context) => KnowMoreAboutSkyline(),
-          // '/studentServicesDepartment': (context) =>
-          //     StudentServicesDepartment(),
+
+          '/internationalStudents': (context) => InfoDetails(
+                name: 'International Students',
+              ),
+
+          '/knowMoreAboutSkyline': (context) => InfoDetails(
+                name: 'Know More About Skyline',
+              ),
+          '/studentServicesDepartment': (context) => InfoDetails(
+                name: 'Student Services Department',
+              ),
           '/news': (context) => Lists(
                 title: 'News',
                 value: 'news',
@@ -226,11 +250,20 @@ class MyAppState extends State<MyApp> {
                 title: 'Events',
                 value: 'events',
               ),
-          // '/academicAdvisingAndMentoring': (context) =>
-          //     AcademicAdvisingAndMentoring(),
-          // '/clubs': (context) => Clubs(),
-          // '/studentEventCommittees': (context) => StudentEventCommittees(),
-          // '/sportsDepartment': (context) => SportsDepartment(),
+
+          '/academicAdvisingAndMentoring': (context) => InfoDetails(
+                name: 'Academic Advising And Mentoring',
+              ),
+
+          '/clubs': (context) => InfoDetails(
+                name: 'Clubs',
+              ),
+          '/studentEventCommittees': (context) => InfoDetails(
+                name: 'Student Event Committees',
+              ),
+          '/sportsDepartment': (context) => InfoDetails(
+                name: 'Sports Department',
+              ),
           // '/courseAllocationMorning': (context) => CourseAllocationMorning(),
           '/courseAllocationEvening': (context) => CourseAllocationEvening(),
           // '/courseAllocationWeekend': (context) => CourseAllocationWeekend(),
@@ -238,8 +271,6 @@ class MyAppState extends State<MyApp> {
           // '/announcements': (context) => Announcements(),
           '/notifications': (context) => Notifications(),
           '/cdpFaculty': (context) => CdpFaculty(),
-          // '/': (context) => Internet(),
-          //internet
         },
       ),
     );
