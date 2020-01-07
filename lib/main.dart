@@ -50,6 +50,9 @@ import 'Login/E-Reques/StudentForm/onlineRequest.dart';
 import 'Login/E-Reques/StudentForm/passportRetaining.dart';
 import 'Login/E-Reques/StudentForm/passportWithdrawal.dart';
 import 'Login/E-Reques/StudentForm/reinstatment.dart';
+import 'Login/E-Reques/StudentForm/visitorInfoAr.dart';
+import 'Login/E-Reques/StudentForm/visitorInfoEn.dart';
+import 'Login/E-Reques/StudentForm/visitorInfoLan.dart';
 import 'Login/E-Reques/home.dart';
 import 'Login/Results/finalGradeResult.dart';
 import 'Login/Results/gpaRequirments.dart';
@@ -166,7 +169,7 @@ class MyAppState extends State<MyApp> {
           '/ChangeClassTime': (context) => ChangeClassTime(),
           '/reinStatement': (context) => ReinStatement(),
           '/courseWithdrawal': (context) => CourseWithdrawal(),
-          
+
           '/UpdateInformation': (context) => Profile(),
           '/cdpDownload': (context) => CDPDownload(),
           '/leaveApplication': (context) => LeaveApplication(),
@@ -221,6 +224,11 @@ class MyAppState extends State<MyApp> {
           '/dean': (context) => InfoDetails(
                 name: 'SUC Dean',
               ),
+
+          '/visitorInfoLan': (context) => VisitorInfoLan(),
+          '/visitorInfoEn': (context) => VisitorInfoEn(),
+          '/visitorInfoAr': (context) => VisitorInfoAr(),
+
           '/homeGraduate': (context) => HomeGraduate(),
           // '/professionalProgram': (context) => ProfessionalProgram(),
           '/centreContinuingLearning': (context) => CentreContinuingLearning(),
