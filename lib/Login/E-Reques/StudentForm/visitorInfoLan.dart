@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:skyline_university/Global/appBarLogin.dart';
+import 'package:skyline_university/Global/global.dart';
+import 'package:skyline_university/Login/E-Reques/StudentForm/visitorInfo.dart';
 
 void main() => runApp(VisitorInfoLan());
 
@@ -12,6 +14,7 @@ class VisitorInfoLan extends StatefulWidget {
 }
 
 class _VisitorInfoLanState extends State<VisitorInfoLan> {
+  bool languageAr = false;
   @override
   void initState() {
     super.initState();
@@ -28,33 +31,93 @@ class _VisitorInfoLanState extends State<VisitorInfoLan> {
           context,
           'Visitor Information',
         ),
-        body: ListView(
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
+            Text(
+              'Please Choose Your Language',
+              style: TextStyle(
+                  // letterSpacing: 1,
+                  fontSize: 20,
+                  color: isDark(context) ? Colors.white : Colors.black),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 9,
+            ),
             Center(
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, '/visitorInfoEn');
-                      },
-                      child: Container(
-                          child: Icon(
-                        Icons.language,
-                        color: Colors.white,
-                      ))),
-                  GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, '/visitorInfoAr');
-                      },
-                      child: Container(
-                          child: Icon(
-                        Icons.local_drink,
-                        color: Colors.white,
-                      ))),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => VisitorInfo(
+                                languageAr: false,
+                              ),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          height: 80,
+                          width: 80,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage('images/usa.png'))),
+                        ),
+                      ),
+                      Text(
+                        'English',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17,
+                            color:
+                                isDark(context) ? Colors.white : Colors.black),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => VisitorInfo(
+                                  languageAr: true,
+                                ),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            height: 80,
+                            width: 80,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage('images/uae.png'))),
+                          )),
+                      Text(
+                        'Arabic',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17,
+                            color:
+                                isDark(context) ? Colors.white : Colors.black),
+                      ),
+                    ],
+                  ),
                 ],
               ),
-            )
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 10,
+            ),
           ],
         ));
   }

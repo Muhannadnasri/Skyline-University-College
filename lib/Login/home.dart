@@ -496,7 +496,8 @@ class _HomeLoginState extends State<HomeLogin> {
                                                 ],
                                               ),
                                               child: Image.asset(
-                                                'images/degree.png',
+                                                isDark(context)?'images-white/specialization.png':
+                                                'images/specialization.png',
                                                 height: 25,
                                               ),
                                             ),
@@ -534,6 +535,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                           ],
                                         ),
                                         child: Image.asset(
+                                          isDark(context)?'images/white-year.png':
                                           'images/year.png',
                                           height: 25,
                                         ),

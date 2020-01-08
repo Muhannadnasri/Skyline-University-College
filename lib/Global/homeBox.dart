@@ -44,7 +44,7 @@ Widget homeBox(BuildContext context, darkModeImage, whiteModeImage, to,
               children: <Widget>[
                 Image.asset(
                   isDark(context) ? darkModeImage : whiteModeImage,
-                  height: 50,
+                  height: 45,
                 ),
                 SizedBox(
                   height: 10,

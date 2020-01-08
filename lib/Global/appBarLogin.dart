@@ -7,21 +7,21 @@ import 'package:skyline_university/Global/global.dart';
 Widget appBarLogin(BuildContext context, header) {
   return 
   GradientAppBar(
-    actions: <Widget>[
-      GestureDetector(
-        onTap: () {
-          logOut(context);
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(15),
-          child: Icon(
-            FontAwesomeIcons.powerOff,
-            color: Colors.red,
-            size: 20,
-          ),
-        ),
-      ),
-    ],
+    // actions: <Widget>[
+    //   GestureDetector(
+    //     onTap: () {
+    //       logOut(context);
+    //     },
+    //     child: Padding(
+    //       padding: const EdgeInsets.all(15),
+    //       child: Icon(
+    //         FontAwesomeIcons.powerOff,
+    //         color: Colors.red,
+    //         size: 20,
+    //       ),
+    //     ),
+    //   ),
+    // ],
     centerTitle: true,
     title: Text(
       header,

@@ -12,7 +12,6 @@ String deviceId = 'Unknown';
 String program = studentJson['data']['program'];
 String userType = studentJson['data']['user_type'];
 
-bool container = false;
 
 bool copyRight = false;
 

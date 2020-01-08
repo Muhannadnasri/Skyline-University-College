@@ -257,8 +257,8 @@ class _HomeState extends State<Home> {
                                   ),
                                   homeBox(
                                     context,
-                                    'images-white/questions.png',
-                                    'images/questions.png',
+                                    'images-white/FAQ.png',
+                                    'images/FAQ.png',
                                     "/FAQ",
                                     Colors.white60,
                                     Colors.black,

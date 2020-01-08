@@ -50,8 +50,6 @@ import 'Login/E-Reques/StudentForm/onlineRequest.dart';
 import 'Login/E-Reques/StudentForm/passportRetaining.dart';
 import 'Login/E-Reques/StudentForm/passportWithdrawal.dart';
 import 'Login/E-Reques/StudentForm/reinstatment.dart';
-import 'Login/E-Reques/StudentForm/visitorInfoAr.dart';
-import 'Login/E-Reques/StudentForm/visitorInfoEn.dart';
 import 'Login/E-Reques/StudentForm/visitorInfoLan.dart';
 import 'Login/E-Reques/home.dart';
 import 'Login/Results/finalGradeResult.dart';
@@ -226,8 +224,6 @@ class MyAppState extends State<MyApp> {
               ),
 
           '/visitorInfoLan': (context) => VisitorInfoLan(),
-          '/visitorInfoEn': (context) => VisitorInfoEn(),
-          '/visitorInfoAr': (context) => VisitorInfoAr(),
 
           '/homeGraduate': (context) => HomeGraduate(),
           // '/professionalProgram': (context) => ProfessionalProgram(),
