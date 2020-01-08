@@ -159,8 +159,8 @@ class _HomeState extends State<Home> {
                                 children: <Widget>[
                                   homeBox(
                                     context,
-                                    'images-white/programs.png',
-                                    'images/programs.png',
+                                    'images-white/admission.png',
+                                    'images/admission.png',
                                     "/HomeAdmission",
                                     Colors.white60,
                                     Colors.black,
@@ -170,8 +170,8 @@ class _HomeState extends State<Home> {
                                   ),
                                   homeBox(
                                     context,
-                                    'images-white/register.png',
-                                    'images/register.png',
+                                    'images-white/programs.png',
+                                    'images/programs.png',
                                     "/homePrograms",
                                     Colors.white60,
                                     Colors.black,

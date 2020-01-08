@@ -12,7 +12,6 @@ String deviceId = 'Unknown';
 String program = studentJson['data']['program'];
 String userType = studentJson['data']['user_type'];
 
-
 bool copyRight = false;
 
 List courseAllocationMorningJson = [];
@@ -62,7 +61,7 @@ void logOut(context) {
     builder: (BuildContext context) {
       return AlertDialog(
         title: Image.asset(
-          'images/logo.png',
+          isDark(context) ? 'images-white/logo.png' : 'images/logo.png',
           height: 50,
         ),
         content: Padding(
@@ -120,12 +119,16 @@ void showLoading(isLoading, context) {
               title: Stack(
                 children: <Widget>[
                   Image.asset(
-                    'images/logo.png',
+                    isDark(context)
+                        ? 'images-white/logo.png'
+                        : 'images/logo.png',
                     height: 50,
                     color: isDark(context) ? Colors.white : Colors.black,
                   ),
                   Image.asset(
-                    'images/logo.png',
+                    isDark(context)
+                        ? 'images-white/logo.png'
+                        : 'images/logo.png',
                     height: 50,
                   ),
                 ],
@@ -240,12 +243,12 @@ void showError(String msg, IconData icon, context, action) {
             title: Stack(
               children: <Widget>[
                 Image.asset(
-                  'images/logo.png',
+                  isDark(context) ? 'images-white/logo.png' : 'images/logo.png',
                   color: Colors.white,
                   height: 50,
                 ),
                 Image.asset(
-                  'images/logo.png',
+                  isDark(context) ? 'images-white/logo.png' : 'images/logo.png',
                   height: 50,
                 ),
               ],
@@ -309,7 +312,7 @@ void showAttendance(context, msg, msg2, msg2Color) {
             ),
           ],
           title: Image.asset(
-            'images/logo.png',
+            isDark(context) ? 'images-white/logo.png' : 'images/logo.png',
             height: 50,
           ),
           shape: SuperellipseShape(

@@ -253,7 +253,9 @@ class _HomeLoginState extends State<HomeLogin> {
                             ),
                           ),
                           Image.asset(
-                            'images/logo.png',
+                            isDark(context)
+                                ? 'images-white/logo.png'
+                                : 'images/logo.png',
                             height: 150,
                             width: 230,
                           ),
@@ -435,29 +437,35 @@ class _HomeLoginState extends State<HomeLogin> {
                                   Row(
                                     children: <Widget>[
                                       Container(
-                                        decoration: BoxDecoration(
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Colors.white,
-                                              blurRadius:
-                                                  12.0, // has the effect of softening the shadow
-                                              spreadRadius:
-                                                  3.0, // has the effect of extending the shadow
-                                            )
-                                          ],
-                                        ),
+                                        // decoration: BoxDecoration(
+                                        //   boxShadow: [
+                                        //     BoxShadow(
+                                        //       color: Colors.white,
+                                        //       blurRadius:
+                                        //           12.0, // has the effect of softening the shadow
+                                        //       spreadRadius:
+                                        //           3.0, // has the effect of extending the shadow
+                                        //     )
+                                        //   ],
+                                        // ),
                                         child: Image.asset(
                                           studentJson['data']['user_type'] ==
                                                   'FAC'
-                                              ? 'images/professor-male.png'
+                                              ? isDark(context)
+                                                  ? 'images-white/professor-male.png'
+                                                  : 'images/professor-male.png'
                                               : studentJson['data']['Gender'] ==
                                                       'M'
-                                                  ? 'images/male.png'
+                                                  ? isDark(context)
+                                                      ? 'images-white/male.png'
+                                                      : 'images/male.png'
                                                   : studentJson['data']
                                                               ['Gender'] ==
                                                           'F'
-                                                      ? 'images/female.png'
-                                                      : 'images/professor-male.png',
+                                                      ? isDark(context)
+                                                          ? 'images-white/female.png'
+                                                          : 'images/female.png'
+                                                      : 'images/male.png',
                                           height: 25,
                                         ),
                                       ),
@@ -484,20 +492,21 @@ class _HomeLoginState extends State<HomeLogin> {
                                       : Row(
                                           children: <Widget>[
                                             Container(
-                                              decoration: BoxDecoration(
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Colors.white,
-                                                    blurRadius:
-                                                        12.0, // has the effect of softening the shadow
-                                                    spreadRadius:
-                                                        3.0, // has the effect of extending the shadow
-                                                  )
-                                                ],
-                                              ),
+                                              // decoration: BoxDecoration(
+                                              //   boxShadow: [
+                                              //     BoxShadow(
+                                              //       color: Colors.white,
+                                              //       blurRadius:
+                                              //           12.0, // has the effect of softening the shadow
+                                              //       spreadRadius:
+                                              //           3.0, // has the effect of extending the shadow
+                                              //     )
+                                              //   ],
+                                              // ),
                                               child: Image.asset(
-                                                isDark(context)?'images-white/specialization.png':
-                                                'images/specialization.png',
+                                                isDark(context)
+                                                    ? 'images-white/specialization.png'
+                                                    : 'images/specialization.png',
                                                 height: 25,
                                               ),
                                             ),
@@ -523,20 +532,21 @@ class _HomeLoginState extends State<HomeLogin> {
                                   Row(
                                     children: <Widget>[
                                       Container(
-                                        decoration: BoxDecoration(
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Colors.white,
-                                              blurRadius:
-                                                  12.0, // has the effect of softening the shadow
-                                              spreadRadius:
-                                                  3.0, // has the effect of extending the shadow
-                                            )
-                                          ],
-                                        ),
+                                        // decoration: BoxDecoration(
+                                        //   boxShadow: [
+                                        //     BoxShadow(
+                                        //       color: Colors.white,
+                                        //       blurRadius:
+                                        //           12.0, // has the effect of softening the shadow
+                                        //       spreadRadius:
+                                        //           3.0, // has the effect of extending the shadow
+                                        //     )
+                                        //   ],
+                                        // ),
                                         child: Image.asset(
-                                          isDark(context)?'images/white-year.png':
-                                          'images/year.png',
+                                          isDark(context)
+                                              ? 'images-white/year.png'
+                                              : 'images/year.png',
                                           height: 25,
                                         ),
                                       ),
