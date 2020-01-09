@@ -23,7 +23,7 @@ class _ProfessionalCoursesState extends State<ProfessionalCourses> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomPadding: true,
       appBar: appBar(context, 'Professional Programs'),
       body: ListView(
         children: <Widget>[

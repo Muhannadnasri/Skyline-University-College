@@ -32,7 +32,7 @@ class _FAQState extends State<FAQ> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomPadding: true,
       appBar: appBar(context, 'FAQ?  '),
       body: faqsJson == null || faqsJson.isEmpty
           ? exception(context)

@@ -3,13 +3,18 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/bottomAppBar.dart';
 import 'package:skyline_university/Global/customdropdown.dart';
 import 'package:skyline_university/Global/dropDownWidget.dart';
+import 'package:skyline_university/Global/dropDownWidgetVisitor.dart';
+import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/form.dart';
+import 'package:skyline_university/Global/formVisitor.dart';
 import 'package:skyline_university/Global/global.dart';
+import 'package:translator/translator.dart';
 
 void main() => runApp(VisitorInfo());
 
@@ -25,29 +30,50 @@ class VisitorInfo extends StatefulWidget {
 
 class _VisitorInfoState extends State<VisitorInfo> {
   final visitor = GlobalKey<FormState>();
+  final translator = GoogleTranslator();
+
+  Map visitorInformationFormJson = {};
+  List admissionFormDropdownProgramEnJson = [];
   List admissionFormDropdownCountriesJson = [];
-  List admissionFormDropdownProgramJson = [];
+  List admissionFormDropdownOrganizationEnJson = [];
+  List admissionFormDropdownQualificationEnJson = [];
+  List admissionFormDropdowShortCoursesJson = [];
+  String translatorName = '';
   String callYou;
   String name = '';
+  String shotrCourse;
   String mobile = '';
   String facebookId = '';
   String email = '';
   String event = '';
   String nationality;
   String program;
-  String other;
+  String other = '';
 
   String languageStudied;
   String major = '';
   String school = '';
-  String level = '';
+  String level;
   String occupation = '';
   String organizationName = '';
   String organizationType;
+  String translatorOrganizationType = '';
+
+  // String translatorevent = '';
+  String translatorOther = '';
+  String translatorMajor = '';
+  String translatorOccupation = '';
+  String translatororganizationName = '';
+  String translatorProgram = '';
+  String translatorShortCourse = '';
+
+  String translatorLevel = '';
+  String translatorEvent = '';
 
   @override
   void initState() {
     super.initState();
+
     getCountriesAndProgram();
   }
 
@@ -57,7 +83,7 @@ class _VisitorInfoState extends State<VisitorInfo> {
     return Directionality(
       textDirection: widget.languageAr ? TextDirection.rtl : TextDirection.ltr,
       child: Scaffold(
-        resizeToAvoidBottomPadding: false,
+        resizeToAvoidBottomPadding: true,
         bottomNavigationBar:
             // currentTimeJson == null || currentTimeJson.isEmpty
             //     ? Container()
@@ -69,7 +95,7 @@ class _VisitorInfoState extends State<VisitorInfo> {
               if (visitor.currentState.validate()) {
                 visitor.currentState.save();
 
-                // sendChangeClassTiming();
+                sendVisitorInformationForm();
               }
             });
           },
@@ -78,63 +104,23 @@ class _VisitorInfoState extends State<VisitorInfo> {
           context,
           widget.languageAr ? 'معلومات الزائر' : 'Visitor Information',
         ),
-        body:
-            //  currentTimeJson == null || currentTimeJson.isEmpty
+        body: admissionFormDropdownCountriesJson == null ||
+                admissionFormDropdownCountriesJson.isEmpty
+            ? exception(context)
+            : //  currentTimeJson == null || currentTimeJson.isEmpty
             //     ? exception(context)
             //     :
 
             GestureDetector(
-          onTap: () {
-            FocusScope.of(context).requestFocus(new FocusNode());
-          },
-          child: ListView(
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                  SizedBox(
-                    height: 15,
-                  ),
-//                 Container(
-//                   width: 500,
-//                   height: 50,
-//                   alignment: Alignment.center,
-//                   decoration: new BoxDecoration(
-//                     gradient: isDark(context)
-//                         ? LinearGradient(
-//                             begin: Alignment.topCenter,
-//                             end: Alignment.bottomCenter,
-//                             colors: [
-//                               Color(0xFF1F1F1F),
-//                               Color(0xFF1F1F1F),
-//                             ],
-//                             stops: [
-//                               0.7,
-//                               0.9,
-//                             ],
-//                           )
-//                         : LinearGradient(
-//                             begin: Alignment.topCenter,
-//                             end: Alignment.bottomCenter,
-//                             colors: [
-//                               Color(0xFF104C90),
-//                               Color(0xFF3773AC),
-//                             ],
-//                             stops: [
-//                               0.7,
-//                               0.9,
-//                             ],
-//                           ),
-//                   ),
-//                   child: Text(
-//                     'Visitor Information Form',
-//                     style: TextStyle(color: Colors.white),
-// //
-//                   ),
-//                 ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Form(
+                onTap: () {
+                  FocusScope.of(context).unfocus();
+                },
+                child: ListView(
+                  children: <Widget>[
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Form(
                       key: visitor,
                       child: Column(
                         children: <Widget>[
@@ -158,15 +144,15 @@ class _VisitorInfoState extends State<VisitorInfo> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    10.0, 0.0, 20.0, 5.0),
+                                padding: const EdgeInsets.all(8),
                                 child: DropdownButton<String>(
                                   underline: Container(
                                     height: 1,
                                     color: Color(0xFF2f2f2f),
                                   ),
                                   hint: Padding(
-                                    padding: const EdgeInsets.all(8),
+                                    padding: const EdgeInsets.fromLTRB(
+                                        20.0, 0.0, 20.0, 5.0),
                                     child: Text(
                                       widget.languageAr
                                           ? 'اختار'
@@ -202,11 +188,11 @@ class _VisitorInfoState extends State<VisitorInfo> {
                               ),
                             ],
                           ),
-                          globalForms(
+                          formVisitor(
                             context,
                             '',
                             (String value) {
-                              if (value.trim().isEmpty) {
+                              if (value.trim().length < 2) {
                                 return widget.languageAr
                                     ? 'اسمك مطلوب'
                                     : 'Your Name is required';
@@ -221,13 +207,13 @@ class _VisitorInfoState extends State<VisitorInfo> {
                             widget.languageAr ? 'الاسم' : 'Name',
                             TextInputType.text,
                           ),
-                          globalForms(
+                          formVisitor(
                             context,
                             '',
                             (String value) {
-                              if (value.trim().isEmpty) {
+                              if (int.parse(value) <= 0 || !isNumeric(value)) {
                                 return widget.languageAr
-                                    ? 'رقم هاتفك المحمول مطلوب'
+                                    ? 'رقم الجوال مطلوب'
                                     : 'Your Mobile Number  is required';
                               }
                               return null;
@@ -237,10 +223,10 @@ class _VisitorInfoState extends State<VisitorInfo> {
                                 mobile = x;
                               });
                             },
-                            widget.languageAr ? 'رقم الجوال' : 'Mobile',
-                            TextInputType.text,
+                            widget.languageAr ? 'الجوال' : 'Mobile',
+                            TextInputType.number,
                           ),
-                          globalForms(
+                          formVisitor(
                             context,
                             '',
                             (String value) {
@@ -256,16 +242,20 @@ class _VisitorInfoState extends State<VisitorInfo> {
                                 facebookId = x;
                               });
                             },
-                            widget.languageAr ? 'حساب الفيسبوك' : 'Facebook ID',
+                            widget.languageAr
+                                ? 'حساب الفيس بوك'
+                                : 'Facebook ID',
                             TextInputType.text,
                           ),
-                          globalForms(
+                          formVisitor(
                             context,
                             '',
                             (String value) {
-                              if (value.trim().isEmpty) {
+                              if (!RegExp(
+                                      r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                  .hasMatch(value)) {
                                 return widget.languageAr
-                                    ? 'بريدك الإلكتروني مطلوب'
+                                    ? 'البريد الإلكتروني مطلوب'
                                     : 'Your Email is required';
                               }
                               return null;
@@ -276,7 +266,7 @@ class _VisitorInfoState extends State<VisitorInfo> {
                               });
                             },
                             widget.languageAr ? 'البريد الإلكتروني' : 'Email',
-                            TextInputType.text,
+                            TextInputType.emailAddress,
                           ),
                           SizedBox(
                             height: 10,
@@ -301,21 +291,23 @@ class _VisitorInfoState extends State<VisitorInfo> {
                           Column(
                             children: <Widget>[
                               Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    20.0, 0.0, 20.0, 5.0),
+                                padding: const EdgeInsets.all(8),
                                 child: CustomDropDown(
                                   isExpanded: true,
                                   items: admissionFormDropdownCountriesJson
                                           ?.map(
                                             (item) => DropdownMenuItem<String>(
-                                              value: item['NationalityID']
+                                              value: item['country_code']
                                                   .toString(),
                                               child: Padding(
                                                 padding:
                                                     const EdgeInsets.all(8.0),
                                                 child: Text(
-                                                  item['NationalityName']
-                                                      .toString(),
+                                                  widget.languageAr
+                                                      ? item['country_arName']
+                                                          .toString()
+                                                      : item['country_enName']
+                                                          .toString(),
                                                   style: TextStyle(
                                                       color: isDark(context)
                                                           ? Colors.white
@@ -327,14 +319,18 @@ class _VisitorInfoState extends State<VisitorInfo> {
                                           ?.toList() ??
                                       [],
                                   value: nationality,
-                                  hint: new Text(
-                                    widget.languageAr
-                                        ? 'اختار'
-                                        : 'Select option',
-                                    style: TextStyle(
-                                        color: isDark(context)
-                                            ? Colors.white
-                                            : Colors.black),
+                                  hint: Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        20.0, 0.0, 20.0, 5.0),
+                                    child: new Text(
+                                      widget.languageAr
+                                          ? 'اختار'
+                                          : 'Select option',
+                                      style: TextStyle(
+                                          color: isDark(context)
+                                              ? Colors.white
+                                              : Colors.black),
+                                    ),
                                   ),
                                   underline: Container(
                                     height: 1,
@@ -362,90 +358,110 @@ class _VisitorInfoState extends State<VisitorInfo> {
                           SizedBox(
                             height: 10,
                           ),
-
-                          // alignment: widget.languageAr
-                          //                             ? Alignment.centerRight
-                          //                             : Alignment.centerLeft,
-
-                          Column(
-                            children: <Widget>[
-                              Container(
-                                alignment: widget.languageAr
-                                    ? Alignment.centerRight
-                                    : Alignment.centerLeft,
-                                child: Padding(
-                                  padding: const EdgeInsets.fromLTRB(
-                                      20.0, 0.0, 20.0, 5.0),
-                                  child: Text(
-                                    widget.languageAr
-                                        ? 'برنامج / دورة الاهتمام'
-                                        : 'Program/Course Of Interest',
-                                    style: TextStyle(
-                                      color: isDark(context)
-                                          ? Colors.white
-                                          : Colors.black,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    10.0, 0.0, 20.0, 5.0),
-                                child: DropdownButton<String>(
-                                  underline: Container(
-                                    height: 1,
-                                    color: Color(0xFF2f2f2f),
-                                  ),
-                                  hint: Padding(
-                                    padding: const EdgeInsets.all(8),
-                                    child: Text(
-                                      widget.languageAr
-                                          ? 'اختار'
-                                          : 'Select option',
-                                      style: TextStyle(
-                                        color: isDark(context)
-                                            ? Colors.white
-                                            : Colors.black,
+                          dropDownWidgetVisitor(
+                              context,
+                              widget.languageAr ? 'اختار' : 'Select option',
+                              program,
+                              admissionFormDropdownProgramEnJson,
+                              widget.languageAr ? 'programAr' : 'programEn',
+                              widget.languageAr ? 'programAr' : 'programEn',
+                              (value) {
+                            setState(() {
+                              program = value;
+                            });
+                            if (program == 'SHORT TERM COURSE' ||
+                                program == 'دورات قصيرة') {
+                              setState(() {
+                                getvisitorCourses();
+                              });
+                            }
+                          },
+                              widget.languageAr
+                                  ? 'ما هو البرنامج الذي ترغب بدراسته ؟'
+                                  : 'Program/Course Of Interest',
+                              widget.languageAr),
+                          program == 'SHORT TERM COURSE' ||
+                                  program == 'دورات قصيرة'
+                              ? Column(
+                                  children: <Widget>[
+                                    Container(
+                                      alignment: widget.languageAr
+                                          ? Alignment.centerRight
+                                          : Alignment.centerLeft,
+                                      child: Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            20.0, 0.0, 20.0, 5.0),
+                                        child: Text(
+                                          widget.languageAr
+                                              ? 'ما هو البرنامج الذي ترغب بدراسته ؟'
+                                              : 'دورات قصيرة',
+                                          style: TextStyle(
+                                            color: isDark(context)
+                                                ? Colors.white
+                                                : Colors.black,
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  isExpanded: true,
-                                  value: program,
-                                  items: admissionFormDropdownProgramJson
-                                          ?.map(
-                                            (item) => DropdownMenuItem<String>(
-                                              value: item['DegreeType_Id']
-                                                  .toString(),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Text(
-                                                    item['DegreeType_Id']
-                                                        .toString()),
-                                              ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8),
+                                      child: DropdownButton<String>(
+                                        underline: Container(
+                                          height: 1,
+                                          color: Color(0xFF2f2f2f),
+                                        ),
+                                        hint: Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              20.0, 0.0, 20.0, 5.0),
+                                          child: Text(
+                                            widget.languageAr
+                                                ? 'اختار'
+                                                : 'Select option',
+                                            style: TextStyle(
+                                              color: isDark(context)
+                                                  ? Colors.white
+                                                  : Colors.black,
                                             ),
-                                          )
-                                          ?.toList() ??
-                                      [],
-                                  onChanged: (value) {
-                                    setState(() {
-                                      program = value;
-                                    });
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-
-                          globalForms(
+                                          ),
+                                        ),
+                                        isExpanded: true,
+                                        value: shotrCourse,
+                                        items:
+                                            admissionFormDropdowShortCoursesJson
+                                                    ?.map(
+                                                      (item) =>
+                                                          DropdownMenuItem<
+                                                              String>(
+                                                        value: item['courseEn']
+                                                            .toString(),
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(8.0),
+                                                          child: FittedBox(
+                                                            child: Text(item[
+                                                                    'courseEn']
+                                                                .toString()),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    )
+                                                    ?.toList() ??
+                                                [],
+                                        onChanged: (value) {
+                                          setState(() {
+                                            shotrCourse = value;
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : SizedBox(),
+                          formVisitor(
                             context,
                             '',
                             (String value) {
-                              if (value.trim().isEmpty) {
-                                return widget.languageAr
-                                    ? 'الرجاء حدد'
-                                    : 'Please Specify';
-                              }
                               return null;
                             },
                             (x) {
@@ -457,6 +473,9 @@ class _VisitorInfoState extends State<VisitorInfo> {
                                 ? 'الرجاء حدد, آخر'
                                 : 'Other , Please Specify',
                             TextInputType.text,
+                          ),
+                          SizedBox(
+                            height: 10,
                           ),
                           Column(
                             children: <Widget>[
@@ -480,15 +499,15 @@ class _VisitorInfoState extends State<VisitorInfo> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    10.0, 0.0, 20.0, 5.0),
+                                padding: const EdgeInsets.all(8),
                                 child: DropdownButton<String>(
                                   underline: Container(
                                     height: 1,
                                     color: Color(0xFF2f2f2f),
                                   ),
                                   hint: Padding(
-                                    padding: const EdgeInsets.all(8),
+                                    padding: const EdgeInsets.fromLTRB(
+                                        20.0, 0.0, 20.0, 5.0),
                                     child: Text(
                                       widget.languageAr
                                           ? 'اختار'
@@ -524,11 +543,11 @@ class _VisitorInfoState extends State<VisitorInfo> {
                               ),
                             ],
                           ),
-                          globalForms(
+                          formVisitor(
                             context,
                             '',
                             (String value) {
-                              if (value.trim().isEmpty) {
+                              if (value.trim().length < 4) {
                                 return widget.languageAr
                                     ? 'تخصصك مطلوب'
                                     : 'Your Major is required';
@@ -541,11 +560,11 @@ class _VisitorInfoState extends State<VisitorInfo> {
                               });
                             },
                             widget.languageAr
-                                ? 'التخصص الدقيق / التركيز / الدورة القصيرة'
+                                ? 'اذكر البرنامج أو التخصص/ الدورة القصيرة التي ترغب بدراستها'
                                 : 'Specific Major/Emphasis/Short Course',
                             TextInputType.text,
                           ),
-                          globalForms(
+                          formVisitor(
                             context,
                             '',
                             (String value) {
@@ -562,75 +581,30 @@ class _VisitorInfoState extends State<VisitorInfo> {
                               });
                             },
                             widget.languageAr
-                                ? 'اسم المدرسة / الجامعة'
+                                ? 'الاسم المدرسة / الجامعة التي تخرجت منها'
                                 : 'Name Of School/University',
                             TextInputType.text,
                           ),
-                          Column(
-                            children: <Widget>[
-                              Container(
-                                alignment: widget.languageAr
-                                    ? Alignment.centerRight
-                                    : Alignment.centerLeft,
-                                child: Padding(
-                                  padding: const EdgeInsets.fromLTRB(
-                                      20.0, 0.0, 20.0, 5.0),
-                                  child: Text(
-                                    widget.languageAr ? 'مستوى' : 'Level',
-                                    style: TextStyle(
-                                      color: isDark(context)
-                                          ? Colors.white
-                                          : Colors.black,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    10.0, 0.0, 20.0, 5.0),
-                                child: DropdownButton<String>(
-                                  underline: Container(
-                                    height: 1,
-                                    color: Color(0xFF2f2f2f),
-                                  ),
-                                  hint: Padding(
-                                    padding: const EdgeInsets.all(8),
-                                    child: Text(
-                                      widget.languageAr
-                                          ? 'اختار'
-                                          : 'Select option',
-                                      style: TextStyle(
-                                        color: isDark(context)
-                                            ? Colors.white
-                                            : Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                  isExpanded: true,
-                                  value: level,
-                                  items: []
-                                          ?.map(
-                                            (item) => DropdownMenuItem<String>(
-                                              value: item.toString(),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Text(item.toString()),
-                                              ),
-                                            ),
-                                          )
-                                          ?.toList() ??
-                                      [],
-                                  onChanged: (value) {
-                                    setState(() {
-                                      level = value;
-                                    });
-                                  },
-                                ),
-                              ),
-                            ],
+                          SizedBox(
+                            height: 10,
                           ),
-                          globalForms(
+                          dropDownWidgetVisitor(
+                              context,
+                              widget.languageAr ? 'اختار' : 'Select option',
+                              level,
+                              admissionFormDropdownQualificationEnJson,
+                              widget.languageAr
+                                  ? 'qualificationAr'
+                                  : 'qualificationEn',
+                              widget.languageAr
+                                  ? 'qualificationAr'
+                                  : 'qualificationEn', (value) {
+                            setState(() {
+                              level = value;
+                            });
+                          }, widget.languageAr ? 'مستوى' : 'Level',
+                              widget.languageAr),
+                          formVisitor(
                             context,
                             '',
                             (String value) {
@@ -651,7 +625,7 @@ class _VisitorInfoState extends State<VisitorInfo> {
                                 : 'Current Occupation',
                             TextInputType.text,
                           ),
-                          globalForms(
+                          formVisitor(
                             context,
                             '',
                             (String value) {
@@ -672,104 +646,62 @@ class _VisitorInfoState extends State<VisitorInfo> {
                                 : 'Name of The Organization',
                             TextInputType.text,
                           ),
-                          Column(
-                            children: <Widget>[
-                              Container(
-                                alignment: widget.languageAr
-                                    ? Alignment.centerRight
-                                    : Alignment.centerLeft,
-                                child: Padding(
-                                  padding: const EdgeInsets.fromLTRB(
-                                      20.0, 0.0, 20.0, 5.0),
-                                  child: Text(
-                                    widget.languageAr
-                                        ? 'نوع المنظمة'
-                                        : 'Type of Organization',
-                                    style: TextStyle(
-                                      color: isDark(context)
-                                          ? Colors.white
-                                          : Colors.black,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    10.0, 0.0, 20.0, 5.0),
-                                child: DropdownButton<String>(
-                                  underline: Container(
-                                    height: 1,
-                                    color: Color(0xFF2f2f2f),
-                                  ),
-                                  hint: Padding(
-                                    padding: const EdgeInsets.all(8),
-                                    child: Text(
-                                      widget.languageAr
-                                          ? 'اختار'
-                                          : 'Select option',
-                                      style: TextStyle(
-                                        color: isDark(context)
-                                            ? Colors.white
-                                            : Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                  isExpanded: true,
-                                  value: organizationType,
-                                  items: []
-                                          ?.map(
-                                            (item) => DropdownMenuItem<String>(
-                                              value: item.toString(),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Text(item.toString()),
-                                              ),
-                                            ),
-                                          )
-                                          ?.toList() ??
-                                      [],
-                                  onChanged: (value) {
-                                    setState(() {
-                                      organizationType = value;
-                                    });
-                                  },
-                                ),
-                              ),
-                            ],
+                          SizedBox(
+                            height: 10,
                           ),
+                          dropDownWidgetVisitor(
+                              context,
+                              widget.languageAr ? 'اختار' : 'Select option',
+                              organizationType,
+                              admissionFormDropdownOrganizationEnJson,
+                              widget.languageAr
+                                  ? 'organizationNameEn'
+                                  : 'organizationNameAr',
+                              widget.languageAr
+                                  ? 'organizationNameEn'
+                                  : 'organizationNameAr', (value) {
+                            setState(() {
+                              organizationType = value;
+                            });
+                          },
+                              widget.languageAr
+                                  ? 'نوع المنظمة'
+                                  : 'Type of Organization',
+                              widget.languageAr),
                         ],
-                      )),
-                ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
-        ),
       ),
     );
   }
 
-  Future getCountriesAndProgram() async {
+  Future getvisitorCourses() async {
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
     });
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/test/AdmissionFormDropdownRecords'),
-        headers: {
-          "API-KEY": API,
-        },
-      ).timeout(Duration(seconds: 35));
+          Uri.encodeFull(
+              'https://skylineportal.com/moappad/api/test/visitorCourses'),
+          headers: {
+            "API-KEY": API,
+          },
+          body: {
+            // "program"programId,
+          }).timeout(Duration(seconds: 35));
 
       if (response.statusCode == 200) {
         setState(
           () {
-            admissionFormDropdownCountriesJson =
-                json.decode(response.body)['data']['countries'];
-            admissionFormDropdownProgramJson =
-                json.decode(response.body)['data']['program'];
+            admissionFormDropdowShortCoursesJson =
+                json.decode(response.body)['data'];
           },
         );
         showLoading(false, context);
@@ -781,6 +713,142 @@ class _VisitorInfoState extends State<VisitorInfo> {
         // showErrorServer(context, getAdmissionFormDropdownRecords());
       } else {
         showLoading(false, context);
+        // showErrorConnect(context, getAdmissionFormDropdownRecords());
+      }
+    }
+  }
+
+  Future getCountriesAndProgram() async {
+    Future.delayed(Duration.zero, () {
+      showLoading(true, context);
+    });
+
+    try {
+      final response = await http.post(
+        Uri.encodeFull(
+            'https://skylineportal.com/moappad/api/test/VisitorInformationProgramAndCountries'),
+        headers: {
+          "API-KEY": API,
+        },
+      ).timeout(Duration(seconds: 35));
+
+      if (response.statusCode == 200) {
+        setState(
+          () {
+            admissionFormDropdownCountriesJson =
+                json.decode(response.body)['data']['countries'];
+            admissionFormDropdownProgramEnJson =
+                json.decode(response.body)['data']['programEn'];
+
+            admissionFormDropdownQualificationEnJson =
+                json.decode(response.body)['data']['qualificationEn'];
+            admissionFormDropdownOrganizationEnJson =
+                json.decode(response.body)['data']['organization'];
+          },
+        );
+        showLoading(false, context);
+      }
+    } catch (x) {
+      if (x.toString().contains("TimeoutException")) {
+        showLoading(false, context);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getCountriesAndProgram);
+        // showErrorServer(context, getAdmissionFormDropdownRecords());
+      } else {
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getCountriesAndProgram);
+        // showErrorConnect(context, getAdmissionFormDropdownRecords());
+      }
+    }
+  }
+
+  Future sendVisitorInformationForm() async {
+    Future.delayed(Duration.zero, () {
+      showLoading(true, context);
+    });
+
+    try {
+      final response = await http.post(
+          Uri.encodeFull(
+              'https://skylineportal.com/moappad/api/test/visitorInformationForm'),
+          headers: {
+            "API-KEY": API,
+          },
+          body: {
+            "name": widget.languageAr
+                ? translatorName =
+                    await translator.translate(name, from: 'ar', to: 'en')
+                : name,
+            "title": callYou,
+            "other": program == null
+                ? widget.languageAr
+                    ? translatorOther =
+                        await translator.translate(other, from: 'ar', to: 'en')
+                    : other
+                : '',
+            "shortCourse": widget.languageAr
+                ? translatorShortCourse = await translator
+                    .translate(shotrCourse, from: 'ar', to: 'en')
+                : name,
+            "mobile": mobile,
+            "facebookId": facebookId,
+            "email": email,
+            "event": widget.languageAr
+                ? translatorEvent =
+                    await translator.translate(event, from: 'ar', to: 'en')
+                : event,
+            "programOfInterest": translatorProgram =
+                await translator.translate(program, from: 'ar', to: 'en'),
+            "modeOfTeaching": languageStudied,
+            "specificMajor": widget.languageAr
+                ? translatorMajor =
+                    await translator.translate(major, from: 'ar', to: 'en')
+                : major,
+            "nameOfSchoolUniversity": school,
+            "level": widget.languageAr
+                ? translatorLevel =
+                    await translator.translate(level, from: 'ar', to: 'en')
+                : level,
+            "currentOccupation": widget.languageAr
+                ? translatorOccupation =
+                    await translator.translate(occupation, from: 'ar', to: 'en')
+                : occupation,
+            "nameOfOrganization": widget.languageAr
+                ? translatororganizationName = await translator
+                    .translate(organizationName, from: 'ar', to: 'en')
+                : organizationName,
+            "typeOfOrganization": widget.languageAr
+                ? translatorOrganizationType = await translator
+                    .translate(organizationType, from: 'ar', to: 'en')
+                : organizationType,
+            "language": widget.languageAr == true ? 'AR' : 'EN',
+          }).timeout(Duration(seconds: 35));
+
+      if (response.statusCode == 200) {
+        setState(
+          () {
+            visitorInformationFormJson = json.decode(response.body);
+          },
+        );
+        showLoading(false, context);
+        if (visitorInformationFormJson['success'] == '0') {
+          showfailureSnackBar(context, visitorInformationFormJson['message']);
+        }
+        if (visitorInformationFormJson['success'] == '1') {
+          showSuccessSnackBar(context, visitorInformationFormJson['message']);
+        }
+      }
+    } catch (x) {
+      if (x.toString().contains("TimeoutException")) {
+        showLoading(false, context);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, sendVisitorInformationForm);
+        // showErrorServer(context, getAdmissionFormDropdownRecords());
+      } else {
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            sendVisitorInformationForm);
         // showErrorConnect(context, getAdmissionFormDropdownRecords());
       }
     }

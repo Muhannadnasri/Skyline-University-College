@@ -32,7 +32,7 @@ class _MastersQualifyingProgramState extends State<MastersQualifyingProgram> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomPadding: true,
       appBar: appBar(context, 'Masters Qualifying Program'),
       body: Container(
         child: programsJson == null || programsJson.isEmpty

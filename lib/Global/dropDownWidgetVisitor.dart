@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 import 'global.dart';
 
-Widget dropDownWidget(BuildContext context, String title, value, List items,
-    valueItems, textItems, onChanged, topTitle) {
+Widget dropDownWidgetVisitor(BuildContext context, String title, value,
+    List items, valueItems, textItems, onChanged, topTitle, bool languageAr) {
   return Column(
     children: <Widget>[
       Container(
-        alignment: Alignment.centerLeft,
+        alignment: languageAr ? Alignment.centerRight : Alignment.centerLeft,
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 5.0),
           child: Text(
@@ -42,7 +42,8 @@ Widget dropDownWidget(BuildContext context, String title, value, List items,
                         value: item[valueItems].toString(),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: FittedBox(child: Text(item[textItems].toString())),
+                          child: FittedBox(
+                              child: Text(item[textItems].toString())),
                         ),
                       ),
                     )

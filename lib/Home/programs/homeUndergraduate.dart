@@ -33,7 +33,7 @@ class _HomeUndergraduateState extends State<HomeUndergraduate> {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
       key: _scaffoldKey,
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomPadding: true,
       appBar: appBar(context, 'Undergraduate'),
       body: Container(
         child: ListView(

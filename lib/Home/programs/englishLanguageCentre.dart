@@ -32,7 +32,7 @@ class _EnglishLanguageCentreState extends State<EnglishLanguageCentre> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomPadding: true,
       appBar: appBar(context, 'English Language Centre'),
       body: Container(
         child: programsJson == null || programsJson.isEmpty

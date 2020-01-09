@@ -56,7 +56,7 @@ class _AdvisorAppointmentState extends State<AdvisorAppointment> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomPadding: true,
       bottomNavigationBar: bottomappBar(context, () {
         setState(() {
           if (groupValue == 1 &&

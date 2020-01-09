@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:skyline_university/Global/global.dart';
 
-Widget globalForms(BuildContext context, initialValue, validators, onSaveds,
+Widget formVisitor(BuildContext context, initialValue, validators, onSaveds,
     label, keyboardType) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
       SizedBox(
-        height: 20,
+        height: 10,
       ),
       Padding(
         padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
@@ -22,7 +22,7 @@ Widget globalForms(BuildContext context, initialValue, validators, onSaveds,
       Padding(
         padding: const EdgeInsets.fromLTRB(10.0, 0.0, 20.0, 5.0),
         child: TextFormField(
-          // textInputAction: TextInputAction.next,
+          textInputAction: TextInputAction.done,
           initialValue: initialValue,
           onSaved: onSaveds,
           validator: validators,

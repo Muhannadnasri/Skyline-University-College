@@ -45,7 +45,7 @@ class _ListsState extends State<Lists> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomPadding: true,
       appBar: appBar(context, '${widget.title}'),
       body: lists == null || lists.isEmpty
           ? exception(context)

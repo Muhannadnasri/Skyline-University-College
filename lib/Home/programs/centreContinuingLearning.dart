@@ -32,7 +32,7 @@ class _CentreContinuingLearningState extends State<CentreContinuingLearning> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomPadding: true,
       appBar: appBar(context, 'Centre Continuing Learning'),
       body: Container(
         child: programsJson == null || programsJson.isEmpty

@@ -55,7 +55,7 @@ class _ConferenceState extends State<Conference> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomPadding: true,
       bottomNavigationBar: bottomappBar(
         context,
         () {

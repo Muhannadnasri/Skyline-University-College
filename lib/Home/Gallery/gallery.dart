@@ -38,7 +38,7 @@ class _GalleryState extends State<Gallery> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomPadding: true,
       appBar: appBar(context, 'Gallery'),
       body: galleries == null || galleries.isEmpty
           ? exception(context)

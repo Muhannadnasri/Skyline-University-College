@@ -26,7 +26,7 @@ class _VisitorInfoLanState extends State<VisitorInfoLan> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-        resizeToAvoidBottomPadding: false,
+        resizeToAvoidBottomPadding: true,
         appBar: appBarLogin(
           context,
           'Visitor Information',
@@ -66,9 +66,11 @@ class _VisitorInfoLanState extends State<VisitorInfoLan> {
                         child: Container(
                           height: 80,
                           width: 80,
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage('images/usa.png'))),
+                          child: Icon(Icons.language,
+                              size: 50,
+                              color: isDark(context)
+                                  ? Colors.white
+                                  : Colors.black),
                         ),
                       ),
                       Text(
@@ -85,23 +87,26 @@ class _VisitorInfoLanState extends State<VisitorInfoLan> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => VisitorInfo(
-                                  languageAr: true,
-                                ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => VisitorInfo(
+                                languageAr: true,
                               ),
-                            );
-                          },
-                          child: Container(
-                            height: 80,
-                            width: 80,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage('images/uae.png'))),
-                          )),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          height: 80,
+                          width: 80,
+                          child: Icon(Icons.language,
+                              size: 50,
+                              color: isDark(context)
+                                  ? Colors.white
+                                  : Colors.black),
+                        ),
+                      ),
                       Text(
                         'Arabic',
                         style: TextStyle(

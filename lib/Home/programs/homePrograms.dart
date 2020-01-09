@@ -34,7 +34,7 @@ class _HomeProgramsState extends State<HomePrograms> {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
       key: _scaffoldKey,
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomPadding: true,
       appBar: appBar(context, 'Programs'),
       body: Container(
         child: ListView(children: <Widget>[

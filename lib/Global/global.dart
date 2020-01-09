@@ -47,7 +47,13 @@ List finalxJson = [];
 bool internet = true;
 bool data = true;
 //
-
+bool isNumeric(String str) {
+    if (str == null) {
+      return false;
+    }
+    return double.tryParse(str) != null;
+  }
+  
 phoneCall() async {
   if (await canLaunch("tel:+97165441155")) {
     await launch("tel:+97165441155");

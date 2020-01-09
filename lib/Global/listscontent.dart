@@ -35,7 +35,7 @@ Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
 
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomPadding: true,
       appBar: appBar(context, 'New'),
       body: Container(
         child: ListView(

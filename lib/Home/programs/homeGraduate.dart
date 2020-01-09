@@ -33,7 +33,7 @@ class _HomeGraduateState extends State<HomeGraduate> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomPadding: true,
       appBar: appBar(context, 'Graduate'),
       body: Container(
         child: programsJson == null || programsJson.isEmpty

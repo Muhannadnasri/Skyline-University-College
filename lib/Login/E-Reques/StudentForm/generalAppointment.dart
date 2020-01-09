@@ -50,7 +50,7 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomPadding: true,
       bottomNavigationBar: generalAPPtJson.isEmpty
           ? Container()
           : bottomappBar(

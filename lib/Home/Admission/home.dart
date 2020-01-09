@@ -40,7 +40,7 @@ class _HomeAdmissionState extends State<HomeAdmission> {
         ),
       ),
       key: _scaffoldKey,
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomPadding: true,
       appBar: appBar(context, 'Admission'),
     );
   }

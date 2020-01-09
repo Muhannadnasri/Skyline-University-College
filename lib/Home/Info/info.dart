@@ -23,7 +23,7 @@ class _InfoState extends State<Info> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomPadding: true,
       appBar: appBar(context, 'Skyline Info'),
       body: Container(
         child: ListView(children: <Widget>[

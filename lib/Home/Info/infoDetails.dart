@@ -38,7 +38,7 @@ class _InfoDetailsState extends State<InfoDetails> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomPadding: true,
       appBar: appBar(context, 'School of Information Technology'),
       body: infoJson == null || infoJson.isEmpty
           ? exception(context)

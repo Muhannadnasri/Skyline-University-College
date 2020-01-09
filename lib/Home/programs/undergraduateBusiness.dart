@@ -32,7 +32,7 @@ class _UndergraduateBusinessState extends State<UndergraduateBusiness> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomPadding: true,
       appBar: appBar(context, 'School of Business '),
       body: programsJson == null || programsJson.isEmpty
           ? exception(context)

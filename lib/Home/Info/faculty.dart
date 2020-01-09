@@ -41,7 +41,7 @@ class _FacultyState extends State<Faculty> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomPadding: true,
       appBar: appBar(context, 'Faculty members'),
       body: faculty == null || faculty.isEmpty
           ? exception(context)

@@ -35,7 +35,7 @@ class _OneGalleryState extends State<OneGallery> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomPadding: true,
       appBar: appBar(context, widget.oneGalleryTitle),
       body: GridView.builder(
           gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(

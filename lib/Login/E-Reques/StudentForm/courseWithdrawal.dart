@@ -45,7 +45,7 @@ class _CourseWithdrawalState extends State<CourseWithdrawal> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomPadding: true,
       bottomNavigationBar: courseWithdrawalCoursesJson == null ||
               courseWithdrawalCoursesJson.isEmpty
           ? SizedBox()

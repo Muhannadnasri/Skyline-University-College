@@ -33,7 +33,7 @@ class _HomeInfoState extends State<HomeInfo> {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
       key: _scaffoldKey,
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomPadding: true,
       appBar: appBar(context, 'SUC Info'),
       body: Container(
         child: ListView(
