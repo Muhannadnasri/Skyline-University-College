@@ -38,8 +38,17 @@ class _ProfileState extends State<Profile> {
         children: <Widget>[
           Container(
             height: MediaQuery.of(context).size.height / 5,
-            color: Colors.red,
-            width: MediaQuery.of(context).size.width,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: const Color(0xBB8338f4),
+              image: DecorationImage(
+                  colorFilter: ColorFilter.mode(
+                      Color.fromARGB(120, 20, 10, 40), BlendMode.srcOver),
+                  image: AssetImage(
+                    'images/logosmall.png',
+                  ),
+                  fit: BoxFit.cover),
+            ),
           ),
           Positioned.fill(
             bottom: -40,
