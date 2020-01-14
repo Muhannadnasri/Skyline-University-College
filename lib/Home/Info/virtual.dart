@@ -13,7 +13,7 @@ class Virtual extends StatefulWidget {
 }
 
 class _VirtualState extends State<Virtual> {
-  final flutterWebviewPlugin = new FlutterWebviewPlugin();
+  // final flutterWebviewPlugin = new FlutterWebviewPlugin();
 
   @override
   void initState() {

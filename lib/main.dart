@@ -1,4 +1,3 @@
-import 'package:feature_discovery/feature_discovery.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -58,6 +57,7 @@ import 'Login/Results/gpaRequirments.dart';
 import 'Login/Results/midTermMarks.dart';
 import 'Login/Results/resultHome.dart';
 import 'Login/Results/studentGPAProfile.dart';
+import 'Login/admissionKit.dart';
 import 'Login/advisors.dart';
 import 'Login/assessmentMarkCourses.dart';
 import 'Login/attendance.dart';
@@ -75,6 +75,7 @@ import 'Login/home.dart';
 import 'Login/loginpage.dart';
 import 'Login/myAdvisor.dart';
 import 'Login/notification.dart';
+import 'Login/payOnline.dart';
 
 void main() async {
   SystemChrome.setEnabledSystemUIOverlays([]);
@@ -95,8 +96,7 @@ class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return OverlaySupport(
-      child: FeatureDiscovery(
-        child: MaterialApp(
+      child: MaterialApp(
           darkTheme: ThemeData(
             iconTheme: IconThemeData(color: Colors.black),
             scaffoldBackgroundColor: Color(0xFF000000),
@@ -161,8 +161,8 @@ class MyAppState extends State<MyApp> {
             '/HomeFees': (context) => HomeFees(),
             //TODO: Payonline Like Smart campus Dubia app
             // {
-            // // '/PayOnline': (context) => PayOnline(),
-            // // '/AdmissionKit': (context) => AdmissionKit(),
+            '/PayOnline': (context) => PayOnline(),
+            '/AdmissionKit': (context) => AdmissionKit(),
             // }
             '/onlineRequest': (context) => OnlineRequest(),
             '/HomeERequest': (context) => HomeERequest(),
@@ -191,9 +191,7 @@ class MyAppState extends State<MyApp> {
             '/conference': (context) => Conference(),
             '/advisors': (context) => Advisors(),
             '/HomeClass': (context) => HomeClass(),
-            // '/UndergraduateProgram': (context) => UndergraduateProgram(),
             '/virtual': (context) => Virtual(),
-            // '/attendanceCalendar': (context) => AttendanceCalendar(),
             '/homePrograms': (context) => HomePrograms(),
             '/underGraduateBusiness': (context) => UndergraduateBusiness(),
             '/underGraduateIT': (context) => UndergraduateIT(),
@@ -228,7 +226,6 @@ class MyAppState extends State<MyApp> {
             '/visitorInfoLan': (context) => VisitorInfoLan(),
 
             '/homeGraduate': (context) => HomeGraduate(),
-            // '/professionalProgram': (context) => ProfessionalProgram(),
             '/centreContinuingLearning': (context) => CentreContinuingLearning(),
             '/executiveDevelopmentProgram': (context) =>
                 ExecutiveDevelopmentProgram(),
@@ -279,7 +276,7 @@ class MyAppState extends State<MyApp> {
             '/cdpFaculty': (context) => CdpFaculty(),
           },
         ),
-      ),
+      
     );
   }
 }

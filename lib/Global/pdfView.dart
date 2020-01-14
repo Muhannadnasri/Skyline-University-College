@@ -1,16 +1,17 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:http/http.dart' as http;
 
 import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_plugin_pdf_viewer/flutter_plugin_pdf_viewer.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:pdf_viewer_plugin/pdf_viewer_plugin.dart';
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:superellipse_shape/superellipse_shape.dart';
 
 class PdfView extends StatefulWidget {
   final String url;
-
   const PdfView({Key key, this.url}) : super(key: key);
 
   @override
@@ -19,31 +20,60 @@ class PdfView extends StatefulWidget {
 
 class _PdfViewState extends State<PdfView> with TickerProviderStateMixin {
   AnimationController _controller;
-
+  String path;
   bool _isLoading = true;
-  PDFDocument document;
+
+  Future<String> get _localPath async {
+    final directory = await getApplicationDocumentsDirectory();
+
+    return directory.path;
+  }
+
+  Future<File> get _localFile async {
+    final path = await _localPath;
+    return File('$path/teste.pdf');
+  }
+
+  Future<File> writeCounter(Uint8List stream) async {
+    final file = await _localFile;
+
+    // Write the file
+    return file.writeAsBytes(stream);
+  }
+
+  Future<Uint8List> fetchPost() async {
+    final response = await http.get(widget.url);
+    final responseJson = response.bodyBytes;
+
+    return responseJson;
+  }
+
+  loadPdf() async {
+    writeCounter(await fetchPost());
+    path = (await _localFile).path;
+
+    if (!mounted) return;
+
+    setState(() {
+      if (path != null) {
+        _isLoading = false;
+      }
+    });
+  }
 
   void initState() {
     super.initState();
+    loadPdf();
     _controller = new AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
     );
-
-    loadDocument();
-  }
-
-  loadDocument() async {
-
-    
-    document = await PDFDocument.fromURL(widget.url);
-    setState(() => _isLoading = false);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarLogin(context, ''),
+      appBar: appBarLogin(context, 'PDF Viewer'),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color.fromARGB(255, 39, 93, 155),
         foregroundColor: Colors.white,
@@ -67,39 +97,25 @@ class _PdfViewState extends State<PdfView> with TickerProviderStateMixin {
           }
         },
       ),
-      body: Stack(
-        children: <Widget>[
-          Center(
-            child: _isLoading
-                ? Center(
-                    child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      CircularProgressIndicator(),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                        child: Text('Please wait'),
-                      ),
-                    ],
-                  ))
-                : PDFViewer(
-                    document: document,
-                    showIndicator: true,
-                    indicatorBackground: Colors.blue,
-                    showPicker: false,
-                    tooltip: PDFViewerTooltip(),
+      body: Center(
+        child: _isLoading
+            ? Center(
+                child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  CircularProgressIndicator(),
+                  SizedBox(
+                    height: 20,
                   ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              color: Colors.grey[50],
-              height: 70,
-            ),
-          ),
-        ],
+                  Container(
+                    child: Text('Please wait'),
+                  ),
+                ],
+              ))
+            : PdfViewer(
+                onPdfViewerCreated: () {},
+                filePath: path,
+              ),
       ),
     );
   }
