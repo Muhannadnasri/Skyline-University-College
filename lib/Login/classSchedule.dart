@@ -94,7 +94,7 @@ class _ClassScheduleState extends State<ClassSchedule> {
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text('section 1 : ',
+                            child: Text('session 1 : ',
                                 style: TextStyle(
                                     color: isDark(context)
                                         ? Colors.white
@@ -123,7 +123,7 @@ class _ClassScheduleState extends State<ClassSchedule> {
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text("section 2 : ",
+                            child: Text("session 2 : ",
                                 style: TextStyle(
                                     color: isDark(context)
                                         ? Colors.white
@@ -151,7 +151,7 @@ class _ClassScheduleState extends State<ClassSchedule> {
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text("section 3 : ",
+                            child: Text("session 3 : ",
                                 style: TextStyle(
                                     color: isDark(context)
                                         ? Colors.white
@@ -179,7 +179,7 @@ class _ClassScheduleState extends State<ClassSchedule> {
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text('section 4 : ',
+                            child: Text('session 4 : ',
                                 style: TextStyle(
                                     color: isDark(context)
                                         ? Colors.white
@@ -207,7 +207,7 @@ class _ClassScheduleState extends State<ClassSchedule> {
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text('section 5 : ',
+                            child: Text('session 5 : ',
                                 style: TextStyle(
                                     color: isDark(context)
                                         ? Colors.white
@@ -220,6 +220,130 @@ class _ClassScheduleState extends State<ClassSchedule> {
                                         "null"
                                     ? ""
                                     : classScheduleJson[index]['Ses5']
+                                        .toString(),
+                                style: TextStyle(
+                                    color: isDark(context)
+                                        ? Colors.white
+                                        : Colors.black)),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('session 6 : ',
+                                style: TextStyle(
+                                    color: isDark(context)
+                                        ? Colors.white
+                                        : Colors.black)),
+                          ),
+                          Expanded(
+                            child: Text(
+                                classScheduleJson[index]['Ses6']
+                                            .toString() ==
+                                        "null"
+                                    ? ""
+                                    : classScheduleJson[index]['Ses6']
+                                        .toString(),
+                                style: TextStyle(
+                                    color: isDark(context)
+                                        ? Colors.white
+                                        : Colors.black)),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('session 7 : ',
+                                style: TextStyle(
+                                    color: isDark(context)
+                                        ? Colors.white
+                                        : Colors.black)),
+                          ),
+                          Expanded(
+                            child: Text(
+                                classScheduleJson[index]['Ses7']
+                                            .toString() ==
+                                        "null"
+                                    ? ""
+                                    : classScheduleJson[index]['Ses7']
+                                        .toString(),
+                                style: TextStyle(
+                                    color: isDark(context)
+                                        ? Colors.white
+                                        : Colors.black)),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('session 8 : ',
+                                style: TextStyle(
+                                    color: isDark(context)
+                                        ? Colors.white
+                                        : Colors.black)),
+                          ),
+                          Expanded(
+                            child: Text(
+                                classScheduleJson[index]['Ses8']
+                                            .toString() ==
+                                        "null"
+                                    ? ""
+                                    : classScheduleJson[index]['Ses8']
+                                        .toString(),
+                                style: TextStyle(
+                                    color: isDark(context)
+                                        ? Colors.white
+                                        : Colors.black)),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('session 9 : ',
+                                style: TextStyle(
+                                    color: isDark(context)
+                                        ? Colors.white
+                                        : Colors.black)),
+                          ),
+                          Expanded(
+                            child: Text(
+                                classScheduleJson[index]['Ses9']
+                                            .toString() ==
+                                        "null"
+                                    ? ""
+                                    : classScheduleJson[index]['Ses9']
                                         .toString(),
                                 style: TextStyle(
                                     color: isDark(context)
@@ -245,16 +369,13 @@ class _ClassScheduleState extends State<ClassSchedule> {
     try {
       http.Response response = await http.post(
         Uri.encodeFull(
-            "https://skylineportal.com/moappad/api/web/${widget.link}"),
+            "https://skylineportal.com/moappad/api/test/${widget.link}"),
         headers: {
           "API-KEY": API,
         },
         body: {
           'user_id': username,
-          'usertype': studentJson['data']['user_type'],
-          'ipaddress': '1',
-          'deviceid': '1',
-          'devicename': '1',
+       
         },
       ).timeout(Duration(seconds: 35));
 
