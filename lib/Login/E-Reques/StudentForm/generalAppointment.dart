@@ -36,7 +36,7 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
   String _departmentID;
   String _empId;
   String _appointDate;
-  String _caseType;
+
   String _appointTime;
   String twoValue;
   @override
@@ -58,13 +58,10 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
               () {
                 setState(() {
                   if (_generalAppointment.currentState.validate() &&
-                          _caseType != null ||
-                      _generalAppointment.currentState.validate() &&
-                          _caseType != null &&
-                          _categoryID != null &&
-                          _departmentID != null &&
-                          _appointDate != null &&
-                          _appointTime != null) {
+                      _categoryID != null &&
+                      _departmentID != null &&
+                      _appointDate != null &&
+                      _appointTime != null) {
                     _generalAppointment.currentState.save();
                     sendGeneralAppointment();
                   }
@@ -85,72 +82,6 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
                       SizedBox(
                         height: 25,
                       ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
-                          padding:
-                              const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 5.0),
-                          child: Text(
-                            'Case Category',
-                            style: TextStyle(
-                                color: isDark(context)
-                                    ? Colors.white
-                                    : Colors.black),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      //TODO: Make Same As @dropDownWidget
-                      Column(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: DropdownButton<String>(
-                              underline: Container(
-                                height: 1,
-                                color: Color(0xFF2f2f2f),
-                              ),
-                              isExpanded: true,
-                              value: _caseType,
-                              hint: Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    20.0, 0.0, 20.0, 5.0),
-                                child: Text(
-                                  'Select Option',
-                                  style: TextStyle(color: Colors.black),
-                                ),
-                              ),
-                              items: [
-                                    'General Appointment',
-                                    'Suggestions',
-                                    'Complaints',
-                                    'Improverments'
-                                  ]
-                                      ?.map(
-                                        (item) => DropdownMenuItem<String>(
-                                          value: item,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(item),
-                                          ),
-                                        ),
-                                      )
-                                      ?.toList() ??
-                                  [],
-                              onChanged: (value) {
-                                setState(() {
-                                  _caseType = value;
-                                });
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
                       dropDownWidget(
                           context,
                           'Select Option',
@@ -163,141 +94,131 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
                           getGeneralApptCatDeptTime();
                         });
                       }, 'Case Category'),
-
                       SizedBox(
-                        height: 10,
+                        height: 5,
                       ),
-                      _caseType == 'General Appointment'
-                          ? Column(
-                              children: <Widget>[
-                                //TODO: Same Like @ dropDownWidget
-                                Container(
-                                  alignment: Alignment.centerLeft,
-                                  child: Padding(
+                      Column(
+                        children: <Widget>[
+                          //TODO: Same Like @ dropDownWidget
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(
+                                  20.0, 0.0, 20.0, 5.0),
+                              child: Text(
+                                'Department',
+                                style: TextStyle(
+                                    color: isDark(context)
+                                        ? Colors.white
+                                        : Colors.black),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Column(
+                            children: <Widget>[
+                              //ToDo: Here
+                              Padding(
+                                padding: const EdgeInsets.all(8),
+                                child: CustomDropDown(
+                                  value: twoValue,
+                                  isExpanded: true,
+                                  items: generalAPPtDepartmentJson
+                                          ?.map(
+                                            (item) => DropdownMenuItem<String>(
+                                              value: item['EmpNumber'] +
+                                                  "||" +
+                                                  item['Department_ID']
+                                                      .toString(),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Text(
+                                                  item['Department'],
+                                                  style: TextStyle(
+                                                      color: isDark(context)
+                                                          ? Colors.white
+                                                          : Colors.black),
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                          ?.toList() ??
+                                      [],
+                                  hint: Padding(
                                     padding: const EdgeInsets.fromLTRB(
                                         20.0, 0.0, 20.0, 5.0),
-                                    child: Text(
-                                      'Department',
-                                      style: TextStyle(color: Colors.grey[600]),
+                                    child: new Text(
+                                      'Select One',
+                                      style: TextStyle(
+                                          color: isDark(context)
+                                              ? Colors.white
+                                              : Colors.black),
                                     ),
                                   ),
+                                  underline: Container(
+                                    height: 1,
+                                    color: Color(0xFF2f2f2f),
+                                  ),
+                                  searchHint: new Text(
+                                    'Select One',
+                                    style: new TextStyle(
+                                        fontSize: 20,
+                                        color: isDark(context)
+                                            ? Colors.white
+                                            : Colors.black),
+                                  ),
+                                  onChanged: (value) {
+                                    setState(() {
+                                      twoValue = value;
+                                      _empId = value.split('||')[0];
+                                      _departmentID = value.split('||')[1];
+                                      getGeneralApptDate();
+                                    });
+                                  },
                                 ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Column(
-                                  children: <Widget>[
-                                    //ToDo: Here
-                                    Padding(
-                                      padding: const EdgeInsets.all(8),
-                                      child: CustomDropDown(
-                                        value: twoValue,
-                                        isExpanded: true,
-                                        items: generalAPPtDepartmentJson
-                                                ?.map(
-                                                  (item) =>
-                                                      DropdownMenuItem<String>(
-                                                    value: item['EmpNumber'] +
-                                                        "||" +
-                                                        item['Department_ID']
-                                                            .toString(),
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: Text(
-                                                        item['Department'],
-                                                        style: TextStyle(
-                                                            color: isDark(
-                                                                    context)
-                                                                ? Colors.white
-                                                                : Colors.black),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                )
-                                                ?.toList() ??
-                                            [],
-                                        hint: Padding(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              20.0, 0.0, 20.0, 5.0),
-                                          child: new Text(
-                                            'Select One',
-                                            style: TextStyle(
-                                                color: isDark(context)
-                                                    ? Colors.white
-                                                    : Colors.black),
-                                          ),
-                                        ),
-                                        underline: Container(
-                                          height: 1,
-                                          color: Color(0xFF2f2f2f),
-                                        ),
-                                        searchHint: new Text(
-                                          'Select One',
-                                          style: new TextStyle(
-                                              fontSize: 20,
-                                              color: isDark(context)
-                                                  ? Colors.white
-                                                  : Colors.black),
-                                        ),
-                                        onChanged: (value) {
-                                          setState(() {
-                                            twoValue = value;
-                                            _empId = value.split('||')[0];
-                                            _departmentID =
-                                                value.split('||')[1];
-                                            getGeneralApptDate();
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                dropDownWidget(
-                                    context,
-                                    'Select Option',
-                                    _appointDate,
-                                    generalApptDate,
-                                    'date',
-                                    'Dates', (value) {
-                                  setState(() {
-                                    _appointDate = value;
-                                    getGeneralApptCatDeptTime();
-                                  });
-                                }, 'Appointment Date'),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          dropDownWidget(context, 'Select Option', _appointDate,
+                              generalApptDate, 'date', 'Dates', (value) {
+                            setState(() {
+                              _appointDate = value;
+                              getGeneralApptCatDeptTime();
+                            });
+                          }, 'Appointment Date'),
 
-                                // Container(
-                                //   alignment: Alignment.centerLeft,
-                                //   child: Padding(
-                                //     padding: const EdgeInsets.all(8.0),
-                                //     child: Text(
-                                //       'Appointment Date',
-                                //       style: TextStyle(color: Colors.grey[600]),
-                                //     ),
-                                //   ),
-                                // ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                dropDownWidget(
-                                    context,
-                                    'Select Option',
-                                    _appointTime,
-                                    generalAPPtTimeJson,
-                                    'timevalue',
-                                    'timevalue', (value) {
-                                  setState(() {
-                                    _appointTime = value;
-                                  });
-                                }, 'Appointment Time'),
-
-                                SizedBox(
-                                  height: 15,
-                                ),
-                              ],
-                            )
-                          : SizedBox(),
+                          // Container(
+                          //   alignment: Alignment.centerLeft,
+                          //   child: Padding(
+                          //     padding: const EdgeInsets.all(8.0),
+                          //     child: Text(
+                          //       'Appointment Date',
+                          //       style: TextStyle(color: Colors.grey[600]),
+                          //     ),
+                          //   ),
+                          // ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          dropDownWidget(
+                              context,
+                              'Select Option',
+                              _appointTime,
+                              generalAPPtTimeJson,
+                              'timevalue',
+                              'timevalue', (value) {
+                            setState(() {
+                              _appointTime = value;
+                            });
+                          }, 'Appointment Time'),
+                        ],
+                      ),
                       Form(
                         key: _generalAppointment,
                         child: globalForms(
@@ -425,26 +346,12 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
         },
         body: {
           'Stud_ID': username,
-          'CASETYPE_ID': _caseType.toString(),
+          'CASETYPE_ID': '4',
           'CATEGORY_ID': _categoryID.toString(),
           'EmpNumber': _empId,
-          'Department_ID': _caseType == 'Suggestions'
-              ? "null"
-              : _caseType == 'Complaints'
-                  ? "null"
-                  : _caseType == 'Improverments'
-                      ? "null"
-                      : _departmentID.toString(),
-          'AppointMentDate': _caseType == 'Suggestions'
-              ? "null"
-              : _caseType == 'Complaints'
-                  ? "null"
-                  : _caseType == 'Improverments' ? "null" : _appointDate,
-          'AppointmentTime': _caseType == 'Suggestions'
-              ? "null"
-              : _caseType == 'Complaints'
-                  ? "null"
-                  : _caseType == 'Improverments' ? "null" : _appointTime,
+          'Department_ID': _departmentID.toString(),
+          'AppointMentDate': _appointDate,
+          'AppointmentTime': _appointTime,
           'StudentRemarks': remarkAppointment,
         },
       );
@@ -462,8 +369,6 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
           showSuccessSnackBar(context, generalRequestJson['message']);
         }
       }
-
-      // showSuccessSnackBar(generalRequestJson['message'], context);
     } catch (x) {
       print(x);
       if (x.toString().contains("TimeoutException")) {

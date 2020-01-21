@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/bottomAppBar.dart';
 import 'package:skyline_university/Global/customdropdown.dart';
+import 'package:skyline_university/Global/dropDownWidget.dart';
 import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
@@ -29,12 +30,20 @@ class _OnlineRequestState extends State<OnlineRequest> {
   List onlineRequestTypeJson = [];
   Map onlineRequestJson = {};
   Map requestAmountJson = {};
+
+  List againstMarksJson = [];
+  String allValue;
   String address = '';
   String remark = '';
   String ex1 = "No value selected";
   int groupValue = 1;
   String requestId;
-
+  String cddId;
+  String reason;
+  String batchId;
+  String cddCode;
+  String courseName;
+  String grade;
   @override
   void initState() {
     super.initState();
@@ -53,6 +62,17 @@ class _OnlineRequestState extends State<OnlineRequest> {
               : bottomappBar(
                   context,
                   () {
+                    if (requestId == '143') {
+                      //TODO: Send Request
+                      // if (_onlineRequest.currentState.validate() &&
+                      //     requestId != null) {
+                      //   _onlineRequest.currentState.save();
+                      //   sendOnlineRequest();
+                      // } else {
+                      //   // return showErrorInput('Please check your input');
+                      // }
+                    }
+
                     if (_onlineRequest.currentState.validate() &&
                         requestId != null) {
                       _onlineRequest.currentState.save();
@@ -94,8 +114,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
                       Column(
                         children: <Widget>[
                           Padding(
-                            padding:
-                                const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 5.0),
+                            padding: const EdgeInsets.all(8.0),
                             child: CustomDropDown(
                               isExpanded: true,
                               items: onlineRequestTypeJson
@@ -104,12 +123,14 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                           value: item['DetailsID'].toString(),
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              item['Item'].toString(),
-                                              style: TextStyle(
-                                                  color: isDark(context)
-                                                      ? Colors.white
-                                                      : Colors.black),
+                                            child: FittedBox(
+                                              child: Text(
+                                                item['Item'].toString(),
+                                                style: TextStyle(
+                                                    color: isDark(context)
+                                                        ? Colors.white
+                                                        : Colors.black),
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -117,12 +138,16 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                       ?.toList() ??
                                   [],
                               value: requestId,
-                              hint: new Text(
-                                'Select One',
-                                style: TextStyle(
-                                    color: isDark(context)
-                                        ? Colors.white
-                                        : Colors.black),
+                              hint: Padding(
+                                padding: const EdgeInsets.fromLTRB(
+                                    20.0, 0.0, 20.0, 5.0),
+                                child: new Text(
+                                  'Select One',
+                                  style: TextStyle(
+                                      color: isDark(context)
+                                          ? Colors.white
+                                          : Colors.black),
+                                ),
                               ),
                               underline: Container(
                                 height: 1,
@@ -141,226 +166,347 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                   requestId = value;
 
                                   getAmount();
+                                  if (requestId == '143') {
+                                    getAgainstMarks();
+                                  }
                                 });
                               },
                             ),
                           ),
                         ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Card(
-                          color: isDark(context)
-                              ? Color(0xFF121212)
-                              : Colors.white,
-                          elevation: 5,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                              Column(
-                                children: <Widget>[
-                                  Container(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Text(
-                                        'Normal Amount',
-                                        style: TextStyle(
-                                            color: isDark(context)
-                                                ? Colors.white
-                                                : Colors.black),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Container(
-                                      height: 25,
-                                      child: Text(
-                                        requestAmountJson.isEmpty ||
-                                                requestAmountJson == null
-                                            ? ''
-                                            : requestAmountJson['data']
-                                                        ['NormalAmount'] ==
-                                                    ("NA")
-                                                ? "Not Avalible"
-                                                : requestAmountJson['data']
-                                                        ['NormalAmount']
-                                                    .toString(),
-                                        style: TextStyle(
-                                            color: isDark(context)
-                                                ? Colors.white
-                                                : Colors.black),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Card(
-                          color: isDark(context)
-                              ? Color(0xFF121212)
-                              : Colors.white,
-                          elevation: 5,
-                          child: Row(
-                            children: <Widget>[
-                              Column(
-                                children: <Widget>[
-                                  Container(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Text(
-                                        'Urgent Amount',
-                                        style: TextStyle(
-                                            color: isDark(context)
-                                                ? Colors.white
-                                                : Colors.black),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Container(
-                                      height: 25,
-                                      child: Text(
-                                        requestAmountJson.isEmpty ||
-                                                requestAmountJson == null
-                                            ? ''
-                                            : requestAmountJson['data']
-                                                        ['UrgentAmount'] ==
-                                                    ("NA")
-                                                ? "Not Avalible"
-                                                : requestAmountJson['data']
-                                                        ['UrgentAmount']
-                                                    .toString(),
-                                        style: TextStyle(
-                                            color: isDark(context)
-                                                ? Colors.white
-                                                : Colors.black),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Form(
-                              key: _onlineRequest,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  globalForms(context, '', (String value) {
-                                    if (value.trim().isEmpty) {
-                                      return 'Address  is required';
-                                    }
-                                    return null;
-                                  }, (x) {
-                                    setState(() {
-                                      address = x;
-                                    });
-                                  }, 'Address', TextInputType.text),
-                                  globalForms(context, '', (String value) {
-                                    if (value.trim().isEmpty) {
-                                      return 'Remark is required';
-                                    }
-                                    return null;
-                                  }, (x) {
-                                    setState(() {
-                                      remark = x;
-                                    });
-                                  }, 'Remark', TextInputType.text),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Padding(
-                        padding:
-                            const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 5.0),
-                        child: Column(
-                          children: <Widget>[
-                            Container(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  "Pay Amount",
-                                  style: TextStyle(
-                                      color: isDark(context)
-                                          ? Colors.white
-                                          : Colors.black),
-                                )),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              children: <Widget>[
-                                Row(
+                      requestId == '143'
+                          ? againstMarksJson == null || againstMarksJson.isEmpty
+                              ? SizedBox()
+                              : Column(
                                   children: <Widget>[
-                                    Radio(
-                                      value: 1,
-                                      groupValue: groupValue,
-                                      onChanged: (int e) {
-                                        setState(() {
-                                          groupValue = e;
-                                        });
-                                      },
-                                      activeColor: Colors.blue,
-                                    ),
-                                    Text('Normal',
-                                        style: TextStyle(
+                                    Container(
+                                      alignment: Alignment.centerLeft,
+                                      child: Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            20.0, 0.0, 20.0, 5.0),
+                                        child: Text(
+                                          'Courses',
+                                          style: TextStyle(
                                             color: isDark(context)
                                                 ? Colors.white
-                                                : Colors.black)),
+                                                : Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: DropdownButton<String>(
+                                        underline: Container(
+                                          height: 1,
+                                          color: Color(0xFF2f2f2f),
+                                        ),
+                                        hint: Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              20.0, 0.0, 20.0, 5.0),
+                                          child: Text(
+                                            'Select Option',
+                                            style: TextStyle(
+                                              color: isDark(context)
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                            ),
+                                          ),
+                                        ),
+                                        isExpanded: true,
+                                        value: allValue,
+                                        items: againstMarksJson
+                                                ?.map(
+                                                  (item) =>
+                                                      DropdownMenuItem<String>(
+                                                    value: item['CDD_ID']
+                                                            .toString() +
+                                                        "||" +
+                                                        item['CDD_Code']
+                                                            .toString() +
+                                                        "||" +
+                                                        item['CourseName']
+                                                            .toString() +
+                                                        "||" +
+                                                        item['Grade']
+                                                            .toString() +
+                                                        "||" +
+                                                        item['Batch_ID']
+                                                            .toString(),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: FittedBox(
+                                                          child: Text(item[
+                                                                  'CourseName'] +
+                                                              '  ' +
+                                                              item['Grade']
+                                                                  .toString())),
+                                                    ),
+                                                  ),
+                                                )
+                                                ?.toList() ??
+                                            [],
+                                        onChanged: (value) {
+                                          setState(() {
+                                            allValue = value;
+                                            cddId = value.split('||')[0];
+                                            cddCode = value.split('||')[1];
+                                            courseName = value.split('||')[2];
+                                            grade = value.split('||')[3];
+                                            batchId = value.split('||')[4];
+
+                                            // againstMark = value;
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                    globalForms(context, '', (String value) {
+                                      if (value.trim().isEmpty) {
+                                        return 'Reason is required';
+                                      }
+                                      return null;
+                                    }, (x) {
+                                      setState(() {
+                                        reason = x;
+                                      });
+                                    }, 'Reason', TextInputType.text),
                                   ],
+                                )
+                          : Column(
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Card(
+                                    color: isDark(context)
+                                        ? Color(0xFF121212)
+                                        : Colors.white,
+                                    elevation: 5,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: <Widget>[
+                                        Column(
+                                          children: <Widget>[
+                                            Container(
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(10.0),
+                                                child: Text(
+                                                  'Normal Amount',
+                                                  style: TextStyle(
+                                                      color: isDark(context)
+                                                          ? Colors.white
+                                                          : Colors.black),
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(10.0),
+                                              child: Container(
+                                                height: 25,
+                                                child: Text(
+                                                  requestAmountJson.isEmpty ||
+                                                          requestAmountJson ==
+                                                              null
+                                                      ? ''
+                                                      : requestAmountJson[
+                                                                      'data'][
+                                                                  'NormalAmount'] ==
+                                                              ("NA")
+                                                          ? "Not Avalible"
+                                                          : requestAmountJson[
+                                                                      'data'][
+                                                                  'NormalAmount']
+                                                              .toString(),
+                                                  style: TextStyle(
+                                                      color: isDark(context)
+                                                          ? Colors.white
+                                                          : Colors.black),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                                 SizedBox(
-                                  width: 20,
+                                  height: 10,
                                 ),
-                                Row(
-                                  children: <Widget>[
-                                    Radio(
-                                      value: 2,
-                                      groupValue: groupValue,
-                                      onChanged: (int e) {
-                                        setState(() {
-                                          groupValue = e;
-                                        });
-                                      },
-                                      activeColor: Colors.red,
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Card(
+                                    color: isDark(context)
+                                        ? Color(0xFF121212)
+                                        : Colors.white,
+                                    elevation: 5,
+                                    child: Row(
+                                      children: <Widget>[
+                                        Column(
+                                          children: <Widget>[
+                                            Container(
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(10.0),
+                                                child: Text(
+                                                  'Urgent Amount',
+                                                  style: TextStyle(
+                                                      color: isDark(context)
+                                                          ? Colors.white
+                                                          : Colors.black),
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(10.0),
+                                              child: Container(
+                                                height: 25,
+                                                child: Text(
+                                                  requestAmountJson.isEmpty ||
+                                                          requestAmountJson ==
+                                                              null
+                                                      ? ''
+                                                      : requestAmountJson[
+                                                                      'data'][
+                                                                  'UrgentAmount'] ==
+                                                              ("NA")
+                                                          ? "Not Avalible"
+                                                          : requestAmountJson[
+                                                                      'data'][
+                                                                  'UrgentAmount']
+                                                              .toString(),
+                                                  style: TextStyle(
+                                                      color: isDark(context)
+                                                          ? Colors.white
+                                                          : Colors.black),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
                                     ),
-                                    Text('Urgent',
-                                        style: TextStyle(
-                                            color: isDark(context)
-                                                ? Colors.white
-                                                : Colors.black)),
-                                  ],
+                                  ),
+                                ),
+                                Container(
+                                  alignment: Alignment.center,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Form(
+                                        key: _onlineRequest,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            globalForms(context, '',
+                                                (String value) {
+                                              if (value.trim().isEmpty) {
+                                                return 'Address  is required';
+                                              }
+                                              return null;
+                                            }, (x) {
+                                              setState(() {
+                                                address = x;
+                                              });
+                                            }, 'Address', TextInputType.text),
+                                            globalForms(context, '',
+                                                (String value) {
+                                              if (value.trim().isEmpty) {
+                                                return 'Remark is required';
+                                              }
+                                              return null;
+                                            }, (x) {
+                                              setState(() {
+                                                remark = x;
+                                              });
+                                            }, 'Remark', TextInputType.text),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(
+                                      20.0, 0.0, 20.0, 5.0),
+                                  child: Column(
+                                    children: <Widget>[
+                                      Container(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            "Pay Amount",
+                                            style: TextStyle(
+                                                color: isDark(context)
+                                                    ? Colors.white
+                                                    : Colors.black),
+                                          )),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Row(
+                                        children: <Widget>[
+                                          Row(
+                                            children: <Widget>[
+                                              Radio(
+                                                value: 1,
+                                                groupValue: groupValue,
+                                                onChanged: (int e) {
+                                                  setState(() {
+                                                    groupValue = e;
+                                                  });
+                                                },
+                                                activeColor: Colors.blue,
+                                              ),
+                                              Text('Normal',
+                                                  style: TextStyle(
+                                                      color: isDark(context)
+                                                          ? Colors.white
+                                                          : Colors.black)),
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            width: 20,
+                                          ),
+                                          Row(
+                                            children: <Widget>[
+                                              Radio(
+                                                value: 2,
+                                                groupValue: groupValue,
+                                                onChanged: (int e) {
+                                                  setState(() {
+                                                    groupValue = e;
+                                                  });
+                                                },
+                                                activeColor: Colors.red,
+                                              ),
+                                              Text('Urgent',
+                                                  style: TextStyle(
+                                                      color: isDark(context)
+                                                          ? Colors.white
+                                                          : Colors.black)),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 20,
                                 ),
                               ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
+                            )
                     ],
                   ),
                 ],
@@ -391,6 +537,44 @@ class _OnlineRequestState extends State<OnlineRequest> {
         setState(
           () {
             onlineRequestTypeJson = json.decode(response.body)['data'];
+          },
+        );
+        showLoading(false, context);
+      }
+    } catch (x) {
+      if (x.toString().contains("TimeoutException")) {
+        showLoading(false, context);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getRequestType);
+      } else {
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getRequestType);
+      }
+    }
+  }
+
+  Future getAgainstMarks() async {
+    Future.delayed(Duration.zero, () {
+      showLoading(true, context);
+    });
+
+    try {
+      final response = await http.post(
+        Uri.encodeFull(
+            'https://skylineportal.com/moappad/api/test/AgainstMarksCourses'),
+        headers: {
+          "API-KEY": API,
+        },
+        body: {
+          'user_id': username,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        setState(
+          () {
+            againstMarksJson = json.decode(response.body)['data'];
           },
         );
         showLoading(false, context);

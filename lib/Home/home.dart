@@ -134,16 +134,16 @@ class _HomeState extends State<Home> {
           color: isDark(context) ? Color(0xFF121212) : Colors.white,
           child: Column(
             children: <Widget>[
-              sliders.isEmpty
-                  ? Container(
-                      height: 140,
-                      child: Center(
-                        child: new CircularProgressIndicator(
-                          strokeWidth: 2,
-                        ),
-                      ),
-                    )
-                  : PhotoSlider(sliders),
+              // sliders.isEmpty
+              //     ? Container(
+              //         height: 140,
+              //         child: Center(
+              //           child: new CircularProgressIndicator(
+              //             strokeWidth: 2,
+              //           ),
+              //         ),
+              //       )
+              //     : PhotoSlider(sliders),
               Expanded(
                 child: Container(
                   child: ListView(

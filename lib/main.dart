@@ -42,6 +42,7 @@ import 'Login/E-Reques/FacForm/permissionToLeave.dart';
 import 'Login/E-Reques/FacForm/salaryCertificate.dart';
 import 'Login/E-Reques/StudentForm/advisorAppointment.dart';
 import 'Login/E-Reques/StudentForm/changeClassTime.dart';
+import 'Login/E-Reques/StudentForm/complains.dart';
 import 'Login/E-Reques/StudentForm/courseWithdrawal.dart';
 import 'Login/E-Reques/StudentForm/generalAppointment.dart';
 import 'Login/E-Reques/StudentForm/leaveApplicationForm.dart';
@@ -49,8 +50,12 @@ import 'Login/E-Reques/StudentForm/onlineRequest.dart';
 import 'Login/E-Reques/StudentForm/passportRetaining.dart';
 import 'Login/E-Reques/StudentForm/passportWithdrawal.dart';
 import 'Login/E-Reques/StudentForm/reinstatment.dart';
+import 'Login/E-Reques/StudentForm/suggestions.dart';
+import 'Login/E-Reques/StudentForm/updateInformation.dart';
 import 'Login/E-Reques/StudentForm/visitorInfoLan.dart';
 import 'Login/E-Reques/home.dart';
+import 'Login/E-Reques/homeAppointment.dart';
+import 'Login/E-Reques/homeSuggestion.dart';
 import 'Login/Results/finalGradeResult.dart';
 import 'Login/Results/gpaRequirments.dart';
 import 'Login/Results/midTermMarks.dart';
@@ -166,11 +171,18 @@ class MyAppState extends State<MyApp> {
           // }
           '/onlineRequest': (context) => OnlineRequest(),
           '/HomeERequest': (context) => HomeERequest(),
+          '/homeAppointment': (context) => HomeAppointment(),
+          '/homeSuggestion': (context) => HomeSuggestion(),
+          '/complains': (context) => Complains(),
+                    '/suggestions': (context) => Suggestions(),
+
+
+          // HomeAppointment
           '/ChangeClassTime': (context) => ChangeClassTime(),
           '/reinStatement': (context) => ReinStatement(),
           '/courseWithdrawal': (context) => CourseWithdrawal(),
 
-          '/UpdateInformation': (context) => Profile(),
+          '/UpdateInformation': (context) => UpdateInformation(),
           '/cdpDownload': (context) => CDPDownload(),
           '/leaveApplication': (context) => LeaveApplication(),
           '/passportWithdrawal': (context) => PassportWithdrawal(),

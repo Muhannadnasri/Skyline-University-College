@@ -10,6 +10,8 @@ import 'package:pdf_viewer_plugin/pdf_viewer_plugin.dart';
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:superellipse_shape/superellipse_shape.dart';
 
+import 'global.dart';
+
 class PdfView extends StatefulWidget {
   final String url;
   const PdfView({Key key, this.url}) : super(key: key);
@@ -120,51 +122,8 @@ class _PdfViewState extends State<PdfView> with TickerProviderStateMixin {
     );
   }
 
-  void _showLoading(isLoading) {
-    if (isLoading) {
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return WillPopScope(
-              onWillPop: () {},
-              child: new AlertDialog(
-                title: Image.asset(
-                  'images/logo.png',
-                  height: 50,
-                ),
-                shape: SuperellipseShape(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                ),
-                content: Padding(
-                  padding: const EdgeInsets.only(left: 50.0),
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 25.0),
-                        child: new CircularProgressIndicator(
-                          strokeWidth: 2,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 12),
-                        child: new Text('Please Wait....'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          });
-    } else {
-      Navigator.pop(context);
-    }
-  }
-
   Future<void> _shareImageFromUrl() async {
-    _showLoading(true);
+    showLoading(true, context);
     try {
       var request = await HttpClient().getUrl(Uri.parse(widget.url));
       var response = await request.close();
@@ -172,7 +131,7 @@ class _PdfViewState extends State<PdfView> with TickerProviderStateMixin {
       await Share.file(
           'Share Document', 'Document.pdf', bytes, 'application/pdf');
       Future.delayed(const Duration(seconds: 1), () {
-        _showLoading(false);
+      showLoading(false, context);
       });
     } catch (e) {}
   }

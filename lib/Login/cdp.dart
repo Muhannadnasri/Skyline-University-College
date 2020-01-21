@@ -11,6 +11,7 @@ import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/global.dart';
+import 'package:skyline_university/Global/pdfView.dart';
 import 'package:superellipse_shape/superellipse_shape.dart';
 
 void main() => runApp(CDPDownload());
@@ -140,18 +141,18 @@ class _CDPDownloadState extends State<CDPDownload>
                               children: <Widget>[
                                 GestureDetector(
                                     onTap: () {
-                                      // shareCDP(
-                                      //     'https://www.skylineportal.com/Report/Pages/SkylineCPD-Display.aspx?path1=${cdpCourseJson[index]['Faculty_id']}&batch=${cdpCourseJson[index]['BatchCode']}&studid=$username&reqid=2&cdp=0');
-//TODO: Add New Button Share / view And fix Pdf Viewer
+//                                       shareCDP(
+//                                           'https://www.skylineportal.com/Report/Pages/SkylineCPD-Display.aspx?path1=${cdpCourseJson[index]['Faculty_id']}&batch=${cdpCourseJson[index]['BatchCode']}&studid=$username&reqid=2&cdp=0');
+// // TODO: Add New Button Share / view And fix Pdf Viewer
 
-                                      // Navigator.push(
-                                      //   context,
-                                      //   MaterialPageRoute(
-                                      //     builder: (context) => PdfView(
-                                      //       url: 'https://www.skylineportal.com/Report/Pages/SkylineCPD-Display.aspx?path1=${cdpCourseJson[index]['Faculty_id']}&batch=${cdpCourseJson[index]['BatchCode']}&studid=$username&reqid=2&cdp=0',
-                                      //     ),
-                                      //   ),
-                                      // );
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => PdfView(
+                                            url: 'https://www.skylineportal.com/Report/Pages/SkylineCPD-Display.aspx?path1=${cdpCourseJson[index]['Faculty_id']}&batch=${cdpCourseJson[index]['BatchCode']}&studid=$username&reqid=2&cdp=0',
+                                          ),
+                                        ),
+                                      );
                                     },
                                     child: Container(
                                         child: Text(
@@ -238,12 +239,6 @@ class _CDPDownloadState extends State<CDPDownload>
           cdpCourseMessageJson = json.decode(response.body);
         });
         showLoading(false, context);
-        if (cdpCourseMessageJson['success'] == '0') {
-          showfailureSnackBar(context, cdpCourseMessageJson['message']);
-        }
-        if (cdpCourseMessageJson['success'] == '1') {
-          showSuccessSnackBar(context, cdpCourseMessageJson['message']);
-        }
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {

@@ -240,6 +240,39 @@ class _HomeLoginState extends State<HomeLogin> {
                                 ),
                                 homeBox(
                                   context,
+                                  'images-white/contactslist.png',
+                                  'images/contactslist.png',
+                                  "/homeAppointment",
+                                  Colors.white60,
+                                  Colors.black,
+                                  'Apopointment',
+                                  Colors.white,
+                                  Colors.black,
+                                ),
+                                homeBox(
+                                  context,
+                                  'images-white/contactslist.png',
+                                  'images/contactslist.png',
+                                  "/homeSuggestion",
+                                  Colors.white60,
+                                  Colors.black,
+                                  'Suggestion',
+                                  Colors.white,
+                                  Colors.black,
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: <Widget>[
+                                homeBox(
+                                  context,
                                   'images-white/cdp.png',
                                   'images/cdp.png',
                                   "/cdpDownload",
