@@ -840,17 +840,18 @@ class _VisitorInfoState extends State<VisitorInfo> {
         }
       }
     } catch (x) {
-      if (x.toString().contains("TimeoutException")) {
-        showLoading(false, context);
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-            context, sendVisitorInformationForm);
-        // showErrorServer(context, getAdmissionFormDropdownRecords());
-      } else {
-        showLoading(false, context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-            sendVisitorInformationForm);
-        // showErrorConnect(context, getAdmissionFormDropdownRecords());
-      }
+      print(x);
+      // if (x.toString().contains("TimeoutException")) {
+      //   showLoading(false, context);
+      //   showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+      //       context, sendVisitorInformationForm);
+      //   // showErrorServer(context, getAdmissionFormDropdownRecords());
+      // } else {
+      //   showLoading(false, context);
+      //   showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+      //       sendVisitorInformationForm);
+      //   // showErrorConnect(context, getAdmissionFormDropdownRecords());
+      // }
     }
   }
 }
