@@ -8,10 +8,8 @@ import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/bottomAppBar.dart';
 import 'package:skyline_university/Global/customdropdown.dart';
-import 'package:skyline_university/Global/dropDownWidget.dart';
 import 'package:skyline_university/Global/dropDownWidgetVisitor.dart';
 import 'package:skyline_university/Global/exception.dart';
-import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/formVisitor.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:translator/translator.dart';
@@ -69,6 +67,10 @@ class _VisitorInfoState extends State<VisitorInfo> {
 
   String translatorLevel = '';
   String translatorEvent = '';
+  List title = [
+    {'السيد', 'السيدة', 'السيدة', 'دكتور'},
+    {'Mr', 'Mrs', 'MS', 'Dr'}
+  ];
 
   @override
   void initState() {
@@ -166,14 +168,17 @@ class _VisitorInfoState extends State<VisitorInfo> {
                                   ),
                                   isExpanded: true,
                                   value: callYou,
-                                  items: ['Mr', 'Mrs', 'MS', 'Dr']
+                                  items: title
                                           ?.map(
                                             (item) => DropdownMenuItem<String>(
                                               value: item.toString(),
                                               child: Padding(
                                                 padding:
                                                     const EdgeInsets.all(8.0),
-                                                child: Text(item.toString()),
+                                                child: Text(
+                                                  widget.languageAr?item[0]:
+                                                  item[1].toString(),
+                                                ),
                                               ),
                                             ),
                                           )
@@ -780,6 +785,10 @@ class _VisitorInfoState extends State<VisitorInfo> {
                 ? translatorName =
                     await translator.translate(name, from: 'ar', to: 'en')
                 : name,
+            "shortCourse": widget.languageAr
+                ? translatorName = await translator.translate(shotrCourse,
+                    from: 'ar', to: 'en')
+                : shotrCourse,
             "title": callYou,
             "other": program == null
                 ? widget.languageAr
