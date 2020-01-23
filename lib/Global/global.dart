@@ -48,12 +48,12 @@ bool internet = true;
 bool data = true;
 //
 bool isNumeric(String str) {
-    if (str == null) {
-      return false;
-    }
-    return double.tryParse(str) != null;
+  if (str == null) {
+    return false;
   }
-  
+  return double.tryParse(str) != null;
+}
+
 phoneCall() async {
   if (await canLaunch("tel:+97165441155")) {
     await launch("tel:+97165441155");
@@ -234,8 +234,41 @@ void showfailureSnackBar(BuildContext context, message) {
   )..show(context);
 }
 
-textField() {
-  return null;
+void showDailyFailureSnackBar(BuildContext context, message) {
+  Flushbar(
+    duration: Duration(seconds: 2),
+    // aroundPadding: EdgeInsets.all(10),
+    borderRadius: 30,
+    backgroundGradient: LinearGradient(
+      colors: isDark(context)
+          ? [
+              Color(0xFF1F1F1F),
+              Color(0xFF1F1F1F),
+            ]
+          : [
+              Color(0xFFe52d27),
+              Color(0xFFb31217),
+            ],
+      stops: [0.7, 0.9],
+    ),
+    boxShadows: [
+      BoxShadow(
+        color: Colors.black45,
+        offset: Offset(3, 3),
+        blurRadius: 10,
+      ),
+    ],
+    onStatusChanged: (FlushbarStatus) {
+      // Navigator.pop(context);
+    },
+    // All of the previous Flushbars could be dismissed by swiping down
+    // now we want to swipe to the sides
+    dismissDirection: FlushbarDismissDirection.VERTICAL,
+    // The default curve is Curves.easeOut
+    forwardAnimationCurve: Curves.fastLinearToSlowEaseIn,
+    title: 'Failure',
+    message: message,
+  )..show(context);
 }
 
 void showError(String msg, IconData icon, context, action) {

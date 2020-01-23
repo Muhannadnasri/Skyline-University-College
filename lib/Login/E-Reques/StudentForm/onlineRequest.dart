@@ -44,6 +44,8 @@ class _OnlineRequestState extends State<OnlineRequest> {
   List resitMarksJson = [];
   String localName = '';
   String localNumber = '';
+  int multiSelect = 0;
+  int course = 0;
 
   String internationalName = '';
   String reasonPassport = '';
@@ -80,6 +82,9 @@ class _OnlineRequestState extends State<OnlineRequest> {
   String courseName;
   String grade;
   String allValueMid;
+
+  List<bool> selectedCourses = new List<bool>();
+
   @override
   void initState() {
     super.initState();
@@ -92,78 +97,99 @@ class _OnlineRequestState extends State<OnlineRequest> {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
       resizeToAvoidBottomPadding: true,
-      bottomNavigationBar:
-          onlineRequestTypeJson == null || onlineRequestTypeJson.isEmpty
-              ? Container()
-              : bottomappBar(
-                  context,
-                  () {
-                    if (checkRequestJson['status'] != 'Closed') {
-                      if (requestId == '6') {
-                        //TODO: Send Request
-                        // if (_onlineRequest.currentState.validate() &&
-                        //     requestId != null) {
-                        //   _onlineRequest.currentState.save();
-                        //   sendOnlineRequest();
-                        // } else {
-                        //   // return showErrorInput('Please check your input');
-                        // }
-                      }
-                      if (requestId == '1') {
-                        //TODO: Send Request
-                        // if (_onlineRequest.currentState.validate() &&
-                        //     requestId != null) {
-                        //   _onlineRequest.currentState.save();
-                        //   sendOnlineRequest();
-                        // } else {
-                        //   // return showErrorInput('Please check your input');
-                        // }
-                      }
-                      if (requestId == '5') {
-                        //TODO: Send Request
-                        // if (_onlineRequest.currentState.validate() &&
-                        //     requestId != null) {
-                        //   _onlineRequest.currentState.save();
-                        //   sendOnlineRequest();
-                        // } else {
-                        //   // return showErrorInput('Please check your input');
-                        // }
-                      }
-                      if (requestId == '143') {
-                        //TODO: Send Request
-                        // if (_onlineRequest.currentState.validate() &&
-                        //     requestId != null) {
-                        //   _onlineRequest.currentState.save();
-                        //   sendOnlineRequest();
-                        // } else {
-                        //   // return showErrorInput('Please check your input');
-                        // }
-                      }
-                      if (requestId == '109') {
-                        //TODO: Send Request
-                        // if (_onlineRequest.currentState.validate() &&
-                        //     requestId != null) {
-                        //   _onlineRequest.currentState.save();
-                        //   sendOnlineRequest();
-                        // } else {
-                        //   // return showErrorInput('Please check your input');
-                        // }
+      bottomNavigationBar: onlineRequestTypeJson == null ||
+              onlineRequestTypeJson.isEmpty
+          ? Container()
+          : bottomappBar(
+              context,
+              () {
+                if (checkRequestJson['status'] != 'Closed') {
+                  if (requestId == '6') {
+                    //TODO: Send Request
+                    // if (_onlineRequest.currentState.validate() &&
+                    //     requestId != null) {
+                    //   _onlineRequest.currentState.save();
+                    //   sendOnlineRequest();
+                    // } else {
+                    //   // return showErrorInput('Please check your input');
+                    // }
+                  }
+                  if (requestId == '1') {
+                    //TODO: Send Request
+                    // if (_onlineRequest.currentState.validate() &&
+                    //     requestId != null) {
+                    //   _onlineRequest.currentState.save();
+                    //   sendOnlineRequest();
+                    // } else {
+                    //   // return showErrorInput('Please check your input');
+                    // }
+                  }
+                  if (requestId == '5') {
+                    //TODO: Send Request
+                    // if (_onlineRequest.currentState.validate() &&
+                    //     requestId != null) {
+                    //   _onlineRequest.currentState.save();
+                    //   sendOnlineRequest();
+                    // } else {
+                    //   // return showErrorInput('Please check your input');
+                    // }
+                  }
+                  if (requestId == '143') {
+                    setState(() async {
+                      if (multiSelect == aptitudeJson.length - 2) {
+                        // btnName = "Finish";
                       }
 
-                      // if (_onlineRequest.currentState.validate() &&
-                      //     requestId != null) {
-                      //   // _onlineRequest.currentState.save();
-                      //   // sendOnlineRequest();
-                      // } else {
-                      //   // return showErrorInput('Please check your input');
-                      // }
-                    } else {
-                      // print(checkRequestJson['message']);
-                      showfailureSnackBar(
-                          context, checkRequestMessageJson['message'].toString());
-                    }
-                  },
-                ),
+                      if (multiSelect < aptitudeJson.length) {
+                        if (course != -1) {
+                          // await sendAptitudes();
+                          if (multiSelect == aptitudeJson.length - 1) {
+                            // completedAptitudes();
+                            return;
+                          }
+                        } else {
+                          // return showErrorInput('Please select one option');
+                        }
+                        multiSelect++;
+                      }
+
+                      course = -1;
+                    });
+                    //TODO: Send Request
+                    // if (_onlineRequest.currentState.validate() &&
+                    //     requestId != null) {
+                    //   _onlineRequest.currentState.save();
+                    //   sendOnlineRequest();
+                    // } else {
+                    //   // return showErrorInput('Please check your input');
+                    // }
+                  }
+                  if (requestId == '109') {
+                    //TODO: Send Request
+                    // if (_onlineRequest.currentState.validate() &&
+                    //     requestId != null) {
+                    //   _onlineRequest.currentState.save();
+                    //   sendOnlineRequest();
+                    // } else {
+                    //   // return showErrorInput('Please check your input');
+                    // }
+                  }
+
+                  // if (_onlineRequest.currentState.validate() &&
+                  //     requestId != null) {
+                  //   // _onlineRequest.currentState.save();
+                  //   // sendOnlineRequest();
+                  // } else {
+                  //   // return showErrorInput('Please check your input');
+                  // }
+                } else {
+                  // print(checkRequestJson['message']);
+
+                  showDailyFailureSnackBar(
+                      context, checkRequestMessageJson['message'].toString());
+                }
+              },
+            ),
       appBar: appBarLogin(context, 'Online Request'),
       body: onlineRequestTypeJson == null || onlineRequestTypeJson.isEmpty
           ? exception(context)
@@ -248,6 +274,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                 onChanged: (value) {
                                   setState(() async {
                                     requestId = value;
+                                    print(requestId);
                                     getCheckRequest();
 
                                     if (requestId != '143' ||
@@ -708,131 +735,204 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                           ? againstMarksJson == null ||
                                                   againstMarksJson.isEmpty
                                               ? SizedBox()
-                                              : Column(
-                                                  children: <Widget>[
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.centerLeft,
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .fromLTRB(
-                                                                20.0,
-                                                                0.0,
-                                                                20.0,
-                                                                5.0),
-                                                        child: Text(
-                                                          'Courses',
-                                                          style: TextStyle(
-                                                            color: isDark(
-                                                                    context)
-                                                                ? Colors.white
-                                                                : Colors.black,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: DropdownButton<
-                                                          String>(
-                                                        underline: Container(
-                                                          height: 1,
-                                                          color:
-                                                              Color(0xFF2f2f2f),
-                                                        ),
-                                                        hint: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .fromLTRB(
-                                                                  20.0,
-                                                                  0.0,
-                                                                  20.0,
-                                                                  5.0),
-                                                          child: Text(
-                                                            'Select Option',
-                                                            style: TextStyle(
-                                                              color: isDark(
-                                                                      context)
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                      .black,
+                                              : Container(
+                                                  height: 400,
+                                                  child: new ListView.builder(
+                                                      itemCount:
+                                                          againstMarksJson
+                                                              .length,
+                                                      itemBuilder:
+                                                          (BuildContext context,
+                                                              int index) {
+                                                        return new Card(
+                                                          child: new Container(
+                                                            padding:
+                                                                new EdgeInsets
+                                                                    .all(10.0),
+                                                            child: new Column(
+                                                              children: <
+                                                                  Widget>[
+                                                                new CheckboxListTile(
+                                                                    value: selectedCourses[
+                                                                        index],
+                                                                    title: new Text(
+                                                                        againstMarksJson[index]
+                                                                            [
+                                                                            'CourseName']),
+                                                                    controlAffinity:
+                                                                        ListTileControlAffinity
+                                                                            .leading,
+                                                                    onChanged:
+                                                                        (bool
+                                                                            val) {
+                                                                      setState(
+                                                                          () {
+                                                                        selectedCourses[index] =
+                                                                            val;
+                                                                      });
+                                                                    })
+                                                              ],
                                                             ),
                                                           ),
-                                                        ),
-                                                        isExpanded: true,
-                                                        value: allValue,
-                                                        items: againstMarksJson
-                                                                ?.map(
-                                                                  (item) =>
-                                                                      DropdownMenuItem<
-                                                                          String>(
-                                                                    value: item[
-                                                                                'CDD_ID']
-                                                                            .toString() +
-                                                                        "||" +
-                                                                        item['CDD_Code']
-                                                                            .toString() +
-                                                                        "||" +
-                                                                        item['CourseName']
-                                                                            .toString() +
-                                                                        "||" +
-                                                                        item['Grade']
-                                                                            .toString() +
-                                                                        "||" +
-                                                                        item['Batch_ID']
-                                                                            .toString(),
-                                                                    child:
-                                                                        Padding(
-                                                                      padding:
-                                                                          const EdgeInsets.all(
-                                                                              8.0),
-                                                                      child: FittedBox(
-                                                                          child: Text(item['CourseName'] +
-                                                                              '  ' +
-                                                                              item['Grade'].toString())),
-                                                                    ),
-                                                                  ),
-                                                                )
-                                                                ?.toList() ??
-                                                            [],
-                                                        onChanged: (value) {
-                                                          setState(() {
-                                                            allValue = value;
-                                                            cddId = value
-                                                                .split('||')[0];
-                                                            cddCode = value
-                                                                .split('||')[1];
-                                                            courseName = value
-                                                                .split('||')[2];
-                                                            grade = value
-                                                                .split('||')[3];
-                                                            batchId = value
-                                                                .split('||')[4];
-
-                                                            // againstMark = value;
-                                                          });
-                                                        },
-                                                      ),
-                                                    ),
-                                                    globalForms(context, '',
-                                                        (String value) {
-                                                      if (value
-                                                          .trim()
-                                                          .isEmpty) {
-                                                        return 'Reason is required';
-                                                      }
-                                                      return null;
-                                                    }, (x) {
-                                                      setState(() {
-                                                        reason = x;
-                                                      });
-                                                    }, 'Reason',
-                                                        TextInputType.text),
-                                                  ],
+                                                        );
+                                                      }),
                                                 )
+
+                                          // Column(
+                                          //     children: <Widget>[
+
+                                          //       // Text(
+                                          //       //   againstMarksJson[
+                                          //       //           multiSelect]
+                                          //       //       ['CourseName'],
+                                          //       //   style: TextStyle(
+                                          //       //       fontWeight:
+                                          //       //           FontWeight.bold,
+                                          //       //       color: Colors.white),
+                                          //       // ),
+                                          //       // againstMarksJson[
+                                          //       //         multiSelect]
+                                          //       //     ['question'],
+                                          //       // ListTile(
+                                          //       //   onTap: () {
+                                          //       //     setState(() {
+                                          //       //       course = 1;
+                                          //       //     });
+                                          //       //   },
+                                          //       //   selected: course == 1,
+                                          //       //   title: Center(
+                                          //       //     child: Text(
+                                          //       //       'Yes',
+                                          //       //       style: TextStyle(
+                                          //       //           fontWeight:
+                                          //       //               FontWeight
+                                          //       //                   .bold),
+                                          //       //     ),
+                                          //       //   ),
+                                          //       // ),
+                                          //       Container(
+                                          //         alignment:
+                                          //             Alignment.centerLeft,
+                                          //         child: Padding(
+                                          //           padding:
+                                          //               const EdgeInsets
+                                          //                       .fromLTRB(
+                                          //                   20.0,
+                                          //                   0.0,
+                                          //                   20.0,
+                                          //                   5.0),
+                                          //           child: Text(
+                                          //             'Courses',
+                                          //             style: TextStyle(
+                                          //               color: isDark(
+                                          //                       context)
+                                          //                   ? Colors.white
+                                          //                   : Colors.black,
+                                          //             ),
+                                          //           ),
+                                          //         ),
+                                          //       ),
+                                          //       Padding(
+                                          //         padding:
+                                          //             const EdgeInsets.all(
+                                          //                 8.0),
+                                          //         child: DropdownButton<
+                                          //             String>(
+                                          //           underline: Container(
+                                          //             height: 1,
+                                          //             color:
+                                          //                 Color(0xFF2f2f2f),
+                                          //           ),
+                                          //           hint: Padding(
+                                          //             padding:
+                                          //                 const EdgeInsets
+                                          //                         .fromLTRB(
+                                          //                     20.0,
+                                          //                     0.0,
+                                          //                     20.0,
+                                          //                     5.0),
+                                          //             child: Text(
+                                          //               'Select Option',
+                                          //               style: TextStyle(
+                                          //                 color: isDark(
+                                          //                         context)
+                                          //                     ? Colors.white
+                                          //                     : Colors
+                                          //                         .black,
+                                          //               ),
+                                          //             ),
+                                          //           ),
+                                          //           isExpanded: true,
+                                          //           value: allValue,
+                                          //           items: againstMarksJson
+                                          //                   ?.map(
+                                          //                     (item) =>
+                                          //                         DropdownMenuItem<
+                                          //                             String>(
+                                          //                       value: item[
+                                          //                                   'CDD_ID']
+                                          //                               .toString() +
+                                          //                           "||" +
+                                          //                           item['CDD_Code']
+                                          //                               .toString() +
+                                          //                           "||" +
+                                          //                           item['CourseName']
+                                          //                               .toString() +
+                                          //                           "||" +
+                                          //                           item['Grade']
+                                          //                               .toString() +
+                                          //                           "||" +
+                                          //                           item['Batch_ID']
+                                          //                               .toString(),
+                                          //                       child:
+                                          //                           Padding(
+                                          //                         padding:
+                                          //                             const EdgeInsets.all(
+                                          //                                 8.0),
+                                          //                         child: FittedBox(
+                                          //                             child: Text(item['CourseName'] +
+                                          //                                 '  ' +
+                                          //                                 item['Grade'].toString())),
+                                          //                       ),
+                                          //                     ),
+                                          //                   )
+                                          //                   ?.toList() ??
+                                          //               [],
+                                          //           onChanged: (value) {
+                                          //             setState(() {
+                                          //               allValue = value;
+                                          //               cddId = value
+                                          //                   .split('||')[0];
+                                          //               cddCode = value
+                                          //                   .split('||')[1];
+                                          //               courseName = value
+                                          //                   .split('||')[2];
+                                          //               grade = value
+                                          //                   .split('||')[3];
+                                          //               batchId = value
+                                          //                   .split('||')[4];
+
+                                          //               // againstMark = value;
+                                          //             });
+                                          //           },
+                                          //         ),
+                                          //       ),
+                                          //       globalForms(context, '',
+                                          //           (String value) {
+                                          //         if (value
+                                          //             .trim()
+                                          //             .isEmpty) {
+                                          //           return 'Reason is required';
+                                          //         }
+                                          //         return null;
+                                          //       }, (x) {
+                                          //         setState(() {
+                                          //           reason = x;
+                                          //         });
+                                          //       }, 'Reason',
+                                          //           TextInputType.text),
+                                          //     ],
+                                          //   )
                                           : Column(
                                               children: <Widget>[
                                                 Padding(
@@ -1166,8 +1266,10 @@ class _OnlineRequestState extends State<OnlineRequest> {
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
     });
-
+  
     try {
+      selectedCourses = [];
+      againstMarksJson = [];
       final response = await http.post(
         Uri.encodeFull(
             'https://skylineportal.com/moappad/api/test/AgainstMarksCourses'),
@@ -1183,6 +1285,10 @@ class _OnlineRequestState extends State<OnlineRequest> {
         setState(
           () {
             againstMarksJson = json.decode(response.body)['data'];
+            
+            for (int i = 0; i < 20; i++) {
+              selectedCourses.add(false);
+            }
           },
         );
         showLoading(false, context);
@@ -1242,6 +1348,51 @@ class _OnlineRequestState extends State<OnlineRequest> {
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
     });
+
+    int i = 0;
+    bool firstRequest = true;
+
+    selectedCourses.forEach((selectedCourse) async {
+      if (selectedCourse) {
+        try {
+          final response = await http.post(
+            Uri.encodeFull(firstRequest
+                ? 'https://skylineportal.com/moappad/api/test/onlineRequestFirst'
+                : 'https://skylineportal.com/moappad/api/test/onlineRequest'),
+            headers: {
+              "API-KEY": API,
+            },
+            body: {
+              'user_id': username,
+              // 'request_type': requestAmountJson['data']['MiscName'],
+              // 'request_process': groupValue == 1 ? "Normal" : "Urgent",
+              // 'address': address,
+              // 'remarks': remark,
+              // 'amount': groupValue == 1 ? "NormalAmount" : "UrgentAmount",
+              'BatchCode': againstMarksJson[i]['BatchCode'],
+            },
+          ).timeout(Duration(seconds: 35));
+
+          if (response.statusCode == 200) {}
+        } catch (x) {
+          if (x.toString().contains("TimeoutException")) {
+            showLoading(false, context);
+            showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+                context, sendOnlineRequest);
+          } else {
+            showLoading(false, context);
+            showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+                sendOnlineRequest);
+          }
+        }
+        firstRequest = false;
+      }
+      
+      i++;
+    });
+    showLoading(false, context);
+
+    //send confirmation
 
     try {
       final response = await http.post(
@@ -1469,7 +1620,6 @@ class _OnlineRequestState extends State<OnlineRequest> {
     }
   }
 
-
   Future insertRequest() async {
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
@@ -1509,6 +1659,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
       }
     }
   }
+
   Future getCheckRequest() async {
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
@@ -1523,6 +1674,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
         },
         body: {
           'RequestTypeid': '24',
+          //TODO: Here RequestId
           'StudentID': username,
         },
       );
