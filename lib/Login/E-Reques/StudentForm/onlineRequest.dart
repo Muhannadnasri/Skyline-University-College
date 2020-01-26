@@ -104,6 +104,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
               context,
               () {
                 if (checkRequestJson['status'] != 'Closed') {
+                  insertRequest();
                   if (requestId == '6') {
                     //TODO: Send Request
                     // if (_onlineRequest.currentState.validate() &&
@@ -275,6 +276,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                   setState(() async {
                                     requestId = value;
                                     print(requestId);
+
                                     getCheckRequest();
 
                                     if (requestId != '143' ||
@@ -1266,7 +1268,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
     });
-  
+
     try {
       selectedCourses = [];
       againstMarksJson = [];
@@ -1285,7 +1287,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
         setState(
           () {
             againstMarksJson = json.decode(response.body)['data'];
-            
+
             for (int i = 0; i < 20; i++) {
               selectedCourses.add(false);
             }
@@ -1320,6 +1322,48 @@ class _OnlineRequestState extends State<OnlineRequest> {
         },
         body: {
           'req_type_id': requestId,
+        },
+      ).timeout(Duration(seconds: 35));
+
+      if (response.statusCode == 200) {
+        setState(
+          () {
+            requestAmountJson = json.decode(response.body);
+          },
+        );
+        showLoading(false, context);
+      }
+    } catch (x) {
+      if (x.toString().contains("TimeoutException")) {
+        showLoading(false, context);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getAmount);
+      } else {
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getAmount);
+      }
+    }
+  }
+
+  Future insertRequest() async {
+    Future.delayed(Duration.zero, () {
+      showLoading(true, context);
+    });
+
+    try {
+      final response = await http.post(
+        Uri.encodeFull(
+            'https://skylineportal.com/moappad/api/test/InsertRequest'),
+        headers: {
+          "API-KEY": API,
+        },
+        body: {
+          'StudentID': username,
+          'RequestTypeid': requestId,
+          'RequestType': requestType,
+          'AddressTo': address,
+          'Remarks': remark,
         },
       ).timeout(Duration(seconds: 35));
 
@@ -1387,7 +1431,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
         }
         firstRequest = false;
       }
-      
+
       i++;
     });
     showLoading(false, context);
