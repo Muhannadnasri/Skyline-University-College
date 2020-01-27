@@ -1517,10 +1517,10 @@ class _OnlineRequestState extends State<OnlineRequest> {
         },
         body: {
           'StudentID': username,
-          'RequestTypeid': requestId,
+          'RequestTypeid': requestId.toString(),
           // 'RequestType': requestType,
-          'AddressTo': address,
-          'Remarks': remark,
+          'AddressTo': address.toString(),
+          'Remarks': remark.toString(),
         },
       ).timeout(Duration(seconds: 35));
 
@@ -1543,55 +1543,6 @@ class _OnlineRequestState extends State<OnlineRequest> {
             getAmount);
       }
     }
-  }
-
-  Future sendOnlineRequest() async {
-    Future.delayed(Duration.zero, () {
-      showLoading(true, context);
-    });
-
-    int i = 0;
-    bool firstRequest = true;
-
-    selectedAgainstCourses.forEach((selectedAgainstCourse) async {
-      if (selectedAgainstCourse) {
-        try {
-          final response = await http.post(
-            Uri.encodeFull(firstRequest
-                ? 'https://skylineportal.com/moappad/api/test/onlineRequestFirst'
-                : 'https://skylineportal.com/moappad/api/test/onlineRequest'),
-            headers: {
-              "API-KEY": API,
-            },
-            body: {
-              'user_id': username,
-              // 'request_type': requestAmountJson['data']['MiscName'],
-              // 'request_process': groupValue == 1 ? "Normal" : "Urgent",
-              // 'address': address,
-              // 'remarks': remark,
-              // 'amount': groupValue == 1 ? "NormalAmount" : "UrgentAmount",
-              'BatchCode': againstMarksJson[i]['BatchCode'],
-            },
-          ).timeout(Duration(seconds: 35));
-
-          if (response.statusCode == 200) {}
-        } catch (x) {
-          if (x.toString().contains("TimeoutException")) {
-            showLoading(false, context);
-            showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-                context, sendOnlineRequest);
-          } else {
-            showLoading(false, context);
-            showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-                sendOnlineRequest);
-          }
-        }
-        firstRequest = false;
-      }
-
-      i++;
-    });
-    showLoading(false, context);
   }
 
   Future getCheckRequest() async {
@@ -1744,14 +1695,14 @@ class _OnlineRequestState extends State<OnlineRequest> {
         body: {
           'LeaveFrom': from.toString(),
           'LeaveTo': to.toString(),
-          'LeaveContactNo': residenceContactNumber,
-          'RequestTypeID': requestId,
-          'Student_Id': username,
-          'LeaveDocAttached': documentSubmitted,
-          'LeaveContactAddress': reasonForLeave,
-          'AddressTo': addressTo,
-          'StudRemarks': reasonForLeave,
-          'LeaveMobile': mobileNumber,
+          'LeaveContactNo': residenceContactNumber.toString(),
+          'RequestTypeID': requestId.toString(),
+          'Student_Id': username.toString(),
+          'LeaveDocAttached': documentSubmitted.toString(),
+          'LeaveContactAddress': reasonForLeave.toString(),
+          'AddressTo': addressTo.toString(),
+          'StudRemarks': reasonForLeave.toString(),
+          'LeaveMobile': mobileNumber.toString(),
         },
       ).timeout(Duration(seconds: 35));
 
@@ -1835,7 +1786,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
         body: {
           'ClassShiftChangeFrom': '',
           'ClassShiftChangeTo': '',
-          'RequestTypeID': requestId,
+          'RequestTypeID': requestId.toString(),
           'Student_Id': username,
           'AddressTo': '',
           'StudRemarks': '',
@@ -1932,12 +1883,13 @@ class _OnlineRequestState extends State<OnlineRequest> {
             },
             body: {
               'Stud_ID': username,
-              'RequestTypeID': requestId,
-              'Batch_ID': againstMarksJson[i]['Batch_ID'],
-              'CDD_ID': againstMarksJson[i]['CDD_ID'],
-              'CourseCode': againstMarksJson[i]['CDD_Code'],
-              'CourseTitle': againstMarksJson[i]['CourseName'],
-              'AssessmentName': againstMarksJson[i]['AssessmentName'],
+              'RequestTypeID': requestId.toString(),
+              'Batch_ID': againstMarksJson[i]['Batch_ID'].toString(),
+              'CDD_ID': againstMarksJson[i]['CDD_ID'].toString(),
+              'CourseCode': againstMarksJson[i]['CDD_Code'].toString(),
+              'CourseTitle': againstMarksJson[i]['CourseName'].toString(),
+              'AssessmentName':
+                  againstMarksJson[i]['AssessmentName'].toString(),
             },
           ).timeout(Duration(seconds: 35));
 
@@ -2032,12 +1984,13 @@ class _OnlineRequestState extends State<OnlineRequest> {
             },
             body: {
               'Stud_ID': username,
-              'RequestTypeID': requestId,
-              'Batch_ID': againstMarksJson[i]['Batch_ID'],
-              'CDD_ID': againstMarksJson[i]['CDD_ID'],
-              'CourseCode': againstMarksJson[i]['CDD_Code'],
-              'CourseTitle': againstMarksJson[i]['CourseName'],
-              'AssessmentName': againstMarksJson[i]['AssessmentName'],
+              'RequestTypeID': requestId.toString(),
+              'Batch_ID': againstMarksJson[i]['Batch_ID'].toString(),
+              'CDD_ID': againstMarksJson[i]['CDD_ID'].toString(),
+              'CourseCode': againstMarksJson[i]['CDD_Code'].toString(),
+              'CourseTitle': againstMarksJson[i]['CourseName'].toString(),
+              'AssessmentName':
+                  againstMarksJson[i]['AssessmentName'].toString(),
             },
           ).timeout(Duration(seconds: 35));
 
@@ -2135,8 +2088,8 @@ class _OnlineRequestState extends State<OnlineRequest> {
               'Batch_ID': midMarksJson[i]['Batch_ID'].toString(),
               'CDD_ID': midMarksJson[i]['CDD_ID'].toString(),
               'CourseCode': midMarksJson[i]['CDD_Code'].toString(),
-              'CourseTitle': midMarksJson[i]['CourseName'],
-              'AssessmentName': midMarksJson[i]['AssessmentName'],
+              'CourseTitle': midMarksJson[i]['CourseName'].toString(),
+              'AssessmentName': midMarksJson[i]['AssessmentName'].toString(),
             },
           ).timeout(Duration(seconds: 35));
 
