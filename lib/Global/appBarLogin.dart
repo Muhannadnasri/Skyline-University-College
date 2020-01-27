@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:skyline_university/Global/global.dart';
 

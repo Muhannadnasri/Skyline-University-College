@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:skyline_university/Global/appBarLoginImage.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/rowSection.dart';
-import 'package:skyline_university/Global/zigzag.dart';
 
 void main() => runApp(HomeERequest());
 
@@ -49,30 +47,7 @@ class _HomeERequestState extends State<HomeERequest> {
                             'images-white/orequest.png',
                             'Online Request',
                             "/onlineRequest"),
-                        rowSection(
-                            context,
-                            'images/orequest.png',
-                            'images-white/orequest.png',
-                            'Change Class Time',
-                            "/ChangeClassTime"),
-                        rowSection(
-                            context,
-                            'images/orequest.png',
-                            'images-white/orequest.png',
-                            'ReinStatement',
-                            "/reinStatement"),
-                        rowSection(
-                            context,
-                            'images/orequest.png',
-                            'images-white/orequest.png',
-                            'Course Withdrawal',
-                            "/courseWithdrawal"),
-                        rowSection(
-                            context,
-                            'images/orequest.png',
-                            'images-white/orequest.png',
-                            'Update Information',
-                            "/UpdateInformation"),
+                        
                         // rowSection(
                         //     context,
                         //     'images/orequest.png',
@@ -83,8 +58,8 @@ class _HomeERequestState extends State<HomeERequest> {
                             context,
                             'images/orequest.png',
                             'images-white/orequest.png',
-                            'General Appointment',
-                            "/generalAppointment"),
+                            'Letter Request',
+                            "/letterRequest"),
                         // rowSection(
                         //     context,
                         //     'images/orequest.png',

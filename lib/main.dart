@@ -12,13 +12,10 @@ import 'Home/Chat/chat.dart';
 import 'Home/FAQ/faq.dart';
 import 'Home/Gallery/gallery.dart';
 import 'Home/Info/HomeInfo.dart';
-
 import 'Home/Info/faculty.dart';
 import 'Home/Info/info.dart';
 import 'Home/Info/infoDetails.dart';
-
 import 'Home/Info/studentLife.dart';
-
 import 'Home/Info/virtual.dart';
 import 'Home/Location/location.dart';
 import 'Home/home.dart';
@@ -46,6 +43,7 @@ import 'Login/E-Reques/StudentForm/complains.dart';
 import 'Login/E-Reques/StudentForm/courseWithdrawal.dart';
 import 'Login/E-Reques/StudentForm/generalAppointment.dart';
 import 'Login/E-Reques/StudentForm/leaveApplicationForm.dart';
+import 'Login/E-Reques/StudentForm/letterRequest.dart';
 import 'Login/E-Reques/StudentForm/onlineRequest.dart';
 import 'Login/E-Reques/StudentForm/passportRetaining.dart';
 import 'Login/E-Reques/StudentForm/passportWithdrawal.dart';
@@ -80,7 +78,6 @@ import 'Login/loginpage.dart';
 import 'Login/myAdvisor.dart';
 import 'Login/notification.dart';
 import 'Login/payOnline.dart';
-import 'Login/profile.dart';
 
 void main() async {
   SystemChrome.setEnabledSystemUIOverlays([]);
@@ -164,20 +161,19 @@ class MyAppState extends State<MyApp> {
           '/advisorAppointment': (context) => AdvisorAppointment(),
           '/circulars': (context) => Circulars(),
           '/HomeFees': (context) => HomeFees(),
-          //TODO: Payonline Like Smart campus Dubia app
-          // {
+
           '/PayOnline': (context) => PayOnline(),
           '/AdmissionKit': (context) => AdmissionKit(),
-          // }
+
+          '/letterRequest': (context) => LetterRequest(),
+
           '/onlineRequest': (context) => OnlineRequest(),
           '/HomeERequest': (context) => HomeERequest(),
           '/homeAppointment': (context) => HomeAppointment(),
           '/homeSuggestion': (context) => HomeSuggestion(),
           '/complains': (context) => Complains(),
-                    '/suggestions': (context) => Suggestions(),
+          '/suggestions': (context) => Suggestions(),
 
-
-          // HomeAppointment
           '/ChangeClassTime': (context) => ChangeClassTime(),
           '/reinStatement': (context) => ReinStatement(),
           '/courseWithdrawal': (context) => CourseWithdrawal(),

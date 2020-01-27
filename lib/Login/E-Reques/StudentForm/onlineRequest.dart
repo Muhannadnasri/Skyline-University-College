@@ -1,11 +1,11 @@
 import 'dart:convert';
-import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
-import 'package:intl/intl.dart';
 
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/bottomAppBar.dart';
 import 'package:skyline_university/Global/customdropdown.dart';
@@ -13,7 +13,6 @@ import 'package:skyline_university/Global/dropDownWidget.dart';
 import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
-import 'package:skyline_university/Login/E-Reques/FacForm/leaveapplication.dart';
 
 void main() => runApp(OnlineRequest());
 
@@ -28,7 +27,6 @@ final leaveApplication = GlobalKey<FormState>();
 final time = GlobalKey<FormState>();
 
 final _onlineRequest = GlobalKey<FormState>();
-final _passportWithdrawal = GlobalKey<FormState>();
 // Map<String, int> body;
 
 class _OnlineRequestState extends State<OnlineRequest> {
@@ -106,7 +104,6 @@ class _OnlineRequestState extends State<OnlineRequest> {
   @override
   void initState() {
     super.initState();
-
     getRequestType();
   }
 
@@ -115,106 +112,109 @@ class _OnlineRequestState extends State<OnlineRequest> {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
       resizeToAvoidBottomPadding: true,
-      bottomNavigationBar: onlineRequestTypeJson == null ||
-              onlineRequestTypeJson.isEmpty
-          ? Container()
-          : bottomappBar(
-              context,
-              () {
-                if (checkRequestJson['status'] != 'Closed') {
-                  if (requestId != '6' ||
-                      requestId != '1' ||
-                      requestId != '5' ||
-                      requestId != '143' ||
-                      requestId != '109' ||
-                      requestId != '31') insertRequest();
-                  if (requestId == '6') {
+      bottomNavigationBar:
+          onlineRequestTypeJson == null || onlineRequestTypeJson.isEmpty
+              ? Container()
+              : bottomappBar(
+                  context,
+                  () {
                     insertMitigation();
-                    //TODO: Send Request
-                    // if (_onlineRequest.currentState.validate() &&
-                    //     requestId != null) {
-                    //   _onlineRequest.currentState.save();
-                    //   sendOnlineRequest();
-                    // } else {
-                    //   // return showErrorInput('Please check your input');
-                    // }
-                  }
-                  if (requestId == '1') {
-                    //TODO: Send Request
-                    // if (_onlineRequest.currentState.validate() &&
-                    //     requestId != null) {
-                    //   _onlineRequest.currentState.save();
-                    //   sendOnlineRequest();
-                    // } else {
-                    //   // return showErrorInput('Please check your input');
-                    // }
-                  }
-                  if (requestId == '31') {
-                    //TODO: Send Request
-                    // if (_onlineRequest.currentState.validate() &&
-                    //     requestId != null) {
-                    //   _onlineRequest.currentState.save();
-                    //   sendOnlineRequest();
-                    // } else {
-                    //   // return showErrorInput('Please check your input');
-                    // }
-                  }
-                  if (requestId == '5') {
-                    insertResitOrGradeImprovement();
-                    //TODO: Send Request
-                    // if (_onlineRequest.currentState.validate() &&
-                    //     requestId != null) {
-                    //   _onlineRequest.currentState.save();
-                    //   sendOnlineRequest();
-                    // } else {
-                    //   // return showErrorInput('Please check your input');
-                    // }
-                  }
-                  if (requestId == '143') {
-                    //TODO: Send Request
-                    // if (_onlineRequest.currentState.validate() &&
-                    //     requestId != null) {
-                    //   _onlineRequest.currentState.save();
-                    //   sendOnlineRequest();
-                    // } else {
-                    //   // return showErrorInput('Please check your input');
-                    // }
-                  }
-                  if (requestId == '109') {
-                    //TODO: Send Request
-                    // if (_onlineRequest.currentState.validate() &&
-                    //     requestId != null) {
-                    //   _onlineRequest.currentState.save();
-                    //   sendOnlineRequest();
-                    // } else {
-                    //   // return showErrorInput('Please check your input');
-                    // }
-                  }
-                  if (requestId == '66') {
-                    //TODO: Send Request
-                    if (leaveApplication.currentState.validate()) {
-                      leaveApplication.currentState.save();
-                      insertLeaveApplication();
-                    } else {
-                      // return showErrorInput('Please check your input');
-                    }
-                  }
+                    // if (checkRequestJson['status'] != 'Closed') {
 
-                  // if (_onlineRequest.currentState.validate() &&
-                  //     requestId != null) {
-                  //   // _onlineRequest.currentState.save();
-                  //   // sendOnlineRequest();
-                  // } else {
-                  //   // return showErrorInput('Please check your input');
-                  // }
-                } else {
-                  // print(checkRequestJson['message']);
+                    //   if (requestId != '6' ||
+                    //       requestId != '1' ||
+                    //       requestId != '5' ||
+                    //       requestId != '143' ||
+                    //       requestId != '109' ||
+                    //       requestId != '31')
+                    //       insertRequest();
+                    //   if (requestId == '6') {
+                    //     insertMitigation();
+                    //     //TODO: Send Request
+                    //     // if (_onlineRequest.currentState.validate() &&
+                    //     //     requestId != null) {
+                    //     //   _onlineRequest.currentState.save();
+                    //     //   sendOnlineRequest();
+                    //     // } else {
+                    //     //   // return showErrorInput('Please check your input');
+                    //     // }
+                    //   }
+                    //   if (requestId == '1') {
+                    //     //TODO: Send Request
+                    //     // if (_onlineRequest.currentState.validate() &&
+                    //     //     requestId != null) {
+                    //     //   _onlineRequest.currentState.save();
+                    //     //   sendOnlineRequest();
+                    //     // } else {
+                    //     //   // return showErrorInput('Please check your input');
+                    //     // }
+                    //   }
+                    //   if (requestId == '31') {
+                    //     //TODO: Send Request
+                    //     // if (_onlineRequest.currentState.validate() &&
+                    //     //     requestId != null) {
+                    //     //   _onlineRequest.currentState.save();
+                    //     //   sendOnlineRequest();
+                    //     // } else {
+                    //     //   // return showErrorInput('Please check your input');
+                    //     // }
+                    //   }
+                    //   if (requestId == '5') {
+                    //     insertResitOrGradeImprovement();
+                    //     //TODO: Send Request
+                    //     // if (_onlineRequest.currentState.validate() &&
+                    //     //     requestId != null) {
+                    //     //   _onlineRequest.currentState.save();
+                    //     //   sendOnlineRequest();
+                    //     // } else {
+                    //     //   // return showErrorInput('Please check your input');
+                    //     // }
+                    //   }
+                    //   if (requestId == '143') {
+                    //     //TODO: Send Request
+                    //     // if (_onlineRequest.currentState.validate() &&
+                    //     //     requestId != null) {
+                    //     //   _onlineRequest.currentState.save();
+                    //     //   sendOnlineRequest();
+                    //     // } else {
+                    //     //   // return showErrorInput('Please check your input');
+                    //     // }
+                    //   }
+                    //   if (requestId == '109') {
+                    //     //TODO: Send Request
+                    //     // if (_onlineRequest.currentState.validate() &&
+                    //     //     requestId != null) {
+                    //     //   _onlineRequest.currentState.save();
+                    //     //   sendOnlineRequest();
+                    //     // } else {
+                    //     //   // return showErrorInput('Please check your input');
+                    //     // }
+                    //   }
+                    //   if (requestId == '66') {
+                    //     //TODO: Send Request
+                    //     if (leaveApplication.currentState.validate()) {
+                    //       leaveApplication.currentState.save();
+                    //       insertLeaveApplication();
+                    //     } else {
+                    //       // return showErrorInput('Please check your input');
+                    //     }
+                    //   }
 
-                  showDailyFailureSnackBar(
-                      context, checkRequestMessageJson['message'].toString());
-                }
-              },
-            ),
+                    //   // if (_onlineRequest.currentState.validate() &&
+                    //   //     requestId != null) {
+                    //   //   // _onlineRequest.currentState.save();
+                    //   //   // sendOnlineRequest();
+                    //   // } else {
+                    //   //   // return showErrorInput('Please check your input');
+                    //   // }
+                    // } else {
+                    //   // print(checkRequestJson['message']);
+
+                    //   showDailyFailureSnackBar(
+                    //       context, checkRequestMessageJson['message'].toString());
+                    // }
+                  },
+                ),
       appBar: appBarLogin(context, 'Online Request'),
       body: onlineRequestTypeJson == null || onlineRequestTypeJson.isEmpty
           ? exception(context)
@@ -254,13 +254,13 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                 items: onlineRequestTypeJson
                                         ?.map(
                                           (item) => DropdownMenuItem<String>(
-                                            value: item['DetailsID'].toString(),
+                                            value: item['MiscID'].toString(),
                                             child: Padding(
                                               padding:
                                                   const EdgeInsets.all(8.0),
                                               child: FittedBox(
                                                 child: Text(
-                                                  item['Item'].toString(),
+                                                  item['MiscName'].toString(),
                                                   style: TextStyle(
                                                       color: isDark(context)
                                                           ? Colors.white
@@ -572,7 +572,6 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                         ),
                                       ),
                                     ),
-
                                     Container(
                                       height:
                                           MediaQuery.of(context).size.height,
@@ -609,101 +608,6 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                             );
                                           }),
                                     ),
-                                    // Container(
-                                    //   alignment: Alignment.centerLeft,
-                                    //   child: Padding(
-                                    //     padding: const EdgeInsets.fromLTRB(
-                                    //         20.0, 0.0, 20.0, 5.0),
-                                    //     child: Text(
-                                    //       'Courses',
-                                    //       style: TextStyle(
-                                    //         color: isDark(context)
-                                    //             ? Colors.white
-                                    //             : Colors.black,
-                                    //       ),
-                                    //     ),
-                                    //   ),
-                                    // ),
-                                    // Padding(
-                                    //   padding: const EdgeInsets.all(8.0),
-                                    //   child: DropdownButton<String>(
-                                    //     underline: Container(
-                                    //       height: 1,
-                                    //       color: Color(0xFF2f2f2f),
-                                    //     ),
-                                    //     hint: Padding(
-                                    //       padding:
-                                    //           const EdgeInsets.fromLTRB(
-                                    //               20.0, 0.0, 20.0, 5.0),
-                                    //       child: Text(
-                                    //         'Select Option',
-                                    //         style: TextStyle(
-                                    //           color: isDark(context)
-                                    //               ? Colors.white
-                                    //               : Colors.black,
-                                    //         ),
-                                    //       ),
-                                    //     ),
-                                    //     isExpanded: true,
-                                    //     value: allValueMid,
-                                    //     items: midMarksJson
-                                    //             ?.map(
-                                    //               (item) =>
-                                    //                   DropdownMenuItem<
-                                    //                       String>(
-                                    //                 value: item['CDD_ID']
-                                    //                         .toString() +
-                                    //                     "||" +
-                                    //                     item['CDD_Code']
-                                    //                         .toString() +
-                                    //                     "||" +
-                                    //                     item['CourseName']
-                                    //                         .toString() +
-                                    //                     "||" +
-                                    //                     item['Batch_ID']
-                                    //                         .toString(),
-                                    //                 child: Padding(
-                                    //                   padding:
-                                    //                       const EdgeInsets
-                                    //                           .all(8.0),
-                                    //                   child: FittedBox(
-                                    //                       child: Text(item[
-                                    //                               'CourseName'] +
-                                    //                           '  ' +
-                                    //                           item['AssessmentName']
-                                    //                               .toString())),
-                                    //                 ),
-                                    //               ),
-                                    //             )
-                                    //             ?.toList() ??
-                                    //         [],
-                                    //     onChanged: (value) {
-                                    //       setState(() {
-                                    //         allValueMid = value;
-                                    //         cddIdMid = value.split('||')[0];
-                                    //         cddCodeMid =
-                                    //             value.split('||')[1];
-                                    //         courseNameMid =
-                                    //             value.split('||')[2];
-
-                                    //         batchIdMid =
-                                    //             value.split('||')[3];
-
-                                    //         // againstMark = value;
-                                    //       });
-                                    //     },
-                                    //   ),
-                                    // ),
-                                    globalForms(context, '', (String value) {
-                                      if (value.trim().isEmpty) {
-                                        return 'Reason is required';
-                                      }
-                                      return null;
-                                    }, (x) {
-                                      setState(() {
-                                        reason = x;
-                                      });
-                                    }, 'Reason', TextInputType.text),
                                   ],
                                 )
                           : requestId == '31'
@@ -1492,13 +1396,13 @@ class _OnlineRequestState extends State<OnlineRequest> {
     try {
       final response = await http.post(
         Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/test/OnlineRequestTypes'),
+            'https://skylineportal.com/moappad/api/test/OnlineRequestOnline'),
         headers: {
           "API-KEY": API,
         },
         body: {
           'user_id': username,
-          'program': studentJson['data']['program'],
+          'Operation': 'ONLINE',
         },
       );
 
@@ -1703,8 +1607,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
           "API-KEY": API,
         },
         body: {
-          'RequestTypeid': '24',
-          //TODO: Here RequestId
+          'RequestTypeid': requestId,
           'StudentID': username,
         },
       );
@@ -1853,7 +1756,10 @@ class _OnlineRequestState extends State<OnlineRequest> {
       ).timeout(Duration(seconds: 35));
 
       if (response.statusCode == 200) {
-        insertLeaveApplicationJson = json.decode(response.body);
+        setState(() {
+          insertLeaveApplicationJson = json.decode(response.body);
+        });
+        showLoading(false, context);
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
@@ -1867,8 +1773,12 @@ class _OnlineRequestState extends State<OnlineRequest> {
       }
     }
 
-    showLoading(false, context);
-
+    if (insertLeaveApplicationJson['success'] == '0') {
+      showfailureSnackBar(context, insertLeaveApplicationJson['message']);
+    }
+    if (insertLeaveApplicationJson['success'] == '1') {
+      showSuccessSnackBar(context, insertLeaveApplicationJson['message']);
+    }
     //send confirmation
   }
 
@@ -1933,6 +1843,11 @@ class _OnlineRequestState extends State<OnlineRequest> {
       ).timeout(Duration(seconds: 35));
 
       if (response.statusCode == 200) {
+        setState(() {
+          insertShiftChangeJson = json.decode(response.body);
+        });
+        showLoading(false, context);
+
         // insertCourseWithdrawalJson = json.decode(response.body);
       }
     } catch (x) {
@@ -1946,9 +1861,12 @@ class _OnlineRequestState extends State<OnlineRequest> {
             sendOnlineRequest);
       }
     }
-
-    showLoading(false, context);
-
+    if (insertShiftChangeJson['success'] == '0') {
+      showfailureSnackBar(context, insertShiftChangeJson['message']);
+    }
+    if (insertShiftChangeJson['success'] == '1') {
+      showSuccessSnackBar(context, insertShiftChangeJson['message']);
+    }
     //send confirmation
   }
 
@@ -2024,7 +1942,10 @@ class _OnlineRequestState extends State<OnlineRequest> {
           ).timeout(Duration(seconds: 35));
 
           if (response.statusCode == 200) {
-            insertCourseWithdrawalJson = json.decode(response.body);
+            setState(() {
+              insertCourseWithdrawalJson = json.decode(response.body);
+            });
+            showLoading(false, context);
           }
         } catch (x) {
           if (x.toString().contains("TimeoutException")) {
@@ -2040,8 +1961,12 @@ class _OnlineRequestState extends State<OnlineRequest> {
       }
       i++;
     });
-    showLoading(false, context);
-
+    if (insertCourseWithdrawalJson['success'] == '0') {
+      showfailureSnackBar(context, insertCourseWithdrawalJson['message']);
+    }
+    if (insertCourseWithdrawalJson['success'] == '1') {
+      showSuccessSnackBar(context, insertCourseWithdrawalJson['message']);
+    }
     //send confirmation
   }
 
@@ -2117,7 +2042,10 @@ class _OnlineRequestState extends State<OnlineRequest> {
           ).timeout(Duration(seconds: 35));
 
           if (response.statusCode == 200) {
-            insertMitigationJson = json.decode(response.body);
+            setState(() {
+              insertMitigationJson = json.decode(response.body);
+            });
+            showLoading(false, context);
           }
         } catch (x) {
           if (x.toString().contains("TimeoutException")) {
@@ -2133,8 +2061,12 @@ class _OnlineRequestState extends State<OnlineRequest> {
       }
       i++;
     });
-    showLoading(false, context);
-
+    if (insertMitigationJson['success'] == '0') {
+      showfailureSnackBar(context, insertMitigationJson['message']);
+    }
+    if (insertMitigationJson['success'] == '1') {
+      showSuccessSnackBar(context, insertMitigationJson['message']);
+    }
     //send confirmation
   }
 
@@ -2161,7 +2093,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
         setState(
           () {
             midMarksJson = json.decode(response.body)['data'];
-            for (int i = 0; i < 20; i++) {
+            for (int i = 0; i < midMarksJson.length; i++) {
               selectedMitigationCourses.add(false);
             }
           },
@@ -2199,17 +2131,20 @@ class _OnlineRequestState extends State<OnlineRequest> {
             },
             body: {
               'Stud_ID': username,
-              'RequestTypeID': requestId,
-              'Batch_ID': midMarksJson[i]['Batch_ID'],
-              'CDD_ID': midMarksJson[i]['CDD_ID'],
-              'CourseCode': midMarksJson[i]['CDD_Code'],
+              'RequestTypeID': requestId.toString(),
+              'Batch_ID': midMarksJson[i]['Batch_ID'].toString(),
+              'CDD_ID': midMarksJson[i]['CDD_ID'].toString(),
+              'CourseCode': midMarksJson[i]['CDD_Code'].toString(),
               'CourseTitle': midMarksJson[i]['CourseName'],
               'AssessmentName': midMarksJson[i]['AssessmentName'],
             },
           ).timeout(Duration(seconds: 35));
 
           if (response.statusCode == 200) {
-            insertMitigationJson = json.decode(response.body);
+            setState(() {
+              insertMitigationJson = json.decode(response.body);
+            });
+            showLoading(false, context);
           }
         } catch (x) {
           if (x.toString().contains("TimeoutException")) {
@@ -2225,8 +2160,14 @@ class _OnlineRequestState extends State<OnlineRequest> {
       }
       i++;
     });
-    showLoading(false, context);
 
+    // showLoading(false, context);
+    if (insertMitigationJson['success'] == '0') {
+      showfailureSnackBar(context, insertMitigationJson['message']);
+    }
+    if (insertMitigationJson['success'] == '1') {
+      showSuccessSnackBar(context, insertMitigationJson['message']);
+    }
     //send confirmation
   }
 
@@ -2302,7 +2243,10 @@ class _OnlineRequestState extends State<OnlineRequest> {
           ).timeout(Duration(seconds: 35));
 
           if (response.statusCode == 200) {
-            insertResitMarksJson = json.decode(response.body);
+            setState(() {
+              insertResitMarksJson = json.decode(response.body);
+            });
+            showLoading(false, context);
           }
         } catch (x) {
           if (x.toString().contains("TimeoutException")) {
@@ -2319,8 +2263,12 @@ class _OnlineRequestState extends State<OnlineRequest> {
 
       i++;
     });
-    showLoading(false, context);
-
+    if (insertResitMarksJson['success'] == '0') {
+      showfailureSnackBar(context, insertResitMarksJson['message']);
+    }
+    if (insertResitMarksJson['success'] == '1') {
+      showSuccessSnackBar(context, insertResitMarksJson['message']);
+    }
     //send confirmation
   }
 }

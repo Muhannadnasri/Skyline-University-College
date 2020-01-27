@@ -309,7 +309,6 @@ class _LeaveApplicationState extends State<LeaveApplication> {
           "API-KEY": API,
         },
         body: {
-          //TODO: Not finish
 // 'UserID'=>$user_id,
 //     							'UserType'=>$usertype,
 // 								'LeaveType'=>$leave_type,

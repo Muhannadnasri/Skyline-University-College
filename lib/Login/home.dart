@@ -31,7 +31,6 @@ class HomeLogin extends StatefulWidget {
 
 class _HomeLoginState extends State<HomeLogin> {
   String formattedDate = DateFormat('yyyy-MM-dd hh:mm').format(DateTime.now());
-  String _messageText = "Waiting for message...";
 
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();

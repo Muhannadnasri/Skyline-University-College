@@ -38,7 +38,7 @@ class _PassportWithdrawalState extends State<PassportWithdrawal> {
   Map passportWithdrawalJson;
 
   int groupValue;
-  String ID;
+
 
   String localName = '';
   String localNumber = '';

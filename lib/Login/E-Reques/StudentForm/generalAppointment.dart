@@ -99,7 +99,6 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
                       ),
                       Column(
                         children: <Widget>[
-                          //TODO: Same Like @ dropDownWidget
                           Container(
                             alignment: Alignment.centerLeft,
                             child: Padding(
