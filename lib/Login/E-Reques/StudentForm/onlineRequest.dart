@@ -53,7 +53,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
   Map checkRequestJson = {};
   Map checkRequestMessageJson = {};
   Map onlineRequestJson = {};
-  Map insertShiftChangeJson={};
+  Map insertShiftChangeJson = {};
   Map requestAmountJson = {};
   List midMarksJson = [];
   List resitMarksJson = [];
@@ -113,109 +113,105 @@ class _OnlineRequestState extends State<OnlineRequest> {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
       resizeToAvoidBottomPadding: true,
-      bottomNavigationBar:
-          onlineRequestTypeJson == null || onlineRequestTypeJson.isEmpty
-              ? Container()
-              : bottomappBar(
-                  context,
-                  () {
+      bottomNavigationBar: onlineRequestTypeJson == null ||
+              onlineRequestTypeJson.isEmpty
+          ? Container()
+          : bottomappBar(
+              context,
+              () {
+                // insertMitigation();
+                if (checkRequestJson['status'] != 'Closed') {
+                  if (requestId != '6' ||
+                      requestId != '1' ||
+                      requestId != '5' ||
+                      requestId != '143' ||
+                      requestId != '109' ||
+                      requestId != '31') insertRequest();
+                  if (requestId == '6') {
                     insertMitigation();
-                    // if (checkRequestJson['status'] != 'Closed') {
-
-                    //   if (requestId != '6' ||
-                    //       requestId != '1' ||
-                    //       requestId != '5' ||
-                    //       requestId != '143' ||
-                    //       requestId != '109' ||
-                    //       requestId != '31')
-                    //       insertRequest();
-                    //   if (requestId == '6') {
-                    //     insertMitigation();
-                    //     //TODO: Send Request
-                    //     // if (_onlineRequest.currentState.validate() &&
-                    //     //     requestId != null) {
-                    //     //   _onlineRequest.currentState.save();
-                    //     //   sendOnlineRequest();
-                    //     // } else {
-                    //     //   // return showErrorInput('Please check your input');
-                    //     // }
-                    //   }
-                    //   if (requestId == '1') {
-                    //     //TODO: Send Request
-                    //     // if (_onlineRequest.currentState.validate() &&
-                    //     //     requestId != null) {
-                    //     //   _onlineRequest.currentState.save();
-                    //     //   sendOnlineRequest();
-                    //     // } else {
-                    //     //   // return showErrorInput('Please check your input');
-                    //     // }
-                    //   }
-                    //   if (requestId == '31') {
-                    //     //TODO: Send Request
-                    //     // if (_onlineRequest.currentState.validate() &&
-                    //     //     requestId != null) {
-                    //     //   _onlineRequest.currentState.save();
-                    //     //   sendOnlineRequest();
-                    //     // } else {
-                    //     //   // return showErrorInput('Please check your input');
-                    //     // }
-                    //   }
-                    //   if (requestId == '5') {
-                    //     insertResitOrGradeImprovement();
-                    //     //TODO: Send Request
-                    //     // if (_onlineRequest.currentState.validate() &&
-                    //     //     requestId != null) {
-                    //     //   _onlineRequest.currentState.save();
-                    //     //   sendOnlineRequest();
-                    //     // } else {
-                    //     //   // return showErrorInput('Please check your input');
-                    //     // }
-                    //   }
-                    //   if (requestId == '143') {
-                    //     //TODO: Send Request
-                    //     // if (_onlineRequest.currentState.validate() &&
-                    //     //     requestId != null) {
-                    //     //   _onlineRequest.currentState.save();
-                    //     //   sendOnlineRequest();
-                    //     // } else {
-                    //     //   // return showErrorInput('Please check your input');
-                    //     // }
-                    //   }
-                    //   if (requestId == '109') {
-                    //     //TODO: Send Request
-                    //     // if (_onlineRequest.currentState.validate() &&
-                    //     //     requestId != null) {
-                    //     //   _onlineRequest.currentState.save();
-                    //     //   sendOnlineRequest();
-                    //     // } else {
-                    //     //   // return showErrorInput('Please check your input');
-                    //     // }
-                    //   }
-                    //   if (requestId == '66') {
-                    //     //TODO: Send Request
-                    //     if (leaveApplication.currentState.validate()) {
-                    //       leaveApplication.currentState.save();
-                    //       insertLeaveApplication();
-                    //     } else {
-                    //       // return showErrorInput('Please check your input');
-                    //     }
-                    //   }
-
-                    //   // if (_onlineRequest.currentState.validate() &&
-                    //   //     requestId != null) {
-                    //   //   // _onlineRequest.currentState.save();
-                    //   //   // sendOnlineRequest();
-                    //   // } else {
-                    //   //   // return showErrorInput('Please check your input');
-                    //   // }
+                    //TODO: Send Request
+                    // if (_onlineRequest.currentState.validate() &&
+                    //     requestId != null) {
+                    //   _onlineRequest.currentState.save();
+                    //   sendOnlineRequest();
                     // } else {
-                    //   // print(checkRequestJson['message']);
-
-                    //   showDailyFailureSnackBar(
-                    //       context, checkRequestMessageJson['message'].toString());
+                    //   // return showErrorInput('Please check your input');
                     // }
-                  },
-                ),
+                  }
+                  if (requestId == '1') {
+                    showSuccessSnackBar(context,
+                        'Thank You, Your Request Submitted Successfully');
+                    //TODO: Send Request
+                    // if (_onlineRequest.currentState.validate() &&
+                    //     requestId != null) {
+                    //   _onlineRequest.currentState.save();
+                    //   sendOnlineRequest();
+                    // } else {
+                    //   // return showErrorInput('Please check your input');
+                    // }
+                  }
+                  if (requestId == '31') {
+                    insertShiftChange();
+                    //TODO: Send Request
+                    // if (_onlineRequest.currentState.validate() &&
+                    //     requestId != null) {
+                    //   _onlineRequest.currentState.save();
+                    //   sendOnlineRequest();
+                    // } else {
+                    //   // return showErrorInput('Please check your input');
+                    // }
+                  }
+                  if (requestId == '5') {
+                    insertResitOrGradeImprovement();
+                    //TODO: Send Request
+                    // if (_onlineRequest.currentState.validate() &&
+                    //     requestId != null) {
+                    //   _onlineRequest.currentState.save();
+                    //   sendOnlineRequest();
+                    // } else {
+                    //   // return showErrorInput('Please check your input');
+                    // }
+                  }
+                  if (requestId == '143') {
+                    insertAgainsMarks();
+                    //TODO: Send Request
+                    // if (_onlineRequest.currentState.validate() &&
+                    //     requestId != null) {
+                    //   _onlineRequest.currentState.save();
+                    //   sendOnlineRequest();
+                    // } else {
+                    //   // return showErrorInput('Please check your input');
+                    // }
+                  }
+                  if (requestId == '109') {
+                    //Passport
+
+                  }
+                  if (requestId == '66') {
+                    //TODO: Send Request
+                    if (leaveApplication.currentState.validate()) {
+                      leaveApplication.currentState.save();
+                      insertLeaveApplication();
+                    } else {
+                      // return showErrorInput('Please check your input');
+                    }
+                  }
+
+                  // if (_onlineRequest.currentState.validate() &&
+                  //     requestId != null) {
+                  //   // _onlineRequest.currentState.save();
+                  //   // sendOnlineRequest();
+                  // } else {
+                  //   // return showErrorInput('Please check your input');
+                  // }
+                } else {
+                  // print(checkRequestJson['message']);
+
+                  showDailyFailureSnackBar(
+                      context, checkRequestMessageJson['message'].toString());
+                }
+              },
+            ),
       appBar: appBarLogin(context, 'Online Request'),
       body: onlineRequestTypeJson == null || onlineRequestTypeJson.isEmpty
           ? exception(context)
@@ -305,6 +301,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
 
                                     if (requestId != '143' ||
                                         requestId != '6' ||
+                                        requestId != '1' ||
                                         requestId != '5' ||
                                         requestId != '109' ||
                                         requestId != '66') {
