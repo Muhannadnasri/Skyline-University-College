@@ -53,6 +53,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
   Map checkRequestJson = {};
   Map checkRequestMessageJson = {};
   Map onlineRequestJson = {};
+  Map insertShiftChangeJson={};
   Map requestAmountJson = {};
   List midMarksJson = [];
   List resitMarksJson = [];
@@ -1716,11 +1717,11 @@ class _OnlineRequestState extends State<OnlineRequest> {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
         showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-            context, sendOnlineRequest);
+            context, insertLeaveApplication);
       } else {
         showLoading(false, context);
         showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-            sendOnlineRequest);
+            insertLeaveApplication);
       }
     }
 
@@ -1805,11 +1806,11 @@ class _OnlineRequestState extends State<OnlineRequest> {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
         showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-            context, sendOnlineRequest);
+            context, insertShiftChange);
       } else {
         showLoading(false, context);
         showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-            sendOnlineRequest);
+            insertShiftChange);
       }
     }
     if (insertShiftChangeJson['success'] == '0') {
@@ -1903,11 +1904,11 @@ class _OnlineRequestState extends State<OnlineRequest> {
           if (x.toString().contains("TimeoutException")) {
             showLoading(false, context);
             showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-                context, sendOnlineRequest);
+                context, insertCourseWithdrawal);
           } else {
             showLoading(false, context);
             showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-                sendOnlineRequest);
+                insertCourseWithdrawal);
           }
         }
       }
@@ -2004,11 +2005,11 @@ class _OnlineRequestState extends State<OnlineRequest> {
           if (x.toString().contains("TimeoutException")) {
             showLoading(false, context);
             showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-                context, sendOnlineRequest);
+                context, insertAgainsMarks);
           } else {
             showLoading(false, context);
             showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-                sendOnlineRequest);
+                insertAgainsMarks);
           }
         }
       }
@@ -2103,11 +2104,11 @@ class _OnlineRequestState extends State<OnlineRequest> {
           if (x.toString().contains("TimeoutException")) {
             showLoading(false, context);
             showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-                context, sendOnlineRequest);
+                context, insertMitigation);
           } else {
             showLoading(false, context);
             showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-                sendOnlineRequest);
+                insertMitigation);
           }
         }
       }
@@ -2205,11 +2206,11 @@ class _OnlineRequestState extends State<OnlineRequest> {
           if (x.toString().contains("TimeoutException")) {
             showLoading(false, context);
             showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-                context, sendOnlineRequest);
+                context, insertResitOrGradeImprovement);
           } else {
             showLoading(false, context);
             showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-                sendOnlineRequest);
+                insertResitOrGradeImprovement);
           }
         }
       }
