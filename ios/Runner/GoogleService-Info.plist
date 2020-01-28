@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1068042711317-ajt9r16bvnp89l389o2hepjvplaalfnk.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1068042711317-ajt9r16bvnp89l389o2hepjvplaalfnk</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>1068042711317-aq0ijq6dmo6i7j6kdubie50i04fjeeeu.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyA9PojHV3ZWHsyaIiICe5DtKN6ijwhR6Ko</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1068042711317</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.skylineuniversity.skyline</string>
+	<key>PROJECT_ID</key>
+	<string>skylineuniversity-4acec</string>
+	<key>STORAGE_BUCKET</key>
+	<string>skylineuniversity-4acec.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1068042711317:ios:79d9d5400bf8d81139f91c</string>
+	<key>DATABASE_URL</key>
+	<string>https://skylineuniversity-4acec.firebaseio.com</string>
+</dict>
+</plist>
