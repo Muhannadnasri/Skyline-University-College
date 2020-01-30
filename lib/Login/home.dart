@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -8,9 +9,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:quick_actions/quick_actions.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/homeBox.dart';
 import 'package:skyline_university/Global/zigzag.dart';
+import 'package:skyline_university/Login/attendance.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void main() => runApp(HomeLogin());
@@ -42,21 +45,33 @@ class _HomeLoginState extends State<HomeLogin> {
   @override
   void initState() {
     super.initState();
+
     getLogs();
 //    getCopyRight();
 
     _firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
         setState(() {
-          showSimpleNotification(
-              Text(message['notification']['title'].toString() +
-                  '\n' +
-                  message['notification']['body'].toString()),
-              background: Colors.green);
+          if (Platform.isAndroid) {
+            showSimpleNotification(
+                Text(message['notification']['title'].toString() +
+                    '\n' +
+                    message['notification']['body'].toString()),
+                background: Colors.green);
+          } else if (Platform.isIOS) {
+            showSimpleNotification(
+                Text(message['aps']['alert']['title'].toString() +
+                    '\n' +
+                    message['aps']['alert']['body'].toString()),
+                background: Colors.green);
+          }
         });
       },
       onLaunch: (Map<String, dynamic> message) async {
-        setState(() {});
+        setState(() {
+          showSuccessSnackBar(
+              context, message['aps']['alert']['title'].toString());
+        });
       },
       onResume: (Map<String, dynamic> message) async {
         setState(() {});
@@ -65,9 +80,7 @@ class _HomeLoginState extends State<HomeLogin> {
     _firebaseMessaging.requestNotificationPermissions(
         const IosNotificationSettings(sound: true, badge: true, alert: true));
     _firebaseMessaging.onIosSettingsRegistered
-        .listen((IosNotificationSettings settings) {
-      print("Settings registered: $settings");
-    });
+        .listen((IosNotificationSettings settings) {});
     _firebaseMessaging.subscribeToTopic(studentJson['data']['user_id']);
     _firebaseMessaging.subscribeToTopic(studentJson['data']['user_type']);
     _firebaseMessaging.subscribeToTopic('ALL');

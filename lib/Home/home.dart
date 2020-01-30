@@ -1,16 +1,17 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:overlay_support/overlay_support.dart';
+import 'package:quick_actions/quick_actions.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/homeBox.dart';
-import 'package:skyline_university/Global/slider.dart';
+import 'package:skyline_university/Login/attendance.dart';
+import 'package:skyline_university/Login/loginpage.dart';
 
 void main() => runApp(Home());
 
@@ -30,49 +31,66 @@ final _scaffoldKey = GlobalKey<ScaffoldState>();
 
 class _HomeState extends State<Home> {
   int _exit = 0;
+  String shortcut = "no action set";
 
 //   final Firestore _db = Firestore.instance;
 
   String formattedDate = DateFormat('yyyy-MM-dd hh:mm').format(DateTime.now());
 
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   @override
   void initState() {
     super.initState();
 
     getSliders();
     getLogs();
-
-    // qLogin();
-    _firebaseMessaging.configure(
-      onMessage: (Map<String, dynamic> message) async {
-        setState(() {
-          final title = message['notification']['title'];
-          final body = message['notification']['body'];
-
-          showSimpleNotification(
-            Text(title),
-            background: Color(0xFF104C90),
-            subtitle: Text(body),
-          );
-        });
-      },
-      onLaunch: (Map<String, dynamic> message) async {
-        setState(() {});
-      },
-      onResume: (Map<String, dynamic> message) async {
-        setState(() {});
-      },
-    );
-    _firebaseMessaging.requestNotificationPermissions(
-        const IosNotificationSettings(sound: true, badge: true, alert: true));
-    _firebaseMessaging.onIosSettingsRegistered
-        .listen((IosNotificationSettings settings) {});
-    _firebaseMessaging.getToken().then((String token) {
-      assert(token != null);
-      setState(() {});
-    });
   }
+
+  // void _setupQuickActions() {
+  //   quickActions.initialize((String shortcutType) {
+  //     setState(() {
+  //       if (shortcutType != null) shortcut = shortcutType;
+  //     });
+  //   });
+
+  //   quickActions.setShortcutItems(<ShortcutItem>[
+  //     // NOTE: This first action icon will only work on iOS.
+  //     // In a real world project keep the same file name for both platforms.
+  //     const ShortcutItem(
+  //       type: 'attendance',
+  //       localizedTitle: 'Attendance',
+  //       icon: 'AppIcon',
+  //     ),
+
+  //     // NOTE: This second action icon will only work on Android.
+  //     // In a real world project keep the same file name for both platforms.
+  //     const ShortcutItem(
+  //         type: 'action_two',
+  //         localizedTitle: 'Action two',
+  //         icon: 'ic_launcher'),
+  //   ]);
+  // }
+
+  // void _handleQuickActions() {
+  //   quickActions.initialize((shortcutType) {
+  //     if (shortcutType == 'attendance') {
+  //       if (loggedin) {
+  //         Navigator.push(
+  //             context, MaterialPageRoute(builder: (context) => Attendance()));
+  //       } else {
+  //         Navigator.push(
+  //           context,
+  //           MaterialPageRoute(
+  //             builder: (context) => LoginApp(
+  //               page: 'attendance',
+  //             ),
+  //           ),
+  //         );
+  //       }
+  //     } else if (shortcutType == 'action_two') {
+  //       print('Show the help dialog!');
+  //     }
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {

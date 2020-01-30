@@ -20,6 +20,7 @@ public final class GeneratedPluginRegistrant {
       io.flutter.plugins.googlemaps.GoogleMapsPlugin.registerWith(shimPluginRegistry.registrarFor("io.flutter.plugins.googlemaps.GoogleMapsPlugin"));
     flutterEngine.getPlugins().add(new io.flutter.plugins.pathprovider.PathProviderPlugin());
       com.example.pdfviewerplugin.PdfViewerPlugin.registerWith(shimPluginRegistry.registrarFor("com.example.pdfviewerplugin.PdfViewerPlugin"));
+    flutterEngine.getPlugins().add(new io.flutter.plugins.quickactions.QuickActionsPlugin());
     flutterEngine.getPlugins().add(new io.flutter.plugins.sharedpreferences.SharedPreferencesPlugin());
     flutterEngine.getPlugins().add(new io.flutter.plugins.urllauncher.UrlLauncherPlugin());
     flutterEngine.getPlugins().add(new io.flutter.plugins.webviewflutter.WebViewFlutterPlugin());

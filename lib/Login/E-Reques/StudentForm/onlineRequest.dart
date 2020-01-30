@@ -38,6 +38,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
   DateTime to = DateTime.now();
   int changedCount = 0;
   int savedCount = 0;
+  String reasonAgains = '';
   String timeReason = '';
   String currentShift;
   String newShift;
@@ -93,9 +94,10 @@ class _OnlineRequestState extends State<OnlineRequest> {
   String batchId;
   String cddCode;
   String courseName;
+  Map insertAgainsJson = {};
   String grade;
   String allValueMid;
-  List<bool> selectedAgainstCourses = new List<bool>();
+  List<bool> selectedAgainsMarks = new List<bool>();
   List<bool> selectedMitigationCourses = new List<bool>();
   List<bool> selectedResitCourses = new List<bool>();
   List<bool> selectedRepaeatingCourses = new List<bool>();
@@ -173,15 +175,9 @@ class _OnlineRequestState extends State<OnlineRequest> {
                     // }
                   }
                   if (requestId == '143') {
-                    insertAgainsMarks();
-                    //TODO: Send Request
-                    // if (_onlineRequest.currentState.validate() &&
-                    //     requestId != null) {
-                    //   _onlineRequest.currentState.save();
-                    //   sendOnlineRequest();
-                    // } else {
-                    //   // return showErrorInput('Please check your input');
-                    // }
+                    setState(() {
+                      insertAgainsMarks();
+                    });
                   }
                   if (requestId == '109') {
                     //Passport
@@ -1132,7 +1128,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                                                               Text(
                                                                             requestAmountJson.isEmpty || requestAmountJson == null
                                                                                 ? ''
-                                                                                : requestAmountJson['data']['NormalAmount'] == ("NA") ? "Not Avalible" : requestAmountJson['data']['NormalAmount'].toString(),
+                                                                                : requestAmountJson['data']['NormalAmount'] == null ? '' : requestAmountJson['data']['NormalAmount'] == ("NA") ? "Not Avalible" : requestAmountJson['data']['NormalAmount'].toString(),
                                                                             style:
                                                                                 TextStyle(color: isDark(context) ? Colors.white : Colors.black),
                                                                           ),
@@ -1165,12 +1161,12 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                                                         children: <
                                                                             Widget>[
                                                                           new CheckboxListTile(
-                                                                              value: selectedAgainstCourses[index],
+                                                                              value: selectedAgainsMarks[index],
                                                                               title: new Text(againstMarksJson[index]['CourseName']),
                                                                               controlAffinity: ListTileControlAffinity.leading,
                                                                               onChanged: (bool val) {
                                                                                 setState(() {
-                                                                                  selectedAgainstCourses[index] = val;
+                                                                                  selectedAgainsMarks[index] = val;
                                                                                 });
                                                                               })
                                                                         ],
@@ -1179,6 +1175,23 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                                                   );
                                                                 }),
                                                           ),
+                                                          globalForms(
+                                                              context, '',
+                                                              (String value) {
+                                                            if (value
+                                                                .trim()
+                                                                .isEmpty) {
+                                                              return 'Reason is required';
+                                                            }
+                                                            return null;
+                                                          }, (x) {
+                                                            setState(() {
+                                                              reasonAgains = x;
+                                                            });
+                                                          },
+                                                              'Reason',
+                                                              TextInputType
+                                                                  .text),
                                                         ],
                                                       ),
                                                     )
@@ -1486,6 +1499,13 @@ class _OnlineRequestState extends State<OnlineRequest> {
             requestAmountJson = json.decode(response.body);
           },
         );
+
+        if (requestId == '143') {
+          setState(() {
+            getAgainstMarks();
+          });
+        }
+
         showLoading(false, context);
       }
     } catch (x) {
@@ -1921,12 +1941,10 @@ class _OnlineRequestState extends State<OnlineRequest> {
   }
 
   Future getAgainstMarks() async {
-    Future.delayed(Duration.zero, () {
-      showLoading(true, context);
-    });
+    Future.delayed(Duration.zero, () {});
 
     try {
-      selectedAgainstCourses = [];
+      selectedAgainsMarks = [];
       againstMarksJson = [];
       final response = await http.post(
         Uri.encodeFull(
@@ -1945,7 +1963,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
             againstMarksJson = json.decode(response.body)['data'];
 
             for (int i = 0; i < 20; i++) {
-              selectedAgainstCourses.add(false);
+              selectedAgainsMarks.add(false);
             }
           },
         );
@@ -1971,8 +1989,8 @@ class _OnlineRequestState extends State<OnlineRequest> {
 
     int i = 0;
 
-    selectedMitigationCourses.forEach((selectedMitigationCourse) async {
-      if (selectedMitigationCourse) {
+    selectedAgainsMarks.forEach((selectedAgainsMark) async {
+      if (selectedAgainsMark) {
         try {
           final response = await http.post(
             Uri.encodeFull(
@@ -1989,13 +2007,16 @@ class _OnlineRequestState extends State<OnlineRequest> {
               'CourseTitle': againstMarksJson[i]['CourseName'].toString(),
               'AssessmentName':
                   againstMarksJson[i]['AssessmentName'].toString(),
+              'Rason': reasonAgains
             },
           ).timeout(Duration(seconds: 35));
 
           if (response.statusCode == 200) {
             setState(() {
-              insertMitigationJson = json.decode(response.body);
+              insertAgainsJson = json.decode(response.body);
             });
+            print(againstMarksJson);
+
             showLoading(false, context);
           }
         } catch (x) {
@@ -2012,11 +2033,11 @@ class _OnlineRequestState extends State<OnlineRequest> {
       }
       i++;
     });
-    if (insertMitigationJson['success'] == '0') {
-      showfailureSnackBar(context, insertMitigationJson['message']);
+    if (insertAgainsJson['success'] == '0') {
+      showfailureSnackBar(context, insertAgainsJson['message']);
     }
-    if (insertMitigationJson['success'] == '1') {
-      showSuccessSnackBar(context, insertMitigationJson['message']);
+    if (insertAgainsJson['success'] == '1') {
+      showSuccessSnackBar(context, insertAgainsJson['message']);
     }
     //send confirmation
   }

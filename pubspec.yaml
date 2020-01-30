@@ -41,6 +41,7 @@ dependencies:
   pdf_viewer_plugin: ^1.0.0+2
   # webview_flutter: ^0.3.19+4
   flutter_webview_plugin: ^0.3.10+1
+  quick_actions: ^0.4.0+1
 dev_dependencies:
   flutter_test:
     sdk: flutter

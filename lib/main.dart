@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:quick_actions/quick_actions.dart';
 
 import 'Global/global.dart';
 import 'Global/lists.dart';
@@ -95,6 +98,37 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
+  final QuickActions quickActions = QuickActions();
+
+  void initState() {
+    super.initState();
+    _setupQuickActions();
+    _handleQuickActions();
+  }
+
+  void _setupQuickActions() {
+    quickActions.setShortcutItems(<ShortcutItem>[
+      ShortcutItem(
+          type: 'action_main',
+          localizedTitle: 'Main view',
+          icon: Platform.isAndroid ? 'quick_box' : 'plus'),
+      ShortcutItem(
+          type: 'action_help',
+          localizedTitle: 'Help',
+          icon: Platform.isAndroid ? 'quick_heart' : 'QuickHeart')
+    ]);
+  }
+
+  void _handleQuickActions() {
+    quickActions.initialize((String shortcutType) {
+      if (shortcutType == 'action_main') {
+        print('The user tapped on the "decrement" action.');
+      } else {
+        print('The user tapped on the "increment" action.');
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return OverlaySupport(

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:quick_actions/quick_actions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:skyline_university/Global/global.dart';
@@ -11,6 +12,7 @@ import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/zigzag.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:skyline_university/Login/attendance.dart';
 
 import 'package:skyline_university/Login/home.dart';
 
@@ -19,6 +21,9 @@ void main() => runApp(MaterialApp(
     ));
 
 class LoginApp extends StatefulWidget {
+  final String page;
+
+  const LoginApp({Key key, this.page}) : super(key: key);
   @override
   _LoginAppState createState() => new _LoginAppState();
 }
@@ -26,11 +31,11 @@ class LoginApp extends StatefulWidget {
 class _LoginAppState extends State<LoginApp> {
   final _logInForm = GlobalKey<FormState>();
 
-  // Map studentMessageJson = {};
   String deviceToken = '';
   final focus = FocusNode();
   void initState() {
     super.initState();
+
     quick();
   }
 
@@ -211,7 +216,6 @@ class _LoginAppState extends State<LoginApp> {
                                       FocusScope.of(context)
                                           .requestFocus(focus);
                                     },
-
                                     textInputAction: TextInputAction.next,
                                     validator: (String value) {
                                       if (value.trim().isEmpty) {
@@ -251,7 +255,6 @@ class _LoginAppState extends State<LoginApp> {
                                 ),
                                 Container(
                                   child: TextFormField(
-
                                     style: TextStyle(
                                         color: isDark(context)
                                             ? Colors.white
@@ -384,10 +387,33 @@ class _LoginAppState extends State<LoginApp> {
           prefs.setString('password', password);
           loggedin = true;
           showLoading(false, context);
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (BuildContext context) => HomeLogin()),
-              (Route<dynamic> route) => false);
+
+          switch (widget.page) {
+            case 'attendance':
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => HomeLogin()),
+                  (Route<dynamic> route) => false).then((x) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Attendance(),
+                  ),
+                );
+              });
+
+              break;
+            case '':
+              break;
+            case '':
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => HomeLogin()),
+                  (Route<dynamic> route) => false);
+              break;
+          }
         } else if (studentJson['success'] == "0") {
           username = '';
           password = '';
@@ -396,7 +422,21 @@ class _LoginAppState extends State<LoginApp> {
           prefs.setString('username', username);
           prefs.setString('password', password);
           // showErrorInput(studentJson['message']);
-          Navigator.pop(context);
+
+          switch (widget.page) {
+            case 'attendance':
+              showfailureSnackBar(context, 'Check your username and password');
+
+              break;
+            case '':
+              showfailureSnackBar(context, 'Check your username and password');
+              break;
+            case '':
+              Navigator.pop(context);
+
+              break;
+          }
+
           studentJson = {};
         }
       }
