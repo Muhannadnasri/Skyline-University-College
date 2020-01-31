@@ -100,34 +100,64 @@ class MyApp extends StatefulWidget {
 class MyAppState extends State<MyApp> {
   final QuickActions quickActions = QuickActions();
 
+  // final QuickActions quickActions = QuickActions();
+
   void initState() {
     super.initState();
-    _setupQuickActions();
-    _handleQuickActions();
-  }
-
-  void _setupQuickActions() {
-    quickActions.setShortcutItems(<ShortcutItem>[
-      ShortcutItem(
-          type: 'action_main',
-          localizedTitle: 'Main view',
-          icon: Platform.isAndroid ? 'quick_box' : 'plus'),
-      ShortcutItem(
-          type: 'action_help',
-          localizedTitle: 'Help',
-          icon: Platform.isAndroid ? 'quick_heart' : 'QuickHeart')
-    ]);
-  }
-
-  void _handleQuickActions() {
+    if (!loggedin) {
+      quickActions.clearShortcutItems();
+    }
     quickActions.initialize((String shortcutType) {
-      if (shortcutType == 'action_main') {
-        print('The user tapped on the "decrement" action.');
-      } else {
-        print('The user tapped on the "increment" action.');
+      switch (shortcutType) {
+        case 'attendance':
+          showSuccessSnackBar(context, 'attendance');
+          print('attendance');
+          break;
+        case 'assessment':
+          print('assessment');
+
+          break;
+        case 'schedule':
+          print('schedule');
+
+          break;
       }
     });
+
+    quickActions.setShortcutItems(<ShortcutItem>[
+      const ShortcutItem(
+          type: 'attendance', localizedTitle: 'Attendance', icon: 'plus'),
+      const ShortcutItem(
+          type: 'assessment', localizedTitle: 'Assessment Marks', icon: 'plus'),
+      const ShortcutItem(
+          type: 'schedule', localizedTitle: 'Class Schedule', icon: 'plus')
+    ]);
+    // _setupQuickActions();
+    // _handleQuickActions();
   }
+
+  // void _setupQuickActions() {
+  //   quickActions.setShortcutItems(<ShortcutItem>[
+  //     ShortcåutItem(
+  //         type: 'action_main',
+  //         localizedTitle: 'Main view',
+  //         icon: Platform.isAndroid ? 'plus' : 'plus'),
+  //     ShortcutItem(
+  //         type: 'action_help',
+  //         localizedTitle: 'Help',
+  //         icon: Platform.isAndroid ? 'quick_heart' : 'QuickHeart')
+  //   ]);
+  // }
+
+  // void _handleQuickActions() {
+  //   quickActions.initialize((String shortcutType) {
+  //     if (shortcutType == 'action_main') {
+  //       print('The user tapped on the "decrement" action.');
+  //     } else {
+  //       print('The user tapped on the "increment" action.');
+  //     }
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
