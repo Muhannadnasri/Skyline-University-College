@@ -13,6 +13,7 @@ import 'package:quick_actions/quick_actions.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/homeBox.dart';
 import 'package:skyline_university/Global/zigzag.dart';
+import 'package:skyline_university/Home/home.dart';
 import 'package:skyline_university/Login/attendance.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -34,7 +35,8 @@ class HomeLogin extends StatefulWidget {
 
 class _HomeLoginState extends State<HomeLogin> {
   String formattedDate = DateFormat('yyyy-MM-dd hh:mm').format(DateTime.now());
-
+  final QuickActions quickActions = QuickActions();
+  String shortcut = "no action set";
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   Map<String, String> body;
@@ -47,8 +49,10 @@ class _HomeLoginState extends State<HomeLogin> {
     super.initState();
 
     getLogs();
-//    getCopyRight();
 
+    _setupQuickActions();
+    _handleQuickActions();
+//    getCopyRight();
     _firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
         setState(() {
@@ -84,6 +88,34 @@ class _HomeLoginState extends State<HomeLogin> {
     _firebaseMessaging.subscribeToTopic(studentJson['data']['user_id']);
     _firebaseMessaging.subscribeToTopic(studentJson['data']['user_type']);
     _firebaseMessaging.subscribeToTopic('ALL');
+  }
+
+  void _setupQuickActions() {
+    quickActions.setShortcutItems(<ShortcutItem>[
+      ShortcutItem(
+          type: 'action_main',
+          localizedTitle: 'Main view',
+          icon: Platform.isAndroid ? 'quick_box' : 'QuickBox'),
+      ShortcutItem(
+          type: 'action_help',
+          localizedTitle: 'Help',
+          icon: Platform.isAndroid ? 'quick_heart' : 'QuickHeart')
+    ]);
+  }
+
+  void _handleQuickActions() {
+    quickActions.initialize((shortcutType) {
+      setState(() {
+        if (shortcutType != null) shortcut = shortcutType;
+
+        if (shortcutType == 'action_main') {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Attendance()));
+        } else if (shortcutType == 'action_help') {
+          print('Show the help dialog!');
+        }
+      });
+    });
   }
 
   @override

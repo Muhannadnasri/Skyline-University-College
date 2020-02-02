@@ -31,7 +31,6 @@ final _scaffoldKey = GlobalKey<ScaffoldState>();
 
 class _HomeState extends State<Home> {
   int _exit = 0;
-  String shortcut = "no action set";
 
 //   final Firestore _db = Firestore.instance;
 

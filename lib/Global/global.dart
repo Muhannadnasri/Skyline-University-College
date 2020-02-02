@@ -1,5 +1,6 @@
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+import 'package:quick_actions/quick_actions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:superellipse_shape/superellipse_shape.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -86,6 +87,7 @@ void logOut(context) {
               prefs.setString('username', username);
 
               prefs.setString('password', password);
+              _handleClearShortcutItems();
 
               Navigator.of(context).pushNamedAndRemoveUntil(
                   '/', (Route<dynamic> route) => false);
@@ -111,6 +113,12 @@ void logOut(context) {
 void home(context) {
   Navigator.of(context)
       .pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
+}
+
+void _handleClearShortcutItems() {
+  final QuickActions quickActions = QuickActions();
+
+  quickActions.clearShortcutItems();
 }
 
 void showLoading(isLoading, context) {
