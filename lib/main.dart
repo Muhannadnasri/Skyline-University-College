@@ -96,9 +96,39 @@ class MyApp extends StatefulWidget {
   }
 }
 
+final QuickActions quickActions = QuickActions();
+String shortcut = "no action set";
+
 class MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
+    quickActions.setShortcutItems(<ShortcutItem>[
+      ShortcutItem(
+          type: 'action_main',
+          localizedTitle: 'Main view',
+          icon: Platform.isAndroid ? 'quick_box' : 'QuickBox'),
+      ShortcutItem(
+          type: 'action_help',
+          localizedTitle: 'Help',
+          icon: Platform.isAndroid ? 'quick_heart' : 'QuickHeart')
+    ]);
+
+    quickActions.initialize((shortcutType) {
+      if (shortcutType == 'action_main') {
+        print('Navigator');
+        // setState(() {
+        //   Navigator.pushNamed(context, '/LoginApp');
+        // });
+
+        // Navigator.pushReplacement(
+        //     context, MaterialPageRoute(builder: (context) => Attendance()));
+      } else if (shortcutType == 'action_help') {
+        print('Show the help dialog!');
+        // Navigator.pushReplacementNamed(
+        //     context, '/LoginApp');
+        // Navigator.pushNamed(context, '/LoginApp');
+      }
+    });
   }
 
   @override
