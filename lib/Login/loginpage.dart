@@ -21,9 +21,6 @@ void main() => runApp(MaterialApp(
     ));
 
 class LoginApp extends StatefulWidget {
-  final String page;
-
-  const LoginApp({Key key, this.page}) : super(key: key);
   @override
   _LoginAppState createState() => new _LoginAppState();
 }
@@ -388,32 +385,10 @@ class _LoginAppState extends State<LoginApp> {
           loggedin = true;
           showLoading(false, context);
 
-          switch (widget.page) {
-            case 'attendance':
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext context) => HomeLogin()),
-                  (Route<dynamic> route) => false).then((x) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Attendance(),
-                  ),
-                );
-              });
-
-              break;
-            case '':
-              break;
-            case '':
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext context) => HomeLogin()),
-                  (Route<dynamic> route) => false);
-              break;
-          }
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (BuildContext context) => HomeLogin()),
+              (Route<dynamic> route) => false);
         } else if (studentJson['success'] == "0") {
           username = '';
           password = '';
@@ -422,20 +397,7 @@ class _LoginAppState extends State<LoginApp> {
           prefs.setString('username', username);
           prefs.setString('password', password);
           // showErrorInput(studentJson['message']);
-
-          switch (widget.page) {
-            case 'attendance':
-              showfailureSnackBar(context, 'Check your username and password');
-
-              break;
-            case '':
-              showfailureSnackBar(context, 'Check your username and password');
-              break;
-            case '':
-              Navigator.pop(context);
-
-              break;
-          }
+          Navigator.pop(context);
 
           studentJson = {};
         }
