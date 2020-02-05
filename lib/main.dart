@@ -102,32 +102,51 @@ String shortcut = "no action set";
 class MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
+
     quickActions.setShortcutItems(<ShortcutItem>[
       ShortcutItem(
-          type: 'action_main',
-          localizedTitle: 'Main view',
-          icon: Platform.isAndroid ? 'quick_box' : 'QuickBox'),
+          type: 'attendance',
+          localizedTitle: 'Attendance',
+          icon: Platform.isAndroid ? 'attendance' : 'attendance'),
       ShortcutItem(
-          type: 'action_help',
-          localizedTitle: 'Help',
-          icon: Platform.isAndroid ? 'quick_heart' : 'QuickHeart')
+          type: 'assessment',
+          localizedTitle: 'Assessment',
+          icon: Platform.isAndroid ? 'assessment' : 'assessment'), //
+      ShortcutItem(
+          type: 'class_schedul',
+          localizedTitle: 'Class Schedule',
+          icon: Platform.isAndroid ? 'class_schedul' : 'class_schedul')
     ]);
 
     quickActions.initialize((shortcutType) {
-      if (shortcutType == 'action_main') {
-        print('Navigator');
-        // setState(() {
-        //   Navigator.pushNamed(context, '/LoginApp');
-        // });
+      switch (shortcutType) {
+        case 'attendance':
+          print('attendance');
+          break;
+        case 'assessment':
+          print('assessment');
 
-        // Navigator.pushReplacement(
-        //     context, MaterialPageRoute(builder: (context) => Attendance()));
-      } else if (shortcutType == 'action_help') {
-        print('Show the help dialog!');
-        // Navigator.pushReplacementNamed(
-        //     context, '/LoginApp');
-        // Navigator.pushNamed(context, '/LoginApp');
+          break;
+        case 'class_schedul':
+          print('class_schedul');
+
+          break;
       }
+
+      // if (shortcutType == 'action_main') {
+      //   print('Navigator');
+      //   // setState(() {
+      //   //   Navigator.pushNamed(context, '/LoginApp');
+      //   // });
+
+      //   // Navigator.pushReplacement(
+      //   //     context, MaterialPageRoute(builder: (context) => Attendance()));
+      // } else if (shortcutType == 'action_help') {
+      //   print('Show the help dialog!');
+      //   // Navigator.pushReplacementNamed(
+      //   //     context, '/LoginApp');
+      //   // Navigator.pushNamed(context, '/LoginApp');
+      // }
     });
   }
 
