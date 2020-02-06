@@ -180,7 +180,6 @@ class _LoginAppState extends State<LoginApp> {
                                       ? Colors.white
                                       : Colors.black,
                                   fontSize: ScreenUtil.getInstance().setSp(45),
-                                  fontFamily: "Poppins-Bold",
                                   letterSpacing: .6)),
                           SizedBox(
                             height: ScreenUtil.getInstance().setHeight(30),
@@ -197,7 +196,6 @@ class _LoginAppState extends State<LoginApp> {
                                               color: isDark(context)
                                                   ? Colors.white
                                                   : Colors.black,
-                                              fontFamily: "Poppins-Medium",
                                               fontSize: ScreenUtil.getInstance()
                                                   .setSp(26))),
                                     ],
@@ -244,7 +242,6 @@ class _LoginAppState extends State<LoginApp> {
                                               color: isDark(context)
                                                   ? Colors.white
                                                   : Colors.black,
-                                              fontFamily: "Poppins-Medium",
                                               fontSize: ScreenUtil.getInstance()
                                                   .setSp(26))),
                                     ],
@@ -328,7 +325,6 @@ class _LoginAppState extends State<LoginApp> {
                               child: Text("SIGNIN",
                                   style: TextStyle(
                                       color: Colors.white,
-                                      fontFamily: "Poppins-Bold",
                                       fontSize: 18,
                                       letterSpacing: 1.0)),
                             ),

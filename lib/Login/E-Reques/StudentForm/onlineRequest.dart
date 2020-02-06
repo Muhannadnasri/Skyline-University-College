@@ -40,8 +40,8 @@ class _OnlineRequestState extends State<OnlineRequest> {
   int savedCount = 0;
   String reasonAgains = '';
   String timeReason = '';
-  String currentShift;
   String newShift;
+  Map currentShiftTimeJson = {};
   String reasonForLeave = '';
   String addressTo = '';
   String documentSubmitted = '';
@@ -49,6 +49,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
   String mobileNumber = '';
   String residenceContactNumber = '';
   List shiftTimesJson = [];
+  String addressToTime = '';
   List onlineRequestTypeJson = [];
   List courseWithdrawalJson = [];
   Map checkRequestJson = {};
@@ -153,7 +154,9 @@ class _OnlineRequestState extends State<OnlineRequest> {
                     // }
                   }
                   if (requestId == '31') {
-                    insertShiftChange();
+                    setState(() {
+                      insertShiftChange();
+                    });
                     //TODO: Send Request
                     // if (_onlineRequest.currentState.validate() &&
                     //     requestId != null) {
@@ -323,6 +326,9 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                     if (requestId == '1') {
                                       getAmount();
                                       // getRepaeatingMarksCourses();
+                                    }
+                                    if (requestId == '31') {
+                                      getShiftTime();
                                     }
 
                                     //  else {
@@ -610,60 +616,124 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                     FocusScope.of(context)
                                         .requestFocus(new FocusNode());
                                   },
-                                  child: ListView(
+                                  child: Column(
                                     children: <Widget>[
-                                      Column(
-                                        children: <Widget>[
-                                          SizedBox(
-                                            height: 15,
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Container(
+                                        alignment: Alignment.center,
+                                        child: Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              10.0, 0.0, 10.0, 5.0),
+                                          child: Text(
+                                            'Current Timings',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: isDark(context)
+                                                    ? Colors.white
+                                                    : Colors.black),
                                           ),
-                                          Container(
-                                            alignment: Alignment.center,
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.fromLTRB(
-                                                      10.0, 0.0, 10.0, 5.0),
-                                              child: Text(
-                                                'Current Timings',
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: isDark(context)
-                                                        ? Colors.white
-                                                        : Colors.black),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Container(
+                                        width: 500,
+                                        height: 50,
+                                        alignment: Alignment.center,
+                                        decoration: new BoxDecoration(
+                                          gradient: isDark(context)
+                                              ? LinearGradient(
+                                                  begin: Alignment.topCenter,
+                                                  end: Alignment.bottomCenter,
+                                                  colors: [
+                                                    Color(0xFF1F1F1F),
+                                                    Color(0xFF1F1F1F),
+                                                  ],
+                                                  stops: [
+                                                    0.7,
+                                                    0.9,
+                                                  ],
+                                                )
+                                              : LinearGradient(
+                                                  begin: Alignment.topCenter,
+                                                  end: Alignment.bottomCenter,
+                                                  colors: [
+                                                    Color(0xFF104C90),
+                                                    Color(0xFF3773AC),
+                                                  ],
+                                                  stops: [
+                                                    0.7,
+                                                    0.9,
+                                                  ],
+                                                ),
+                                        ),
+                                        child: Text(
+                                          currentShiftTimeJson.isEmpty ||
+                                                  currentShiftTimeJson == null
+                                              ? ''
+                                              : currentShiftTimeJson[
+                                                          'Shift_Desc'] ==
+                                                      'NA'
+                                                  ? ''
+                                                  : currentShiftTimeJson[
+                                                      'Shift_Desc'],
+                                          style: TextStyle(color: Colors.white),
+//
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      dropDownWidget(
+                                          context,
+                                          'Select Your Current Timings',
+                                          newShift,
+                                          shiftTimesJson,
+                                          'Shift_Desc',
+                                          'Shift_Desc', (value) {
+                                        setState(() {
+                                          newShift = value;
+                                        });
+                                      }, 'New Timings'),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      // dropDownWidget(
+                                      //     context,
+                                      //     'Select Your New Timings',
+                                      //     newShift,
+                                      //     shiftTimesJson,
+                                      //     'Shift_Desc',
+                                      //     'Shift_Desc', (value) {
+                                      //   setState(() {
+                                      //     newShift = value;
+                                      //   });
+                                      // }, 'New Timings'),
+                                      Form(
+                                          key: time,
+                                          child: Column(
+                                            children: <Widget>[
+                                              globalForms(
+                                                context,
+                                                '',
+                                                (String value) {
+                                                  if (value.trim().isEmpty) {
+                                                    return 'Your AddressTo is required';
+                                                  }
+                                                  return null;
+                                                },
+                                                (x) {
+                                                  setState(() {
+                                                    addressToTime = x;
+                                                  });
+                                                },
+                                                'Address To',
+                                                TextInputType.text,
                                               ),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: 20,
-                                          ),
-                                          dropDownWidget(
-                                              context,
-                                              'Select Your Current Timings',
-                                              currentShift,
-                                              shiftTimesJson,
-                                              'Shift_Desc',
-                                              'Shift_Desc', (value) {
-                                            setState(() {
-                                              currentShift = value;
-                                            });
-                                          }, 'New Timings'),
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          dropDownWidget(
-                                              context,
-                                              'Select Your New Timings',
-                                              newShift,
-                                              shiftTimesJson,
-                                              'Shift_Desc',
-                                              'Shift_Desc', (value) {
-                                            setState(() {
-                                              newShift = value;
-                                            });
-                                          }, 'New Timings'),
-                                          Form(
-                                              key: time,
-                                              child: globalForms(
+                                              globalForms(
                                                 context,
                                                 '',
                                                 (String value) {
@@ -679,9 +749,9 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                                 },
                                                 'Reason',
                                                 TextInputType.text,
-                                              )),
-                                        ],
-                                      ),
+                                              ),
+                                            ],
+                                          )),
                                     ],
                                   ),
                                 )
@@ -1759,7 +1829,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
     try {
       final response = await http.post(
         Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/test/MidMarksCourses'),
+            'https://skylineportal.com/moappad/api/test/CurrentAndNewShift'),
         headers: {
           "API-KEY": API,
         },
@@ -1771,7 +1841,9 @@ class _OnlineRequestState extends State<OnlineRequest> {
       if (response.statusCode == 200) {
         setState(
           () {
-            shiftTimesJson = json.decode(response.body)['data'];
+            currentShiftTimeJson =
+                json.decode(response.body)['data']['current_shift'];
+            shiftTimesJson = json.decode(response.body)['data']['shifts'];
           },
         );
         showLoading(false, context);
@@ -1797,17 +1869,18 @@ class _OnlineRequestState extends State<OnlineRequest> {
     try {
       final response = await http.post(
         Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/test/InsertLeaveApplication'),
+            'https://skylineportal.com/moappad/api/test/InsertShiftChange'),
         headers: {
           "API-KEY": API,
         },
         body: {
-          'ClassShiftChangeFrom': '',
-          'ClassShiftChangeTo': '',
-          'RequestTypeID': requestId.toString(),
+          'ClassShiftChangeFrom': currentShiftTimeJson['Shift_Desc'],
+          'ClassShiftChangeTo': newShift.toString(),
+          'RequestTypeId': requestId.toString(),
+          'RequestType': 'Normal',
           'Student_Id': username,
-          'AddressTo': '',
-          'StudRemarks': '',
+          'AddressTo': addressToTime,
+          'StudRemarks': timeReason,
         },
       ).timeout(Duration(seconds: 35));
 
@@ -1830,13 +1903,12 @@ class _OnlineRequestState extends State<OnlineRequest> {
             insertShiftChange);
       }
     }
-    if (insertShiftChangeJson['success'] == '0') {
+    if (insertShiftChangeJson['success'] == '1') {
       showfailureSnackBar(context, insertShiftChangeJson['message']);
     }
-    if (insertShiftChangeJson['success'] == '1') {
+    if (insertShiftChangeJson['success'] == '0') {
       showSuccessSnackBar(context, insertShiftChangeJson['message']);
     }
-    //send confirmation
   }
 
   Future getCourseWithdrawal() async {

@@ -155,12 +155,16 @@ class MyAppState extends State<MyApp> {
     return OverlaySupport(
       child: MaterialApp(
         darkTheme: ThemeData(
+          fontFamily: 'Skyline',
           iconTheme: IconThemeData(color: Colors.black),
           scaffoldBackgroundColor: Color(0xFF000000),
           textTheme: TextTheme(
             body1: TextStyle(color: Colors.black),
           ),
           brightness: Brightness.dark,
+        ),
+        theme: ThemeData(
+          fontFamily: 'Skyline',
         ),
         debugShowCheckedModeBanner: false,
         builder: (BuildContext context, Widget child) {

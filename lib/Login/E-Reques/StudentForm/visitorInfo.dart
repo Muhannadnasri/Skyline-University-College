@@ -26,20 +26,21 @@ class VisitorInfo extends StatefulWidget {
   }
 }
 
-class _VisitorInfoState extends State<VisitorInfo> {
-  final visitor = GlobalKey<FormState>();
-  final translator = GoogleTranslator();
+final visitor = GlobalKey<FormState>();
+final translator = GoogleTranslator();
 
+class _VisitorInfoState extends State<VisitorInfo> {
   Map visitorInformationFormJson = {};
   List admissionFormDropdownProgramEnJson = [];
   List admissionFormDropdownCountriesJson = [];
   List admissionFormDropdownOrganizationEnJson = [];
   List admissionFormDropdownQualificationEnJson = [];
   List admissionFormDropdowShortCoursesJson = [];
+  List titleJson = [];
   String translatorName = '';
   String callYou;
   String name = '';
-  String shotrCourse;
+  String shortCourse;
   String mobile = '';
   String facebookId = '';
   String email = '';
@@ -67,10 +68,6 @@ class _VisitorInfoState extends State<VisitorInfo> {
 
   String translatorLevel = '';
   String translatorEvent = '';
-  List title = [
-    {'السيد', 'السيدة', 'السيدة', 'دكتور'},
-    {'Mr', 'Mrs', 'MS', 'Dr'}
-  ];
 
   @override
   void initState() {
@@ -168,16 +165,19 @@ class _VisitorInfoState extends State<VisitorInfo> {
                                   ),
                                   isExpanded: true,
                                   value: callYou,
-                                  items: title
+                                  items: titleJson
                                           ?.map(
                                             (item) => DropdownMenuItem<String>(
-                                              value: item.toString(),
+                                              value: widget.languageAr
+                                                  ? item['titleAr']
+                                                  : item['title'],
                                               child: Padding(
                                                 padding:
                                                     const EdgeInsets.all(8.0),
                                                 child: Text(
-                                                  widget.languageAr?item[0]:
-                                                  item[1].toString(),
+                                                  widget.languageAr
+                                                      ? item['titleAr']
+                                                      : item['title'],
                                                 ),
                                               ),
                                             ),
@@ -273,6 +273,22 @@ class _VisitorInfoState extends State<VisitorInfo> {
                             widget.languageAr ? 'البريد الإلكتروني' : 'Email',
                             TextInputType.emailAddress,
                           ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          formVisitor(context, '', (String value) {
+                            if (value.trim().isEmpty) {
+                              return widget.languageAr
+                                  ? 'الفيسبوك الخاص بك هو مطلوب'
+                                  : 'Your Facebook ID is required';
+                            }
+                            return null;
+                          }, (x) {
+                            setState(() {
+                              event = x;
+                            });
+                          }, widget.languageAr ? 'المناسبة' : 'Event',
+                              TextInputType.text),
                           SizedBox(
                             height: 10,
                           ),
@@ -398,8 +414,8 @@ class _VisitorInfoState extends State<VisitorInfo> {
                                             20.0, 0.0, 20.0, 5.0),
                                         child: Text(
                                           widget.languageAr
-                                              ? 'ما هو البرنامج الذي ترغب بدراسته ؟'
-                                              : 'دورات قصيرة',
+                                              ? 'دورات قصيرة'
+                                              : 'Short courses',
                                           style: TextStyle(
                                             color: isDark(context)
                                                 ? Colors.white
@@ -430,7 +446,7 @@ class _VisitorInfoState extends State<VisitorInfo> {
                                           ),
                                         ),
                                         isExpanded: true,
-                                        value: shotrCourse,
+                                        value: shortCourse,
                                         items:
                                             admissionFormDropdowShortCoursesJson
                                                     ?.map(
@@ -455,7 +471,7 @@ class _VisitorInfoState extends State<VisitorInfo> {
                                                 [],
                                         onChanged: (value) {
                                           setState(() {
-                                            shotrCourse = value;
+                                            shortCourse = value;
                                           });
                                         },
                                       ),
@@ -740,6 +756,7 @@ class _VisitorInfoState extends State<VisitorInfo> {
       if (response.statusCode == 200) {
         setState(
           () {
+            titleJson = json.decode(response.body)['data']['title'];
             admissionFormDropdownCountriesJson =
                 json.decode(response.body)['data']['countries'];
             admissionFormDropdownProgramEnJson =
@@ -785,10 +802,10 @@ class _VisitorInfoState extends State<VisitorInfo> {
                 ? translatorName =
                     await translator.translate(name, from: 'ar', to: 'en')
                 : name,
-            "shortCourse": widget.languageAr
-                ? translatorName = await translator.translate(shotrCourse,
-                    from: 'ar', to: 'en')
-                : shotrCourse,
+            // "shortCourse": widget.languageAr
+            //     ? translatorName = await translator.translate(shotrCourse,
+            //         from: 'ar', to: 'en')
+            //     : shotrCourse,
             "title": callYou,
             "other": program == null
                 ? widget.languageAr
@@ -798,8 +815,8 @@ class _VisitorInfoState extends State<VisitorInfo> {
                 : '',
             "shortCourse": widget.languageAr
                 ? translatorShortCourse = await translator
-                    .translate(shotrCourse, from: 'ar', to: 'en')
-                : name,
+                    .translate(shortCourse, from: 'ar', to: 'en')
+                : shortCourse,
             "mobile": mobile,
             "facebookId": facebookId,
             "email": email,
