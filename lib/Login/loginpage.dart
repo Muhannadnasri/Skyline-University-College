@@ -12,7 +12,6 @@ import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/zigzag.dart';
 
 import 'package:http/http.dart' as http;
-import 'package:skyline_university/Login/attendance.dart';
 
 import 'package:skyline_university/Login/home.dart';
 

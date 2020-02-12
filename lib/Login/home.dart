@@ -14,7 +14,6 @@ import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/homeBox.dart';
 import 'package:skyline_university/Global/zigzag.dart';
 import 'package:skyline_university/Home/home.dart';
-import 'package:skyline_university/Login/attendance.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void main() => runApp(HomeLogin());

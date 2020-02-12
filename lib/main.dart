@@ -34,7 +34,9 @@ import 'Home/programs/mastersQualifyingProgram.dart';
 import 'Home/programs/scholarship.dart';
 import 'Home/programs/undergraduateBusiness.dart';
 import 'Home/programs/undergraduateIT.dart';
-import 'Login/ClassHome.dart';
+
+import 'Login/Assessment/assessmentMarkCourses.dart';
+import 'Login/Attendance/attendance.dart';
 import 'Login/E-Reques/FacForm/bookrequistion.dart';
 import 'Login/E-Reques/FacForm/conference.dart';
 import 'Login/E-Reques/FacForm/leaveapplication.dart';
@@ -64,14 +66,16 @@ import 'Login/Results/resultHome.dart';
 import 'Login/Results/studentGPAProfile.dart';
 import 'Login/admissionKit.dart';
 import 'Login/advisors.dart';
-import 'Login/assessmentMarkCourses.dart';
-import 'Login/attendance.dart';
+
+
 import 'Login/cdp.dart';
 import 'Login/cdpFaculty.dart';
 import 'Login/circulars.dart';
-import 'Login/classDetails.dart';
-import 'Login/classSchedule.dart';
-import 'Login/classScheduleFAC.dart';
+
+import 'Login/classes/ClassHome.dart';
+import 'Login/classes/classDetails.dart';
+import 'Login/classes/classSchedule.dart';
+import 'Login/classes/classScheduleFAC.dart';
 import 'Login/contactList.dart';
 import 'Login/courseAllocationEvening.dart';
 import 'Login/courseAllocations.dart';

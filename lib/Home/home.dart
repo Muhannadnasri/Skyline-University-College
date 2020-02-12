@@ -10,7 +10,6 @@ import 'package:intl/intl.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/homeBox.dart';
-import 'package:skyline_university/Login/attendance.dart';
 import 'package:skyline_university/Login/loginpage.dart';
 
 void main() => runApp(Home());
