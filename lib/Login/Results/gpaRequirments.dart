@@ -88,14 +88,11 @@ class _GetGPARequirmentsState extends State<GetGPARequirments> {
                                       Padding(
                                         padding:
                                             const EdgeInsets.only(left: 15.0),
-                                        child: Text(
-                                          gpaRequirmentsJson
-                                                  .toString()
-                                                  .contains('BBA')
-                                              ? 'BBA REQUIREMENTS'
-                                              : 'MBA REQUIREMENTS',
-                                          style: TextStyle(color: Colors.white),
-                                        ),
+                                        // child: Text(
+                                        //   gpaRequirmentsJson[]
+                                        //        ['Requirement'] ,
+                                        //   style: TextStyle(color: Colors.white),
+                                        // ),
                                       ),
                                     ],
                                   ),
@@ -109,12 +106,8 @@ class _GetGPARequirmentsState extends State<GetGPARequirments> {
                                     padding: const EdgeInsets.only(left: 15.0),
                                     child: Text(
                                       gpaRequirmentsJson
-                                              .toString()
-                                              .contains('BBA')
-                                          ? gpaRequirmentsJson[index]
-                                              ['BBA REQUIREMENTS']
-                                          : gpaRequirmentsJson[index]
-                                              ['MBA REQUIREMENTS'],
+                                             [index]
+                                              ['Requirement'],
                                       style: TextStyle(
                                           color: isDark(context)
                                               ? Colors.white

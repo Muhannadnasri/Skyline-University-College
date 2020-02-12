@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_calendar_carousel/classes/event.dart';
-import 'package:flutter_calendar_carousel/classes/event_list.dart';
-import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
+// import 'package:flutter_calendar_carousel/classes/event.dart';
+// import 'package:flutter_calendar_carousel/classes/event_list.dart';
+import 'package:skyline_university/calendar/flutter_calendar_carousel.dart'
     show CalendarCarousel, WeekdayFormat;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -12,6 +12,8 @@ import 'package:intl/intl.dart';
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/global.dart';
+import 'package:skyline_university/calendar/classes/event.dart';
+import 'package:skyline_university/calendar/classes/event_list.dart';
 
 void main() => runApp(AttendanceCalendar());
 

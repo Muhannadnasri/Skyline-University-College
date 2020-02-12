@@ -32,7 +32,8 @@ dependencies:
   flutter_html: ^0.11.1
   google_maps_flutter: ^0.5.21
   youtube_player_flutter: ^6.0.3+2
-  flutter_calendar_carousel: ^1.4.10 
+  # flutter_calendar_carousel: ^1.4.10 
+  date_utils: ^0.1.0+3
   #TODO: cahnge to local
   flushbar: ^1.9.1
   cupertino_icons: ^0.1.2
