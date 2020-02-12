@@ -50,8 +50,15 @@ class _HomeClassState extends State<HomeClass> {
                     context,
                     'images/course.png',
                     'images-white/course.png',
-                    'Class Schedule Mqp WeekDay',
+                    'Class Schedule Mqp Weekday',
                     "/classScheduleMqpWeekDay")
+                    ,                rowSection(
+
+                    context,
+                    'images/course.png',
+                    'images-white/course.png',
+                    'Class Schedule Mqp Weekend',
+                    "/classScheduleMqpWeekEnd")
               ],
             ),
           ],

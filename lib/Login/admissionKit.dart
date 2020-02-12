@@ -44,7 +44,7 @@ class _AdmissionKitState extends State<AdmissionKit> {
               invoicesJson.isEmpty
           ? exception(context)
           : Container(
-              color: Colors.white,
+
               child: Row(
                 children: <Widget>[
                   Column(
@@ -66,7 +66,10 @@ class _AdmissionKitState extends State<AdmissionKit> {
                             children: <Widget>[
                               Padding(
                                 padding: const EdgeInsets.only(left: 15.0),
-                                child: Text("Download Your Ledger Fees"),
+                                child: Text("Download Your Ledger Fees", style: TextStyle(
+                                          color: isDark(context)
+                                              ? Colors.white
+                                              : Colors.black)),
                               ),
                               Padding(
                                 padding:
@@ -105,7 +108,10 @@ class _AdmissionKitState extends State<AdmissionKit> {
                             children: <Widget>[
                               Padding(
                                 padding: const EdgeInsets.only(left: 15.0),
-                                child: Text("Download Your Admission Kit"),
+                                child: Text("Download Your Admission Kit", style: TextStyle(
+                                          color: isDark(context)
+                                              ? Colors.white
+                                              : Colors.black)),
                               ),
                               Padding(
                                 padding:
@@ -130,45 +136,7 @@ class _AdmissionKitState extends State<AdmissionKit> {
                           ),
                         ),
                       ),
-                      Container(
-                        height: 50,
-                        width: MediaQuery.of(context).size.width,
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          elevation: 10,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.only(left: 15.0),
-                                child: Text("Download Your Invoices"),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(right: 15.0, top: 5),
-                                child: InkWell(
-                                  child: Text(
-                                    'Download',
-                                    style: TextStyle(color: Colors.blue),
-                                  ),
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            PdfView(url: invoicesJson['data']),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                     
                     ],
                   ),
                 ],

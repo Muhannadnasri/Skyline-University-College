@@ -215,6 +215,10 @@ class MyAppState extends State<MyApp> {
                 link: 'classScheduleMQPWeekday',
                 title: 'class Schedule MQP Weekday',
               ),
+              '/classScheduleMqpWeekEnd': (context) => ClassSchedule(
+                link: 'classScheduleMQPWeekend',
+                title: 'class Schedule MQP Weekend',
+              ),
           '/classScheduleWeekend': (context) => ClassSchedule(
                 link: 'classScheduleWeekend',
                 title: 'class Schedule Weekend',
