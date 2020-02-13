@@ -67,7 +67,6 @@ import 'Login/Results/studentGPAProfile.dart';
 import 'Login/admissionKit.dart';
 import 'Login/advisors.dart';
 
-
 import 'Login/cdp.dart';
 import 'Login/cdpFaculty.dart';
 import 'Login/circulars.dart';
@@ -100,59 +99,13 @@ class MyApp extends StatefulWidget {
   }
 }
 
-final QuickActions quickActions = QuickActions();
-String shortcut = "no action set";
 
 class MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
-
-    quickActions.setShortcutItems(<ShortcutItem>[
-      ShortcutItem(
-          type: 'attendance',
-          localizedTitle: 'Attendance',
-          icon: Platform.isAndroid ? 'attendance' : 'attendance'),
-      ShortcutItem(
-          type: 'assessment',
-          localizedTitle: 'Assessment',
-          icon: Platform.isAndroid ? 'assessment' : 'assessment'), //
-      ShortcutItem(
-          type: 'class_schedul',
-          localizedTitle: 'Class Schedule',
-          icon: Platform.isAndroid ? 'class_schedul' : 'class_schedul')
-    ]);
-
-    quickActions.initialize((shortcutType) {
-      switch (shortcutType) {
-        case 'attendance':
-          print('attendance');
-          break;
-        case 'assessment':
-          print('assessment');
-
-          break;
-        case 'class_schedul':
-          print('class_schedul');
-
-          break;
-      }
-
-      // if (shortcutType == 'action_main') {
-      //   print('Navigator');
-      //   // setState(() {
-      //   //   Navigator.pushNamed(context, '/LoginApp');
-      //   // });
-
-      //   // Navigator.pushReplacement(
-      //   //     context, MaterialPageRoute(builder: (context) => Attendance()));
-      // } else if (shortcutType == 'action_help') {
-      //   print('Show the help dialog!');
-      //   // Navigator.pushReplacementNamed(
-      //   //     context, '/LoginApp');
-      //   // Navigator.pushNamed(context, '/LoginApp');
-      // }
-    });
   }
+
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -215,7 +168,7 @@ class MyAppState extends State<MyApp> {
                 link: 'classScheduleMQPWeekday',
                 title: 'class Schedule MQP Weekday',
               ),
-              '/classScheduleMqpWeekEnd': (context) => ClassSchedule(
+          '/classScheduleMqpWeekEnd': (context) => ClassSchedule(
                 link: 'classScheduleMQPWeekend',
                 title: 'class Schedule MQP Weekend',
               ),

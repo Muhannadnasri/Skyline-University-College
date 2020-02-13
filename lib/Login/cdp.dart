@@ -141,19 +141,16 @@ class _CDPDownloadState extends State<CDPDownload>
                               children: <Widget>[
                                 GestureDetector(
                                     onTap: () {
-//                                       shareCDP(
-//                                           'https://www.skylineportal.com/Report/Pages/SkylineCPD-Display.aspx?path1=${cdpCourseJson[index]['Faculty_id']}&batch=${cdpCourseJson[index]['BatchCode']}&studid=$username&reqid=2&cdp=0');
-// // TODO: Add New Button Share / view And fix Pdf Viewer
-
-                                      Navigator.push(
+                            Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) => PdfView(
                                             url: 
                                             
-                                            
-                                            'http://sky.skylineuniversity.ac.ae/page/PrintLMS.aspx?Id=".CDP_ID."&Type=CDP'
-                                            'https://www.skylineportal.com/Report/Pages/SkylineCPD-Display.aspx?path1=${cdpCourseJson[index]['Faculty_id']}&batch=${cdpCourseJson[index]['BatchCode']}&studid=$username&reqid=2&cdp=0',
+                                            ''
+                                            // 'http://sky.skylineuniversity.ac.ae/page/PrintLMS.aspx?Id=".CDP_ID."&Type=CDP'
+
+                                            // 'https://www.skylineportal.com/Report/Pages/SkylineCPD-Display.aspx?path1=${cdpCourseJson[index]['Faculty_id']}&batch=${cdpCourseJson[index]['BatchCode']}&studid=$username&reqid=2&cdp=0',
                                           ),
                                         ),
                                       );

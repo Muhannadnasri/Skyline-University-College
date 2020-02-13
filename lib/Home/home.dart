@@ -27,6 +27,7 @@ List sliders = [];
 Map slidersJson = {};
 
 final _scaffoldKey = GlobalKey<ScaffoldState>();
+final QuickActions quickActions = QuickActions();
 
 class _HomeState extends State<Home> {
   int _exit = 0;
@@ -34,15 +35,53 @@ class _HomeState extends State<Home> {
 //   final Firestore _db = Firestore.instance;
 
   String formattedDate = DateFormat('yyyy-MM-dd hh:mm').format(DateTime.now());
+  String shortcut = "no action set";
 
   @override
   void initState() {
     super.initState();
-
-    getSliders();
+    _setupQuickActions();
+    _handleQuickActions();
     getLogs();
   }
 
+  void _setupQuickActions() {
+    quickActions.setShortcutItems(<ShortcutItem>[
+      ShortcutItem(
+          type: 'attendance',
+          localizedTitle: 'Attendance',
+          icon: Platform.isAndroid ? 'attendance' : 'attendance'),
+      ShortcutItem(
+          type: 'assessment',
+          localizedTitle: 'Assessment',
+          icon: Platform.isAndroid ? 'assessment' : 'assessment'), //
+      ShortcutItem(
+          type: 'class_schedul',
+          localizedTitle: 'Class Schedule',
+          icon: Platform.isAndroid ? 'class_schedul' : 'class_schedul')
+    ]);
+  }
+
+  void _handleQuickActions() {
+    quickActions.initialize((shortcutType) {
+      switch (shortcutType) {
+        case 'attendance':
+          print('attendance');
+          break;
+        case 'assessment':
+          print('assessment');
+
+          break;
+        case 'class_schedul':
+          setState(() {
+            Navigator.pushNamed(context, '/LoginApp');
+          });
+          print('class_schedul');
+
+          break;
+      }
+    });
+  }
   // void _setupQuickActions() {
   //   quickActions.initialize((String shortcutType) {
   //     setState(() {
