@@ -53,7 +53,7 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
 
     return Scaffold(
       appBar: appBarLogin(context, 'Attendance Calendar'),
-      body: attendanceDetailsJson == null||attendanceDetailsJson.isEmpty
+      body: attendanceDetailsJson == null || attendanceDetailsJson.isEmpty
           ? exception(context)
           : ListView(
               children: <Widget>[
@@ -69,16 +69,73 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
                         elevation: 10,
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: Row(
+                          child: Column(
                             children: <Widget>[
-                              Expanded(
-                                child: Text(
-                                  'Course Name : ' + '  ' + widget.className,
-                                  style: TextStyle(
-                                      color: isDark(context)
-                                          ? Colors.white
-                                          : Colors.black),
-                                ),
+                              Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Text(
+                                      'Course Name : ' +
+                                          '  ' +
+                                          widget.className,
+                                      style: TextStyle(
+                                          color: isDark(context)
+                                              ? Colors.white
+                                              : Colors.black),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  Container(
+                                    child: Row(
+                                      children: <Widget>[
+                                        Icon(FontAwesomeIcons.solidCircle,
+                                            size: 20,
+                                            color: isDark(context)
+                                                ? Colors.green
+                                                : Colors.green),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text(
+                                          'Present',
+                                          style: TextStyle(
+                                              color: isDark(context)
+                                                  ? Colors.white
+                                                  : Colors.black),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    child: Row(
+                                      children: <Widget>[
+                                        Icon(FontAwesomeIcons.solidCircle,
+                                            size: 20,
+                                            color: isDark(context)
+                                                ? Colors.red
+                                                : Colors.red),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text(
+                                          'Absent',
+                                          style: TextStyle(
+                                              color: isDark(context)
+                                                  ? Colors.white
+                                                  : Colors.black),
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ],
                               )
                             ],
                           ),

@@ -53,7 +53,7 @@ class _ComplainsState extends State<Complains> {
                   if (_generalAppointment.currentState.validate() &&
                       _categoryID != null) {
                     _generalAppointment.currentState.save();
-                    sendGeneralAppointment();
+                    sendComplainsAppointment();
                   }
                 });
               },
@@ -81,7 +81,6 @@ class _ComplainsState extends State<Complains> {
                           'CATEGORY_DESCRIPTION', (value) {
                         setState(() {
                           _categoryID = value;
-                          getGeneralApptCatDeptTime();
                         });
                       }, 'Case Category'),
                       SizedBox(
@@ -127,9 +126,7 @@ class _ComplainsState extends State<Complains> {
         headers: {
           "API-KEY": API,
         },
-        body: {
-          'usertype': studentJson['data']['user_type'],
-        },
+        body: {},
       ).timeout(Duration(seconds: 35));
 
       if (response.statusCode == 200) {
@@ -155,7 +152,7 @@ class _ComplainsState extends State<Complains> {
     }
   }
 
-  Future sendGeneralAppointment() async {
+  Future sendComplainsAppointment() async {
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
     });
@@ -174,31 +171,36 @@ class _ComplainsState extends State<Complains> {
           'StudentDescription': studentDescription,
         },
       );
-      if (response.statusCode == 200) {
-        setState(
-          () {
-            generalRequestJson = json.decode(response.body);
-          },
-        );
-        showLoading(false, context);
-        if (generalRequestJson['success'] == '0') {
-          showfailureSnackBar(context, generalRequestJson['message']);
-        }
-        if (generalRequestJson['success'] == '1') {
-          showSuccessSnackBar(context, generalRequestJson['message']);
-        }
-      }
+      showLoading(false, context);
+
+      showSuccessSnackBar(
+          context, 'Your request has been successfully submitted');
+
+      // if (response.statusCode == 200) {
+      //   setState(
+      //     () {
+      //       generalRequestJson = json.decode(response.body);
+      //     },
+      //   );
+      //   showLoading(false, context);
+      //   if (generalRequestJson['success'] == '0') {
+      //     showfailureSnackBar(context, generalRequestJson['message']);
+      //   }
+      //   if (generalRequestJson['success'] == '1') {
+      //     showSuccessSnackBar(context, generalRequestJson['message']);
+      //   }
+      // }
     } catch (x) {
       print(x);
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 
         showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-            context, sendGeneralAppointment);
+            context, sendComplainsAppointment);
       } else {
         showLoading(false, context);
         showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-            sendGeneralAppointment);
+            sendComplainsAppointment);
       }
     }
   }

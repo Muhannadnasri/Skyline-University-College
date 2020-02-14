@@ -25,7 +25,6 @@ Map<String, String> body;
 List sliders = [];
 
 Map slidersJson = {};
-
 final _scaffoldKey = GlobalKey<ScaffoldState>();
 final QuickActions quickActions = QuickActions();
 
@@ -174,16 +173,16 @@ class _HomeState extends State<Home> {
                     0.9,
                   ],
                 ),
-          actions: <Widget>[
-            GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, "/announcements");
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Icon(Icons.notifications_active),
-                )),
-          ],
+          // actions: <Widget>[
+          //   GestureDetector(
+          //       onTap: () {
+          //         Navigator.pushNamed(context, "/announcements");
+          //       },
+          //       child: Padding(
+          //         padding: const EdgeInsets.all(10.0),
+          //         child: Icon(Icons.notifications_active),
+          //       )),
+          // ],
         ),
         body: Container(
           color: isDark(context) ? Color(0xFF121212) : Colors.white,
@@ -344,7 +343,7 @@ class _HomeState extends State<Home> {
                                   "/apptutudeForm",
                                   Colors.white60,
                                   Colors.black,
-                                  'apptitude Test',
+                                  'Apptitude Test',
                                   Colors.white,
                                   Colors.black,
                                 ),
@@ -378,12 +377,20 @@ class _HomeState extends State<Home> {
 
   Future getLogs() async {
     try {
-      await http.post(
+      final response = await http.post(
         Uri.encodeFull('http://muhannadnasri.com/App/logUser.php'),
         body: {
           'date': formattedDate,
         },
       );
+      if (response.statusCode == 200) {
+        setState(() {
+          if (response.body == 'True') {
+            newVersion = true;
+            showVersionDialog(context);
+          }
+        });
+      }
     } catch (x) {}
   }
 

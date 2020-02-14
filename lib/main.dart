@@ -99,13 +99,10 @@ class MyApp extends StatefulWidget {
   }
 }
 
-
 class MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
   }
-
- 
 
   @override
   Widget build(BuildContext context) {

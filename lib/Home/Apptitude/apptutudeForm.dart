@@ -75,7 +75,7 @@ class _ApptutudeFormState extends State<ApptutudeForm> {
       resizeToAvoidBottomPadding: true,
       bottomNavigationBar:
           aptitudeProgramJson == null || aptitudeProgramJson.isEmpty
-              ? SizedBox
+              ? SizedBox()
               : bottomappBar(
                   context,
                   () {

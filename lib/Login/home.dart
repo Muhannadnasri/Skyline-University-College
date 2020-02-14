@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -42,6 +43,7 @@ class _HomeLoginState extends State<HomeLogin> {
   int _exit = 0;
   Map value = {};
   Map valueJson = {};
+
   @override
   void initState() {
     super.initState();
@@ -252,12 +254,12 @@ class _HomeLoginState extends State<HomeLogin> {
                                 ),
                                 homeBox(
                                   context,
-                                  'images-white/contactslist.png',
-                                  'images/contactslist.png',
+                                  'images-white/appointment.png',
+                                  'images/appointment.png',
                                   "/homeAppointment",
                                   Colors.white60,
                                   Colors.black,
-                                  'Apopointment',
+                                  'Appointment',
                                   Colors.white,
                                   Colors.black,
                                 ),
@@ -783,7 +785,7 @@ class _HomeLoginState extends State<HomeLogin> {
     Future.delayed(Duration.zero, () {});
 
     try {
-      await http.post(
+      final response = await http.post(
         Uri.encodeFull('http://muhannadnasri.com/App/logLogin.php'),
         body: {
           'username': username,

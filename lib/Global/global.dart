@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flushbar/flushbar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -29,6 +32,7 @@ Map aptitudeIDJson = {};
 
 bool loggedin = false;
 
+bool newVersion = false;
 String username = '';
 
 String password = '';
@@ -53,6 +57,61 @@ bool isNumeric(String str) {
     return false;
   }
   return double.tryParse(str) != null;
+}
+
+const APP_STORE_URL =
+    'https://apps.apple.com/ae/app/skyline-university/id1300445743';
+const PLAY_STORE_URL =
+    'https://play.google.com/store/apps/details?id=YOUR-APP-ID';
+showVersionDialog(context) async {
+  await showDialog<String>(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      String title = "New Update Available";
+      String message =
+          "There is a newer version of app available please update it now.";
+      String btnLabel = "Update Now";
+      String btnLabelCancel = "Later";
+      return Platform.isIOS
+          ? new CupertinoAlertDialog(
+              title: Text(title),
+              content: Text(message),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text(btnLabel),
+                  onPressed: () => _launchURL(APP_STORE_URL),
+                ),
+                FlatButton(
+                  child: Text(btnLabelCancel),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ],
+            )
+          : new AlertDialog(
+              title: Text(title),
+              content: Text(message),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text(btnLabel),
+                  onPressed: () => _launchURL(PLAY_STORE_URL),
+                ),
+                FlatButton(
+                  child: Text(btnLabelCancel),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ],
+            );
+    },
+  );
+}
+
+_launchURL(String url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
 }
 
 phoneCall() async {

@@ -222,8 +222,10 @@ class _LoginAppState extends State<LoginApp> {
                                     },
                                     decoration: InputDecoration(
                                         focusedBorder: UnderlineInputBorder(
-                                          borderSide:
-                                              BorderSide(color: Colors.red),
+                                          borderSide: BorderSide(
+                                              color: isDark(context)
+                                                  ? Colors.white
+                                                  : Colors.black),
                                         ),
                                         hintText: "Username",
                                         hintStyle: TextStyle(fontSize: 12.0)),
@@ -269,8 +271,10 @@ class _LoginAppState extends State<LoginApp> {
                                     obscureText: true,
                                     decoration: InputDecoration(
                                         focusedBorder: UnderlineInputBorder(
-                                          borderSide:
-                                              BorderSide(color: Colors.red),
+                                          borderSide: BorderSide(
+                                              color: isDark(context)
+                                                  ? Colors.white
+                                                  : Colors.black),
                                         ),
                                         hintText: "Password",
                                         hintStyle: TextStyle(
