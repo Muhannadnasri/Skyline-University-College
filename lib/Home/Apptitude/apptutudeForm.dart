@@ -229,9 +229,23 @@ class _ApptutudeFormState extends State<ApptutudeForm> {
                                 ),
                                 Column(
                                   children: <Widget>[
+                                    Container(
+                                      alignment: Alignment.centerLeft,
+                                      child: Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            20.0, 0.0, 20.0, 5.0),
+                                        child: Text(
+                                          'Nationality',
+                                          style: TextStyle(
+                                            color: isDark(context)
+                                                ? Colors.white
+                                                : Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                     Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          20.0, 0.0, 20.0, 5.0),
+                                      padding: const EdgeInsets.all(8.0),
                                       child: CustomDropDown(
                                         isExpanded: true,
                                         items: aptitudeNationalityJson
@@ -241,9 +255,9 @@ class _ApptutudeFormState extends State<ApptutudeForm> {
                                                     value:
                                                         item['id'].toString(),
                                                     child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
+                                                      padding: const EdgeInsets
+                                                              .fromLTRB(
+                                                          20.0, 0.0, 20.0, 5.0),
                                                       child: Text(
                                                         item['nationality']
                                                             .toString(),
@@ -259,12 +273,16 @@ class _ApptutudeFormState extends State<ApptutudeForm> {
                                                 ?.toList() ??
                                             [],
                                         value: aptitudeNationality,
-                                        hint: new Text(
-                                          'Select One',
-                                          style: TextStyle(
-                                              color: isDark(context)
-                                                  ? Colors.white
-                                                  : Colors.black),
+                                        hint: Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              20.0, 0.0, 20.0, 5.0),
+                                          child: new Text(
+                                            'Select One',
+                                            style: TextStyle(
+                                                color: isDark(context)
+                                                    ? Colors.white
+                                                    : Colors.black),
+                                          ),
                                         ),
                                         underline: Container(
                                           height: 1,
@@ -377,99 +395,71 @@ class _ApptutudeFormState extends State<ApptutudeForm> {
                                     aptitudeProgram = value;
                                   });
                                 }, 'Program'),
-                                // Expanded(
-                                //   child: DropdownButton<String>(
-                                //     style: TextStyle(
-                                //         fontSize: 13,
-                                //         color: Colors.black),
-                                //     isExpanded: true,
-                                //     hint: Padding(
-                                //       padding:
-                                //           const EdgeInsets.all(8.0),
-                                //       child: Text(
-                                //         'Program',
-                                //         style: TextStyle(
-                                //             color: Colors.black),
-                                //       ),
-                                //     ),
-                                //     value: aptitudeProgram,
-                                //     items: aptitudeProgramJson
-                                //             ?.map(
-                                //               (item) =>
-                                //                   DropdownMenuItem<
-                                //                       String>(
-                                //                 value: item['id']
-                                //                     .toString(),
-                                //                 child: Padding(
-                                //                   padding:
-                                //                       const EdgeInsets
-                                //                           .all(8.0),
-                                //                   child: Text(
-                                //                       item['program']),
-                                //                 ),
-                                //               ),
-                                //             )
-                                //             ?.toList() ??
-                                //         [],
-                                //     onChanged: (x) {
-                                //       aptitudeProgram = x;
-                                //     },
-                                //   ),
-                                // ),
-
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 20.0),
-                                    child: Text(
-                                      'Student/Professor',
-                                      style: TextStyle(
-                                          color: isDark(context)
-                                              ? Colors.white
-                                              : Colors.black),
-                                    ),
-                                  ),
-                                ),
                                 SizedBox(
-                                  height: 5,
+                                  height: 15,
                                 ),
+
                                 Column(
                                   children: <Widget>[
-                                    DropdownButton<String>(
-                                      underline: Container(
-                                        height: 1,
-                                        color: Color(0xFF2f2f2f),
-                                      ),
-                                      isExpanded: true,
-                                      value: position,
-                                      hint: Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 8.0),
+                                    Container(
+                                      alignment: Alignment.centerLeft,
+                                      child: Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            20.0, 0.0, 20.0, 5.0),
                                         child: Text(
-                                          'Select Option',
-                                          style: TextStyle(color: Colors.black),
+                                          'Student/Professor',
+                                          style: TextStyle(
+                                            color: isDark(context)
+                                                ? Colors.white
+                                                : Colors.black,
+                                          ),
                                         ),
                                       ),
-                                      items: ['Student', 'Professinol']
-                                              ?.map(
-                                                (item) =>
-                                                    DropdownMenuItem<String>(
-                                                  value: item,
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 8.0),
-                                                    child: Text(item),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: DropdownButton<String>(
+                                        underline: Container(
+                                          height: 1,
+                                          color: Color(0xFF2f2f2f),
+                                        ),
+                                        hint: Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              20.0, 0.0, 20.0, 5.0),
+                                          child: Text(
+                                            'Select Option',
+                                            style: TextStyle(
+                                              color: isDark(context)
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                            ),
+                                          ),
+                                        ),
+                                        isExpanded: true,
+                                        value: position,
+                                        items: ['Student', 'Professor']
+                                                ?.map(
+                                                  (item) =>
+                                                      DropdownMenuItem<String>(
+                                                    value: item.toString(),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: FittedBox(
+                                                          child: Text(
+                                                              item.toString())),
+                                                    ),
                                                   ),
-                                                ),
-                                              )
-                                              ?.toList() ??
-                                          [],
-                                      onChanged: (value) {
-                                        setState(() {
-                                          position = value;
-                                        });
-                                      },
+                                                )
+                                                ?.toList() ??
+                                            [],
+                                        onChanged: (value) {
+                                          setState(() {
+                                            position = value;
+                                          });
+                                        },
+                                      ),
                                     ),
                                   ],
                                 ),
