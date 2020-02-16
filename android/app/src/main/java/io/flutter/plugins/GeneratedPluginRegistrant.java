@@ -16,8 +16,9 @@ public final class GeneratedPluginRegistrant {
     ShimPluginRegistry shimPluginRegistry = new ShimPluginRegistry(flutterEngine);
       de.esys.esysfluttershare.EsysFlutterSharePlugin.registerWith(shimPluginRegistry.registrarFor("de.esys.esysfluttershare.EsysFlutterSharePlugin"));
     flutterEngine.getPlugins().add(new io.flutter.plugins.firebasemessaging.FirebaseMessagingPlugin());
+      io.flutter.plugins.flutter_plugin_android_lifecycle.FlutterAndroidLifecyclePlugin.registerWith(shimPluginRegistry.registrarFor("io.flutter.plugins.flutter_plugin_android_lifecycle.FlutterAndroidLifecyclePlugin"));
       com.flutter_webview_plugin.FlutterWebviewPlugin.registerWith(shimPluginRegistry.registrarFor("com.flutter_webview_plugin.FlutterWebviewPlugin"));
-      io.flutter.plugins.googlemaps.GoogleMapsPlugin.registerWith(shimPluginRegistry.registrarFor("io.flutter.plugins.googlemaps.GoogleMapsPlugin"));
+    flutterEngine.getPlugins().add(new io.flutter.plugins.googlemaps.GoogleMapsPlugin());
     flutterEngine.getPlugins().add(new io.flutter.plugins.pathprovider.PathProviderPlugin());
       com.example.pdfviewerplugin.PdfViewerPlugin.registerWith(shimPluginRegistry.registrarFor("com.example.pdfviewerplugin.PdfViewerPlugin"));
     flutterEngine.getPlugins().add(new io.flutter.plugins.quickactions.QuickActionsPlugin());
