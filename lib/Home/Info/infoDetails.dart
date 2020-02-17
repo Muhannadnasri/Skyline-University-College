@@ -39,7 +39,7 @@ class _InfoDetailsState extends State<InfoDetails> {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
       resizeToAvoidBottomPadding: true,
-      appBar: appBar(context, 'School of Information Technology'),
+      appBar: appBar(context, widget.name),
       body: infoJson == null || infoJson.isEmpty
           ? exception(context)
           : infoJson == null || infoJson.isEmpty
