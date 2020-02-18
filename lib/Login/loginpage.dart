@@ -51,6 +51,11 @@ class _LoginAppState extends State<LoginApp> {
     ScreenUtil.instance =
         ScreenUtil(width: 750, height: 1334, allowFontScaling: true);
     return new Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+      ),
       backgroundColor: isDark(context) ? Color(0xFF1F1F1F) : Colors.white,
       body: Stack(
         fit: StackFit.expand,
@@ -60,7 +65,7 @@ class _LoginAppState extends State<LoginApp> {
               ZigZag(
                 clipType: ClipType.waved,
                 child: Container(
-                  height: MediaQuery.of(context).size.height / 2,
+                  height: MediaQuery.of(context).size.height / 1.5,
                   decoration: new BoxDecoration(
                     gradient: isDark(context)
                         ? LinearGradient(
@@ -90,6 +95,9 @@ class _LoginAppState extends State<LoginApp> {
                   ),
                   child: Column(
                     children: <Widget>[
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height / 10,
+                      ),
                       Padding(
                         padding: const EdgeInsets.only(top: 20),
                         child: Align(
@@ -112,7 +120,7 @@ class _LoginAppState extends State<LoginApp> {
                             ),
                             child: Image.asset(
                               'images/logohd.png',
-                              height: MediaQuery.of(context).size.height / 5,
+                              height: MediaQuery.of(context).size.height / 7,
                               width: MediaQuery.of(context).size.width / 2,
                             ),
                           ),
@@ -147,7 +155,7 @@ class _LoginAppState extends State<LoginApp> {
               child: Column(
                 children: <Widget>[
                   SizedBox(
-                    height: ScreenUtil.getInstance().setHeight(330),
+                    height: ScreenUtil.getInstance().setHeight(400),
                   ),
                   Container(
                     decoration: BoxDecoration(
