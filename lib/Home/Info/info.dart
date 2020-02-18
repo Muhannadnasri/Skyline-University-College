@@ -38,14 +38,20 @@ class _InfoState extends State<Info> {
                   'Vision, Mission, Goals & Objectives', '/goals'),
               rowSection(context, 'images/admission.png', 'images-white/admission.png', 'Board of Governors',
                   '/board'),
-              rowSection(context, 'images/admission.png', 'images-white/admission.png', 'Founder President',
+              rowSection(context, 'images/admission.png', 'images-white/admission.png', 'Founder Chairman',
                   '/founder'),
               rowSection(context, 'images/admission.png', 'images-white/admission.png', 'Executive Council',
                   '/council'),
-              rowSection(context, 'images/admission.png', 'images-white/admission.png', 'Dean', '/dean'),
+              rowSection(context, 'images/admission.png', 'images-white/admission.png', 'Vice Chancellor', '/dean'),
               rowSection(
-                  context, 'images/admission.png', 'images-white/admission.png', 'Committees', '/committees'),
 
+
+                  context, 'images/admission.png', 'images-white/admission.png', 'External Advisory Council', '/council'),
+
+                  
+  rowSection(
+                  context, 'images/admission.png', 'images-white/admission.png', 'Corporate Social Responsibility', '/corporate'),  rowSection(
+                  context, 'images/admission.png', 'images-white/admission.png', 'Academic Affairs Council', '/academic'),
 //  rowSection(
 //                   context, 'images/admission.png', 'images-white/admission.png', 'Committees', '/Calendars'),
             ],

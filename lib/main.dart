@@ -235,7 +235,7 @@ class MyAppState extends State<MyApp> {
               ),
 
           '/founder': (context) => InfoDetails(
-                name: 'SUC Founder',
+                name: 'Founder Chairman',
               ),
           '/council': (context) => InfoDetails(
                 name: 'SUC Council',
@@ -245,8 +245,26 @@ class MyAppState extends State<MyApp> {
                 name: 'SUC Committees',
               ),
           '/dean': (context) => InfoDetails(
-                name: 'SUC Dean',
+                name: 'Vice Chancellor',
               ),
+
+  '/council': (context) => InfoDetails(
+                name: 'External Advisory Council',
+             ),
+'/corporate': (context) => InfoDetails(
+                name: 'Corporate Social Responsibility',
+              ),
+'/academic': (context) => InfoDetails(
+                name: 'Academic Affairs Council',
+              ),
+
+
+
+
+
+
+
+
 
           '/visitorInfoLan': (context) => VisitorInfoLan(),
 

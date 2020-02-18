@@ -79,9 +79,7 @@ class _InfoDetailsState extends State<InfoDetails> {
         });
 
         showLoading(false, context);
-        if (infoJsonMessage['success'] == '0') {
-          showfailureSnackBar(context, infoJsonMessage['message']);
-        }
+
         // if (infoJsonMessage['success'] == '1') {
         //   showSuccessSnackBar(context, infoJsonMessage['message']);
         // }
