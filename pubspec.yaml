@@ -6,7 +6,7 @@ name: skyline_university
 # Both the versions and the builder number may be overridden in flutter
 # build by specifying --build-name and --build-number, respectively.
 # Read more about versioning at semver.org.
-version: 1.6.0+20
+version: 1.6.0+21
 
 environment:
   sdk: ">=2.2.2 <3.0.0"
