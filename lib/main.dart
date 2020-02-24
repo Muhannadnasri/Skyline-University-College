@@ -78,6 +78,7 @@ import 'Login/classes/classScheduleFAC.dart';
 import 'Login/contactList.dart';
 import 'Login/courseAllocationEvening.dart';
 import 'Login/courseAllocations.dart';
+import 'Login/courses.dart';
 import 'Login/feesHome.dart';
 import 'Login/home.dart';
 import 'Login/loginpage.dart';
@@ -248,23 +249,17 @@ class MyAppState extends State<MyApp> {
                 name: 'Vice Chancellor',
               ),
 
-  '/council': (context) => InfoDetails(
+          '/council': (context) => InfoDetails(
                 name: 'External Advisory Council',
-             ),
-'/corporate': (context) => InfoDetails(
+              ),
+          '/corporate': (context) => InfoDetails(
                 name: 'Corporate Social Responsibility',
               ),
-'/academic': (context) => InfoDetails(
+          '/academic': (context) => InfoDetails(
                 name: 'Academic Affairs Council',
               ),
 
-
-
-
-
-
-
-
+          '/courses': (context) => Courses(),
 
           '/visitorInfoLan': (context) => VisitorInfoLan(),
 
