@@ -1,58 +1,52 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
-
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/global.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-import 'oneCourse.dart';
+void main() => runApp(OneCourse());
 
-void main() => runApp(Course());
-
-class Course extends StatefulWidget {
-  final String url;
+class OneCourse extends StatefulWidget {
+  final String fileName;
   final String name;
-  final String index;
-  const Course({Key key, this.url, this.name, this.index}) : super(key: key);
+  final String icon;
+  final String downlaod;
+  const OneCourse({Key key, this.fileName, this.icon, this.downlaod, this.name})
+      : super(key: key);
   @override
   State<StatefulWidget> createState() {
-    return _CoursesState();
+    return _OneCoursesState();
   }
 }
 
-class _CoursesState extends State<Course> with TickerProviderStateMixin {
-  List courseJson = [];
-
+class _OneCoursesState extends State<OneCourse> with TickerProviderStateMixin {
   @override
   void initState() {
-    getCourse();
-    // getCourse();
+    // getOneCourse();
 
     super.initState();
-    courseJson = [];
   }
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-      appBar: appBarLogin(context, widget.name),
-      body: courseJson == null || courseJson.isEmpty
+      appBar: appBarLogin(
+        context,
+        widget.name.toString(),
+      ),
+      body: widget.fileName == null
           ? exception(context)
           : Container(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    physics: ClampingScrollPhysics(),
-                    itemCount: courseJson.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Padding(
+                child:
+                    ListView(shrinkWrap: true, physics: ClampingScrollPhysics(),
+                        //     itemCount: oneCourseJson.length,
+                        //     itemBuilder: (BuildContext context, int index) {
+                        children: <Widget>[
+                      Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Card(
                           elevation: 10,
@@ -60,12 +54,13 @@ class _CoursesState extends State<Course> with TickerProviderStateMixin {
                             leading: ClipRRect(
                               borderRadius: new BorderRadius.circular(7.0),
                               child: Container(
-                                width: 50,
                                 margin: EdgeInsets.all(5),
+                                width: 50,
                                 decoration: BoxDecoration(
                                     image: DecorationImage(
-                                        image: AssetImage(
-                                            'images/course-img.jpg'))),
+                                        image: NetworkImage(
+                                  widget.icon.toString(),
+                                ))),
                               ),
                             ),
 
@@ -73,30 +68,40 @@ class _CoursesState extends State<Course> with TickerProviderStateMixin {
                             //   decoration: BoxDecoration(
                             //       image: DecorationImage(
                             //           image: AssetImage(
-                            //               'images/course-img.jpg'))),
+                            //               'images/OneCourse-img.jpg'))),
                             // ),
                             onTap: () {
+// downlaod
                               setState(() {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => OneCourse(
-                                        name: courseJson[index]['weeknName'],
-                                        fileName: courseJson[index]['fileName'],
-                                        icon: courseJson[index]['icon'],
-                                        downlaod: courseJson[index]
-                                            ['downlaod']),
-                                  ),
+                                launchURL(
+                                  widget.downlaod.toString(),
                                 );
                               });
+
+                              // setState(() {
+                              //   Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //       builder: (context) => OneCourse(
+                              //         name: OneCoursesJson[index]['Name'],
+                              //         index: index.toString(),
+                              //         url: OneCoursesJson[index]['Link']
+                              //             .replaceAll('\/', '/'),
+                              //       ),
+                              //     ),
+                              //   );
+                              // });
                             },
                             title: Text(
-                              courseJson[index]['weeknName'].toString(),
+                              widget.fileName.toString(),
                             ),
-                            trailing: Icon(Icons.arrow_forward),
+                            trailing: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Icon(Icons.arrow_downward),
+                            ),
                           ),
                         ),
-                      );
+                      ),
 
                       // Padding(
                       //   padding: const EdgeInsets.all(8.0),
@@ -106,17 +111,17 @@ class _CoursesState extends State<Course> with TickerProviderStateMixin {
                       //         // Navigator.push(
                       //         //   context,
                       //         //   MaterialPageRoute(
-                      //         //     builder: (context) => Course(
+                      //         //     builder: (context) => OneCourse(
                       //         //       url: url,
                       //         //     ),
                       //         //   ),
                       //         // );
 
-                      //         // // Course
-                      //         // url = courseJson[index]['Link']
+                      //         // // OneCourse
+                      //         // url = oneCourseJson[index]['Link']
                       //         //     .replaceAll('\/', '/');
                       //         // print(url);
-                      //         // // getCourse();
+                      //         // // getOneCourse();
                       //       });
                       //     },
                       //     child: Container(
@@ -128,13 +133,13 @@ class _CoursesState extends State<Course> with TickerProviderStateMixin {
                       //       child: Column(
                       //         crossAxisAlignment: CrossAxisAlignment.start,
                       //         children: <Widget>[
-                      //           Text(courseJson[index]['weeknName']
+                      //           Text(oneCourseJson[index]['weeknName']
                       //               .toString()),
 
                       //           ListView.builder(
                       //               shrinkWrap: true,
                       //               physics: ClampingScrollPhysics(),
-                      //               itemCount: courseJson.length,
+                      //               itemCount: oneCourseJson.length,
                       //               itemBuilder:
                       //                   (BuildContext context, int index) {
                       //                 return Card(
@@ -147,7 +152,7 @@ class _CoursesState extends State<Course> with TickerProviderStateMixin {
                       //             child: CircleAvatar(
                       //               radius: 25.0,
                       //               backgroundImage: NetworkImage(
-                      //                   "https://lmsserver.skylineuniversity.ac.ae/my/images/course-img1.jpg"),
+                      //                   "https://lmsserver.skylineuniversity.ac.ae/my/images/OneCourse-img1.jpg"),
                       //               backgroundColor: Colors.transparent,
                       //             ),
                       //           ),
@@ -159,13 +164,13 @@ class _CoursesState extends State<Course> with TickerProviderStateMixin {
                       //           //           BorderRadius.circular(15.0),
                       //           //       image: DecorationImage(
                       //           //           image: NetworkImage(
-                      //           //               'https://lmsserver.skylineuniversity.ac.ae/my/images/course-img1.jpg'))),
+                      //           //               'https://lmsserver.skylineuniversity.ac.ae/my/images/OneCourse-img1.jpg'))),
                       //           // ),
                       //           Padding(
                       //             padding: const EdgeInsets.all(8.0),
                       //             child: Center(
                       //                 child: Text(
-                      //               courseJson[index]['weeknName'],
+                      //               oneCourseJson[index]['weeknName'],
                       //               style: TextStyle(
                       //                 fontWeight: FontWeight.bold,
                       //               ),
@@ -177,44 +182,13 @@ class _CoursesState extends State<Course> with TickerProviderStateMixin {
                       //     ),
                       //   ),
                       // );
-                    }),
+                      // }),
+                    ]),
               ),
             ),
     );
   }
 
-  Future getCourse() async {
-    Future.delayed(Duration.zero, () {
-      showLoading(true, context);
-    });
-    try {
-      http.Response response = await http.post(
-        Uri.encodeFull("http://www.muhannadnasri.com/App/login/course.php"),
-        body: {'username': username, 'password': password, 'url': widget.url},
-      );
-      // .timeout(Duration(seconds: 50)
-      // );
-
-      if (response.statusCode == 200) {
-        setState(() {
-          courseJson = json.decode(response.body);
-        });
-        showLoading(false, context);
-      }
-    } catch (x) {
-      print(x);
-      if (x.toString().contains("TimeoutException")) {
-        showLoading(false, context);
-
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-            context, getCourse);
-      } else {
-        showLoading(false, context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-            getCourse);
-      }
-    }
-  }
   // Future<void> shareCDP(link) async {
   //   _showLoading(true);
   //   try {

@@ -80,7 +80,7 @@ showVersionDialog(context) async {
               actions: <Widget>[
                 FlatButton(
                   child: Text(btnLabel),
-                  onPressed: () => _launchURL(APP_STORE_URL),
+                  onPressed: () => launchURL(APP_STORE_URL),
                 ),
                 FlatButton(
                   child: Text(btnLabelCancel),
@@ -94,7 +94,7 @@ showVersionDialog(context) async {
               actions: <Widget>[
                 FlatButton(
                   child: Text(btnLabel),
-                  onPressed: () => _launchURL(PLAY_STORE_URL),
+                  onPressed: () => launchURL(PLAY_STORE_URL),
                 ),
                 FlatButton(
                   child: Text(btnLabelCancel),
@@ -106,7 +106,7 @@ showVersionDialog(context) async {
   );
 }
 
-_launchURL(String url) async {
+launchURL(String url) async {
   if (await canLaunch(url)) {
     await launch(url);
   } else {

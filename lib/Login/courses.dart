@@ -42,110 +42,48 @@ class _CoursesState extends State<Courses> with TickerProviderStateMixin {
       body: coursesJson == null || coursesJson.isEmpty
           ? exception(context)
           : Container(
-              child: ListView(
-                children: <Widget>[
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      child: Text(
-                        'My Courses',
-                        style: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  GridView.builder(
-                      shrinkWrap: true,
-                      physics: ClampingScrollPhysics(),
-                      itemCount: coursesJson.length,
-                      gridDelegate:
-                          new SliverGridDelegateWithFixedCrossAxisCount(
-                              childAspectRatio: 1.2,
-                              crossAxisSpacing: 20,
-                              mainAxisSpacing: 20,
-                              crossAxisCount: 2),
-                      itemBuilder: (BuildContext context, int index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              shape: BoxShape.rectangle,
-                              border: Border.all(color: Colors.black),
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                CircleAvatar(
-                                  radius: 25.0,
-                                  backgroundImage: NetworkImage(
-                                      "https://lmsserver.skylineuniversity.ac.ae/my/images/course-img1.jpg"),
-                                  backgroundColor: Colors.transparent,
-                                ),
-                                // Container(
-                                //   height: 50,
-                                //   width: 50,
-                                //   decoration: BoxDecoration(
-                                //       borderRadius:
-                                //           BorderRadius.circular(15.0),
-                                //       image: DecorationImage(
-                                //           image: NetworkImage(
-                                //               'https://lmsserver.skylineuniversity.ac.ae/my/images/course-img1.jpg'))),
-                                // ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Center(
-                                      child: FittedBox(
-                                    child: Text(
-                                      coursesJson[index]['Name'],
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                      textAlign: TextAlign.left,
-                                    ),
-                                  )),
-                                ),
-
-                                Center(
-                                  child: Container(
-                                    child: RaisedButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => Course(
-                                                url: url,
-                                              ),
-                                            ),
-                                          );
-
-                                          // Course
-                                          url = coursesJson[index]['Link']
-                                              .replaceAll('\/', '/');
-                                          print(url);
-                                          // getCourse();
-                                        });
-                                      },
-                                      color: Color.fromARGB(255, 57, 179, 230),
-                                      child: Text('Go to Course'),
-                                      textColor: Colors.white,
-                                    ),
-                                  ),
-                                )
-                              ],
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: ClampingScrollPhysics(),
+                    itemCount: coursesJson.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Card(
+                        child: ListTile(
+                          leading: ClipRRect(
+                            borderRadius: new BorderRadius.circular(7.0),
+                            child: Container(
+                              margin: EdgeInsets.all(5),
+                              width: 50,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image:
+                                          AssetImage('images/course-img.jpg'))),
                             ),
                           ),
-                        );
-                      }),
-                ],
+                          onTap: () {
+                            setState(() {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => Course(
+                                    name: coursesJson[index]['Name'],
+                                    index: index.toString(),
+                                    url: coursesJson[index]['Link']
+                                        .replaceAll('\/', '/'),
+                                  ),
+                                ),
+                              );
+                            });
+                          },
+                          title: Text(
+                            coursesJson[index]['Name'],
+                          ),
+                          trailing: Icon(Icons.arrow_forward),
+                        ),
+                      );
+                    }),
               ),
             ),
     );
