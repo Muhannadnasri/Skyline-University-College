@@ -185,7 +185,9 @@ class _HomeState extends State<Home> {
           // ],
         ),
         body: Container(
-          color: isDark(context) ? Color(0xFF121212) : Colors.white,
+          
+          color: isDark(context) ? Color(0xFF121212) : Colors.grey[100],
+
           child: Column(
             children: <Widget>[
               // sliders.isEmpty

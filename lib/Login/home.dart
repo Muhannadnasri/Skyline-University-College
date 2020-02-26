@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -10,11 +9,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:quick_actions/quick_actions.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/homeBox.dart';
 import 'package:skyline_university/Global/zigzag.dart';
-import 'package:skyline_university/Home/home.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void main() => runApp(HomeLogin());
@@ -141,6 +138,7 @@ class _HomeLoginState extends State<HomeLogin> {
             : SizedBox(),
         body: studentJson['data']['user_type'] == "STUDENT"
             ? Container(
+                color: isDark(context) ? Color(0xFF121212) : Colors.grey[100],
                 child: ListView(
                   shrinkWrap: true,
                   padding: const EdgeInsets.all(10.0),
@@ -161,7 +159,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                   'images-white/attendance.png',
                                   'images/attendance.png',
                                   "/attendance",
-                                  Colors.white60,
+                                  Colors.white,
                                   Colors.black,
                                   'Attendance',
                                   Colors.white,
@@ -172,7 +170,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                   'images-white/assessment.png',
                                   'images/assessment.png',
                                   "/assessmentMarkCourses",
-                                  Colors.white60,
+                                  Colors.white,
                                   Colors.black,
                                   'Assessment',
                                   Colors.white,
@@ -183,7 +181,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                   'images-white/result.png',
                                   'images/result.png',
                                   "/homeResult",
-                                  Colors.white60,
+                                  Colors.white,
                                   Colors.black,
                                   'Result',
                                   Colors.white,
@@ -202,7 +200,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                   'images-white/class.png',
                                   'images/class.png',
                                   "/HomeClass",
-                                  Colors.white60,
+                                  Colors.white,
                                   Colors.black,
                                   'Classes',
                                   Colors.white,
@@ -213,7 +211,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                   'images-white/advisor.png',
                                   'images/advisor.png',
                                   "/myAdvisor",
-                                  Colors.white60,
+                                  Colors.white,
                                   Colors.black,
                                   'Advisor',
                                   Colors.white,
@@ -224,7 +222,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                   'images-white/fees.png',
                                   'images/fees.png',
                                   "/HomeFees",
-                                  Colors.white60,
+                                  Colors.white,
                                   Colors.black,
                                   'Fees',
                                   Colors.white,
@@ -246,7 +244,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                   'images-white/erequest.png',
                                   'images/erequest.png',
                                   "/HomeERequest",
-                                  Colors.white60,
+                                  Colors.white,
                                   Colors.black,
                                   'E-Request',
                                   Colors.white,
@@ -257,7 +255,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                   'images-white/appointment.png',
                                   'images/appointment.png',
                                   "/homeAppointment",
-                                  Colors.white60,
+                                  Colors.white,
                                   Colors.black,
                                   'Appointment',
                                   Colors.white,
@@ -268,7 +266,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                   'images-white/contactslist.png',
                                   'images/contactslist.png',
                                   "/homeSuggestion",
-                                  Colors.white60,
+                                  Colors.white,
                                   Colors.black,
                                   'Suggestion',
                                   Colors.white,
@@ -290,18 +288,18 @@ class _HomeLoginState extends State<HomeLogin> {
                                   'images-white/cdp.png',
                                   'images/cdp.png',
                                   "/cdpDownload",
-                                  Colors.white60,
+                                  Colors.white,
                                   Colors.black,
                                   'CDP',
                                   Colors.white,
                                   Colors.black,
                                 ),
-                                 homeBox(
+                                homeBox(
                                   context,
                                   'images-white/cdp.png',
                                   'images/cdp.png',
                                   "/courses",
-                                  Colors.white60,
+                                  Colors.white,
                                   Colors.black,
                                   'Courses',
                                   Colors.white,
@@ -346,7 +344,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                     'images-white/erequest.png',
                                     'images/erequest.png',
                                     "/HomeERequest",
-                                    Colors.white60,
+                                    Colors.white,
                                     Colors.black,
                                     'E-Request',
                                     Colors.white,
@@ -357,7 +355,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                     'images-white/contactslist.png',
                                     'images/contactslist.png',
                                     "/ContactList",
-                                    Colors.white60,
+                                    Colors.white,
                                     Colors.black,
                                     'Contact List',
                                     Colors.white,
@@ -397,7 +395,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                           'images-white/allocation.png',
                                           'images/allocation.png',
                                           "/courseAllocation",
-                                          Colors.white60,
+                                          Colors.white,
                                           Colors.black,
                                           'Courses',
                                           Colors.white,
@@ -408,7 +406,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                           'images-white/advisor.png',
                                           'images/advisor.png',
                                           "/advisors",
-                                          Colors.white60,
+                                          Colors.white,
                                           Colors.black,
                                           'Advisors',
                                           Colors.white,
@@ -419,7 +417,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                           'images-white/erequest.png',
                                           'images/erequest.png',
                                           "/HomeERequest",
-                                          Colors.white60,
+                                          Colors.white,
                                           Colors.black,
                                           'E-Request',
                                           Colors.white,
@@ -439,7 +437,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                           'images-white/contactslist.png',
                                           'images/contactslist.png',
                                           "/ContactList",
-                                          Colors.white60,
+                                          Colors.white,
                                           Colors.black,
                                           'ContactList',
                                           Colors.white,
@@ -450,7 +448,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                           'images-white/cdp.png',
                                           'images/cdp.png',
                                           "/cdpFaculty",
-                                          Colors.white60,
+                                          Colors.white,
                                           Colors.black,
                                           'CDP',
                                           Colors.white,
@@ -675,7 +673,10 @@ class _HomeLoginState extends State<HomeLogin> {
                               width: 110.0,
                               height: 110.0,
                               decoration: BoxDecoration(
-                                border: Border.all(color: Colors.blue),
+                                border: Border.all(
+                                  color: Colors.white,
+                                  width: 4,
+                                ),
                                 shape: BoxShape.circle,
                                 color: Colors.white,
                                 image: DecorationImage(
@@ -693,7 +694,10 @@ class _HomeLoginState extends State<HomeLogin> {
                               width: 110.0,
                               height: 110.0,
                               decoration: BoxDecoration(
-                                border: Border.all(color: Colors.blue),
+                                border: Border.all(
+                                  color: Colors.white,
+                                  width: 4,
+                                ),
                                 shape: BoxShape.circle,
                                 color: Colors.white,
                                 image: DecorationImage(

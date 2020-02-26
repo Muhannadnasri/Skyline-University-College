@@ -4,15 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:quick_actions/quick_actions.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import 'package:skyline_university/Global/global.dart';
-
-import 'package:skyline_university/Global/zigzag.dart';
-
 import 'package:http/http.dart' as http;
-
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:skyline_university/Global/global.dart';
+import 'package:skyline_university/Global/zigzag.dart';
 import 'package:skyline_university/Login/home.dart';
 
 void main() => runApp(MaterialApp(
