@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:local_auth/auth_strings.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/zigzag.dart';
@@ -21,12 +23,12 @@ class LoginApp extends StatefulWidget {
 
 class _LoginAppState extends State<LoginApp> {
   final _logInForm = GlobalKey<FormState>();
+  final localAuth = LocalAuthentication();
 
   String deviceToken = '';
   final focus = FocusNode();
   void initState() {
     super.initState();
-
     quick();
   }
 
@@ -241,7 +243,7 @@ class _LoginAppState extends State<LoginApp> {
                                 Container(
                                   child: Row(
                                     children: <Widget>[
-                                      Text("Password",
+                                      Text('PASSWORD',
                                           style: TextStyle(
                                               color: isDark(context)
                                                   ? Colors.white
@@ -481,11 +483,27 @@ class _LoginAppState extends State<LoginApp> {
     username = (prefs.getString('username') ?? '');
     password = (prefs.getString('password') ?? '');
 
-    if (username == '') {
-    } else {
-      setState(() {
-        qLogin();
-      });
+    if (username != '') {
+      if (await localAuth.canCheckBiometrics) {
+        bool didAuthenticate = await localAuth.authenticateWithBiometrics(
+            localizedReason: 'Please authenticate to login to your account',
+            useErrorDialogs: true);
+        switch (didAuthenticate) {
+          case true:
+            setState(() {
+              setState(() {
+                qLogin();
+              });
+            });
+            break;
+          case false:
+            setState(() {
+              qLogin();
+            });
+            break;
+          default:
+        }
+      }
     }
   }
 }

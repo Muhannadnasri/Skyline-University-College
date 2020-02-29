@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/global.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 void main() => runApp(OneCourse());
 
@@ -49,29 +48,22 @@ class _OneCoursesState extends State<OneCourse> with TickerProviderStateMixin {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20))),
                           elevation: 10,
                           child: ListTile(
-                            leading: ClipRRect(
-                              borderRadius: new BorderRadius.circular(7.0),
-                              child: Container(
-                                margin: EdgeInsets.all(5),
-                                width: 50,
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: NetworkImage(
-                                  widget.icon.toString(),
-                                ))),
-                              ),
-                            ),
+                            leading: Container(
 
-                            // leading: Container(
-                            //   decoration: BoxDecoration(
-                            //       image: DecorationImage(
-                            //           image: AssetImage(
-                            //               'images/OneCourse-img.jpg'))),
-                            // ),
+                              width: 50,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: NetworkImage(
+                                widget.icon.toString(),
+                              ))),
+                            ),
                             onTap: () {
-// downlaod
                               setState(() {
                                 launchURL(
                                   widget.downlaod.toString(),
@@ -97,7 +89,7 @@ class _OneCoursesState extends State<OneCourse> with TickerProviderStateMixin {
                             ),
                             trailing: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Icon(Icons.arrow_downward),
+                              child: Icon(Icons.arrow_downward,color: Colors.blueAccent,),
                             ),
                           ),
                         ),

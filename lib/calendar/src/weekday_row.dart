@@ -83,7 +83,7 @@ class WeekdayRow extends StatelessWidget {
 //    }
 //  }
 
-  // TODO - locale issues
+
   List<Widget> _renderWeekDays() {
     List<Widget> list = [];
 

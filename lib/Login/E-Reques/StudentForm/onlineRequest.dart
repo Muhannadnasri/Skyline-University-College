@@ -23,10 +23,13 @@ class OnlineRequest extends StatefulWidget {
   }
 }
 
+final insertRepaeating = GlobalKey<FormState>();
+
 final _passportWithdrawal = GlobalKey<FormState>();
 final insertResit = GlobalKey<FormState>();
 final againsMarks = GlobalKey<FormState>();
-
+DateTime now = DateTime.now();
+String date = DateFormat("yyyy-MM-dd").format(now);
 final leaveApplication = GlobalKey<FormState>();
 final time = GlobalKey<FormState>();
 
@@ -34,13 +37,13 @@ final _onlineRequest = GlobalKey<FormState>();
 // Map<String, int> body;
 
 class _OnlineRequestState extends State<OnlineRequest> {
-  final format = DateFormat("yyyy-MM-dd HH:mm");
+  final format = DateFormat("yyyy-MM-dd");
   final initialValue = DateTime.now();
   bool readOnly = true;
   bool showResetIcon = true;
   DateTime from = DateTime.now();
 
-  DateTime returnDate = DateTime.now();
+  String returnDate = DateFormat("yyyy-MM-dd").format(now);
 
   DateTime to = DateTime.now();
   int changedCount = 0;
@@ -48,6 +51,8 @@ class _OnlineRequestState extends State<OnlineRequest> {
   String reasonAgains = '';
   String timeReason = '';
   String newShift;
+  String remarksRepaeating = '';
+  Map studentPassportJson = {};
   Map currentShiftTimeJson = {};
   String reasonForLeave = '';
   String addressTo = '';
@@ -59,13 +64,14 @@ class _OnlineRequestState extends State<OnlineRequest> {
   String addressToTime = '';
   List onlineRequestTypeJson = [];
   List courseWithdrawalJson = [];
-  Map checkRequestJson = {};
+  // Map checkRequestJson = {};
   Map checkRequestMessageJson = {};
   Map onlineRequestJson = {};
   Map insertShiftChangeJson = {};
   Map requestAmountJson = {};
   List midMarksJson = [];
   List resitMarksJson = [];
+  String remarksWithdrawals = '';
   String localName = '';
   String localNumber = '';
   int multiSelect = 0;
@@ -116,6 +122,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
   void initState() {
     super.initState();
     getRequestType();
+    print(now);
   }
 
   @override
@@ -129,97 +136,89 @@ class _OnlineRequestState extends State<OnlineRequest> {
           : bottomappBar(
               context,
               () {
-                // insertMitigation();
-                if (checkRequestJson['status'] != 'Closed') {
-                  setState(() {
-                    // insertRequest();
-                  });
-                  // if (requestId != '6' ||
-                  //     requestId != '1' ||
-                  //     requestId != '5' ||
-                  //     requestId != '143' ||
-                  //     requestId != '109' ||
-                  //     requestId != '31') insertRequest();
-                  // if (requestId == '6') {
-                  //   insertMitigation();
-                  //   //TODO: Send Request
-                  //   // if (_onlineRequest.currentState.validate() &&
-                  //   //     requestId != null) {
-                  //   //   _onlineRequest.currentState.save();
-                  //   //   sendOnlineRequest();
-                  //   // } else {
-                  //   //   // return showErrorInput('Please check your input');
-                  //   // }
-                  // }
-                  // if (requestId == '1') {
-                  //   showSuccessSnackBar(context,
-                  //       'Thank You, Your Request Submitted Successfully');
-                  //   //TODO: Send Request
-                  //   // if (_onlineRequest.currentState.validate() &&
-                  //   //     requestId != null) {
-                  //   //   _onlineRequest.currentState.save();
-                  //   //   sendOnlineRequest();
-                  //   // } else {
-                  //   //   // return showErrorInput('Please check your input');
-                  //   // }
-                  // }
-                  print('insertShiftChange');
+                switch (requestId) {
+                  case '31':
+                    {
+                      if (time.currentState.validate() && newShift != null) {
+                        time.currentState.save();
+                        setState(() {
+                          insertShiftChange();
+                        });
+                      }
+                    }
+                    break;
+                  case '143':
+                    {
+                      if (againsMarks.currentState.validate()) {
+                        againsMarks.currentState.save();
+                        setState(() {
+                          insertAgainsMarks();
+                        });
+                      }
+                    }
+                    break;
+                  case '5':
+                    {
+                      if (insertResit.currentState.validate()) {
+                        insertResit.currentState.save();
 
-                  if (requestId == '31') {
-                    setState(() {
-                      insertShiftChange();
-                    });
-                    //TODO: Send Request
-                    // if (_onlineRequest.currentState.validate() &&
-                    //     requestId != null) {
-                    //   _onlineRequest.currentState.save();
-                    //   sendOnlineRequest();
-                    // } else {
-                    //   // return showErrorInput('Please check your input');
-                    // }
-                  }
-                  print('insertResitOrGradeImprovement');
+                        setState(() {
+                          insertResitOrGradeImprovement();
+                        });
+                      }
+                    }
+                    break;
 
-                  if (requestId == '5') {
-                    setState(() {
-                      insertResitOrGradeImprovement();
-                    });
-                  }
+                  case '109':
+                    {
+                      if (_passportWithdrawal.currentState.validate()) {
+                        _passportWithdrawal.currentState.save();
 
-                  if (requestId == '143') {
-                    setState(() {
-                      insertAgainsMarks();
-                    });
-                  }
-                  if (requestId == '109') {
-                    //Passport
-                    setState(() {
-                      insertStudentPassport();
-                    });
-                  }
-                  // if (requestId == '66') {
-                  //   //TODO: Send Request
-                  //   if (leaveApplication.currentState.validate()) {
-                  //     leaveApplication.currentState.save();
-                  //     insertLeaveApplication();
-                  //   } else {
-                  //     // return showErrorInput('Please check your input');
-                  //   }
-                  // }
+                        setState(() {
+                          insertStudentPassport();
+                        });
+                      }
+                    }
+                    break;
 
-                  // if (_onlineRequest.currentState.validate() &&
-                  //     requestId != null) {
-                  //   // _onlineRequest.currentState.save();
-                  //   // sendOnlineRequest();
-                  // } else {
-                  //   // return showErrorInput('Please check your input');
-                  // }
-                } else {
-                  // print(checkRequestJson['message']);
-
-                  showDailyFailureSnackBar(
-                      context, checkRequestMessageJson['message'].toString());
+                  default:
+                    {
+                      setState(() {});
+                      showfailureSnackBar(context,
+                          'Your request submitted failed. Please contact IT department');
+                    }
                 }
+
+                // if (requestId == '1') {
+                //   showSuccessSnackBar(context,
+                //       'Thank You, Your Request Submitted Successfully');
+                //   //TODO: Send Request
+                //   // if (_onlineRequest.currentState.validate() &&
+                //   //     requestId != null) {
+                //   //   _onlineRequest.currentState.save();
+                //   //   sendOnlineRequest();
+                //   // } else {
+                //   //   // return showErrorInput('Please check your input');
+                //   // }
+                // }
+
+                // if (requestId == '139') {
+                //   //COURSE WITHDRAWAL
+                //   setState(() {
+                //     insertCourseWithdrawal();
+                //   });
+                // }
+                // if (requestId == '66') {
+                //   if (leaveApplication.currentState.validate() &&
+                //       requestId != null) {
+                //     leaveApplication.currentState.save();
+                //     setState(() {
+                //       insertLeaveApplication();
+                //     });
+                //   } else {
+                //     return;
+                //   }
+                // }
               },
             ),
       appBar: appBarLogin(context, 'Online Request'),
@@ -307,36 +306,28 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                   setState(() async {
                                     requestId = value;
 
-                                    print(requestId);
                                     // getCheckRequest();
 
-                                    if (requestId != '143' ||
-                                        requestId != '6' ||
-                                        requestId != '1' ||
-                                        requestId != '5' ||
-                                        requestId != '109' ||
-                                        requestId != '66') {
-                                      getAmount();
+                                    getAmount();
+
+                                    if (requestId == '139') {
+                                      getCourseWithdrawal();
                                     }
                                     if (requestId == '109') {
                                       getAmount();
                                     }
 
                                     if (requestId == '143') {
-                                      getAmount();
                                       getAgainstMarks();
                                     }
                                     if (requestId == '6') {
-                                      getAmount();
                                       getMidMarksCourses();
                                     }
                                     if (requestId == '5') {
-                                      getAmount();
                                       getResitMarksCourses();
                                     }
 
                                     if (requestId == '1') {
-                                      getAmount();
                                       getRepaeatingMarksCourses();
                                     }
                                     if (requestId == '31') {
@@ -394,12 +385,12 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                   //                       ? ''
                                   //                       : requestAmountJson[
                                   //                                       'data'][
-                                  //                                   'NormalAmount'] ==
+                                  //                                   'NormalFees'] ==
                                   //                               ("NA")
                                   //                           ? "Not Avalible"
                                   //                           : requestAmountJson[
                                   //                                       'data'][
-                                  //                                   'NormalAmount']
+                                  //                                   'NormalFees']
                                   //                               .toString(),
                                   //                   style: TextStyle(
                                   //                       color: isDark(context)
@@ -514,620 +505,599 @@ class _OnlineRequestState extends State<OnlineRequest> {
 
                           // value == time
                           // : requestId == '6'
-                          : requestId == '6'
-                              ? midMarksJson == null || midMarksJson.isEmpty
+                          : requestId == '139'
+                              ? courseWithdrawalJson == null ||
+                                      courseWithdrawalJson.isEmpty
                                   ? SizedBox()
                                   : Column(
                                       children: <Widget>[
-                                        Padding(
-                                          padding: const EdgeInsets.all(5.0),
-                                          child: Card(
-                                            color: isDark(context)
-                                                ? Color(0xFF121212)
-                                                : Colors.white,
-                                            elevation: 5,
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: <Widget>[
-                                                Column(
-                                                  children: <Widget>[
-                                                    Container(
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(10.0),
-                                                        child: Text(
-                                                          'Normal Amount',
-                                                          style: TextStyle(
-                                                              color: isDark(
-                                                                      context)
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                      .black),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              10.0),
-                                                      child: Container(
-                                                        height: 25,
-                                                        child: Text(
-                                                          requestAmountJson
-                                                                      .isEmpty ||
-                                                                  requestAmountJson ==
-                                                                      null
-                                                              ? ''
-                                                              : requestAmountJson[
-                                                                              'data']
-                                                                          [
-                                                                          'NormalAmount'] ==
-                                                                      ("NA")
-                                                                  ? "Not Avalible"
-                                                                  : requestAmountJson[
-                                                                              'data']
-                                                                          [
-                                                                          'NormalAmount']
-                                                                      .toString(),
-                                                          style: TextStyle(
-                                                              color: isDark(
-                                                                      context)
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                      .black),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          height: MediaQuery.of(context)
-                                              .size
-                                              .height,
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          child: ListView.builder(
-                                              itemCount: midMarksJson.length,
-                                              itemBuilder:
-                                                  (BuildContext context,
-                                                      int index) {
-                                                return new Card(
-                                                  child: new Container(
-                                                    padding: new EdgeInsets.all(
-                                                        10.0),
-                                                    child: new Column(
-                                                      children: <Widget>[
-                                                        new CheckboxListTile(
-                                                            value:
-                                                                selectedMitigationCourses[
-                                                                    index],
-                                                            title: new Text(
-                                                                midMarksJson[
-                                                                        index][
-                                                                    'CourseName']),
-                                                            controlAffinity:
-                                                                ListTileControlAffinity
-                                                                    .leading,
-                                                            onChanged:
-                                                                (bool val) {
-                                                              setState(() {
-                                                                selectedMitigationCourses[
-                                                                        index] =
-                                                                    val;
-                                                              });
-                                                            })
-                                                      ],
-                                                    ),
+                                        // Padding(
+                                        //   padding: const EdgeInsets.all(5.0),
+                                        //   child: Card(
+                                        //     color: isDark(context)
+                                        //         ? Color(0xFF121212)
+                                        //         : Colors.white,
+                                        //     elevation: 5,
+                                        //     child: Row(
+                                        //       mainAxisAlignment:
+                                        //           MainAxisAlignment.start,
+                                        //       children: <Widget>[
+                                        //         Column(
+                                        //           children: <Widget>[
+                                        //             Container(
+                                        //               child: Padding(
+                                        //                 padding:
+                                        //                     const EdgeInsets
+                                        //                         .all(10.0),
+                                        //                 child: Text(
+                                        //                   'Normal Amount',
+                                        //                   style: TextStyle(
+                                        //                       color: isDark(
+                                        //                               context)
+                                        //                           ? Colors.white
+                                        //                           : Colors
+                                        //                               .black),
+                                        //                 ),
+                                        //               ),
+                                        //             ),
+                                        //             Padding(
+                                        //               padding:
+                                        //                   const EdgeInsets.all(
+                                        //                       10.0),
+                                        //               child: Container(
+                                        //                 height: 25,
+                                        //                 child: Text(
+                                        //                   requestAmountJson ==
+                                        //                               null ||
+                                        //                           requestAmountJson
+                                        //                               .isEmpty
+                                        //                       ? ''
+                                        //                       : requestAmountJson[
+                                        //                                       'data']
+                                        //                                   [
+                                        //                                   'NormalFees'] ==
+                                        //                               ("NA")
+                                        //                           ? "Not Avalible"
+                                        //                           : requestAmountJson[
+                                        //                                       'data']
+                                        //                                   [
+                                        //                                   'NormalFees']
+                                        //                               .toString(),
+                                        //                   style: TextStyle(
+                                        //                       color: isDark(
+                                        //                               context)
+                                        //                           ? Colors.white
+                                        //                           : Colors
+                                        //                               .black),
+                                        //                 ),
+                                        //               ),
+                                        //             ),
+                                        //           ],
+                                        //         ),
+                                        //       ],
+                                        //     ),
+                                        //   ),
+                                        // ),
+                                        ListView.builder(
+                                            shrinkWrap: true,
+                                            physics: ClampingScrollPhysics(),
+                                            itemCount:
+                                                courseWithdrawalJson.length,
+                                            itemBuilder: (BuildContext context,
+                                                int index) {
+                                              return new Card(
+                                                child: new Container(
+                                                  padding:
+                                                      new EdgeInsets.all(10.0),
+                                                  child: new Column(
+                                                    children: <Widget>[
+                                                      new CheckboxListTile(
+                                                          value:
+                                                              selectedCourseWithdrawals[
+                                                                  index],
+                                                          title: new Text(
+                                                              midMarksJson[
+                                                                      index][
+                                                                  'CourseName']),
+                                                          controlAffinity:
+                                                              ListTileControlAffinity
+                                                                  .leading,
+                                                          onChanged:
+                                                              (bool val) {
+                                                            setState(() {
+                                                              selectedCourseWithdrawals[
+                                                                  index] = val;
+                                                            });
+                                                          })
+                                                    ],
                                                   ),
-                                                );
-                                              }),
+                                                ),
+                                              );
+                                            }),
+                                        Form(
+                                          key: insertResit,
+                                          child: globalForms(context, '',
+                                              (String value) {
+                                            if (value.trim().isEmpty) {
+                                              return 'Reason is required';
+                                            }
+                                            return null;
+                                          }, (x) {
+                                            setState(() {
+                                              remarksWithdrawals = x;
+                                            });
+                                          }, 'Reason', TextInputType.text),
                                         ),
                                       ],
                                     )
-                              : requestId == '31'
-                                  ? GestureDetector(
-                                      onTap: () {
-                                        FocusScope.of(context)
-                                            .requestFocus(new FocusNode());
-                                      },
-                                      child: Column(
-                                        children: <Widget>[
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Container(
-                                            alignment: Alignment.center,
-                                            child: Padding(
+                              : requestId == '6'
+                                  ? midMarksJson == null || midMarksJson.isEmpty
+                                      ? SizedBox()
+                                      : Column(
+                                          children: <Widget>[
+                                            Padding(
                                               padding:
-                                                  const EdgeInsets.fromLTRB(
-                                                      10.0, 0.0, 10.0, 5.0),
-                                              child: Text(
-                                                'Current Timings',
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: isDark(context)
-                                                        ? Colors.white
-                                                        : Colors.black),
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Container(
-                                            width: 500,
-                                            height: 50,
-                                            alignment: Alignment.center,
-                                            decoration: new BoxDecoration(
-                                              gradient: isDark(context)
-                                                  ? LinearGradient(
-                                                      begin:
-                                                          Alignment.topCenter,
-                                                      end: Alignment
-                                                          .bottomCenter,
-                                                      colors: [
-                                                        Color(0xFF1F1F1F),
-                                                        Color(0xFF1F1F1F),
-                                                      ],
-                                                      stops: [
-                                                        0.7,
-                                                        0.9,
-                                                      ],
-                                                    )
-                                                  : LinearGradient(
-                                                      begin:
-                                                          Alignment.topCenter,
-                                                      end: Alignment
-                                                          .bottomCenter,
-                                                      colors: [
-                                                        Color(0xFF104C90),
-                                                        Color(0xFF3773AC),
-                                                      ],
-                                                      stops: [
-                                                        0.7,
-                                                        0.9,
-                                                      ],
-                                                    ),
-                                            ),
-                                            child: Text(
-                                              currentShiftTimeJson.isEmpty ||
-                                                      currentShiftTimeJson ==
-                                                          null
-                                                  ? ''
-                                                  : currentShiftTimeJson[
-                                                              'Shift_Desc'] ==
-                                                          'NA'
-                                                      ? ''
-                                                      : currentShiftTimeJson[
-                                                          'Shift_Desc'],
-                                              style: TextStyle(
-                                                  color: Colors.white),
-//
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: 20,
-                                          ),
-                                          dropDownWidget(
-                                              context,
-                                              'Select Your Current Timings',
-                                              newShift,
-                                              shiftTimesJson,
-                                              'Shift_Desc',
-                                              'Shift_Desc', (value) {
-                                            setState(() {
-                                              newShift = value;
-                                            });
-                                          }, 'New Timings'),
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          // dropDownWidget(
-                                          //     context,
-                                          //     'Select Your New Timings',
-                                          //     newShift,
-                                          //     shiftTimesJson,
-                                          //     'Shift_Desc',
-                                          //     'Shift_Desc', (value) {
-                                          //   setState(() {
-                                          //     newShift = value;
-                                          //   });
-                                          // }, 'New Timings'),
-                                          Form(
-                                              key: time,
-                                              child: Column(
-                                                children: <Widget>[
-                                                  globalForms(
-                                                    context,
-                                                    '',
-                                                    (String value) {
-                                                      if (value
-                                                          .trim()
-                                                          .isEmpty) {
-                                                        return 'Your AddressTo is required';
-                                                      }
-                                                      return null;
-                                                    },
-                                                    (x) {
-                                                      setState(() {
-                                                        addressToTime = x;
-                                                      });
-                                                    },
-                                                    'Address To',
-                                                    TextInputType.text,
-                                                  ),
-                                                  globalForms(
-                                                    context,
-                                                    '',
-                                                    (String value) {
-                                                      if (value
-                                                          .trim()
-                                                          .isEmpty) {
-                                                        return 'Your Reason is required';
-                                                      }
-                                                      return null;
-                                                    },
-                                                    (x) {
-                                                      setState(() {
-                                                        timeReason = x;
-                                                      });
-                                                    },
-                                                    'Reason',
-                                                    TextInputType.text,
-                                                  ),
-                                                ],
-                                              )),
-                                        ],
-                                      ),
-                                    )
-                                  : requestId == '66'
-                                      ? Container(
-                                          height: MediaQuery.of(context)
-                                              .size
-                                              .height,
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          child: ListView(
-                                            children: <Widget>[
-                                              Form(
-                                                key: leaveApplication,
-                                                child: Column(
+                                                  const EdgeInsets.all(5.0),
+                                              child: Card(
+                                                color: isDark(context)
+                                                    ? Color(0xFF121212)
+                                                    : Colors.white,
+                                                elevation: 5,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
                                                   children: <Widget>[
-                                                    datePickers(context,
-                                                        'Leave from ', from),
-                                                    datePickers(context,
-                                                        'Leave to ', to),
-                                                    globalForms(context, '',
-                                                        (String value) {
-                                                      if (value
-                                                          .trim()
-                                                          .isEmpty) {
-                                                        return 'Residence Contact Number is required';
-                                                      }
-                                                      return null;
-                                                    }, (x) {
-                                                      setState(() {
-                                                        residenceContactNumber =
-                                                            x;
-                                                      });
-                                                    }, 'Residence Contact Number',
-                                                        TextInputType.text),
-                                                    globalForms(context, '',
-                                                        (String value) {
-                                                      if (value
-                                                          .trim()
-                                                          .isEmpty) {
-                                                        return ' Mobile Number is required';
-                                                      }
-                                                      return null;
-                                                    }, (x) {
-                                                      setState(() {
-                                                        mobileNumber = x;
-                                                      });
-                                                    }, ' Mobile Number',
-                                                        TextInputType.text),
-                                                    globalForms(context, '',
-                                                        (String value) {
-                                                      if (value
-                                                          .trim()
-                                                          .isEmpty) {
-                                                        return 'Document Submitted is required';
-                                                      }
-                                                      return null;
-                                                    }, (x) {
-                                                      setState(() {
-                                                        documentSubmitted = x;
-                                                      });
-                                                    }, 'Document Submitted',
-                                                        TextInputType.text),
-                                                    globalForms(context, '',
-                                                        (String value) {
-                                                      if (value
-                                                          .trim()
-                                                          .isEmpty) {
-                                                        return 'Address is required';
-                                                      }
-                                                      return null;
-                                                    }, (x) {
-                                                      setState(() {
-                                                        addressTo = x;
-                                                      });
-                                                    }, 'Address to',
-                                                        TextInputType.text),
-                                                    globalForms(context, '',
-                                                        (String value) {
-                                                      if (value
-                                                          .trim()
-                                                          .isEmpty) {
-                                                        return 'Reason for Leave is required';
-                                                      }
-                                                      return null;
-                                                    }, (x) {
-                                                      setState(() {
-                                                        reasonForLeave = x;
-                                                      });
-                                                    }, 'Reason for Leave',
-                                                        TextInputType.text),
-                                                  ],
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        )
-                                      : requestId == '1'
-                                          ? repaeatingMarksJson == null ||
-                                                  repaeatingMarksJson.isEmpty
-                                              ? SizedBox()
-                                              : Column(
-                                                  children: <Widget>[
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              5.0),
-                                                      child: Card(
-                                                        color: isDark(context)
-                                                            ? Color(0xFF121212)
-                                                            : Colors.white,
-                                                        elevation: 5,
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          children: <Widget>[
-                                                            Column(
-                                                              children: <
-                                                                  Widget>[
-                                                                Container(
-                                                                  child:
-                                                                      Padding(
-                                                                    padding: const EdgeInsets
-                                                                            .all(
-                                                                        10.0),
-                                                                    child: Text(
-                                                                      'Normal Amount',
-                                                                      style: TextStyle(
-                                                                          color: isDark(context)
-                                                                              ? Colors.white
-                                                                              : Colors.black),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                Padding(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                              .all(
-                                                                          10.0),
-                                                                  child:
-                                                                      Container(
-                                                                    height: 25,
-                                                                    child: Text(
-                                                                      requestAmountJson.isEmpty ||
-                                                                              requestAmountJson ==
-                                                                                  null
-                                                                          ? ''
-                                                                          : requestAmountJson['data']['NormalAmount'] == ("NA")
-                                                                              ? "Not Avalible"
-                                                                              : requestAmountJson['data']['NormalAmount'].toString(),
-                                                                      style: TextStyle(
-                                                                          color: isDark(context)
-                                                                              ? Colors.white
-                                                                              : Colors.black),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.centerLeft,
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .fromLTRB(
-                                                                20.0,
-                                                                0.0,
-                                                                20.0,
-                                                                5.0),
-                                                        child: Text(
-                                                          'Courses',
-                                                          style: TextStyle(
-                                                            color: isDark(
-                                                                    context)
-                                                                ? Colors.white
-                                                                : Colors.black,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: DropdownButton<
-                                                          String>(
-                                                        underline: Container(
-                                                          height: 1,
-                                                          color:
-                                                              Color(0xFF2f2f2f),
-                                                        ),
-                                                        hint: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .fromLTRB(
-                                                                  20.0,
-                                                                  0.0,
-                                                                  20.0,
-                                                                  5.0),
-                                                          child: Text(
-                                                            'Select Option',
-                                                            style: TextStyle(
-                                                              color: isDark(
-                                                                      context)
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                      .black,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        isExpanded: true,
-                                                        value:
-                                                            allValuerepaeating,
-                                                        items:
-                                                            repaeatingMarksJson
-                                                                    ?.map(
-                                                                      (item) =>
-                                                                          DropdownMenuItem<
-                                                                              String>(
-                                                                        value: item['CDD_ID'].toString() +
-                                                                            "||" +
-                                                                            item['CDD_Code'].toString() +
-                                                                            "||" +
-                                                                            item['Cdd_Description'].toString(),
-                                                                        child:
-                                                                            Padding(
-                                                                          padding:
-                                                                              const EdgeInsets.all(8.0),
-                                                                          child:
-                                                                              FittedBox(child: Text(item['CourseName'] + '  ' + item['AssessmentName'].toString())),
-                                                                        ),
-                                                                      ),
-                                                                    )
-                                                                    ?.toList() ??
-                                                                [],
-                                                        onChanged: (value) {
-                                                          setState(() {
-                                                            allValuerepaeating =
-                                                                value;
-                                                            cddIdrepaeating =
-                                                                value.split(
-                                                                    '||')[0];
-                                                            cddCoderepaeating =
-                                                                value.split(
-                                                                    '||')[1];
-                                                            cddDescriptionrepaeating =
-                                                                value.split(
-                                                                    '||')[2];
-
-                                                            // againstMark = value;
-                                                          });
-                                                        },
-                                                      ),
-                                                    ),
-                                                    globalForms(context, '',
-                                                        (String value) {
-                                                      if (value
-                                                          .trim()
-                                                          .isEmpty) {
-                                                        return 'Reason is required';
-                                                      }
-                                                      return null;
-                                                    }, (x) {
-                                                      setState(() {
-                                                        reason = x;
-                                                      });
-                                                    }, 'Reason',
-                                                        TextInputType.text),
-                                                  ],
-                                                )
-                                          : requestId == '5'
-                                              ? resitMarksJson == null ||
-                                                      resitMarksJson.isEmpty
-                                                  ? SizedBox()
-                                                  : Column(
+                                                    Column(
                                                       children: <Widget>[
+                                                        Container(
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(10.0),
+                                                            child: Text(
+                                                              'Normal Amount',
+                                                              style: TextStyle(
+                                                                  color: isDark(
+                                                                          context)
+                                                                      ? Colors
+                                                                          .white
+                                                                      : Colors
+                                                                          .black),
+                                                            ),
+                                                          ),
+                                                        ),
                                                         Padding(
                                                           padding:
                                                               const EdgeInsets
-                                                                  .all(5.0),
-                                                          child: Card(
-                                                            color: isDark(
-                                                                    context)
-                                                                ? Color(
-                                                                    0xFF121212)
-                                                                : Colors.white,
-                                                            elevation: 5,
-                                                            child: Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .start,
-                                                              children: <
-                                                                  Widget>[
-                                                                Column(
-                                                                  children: <
-                                                                      Widget>[
-                                                                    Container(
-                                                                      child:
-                                                                          Padding(
-                                                                        padding:
-                                                                            const EdgeInsets.all(10.0),
-                                                                        child:
-                                                                            Text(
-                                                                          'Normal Amount',
-                                                                          style:
-                                                                              TextStyle(color: isDark(context) ? Colors.white : Colors.black),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    Padding(
-                                                                      padding: const EdgeInsets
-                                                                              .all(
-                                                                          10.0),
-                                                                      child:
-                                                                          Container(
-                                                                        height:
-                                                                            25,
-                                                                        child:
-                                                                            Text(
-                                                                          requestAmountJson == null || requestAmountJson.isEmpty
-                                                                              ? ''
-                                                                              : requestAmountJson['data']['NormalAmount'] == "NA" ? "Not Avalible" : requestAmountJson['data']['NormalAmount'].toString(),
-                                                                          style:
-                                                                              TextStyle(color: isDark(context) ? Colors.white : Colors.black),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ],
+                                                                  .all(10.0),
+                                                          child: Container(
+                                                            height: 25,
+                                                            child: Text(
+                                                              requestAmountJson
+                                                                          .isEmpty ||
+                                                                      requestAmountJson ==
+                                                                          null
+                                                                  ? ''
+                                                                  : requestAmountJson['data']
+                                                                              [
+                                                                              'NormalFees'] ==
+                                                                          ("NA")
+                                                                      ? "Not Avalible"
+                                                                      : requestAmountJson['data']
+                                                                              [
+                                                                              'NormalFees']
+                                                                          .toString(),
+                                                              style: TextStyle(
+                                                                  color: isDark(
+                                                                          context)
+                                                                      ? Colors
+                                                                          .white
+                                                                      : Colors
+                                                                          .black),
                                                             ),
                                                           ),
                                                         ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            ListView.builder(
+                                                shrinkWrap: true,
+                                                physics:
+                                                    ClampingScrollPhysics(),
+                                                itemCount: midMarksJson.length,
+                                                itemBuilder:
+                                                    (BuildContext context,
+                                                        int index) {
+                                                  return new Card(
+                                                    child: new Container(
+                                                      padding:
+                                                          new EdgeInsets.all(
+                                                              10.0),
+                                                      child: new Column(
+                                                        children: <Widget>[
+                                                          new CheckboxListTile(
+                                                              value:
+                                                                  selectedMitigationCourses[
+                                                                      index],
+                                                              title: new Text(
+                                                                  midMarksJson[
+                                                                          index]
+                                                                      [
+                                                                      'CourseName']),
+                                                              controlAffinity:
+                                                                  ListTileControlAffinity
+                                                                      .leading,
+                                                              onChanged:
+                                                                  (bool val) {
+                                                                setState(() {
+                                                                  selectedMitigationCourses[
+                                                                          index] =
+                                                                      val;
+                                                                });
+                                                              })
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  );
+                                                }),
+                                            //  Form(
+                                            //                   key:
+                                            //                       againsMarks,
+                                            //                   child: globalForms(
+                                            //                       context,
+                                            //                       '',
+                                            //                       (String
+                                            //                           value) {
+                                            //                     if (value
+                                            //                         .trim()
+                                            //                         .isEmpty) {
+                                            //                       return 'Reason is required';
+                                            //                     }
+                                            //                     return null;
+                                            //                   }, (x) {
+                                            //                     setState(
+                                            //                         () {
+                                            //                       reasonMitigation =
+                                            //                           x;
+                                            //                     });
+                                            //                   },
+                                            //                       'Reason',
+                                            //                       TextInputType
+                                            //                           .text),
+                                            //                 ),
+                                          ],
+                                        )
+                                  : requestId == '31'
+                                      ? GestureDetector(
+                                          onTap: () {
+                                            FocusScope.of(context)
+                                                .requestFocus(new FocusNode());
+                                          },
+                                          child: Column(
+                                            children: <Widget>[
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Container(
+                                                alignment: Alignment.center,
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.fromLTRB(
+                                                          10.0, 0.0, 10.0, 5.0),
+                                                  child: Text(
+                                                    'Current Timings',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: isDark(context)
+                                                            ? Colors.white
+                                                            : Colors.black),
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Container(
+                                                width: 500,
+                                                height: 50,
+                                                alignment: Alignment.center,
+                                                decoration: new BoxDecoration(
+                                                  gradient: isDark(context)
+                                                      ? LinearGradient(
+                                                          begin: Alignment
+                                                              .topCenter,
+                                                          end: Alignment
+                                                              .bottomCenter,
+                                                          colors: [
+                                                            Color(0xFF1F1F1F),
+                                                            Color(0xFF1F1F1F),
+                                                          ],
+                                                          stops: [
+                                                            0.7,
+                                                            0.9,
+                                                          ],
+                                                        )
+                                                      : LinearGradient(
+                                                          begin: Alignment
+                                                              .topCenter,
+                                                          end: Alignment
+                                                              .bottomCenter,
+                                                          colors: [
+                                                            Color(0xFF104C90),
+                                                            Color(0xFF3773AC),
+                                                          ],
+                                                          stops: [
+                                                            0.7,
+                                                            0.9,
+                                                          ],
+                                                        ),
+                                                ),
+                                                child: Text(
+                                                  currentShiftTimeJson
+                                                              .isEmpty ||
+                                                          currentShiftTimeJson ==
+                                                              null
+                                                      ? ''
+                                                      : currentShiftTimeJson[
+                                                                  'Shift_Desc'] ==
+                                                              'NA'
+                                                          ? ''
+                                                          : currentShiftTimeJson[
+                                                              'Shift_Desc'],
+                                                  style: TextStyle(
+                                                      color: Colors.white),
+//
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 20,
+                                              ),
+                                              dropDownWidget(
+                                                  context,
+                                                  'Select Your Current Timings',
+                                                  newShift,
+                                                  shiftTimesJson,
+                                                  'Shift_Desc',
+                                                  'Shift_Desc', (value) {
+                                                setState(() {
+                                                  newShift = value;
+                                                });
+                                              }, 'New Timings'),
+                                              SizedBox(
+                                                height: 5,
+                                              ),
+                                              // dropDownWidget(
+                                              //     context,
+                                              //     'Select Your New Timings',
+                                              //     newShift,
+                                              //     shiftTimesJson,
+                                              //     'Shift_Desc',
+                                              //     'Shift_Desc', (value) {
+                                              //   setState(() {
+                                              //     newShift = value;
+                                              //   });
+                                              // }, 'New Timings'),
+                                              Form(
+                                                  key: time,
+                                                  child: Column(
+                                                    children: <Widget>[
+                                                      globalForms(
+                                                        context,
+                                                        '',
+                                                        (String value) {
+                                                          if (value
+                                                              .trim()
+                                                              .isEmpty) {
+                                                            return 'Your AddressTo is required';
+                                                          }
+                                                          return null;
+                                                        },
+                                                        (x) {
+                                                          setState(() {
+                                                            addressToTime = x;
+                                                          });
+                                                        },
+                                                        'Address To',
+                                                        TextInputType.text,
+                                                      ),
+                                                      globalForms(
+                                                        context,
+                                                        '',
+                                                        (String value) {
+                                                          if (value
+                                                              .trim()
+                                                              .isEmpty) {
+                                                            return 'Your Reason is required';
+                                                          }
+                                                          return null;
+                                                        },
+                                                        (x) {
+                                                          setState(() {
+                                                            timeReason = x;
+                                                          });
+                                                        },
+                                                        'Reason',
+                                                        TextInputType.text,
+                                                      ),
+                                                    ],
+                                                  )),
+                                            ],
+                                          ),
+                                        )
+                                      : requestId == '66'
+                                          ? Form(
+                                              key: leaveApplication,
+                                              child: ListView(
+                                                shrinkWrap: true,
+                                                physics:
+                                                    ClampingScrollPhysics(),
+                                                children: <Widget>[
+                                                  Column(
+                                                    children: <Widget>[
+                                                      datePickers(context,
+                                                          'Leave from ', from),
+                                                      datePickers(context,
+                                                          'Leave to ', to),
+                                                      globalForms(context, '',
+                                                          (String value) {
+                                                        if (!RegExp(
+                                                                r'^05[0-9]{8}$')
+                                                            .hasMatch(value)) {
+                                                          return 'Please check residence contact number';
+                                                        }
+                                                        return null;
+                                                      }, (x) {
+                                                        setState(() {
+                                                          residenceContactNumber =
+                                                              x;
+                                                        });
+                                                      }, 'Residence Contact Number',
+                                                          TextInputType.number),
+                                                      globalForms(context, '',
+                                                          (String value) {
+                                                        if (!RegExp(
+                                                                r'^05[0-9]{8}$')
+                                                            .hasMatch(value)) {
+                                                          return 'Please check residence mobile Number ';
+                                                        }
+                                                        return null;
+                                                      }, (x) {
+                                                        setState(() {
+                                                          mobileNumber = x;
+                                                        });
+                                                      }, ' Mobile Number',
+                                                          TextInputType.number),
+                                                      globalForms(context, '',
+                                                          (String value) {
+                                                        if (value
+                                                            .trim()
+                                                            .isEmpty) {
+                                                          return 'Document Submitted is required';
+                                                        }
+                                                        return null;
+                                                      }, (x) {
+                                                        setState(() {
+                                                          documentSubmitted = x;
+                                                        });
+                                                      }, 'Document Submitted',
+                                                          TextInputType.text),
+                                                      globalForms(context, '',
+                                                          (String value) {
+                                                        if (value
+                                                            .trim()
+                                                            .isEmpty) {
+                                                          return 'Address is required';
+                                                        }
+                                                        return null;
+                                                      }, (x) {
+                                                        setState(() {
+                                                          addressTo = x;
+                                                        });
+                                                      }, 'Address to',
+                                                          TextInputType.text),
+                                                      globalForms(context, '',
+                                                          (String value) {
+                                                        if (value
+                                                            .trim()
+                                                            .isEmpty) {
+                                                          return 'Reason for Leave is required';
+                                                        }
+                                                        return null;
+                                                      }, (x) {
+                                                        setState(() {
+                                                          reasonForLeave = x;
+                                                        });
+                                                      }, 'Reason for Leave',
+                                                          TextInputType.text),
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                            )
+                                          : requestId == '1'
+                                              ? repaeatingMarksJson == null ||
+                                                      repaeatingMarksJson
+                                                          .isEmpty
+                                                  ? SizedBox()
+                                                  : Column(
+                                                      children: <Widget>[
+                                                        // Padding(
+                                                        //   padding: const EdgeInsets.all(5.0),
+                                                        //   child: Card(
+                                                        //     color: isDark(context)
+                                                        //         ? Color(0xFF121212)
+                                                        //         : Colors.white,
+                                                        //     elevation: 5,
+                                                        //     child: Row(
+                                                        //       mainAxisAlignment:
+                                                        //           MainAxisAlignment.start,
+                                                        //       children: <Widget>[
+                                                        //         Column(
+                                                        //           children: <Widget>[
+                                                        //             Container(
+                                                        //               child: Padding(
+                                                        //                 padding:
+                                                        //                     const EdgeInsets
+                                                        //                         .all(10.0),
+                                                        //                 child: Text(
+                                                        //                   'Normal Amount',
+                                                        //                   style: TextStyle(
+                                                        //                       color: isDark(
+                                                        //                               context)
+                                                        //                           ? Colors.white
+                                                        //                           : Colors
+                                                        //                               .black),
+                                                        //                 ),
+                                                        //               ),
+                                                        //             ),
+                                                        //             Padding(
+                                                        //               padding:
+                                                        //                   const EdgeInsets.all(
+                                                        //                       10.0),
+                                                        //               child: Container(
+                                                        //                 height: 25,
+                                                        //                 child: Text(
+                                                        //                   requestAmountJson ==
+                                                        //                               null ||
+                                                        //                           requestAmountJson
+                                                        //                               .isEmpty
+                                                        //                       ? ''
+                                                        //                       : requestAmountJson[
+                                                        //                                       'data']
+                                                        //                                   [
+                                                        //                                   'NormalFees'] ==
+                                                        //                               ("NA")
+                                                        //                           ? "Not Avalible"
+                                                        //                           : requestAmountJson[
+                                                        //                                       'data']
+                                                        //                                   [
+                                                        //                                   'NormalFees']
+                                                        //                               .toString(),
+                                                        //                   style: TextStyle(
+                                                        //                       color: isDark(
+                                                        //                               context)
+                                                        //                           ? Colors.white
+                                                        //                           : Colors
+                                                        //                               .black),
+                                                        //                 ),
+                                                        //               ),
+                                                        //             ),
+                                                        //           ],
+                                                        //         ),
+                                                        //       ],
+                                                        //     ),
+                                                        //   ),
+                                                        // ),
                                                         ListView.builder(
                                                             shrinkWrap: true,
                                                             physics:
                                                                 ClampingScrollPhysics(),
                                                             itemCount:
-                                                                resitMarksJson
+                                                                repaeatingMarksJson
                                                                     .length,
                                                             itemBuilder:
                                                                 (BuildContext
@@ -1145,9 +1115,9 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                                                     children: <
                                                                         Widget>[
                                                                       new CheckboxListTile(
-                                                                          value: selectedResitCourses[
+                                                                          value: selectedCourseWithdrawals[
                                                                               index],
-                                                                          title: new Text(resitMarksJson[index]
+                                                                          title: new Text(repaeatingMarksJson[index]
                                                                               [
                                                                               'CourseName']),
                                                                           controlAffinity: ListTileControlAffinity
@@ -1155,7 +1125,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                                                           onChanged:
                                                                               (bool val) {
                                                                             setState(() {
-                                                                              selectedResitCourses[index] = val;
+                                                                              selectedRepaeatingCourses[index] = val;
                                                                             });
                                                                           })
                                                                     ],
@@ -1164,7 +1134,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                                               );
                                                             }),
                                                         Form(
-                                                          key: insertResit,
+                                                          key: insertRepaeating,
                                                           child: globalForms(
                                                               context, '',
                                                               (String value) {
@@ -1176,7 +1146,8 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                                             return null;
                                                           }, (x) {
                                                             setState(() {
-                                                              remarksResit = x;
+                                                              remarksRepaeating =
+                                                                  x;
                                                             });
                                                           },
                                                               'Reason',
@@ -1185,10 +1156,9 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                                         ),
                                                       ],
                                                     )
-                                              : requestId == '143'
-                                                  ? againstMarksJson == null ||
-                                                          againstMarksJson
-                                                              .isEmpty
+                                              : requestId == '5'
+                                                  ? resitMarksJson == null ||
+                                                          resitMarksJson.isEmpty
                                                       ? SizedBox()
                                                       : Column(
                                                           children: <Widget>[
@@ -1234,7 +1204,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                                                                 25,
                                                                             child:
                                                                                 Text(
-                                                                              requestAmountJson == null || requestAmountJson.isEmpty ? '' : requestAmountJson['data']['NormalAmount'] == null ? '' : requestAmountJson['data']['NormalAmount'] == ("NA") ? "Not Avalible" : requestAmountJson['data']['NormalAmount'].toString(),
+                                                                              requestAmountJson == null || requestAmountJson.isEmpty ? '' : requestAmountJson['data']['NormalFees'] == "NA" ? "Not Avalible" : requestAmountJson['data']['NormalFees'].toString(),
                                                                               style: TextStyle(color: isDark(context) ? Colors.white : Colors.black),
                                                                             ),
                                                                           ),
@@ -1251,13 +1221,13 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                                                 physics:
                                                                     ClampingScrollPhysics(),
                                                                 itemCount:
-                                                                    againstMarksJson
+                                                                    resitMarksJson
                                                                         .length,
                                                                 itemBuilder:
                                                                     (BuildContext
                                                                             context,
                                                                         int index) {
-                                                                  return Card(
+                                                                  return new Card(
                                                                     child:
                                                                         new Container(
                                                                       padding: new EdgeInsets
@@ -1268,12 +1238,12 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                                                         children: <
                                                                             Widget>[
                                                                           new CheckboxListTile(
-                                                                              value: selectedAgainsMarks[index],
-                                                                              title: new Text(againstMarksJson[index]['CourseName']),
+                                                                              value: selectedResitCourses[index],
+                                                                              title: new Text(resitMarksJson[index]['CourseName']),
                                                                               controlAffinity: ListTileControlAffinity.leading,
                                                                               onChanged: (bool val) {
                                                                                 setState(() {
-                                                                                  selectedAgainsMarks[index] = val;
+                                                                                  selectedResitCourses[index] = val;
                                                                                 });
                                                                               })
                                                                         ],
@@ -1282,7 +1252,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                                                   );
                                                                 }),
                                                             Form(
-                                                              key: againsMarks,
+                                                              key: insertResit,
                                                               child: globalForms(
                                                                   context, '',
                                                                   (String
@@ -1295,7 +1265,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                                                 return null;
                                                               }, (x) {
                                                                 setState(() {
-                                                                  reasonAgains =
+                                                                  remarksResit =
                                                                       x;
                                                                 });
                                                               },
@@ -1305,138 +1275,251 @@ class _OnlineRequestState extends State<OnlineRequest> {
                                                             ),
                                                           ],
                                                         )
-                                                  : Column(
-                                                      children: <Widget>[
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(5.0),
-                                                          child: Card(
-                                                            color: isDark(
-                                                                    context)
-                                                                ? Color(
-                                                                    0xFF121212)
-                                                                : Colors.white,
-                                                            elevation: 5,
-                                                            child: Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .start,
+                                                  : requestId == '143'
+                                                      ? againstMarksJson ==
+                                                                  null ||
+                                                              againstMarksJson
+                                                                  .isEmpty
+                                                          ? SizedBox()
+                                                          : ListView(
+                                                              shrinkWrap: true,
+                                                              physics:
+                                                                  ClampingScrollPhysics(),
                                                               children: <
                                                                   Widget>[
-                                                                Column(
-                                                                  children: <
-                                                                      Widget>[
-                                                                    Container(
-                                                                      child:
-                                                                          Padding(
-                                                                        padding:
-                                                                            const EdgeInsets.all(10.0),
-                                                                        child:
-                                                                            Text(
-                                                                          'Normal Amount',
-                                                                          style:
-                                                                              TextStyle(color: isDark(context) ? Colors.white : Colors.black),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    Padding(
-                                                                      padding: const EdgeInsets
-                                                                              .all(
-                                                                          10.0),
-                                                                      child:
-                                                                          Container(
-                                                                        height:
-                                                                            25,
-                                                                        child:
-                                                                            Text(
-                                                                          requestAmountJson.isEmpty || requestAmountJson == null
-                                                                              ? ''
-                                                                              : requestAmountJson['data']['NormalAmount'] == ("NA") ? "Not Avalible" : requestAmountJson['data']['NormalAmount'].toString(),
-                                                                          style:
-                                                                              TextStyle(color: isDark(context) ? Colors.white : Colors.black),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ],
+                                                                // Padding(
+                                                                //   padding:
+                                                                //       const EdgeInsets
+                                                                //               .all(
+                                                                //           5.0),
+                                                                //   child: Card(
+                                                                //     color: isDark(context)
+                                                                //         ? Color(
+                                                                //             0xFF121212)
+                                                                //         : Colors
+                                                                //             .white,
+                                                                //     elevation:
+                                                                //         5,
+                                                                //     child: Row(
+                                                                //       mainAxisAlignment:
+                                                                //           MainAxisAlignment
+                                                                //               .start,
+                                                                //       children: <
+                                                                //           Widget>[
+                                                                //         Column(
+                                                                //           children: <
+                                                                //               Widget>[
+                                                                //             Container(
+                                                                //               child: Padding(
+                                                                //                 padding: const EdgeInsets.all(10.0),
+                                                                //                 child: Text(
+                                                                //                   'Normal Amount',
+                                                                //                   style: TextStyle(color: isDark(context) ? Colors.white : Colors.black),
+                                                                //                 ),
+                                                                //               ),
+                                                                //             ),
+                                                                //             Padding(
+                                                                //               padding: const EdgeInsets.all(10.0),
+                                                                //               child: Container(
+                                                                //                 height: 25,
+                                                                //                 child: Text(
+                                                                //                   requestAmountJson == null || requestAmountJson.isEmpty ? '' : requestAmountJson['data']['NormalFees'] == null ? '' : requestAmountJson['data']['NormalFees'] == ("NA") ? "Not Avalible" : requestAmountJson['data']['NormalFees'].toString(),
+                                                                //                   style: TextStyle(color: isDark(context) ? Colors.white : Colors.black),
+                                                                //                 ),
+                                                                //               ),
+                                                                //             ),
+                                                                //           ],
+                                                                //         ),
+                                                                //       ],
+                                                                //     ),
+                                                                //   ),
+                                                                // ),
+                                                                ListView
+                                                                    .builder(
+                                                                        shrinkWrap:
+                                                                            true,
+                                                                        physics:
+                                                                            ClampingScrollPhysics(),
+                                                                        itemCount:
+                                                                            againstMarksJson
+                                                                                .length,
+                                                                        itemBuilder:
+                                                                            (BuildContext context,
+                                                                                int index) {
+                                                                          return Card(
+                                                                            child:
+                                                                                new Container(
+                                                                              padding: new EdgeInsets.all(10.0),
+                                                                              child: new Column(
+                                                                                children: <Widget>[
+                                                                                  new CheckboxListTile(
+                                                                                      value: selectedAgainsMarks[index],
+                                                                                      title: new Text(againstMarksJson[index]['CourseName']),
+                                                                                      controlAffinity: ListTileControlAffinity.leading,
+                                                                                      onChanged: (bool val) {
+                                                                                        setState(() {
+                                                                                          selectedAgainsMarks[index] = val;
+                                                                                        });
+                                                                                      })
+                                                                                ],
+                                                                              ),
+                                                                            ),
+                                                                          );
+                                                                        }),
+                                                                Form(
+                                                                  key:
+                                                                      againsMarks,
+                                                                  child: globalForms(
+                                                                      context,
+                                                                      '',
+                                                                      (String
+                                                                          value) {
+                                                                    if (value
+                                                                        .trim()
+                                                                        .isEmpty) {
+                                                                      return 'Reason is required';
+                                                                    }
+                                                                    return null;
+                                                                  }, (x) {
+                                                                    setState(
+                                                                        () {
+                                                                      reasonAgains =
+                                                                          x;
+                                                                    });
+                                                                  },
+                                                                      'Reason',
+                                                                      TextInputType
+                                                                          .text),
                                                                 ),
                                                               ],
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          height: 10,
-                                                        ),
-                                                        Container(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          child: Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: <Widget>[
-                                                              Form(
-                                                                key:
-                                                                    _onlineRequest,
-                                                                child: Column(
+                                                            )
+                                                      : Column(
+                                                          children: <Widget>[
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(5.0),
+                                                              child: Card(
+                                                                color: isDark(
+                                                                        context)
+                                                                    ? Color(
+                                                                        0xFF121212)
+                                                                    : Colors
+                                                                        .white,
+                                                                elevation: 5,
+                                                                child: Row(
                                                                   mainAxisAlignment:
                                                                       MainAxisAlignment
-                                                                          .spaceBetween,
+                                                                          .start,
                                                                   children: <
                                                                       Widget>[
-                                                                    globalForms(
-                                                                        context,
-                                                                        '',
-                                                                        (String
-                                                                            value) {
-                                                                      if (value
-                                                                          .trim()
-                                                                          .isEmpty) {
-                                                                        return 'Address  is required';
-                                                                      }
-                                                                      return null;
-                                                                    }, (x) {
-                                                                      setState(
-                                                                          () {
-                                                                        address =
-                                                                            x;
-                                                                      });
-                                                                    },
-                                                                        'Address',
-                                                                        TextInputType
-                                                                            .text),
-                                                                    globalForms(
-                                                                        context,
-                                                                        '',
-                                                                        (String
-                                                                            value) {
-                                                                      if (value
-                                                                          .trim()
-                                                                          .isEmpty) {
-                                                                        return 'Remark is required';
-                                                                      }
-                                                                      return null;
-                                                                    }, (x) {
-                                                                      setState(
-                                                                          () {
-                                                                        remark =
-                                                                            x;
-                                                                      });
-                                                                    },
-                                                                        'Remark',
-                                                                        TextInputType
-                                                                            .text),
+                                                                    Column(
+                                                                      children: <
+                                                                          Widget>[
+                                                                        Container(
+                                                                          child:
+                                                                              Padding(
+                                                                            padding:
+                                                                                const EdgeInsets.all(10.0),
+                                                                            child:
+                                                                                Text(
+                                                                              'Normal Amount',
+                                                                              style: TextStyle(color: isDark(context) ? Colors.white : Colors.black),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                        Padding(
+                                                                          padding:
+                                                                              const EdgeInsets.all(10.0),
+                                                                          child:
+                                                                              Container(
+                                                                            height:
+                                                                                25,
+                                                                            child:
+                                                                                Text(
+                                                                              requestAmountJson.isEmpty || requestAmountJson == null ? '' : requestAmountJson['data'] == null ? 'Not Avalible' : requestAmountJson['data']['NormalFees'] == ("NA") ? "Not Avalible" : requestAmountJson['data']['NormalFees'].toString(),
+                                                                              style: TextStyle(color: isDark(context) ? Colors.white : Colors.black),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
                                                                   ],
                                                                 ),
                                                               ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          height: 10,
-                                                        ),
-                                                      ],
-                                                    )
+                                                            ),
+                                                            SizedBox(
+                                                              height: 10,
+                                                            ),
+                                                            Container(
+                                                              alignment:
+                                                                  Alignment
+                                                                      .center,
+                                                              child: Column(
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: <
+                                                                    Widget>[
+                                                                  Form(
+                                                                    key:
+                                                                        _onlineRequest,
+                                                                    child:
+                                                                        Column(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceBetween,
+                                                                      children: <
+                                                                          Widget>[
+                                                                        globalForms(
+                                                                            context,
+                                                                            '',
+                                                                            (String
+                                                                                value) {
+                                                                          if (value
+                                                                              .trim()
+                                                                              .isEmpty) {
+                                                                            return 'Address  is required';
+                                                                          }
+                                                                          return null;
+                                                                        }, (x) {
+                                                                          setState(
+                                                                              () {
+                                                                            address =
+                                                                                x;
+                                                                          });
+                                                                        }, 'Address',
+                                                                            TextInputType.text),
+                                                                        globalForms(
+                                                                            context,
+                                                                            '',
+                                                                            (String
+                                                                                value) {
+                                                                          if (value
+                                                                              .trim()
+                                                                              .isEmpty) {
+                                                                            return 'Remark is required';
+                                                                          }
+                                                                          return null;
+                                                                        }, (x) {
+                                                                          setState(
+                                                                              () {
+                                                                            remark =
+                                                                                x;
+                                                                          });
+                                                                        }, 'Remark',
+                                                                            TextInputType.text),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            SizedBox(
+                                                              height: 10,
+                                                            ),
+                                                          ],
+                                                        )
                     ],
                   ),
                 ],
@@ -1551,44 +1634,6 @@ class _OnlineRequestState extends State<OnlineRequest> {
     }
   }
 
-  Future insertAgainstMarks() async {
-    Future.delayed(Duration.zero, () {
-      showLoading(true, context);
-    });
-
-    try {
-      final response = await http.post(
-        Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/test/MidMarksCourses'),
-        headers: {
-          "API-KEY": API,
-        },
-        body: {
-          'user_id': username,
-        },
-      );
-
-      if (response.statusCode == 200) {
-        setState(
-          () {
-            // midMarksJson = json.decode(response.body)['data'];
-          },
-        );
-        showLoading(false, context);
-      }
-    } catch (x) {
-      if (x.toString().contains("TimeoutException")) {
-        showLoading(false, context);
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-            context, getRequestType);
-      } else {
-        showLoading(false, context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-            getRequestType);
-      }
-    }
-  }
-
   Future getAmount() async {
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
@@ -1597,12 +1642,13 @@ class _OnlineRequestState extends State<OnlineRequest> {
     try {
       final response = await http.post(
         Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/test/OnlineRequestAmount'),
+            'https://skylineportal.com/moappad/api/test/OnlineRequestFees'),
         headers: {
           "API-KEY": API,
         },
         body: {
-          'req_type_id': requestId,
+          'MiscID': requestId,
+          'Stud_ID': username,
         },
       ).timeout(Duration(seconds: 35));
 
@@ -1634,7 +1680,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
     }
   }
 
-  // Future OnlineRequestAmount() async {
+  // Future insertRequest() async {
   //   Future.delayed(Duration.zero, () {
   //     showLoading(true, context);
   //   });
@@ -1642,13 +1688,16 @@ class _OnlineRequestState extends State<OnlineRequest> {
   //   try {
   //     final response = await http.post(
   //       Uri.encodeFull(
-  //           'https://skylineportal.com/moappad/api/test/OnlineRequestFees'),
+  //           'https://skylineportal.com/moappad/api/test/InsertRequest'),
   //       headers: {
   //         "API-KEY": API,
   //       },
   //       body: {
-  //         'MiscID': requestId,
-  //          'Stud_ID':username,
+  //         'StudentID': username,
+  //         'RequestTypeid': requestId.toString(),
+  //         // 'RequestType': requestType,
+  //         'AddressTo': address.toString(),
+  //         'Remarks': remark.toString(),
   //       },
   //     ).timeout(Duration(seconds: 35));
 
@@ -1658,13 +1707,6 @@ class _OnlineRequestState extends State<OnlineRequest> {
   //           requestAmountJson = json.decode(response.body);
   //         },
   //       );
-
-  //       // if (requestId == '143') {
-  //       //   setState(() {
-  //       //     getAgainstMarks();
-  //       //   });
-  //       // }
-
   //       showLoading(false, context);
   //     }
   //   } catch (x) {
@@ -1679,87 +1721,46 @@ class _OnlineRequestState extends State<OnlineRequest> {
   //     }
   //   }
   // }
-  Future insertRequest() async {
-    Future.delayed(Duration.zero, () {
-      showLoading(true, context);
-    });
 
-    try {
-      final response = await http.post(
-        Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/test/InsertRequest'),
-        headers: {
-          "API-KEY": API,
-        },
-        body: {
-          'StudentID': username,
-          'RequestTypeid': requestId.toString(),
-          // 'RequestType': requestType,
-          'AddressTo': address.toString(),
-          'Remarks': remark.toString(),
-        },
-      ).timeout(Duration(seconds: 35));
+  // Future getCheckRequest() async {
+  //   Future.delayed(Duration.zero, () {
+  //     showLoading(true, context);
+  //   });
 
-      if (response.statusCode == 200) {
-        setState(
-          () {
-            requestAmountJson = json.decode(response.body);
-          },
-        );
-        showLoading(false, context);
-      }
-    } catch (x) {
-      if (x.toString().contains("TimeoutException")) {
-        showLoading(false, context);
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-            context, getAmount);
-      } else {
-        showLoading(false, context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-            getAmount);
-      }
-    }
-  }
+  //   try {
+  //     final response = await http.post(
+  //       Uri.encodeFull(
+  //           'https://skylineportal.com/moappad/api/test/CheckRequest'),
+  //       headers: {
+  //         "API-KEY": API,
+  //       },
+  //       body: {
+  //         'RequestTypeid': requestId,
+  //         'StudentID': username,
+  //       },
+  //     );
 
-  Future getCheckRequest() async {
-    Future.delayed(Duration.zero, () {
-      showLoading(true, context);
-    });
-
-    try {
-      final response = await http.post(
-        Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/test/CheckRequest'),
-        headers: {
-          "API-KEY": API,
-        },
-        body: {
-          'RequestTypeid': requestId,
-          'StudentID': username,
-        },
-      );
-
-      if (response.statusCode == 200) {
-        setState(
-          () {
-            checkRequestJson = json.decode(response.body)['data'];
-            checkRequestMessageJson = json.decode(response.body);
-          },
-        );
-        showLoading(false, context);
-      }
-    } catch (x) {
-      if (x.toString().contains("TimeoutException")) {
-        showLoading(false, context);
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-            context, getRequestType);
-      } else {
-        showLoading(false, context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-            getRequestType);
-      }
-    }
-  }
+  //     if (response.statusCode == 200) {
+  //       setState(
+  //         () {
+  //           checkRequestJson = json.decode(response.body)['data'];
+  //           checkRequestMessageJson = json.decode(response.body);
+  //         },
+  //       );
+  //       showLoading(false, context);
+  //     }
+  //   } catch (x) {
+  //     if (x.toString().contains("TimeoutException")) {
+  //       showLoading(false, context);
+  //       showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+  //           context, getRequestType);
+  //     } else {
+  //       showLoading(false, context);
+  //       showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+  //           getRequestType);
+  //     }
+  //   }
+  // }
 
   Future getRepaeatingMarksCourses() async {
     Future.delayed(Duration.zero, () {
@@ -1816,7 +1817,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
         try {
           final response = await http.post(
             Uri.encodeFull(
-                'https://skylineportal.com/moappad/api/test/InsertAgainstMarks'),
+                'https://skylineportal.com/moappad/api/test/InsertRepaeatingMarks'),
             headers: {
               "API-KEY": API,
             },
@@ -1827,13 +1828,18 @@ class _OnlineRequestState extends State<OnlineRequest> {
               'CDD_ID': repaeatingMarksJson[i]['CDD_ID'],
               'CourseCode': repaeatingMarksJson[i]['CDD_Code'],
               'CourseTitle': repaeatingMarksJson[i]['CourseName'],
-              'AssessmentName': repaeatingMarksJson[i]['AssessmentName'],
+              'Grade': repaeatingMarksJson[i]['Grade'],
+              'Remarks': remarksRepaeating,
+              'RequestDate': date.toString()
             },
           ).timeout(Duration(seconds: 35));
+          showLoading(false, context);
 
-          if (response.statusCode == 200) {
-            insertMitigationJson = json.decode(response.body);
-          }
+          showfailureSnackBar(context,
+              'Your request submitted failed. Please contact IT department');
+          // if (response.statusCode == 200) {
+          //   insertMitigationJson = json.decode(response.body);
+          // }
         } catch (x) {
           if (x.toString().contains("TimeoutException")) {
             showLoading(false, context);
@@ -1881,14 +1887,17 @@ class _OnlineRequestState extends State<OnlineRequest> {
           'StudRemarks': reasonForLeave.toString(),
           'LeaveMobile': mobileNumber.toString(),
         },
-      ).timeout(Duration(seconds: 35));
+      );
+      // if (response.statusCode == 200) {
+      //   setState(() {
+      //     insertLeaveApplicationJson = json.decode(response.body);
+      //   });
+      //   showLoading(false, context);
+      // }
+      showLoading(false, context);
 
-      if (response.statusCode == 200) {
-        setState(() {
-          insertLeaveApplicationJson = json.decode(response.body);
-        });
-        showLoading(false, context);
-      }
+      showfailureSnackBar(context,
+          'Your request submitted failed. Please contact IT department');
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
@@ -1901,13 +1910,12 @@ class _OnlineRequestState extends State<OnlineRequest> {
       }
     }
 
-    if (insertLeaveApplicationJson['success'] == '0') {
-      showfailureSnackBar(context, insertLeaveApplicationJson['message']);
-    }
-    if (insertLeaveApplicationJson['success'] == '1') {
-      showSuccessSnackBar(context, insertLeaveApplicationJson['message']);
-    }
-    //send confirmation
+    // if (insertLeaveApplicationJson['success'] == '0') {
+    //   showfailureSnackBar(context, insertLeaveApplicationJson['message']);
+    // }
+    // if (insertLeaveApplicationJson['success'] == '1') {
+    //   showSuccessSnackBar(context, insertLeaveApplicationJson['message']);
+    // }
   }
 
   Future getShiftTime() async {
@@ -2011,7 +2019,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
       courseWithdrawalJson = [];
       final response = await http.post(
         Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/test/CourseWithdrawalCourses'),
+            'https://skylineportal.com/moappad/api/test/RepaeatingMarksCourses'),
         headers: {
           "API-KEY": API,
         },
@@ -2064,21 +2072,25 @@ class _OnlineRequestState extends State<OnlineRequest> {
             body: {
               'Stud_ID': username,
               'RequestTypeID': requestId.toString(),
-              'Batch_ID': againstMarksJson[i]['Batch_ID'].toString(),
-              'CDD_ID': againstMarksJson[i]['CDD_ID'].toString(),
-              'CourseCode': againstMarksJson[i]['CDD_Code'].toString(),
-              'CourseTitle': againstMarksJson[i]['CourseName'].toString(),
-              'AssessmentName':
-                  againstMarksJson[i]['AssessmentName'].toString(),
+              'Batch_ID': courseWithdrawalJson[i]['Batch_ID'].toString(),
+              'CDD_ID': courseWithdrawalJson[i]['CDD_ID'].toString(),
+              'CourseCode': courseWithdrawalJson[i]['CDD_Code'].toString(),
+              'CourseTitle': courseWithdrawalJson[i]['CourseName'].toString(),
+              'Grade': courseWithdrawalJson[i]['Grade'].toString(),
+              'Remarks': remarksWithdrawals,
+              'RequestDate': date.toString(),
             },
           ).timeout(Duration(seconds: 35));
+          showLoading(false, context);
 
-          if (response.statusCode == 200) {
-            setState(() {
-              insertCourseWithdrawalJson = json.decode(response.body);
-            });
-            showLoading(false, context);
-          }
+          showfailureSnackBar(context,
+              'Your request submitted failed. Please contact IT department');
+          // if (response.statusCode == 200) {
+          //   setState(() {
+          //     insertCourseWithdrawalJson = json.decode(response.body);
+          //   });
+          //   showLoading(false, context);
+          // }
         } catch (x) {
           if (x.toString().contains("TimeoutException")) {
             showLoading(false, context);
@@ -2171,17 +2183,23 @@ class _OnlineRequestState extends State<OnlineRequest> {
               'CourseCode': againstMarksJson[i]['CDD_Code'].toString(),
               'CourseTitle': againstMarksJson[i]['CourseName'].toString(),
               'Grade': againstMarksJson[i]['Grade'].toString(),
-              'Rason': reasonAgains
+              'Remarks': reasonAgains,
+              'RequestDate': date.toString(),
             },
           ).timeout(Duration(seconds: 35));
 
-          if (response.statusCode == 200) {
-            setState(() {
-              insertAgainsJson = json.decode(response.body);
-            });
+          showLoading(false, context);
 
-            showLoading(false, context);
-          }
+          showfailureSnackBar(context,
+              'Your request submitted failed. Please contact IT department');
+
+          // if (response.statusCode == 200) {
+          //   setState(() {
+          //     insertAgainsJson = json.decode(response.body);
+          //   });
+
+          //   showLoading(false, context);
+          // }
         } catch (x) {
           if (x.toString().contains("TimeoutException")) {
             showLoading(false, context);
@@ -2272,6 +2290,8 @@ class _OnlineRequestState extends State<OnlineRequest> {
               'CourseCode': midMarksJson[i]['CDD_Code'].toString(),
               'CourseTitle': midMarksJson[i]['CourseName'].toString(),
               'AssessmentName': midMarksJson[i]['AssessmentName'].toString(),
+              'DateOfAssessment': date.toString(),
+              'RequestDate': date.toString(),
             },
           ).timeout(Duration(seconds: 35));
 
@@ -2374,17 +2394,20 @@ class _OnlineRequestState extends State<OnlineRequest> {
               'CourseCode': resitMarksJson[i]['CDD_Code'],
               'CDD_ID': resitMarksJson[i]['CDD_ID'].toString(),
               'Batch_ID': resitMarksJson[i]['Batch_ID'].toString(),
+              'RequestDate': date.toString()
             },
           ).timeout(Duration(seconds: 35));
+          showLoading(false, context);
 
-          if (response.statusCode == 200) {
-            setState(() {
-              insertResitMarksJson = json.decode(response.body);
-            });
-            showLoading(false, context);
-          }
+          showfailureSnackBar(context,
+              'Your request submitted failed. Please contact IT department');
+          // if (response.statusCode == 200) {
+          //   setState(() {
+          //     insertResitMarksJson = json.decode(response.body);
+          //   });
+          //   showLoading(false, context);
+          // }
         } catch (x) {
-          print(x);
           if (x.toString().contains("TimeoutException")) {
             showLoading(false, context);
             showError("Time out from server", FontAwesomeIcons.hourglassHalf,
@@ -2427,14 +2450,16 @@ class _OnlineRequestState extends State<OnlineRequest> {
           'InternationalPersonName': internationalName,
           'InternationalMobileNo': internationalNumber,
           'ReturnDate': returnDate,
-          'Reason': reasonPassport
+          'RequestTypeid': requestId,
+          'Reason': reasonPassport,
+          'RequestDate': date.toString()
         },
       ).timeout(Duration(seconds: 35));
 
       if (response.statusCode == 200) {
         setState(
           () {
-            requestAmountJson = json.decode(response.body);
+            studentPassportJson = json.decode(response.body);
           },
         );
         showLoading(false, context);
@@ -2450,7 +2475,11 @@ class _OnlineRequestState extends State<OnlineRequest> {
             getAmount);
       }
     }
+    if (studentPassportJson['success'] == '0') {
+      showfailureSnackBar(context, studentPassportJson['message']);
+    }
+    if (studentPassportJson['success'] == '1') {
+      showSuccessSnackBar(context, studentPassportJson['message']);
+    }
   }
 }
-
-// SP_STUDENTPASSPORT_WITHDRAWALDETAILS

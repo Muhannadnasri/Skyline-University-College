@@ -469,7 +469,10 @@ class _HomeLoginState extends State<HomeLogin> {
                         ),
                       )
                     : SizedBox(),
-        appBar: PreferredSize(
+        appBar: 
+        
+        
+        PreferredSize(
           preferredSize: Size.fromHeight(250.0),
           child: Stack(
             children: <Widget>[
@@ -713,7 +716,7 @@ class _HomeLoginState extends State<HomeLogin> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
+                padding: const EdgeInsets.symmetric(vertical: 30),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[

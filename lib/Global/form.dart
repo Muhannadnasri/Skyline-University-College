@@ -24,6 +24,7 @@ Widget globalForms(BuildContext context, initialValue, validators, onSaveds,
         child: TextFormField(
           // textInputAction: TextInputAction.next,
           initialValue: initialValue,
+          // onChanged: onSaveds,
           onSaved: onSaveds,
           validator: validators,
           keyboardType: keyboardType,
