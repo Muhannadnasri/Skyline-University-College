@@ -15,7 +15,7 @@ Widget globalForms(BuildContext context, initialValue, validators, onSaveds,
         child: Text(
           label,
           style: TextStyle(
-            color: isDark(context) ? Colors.white : Colors.black,
+            color: isDark(context) ? Colors.white : Colors.grey,
           ),
         ),
       ),
