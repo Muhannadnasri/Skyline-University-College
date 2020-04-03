@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
-import 'package:local_auth/auth_strings.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skyline_university/Global/global.dart';
@@ -35,7 +34,7 @@ class _LoginAppState extends State<LoginApp> {
   Widget horizontalLine() => Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.0),
         child: Container(
-          width: ScreenUtil.getInstance().setWidth(120),
+          width: ScreenUtil().setWidth(120),
           height: 1.0,
           color: Colors.black26.withOpacity(.2),
         ),
@@ -44,9 +43,7 @@ class _LoginAppState extends State<LoginApp> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
-    ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
-    ScreenUtil.instance =
-        ScreenUtil(width: 750, height: 1334, allowFontScaling: true);
+
     return new Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -152,7 +149,7 @@ class _LoginAppState extends State<LoginApp> {
               child: Column(
                 children: <Widget>[
                   SizedBox(
-                    height: ScreenUtil.getInstance().setHeight(400),
+                    height: ScreenUtil().setHeight(400),
                   ),
                   Container(
                     decoration: BoxDecoration(
@@ -183,10 +180,10 @@ class _LoginAppState extends State<LoginApp> {
                                   color: isDark(context)
                                       ? Colors.white
                                       : Colors.black,
-                                  fontSize: ScreenUtil.getInstance().setSp(45),
+                                  fontSize: ScreenUtil().setSp(45),
                                   letterSpacing: .6)),
                           SizedBox(
-                            height: ScreenUtil.getInstance().setHeight(30),
+                            height: ScreenUtil().setHeight(30),
                           ),
                           Form(
                             key: _logInForm,
@@ -200,8 +197,8 @@ class _LoginAppState extends State<LoginApp> {
                                               color: isDark(context)
                                                   ? Colors.white
                                                   : Colors.black,
-                                              fontSize: ScreenUtil.getInstance()
-                                                  .setSp(26))),
+                                              fontSize:
+                                                  ScreenUtil().setSp(26))),
                                     ],
                                   ),
                                 ),
@@ -237,8 +234,7 @@ class _LoginAppState extends State<LoginApp> {
                                   ),
                                 ),
                                 SizedBox(
-                                  height:
-                                      ScreenUtil.getInstance().setHeight(30),
+                                  height: ScreenUtil().setHeight(30),
                                 ),
                                 Container(
                                   child: Row(
@@ -248,8 +244,8 @@ class _LoginAppState extends State<LoginApp> {
                                               color: isDark(context)
                                                   ? Colors.white
                                                   : Colors.black,
-                                              fontSize: ScreenUtil.getInstance()
-                                                  .setSp(26))),
+                                              fontSize:
+                                                  ScreenUtil().setSp(26))),
                                     ],
                                   ),
                                 ),
@@ -288,7 +284,7 @@ class _LoginAppState extends State<LoginApp> {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: ScreenUtil.getInstance().setHeight(4),
+                                  height: ScreenUtil().setHeight(4),
                                 ),
                               ],
                             ),
@@ -297,7 +293,7 @@ class _LoginAppState extends State<LoginApp> {
                       ),
                     ),
                   ),
-                  SizedBox(height: ScreenUtil.getInstance().setHeight(60)),
+                  SizedBox(height: ScreenUtil().setHeight(60)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
@@ -308,8 +304,8 @@ class _LoginAppState extends State<LoginApp> {
                           });
                         },
                         child: Container(
-                          width: ScreenUtil.getInstance().setWidth(300),
-                          height: ScreenUtil.getInstance().setHeight(95),
+                          width: ScreenUtil().setWidth(300),
+                          height: ScreenUtil().setHeight(95),
                           decoration: BoxDecoration(
                               gradient: isDark(context)
                                   ? LinearGradient(colors: [

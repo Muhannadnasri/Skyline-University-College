@@ -10,7 +10,6 @@ import 'package:intl/intl.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/homeBox.dart';
-import 'package:skyline_university/Login/loginpage.dart';
 
 void main() => runApp(Home());
 
@@ -185,9 +184,7 @@ class _HomeState extends State<Home> {
           // ],
         ),
         body: Container(
-          
           color: isDark(context) ? Color(0xFF121212) : Colors.grey[100],
-
           child: Column(
             children: <Widget>[
               // sliders.isEmpty
