@@ -41,7 +41,7 @@ class _ComplainsState extends State<Complains> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       bottomNavigationBar: generalAPPtJson.isEmpty

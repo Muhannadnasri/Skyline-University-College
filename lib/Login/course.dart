@@ -38,7 +38,7 @@ class _CoursesState extends State<Course> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Scaffold(
       appBar: appBarLogin(context, widget.name),
       body: courseJson == null || courseJson.isEmpty

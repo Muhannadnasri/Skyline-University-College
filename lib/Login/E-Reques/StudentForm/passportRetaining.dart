@@ -40,7 +40,7 @@ class _PassportRetainingState extends State<PassportRetaining> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Scaffold(
       appBar: appBarLogin(context, 'Passport Retaining'),
       bottomNavigationBar: underTakingJson == null || underTakingJson.isEmpty

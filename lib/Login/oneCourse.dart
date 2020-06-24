@@ -29,7 +29,7 @@ class _OneCoursesState extends State<OneCourse> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Scaffold(
       appBar: appBarLogin(
         context,

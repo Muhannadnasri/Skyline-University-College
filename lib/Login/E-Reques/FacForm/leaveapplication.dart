@@ -53,7 +53,7 @@ class _LeaveApplicationState extends State<LeaveApplication> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       appBar: appBarLogin(context, 'Leave Application'),

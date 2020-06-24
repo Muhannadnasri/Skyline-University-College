@@ -31,7 +31,7 @@ class _PayOnlineState extends State<PayOnline> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Scaffold(
       appBar: appBarLogin(context, 'Pay Online'),
       body: payOnlineJson == null || payOnlineJson.isEmpty

@@ -127,7 +127,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       bottomNavigationBar: onlineRequestTypeJson == null ||

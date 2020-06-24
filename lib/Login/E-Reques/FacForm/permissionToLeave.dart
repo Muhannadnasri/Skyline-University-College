@@ -50,7 +50,7 @@ class _LeaveHolidayState extends State<LeaveHoliday> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       bottomNavigationBar: bottomappBar(

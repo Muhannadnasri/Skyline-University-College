@@ -24,7 +24,7 @@ class _VisitorInfoLanState extends State<VisitorInfoLan> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Scaffold(
         resizeToAvoidBottomPadding: true,
         appBar: appBarLogin(

@@ -31,7 +31,7 @@ class _CourseDetailsState extends State<CourseDetails> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Scaffold(
         appBar: appBarLogin(context, 'Class Details'),
         body: classScheduleCourseJson == null||classScheduleCourseJson.isEmpty

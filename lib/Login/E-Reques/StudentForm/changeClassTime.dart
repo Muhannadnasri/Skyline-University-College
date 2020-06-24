@@ -41,7 +41,7 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       bottomNavigationBar: currentTimeJson == null || currentTimeJson.isEmpty

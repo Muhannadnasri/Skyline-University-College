@@ -33,7 +33,7 @@ class _AdmissionKitState extends State<AdmissionKit> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Scaffold(
       appBar: appBarLogin(context, 'Admission Kit'),
       body: admissionKitJson == null ||

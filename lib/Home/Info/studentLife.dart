@@ -22,7 +22,7 @@ class _StudentLifeState extends State<StudentLife> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       appBar: appBar(context, 'Skyline Info'),

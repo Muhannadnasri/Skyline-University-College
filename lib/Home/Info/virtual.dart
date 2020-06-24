@@ -22,7 +22,7 @@ class _VirtualState extends State<Virtual> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       appBar: appBar(context, 'Virtual Tour'),

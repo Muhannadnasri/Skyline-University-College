@@ -29,7 +29,7 @@ class _HomeAppointmentState extends State<HomeAppointment> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Scaffold(
         body: Container(
           child: ListView(

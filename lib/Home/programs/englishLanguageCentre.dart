@@ -30,7 +30,7 @@ class _EnglishLanguageCentreState extends State<EnglishLanguageCentre> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       appBar: appBar(context, 'English Language Centre'),

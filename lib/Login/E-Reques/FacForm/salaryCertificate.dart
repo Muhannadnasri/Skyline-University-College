@@ -43,7 +43,7 @@ class _SalaryCertificateState extends State<SalaryCertificate> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Scaffold(
       bottomNavigationBar: bottomappBar(
         context,

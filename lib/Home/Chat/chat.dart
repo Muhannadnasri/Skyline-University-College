@@ -19,7 +19,7 @@ super.initState();
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Scaffold(
       appBar: PreferredSize(  preferredSize: Size.fromHeight(60.0),
 

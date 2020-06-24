@@ -54,7 +54,7 @@ class _AdmissionFormState extends State<AdmissionForm> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       appBar: appBar(context, 'Application Form'),

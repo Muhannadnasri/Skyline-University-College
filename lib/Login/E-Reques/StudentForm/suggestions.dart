@@ -41,7 +41,7 @@ class _SuggestionsState extends State<Suggestions> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       bottomNavigationBar: generalAPPtJson.isEmpty

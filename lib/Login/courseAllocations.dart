@@ -27,7 +27,7 @@ class _CourseAllocationsState extends State<CourseAllocations> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Scaffold(
         appBar: appBarLogin(context, 'Class Morning'),
         body: widget.data == null || widget.data.isEmpty

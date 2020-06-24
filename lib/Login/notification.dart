@@ -33,7 +33,7 @@ class _NotificationsState extends State<Notifications> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Scaffold(
         appBar: appBarLogin(context, 'Notifications'),
         body: notificationsJson == null

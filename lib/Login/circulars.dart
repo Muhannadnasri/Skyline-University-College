@@ -36,7 +36,7 @@ class _CircularsState extends State<Circulars> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Scaffold(
         appBar: appBarLogin(context, "Circulars"),
         body: circularsJson.isEmpty|| circularsJson.isEmpty

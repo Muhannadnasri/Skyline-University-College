@@ -53,7 +53,7 @@ class _PassportWithdrawalState extends State<PassportWithdrawal> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Scaffold(
       resizeToAvoidBottomPadding: true, //todo: On all Form
       appBar: appBarLogin(context, 'Passport Withdrawal'),

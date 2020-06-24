@@ -31,7 +31,7 @@ class _UndergraduateITState extends State<UndergraduateIT> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       appBar: appBar(context, 'School of Information Technology'),

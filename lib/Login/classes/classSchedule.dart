@@ -32,7 +32,7 @@ class _ClassScheduleState extends State<ClassSchedule> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Scaffold(
         appBar: appBarLogin(context, '${widget.title}'),
         body: classScheduleJson == null || classScheduleJson.isEmpty

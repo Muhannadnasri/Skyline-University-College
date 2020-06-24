@@ -87,7 +87,7 @@ class _HomeLoginState extends State<HomeLogin> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
 
     return WillPopScope(
       onWillPop: () => _exitApp(context),

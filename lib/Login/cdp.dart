@@ -44,7 +44,7 @@ class _CDPDownloadState extends State<CDPDownload>
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Scaffold(
       appBar: appBarLogin(context, 'CDP'),
       body: cdpCourseJson == null || cdpCourseJson.isEmpty

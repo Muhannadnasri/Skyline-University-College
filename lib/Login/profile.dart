@@ -30,7 +30,7 @@
 
 //   @override
 //   Widget build(BuildContext context) {
-//     SystemChrome.setEnabledSystemUIOverlays([]);
+//     
 //     return Scaffold(
 //       appBar: appBar(context, 'Announcements'),
 //       body: Stack(

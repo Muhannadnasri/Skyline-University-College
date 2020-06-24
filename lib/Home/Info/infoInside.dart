@@ -40,7 +40,7 @@ class _InfoinsideState extends State<Infoinside> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       appBar: appBar(context, widget.infoName.toString()),

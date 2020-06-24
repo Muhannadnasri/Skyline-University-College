@@ -32,7 +32,7 @@ class _AssessmentMarkCoursesState extends State<AssessmentMarkCourses> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Scaffold(
         appBar: appBarLogin(context, 'Assessment Courses'),
         body: assessmentMarkCoursesJson == null ||

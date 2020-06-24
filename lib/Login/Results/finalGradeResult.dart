@@ -28,8 +28,6 @@ class _FinalTermResultsState extends State<FinalTermResults> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
-
     return Scaffold(
       appBar: appBarLogin(context, 'Final Reults'),
       body: finalTermResultsJson == null || finalTermResultsJson.isEmpty
@@ -319,16 +317,12 @@ class _FinalTermResultsState extends State<FinalTermResults> {
     try {
       http.Response response = await http.post(
         Uri.encodeFull(
-            "https://skylineportal.com/moappad/api/web/getFinalTermResults"),
+            "https://skylineportal.com/moappad/api/test/getFinalTermResults"),
         headers: {
           "API-KEY": API,
         },
         body: {
           'user_id': username,
-          'usertype': studentJson['data']['user_type'],
-          'ipaddress': '1',
-          'deviceid': '1',
-          'devicename': '1',
         },
       ).timeout(Duration(seconds: 35));
 

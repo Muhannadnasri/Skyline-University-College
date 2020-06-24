@@ -49,7 +49,7 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
 
     return Scaffold(
       appBar: appBarLogin(context, 'Attendance Calendar'),

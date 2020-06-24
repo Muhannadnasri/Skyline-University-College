@@ -32,7 +32,7 @@ class _MyAdvisorState extends State<MyAdvisor> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Scaffold(
         bottomNavigationBar: myAdvisorJson == null || myAdvisorJson.isEmpty
             ? SizedBox()

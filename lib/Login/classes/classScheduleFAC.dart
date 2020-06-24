@@ -30,7 +30,7 @@ class _CourseAllocationState extends State<CourseAllocation> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Scaffold(
         appBar: appBarLogin(context, 'Course Faculty'),
         body: courseAllocationJson == null || courseAllocationJson.isEmpty

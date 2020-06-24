@@ -41,7 +41,7 @@ class _GraduateProgramState extends State<GraduateProgram> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Scaffold(
         resizeToAvoidBottomPadding: true,
         appBar: appBar(context, 'Program'),

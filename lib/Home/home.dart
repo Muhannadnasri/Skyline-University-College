@@ -129,7 +129,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return WillPopScope(
       child: Scaffold(
         key: _scaffoldKey,

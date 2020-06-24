@@ -30,7 +30,7 @@ class _HomeERequestState extends State<HomeERequest> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Scaffold(
         body: studentJson['data']['user_type'] == "STUDENT"
             ? Container(

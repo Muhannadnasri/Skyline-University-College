@@ -30,7 +30,7 @@ class _HomeInfoState extends State<HomeInfo> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Scaffold(
       key: _scaffoldKey,
       resizeToAvoidBottomPadding: true,

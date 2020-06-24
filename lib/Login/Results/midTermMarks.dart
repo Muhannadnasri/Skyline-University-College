@@ -29,7 +29,7 @@ class _MidTermMarksState extends State<MidTermMarks> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
 
     return Scaffold(
       appBar: appBarLogin(context, 'Mid Term Marks'),

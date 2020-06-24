@@ -44,7 +44,7 @@ class _BookRequisitionState extends State<BookRequisition> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       bottomNavigationBar: bottomappBar(

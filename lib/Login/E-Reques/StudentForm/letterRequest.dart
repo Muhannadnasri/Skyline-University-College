@@ -42,7 +42,7 @@ class _LetterRequestState extends State<LetterRequest> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       bottomNavigationBar: BottomAppBar(

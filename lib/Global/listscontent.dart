@@ -32,7 +32,6 @@ class _ListsContentState extends State<ListsContent> {
 
   @override
 Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
 
     return Scaffold(
       resizeToAvoidBottomPadding: true,

@@ -78,7 +78,7 @@ class _VisitorInfoState extends State<VisitorInfo> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Directionality(
       textDirection: widget.languageAr ? TextDirection.rtl : TextDirection.ltr,
       child: Scaffold(

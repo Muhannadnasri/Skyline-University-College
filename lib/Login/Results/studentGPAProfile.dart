@@ -29,11 +29,11 @@ class _StudentGPAProfileState extends State<StudentGPAProfile> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
 
     return Scaffold(
       appBar: appBarLogin(context, 'GPA'),
-      body: studentGPAProfileJson.isEmpty || studentGPAProfileJson == null
+      body: studentGPAProfileJson == null || studentGPAProfileJson.isEmpty
           ? exception(
               context,
             )

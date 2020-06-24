@@ -81,7 +81,8 @@ import 'Login/notification.dart';
 import 'Login/payOnline.dart';
 
 void main() async {
-  SystemChrome.setEnabledSystemUIOverlays([]);
+  // SystemChrome.setEnabledSystemUIOverlays([]);
+  // SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
   runApp(
     new MyApp(),
   );

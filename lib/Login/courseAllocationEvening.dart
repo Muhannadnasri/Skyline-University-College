@@ -24,7 +24,7 @@ class _CourseAllocationEveningState extends State<CourseAllocationEvening> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    
     return Scaffold(
         appBar: appBarLogin(context, 'Class Evening'),
         body: courseAllocationEveningJson == null ||
