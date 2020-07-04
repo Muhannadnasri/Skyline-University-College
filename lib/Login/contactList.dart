@@ -34,7 +34,6 @@ class _ContactListState extends State<ContactList> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: appBarLogin(context, 'Contact List'),
       body: itemsJson == null || itemsJson.isEmpty
@@ -46,7 +45,8 @@ class _ContactListState extends State<ContactList> {
                   expandedHeight: 50.0,
                   snap: true,
                   floating: true,
-                  pinned: false,backgroundColor: Colors.transparent,
+                  pinned: false,
+                  backgroundColor: Colors.transparent,
                   flexibleSpace: Column(
                     children: <Widget>[
                       Padding(
@@ -151,6 +151,20 @@ class _ContactListState extends State<ContactList> {
                                     color: isDark(context)
                                         ? Colors.white
                                         : Colors.black)),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              launch(
+                                  'msteams://teams.microsoft.com/l/chat/0/0?users=' +
+                                      itemsToShow[index]['OfficeMail']
+                                          .toString());
+                            },
+                            child: Container(
+                              child: Icon(Icons.send),
+                            ),
                           ),
                           SizedBox(
                             height: 5,

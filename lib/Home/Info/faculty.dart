@@ -12,6 +12,7 @@ import 'package:skyline_university/Global/appBar.dart';
 import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() => runApp(Faculty());
 
@@ -39,7 +40,6 @@ class _FacultyState extends State<Faculty> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       appBar: appBar(context, 'Faculty members'),
@@ -89,6 +89,9 @@ class _FacultyState extends State<Faculty> {
                                             ),
                                           ],
                                         ),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
                                       ),
                                       SizedBox(
                                         height: 10,

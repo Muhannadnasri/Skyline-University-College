@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
@@ -31,10 +30,9 @@ class _CourseDetailsState extends State<CourseDetails> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
         appBar: appBarLogin(context, 'Class Details'),
-        body: classScheduleCourseJson == null||classScheduleCourseJson.isEmpty
+        body: classScheduleCourseJson == null || classScheduleCourseJson.isEmpty
             ? exception(context)
             : Container(
                 child: ListView.builder(
@@ -91,6 +89,21 @@ class _CourseDetailsState extends State<CourseDetails> {
                                         ),
                                       ),
                                     ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          //Group ID:
+                                          launch(
+                                              'msteams://teams.microsoft.com/l/channel/0/');
+                                        });
+                                      },
+                                      child: Container(
+                                        child: Icon(
+                                          Icons.send,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    )
                                   ],
                                 ),
                               ),

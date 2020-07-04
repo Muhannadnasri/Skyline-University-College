@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/homeBox.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() => runApp(Home());
 
@@ -129,7 +130,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    
     return WillPopScope(
       child: Scaffold(
         key: _scaffoldKey,
@@ -354,6 +354,17 @@ class _HomeState extends State<Home> {
                                   Colors.white,
                                   Colors.black,
                                   'Visitor Info',
+                                  Colors.white,
+                                  Colors.black,
+                                ),
+                                homeBox(
+                                  context,
+                                  'images-white/fees.png',
+                                  'images/fees.png',
+                                  "/loginFees",
+                                  Colors.white,
+                                  Colors.black,
+                                  'Pay Fees',
                                   Colors.white,
                                   Colors.black,
                                 ),

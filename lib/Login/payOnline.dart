@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/global.dart';
+import 'package:skyline_university/Home/home.dart';
 
 void main() => runApp(PayOnline());
 
@@ -31,9 +33,55 @@ class _PayOnlineState extends State<PayOnline> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
-      appBar: appBarLogin(context, 'Pay Online'),
+      appBar: GradientAppBar(
+        centerTitle: true,
+        leading: GestureDetector(
+            onTap: () {
+              setState(() {
+                // logOut(context);
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => Home()),
+                    (Route<dynamic> route) => false);
+              });
+            },
+            child: Icon(
+              FontAwesomeIcons.home,
+              color: Colors.white,
+              size: 17,
+            )),
+        title: Text(
+          'Pay Online',
+          style: TextStyle(fontSize: 17),
+        ),
+        gradient: isDark(context)
+            ? LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xFF121212),
+                  Color(0xFF121212),
+                ],
+                stops: [
+                  0.7,
+                  0.9,
+                ],
+              )
+            : LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xFF104C90),
+                  Color(0xFF3773AC),
+                ],
+                stops: [
+                  0.7,
+                  0.9,
+                ],
+              ),
+      ),
       body: payOnlineJson == null || payOnlineJson.isEmpty
           ? exception(context)
           : WebviewScaffold(
@@ -69,6 +117,7 @@ class _PayOnlineState extends State<PayOnline> {
       if (response.statusCode == 200) {
         setState(() {
           payOnlineJson = json.decode(response.body);
+          print(payOnlineJson.toString());
         });
         showLoading(false, context);
         if (payOnlineJson['success'] == '0') {

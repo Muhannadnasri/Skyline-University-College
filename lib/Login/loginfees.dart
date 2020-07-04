@@ -1,29 +1,29 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:html/parser.dart';
 import 'package:http/http.dart' as http;
 import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skyline_university/Global/global.dart';
-
+import 'package:skyline_university/Global/zigzag.dart';
 import 'package:skyline_university/Login/home.dart';
+import 'package:skyline_university/Login/payOnline.dart';
 import 'package:skyline_university/widgets/custom_shape.dart';
 import 'package:skyline_university/widgets/responsive_ui.dart';
 import 'package:skyline_university/widgets/textformfield.dart';
 
 void main() => runApp(MaterialApp(
-      home: LoginApp(),
+      home: LoginFees(),
     ));
 
-class LoginApp extends StatefulWidget {
+class LoginFees extends StatefulWidget {
   @override
-  _LoginAppState createState() => new _LoginAppState();
+  _LoginFeesState createState() => new _LoginFeesState();
 }
 
-class _LoginAppState extends State<LoginApp> {
+class _LoginFeesState extends State<LoginFees> {
   double _height;
   double _width;
   double _pixelRatio;
@@ -91,140 +91,6 @@ class _LoginAppState extends State<LoginApp> {
           ),
         ),
       ),
-
-      //  GestureDetector(
-      //   onTap: () {
-      //     FocusScope.of(context).unfocus();
-      //   },
-      //   child: Column(
-      //     // alignment: Alignment.topCenter,
-      //     children: <Widget>[
-
-      //       Expanded(
-      //         flex: 1,
-      //         child: ListView(
-      //           children: <Widget>[
-      //             Padding(
-      //               padding: const EdgeInsets.only(right: 30, left: 30),
-      //               child: Form(
-      //                 key: _logInForm,
-      //                 child: Column(
-      //                   children: <Widget>[
-      //                     Align(
-      //                         alignment: Alignment.centerLeft,
-      //                         child: Text('Username')),
-      //                     TextField(
-      //                       decoration: InputDecoration(
-      //                           enabledBorder: UnderlineInputBorder(
-      //                             borderSide:
-      //                                 BorderSide(color: Color(0xFF144C90)),
-      //                           ),
-      //                           focusedBorder: UnderlineInputBorder(
-      //                             borderSide:
-      //                                 BorderSide(color: Color(0xFF808080)),
-      //                           ),
-      //                           border: InputBorder.none,
-      //                           prefixIcon: Icon(
-      //                             FontAwesomeIcons.user,
-      //                             color: Color(0xFF144C90),
-      //                             size: 20,
-      //                           )
-      //                           // hintText: 'Enter a search term'
-      //                           ),
-      //                     ),
-      //                   ],
-      //                 ),
-      //               ),
-      //             ),
-      //             SizedBox(
-      //               height: 30,
-      //             ),
-      //             Padding(
-      //               padding: const EdgeInsets.only(right: 30, left: 30),
-      //               child: Container(
-      //                 child: Column(
-      //                   children: <Widget>[
-      //                     Align(
-      //                         alignment: Alignment.centerLeft,
-      //                         child: Text('Password')),
-      //                     TextField(
-      //                       obscureText: _obscuredText,
-      //                       decoration: InputDecoration(
-      //                           focusedBorder: UnderlineInputBorder(
-      //                             borderSide:
-      //                                 BorderSide(color: Color(0xFF144C90)),
-      //                           ),
-      //                           enabledBorder: UnderlineInputBorder(
-      //                             borderSide:
-      //                                 BorderSide(color: Color(0xFF808080)),
-      //                           ),
-      //                           border: InputBorder.none,
-      //                           suffixIcon: GestureDetector(
-      //                               onTap: () {
-      //                                 setState(() {
-      //                                   _toggle();
-      //                                 });
-      //                               },
-      //                               child: Icon(
-      //                                 _obscuredText
-      //                                     ? Icons.visibility_off
-      //                                     : Icons.visibility,
-      //                                 size: 20,
-      //                                 color: Color(0xFF144C90),
-      //                               )),
-      //                           prefixIcon: Icon(
-      //                             FontAwesomeIcons.key,
-      //                             size: 20,
-      //                             color: Color(0xFF144C90),
-      //                           )),
-      //                     ),
-      //                   ],
-      //                 ),
-      //               ),
-      //             ),
-      //             SizedBox(
-      //               height: 30,
-      //             ),
-      //             Container(
-      //               margin: const EdgeInsets.only(top: 20.0),
-      //               padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-      //               child: new Row(
-      //                 children: <Widget>[
-      //                   new Expanded(
-      //                     child: FlatButton(
-      //                       shape: new RoundedRectangleBorder(
-      //                           borderRadius: new BorderRadius.circular(30.0)),
-      //                       splashColor: Color(0xFF567191),
-      //                       color: Color(0xFF144C90),
-      //                       child: new Row(
-      //                         mainAxisAlignment: MainAxisAlignment.center,
-      //                         children: <Widget>[
-      //                           new Padding(
-      //                             padding: const EdgeInsets.only(
-      //                                 top: 20.0, bottom: 20.0),
-      //                             child: Text(
-      //                               'Login',
-      //                               style: TextStyle(color: Colors.white),
-      //                             ),
-      //                           ),
-      //                         ],
-      //                       ),
-      //                       onPressed: () {
-      //                         setState(() {
-      //                           logIn();
-      //                         });
-      //                       },
-      //                     ),
-      //                   ),
-      //                 ],
-      //               ),
-      //             ),
-      //           ],
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      // ),
     );
   }
 
@@ -413,7 +279,6 @@ class _LoginAppState extends State<LoginApp> {
     if (_logInForm.currentState.validate()) {
       _logInForm.currentState.save();
     } else {
-      return null;
       // return showErrorInput('Please check your input');
     }
     Future.delayed(Duration.zero, () {
@@ -440,48 +305,16 @@ class _LoginAppState extends State<LoginApp> {
           else
             studentJson = json.decode(response.body);
         });
-
-        // switch (studentJson['success']) {
-        //   case "1":
-        //     {
-        //       SharedPreferences prefs = await SharedPreferences.getInstance();
-        //       prefs.setString('username', username);
-        //       prefs.setString('password', password);
-        //       loggedin = true;
-        //       showLoading(false, context);
-        //       Navigator.pushAndRemoveUntil(
-        //           context,
-        //           MaterialPageRoute(
-        //               builder: (BuildContext context) => HomeLogin()),
-        //           (Route<dynamic> route) => false);
-        //     }
-        //     break;
-        //   case "0":
-        //     {
-        //       username = '';
-        //       password = '';
-        //       loggedin = false;
-        //       SharedPreferences prefs = await SharedPreferences.getInstance();
-        //       prefs.setString('username', username);
-        //       prefs.setString('password', password);
-        //       showLoading(false, context);
-        //       final snackBar =
-        //           SnackBar(content: Text('Invalid users credentials..!'));
-        //       _scaffoldKey.currentState.showSnackBar(snackBar);
-
-        //       studentJson = {};
-        //     }
-        // }
-
         if (studentJson['success'] == "1") {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           prefs.setString('username', username);
           prefs.setString('password', password);
           loggedin = true;
           showLoading(false, context);
+
           Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (BuildContext context) => HomeLogin()),
+              MaterialPageRoute(builder: (BuildContext context) => PayOnline()),
               (Route<dynamic> route) => false);
         } else if (studentJson['message'] == "Invalid users credentials..!") {
           username = '';
@@ -517,10 +350,9 @@ class _LoginAppState extends State<LoginApp> {
         showError("Time out from server", FontAwesomeIcons.hourglassHalf,
             context, logIn);
       } else {
-        print(x);
         showLoading(false, context);
-        // showError(
-        //     "Sorry, we can't connect", Icons.perm_scan_wifi, context, logIn);
+        showError(
+            "Sorry, we can't connect", Icons.perm_scan_wifi, context, logIn);
       }
     }
   }
@@ -547,12 +379,12 @@ class _LoginAppState extends State<LoginApp> {
         });
 
         if (studentJson["success"] == "1") {
-          print(studentJson['user_id']);
           loggedin = true;
           showLoading(false, context);
+
           Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (BuildContext context) => HomeLogin()),
+              MaterialPageRoute(builder: (BuildContext context) => PayOnline()),
               (Route<dynamic> route) => false);
         } else if (studentJson["success"] == "0") {
           username = '';
@@ -571,6 +403,7 @@ class _LoginAppState extends State<LoginApp> {
         showError("Time out from server", FontAwesomeIcons.hourglassHalf,
             context, qLogin);
       } else {
+//ToDo:here
         showLoading(false, context);
 //
         showError(

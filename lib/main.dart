@@ -16,7 +16,9 @@ import 'Home/Info/faculty.dart';
 import 'Home/Info/info.dart';
 import 'Home/Info/infoDetails.dart';
 import 'Home/Info/studentLife.dart';
+import 'Home/Info/studentservicesdepartments.dart';
 import 'Home/Info/virtual.dart';
+import 'Home/Info/virtualsupport.dart';
 import 'Home/Location/location.dart';
 import 'Home/home.dart';
 import 'Home/programs/ProfessionalCourses.dart';
@@ -75,6 +77,7 @@ import 'Login/courseAllocations.dart';
 import 'Login/courses.dart';
 import 'Login/feesHome.dart';
 import 'Login/home.dart';
+import 'Login/loginfees.dart';
 import 'Login/loginpage.dart';
 import 'Login/myAdvisor.dart';
 import 'Login/notification.dart';
@@ -133,6 +136,8 @@ class MyAppState extends State<MyApp> {
         routes: {
           '/': (context) => Home(),
           '/LoginApp': (context) => LoginApp(),
+          '/loginFees': (context) => LoginFees(),
+
           '/Location': (context) => Location(),
           '/HomeInfo': (context) => HomeInfo(),
           '/Chat': (context) => Chat(),
@@ -307,6 +312,9 @@ class MyAppState extends State<MyApp> {
           // '/announcements': (context) => Announcements(),
           '/notifications': (context) => Notifications(),
           '/cdpFaculty': (context) => CdpFaculty(),
+          '/virtualSupport': (context) => VirtualSupport(),
+          '/studentServicesDepartments': (context) =>
+              StudentServicesDepartments(),
         },
       ),
     );
