@@ -30,7 +30,6 @@ class _InfoState extends State<Info> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       appBar: appBar(context, 'Skyline Info'),

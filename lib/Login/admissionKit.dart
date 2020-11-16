@@ -28,12 +28,11 @@ class _AdmissionKitState extends State<AdmissionKit> {
     super.initState();
     getMyLedger();
     getAdmissionKit();
-    getInvoices();
+    // getInvoices();
   }
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: appBarLogin(context, 'Admission Kit'),
       body: admissionKitJson == null ||
@@ -44,7 +43,6 @@ class _AdmissionKitState extends State<AdmissionKit> {
               invoicesJson.isEmpty
           ? exception(context)
           : Container(
-
               child: Row(
                 children: <Widget>[
                   Column(
@@ -66,10 +64,11 @@ class _AdmissionKitState extends State<AdmissionKit> {
                             children: <Widget>[
                               Padding(
                                 padding: const EdgeInsets.only(left: 15.0),
-                                child: Text("Download Your Ledger Fees", style: TextStyle(
-                                          color: isDark(context)
-                                              ? Colors.white
-                                              : Colors.black)),
+                                child: Text("Download Your Ledger Fees",
+                                    style: TextStyle(
+                                        color: isDark(context)
+                                            ? Colors.white
+                                            : Colors.black)),
                               ),
                               Padding(
                                 padding:
@@ -108,10 +107,11 @@ class _AdmissionKitState extends State<AdmissionKit> {
                             children: <Widget>[
                               Padding(
                                 padding: const EdgeInsets.only(left: 15.0),
-                                child: Text("Download Your Admission Kit", style: TextStyle(
-                                          color: isDark(context)
-                                              ? Colors.white
-                                              : Colors.black)),
+                                child: Text("Download Your Admission Kit",
+                                    style: TextStyle(
+                                        color: isDark(context)
+                                            ? Colors.white
+                                            : Colors.black)),
                               ),
                               Padding(
                                 padding:
@@ -136,7 +136,50 @@ class _AdmissionKitState extends State<AdmissionKit> {
                           ),
                         ),
                       ),
-                     
+                      Container(
+                        height: 50,
+                        width: MediaQuery.of(context).size.width,
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          elevation: 10,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(left: 15.0),
+                                child: Text("Download Your Invoice",
+                                    style: TextStyle(
+                                        color: isDark(context)
+                                            ? Colors.white
+                                            : Colors.black)),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(right: 15.0, top: 5),
+                                child: InkWell(
+                                  child: Text(
+                                    'Download',
+                                    style: TextStyle(color: Colors.blue),
+                                  ),
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => PdfView(
+                                            url:
+                                                "http://sky.skylineuniversity.ac.ae/page/PrintLMS.aspx?Id=$username&Type=INVOICE&Code=BEC"),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ],
@@ -225,44 +268,44 @@ class _AdmissionKitState extends State<AdmissionKit> {
     }
   }
 
-  Future getInvoices() async {
-    Future.delayed(Duration.zero, () {});
+  // Future getInvoices() async {
+  //   Future.delayed(Duration.zero, () {});
 
-    try {
-      http.Response response = await http.post(
-        Uri.encodeFull(
-            "https://skylineportal.com/moappad/api/web/getDownloadLink"),
-        headers: {
-          "API-KEY": API,
-        },
-        body: {
-          'user_id': username,
-          'type': 'invoices',
-          'usertype': studentJson['data']['user_type'],
-          'ipaddress': '1',
-          'deviceid': '1',
-          'devicename': '1'
-        },
-      ).timeout(Duration(seconds: 35));
+  //   try {
+  //     http.Response response = await http.post(
+  //       Uri.encodeFull(
+  //           "http://sky.skylineuniversity.ac.ae/page/PrintLMS.aspx?Id=$username&Type=INVOICE&Code=BEC"),
+  //       headers: {
+  //         "API-KEY": API,
+  //       },
+  //       // body: {
+  //       //   'user_id': username,
+  //       //   'type': 'invoices',
+  //       //   'usertype': studentJson['data']['user_type'],
+  //       //   'ipaddress': '1',
+  //       //   'deviceid': '1',
+  //       //   'devicename': '1'
+  //       // },
+  //     ).timeout(Duration(seconds: 35));
 
-      if (response.statusCode == 200) {
-        setState(() {
-          invoicesJson = json.decode(response.body);
-        });
+  //     if (response.statusCode == 200) {
+  //       setState(() {
+  //         invoicesJson = json.decode(response.body);
+  //       });
 
-        showLoading(false, context);
-      }
-    } catch (x) {
-      if (x.toString().contains("TimeoutException")) {
-        showLoading(false, context);
+  //       showLoading(false, context);
+  //     }
+  //   } catch (x) {
+  //     if (x.toString().contains("TimeoutException")) {
+  //       showLoading(false, context);
 
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-            context, getInvoices);
-      } else {
-        showLoading(false, context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-            getInvoices);
-      }
-    }
-  }
+  //       showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+  //           context, getInvoices);
+  //     } else {
+  //       showLoading(false, context);
+  //       showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+  //           getInvoices);
+  //     }
+  //   }
+  // }
 }
