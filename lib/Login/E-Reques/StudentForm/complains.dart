@@ -6,10 +6,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/bottomAppBar.dart';
-
-import 'package:skyline_university/Global/dropDownWidget.dart';
-import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
+
+import 'dropList.dart';
 
 void main() => runApp(Complains());
 
@@ -20,136 +19,140 @@ class Complains extends StatefulWidget {
   }
 }
 
-final _generalAppointment = GlobalKey<FormState>();
+final _complainsAppointmentForm = GlobalKey<FormState>();
 
 // Map<String, int> body;
 
 class _ComplainsState extends State<Complains> {
-  List generalAPPtJson = [];
+  var caseIDCnt = TextEditingController();
+  var caseNameCnt = TextEditingController();
 
-  Map generalRequestJson = {};
-  String studentDescription = '';
-
-  String _categoryID;
+  String remark = '';
 
   @override
   void initState() {
     super.initState();
-
-    getGeneralApptCatDeptTime();
   }
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       resizeToAvoidBottomPadding: true,
-      bottomNavigationBar: generalAPPtJson.isEmpty
-          ? Container()
-          : bottomappBar(
-              context,
-              () {
-                setState(() {
-                  if (_generalAppointment.currentState.validate() &&
-                      _categoryID != null) {
-                    _generalAppointment.currentState.save();
-                    sendComplainsAppointment();
-                  }
-                });
-              },
-            ),
+      bottomNavigationBar: bottomappBar(
+        context,
+        () {
+          setState(() {
+            if (_complainsAppointmentForm.currentState.validate() &&
+                caseIDCnt.text != '') {
+              _complainsAppointmentForm.currentState.save();
+              sendComplainsAppointment();
+            }
+          });
+        },
+      ),
       appBar: appBarLogin(context, 'Complains'),
-      body: generalAPPtJson.isEmpty
-          ? Container()
-          : GestureDetector(
-              onTap: () {
-                FocusScope.of(context).requestFocus(new FocusNode());
-              },
-              child: ListView(
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(new FocusNode());
+        },
+        child: ListView(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(25.0),
+              child: Column(
                 children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      SizedBox(
-                        height: 25,
-                      ),
-                      dropDownWidget(
-                          context,
-                          'Select Option',
-                          _categoryID,
-                          generalAPPtJson,
-                          'CATEGORY_ID',
-                          'CATEGORY_DESCRIPTION', (value) {
-                        setState(() {
-                          _categoryID = value;
-                        });
-                      }, 'Case Category'),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Form(
-                        key: _generalAppointment,
-                        child: globalForms(
-                          context,
-                          '',
-                          (String value) {
-                            if (value.trim().isEmpty) {
-                              return 'Reason is required';
-                            }
-                            return null;
-                          },
-                          (x) {
-                            setState(() {
-                              studentDescription = x;
-                            });
-                          },
-                          'Reason',
-                          TextInputType.text,
-                        ),
-                      ),
-                    ],
-                  ),
+                  requestCaseWidget(),
+                  remarkAndAddressWidget(),
                 ],
               ),
             ),
+          ],
+        ),
+      ),
     );
   }
 
-  Future getGeneralApptCatDeptTime() async {
-    Future.delayed(Duration.zero, () {
-      showLoading(true, context);
-    });
-
-    try {
-      final response = await http.post(
-        Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/test/GeneralApptCatDeptTime'),
-        headers: {
-          "API-KEY": API,
-        },
-        body: {},
-      ).timeout(Duration(seconds: 35));
-
-      if (response.statusCode == 200) {
-        setState(
-          () {
-            generalAPPtJson = json.decode(response.body)['data']['category'];
+  Widget requestCaseWidget() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Case Category',
+          style:
+              TextStyle(color: isDark(context) ? Colors.white : Colors.black),
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DropList(
+                  type: 'complaints',
+                ),
+              ),
+            ).then((val) async {
+              setState(() {
+                // miscName = val['MiscName'];
+                // miscID = val['MiscID'];
+                caseNameCnt.text = val['CATEGORY_DESCRIPTION'];
+                caseIDCnt.text = val['CATEGORY_ID'].toString();
+              });
+            });
           },
-        );
+          child: AbsorbPointer(
+            child: TextFormField(
+              validator: (x) => x.isEmpty ? "Please select request type" : null,
+              onChanged: (x) {
+                setState(() {
+                  // isEditing = true;
+                });
+              },
+              controller: caseNameCnt,
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 25,
+        ),
+      ],
+    );
+  }
 
-        showLoading(false, context);
-      }
-    } catch (x) {
-      if (x.toString().contains("TimeoutException")) {
-        showLoading(false, context);
-
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-            context, getGeneralApptCatDeptTime);
-      } else {
-        showLoading(false, context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-            getGeneralApptCatDeptTime);
-      }
-    }
+  Widget remarkAndAddressWidget() {
+    return Form(
+      key: _complainsAppointmentForm,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Remarks',
+            style:
+                TextStyle(color: isDark(context) ? Colors.white : Colors.black),
+          ),
+          TextFormField(
+            validator: (x) => x.isEmpty ? "Please enter remark" : null,
+            onChanged: (x) {
+              setState(() {
+                // isEditing = true;
+              });
+            },
+            // initialValue: widget.sessionId == null
+            //     ? ''
+            //     : widget.sessionInfo['remarks'],
+            onSaved: (x) {
+              setState(() {
+                remark = x;
+              });
+              // sessionRemarks = x;
+            },
+            keyboardType: TextInputType.text,
+          ),
+          SizedBox(
+            height: 25,
+          ),
+        ],
+      ),
+    );
   }
 
   Future sendComplainsAppointment() async {
@@ -167,14 +170,22 @@ class _ComplainsState extends State<Complains> {
         body: {
           'Stud_ID': username,
           'CASETYPE_ID': '2',
-          'CATEGORY_ID': _categoryID.toString(),
-          'StudentDescription': studentDescription,
+          'CATEGORY_ID': caseIDCnt.text.toString(),
+          'StudentRemarks': remark.toString(),
         },
       );
-      showLoading(false, context);
+      if (response.statusCode == 200) {
+        showLoading(false, context);
 
-      showSuccessSnackBar(
-          context, 'Your request has been successfully submitted');
+        vottomSheetSuccess(context);
+      } else {
+        showLoading(false, context);
+
+        bottomSheetFailure(context);
+      }
+
+      // showSuccessSnackBar(
+      //     context, 'Your request has been successfully submitted');
 
       // if (response.statusCode == 200) {
       //   setState(

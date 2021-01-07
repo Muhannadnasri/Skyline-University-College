@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
 import 'package:skyline_university/Global/appBar.dart';
-import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/global.dart';
-import 'package:skyline_university/Global/htmlSecation.dart';
 
 void main() => runApp(Infoinside());
 
@@ -40,7 +36,6 @@ class _InfoinsideState extends State<Infoinside> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       appBar: appBar(context, widget.infoName.toString()),
@@ -94,7 +89,7 @@ class _InfoinsideState extends State<Infoinside> {
                 ),
               )
             : ListView.builder(
-              shrinkWrap: true,
+                shrinkWrap: true,
                 physics: ClampingScrollPhysics(),
                 itemCount: widget.infoContents.length,
                 itemBuilder: (BuildContext context, int index) {

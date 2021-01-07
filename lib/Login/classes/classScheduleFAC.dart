@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
@@ -21,7 +20,7 @@ class CourseAllocation extends StatefulWidget {
 
 class _CourseAllocationState extends State<CourseAllocation> {
   List courseAllocationJson = [];
-
+  bool isLoading = true;
   @override
   void initState() {
     super.initState();
@@ -30,11 +29,10 @@ class _CourseAllocationState extends State<CourseAllocation> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
         appBar: appBarLogin(context, 'Course Faculty'),
         body: courseAllocationJson == null || courseAllocationJson.isEmpty
-            ? exception(context)
+            ? exception(context, isLoading)
             : Container(
                 child: Column(
                   children: <Widget>[
@@ -321,6 +319,7 @@ class _CourseAllocationState extends State<CourseAllocation> {
               json.decode(response.body)['data']['evening'];
           courseAllocationWeekendJson =
               json.decode(response.body)['data']['weekend'];
+          isLoading = false;
         });
       }
       showLoading(false, context);

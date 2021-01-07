@@ -22,7 +22,7 @@ class GetGPARequirments extends StatefulWidget {
 
 class _GetGPARequirmentsState extends State<GetGPARequirments> {
   List gpaRequirmentsJson = [];
-
+  bool isLoading = true;
   @override
   void initState() {
     super.initState();
@@ -31,14 +31,13 @@ class _GetGPARequirmentsState extends State<GetGPARequirments> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
         appBar: appBarLogin(context, 'GPA Requirments'),
         body:
 
             // null
             gpaRequirmentsJson == null
-                ? exception(context)
+                ? exception(context, isLoading)
                 : Container(
                     child: ListView.builder(
                       itemCount: gpaRequirmentsJson.length,
@@ -105,9 +104,7 @@ class _GetGPARequirmentsState extends State<GetGPARequirments> {
                                   child: Padding(
                                     padding: const EdgeInsets.only(left: 15.0),
                                     child: Text(
-                                      gpaRequirmentsJson
-                                             [index]
-                                              ['Requirement'],
+                                      gpaRequirmentsJson[index]['Requirement'],
                                       style: TextStyle(
                                           color: isDark(context)
                                               ? Colors.white
@@ -146,6 +143,7 @@ class _GetGPARequirmentsState extends State<GetGPARequirments> {
       if (response.statusCode == 200) {
         setState(() {
           gpaRequirmentsJson = json.decode(response.body)['data'];
+          isLoading = false;
         });
       }
       showLoading(false, context);

@@ -22,6 +22,7 @@ class Notifications extends StatefulWidget {
 
 class _NotificationsState extends State<Notifications> {
   var now = new DateTime.now();
+  bool isLoading = true;
   var formatter = new DateFormat('yyyy-MM-dd');
   List notificationsJson = [];
   @override
@@ -33,12 +34,10 @@ class _NotificationsState extends State<Notifications> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
         appBar: appBarLogin(context, 'Notifications'),
         body: notificationsJson == null
-            ? exception(context
-              )
+            ? exception(context, isLoading)
             : Container(
                 child: ListView.builder(
                   itemCount: notificationsJson.length,
@@ -154,6 +153,7 @@ class _NotificationsState extends State<Notifications> {
       if (response.statusCode == 200) {
         setState(() {
           notificationsJson = json.decode(response.body)['data'];
+          isLoading = false;
         });
 
         showLoading(false, context);

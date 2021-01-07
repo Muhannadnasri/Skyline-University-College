@@ -21,6 +21,7 @@ class MidTermMarks extends StatefulWidget {
 
 class _MidTermMarksState extends State<MidTermMarks> {
   List midTermMarksJson = [];
+  bool isLoading = true;
   @override
   void initState() {
     super.initState();
@@ -29,13 +30,10 @@ class _MidTermMarksState extends State<MidTermMarks> {
 
   @override
   Widget build(BuildContext context) {
-    
-
     return Scaffold(
       appBar: appBarLogin(context, 'Mid Term Marks'),
-      body: midTermMarksJson == null ||
-              midTermMarksJson.isEmpty
-          ? exception(context)
+      body: midTermMarksJson == null || midTermMarksJson.isEmpty
+          ? exception(context, isLoading)
           : Container(
               child: ListView.builder(
                 itemCount: midTermMarksJson.length,
@@ -225,6 +223,7 @@ class _MidTermMarksState extends State<MidTermMarks> {
       if (response.statusCode == 200) {
         setState(() {
           midTermMarksJson = json.decode(response.body)['data'];
+          isLoading = false;
         });
         showLoading(false, context);
       }

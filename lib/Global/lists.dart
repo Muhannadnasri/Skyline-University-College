@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -27,7 +26,7 @@ class Lists extends StatefulWidget {
 }
 
 List lists = [];
-
+bool isLoading = true;
 File dataFile;
 
 Map<String, String> body;
@@ -46,8 +45,8 @@ class _ListsState extends State<Lists> {
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       appBar: appBar(context, '${widget.title}'),
-      body: lists == null || lists.isEmpty
-          ? exception(context)
+      body: lists == null
+          ? exception(context, isLoading)
           : Container(
               child: ListView.builder(
                   itemCount: lists.length,
@@ -209,7 +208,7 @@ class _ListsState extends State<Lists> {
         } else {
           eventsJson = json.decode(dataFile.readAsStringSync());
         }
-
+        isLoading = false;
         showLoading(false, context);
 
         setState(() {

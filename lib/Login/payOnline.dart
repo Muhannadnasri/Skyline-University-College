@@ -24,7 +24,7 @@ class PayOnline extends StatefulWidget {
 
 class _PayOnlineState extends State<PayOnline> {
   final flutterWebviewPlugin = new FlutterWebviewPlugin();
-
+  bool isLoading = true;
   Map payOnlineJson = {};
   void initState() {
     super.initState();
@@ -83,7 +83,7 @@ class _PayOnlineState extends State<PayOnline> {
               ),
       ),
       body: payOnlineJson == null || payOnlineJson.isEmpty
-          ? exception(context)
+          ? exception(context, isLoading)
           : WebviewScaffold(
               withZoom: true,
               withJavascript: true,
@@ -117,7 +117,7 @@ class _PayOnlineState extends State<PayOnline> {
       if (response.statusCode == 200) {
         setState(() {
           payOnlineJson = json.decode(response.body);
-          print(payOnlineJson.toString());
+          isLoading = false;
         });
         showLoading(false, context);
         if (payOnlineJson['success'] == '0') {

@@ -34,7 +34,7 @@ final _apptutudeForm = GlobalKey<FormState>();
 class _ApptutudeFormState extends State<ApptutudeForm> {
   final format = DateFormat("yyyy-MM-dd HH:mm");
   final initialValue = DateTime.now();
-
+  bool isLoading = true;
   bool readOnly = true;
   bool showResetIcon = true;
   DateTime value = DateTime.now();
@@ -70,7 +70,6 @@ class _ApptutudeFormState extends State<ApptutudeForm> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       bottomNavigationBar:
@@ -93,7 +92,7 @@ class _ApptutudeFormState extends State<ApptutudeForm> {
                 ),
       appBar: appBarLogin(context, 'Aptitude Register'),
       body: aptitudeProgramJson == null || aptitudeProgramJson.isEmpty
-          ? exception(context)
+          ? exception(context, isLoading)
           : GestureDetector(
               onTap: () {
                 FocusScope.of(context).requestFocus(new FocusNode());
@@ -602,6 +601,7 @@ class _ApptutudeFormState extends State<ApptutudeForm> {
                 json.decode(response.body)['data']['programs'];
             aptitudeNationalityJson =
                 json.decode(response.body)['data']['nationality'];
+            isLoading = false;
           },
         );
 

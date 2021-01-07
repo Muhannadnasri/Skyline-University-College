@@ -5,13 +5,12 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBar.dart';
+import 'package:skyline_university/Global/bottomAppBar.dart';
 import 'package:skyline_university/Global/customdropdown.dart';
 import 'package:skyline_university/Global/dropDownWidget.dart';
 import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
-import 'package:skyline_university/Global/bottomAppBar.dart';
-import 'package:skyline_university/Global/global.dart' as prefix0;
 
 void main() => runApp(AdmissionForm());
 
@@ -37,6 +36,7 @@ class _AdmissionFormState extends State<AdmissionForm> {
   Map admissionForm = {};
 
   String fullName = '';
+  bool isLoading = true;
 
   String mobile = '';
   String email = '';
@@ -54,7 +54,6 @@ class _AdmissionFormState extends State<AdmissionForm> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       appBar: appBar(context, 'Application Form'),
@@ -84,7 +83,7 @@ class _AdmissionFormState extends State<AdmissionForm> {
         },
         child: admissionFormDropdownCountriesJson == null ||
                 admissionFormDropdownCountriesJson.isEmpty
-            ? exception(context)
+            ? exception(context, isLoading)
             : ListView(
                 children: <Widget>[
                   Padding(
@@ -148,11 +147,14 @@ class _AdmissionFormState extends State<AdmissionForm> {
                                   'Mobile',
                                   TextInputType.number,
                                 ),
+                                SizedBox(
+                                  height: 20,
+                                ),
                                 Container(
                                   alignment: Alignment.centerLeft,
                                   child: Padding(
                                     padding: const EdgeInsets.fromLTRB(
-                                        20.0, 0.0, 20.0, 5.0),
+                                        20.0, 0.0, 20.0, 0.0),
                                     child: Text(
                                       'Country',
                                       style: TextStyle(
@@ -166,7 +168,8 @@ class _AdmissionFormState extends State<AdmissionForm> {
                                 Column(
                                   children: <Widget>[
                                     Padding(
-                                      padding: const EdgeInsets.all(8),
+                                      padding: const EdgeInsets.fromLTRB(
+                                          10.0, 0.0, 20.0, 5.0),
                                       child: CustomDropDown(
                                         isExpanded: true,
                                         items:
@@ -181,7 +184,11 @@ class _AdmissionFormState extends State<AdmissionForm> {
                                                         child: Padding(
                                                           padding:
                                                               const EdgeInsets
-                                                                  .all(8.0),
+                                                                      .fromLTRB(
+                                                                  10.0,
+                                                                  0.0,
+                                                                  20.0,
+                                                                  5.0),
                                                           child: Text(
                                                             item['NationalityName']
                                                                 .toString(),
@@ -245,7 +252,7 @@ class _AdmissionFormState extends State<AdmissionForm> {
                                 Column(
                                   children: <Widget>[
                                     SizedBox(
-                                      height: 10,
+                                      height: 20,
                                     ),
                                     Container(
                                       alignment: Alignment.centerLeft,
@@ -352,6 +359,7 @@ class _AdmissionFormState extends State<AdmissionForm> {
                 json.decode(response.body)['data']['countries'];
             admissionFormDropdownProgramJson =
                 json.decode(response.body)['data']['program'];
+            isLoading = false;
           },
         );
         showLoading(false, context);

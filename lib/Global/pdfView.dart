@@ -1,31 +1,33 @@
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:http/http.dart' as http;
-
+import 'package:pdf_viewer_plugin/pdf_viewer_plugin.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:pdf_viewer_plugin/pdf_viewer_plugin.dart';
+import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
-import 'package:superellipse_shape/superellipse_shape.dart';
 
 import 'global.dart';
 
-class PdfView extends StatefulWidget {
+class PdfViews extends StatefulWidget {
   final String url;
-  const PdfView({Key key, this.url}) : super(key: key);
+  const PdfViews({Key key, this.url}) : super(key: key);
 
   @override
-  _PdfViewState createState() => _PdfViewState();
+  _PdfViewsState createState() => _PdfViewsState();
 }
 
-class _PdfViewState extends State<PdfView> with TickerProviderStateMixin {
+class _PdfViewsState extends State<PdfViews> with TickerProviderStateMixin {
   AnimationController _controller;
   String path;
   bool _isLoading = true;
 
+
+
   Future<String> get _localPath async {
+
+
     final directory = await getApplicationDocumentsDirectory();
 
     return directory.path;
@@ -114,9 +116,13 @@ class _PdfViewState extends State<PdfView> with TickerProviderStateMixin {
                   ),
                 ],
               ))
-            : PdfViewer(
-                onPdfViewerCreated: () {},
-                filePath: path,
+            :
+            // SizedBox()
+
+        PdfView(
+
+
+          path: path,
               ),
       ),
     );
@@ -131,7 +137,7 @@ class _PdfViewState extends State<PdfView> with TickerProviderStateMixin {
       await Share.file(
           'Share Document', 'Document.pdf', bytes, 'application/pdf');
       Future.delayed(const Duration(seconds: 1), () {
-      showLoading(false, context);
+        showLoading(false, context);
       });
     } catch (e) {}
   }

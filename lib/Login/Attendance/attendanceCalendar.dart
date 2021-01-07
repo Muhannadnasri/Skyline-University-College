@@ -40,7 +40,7 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
   List attendanceDetailsJson = [];
   EventList<Event> days = new EventList(events: {});
   List _selectedEvents = [];
-
+  bool isLoading = true;
   @override
   void initState() {
     super.initState();
@@ -49,12 +49,10 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
 
   @override
   Widget build(BuildContext context) {
-    
-
     return Scaffold(
       appBar: appBarLogin(context, 'Attendance Calendar'),
       body: attendanceDetailsJson == null || attendanceDetailsJson.isEmpty
-          ? exception(context)
+          ? exception(context, isLoading)
           : ListView(
               children: <Widget>[
                 Container(
@@ -318,6 +316,7 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
                       icon: Icon(Icons.ac_unit)));
             });
           }
+          isLoading = false;
         });
 
         showLoading(false, context);

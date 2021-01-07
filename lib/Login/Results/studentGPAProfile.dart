@@ -21,6 +21,7 @@ class StudentGPAProfile extends StatefulWidget {
 
 class _StudentGPAProfileState extends State<StudentGPAProfile> {
   Map studentGPAProfileJson = {};
+  bool isLoading = true;
   @override
   void initState() {
     super.initState();
@@ -29,14 +30,10 @@ class _StudentGPAProfileState extends State<StudentGPAProfile> {
 
   @override
   Widget build(BuildContext context) {
-    
-
     return Scaffold(
       appBar: appBarLogin(context, 'GPA'),
       body: studentGPAProfileJson == null || studentGPAProfileJson.isEmpty
-          ? exception(
-              context,
-            )
+          ? exception(context, isLoading)
           : Container(
               child: Container(
                 decoration: BoxDecoration(
@@ -349,6 +346,7 @@ class _StudentGPAProfileState extends State<StudentGPAProfile> {
       if (response.statusCode == 200) {
         setState(() {
           studentGPAProfileJson = json.decode(response.body)['data'];
+          isLoading = false;
         });
 
         showLoading(false, context);

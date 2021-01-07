@@ -23,6 +23,7 @@ class AssessmentMarkCourses extends StatefulWidget {
 
 class _AssessmentMarkCoursesState extends State<AssessmentMarkCourses> {
   List assessmentMarkCoursesJson = [];
+  bool isLoading = true;
   @override
   void initState() {
     super.initState();
@@ -32,12 +33,11 @@ class _AssessmentMarkCoursesState extends State<AssessmentMarkCourses> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
         appBar: appBarLogin(context, 'Assessment Courses'),
         body: assessmentMarkCoursesJson == null ||
                 assessmentMarkCoursesJson.isEmpty
-            ? exception(context)
+            ? exception(context, isLoading)
             : Container(
                 child: ListView.builder(
                   itemCount: assessmentMarkCoursesJson.length,
@@ -208,6 +208,7 @@ class _AssessmentMarkCoursesState extends State<AssessmentMarkCourses> {
       if (response.statusCode == 200) {
         setState(() {
           assessmentMarkCoursesJson = json.decode(response.body)['data'];
+          isLoading = true;
         });
         showLoading(false, context);
       }

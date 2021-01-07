@@ -23,6 +23,7 @@ class _ExecutiveDevelopmentProgramState
     extends State<ExecutiveDevelopmentProgram> {
   List programsJson = [];
   Map programsJsonMessage = {};
+  bool isLoading = true;
   @override
   void initState() {
     super.initState();
@@ -31,13 +32,12 @@ class _ExecutiveDevelopmentProgramState
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       appBar: appBar(context, 'Executive Development Program'),
       body: Container(
         child: programsJson == null || programsJson.isEmpty
-            ? exception(context)
+            ? exception(context, isLoading)
             : ListView.builder(
                 itemCount: programsJson.length,
                 itemBuilder: (BuildContext context, int index) {
@@ -140,6 +140,7 @@ class _ExecutiveDevelopmentProgramState
         setState(() {
           programsJson = json.decode(response.body)['data'];
           programsJsonMessage = json.decode(response.body);
+          isLoading = false;
         });
 
         showLoading(false, context);

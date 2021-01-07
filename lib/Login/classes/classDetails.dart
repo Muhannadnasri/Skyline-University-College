@@ -21,7 +21,7 @@ class CourseDetails extends StatefulWidget {
 
 class _CourseDetailsState extends State<CourseDetails> {
   List classScheduleCourseJson = [];
-
+  bool isLoading = true;
   @override
   void initState() {
     super.initState();
@@ -33,7 +33,7 @@ class _CourseDetailsState extends State<CourseDetails> {
     return Scaffold(
         appBar: appBarLogin(context, 'Class Details'),
         body: classScheduleCourseJson == null || classScheduleCourseJson.isEmpty
-            ? exception(context)
+            ? exception(context, isLoading)
             : Container(
                 child: ListView.builder(
                   itemCount: classScheduleCourseJson.length,
@@ -243,6 +243,7 @@ class _CourseDetailsState extends State<CourseDetails> {
       if (response.statusCode == 200) {
         setState(() {
           classScheduleCourseJson = json.decode(response.body)['data'];
+          isLoading = false;
         });
         showLoading(false, context);
       }

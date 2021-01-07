@@ -6,6 +6,9 @@ Widget dropDownWidget(BuildContext context, String title, value, List items,
     valueItems, textItems, onChanged, topTitle) {
   return Column(
     children: <Widget>[
+      SizedBox(
+        height: 20,
+      ),
       Container(
         alignment: Alignment.centerLeft,
         child: Padding(
@@ -42,7 +45,8 @@ Widget dropDownWidget(BuildContext context, String title, value, List items,
                         value: item[valueItems].toString(),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: FittedBox(child: Text(item[textItems].toString())),
+                          child: FittedBox(
+                              child: Text(item[textItems].toString())),
                         ),
                       ),
                     )

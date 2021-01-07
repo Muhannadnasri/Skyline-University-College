@@ -23,6 +23,7 @@ class FeeStructures extends StatefulWidget {
 class _FeeStructuresState extends State<FeeStructures> {
   List infoJson = [];
   Map infoJsonMessage = {};
+  bool isLoading = true;
   @override
   void initState() {
     super.initState();
@@ -31,14 +32,11 @@ class _FeeStructuresState extends State<FeeStructures> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       appBar: appBar(context, 'Fee Structures'),
       body: infoJson == null || infoJson.isEmpty
-          ? exception(
-              context,
-            )
+          ? exception(context, isLoading)
           : Container(
               child: ListView(
                 children: <Widget>[
@@ -75,7 +73,7 @@ class _FeeStructuresState extends State<FeeStructures> {
                                                     context,
                                                     MaterialPageRoute(
                                                       builder: (context) =>
-                                                          PdfView(
+                                                          PdfViews(
                                                               url: infoJson[2][
                                                                   'page_content']),
                                                     ),
@@ -103,7 +101,7 @@ class _FeeStructuresState extends State<FeeStructures> {
                                                     context,
                                                     MaterialPageRoute(
                                                       builder: (context) =>
-                                                          PdfView(
+                                                          PdfViews(
                                                               url: infoJson[3][
                                                                   'page_content']),
                                                     ),
@@ -131,7 +129,7 @@ class _FeeStructuresState extends State<FeeStructures> {
                                                     context,
                                                     MaterialPageRoute(
                                                       builder: (context) =>
-                                                          PdfView(
+                                                          PdfViews(
                                                               url: infoJson[4][
                                                                   'page_content']),
                                                     ),
@@ -159,7 +157,7 @@ class _FeeStructuresState extends State<FeeStructures> {
                                                     context,
                                                     MaterialPageRoute(
                                                       builder: (context) =>
-                                                          PdfView(
+                                                          PdfViews(
                                                               url: infoJson[5][
                                                                   'page_content']),
                                                     ),
@@ -187,7 +185,7 @@ class _FeeStructuresState extends State<FeeStructures> {
                                                     context,
                                                     MaterialPageRoute(
                                                       builder: (context) =>
-                                                          PdfView(
+                                                          PdfViews(
                                                               url: infoJson[6][
                                                                   'page_content']),
                                                     ),
@@ -229,7 +227,7 @@ class _FeeStructuresState extends State<FeeStructures> {
                                                     context,
                                                     MaterialPageRoute(
                                                       builder: (context) =>
-                                                          PdfView(
+                                                          PdfViews(
                                                               url: infoJson[8][
                                                                   'page_content']),
                                                     ),
@@ -257,7 +255,7 @@ class _FeeStructuresState extends State<FeeStructures> {
                                                     context,
                                                     MaterialPageRoute(
                                                       builder: (context) =>
-                                                          PdfView(
+                                                          PdfViews(
                                                               url: infoJson[9][
                                                                   'page_content']),
                                                     ),
@@ -285,7 +283,7 @@ class _FeeStructuresState extends State<FeeStructures> {
                                                     context,
                                                     MaterialPageRoute(
                                                       builder: (context) =>
-                                                          PdfView(
+                                                          PdfViews(
                                                               url: infoJson[10][
                                                                   'page_content']),
                                                     ),
@@ -313,7 +311,7 @@ class _FeeStructuresState extends State<FeeStructures> {
                                                     context,
                                                     MaterialPageRoute(
                                                       builder: (context) =>
-                                                          PdfView(
+                                                          PdfViews(
                                                               url: infoJson[11][
                                                                   'page_content']),
                                                     ),
@@ -341,7 +339,7 @@ class _FeeStructuresState extends State<FeeStructures> {
                                                     context,
                                                     MaterialPageRoute(
                                                       builder: (context) =>
-                                                          PdfView(
+                                                          PdfViews(
                                                               url: infoJson[12][
                                                                   'page_content']),
                                                     ),
@@ -369,7 +367,7 @@ class _FeeStructuresState extends State<FeeStructures> {
                                                     context,
                                                     MaterialPageRoute(
                                                       builder: (context) =>
-                                                          PdfView(
+                                                          PdfViews(
                                                               url: infoJson[13][
                                                                   'page_content']),
                                                     ),
@@ -397,7 +395,7 @@ class _FeeStructuresState extends State<FeeStructures> {
                                                     context,
                                                     MaterialPageRoute(
                                                       builder: (context) =>
-                                                          PdfView(
+                                                          PdfViews(
                                                               url: infoJson[14][
                                                                   'page_content']),
                                                     ),
@@ -425,7 +423,7 @@ class _FeeStructuresState extends State<FeeStructures> {
                                                     context,
                                                     MaterialPageRoute(
                                                       builder: (context) =>
-                                                          PdfView(
+                                                          PdfViews(
                                                               url: infoJson[15][
                                                                   'page_content']),
                                                     ),
@@ -467,7 +465,7 @@ class _FeeStructuresState extends State<FeeStructures> {
                                                     context,
                                                     MaterialPageRoute(
                                                       builder: (context) =>
-                                                          PdfView(
+                                                          PdfViews(
                                                               url: infoJson[17][
                                                                   'page_content']),
                                                     ),
@@ -495,7 +493,7 @@ class _FeeStructuresState extends State<FeeStructures> {
                                                     context,
                                                     MaterialPageRoute(
                                                       builder: (context) =>
-                                                          PdfView(
+                                                          PdfViews(
                                                               url: infoJson[18][
                                                                   'page_content']),
                                                     ),
@@ -523,7 +521,7 @@ class _FeeStructuresState extends State<FeeStructures> {
                                                     context,
                                                     MaterialPageRoute(
                                                       builder: (context) =>
-                                                          PdfView(
+                                                          PdfViews(
                                                               url: infoJson[19][
                                                                   'page_content']),
                                                     ),
@@ -551,7 +549,7 @@ class _FeeStructuresState extends State<FeeStructures> {
                                                     context,
                                                     MaterialPageRoute(
                                                       builder: (context) =>
-                                                          PdfView(
+                                                          PdfViews(
                                                               url: infoJson[20][
                                                                   'page_content']),
                                                     ),
@@ -579,7 +577,7 @@ class _FeeStructuresState extends State<FeeStructures> {
                                                     context,
                                                     MaterialPageRoute(
                                                       builder: (context) =>
-                                                          PdfView(
+                                                          PdfViews(
                                                               url: infoJson[21][
                                                                   'page_content']),
                                                     ),
@@ -635,6 +633,7 @@ class _FeeStructuresState extends State<FeeStructures> {
         setState(() {
           infoJson = json.decode(response.body)['data'];
           infoJsonMessage = json.decode(response.body);
+          isLoading = false;
         });
 
         showLoading(false, context);

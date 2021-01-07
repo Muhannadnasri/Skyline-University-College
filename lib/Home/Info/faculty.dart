@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -12,7 +11,6 @@ import 'package:skyline_university/Global/appBar.dart';
 import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:transparent_image/transparent_image.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 void main() => runApp(Faculty());
 
@@ -24,7 +22,7 @@ class Faculty extends StatefulWidget {
 }
 
 List faculty = [];
-
+bool isLoading = true;
 Map facultyJson = {};
 File dataFile;
 
@@ -42,9 +40,9 @@ class _FacultyState extends State<Faculty> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: true,
-      appBar: appBar(context, 'Faculty members'),
+      appBar: appBar(context, 'Faculty Members'),
       body: faculty == null || faculty.isEmpty
-          ? exception(context)
+          ? exception(context, isLoading)
           : Container(
               child: ListView.builder(
                   itemCount: faculty.length,
@@ -71,12 +69,10 @@ class _FacultyState extends State<Faculty> {
                                       Card(
                                         child: Stack(
                                           children: <Widget>[
-                                            Center(
-                                              child: SpinKitRing(
-                                                size: 35,
-                                                lineWidth: 2,
-                                                color: Colors.blue,
-                                              ),
+                                            SpinKitRing(
+                                              size: 35,
+                                              lineWidth: 2,
+                                              color: Colors.blue,
                                             ),
                                             Center(
                                               child: FadeInImage.memoryNetwork(
@@ -148,7 +144,7 @@ class _FacultyState extends State<Faculty> {
         } else {
           facultyJson = json.decode(dataFile.readAsStringSync());
         }
-
+        isLoading = false;
         showLoading(false, context);
 
         setState(() {

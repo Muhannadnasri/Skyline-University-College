@@ -23,6 +23,7 @@ class ClassSchedule extends StatefulWidget {
 class _ClassScheduleState extends State<ClassSchedule> {
   List classScheduleJson = [];
   Map classScheduleMessageJson = {};
+  bool isLoading = true;
   @override
   void initState() {
     super.initState();
@@ -32,334 +33,323 @@ class _ClassScheduleState extends State<ClassSchedule> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
         appBar: appBarLogin(context, '${widget.title}'),
         body: classScheduleJson == null || classScheduleJson.isEmpty
-            ? exception(context)
+            ? exception(context, isLoading)
             : ListView.builder(
-              itemCount: classScheduleJson.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  elevation: 10,
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        height: 30,
-                        decoration: new BoxDecoration(
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(10)),
-                          gradient: isDark(context)
-                              ? LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  colors: [
-                                    Color(0xFF1F1F1F),
-                                    Color(0xFF1F1F1F),
-                                  ],
-                                  stops: [
-                                    0.7,
-                                    0.9,
-                                  ],
-                                )
-                              : LinearGradient(
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
-                                  colors: [
-                                    Color(0xFF104C90),
-                                    Color(0xFF3773AC),
-                                  ],
-                                  stops: [
-                                    0.7,
-                                    0.9,
-                                  ],
-                                ),
+                itemCount: classScheduleJson.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    elevation: 10,
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          height: 30,
+                          decoration: new BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            gradient: isDark(context)
+                                ? LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: [
+                                      Color(0xFF1F1F1F),
+                                      Color(0xFF1F1F1F),
+                                    ],
+                                    stops: [
+                                      0.7,
+                                      0.9,
+                                    ],
+                                  )
+                                : LinearGradient(
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
+                                    colors: [
+                                      Color(0xFF104C90),
+                                      Color(0xFF3773AC),
+                                    ],
+                                    stops: [
+                                      0.7,
+                                      0.9,
+                                    ],
+                                  ),
+                          ),
+                          child: Row(children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                classScheduleJson[index]['Day'],
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            )
+                          ]),
                         ),
-                        child: Row(children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              classScheduleJson[index]['Day'],
-                              style: TextStyle(color: Colors.white),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text('session 1 : ',
+                                  style: TextStyle(
+                                      color: isDark(context)
+                                          ? Colors.white
+                                          : Colors.black)),
                             ),
-                          )
-                        ]),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text('session 1 : ',
-                                style: TextStyle(
-                                    color: isDark(context)
-                                        ? Colors.white
-                                        : Colors.black)),
-                          ),
-                          Expanded(
-                            child: Text(
-                                classScheduleJson[index]['Ses1']
-                                            .toString() ==
-                                        "null"
-                                    ? ""
-                                    : classScheduleJson[index]['Ses1']
-                                        .toString(),
-                                style: TextStyle(
-                                    color: isDark(context)
-                                        ? Colors.white
-                                        : Colors.black)),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text("session 2 : ",
-                                style: TextStyle(
-                                    color: isDark(context)
-                                        ? Colors.white
-                                        : Colors.black)),
-                          ),
-                          Expanded(
-                            child: Text(
-                                classScheduleJson[index]['Ses2']
-                                            .toString() ==
-                                        "null"
-                                    ? ""
-                                    : classScheduleJson[index]['Ses2']
-                                        .toString(),
-                                style: TextStyle(
-                                    color: isDark(context)
-                                        ? Colors.white
-                                        : Colors.black)),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text("session 3 : ",
-                                style: TextStyle(
-                                    color: isDark(context)
-                                        ? Colors.white
-                                        : Colors.black)),
-                          ),
-                          Expanded(
-                            child: Text(
-                                classScheduleJson[index]['Ses3']
-                                            .toString() ==
-                                        "null"
-                                    ? ""
-                                    : classScheduleJson[index]['Ses3']
-                                        .toString(),
-                                style: TextStyle(
-                                    color: isDark(context)
-                                        ? Colors.white
-                                        : Colors.black)),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text('session 4 : ',
-                                style: TextStyle(
-                                    color: isDark(context)
-                                        ? Colors.white
-                                        : Colors.black)),
-                          ),
-                          Expanded(
-                            child: Text(
-                                classScheduleJson[index]['Ses4']
-                                            .toString() ==
-                                        "null"
-                                    ? ""
-                                    : classScheduleJson[index]['Ses4']
-                                        .toString(),
-                                style: TextStyle(
-                                    color: isDark(context)
-                                        ? Colors.white
-                                        : Colors.black)),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text('session 5 : ',
-                                style: TextStyle(
-                                    color: isDark(context)
-                                        ? Colors.white
-                                        : Colors.black)),
-                          ),
-                          Expanded(
-                            child: Text(
-                                classScheduleJson[index]['Ses5']
-                                            .toString() ==
-                                        "null"
-                                    ? ""
-                                    : classScheduleJson[index]['Ses5']
-                                        .toString(),
-                                style: TextStyle(
-                                    color: isDark(context)
-                                        ? Colors.white
-                                        : Colors.black)),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text('session 6 : ',
-                                style: TextStyle(
-                                    color: isDark(context)
-                                        ? Colors.white
-                                        : Colors.black)),
-                          ),
-                          Expanded(
-                            child: Text(
-                                classScheduleJson[index]['Ses6']
-                                            .toString() ==
-                                        "null"
-                                    ? ""
-                                    : classScheduleJson[index]['Ses6']
-                                        .toString(),
-                                style: TextStyle(
-                                    color: isDark(context)
-                                        ? Colors.white
-                                        : Colors.black)),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text('session 7 : ',
-                                style: TextStyle(
-                                    color: isDark(context)
-                                        ? Colors.white
-                                        : Colors.black)),
-                          ),
-                          Expanded(
-                            child: Text(
-                                classScheduleJson[index]['Ses7']
-                                            .toString() ==
-                                        "null"
-                                    ? ""
-                                    : classScheduleJson[index]['Ses7']
-                                        .toString(),
-                                style: TextStyle(
-                                    color: isDark(context)
-                                        ? Colors.white
-                                        : Colors.black)),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text('session 8 : ',
-                                style: TextStyle(
-                                    color: isDark(context)
-                                        ? Colors.white
-                                        : Colors.black)),
-                          ),
-                          Expanded(
-                            child: Text(
-                                classScheduleJson[index]['Ses8']
-                                            .toString() ==
-                                        "null"
-                                    ? ""
-                                    : classScheduleJson[index]['Ses8']
-                                        .toString(),
-                                style: TextStyle(
-                                    color: isDark(context)
-                                        ? Colors.white
-                                        : Colors.black)),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text('session 9 : ',
-                                style: TextStyle(
-                                    color: isDark(context)
-                                        ? Colors.white
-                                        : Colors.black)),
-                          ),
-                          Expanded(
-                            child: Text(
-                                classScheduleJson[index]['Ses9']
-                                            .toString() ==
-                                        "null"
-                                    ? ""
-                                    : classScheduleJson[index]['Ses9']
-                                        .toString(),
-                                style: TextStyle(
-                                    color: isDark(context)
-                                        ? Colors.white
-                                        : Colors.black)),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ));
+                            Expanded(
+                              child: Text(
+                                  classScheduleJson[index]['Ses1'].toString() ==
+                                          "null"
+                                      ? ""
+                                      : classScheduleJson[index]['Ses1']
+                                          .toString(),
+                                  style: TextStyle(
+                                      color: isDark(context)
+                                          ? Colors.white
+                                          : Colors.black)),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text("session 2 : ",
+                                  style: TextStyle(
+                                      color: isDark(context)
+                                          ? Colors.white
+                                          : Colors.black)),
+                            ),
+                            Expanded(
+                              child: Text(
+                                  classScheduleJson[index]['Ses2'].toString() ==
+                                          "null"
+                                      ? ""
+                                      : classScheduleJson[index]['Ses2']
+                                          .toString(),
+                                  style: TextStyle(
+                                      color: isDark(context)
+                                          ? Colors.white
+                                          : Colors.black)),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text("session 3 : ",
+                                  style: TextStyle(
+                                      color: isDark(context)
+                                          ? Colors.white
+                                          : Colors.black)),
+                            ),
+                            Expanded(
+                              child: Text(
+                                  classScheduleJson[index]['Ses3'].toString() ==
+                                          "null"
+                                      ? ""
+                                      : classScheduleJson[index]['Ses3']
+                                          .toString(),
+                                  style: TextStyle(
+                                      color: isDark(context)
+                                          ? Colors.white
+                                          : Colors.black)),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text('session 4 : ',
+                                  style: TextStyle(
+                                      color: isDark(context)
+                                          ? Colors.white
+                                          : Colors.black)),
+                            ),
+                            Expanded(
+                              child: Text(
+                                  classScheduleJson[index]['Ses4'].toString() ==
+                                          "null"
+                                      ? ""
+                                      : classScheduleJson[index]['Ses4']
+                                          .toString(),
+                                  style: TextStyle(
+                                      color: isDark(context)
+                                          ? Colors.white
+                                          : Colors.black)),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text('session 5 : ',
+                                  style: TextStyle(
+                                      color: isDark(context)
+                                          ? Colors.white
+                                          : Colors.black)),
+                            ),
+                            Expanded(
+                              child: Text(
+                                  classScheduleJson[index]['Ses5'].toString() ==
+                                          "null"
+                                      ? ""
+                                      : classScheduleJson[index]['Ses5']
+                                          .toString(),
+                                  style: TextStyle(
+                                      color: isDark(context)
+                                          ? Colors.white
+                                          : Colors.black)),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text('session 6 : ',
+                                  style: TextStyle(
+                                      color: isDark(context)
+                                          ? Colors.white
+                                          : Colors.black)),
+                            ),
+                            Expanded(
+                              child: Text(
+                                  classScheduleJson[index]['Ses6'].toString() ==
+                                          "null"
+                                      ? ""
+                                      : classScheduleJson[index]['Ses6']
+                                          .toString(),
+                                  style: TextStyle(
+                                      color: isDark(context)
+                                          ? Colors.white
+                                          : Colors.black)),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text('session 7 : ',
+                                  style: TextStyle(
+                                      color: isDark(context)
+                                          ? Colors.white
+                                          : Colors.black)),
+                            ),
+                            Expanded(
+                              child: Text(
+                                  classScheduleJson[index]['Ses7'].toString() ==
+                                          "null"
+                                      ? ""
+                                      : classScheduleJson[index]['Ses7']
+                                          .toString(),
+                                  style: TextStyle(
+                                      color: isDark(context)
+                                          ? Colors.white
+                                          : Colors.black)),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text('session 8 : ',
+                                  style: TextStyle(
+                                      color: isDark(context)
+                                          ? Colors.white
+                                          : Colors.black)),
+                            ),
+                            Expanded(
+                              child: Text(
+                                  classScheduleJson[index]['Ses8'].toString() ==
+                                          "null"
+                                      ? ""
+                                      : classScheduleJson[index]['Ses8']
+                                          .toString(),
+                                  style: TextStyle(
+                                      color: isDark(context)
+                                          ? Colors.white
+                                          : Colors.black)),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text('session 9 : ',
+                                  style: TextStyle(
+                                      color: isDark(context)
+                                          ? Colors.white
+                                          : Colors.black)),
+                            ),
+                            Expanded(
+                              child: Text(
+                                  classScheduleJson[index]['Ses9'].toString() ==
+                                          "null"
+                                      ? ""
+                                      : classScheduleJson[index]['Ses9']
+                                          .toString(),
+                                  style: TextStyle(
+                                      color: isDark(context)
+                                          ? Colors.white
+                                          : Colors.black)),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ));
   }
 
   Future getClassScheduleWeekdayy() async {
@@ -375,7 +365,6 @@ class _ClassScheduleState extends State<ClassSchedule> {
         },
         body: {
           'user_id': username,
-       
         },
       ).timeout(Duration(seconds: 35));
 
@@ -383,6 +372,7 @@ class _ClassScheduleState extends State<ClassSchedule> {
         setState(() {
           classScheduleJson = json.decode(response.body)['data'];
           classScheduleMessageJson = json.decode(response.body);
+          isLoading = false;
         });
         showLoading(false, context);
       }

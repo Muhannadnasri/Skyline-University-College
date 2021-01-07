@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -15,7 +14,6 @@ void main() => runApp(UndergraduateProgram());
 class UndergraduateProgram extends StatefulWidget {
   final String programName;
   final String programId;
-
   final String programdescription;
 
   const UndergraduateProgram({
@@ -33,6 +31,7 @@ class UndergraduateProgram extends StatefulWidget {
 class _UndergraduateProgramState extends State<UndergraduateProgram> {
   List programITJson = [];
   Map programITJsonMessage = {};
+  bool isLoading = true;
   @override
   void initState() {
     getprogramIT();
@@ -41,20 +40,20 @@ class _UndergraduateProgramState extends State<UndergraduateProgram> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
         resizeToAvoidBottomPadding: true,
         appBar: appBar(context, 'Program'),
         body: programITJson == null || programITJson.isEmpty
-            ? exception(context)
+            ? exception(context, isLoading)
             : ListView.builder(
                 itemCount: programITJson.length,
                 itemBuilder: (BuildContext context, int index) {
                   YoutubePlayerController _controller = YoutubePlayerController(
                     initialVideoId: programITJson[index]['content'],
                     flags: YoutubePlayerFlags(
+                      disableDragSeek: true,
                       autoPlay: true,
-                      mute: true,
+                      mute: false,
                     ),
                   );
                   return Column(
@@ -177,6 +176,7 @@ class _UndergraduateProgramState extends State<UndergraduateProgram> {
         setState(() {
           programITJson = json.decode(response.body)['data'];
           programITJsonMessage = json.decode(response.body);
+          isLoading = false;
         });
 
         showLoading(false, context);

@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
@@ -24,7 +23,7 @@ class _AdvisorsState extends State<Advisors> {
   // List myAdvisorsJson = [];
   var seachCnt = TextEditingController();
   String selectedName = "";
-
+  bool isLoading = true;
   List itemsJson = [];
   List itemsToShow = [];
   @override
@@ -36,20 +35,17 @@ class _AdvisorsState extends State<Advisors> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: appBarLogin(context, 'Advisors Students'),
       body: itemsToShow == null || itemsToShow.isEmpty
-          ? exception(context,)
+          ? exception(context, isLoading)
           : CustomScrollView(
               slivers: <Widget>[
                 SliverAppBar(
                   automaticallyImplyLeading: false,
                   expandedHeight: 50.0,
-
                   backgroundColor: Colors.transparent,
                   floating: false,
-                  
                   pinned: false,
                   flexibleSpace: Column(
                     children: <Widget>[
@@ -212,7 +208,9 @@ class _AdvisorsState extends State<Advisors> {
                     ? 'Evening'
                     : itemsToShow[index]['shift'] == 'M'
                         ? 'Morning'
-                        : itemsToShow[index]['shift'] == 'W' ? 'Weekend' : ''),
+                        : itemsToShow[index]['shift'] == 'W'
+                            ? 'Weekend'
+                            : ''),
             _rowWidget('Repeating Course',
                 itemsToShow[index]['Repeating Course'] == '' ? 'No' : 'Yes'),
             _rowWidget(
@@ -298,6 +296,7 @@ class _AdvisorsState extends State<Advisors> {
             seachCnt.text = '';
 
             // myAdvisorsJson = json.decode(response.body)['data'];
+            isLoading = false;
           },
         );
 

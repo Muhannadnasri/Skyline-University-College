@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:skyline_university/Global/appBar.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/rowSection.dart';
@@ -30,7 +29,6 @@ class _HomeInfoState extends State<HomeInfo> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       key: _scaffoldKey,
       resizeToAvoidBottomPadding: true,
@@ -44,22 +42,46 @@ class _HomeInfoState extends State<HomeInfo> {
                   SizedBox(
                     height: 15,
                   ),
-                  rowSection(context, isDark(context)?'images-white/admission.png':'images/admission.png', 'images-white/admission.png', 'Virtual Tour',
+                  rowSection(
+                      context,
+                      isDark(context)
+                          ? 'images-white/admission.png'
+                          : 'images/admission.png',
+                      'images-white/admission.png',
+                      'Virtual Tour',
                       '/virtual'),
-                  rowSection(context, isDark(context)?'images-white/admission.png':'images/admission.png', 'images-white/admission.png', 'Faculty Members',
+                  rowSection(
+                      context,
+                      isDark(context)
+                          ? 'images-white/admission.png'
+                          : 'images/admission.png',
+                      'images-white/admission.png',
+                      'Faculty Members',
                       '/faculty'),
                   rowSection(
-                      context, isDark(context)?'images-white/admission.png':'images/admission.png', 'images-white/admission.png', 'SUC Info', '/info'),
+                      context,
+                      isDark(context)
+                          ? 'images-white/admission.png'
+                          : 'images/admission.png',
+                      'images-white/admission.png',
+                      'SUC Info',
+                      '/info'),
                   rowSection(
-                      context, isDark(context)?'images-white/admission.png':'images/admission.png', 'images-white/admission.png', 'Student Life', '/studentLife'),
-
- rowSection(
-                      context, isDark(context)?'images-white/admission.png':'images/admission.png', 'images-white/admission.png', 'Virtual Support', '/virtualSupport'),
-
-
-
-
-                      
+                      context,
+                      isDark(context)
+                          ? 'images-white/admission.png'
+                          : 'images/admission.png',
+                      'images-white/admission.png',
+                      'Student Life',
+                      '/studentLife'),
+                  rowSection(
+                      context,
+                      isDark(context)
+                          ? 'images-white/admission.png'
+                          : 'images/admission.png',
+                      'images-white/admission.png',
+                      'Virtual Support',
+                      '/virtualSupport'),
                 ],
               ),
             ),

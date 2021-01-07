@@ -6,7 +6,7 @@ name: skyline_university
 # Both the versions and the builder number may be overridden in flutter
 # build by specifying --build-name and --build-number, respectively.
 # Read more about versioning at semver.org.
-version: 1.6.0+23
+version: 1.6.0+25
 
 environment:
   sdk: ">=2.2.2 <3.0.0"
@@ -16,7 +16,7 @@ dependencies:
     sdk: flutter
   overlay_support: ^1.0.2
   gradient_app_bar: ^0.1.3
-  firebase_messaging: ^6.0.13
+  firebase_messaging: ^7.0.3
   font_awesome_flutter: ^8.5.0
   url_launcher: ^5.4.1
   sticky_headers: ^0.1.8+1
@@ -32,25 +32,38 @@ dependencies:
   shared_preferences: ^0.5.6+1
   flutter_html: ^0.11.1
   google_maps_flutter: ^0.5.21
-  youtube_player_flutter: ^6.0.3+2
+  
+  # youtube_player_flutter: ^6.0.3+2
   # flutter_calendar_carousel: ^1.4.10 
   date_utils: ^0.1.0+3
   #TODO: cahnge to local
   flushbar: ^1.10.2
   cupertino_icons: ^0.1.2
   selection_menu: ^0.9.0
-  translator: ^0.1.4
-  pdf_viewer_plugin: ^1.0.0+2
+  translator: ^0.1.5
+  pdf_viewer_plugin: ^1.1.1
   # webview_flutter: ^0.3.19+4
   flutter_webview_plugin: ^0.3.11
   quick_actions: ^0.4.0+1
   flutter_dynamic_icon: ^0.2.0+1
   html: ^0.14.0+3
+  skeleton_loader: ^1.0.2+2
+  youtube_player_flutter: ^7.0.0+7
+  # youtube_player_iframe: ^1.1.0
+  circular_check_box: ^1.0.4
+  chips_choice: ^2.0.1
+  toggle_switch: "^0.1.8"
+  roundcheckbox: ^1.0.0+1
+  http: ^0.12.2
+  
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: ^0.7.2
   flutter_launcher_name: "^0.0.1"
+  
 
 flutter_icons:
   android: "launcher_icon"

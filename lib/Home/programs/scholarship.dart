@@ -3,11 +3,9 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
-
 import 'package:skyline_university/Global/appBar.dart';
 import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/global.dart';
@@ -23,6 +21,7 @@ class Scholarship extends StatefulWidget {
 
 class _ScholarshipState extends State<Scholarship> {
   List infoJson = [];
+  bool isLoading = true;
   Map infoJsonMessage = {};
   @override
   void initState() {
@@ -32,12 +31,11 @@ class _ScholarshipState extends State<Scholarship> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       appBar: appBar(context, 'Scholarships'),
       body: infoJson == null || infoJson.isEmpty
-          ? exception(context)
+          ? exception(context, isLoading)
           : ListView.builder(
 // index
               itemCount: infoJson.length,
@@ -133,6 +131,7 @@ class _ScholarshipState extends State<Scholarship> {
         setState(() {
           infoJson = json.decode(response.body)['data'];
           infoJsonMessage = json.decode(response.body);
+          isLoading = false;
         });
 
         showLoading(false, context);

@@ -22,7 +22,7 @@ class Courses extends StatefulWidget {
 
 class _CoursesState extends State<Courses> with TickerProviderStateMixin {
   List coursesJson = [];
-
+  bool isLoading = true;
   String url = '';
   @override
   void initState() {
@@ -34,11 +34,10 @@ class _CoursesState extends State<Courses> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: appBarLogin(context, 'Courses'),
       body: coursesJson == null || coursesJson.isEmpty
-          ? exception(context)
+          ? exception(context, isLoading)
           : Container(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -164,6 +163,7 @@ class _CoursesState extends State<Courses> with TickerProviderStateMixin {
       if (response.statusCode == 200) {
         setState(() {
           coursesJson = json.decode(response.body);
+          isLoading = false;
           // cdpCourseMessageJson = json.decode(response.body);
         });
         _showLoadingCourseCourse(false, context);

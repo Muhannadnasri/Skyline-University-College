@@ -40,7 +40,6 @@ class _CdpFacultyState extends State<CdpFaculty> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: appBarLogin(context, 'CDP'),
       body: cdpCourseJson == null
@@ -110,6 +109,7 @@ class _CdpFacultyState extends State<CdpFaculty> with TickerProviderStateMixin {
                             padding: const EdgeInsets.all(5.0),
                             child: Row(
                               children: <Widget>[
+
                                 Text('Batch Code : '),
                                 Text(
                                   cdpCourseJson[index]['batchcode'].toString(),

@@ -19,7 +19,7 @@ class FAQ extends StatefulWidget {
 
 class _FAQState extends State<FAQ> {
   List faqsJson = [];
-
+  bool isLoading = true;
   Map faqsJsonMessage = {};
   @override
   void initState() {
@@ -30,12 +30,11 @@ class _FAQState extends State<FAQ> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       appBar: appBar(context, 'FAQ?  '),
       body: faqsJson == null || faqsJson.isEmpty
-          ? exception(context)
+          ? exception(context, isLoading)
           : ListView.builder(
               itemCount: faqsJson.length,
               itemBuilder: (BuildContext context, int index) {
@@ -109,6 +108,7 @@ class _FAQState extends State<FAQ> {
         setState(() {
           faqsJson = json.decode(response.body)['data'];
           faqsJsonMessage = json.decode(response.body);
+          isLoading = false;
         });
 
         showLoading(false, context);

@@ -30,7 +30,6 @@ class _HomeERequestState extends State<HomeERequest> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
         body: studentJson['data']['user_type'] == "STUDENT"
             ? Container(
@@ -47,7 +46,7 @@ class _HomeERequestState extends State<HomeERequest> {
                             'images-white/orequest.png',
                             'Online Request',
                             "/onlineRequest"),
-                        
+
                         // rowSection(
                         //     context,
                         //     'images/orequest.png',
@@ -60,12 +59,18 @@ class _HomeERequestState extends State<HomeERequest> {
                             'images-white/orequest.png',
                             'Letter Request',
                             "/letterRequest"),
-                        // rowSection(
-                        //     context,
-                        //     'images/orequest.png',
-                        //     'images-white/orequest.png',
-                        //     'Leave Application Form',
-                        //     "/leaveApplicationForm"),
+                        rowSection(
+                            context,
+                            'images/orequest.png',
+                            'images-white/orequest.png',
+                            'Student Pass Request',
+                            "/studentPassRequest"),
+                        rowSection(
+                            context,
+                            'images/orequest.png',
+                            'images-white/orequest.png',
+                            'Semester Registration',
+                            "/semesterRegistration"),
                       ],
                     ),
                   ],

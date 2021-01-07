@@ -24,7 +24,7 @@ class ChangeClassTime extends StatefulWidget {
 class _ChangeClassTimeState extends State<ChangeClassTime> {
   final _reason = GlobalKey<FormState>();
 
-
+  bool isLoading = true;
   Map currentTimeJson = {};
   List currentAndNewShiftJson = [];
   Map changeClassTimingJson = {};
@@ -41,7 +41,6 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       bottomNavigationBar: currentTimeJson == null || currentTimeJson.isEmpty
@@ -63,7 +62,7 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
         'Change Class Time',
       ),
       body: currentTimeJson == null || currentTimeJson.isEmpty
-          ? exception(context)
+          ? exception(context, isLoading)
           : GestureDetector(
               onTap: () {
                 FocusScope.of(context).requestFocus(new FocusNode());
@@ -202,11 +201,11 @@ class _ChangeClassTimeState extends State<ChangeClassTime> {
 
             currentAndNewShiftJson =
                 json.decode(response.body)['data']['new_shift'];
+            isLoading = false;
           },
         );
 
         showLoading(false, context);
-       
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {

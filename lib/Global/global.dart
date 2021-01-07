@@ -6,11 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:superellipse_shape/superellipse_shape.dart';
+
 import 'package:url_launcher/url_launcher.dart';
+
+import 'sheets.dart';
 
 bool isDark(context) {
   return Theme.of(context).brightness == Brightness.dark;
 }
+
+String selectedName = "";
 
 String deviceId = 'Unknown';
 String program = studentJson['data']['program'];
@@ -457,4 +462,48 @@ void showAttendance(context, msg, msg2, msg2Color) {
           ),
         );
       });
+}
+
+final SweetSheet _sweetSheet = SweetSheet();
+
+void vottomSheetSuccess(context) {
+  _sweetSheet.show(
+    isDismissible: false,
+    context: context,
+    title: Text("SUCCESS"),
+    description: Text("Your request has been send successfully."),
+    color: CustomSheetColor(
+      main: Color(0xFF3773AC),
+      accent: Color(0xFF3773AC),
+      // icon: Color(0xff5A67D8),
+    ),
+    icon: Icons.check,
+    positive: SweetSheetAction(
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+      title: 'Home Page',
+    ),
+  );
+}
+
+void bottomSheetFailure(context) {
+  _sweetSheet.show(
+    isDismissible: false,
+    context: context,
+    title: Text("Failure"),
+    description: Text("Sorry the request failed. please try again later."),
+    color: CustomSheetColor(
+      main: Color(0xFF3773AC),
+      accent: Color(0xFF3773AC),
+      // icon: Color(0xff5A67D8),
+    ),
+    icon: Icons.check,
+    positive: SweetSheetAction(
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+      title: 'Go Back',
+    ),
+  );
 }

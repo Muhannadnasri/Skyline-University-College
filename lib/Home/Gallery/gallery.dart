@@ -25,7 +25,7 @@ class _GalleryState extends State<Gallery> {
   List galleries = [];
 
   File dataFile;
-
+  bool isLoading = true;
   Map galleryJson = {};
   Map<String, String> body;
   @override
@@ -36,12 +36,11 @@ class _GalleryState extends State<Gallery> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       appBar: appBar(context, 'Gallery'),
       body: galleries == null || galleries.isEmpty
-          ? exception(context)
+          ? exception(context, isLoading)
           : Container(
               child: ListView.builder(
                   itemCount: galleries.length,
@@ -155,7 +154,7 @@ class _GalleryState extends State<Gallery> {
         } else {
           galleryJson = json.decode(dataFile.readAsStringSync());
         }
-
+        isLoading = false;
         showLoading(false, context);
 
         setState(() {

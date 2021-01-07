@@ -1,13 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/global.dart';
-import 'package:superellipse_shape/superellipse_shape.dart';
 
 import 'oneCourse.dart';
 
@@ -26,7 +24,7 @@ class Course extends StatefulWidget {
 
 class _CoursesState extends State<Course> with TickerProviderStateMixin {
   List courseJson = [];
-
+  bool isLoading = true;
   @override
   void initState() {
     getCourse();
@@ -38,11 +36,10 @@ class _CoursesState extends State<Course> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: appBarLogin(context, widget.name),
       body: courseJson == null || courseJson.isEmpty
-          ? exception(context)
+          ? exception(context, isLoading)
           : Container(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -210,7 +207,6 @@ class _CoursesState extends State<Course> with TickerProviderStateMixin {
     );
   }
 
-
   Future getCourse() async {
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
@@ -226,6 +222,7 @@ class _CoursesState extends State<Course> with TickerProviderStateMixin {
       if (response.statusCode == 200) {
         setState(() {
           courseJson = json.decode(response.body);
+          isLoading = false;
         });
         showLoading(false, context);
       }

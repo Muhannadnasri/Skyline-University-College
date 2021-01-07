@@ -24,6 +24,7 @@ class MyAdvisor extends StatefulWidget {
 
 class _MyAdvisorState extends State<MyAdvisor> {
   List myAdvisorJson = [];
+  bool isLoading = true;
   @override
   void initState() {
     super.initState();
@@ -32,7 +33,6 @@ class _MyAdvisorState extends State<MyAdvisor> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
         bottomNavigationBar: myAdvisorJson == null || myAdvisorJson.isEmpty
             ? SizedBox()
@@ -67,7 +67,7 @@ class _MyAdvisorState extends State<MyAdvisor> {
               )),
         appBar: appBarLogin(context, 'Advisor Details'),
         body: myAdvisorJson == null || myAdvisorJson.isEmpty
-            ? exception(context)
+            ? exception(context, isLoading)
             : Container(
                 child: ListView.builder(
                   itemCount: myAdvisorJson.length,
@@ -302,6 +302,7 @@ class _MyAdvisorState extends State<MyAdvisor> {
         setState(
           () {
             myAdvisorJson = json.decode(response.body)['data'];
+            isLoading = false;
           },
         );
 

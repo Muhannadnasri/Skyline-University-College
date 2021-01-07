@@ -29,7 +29,7 @@ class _PassportRetainingState extends State<PassportRetaining> {
   Map passportRetainingJson = {};
   Map underTakingJson = {};
   String reasonPassportRetaining = '';
-
+  bool isLoading = true;
   @override
   void initState() {
     super.initState();
@@ -40,7 +40,6 @@ class _PassportRetainingState extends State<PassportRetaining> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: appBarLogin(context, 'Passport Retaining'),
       bottomNavigationBar: underTakingJson == null || underTakingJson.isEmpty
@@ -55,7 +54,7 @@ class _PassportRetainingState extends State<PassportRetaining> {
               },
             ),
       body: underTakingJson == null || underTakingJson.isEmpty
-          ? exception(context)
+          ? exception(context, isLoading)
           : Container(
               child: ListView(
                 children: <Widget>[
@@ -174,6 +173,7 @@ class _PassportRetainingState extends State<PassportRetaining> {
         setState(
           () {
             underTakingJson = json.decode(response.body)['data'];
+            isLoading = false;
           },
         );
 

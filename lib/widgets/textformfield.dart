@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/widgets/responsive_ui.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -36,6 +37,7 @@ class CustomTextField extends StatelessWidget {
     large = ResponsiveWidget.isScreenLarge(_width, _pixelRatio);
     medium = ResponsiveWidget.isScreenMedium(_width, _pixelRatio);
     return Material(
+      color: isDark(context) ? Color(0xFF1F1F1F) : Colors.white,
       borderRadius: BorderRadius.circular(25.0),
       elevation: large ? 12 : (medium ? 10 : 8),
       child: TextFormField(
@@ -44,15 +46,25 @@ class CustomTextField extends StatelessWidget {
         keyboardType: keyboardType,
         textInputAction: textInputAction,
         validator: validator,
+        style: TextStyle(
+          color: isDark(context) ? Colors.white : Colors.black,
+        ),
         onFieldSubmitted: (v) {
           FocusScope.of(context).requestFocus(focus);
         },
         onSaved: onSaved,
         cursorColor: Color(0xFF104c90),
         decoration: InputDecoration(
+          // hintStyle: TextStyle(
+          //   color: isDark(context) ? Colors.white : Colors.black,
+          // ),
           suffixIcon: suffixIcon,
           prefixIcon: Icon(icon, color: Color(0xFF104c90), size: 20),
-          hintText: hint,
+          // hintText: hint,
+          labelText: hint,
+          labelStyle: TextStyle(
+            color: isDark(context) ? Colors.white : Colors.black,
+          ),
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(30.0),
               borderSide: BorderSide.none),

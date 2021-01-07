@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -22,6 +21,7 @@ class HomeGraduate extends StatefulWidget {
 
 class _HomeGraduateState extends State<HomeGraduate> {
   List programsJson = [];
+  bool isLoading = true;
   Map programsJsonMessage = {};
   @override
   void initState() {
@@ -31,13 +31,12 @@ class _HomeGraduateState extends State<HomeGraduate> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       appBar: appBar(context, 'Graduate'),
       body: Container(
         child: programsJson == null || programsJson.isEmpty
-            ? exception(context)
+            ? exception(context, isLoading)
             : ListView.builder(
                 itemCount: programsJson.length,
                 itemBuilder: (BuildContext context, int index) {
@@ -137,6 +136,7 @@ class _HomeGraduateState extends State<HomeGraduate> {
         setState(() {
           programsJson = json.decode(response.body)['data'];
           programsJsonMessage = json.decode(response.body);
+          isLoading = false;
         });
 
         showLoading(false, context);

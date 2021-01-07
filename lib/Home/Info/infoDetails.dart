@@ -1,15 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBar.dart';
 import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/htmlSecation.dart';
-import 'package:skyline_university/Home/programs/undergraduateProgram.dart';
 
 void main() => runApp(InfoDetails());
 
@@ -25,6 +22,7 @@ class InfoDetails extends StatefulWidget {
 
 class _InfoDetailsState extends State<InfoDetails> {
   List infoJson = [];
+  bool isLoading = true;
   Map infoJsonMessage = {};
   @override
   void initState() {
@@ -36,24 +34,21 @@ class _InfoDetailsState extends State<InfoDetails> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       appBar: appBar(context, widget.name),
       body: infoJson == null || infoJson.isEmpty
-          ? exception(context)
-          : infoJson == null || infoJson.isEmpty
-              ? exception(context)
-              : ListView.builder(
-                  itemCount: infoJson.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return htmlSecation(
-                        context,
-                        infoJson[index]['type'] == 'url',
-                        infoJson[index]['page_content'],
-                        infoJson[index]['title'],
-                        infoJson[index]['page_content']);
-                  }),
+          ? exception(context, isLoading)
+          : ListView.builder(
+              itemCount: infoJson.length,
+              itemBuilder: (BuildContext context, int index) {
+                return htmlSecation(
+                    context,
+                    infoJson[index]['type'] == 'url',
+                    infoJson[index]['page_content'],
+                    infoJson[index]['title'],
+                    infoJson[index]['page_content']);
+              }),
     );
   }
 
@@ -76,6 +71,7 @@ class _InfoDetailsState extends State<InfoDetails> {
         setState(() {
           infoJson = json.decode(response.body)['data'];
           infoJsonMessage = json.decode(response.body);
+          isLoading = false;
         });
 
         showLoading(false, context);

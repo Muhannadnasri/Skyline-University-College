@@ -5,7 +5,7 @@ import 'dart:typed_data';
 import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
@@ -29,6 +29,7 @@ class _CDPDownloadState extends State<CDPDownload>
     with TickerProviderStateMixin {
   List cdpCourseJson = [];
   Map cdpCourseMessageJson = {};
+  bool isLoading = true;
   AnimationController _controller;
 
   @override
@@ -44,11 +45,10 @@ class _CDPDownloadState extends State<CDPDownload>
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: appBarLogin(context, 'CDP'),
       body: cdpCourseJson == null || cdpCourseJson.isEmpty
-          ? exception(context)
+          ? exception(context, isLoading)
           : Container(
               child: ListView.builder(
                 itemCount: cdpCourseJson.length,
@@ -141,14 +141,14 @@ class _CDPDownloadState extends State<CDPDownload>
                               children: <Widget>[
                                 GestureDetector(
                                     onTap: () {
-                            Navigator.push(
+                                      Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => PdfView(
-                                            url: 
-                                            // 'http://sky.skylineuniversity.ac.ae/page/PrintLMS.aspx?Id=${cdpCourseJson[index]['Cdp_ID']}&Type=CDP'
+                                          builder: (context) => PdfViews(
+                                            url:
+                                                // 'http://sky.skylineuniversity.ac.ae/page/PrintLMS.aspx?Id=${cdpCourseJson[index]['Cdp_ID']}&Type=CDP'
 
-                                            'https://www.skylineportal.com/Report/Pages/SkylineCPD-Display.aspx?path1=${cdpCourseJson[index]['Faculty_id']}&batch=${cdpCourseJson[index]['BatchCode']}&studid=$username&reqid=2&cdp=0',
+                                                'https://www.skylineportal.com/Report/Pages/SkylineCPD-Display.aspx?path1=${cdpCourseJson[index]['Faculty_id']}&batch=${cdpCourseJson[index]['BatchCode']}&studid=$username&reqid=2&cdp=0',
                                           ),
                                         ),
                                       );
@@ -236,6 +236,7 @@ class _CDPDownloadState extends State<CDPDownload>
         setState(() {
           cdpCourseJson = json.decode(response.body)['data'];
           cdpCourseMessageJson = json.decode(response.body);
+          isLoading = false;
         });
         showLoading(false, context);
       }

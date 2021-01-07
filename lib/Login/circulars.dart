@@ -36,10 +36,9 @@ class _CircularsState extends State<Circulars> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
         appBar: appBarLogin(context, "Circulars"),
-        body: circularsJson.isEmpty|| circularsJson.isEmpty
+        body: circularsJson.isEmpty || circularsJson.isEmpty
             ? Container()
             : Container(
                 child: circularsJson == null
@@ -248,8 +247,8 @@ class _CircularsState extends State<Circulars> {
       var request = await HttpClient().getUrl(Uri.parse(link));
       var response = await request.close();
       Uint8List bytes = await consolidateHttpClientResponseBytes(response);
-      await Share.file(
-          'Share Document', 'Document.pdf', bytes, 'application/pdf');
+      // await Share.file(
+      //     'Share Document', 'Document.pdf', bytes, 'application/pdf');
       Future.delayed(const Duration(seconds: 1), () {
         _showLoading(false);
       });

@@ -10,6 +10,9 @@ import 'package:skyline_university/Global/customdropdown.dart';
 import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
+import 'package:toggle_switch/toggle_switch.dart';
+
+import 'dropList.dart';
 
 void main() => runApp(LetterRequest());
 
@@ -24,377 +27,345 @@ class LetterRequest extends StatefulWidget {
 final letterRequest = GlobalKey<FormState>();
 
 class _LetterRequestState extends State<LetterRequest> {
-  List sendletterRequestJson = [];
-  TextEditingController urgentAmount = new TextEditingController();
-  TextEditingController normalAmount = new TextEditingController();
-
-  Map requestAmountJson = {};
-  List letterRequestTypeJson = [];
-  String requestId;
-  String address = '';
+  int miscID = 0;
+  TextEditingController miscNameCnt = new TextEditingController();
+  TextEditingController amountNameCnt = new TextEditingController();
+  TextEditingController amountUrgentNameCnt = new TextEditingController();
+  String addressTo = '';
   String remark = '';
+  String requestType = '';
+  int initialIndex = 0;
+
+  bool isLoading = true;
+  Map requestAmountJson = {};
+
   @override
   void initState() {
     super.initState();
-
-    getRequestType();
   }
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       resizeToAvoidBottomPadding: true,
-      bottomNavigationBar: BottomAppBar(
+      bottomNavigationBar: bottomappBar(
+        context,
+        () {
+          if (letterRequest.currentState.validate()) {
+            letterRequest.currentState.save();
+            setState(() {
+              sendOnlineRequest();
+            });
 
-        elevation: 0,
-        color: Colors.transparent,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            FloatingActionButton.extended(
-              //
-              backgroundColor:
-                  isDark(context) ? Color(0xFF121212) : Color(0xFF275d9b),
-
-              label: const Text('Submit'),
-              icon: const Icon(Icons.add),
-              elevation: 4.0,
-              // child: const Icon(Icons.add),
-              onPressed: () {},
-            ),
-            // Material(
-            //   borderRadius: BorderRadius.circular(25.0),
-            //   color: isDark(context) ? Color(0xFF121212) : Color(0xFF275d9b),
-            //   child: Padding(
-            //     padding: const EdgeInsets.all(15.0),
-            //     child: Text(
-            //       "Submit",
-            //       style: TextStyle(color: Colors.white, fontSize: 20),
-            //     ),
-            //   ),
-            // ),
-          ],
-        ),
+            // showfailureSnackBar(context,
+            //     'Your request submitted failed. Please contact IT department');
+          }
+        },
       ),
+      // bottomNavigationBar: BottomAppBar(
+      //   elevation: 0,
+      //   color: Colors.transparent,
+      //   child: Row(
+      //     mainAxisAlignment: MainAxisAlignment.center,
+      //     children: <Widget>[
+      //       FloatingActionButton.extended(
+      //         //
+      //         backgroundColor:
+      //             isDark(context) ? Color(0xFF121212) : Color(0xFF275d9b),
+
+      //         label: const Text('Submit'),
+      //         icon: const Icon(Icons.add),
+      //         elevation: 4.0,
+      //         // child: const Icon(Icons.add),
+      //         onPressed: () {},
+      //       ),
+      //       // Material(
+      //       //   borderRadius: BorderRadius.circular(25.0),
+      //       //   color: isDark(context) ? Color(0xFF121212) : Color(0xFF275d9b),
+      //       //   child: Padding(
+      //       //     padding: const EdgeInsets.all(15.0),
+      //       //     child: Text(
+      //       //       "Submit",
+      //       //       style: TextStyle(color: Colors.white, fontSize: 20),
+      //       //     ),
+      //       //   ),
+      //       // ),
+      //     ],
+      //   ),
+      // ),
       // bottomNavigationBar: bottomappBar(
       //   context,
       //   () {},
       // ),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-        iconTheme: IconThemeData(
-          color: Colors.black, //change your color here
-        ),
-        // leading: Icon(
-        //   Icons.chevron_left,
-        //   size: 30,
-        //   color: Colors.black,
-        // ),
-        // title: Text(
-        //   'Letter Request',
-        //   style: TextStyle(color: Colors.black),
-        // ),
-        // flexibleSpace: FlexibleSpaceBar(
-
-        //   collapseMode: CollapseMode.pin,
-        //   centerTitle: true,
-        //   title: Text(
-        //     'Letter Request',
-        //     style: TextStyle(color: Colors.black),
-        //   ),
-        // ),
-      ),
+      appBar: appBarLogin(context, 'Letter Request'),
 
       // appBar: appBarLogin(context, 'Letter Request'),
-      body: letterRequestTypeJson == null || letterRequestTypeJson.isEmpty
-          ? exception(context)
-          : Container(
-              color: Color(0xffbF8F9FB),
-              child: ListView(
-                // mainAxisAlignment: MainAxisAlignment.start,
-                // crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      top: 5,
-                      left: 30,
-                    ),
-                    child: Container(
-                      child: Text(
-                        'Letter Request',
-                        style: TextStyle(
-                            fontSize: 23, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Card(
-                      margin: EdgeInsets.all(20.0),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      color: Color(0xffbFFFFFF),
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: ListView(
-                          shrinkWrap: true,
-                          physics: ClampingScrollPhysics(),
-                          children: <Widget>[
-                            // Center(
-                            //   child: Text('Enter Details'),
-                            // ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Container(
-                              alignment: Alignment.centerLeft,
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    20.0, 0.0, 20.0, 5.0),
-                                child: Text(
-                                  'Request Type',
-                                  style: TextStyle(
-                                    color: isDark(context)
-                                        ? Colors.white
-                                        : Colors.grey,
-                                  ),
-                                ),
-                              ),
-                            ),
-
-                            CustomDropDown(
-                              isExpanded: true,
-                              items: letterRequestTypeJson
-                                      ?.map(
-                                        (item) => DropdownMenuItem<String>(
-                                          value: item['MiscID'].toString(),
-                                          child: Padding(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                20.0, 0.0, 20.0, 5.0),
-                                            child: FittedBox(
-                                              child: Text(
-                                                item['MiscName'].toString(),
-                                                style: TextStyle(
-                                                    color: isDark(context)
-                                                        ? Colors.white
-                                                        : Colors.black),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      )
-                                      ?.toList() ??
-                                  [],
-                              value: requestId,
-                              hint: Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    20.0, 0.0, 20.0, 5.0),
-                                child: new Text(
-                                  'Select One',
-                                  style: TextStyle(
-                                      color: isDark(context)
-                                          ? Colors.white
-                                          : Colors.black),
-                                ),
-                              ),
-                              underline: Container(
-                                height: 1,
-                                color: Color(0xFF2f2f2f),
-                              ),
-                              searchHint: new Text(
-                                'Select One',
-                                style: new TextStyle(
-                                    fontSize: 20,
-                                    color: isDark(context)
-                                        ? Colors.white
-                                        : Colors.black),
-                              ),
-                              onChanged: (value) {
-                                setState(() async {
-                                  requestId = value;
-                                  getAmount();
-                                });
-                              },
-                            ),
-
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(
-                                      20.0, 0.0, 20.0, 0.0),
-                                  child: Text(
-                                    'Normal Amount',
-                                    style: TextStyle(
-                                      color: isDark(context)
-                                          ? Colors.white
-                                          : Colors.grey,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(
-                                      10.0, 0.0, 20.0, 5.0),
-                                  child: TextFormField(
-                                    controller: normalAmount,
-                                    style: TextStyle(
-                                        color: isDark(context)
-                                            ? Colors.white
-                                            : Colors.black),
-                                    enabled: false,
-                                    decoration: new InputDecoration(
-                                      disabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: isDark(context)
-                                              ? Colors.white.withOpacity(0.2)
-                                              : Colors.black,
-                                        ),
-                                      ),
-                                      contentPadding: const EdgeInsets.fromLTRB(
-                                          15.0, 0.0, 20.0, 5.0),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(
-                                      20.0, 0.0, 20.0, 0.0),
-                                  child: Text(
-                                    'Urgent Amount',
-                                    style: TextStyle(
-                                      color: isDark(context)
-                                          ? Colors.white
-                                          : Colors.grey,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(
-                                      10.0, 0.0, 20.0, 5.0),
-                                  child: TextFormField(
-                                    controller: urgentAmount,
-                                    style: TextStyle(
-                                        color: isDark(context)
-                                            ? Colors.white
-                                            : Colors.black),
-                                    enabled: false,
-                                    decoration: new InputDecoration(
-                                      disabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: isDark(context)
-                                              ? Colors.white.withOpacity(0.2)
-                                              : Colors.black,
-                                        ),
-                                      ),
-                                      contentPadding: const EdgeInsets.fromLTRB(
-                                          15.0, 0.0, 20.0, 5.0),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-
-                            Form(
-                              key: letterRequest,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  globalForms(context, '', (String value) {
-                                    if (value.trim().isEmpty) {
-                                      return 'Address  is required';
-                                    }
-                                    return null;
-                                  }, (x) {
-                                    setState(() {
-                                      address = x;
-                                    });
-                                  }, 'Address', TextInputType.text),
-                                  globalForms(context, '', (String value) {
-                                    if (value.trim().isEmpty) {
-                                      return 'Remark is required';
-                                    }
-                                    return null;
-                                  }, (x) {
-                                    setState(() {
-                                      remark = x;
-                                    });
-                                  }, 'Remark', TextInputType.text),
-                                ],
-                              ),
-                            ),
-
-                            SizedBox(
-                              height: 10,
-                            ),
-
-                            SizedBox(
-                              height: 20,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(new FocusNode());
+        },
+        // color: Color(0xffbF8F9FB),
+        child: ListView(
+          // mainAxisAlignment: MainAxisAlignment.start,
+          // crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(25.0),
+              child: Column(
+                children: [
+                  requestTypeWidget(),
+                  amount(),
+                  amountUrgent(),
+                  switchAmount(),
+                  remarkAndAddressWidget(),
+                  // letterRequest
                 ],
               ),
             ),
+          ],
+        ),
+      ),
     );
   }
 
-  Future getRequestType() async {
-    Future.delayed(Duration.zero, () {
-      showLoading(true, context);
-    });
+  Widget requestTypeWidget() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Request Type',
+          style:
+              TextStyle(color: isDark(context) ? Colors.white : Colors.black),
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DropList(
+                  type: 'LETTER',
+                ),
+              ),
+            ).then((val) async {
+              setState(() {
+                // miscName = val['MiscName'];
+                miscID = val['MiscID'];
+                miscNameCnt.text = val['MiscName'];
+                getAmount();
 
-    try {
-      final response = await http.post(
-        Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/test/OnlineRequestOnline'),
-        headers: {
-          "API-KEY": API,
-        },
-        body: {
-          'user_id': username,
-          'Operation': 'LETTER',
-        },
-      );
-
-      if (response.statusCode == 200) {
-        setState(
-          () {
-            letterRequestTypeJson = json.decode(response.body)['data'];
+                // print(requestAmountJson['data']['NormalFees']);
+              });
+            });
           },
-        );
-        showLoading(false, context);
-      }
-    } catch (x) {
-      if (x.toString().contains("TimeoutException")) {
-        showLoading(false, context);
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-            context, getRequestType);
-      } else {
-        showLoading(false, context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-            getRequestType);
-      }
+          child: AbsorbPointer(
+            child: TextFormField(
+              validator: (x) => x.isEmpty ? "Please select request type" : null,
+              onChanged: (x) {
+                setState(() {
+                  // isEditing = true;
+                });
+              },
+              controller: miscNameCnt,
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 25,
+        ),
+      ],
+    );
+  }
+
+  Widget amount() {
+    if (requestAmountJson['success'] == '1') {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Normal Amount',
+            style:
+                TextStyle(color: isDark(context) ? Colors.white : Colors.black),
+          ),
+          IgnorePointer(
+            child: AbsorbPointer(
+              child: TextFormField(
+                validator: (x) =>
+                    x.isEmpty ? "Please select request type" : null,
+                onChanged: (x) {
+                  setState(() {
+                    // isEditing = true;
+                  });
+                },
+                controller: amountNameCnt,
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 25,
+          ),
+        ],
+      );
+    } else if (requestAmountJson['success'] == '0' ||
+        requestAmountJson == null ||
+        requestAmountJson.isEmpty) {
+      return SizedBox();
     }
+  }
+
+  Widget amountUrgent() {
+    if (requestAmountJson['success'] == '1' &&
+        requestAmountJson['data']['UrgentFees'] != '0') {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Urgent Amount',
+            style:
+                TextStyle(color: isDark(context) ? Colors.white : Colors.black),
+          ),
+          IgnorePointer(
+            child: AbsorbPointer(
+              child: TextFormField(
+                validator: (x) =>
+                    x.isEmpty ? "Please select request type" : null,
+                onChanged: (x) {
+                  setState(() {
+                    // isEditing = true;
+                  });
+                },
+                controller: amountUrgentNameCnt,
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 25,
+          )
+        ],
+      );
+    } else if (requestAmountJson == null ||
+        requestAmountJson.isEmpty ||
+        requestAmountJson['success'] == '0' ||
+        requestAmountJson['data']['UrgentFees'] == '0') {
+      return SizedBox();
+    }
+  }
+
+  Widget switchAmount() {
+    if (requestAmountJson['success'] == '1') {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            'Request Type',
+            style:
+                TextStyle(color: isDark(context) ? Colors.white : Colors.black),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          ToggleSwitch(
+            minWidth: 90.0,
+            initialLabelIndex: initialIndex,
+            cornerRadius: 10.0,
+            activeFgColor: Colors.white,
+            inactiveBgColor: Colors.grey,
+            inactiveFgColor: Colors.white,
+            labels: ['Normal', 'Urgent'],
+            activeBgColors: [Colors.green, Colors.red],
+            onToggle: (index) {
+              print('switched to: $index');
+              setState(() {
+                initialIndex = index;
+                switch (initialIndex) {
+                  case 0:
+                    {
+                      setState(() {
+                        requestType = 'Normal';
+                      });
+                    }
+
+                    break;
+                  case 1:
+                    {
+                      setState(() {
+                        requestType = 'Urgent';
+                      });
+                    }
+                    break;
+                  default:
+                    {
+                      setState(() {
+                        requestType = 'Normal';
+                      });
+                    }
+                }
+              });
+            },
+          ),
+          SizedBox(
+            height: 25,
+          ),
+        ],
+      );
+    } else if (requestAmountJson['success'] == '0' ||
+        requestAmountJson == null ||
+        requestAmountJson.isEmpty) {
+      return SizedBox();
+    }
+  }
+
+  Widget remarkAndAddressWidget() {
+    return Form(
+      key: letterRequest,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Remarks',
+            style:
+                TextStyle(color: isDark(context) ? Colors.white : Colors.black),
+          ),
+          TextFormField(
+            validator: (x) => x.isEmpty ? "Please enter remark" : null,
+            onChanged: (x) {
+              setState(() {
+                // isEditing = true;
+              });
+            },
+            // initialValue: widget.sessionId == null
+            //     ? ''
+            //     : widget.sessionInfo['remarks'],
+            onSaved: (x) {
+              setState(() {
+                remark = x;
+              });
+              // sessionRemarks = x;
+            },
+            keyboardType: TextInputType.text,
+          ),
+          SizedBox(
+            height: 25,
+          ),
+          globalForms(
+            context,
+            '',
+            (String value) {
+              if (value.trim().isEmpty) {
+                return 'Please enter address to';
+              }
+              return null;
+            },
+            (x) {
+              setState(() {
+                addressTo = x;
+              });
+            },
+            'Address To',
+            TextInputType.text,
+          ),
+        ],
+      ),
+    );
   }
 
   Future getAmount() async {
@@ -410,8 +381,8 @@ class _LetterRequestState extends State<LetterRequest> {
           "API-KEY": API,
         },
         body: {
-          'MiscID': requestId,
-          'Stud_ID':username
+          'MiscID': miscID.toString(),
+          'Stud_ID': username,
         },
       ).timeout(Duration(seconds: 35));
 
@@ -419,19 +390,24 @@ class _LetterRequestState extends State<LetterRequest> {
         setState(
           () {
             requestAmountJson = json.decode(response.body);
-            normalAmount.text =
-                requestAmountJson.isEmpty || requestAmountJson == null
-                    ? ''
-                    : requestAmountJson['data']['NormalFees'] == ("NA")
-                        ? "Not Avalible"
-                        : requestAmountJson['data']['NormalFees'].toString();
-            urgentAmount.text = requestAmountJson == null
+            amountNameCnt.text = requestAmountJson.isEmpty ||
+                    requestAmountJson == null ||
+                    requestAmountJson['data'] == null
+                ? ''
+                : requestAmountJson['data']['NormalFees'] == ("NA")
+                    ? "Not Avalible"
+                    : requestAmountJson['data']['NormalFees'].toString();
+
+            amountUrgentNameCnt.text = requestAmountJson.isEmpty ||
+                    requestAmountJson == null ||
+                    requestAmountJson['data'] == null
                 ? ''
                 : requestAmountJson['data']['UrgentFees'] == ("NA")
                     ? "Not Avalible"
                     : requestAmountJson['data']['UrgentFees'].toString();
           },
         );
+
         showLoading(false, context);
       }
     } catch (x) {
@@ -460,18 +436,22 @@ class _LetterRequestState extends State<LetterRequest> {
           "API-KEY": API,
         },
         body: {
-          'user_id': username,
-          // 'request_type': requestAmountJson['data']['MiscName'],
-          // 'request_process': groupValue == 1 ? "Normal" : "Urgent",
-          // 'address': address,
-          // 'remarks': remark,
-          // 'amount': groupValue == 1 ? "NormalAmount" : "UrgentAmount",
-          // 'BatchCode': againstMarksJson[i]['BatchCode'],
+          'StudentID': username,
+          'RequestType': requestType,
+          'RequestTypeid': miscID.toString(),
+          'AddressTo': addressTo,
+          'Remarks': remark,
         },
       ).timeout(Duration(seconds: 35));
 
       if (response.statusCode == 200) {
-        sendletterRequestJson = json.decode(response.body)['data'];
+        showLoading(false, context);
+
+        vottomSheetSuccess(context);
+      } else {
+        showLoading(false, context);
+
+        bottomSheetFailure(context);
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
@@ -484,7 +464,5 @@ class _LetterRequestState extends State<LetterRequest> {
             sendOnlineRequest);
       }
     }
-
-    showLoading(false, context);
   }
 }

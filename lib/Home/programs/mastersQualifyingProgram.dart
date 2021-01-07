@@ -21,6 +21,7 @@ class MastersQualifyingProgram extends StatefulWidget {
 
 class _MastersQualifyingProgramState extends State<MastersQualifyingProgram> {
   List programsJson = [];
+  bool isLoading = true;
   Map programsJsonMessage = {};
   @override
   void initState() {
@@ -30,13 +31,12 @@ class _MastersQualifyingProgramState extends State<MastersQualifyingProgram> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       appBar: appBar(context, 'Masters Qualifying Program'),
       body: Container(
         child: programsJson == null || programsJson.isEmpty
-            ? exception(context)
+            ? exception(context, isLoading)
             : ListView.builder(
                 itemCount: programsJson.length,
                 itemBuilder: (BuildContext context, int index) {
@@ -144,6 +144,7 @@ class _MastersQualifyingProgramState extends State<MastersQualifyingProgram> {
         setState(() {
           programsJson = json.decode(response.body)['data'];
           programsJsonMessage = json.decode(response.body);
+          isLoading = false;
         });
 
         showLoading(false, context);

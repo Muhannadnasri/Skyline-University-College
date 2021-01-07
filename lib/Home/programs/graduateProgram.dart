@@ -32,6 +32,7 @@ class GraduateProgram extends StatefulWidget {
 class _GraduateProgramState extends State<GraduateProgram> {
   List programITJson = [];
   Map programITJsonMessage = {};
+  bool isLoading = true;
   @override
   void initState() {
     getprogramIT();
@@ -41,12 +42,11 @@ class _GraduateProgramState extends State<GraduateProgram> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
         resizeToAvoidBottomPadding: true,
         appBar: appBar(context, 'Program'),
         body: programITJson == null || programITJson.isEmpty
-            ? exception(context)
+            ? exception(context, isLoading)
             : ListView.builder(
                 itemCount: programITJson.length,
                 itemBuilder: (BuildContext context, int index) {
@@ -149,6 +149,7 @@ class _GraduateProgramState extends State<GraduateProgram> {
         setState(() {
           programITJson = json.decode(response.body)['data'];
           programITJsonMessage = json.decode(response.body);
+          isLoading = false;
         });
 
         showLoading(false, context);

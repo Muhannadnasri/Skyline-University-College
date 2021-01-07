@@ -29,7 +29,7 @@ class _CourseWithdrawalState extends State<CourseWithdrawal> {
   Map courseWithdrawalJson = {};
   Map courseNameJson = {};
   List courseWithdrawalCoursesJson = [];
-
+  bool isLoading = true;
   String remarkCourse = '';
   bool checkValue = false;
   int groupValue;
@@ -43,7 +43,6 @@ class _CourseWithdrawalState extends State<CourseWithdrawal> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       bottomNavigationBar: courseWithdrawalCoursesJson == null ||
@@ -66,7 +65,7 @@ class _CourseWithdrawalState extends State<CourseWithdrawal> {
       appBar: appBarLogin(context, 'Course Withdrawal'),
       body: courseWithdrawalCoursesJson == null ||
               courseWithdrawalCoursesJson.isEmpty
-          ? exception(context)
+          ? exception(context, isLoading)
           : GestureDetector(
               onTap: () {
                 FocusScope.of(context).requestFocus(new FocusNode());
@@ -215,6 +214,7 @@ class _CourseWithdrawalState extends State<CourseWithdrawal> {
         setState(
           () {
             courseWithdrawalCoursesJson = json.decode(response.body)['data'];
+            isLoading = false;
           },
         );
 

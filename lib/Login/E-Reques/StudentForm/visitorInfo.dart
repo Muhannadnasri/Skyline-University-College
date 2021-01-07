@@ -68,7 +68,7 @@ class _VisitorInfoState extends State<VisitorInfo> {
 
   String translatorLevel = '';
   String translatorEvent = '';
-
+  bool isLoading = true;
   @override
   void initState() {
     super.initState();
@@ -78,7 +78,6 @@ class _VisitorInfoState extends State<VisitorInfo> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Directionality(
       textDirection: widget.languageAr ? TextDirection.rtl : TextDirection.ltr,
       child: Scaffold(
@@ -105,7 +104,7 @@ class _VisitorInfoState extends State<VisitorInfo> {
         ),
         body: admissionFormDropdownCountriesJson == null ||
                 admissionFormDropdownCountriesJson.isEmpty
-            ? exception(context)
+            ? exception(context, isLoading)
             : //  currentTimeJson == null || currentTimeJson.isEmpty
             //     ? exception(context)
             //     :
@@ -766,6 +765,7 @@ class _VisitorInfoState extends State<VisitorInfo> {
                 json.decode(response.body)['data']['qualificationEn'];
             admissionFormDropdownOrganizationEnJson =
                 json.decode(response.body)['data']['organization'];
+            isLoading = false;
           },
         );
         showLoading(false, context);
@@ -800,53 +800,53 @@ class _VisitorInfoState extends State<VisitorInfo> {
           body: {
             "name": widget.languageAr
                 ? translatorName =
-                    await translator.translate(name, from: 'ar', to: 'en')
+                    await translator.translate(name, from: 'ar', to: 'en').toString()
                 : name,
-            // "shortCourse": widget.languageAr
-            //     ? translatorName = await translator.translate(shotrCourse,
-            //         from: 'ar', to: 'en')
-            //     : shotrCourse,
+            "shortCourse": widget.languageAr
+                ? translatorName = await translator.translate(shortCourse,
+                    from: 'ar', to: 'en').toString()
+                : shortCourse,
             "title": callYou,
             "other": program == null
                 ? widget.languageAr
                     ? translatorOther =
-                        await translator.translate(other, from: 'ar', to: 'en')
+                        await translator.translate(other, from: 'ar', to: 'en').toString()
                     : other
                 : '',
             "shortCourse": widget.languageAr
                 ? translatorShortCourse = await translator
-                    .translate(shortCourse, from: 'ar', to: 'en')
+                    .translate(shortCourse, from: 'ar', to: 'en').toString()
                 : shortCourse,
             "mobile": mobile,
             "facebookId": facebookId,
             "email": email,
             "event": widget.languageAr
                 ? translatorEvent =
-                    await translator.translate(event, from: 'ar', to: 'en')
+                    await translator.translate(event, from: 'ar', to: 'en').toString()
                 : event,
             "programOfInterest": translatorProgram =
-                await translator.translate(program, from: 'ar', to: 'en'),
+                await translator.translate(program, from: 'ar', to: 'en').toString(),
             "modeOfTeaching": languageStudied,
             "specificMajor": widget.languageAr
                 ? translatorMajor =
-                    await translator.translate(major, from: 'ar', to: 'en')
+                    await translator.translate(major, from: 'ar', to: 'en').toString()
                 : major,
             "nameOfSchoolUniversity": school,
             "level": widget.languageAr
                 ? translatorLevel =
-                    await translator.translate(level, from: 'ar', to: 'en')
+                    await translator.translate(level, from: 'ar', to: 'en').toString()
                 : level,
             "currentOccupation": widget.languageAr
                 ? translatorOccupation =
-                    await translator.translate(occupation, from: 'ar', to: 'en')
+                    await translator.translate(occupation, from: 'ar', to: 'en').toString()
                 : occupation,
             "nameOfOrganization": widget.languageAr
                 ? translatororganizationName = await translator
-                    .translate(organizationName, from: 'ar', to: 'en')
+                    .translate(organizationName, from: 'ar', to: 'en').toString()
                 : organizationName,
             "typeOfOrganization": widget.languageAr
                 ? translatorOrganizationType = await translator
-                    .translate(organizationType, from: 'ar', to: 'en')
+                    .translate(organizationType, from: 'ar', to: 'en').toString()
                 : organizationType,
             "language": widget.languageAr == true ? 'AR' : 'EN',
           }).timeout(Duration(seconds: 35));

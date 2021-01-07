@@ -24,7 +24,7 @@ class Attendance extends StatefulWidget {
 
 class _AttendanceState extends State<Attendance> {
   List attendanceJson = [];
-
+  bool isLoading = true;
   @override
   void initState() {
     super.initState();
@@ -35,11 +35,10 @@ class _AttendanceState extends State<Attendance> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
         appBar: appBarLogin(context, 'Attendance'),
         body: attendanceJson == null
-            ? exception(context)
+            ? exception(context, isLoading)
             : ListView.builder(
                 itemCount: attendanceJson.length,
                 itemBuilder: (BuildContext context, int index) {
@@ -241,10 +240,10 @@ class _AttendanceState extends State<Attendance> {
       if (response.statusCode == 200) {
         setState(() {
           attendanceJson = json.decode(response.body)['data'];
+          isLoading = false;
         });
 
         showLoading(false, context);
-        
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {

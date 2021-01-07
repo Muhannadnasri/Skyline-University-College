@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:skyline_university/Global/appBar.dart';
-import 'package:skyline_university/Global/global.dart';
-import 'package:skyline_university/Global/rowSection.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void main() => runApp(StudentServicesDepartments());
@@ -47,7 +44,7 @@ class _StudentServicesDepartmentsState
                 ),
               ),
             ),
-             Card(
+            Card(
               child: ListTile(
                 title: Text('Ms. Tsetsei'),
                 leading: Image.asset('images/logosmall.png'),

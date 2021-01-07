@@ -7,43 +7,36 @@ Widget globalForms(BuildContext context, initialValue, validators, onSaveds,
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      SizedBox(
-        height: 20,
-      ),
-      Padding(
-        padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
-        child: Text(
-          label,
-          style: TextStyle(
-            color: isDark(context) ? Colors.white : Colors.grey,
-          ),
+      Text(
+        label,
+        style: TextStyle(
+          color: isDark(context) ? Colors.white : Colors.black,
         ),
       ),
-      Padding(
-        padding: const EdgeInsets.fromLTRB(10.0, 0.0, 20.0, 5.0),
-        child: TextFormField(
-          // textInputAction: TextInputAction.next,
-          initialValue: initialValue,
-          // onChanged: onSaveds,
-          onSaved: onSaveds,
-          validator: validators,
-          keyboardType: keyboardType,
-          textCapitalization: TextCapitalization.words,
-          style: TextStyle(
-              fontSize: 16.0,
-              color: isDark(context) ? Colors.white : Colors.black),
-          decoration: new InputDecoration(
-            contentPadding: const EdgeInsets.fromLTRB(15.0, 0.0, 20.0, 5.0),
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                color: isDark(context)
-                    ? Colors.white.withOpacity(0.2)
-                    : Colors.black,
-              ),
+      TextFormField(
+        // textInputAction: TextInputAction.next,
+        initialValue: initialValue,
+        // onChanged: onSaveds,
+        onSaved: onSaveds,
+        validator: validators,
+        keyboardType: keyboardType,
+        textCapitalization: TextCapitalization.words,
+        style: TextStyle(
+            fontSize: 16.0,
+            color: isDark(context) ? Colors.white : Colors.black),
+        decoration: new InputDecoration(
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: isDark(context)
+                  ? Colors.white.withOpacity(0.2)
+                  : Colors.black,
             ),
-            fillColor: Colors.green,
           ),
+          fillColor: Colors.green,
         ),
+      ),
+      SizedBox(
+        height: 25,
       ),
     ],
   );

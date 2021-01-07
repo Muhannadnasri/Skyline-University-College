@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
@@ -22,6 +21,7 @@ class _AdmissionKitState extends State<AdmissionKit> {
   Map admissionKitJson = {};
   Map invoicesJson = {};
   Map myLedgerJson = {};
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -35,13 +35,14 @@ class _AdmissionKitState extends State<AdmissionKit> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBarLogin(context, 'Admission Kit'),
-      body: admissionKitJson == null ||
-              admissionKitJson.isEmpty ||
-              myLedgerJson == null ||
-              myLedgerJson.isEmpty ||
-              invoicesJson == null ||
-              invoicesJson.isEmpty
-          ? exception(context)
+      body: admissionKitJson == null || admissionKitJson.isEmpty
+          // ||
+          // myLedgerJson == null ||
+          // myLedgerJson.isEmpty
+          // ||
+          // invoicesJson == null ||
+          // invoicesJson.isEmpty
+          ? exception(context, isLoading)
           : Container(
               child: Row(
                 children: <Widget>[
@@ -83,7 +84,7 @@ class _AdmissionKitState extends State<AdmissionKit> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
-                                            PdfView(url: myLedgerJson['data']),
+                                            PdfViews(url: myLedgerJson['data']),
                                       ),
                                     );
                                   },
@@ -125,7 +126,7 @@ class _AdmissionKitState extends State<AdmissionKit> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => PdfView(
+                                        builder: (context) => PdfViews(
                                             url: admissionKitJson['data']),
                                       ),
                                     );
@@ -168,7 +169,7 @@ class _AdmissionKitState extends State<AdmissionKit> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => PdfView(
+                                        builder: (context) => PdfViews(
                                             url:
                                                 "http://sky.skylineuniversity.ac.ae/page/PrintLMS.aspx?Id=$username&Type=INVOICE&Code=BEC"),
                                       ),
@@ -213,7 +214,9 @@ class _AdmissionKitState extends State<AdmissionKit> {
       if (response.statusCode == 200) {
         setState(() {
           myLedgerJson = json.decode(response.body);
+          isLoading = false;
         });
+        showLoading(false, context);
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
@@ -272,28 +275,18 @@ class _AdmissionKitState extends State<AdmissionKit> {
   //   Future.delayed(Duration.zero, () {});
 
   //   try {
-  //     http.Response response = await http.post(
+  //     http.Response response = await http.get(
   //       Uri.encodeFull(
   //           "http://sky.skylineuniversity.ac.ae/page/PrintLMS.aspx?Id=$username&Type=INVOICE&Code=BEC"),
   //       headers: {
   //         "API-KEY": API,
   //       },
-  //       // body: {
-  //       //   'user_id': username,
-  //       //   'type': 'invoices',
-  //       //   'usertype': studentJson['data']['user_type'],
-  //       //   'ipaddress': '1',
-  //       //   'deviceid': '1',
-  //       //   'devicename': '1'
-  //       // },
-  //     ).timeout(Duration(seconds: 35));
+  //     ).timeout(Duration(seconds: 200));
 
   //     if (response.statusCode == 200) {
   //       setState(() {
   //         invoicesJson = json.decode(response.body);
   //       });
-
-  //       showLoading(false, context);
   //     }
   //   } catch (x) {
   //     if (x.toString().contains("TimeoutException")) {

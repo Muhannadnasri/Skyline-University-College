@@ -49,6 +49,7 @@ class _LocationState extends State<Location> {
               mapType: _defaultMapType,
               myLocationButtonEnabled: false,
               onMapCreated: _onMapCreated,
+              minMaxZoomPreference: MinMaxZoomPreference(13, 13),
 
               initialCameraPosition: _initialPosition,
             ),
@@ -230,7 +231,9 @@ class _LocationState extends State<Location> {
         Marker(
             onTap: () {
               // if (Platform.isIOS) {
-              _openMap(lat, long);
+              setState(() {
+                _openMap(lat, long);
+              });
               // } else
               // return null;
             },
@@ -282,7 +285,7 @@ class _LocationState extends State<Location> {
   }
 
   _openMap(double lat, double long) async {
-    // Android
+    var appleUrl = 'http://maps.apple.com/?ll=$lat,$long';
     var url = 'comgooglemaps://?q=$lat,$long';
     var urlAndroid = 'geo:$lat,$long';
 
@@ -296,6 +299,9 @@ class _LocationState extends State<Location> {
     if (Platform.isIOS) {
       if (await canLaunch(url)) {
         await launch(url);
+      } else if (await canLaunch(appleUrl)) {
+        print('launching apple url');
+        // await launch(appleUrl);
       } else {
         throw 'Could not launch $url';
       }

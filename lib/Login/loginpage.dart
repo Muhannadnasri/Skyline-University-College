@@ -1,14 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:html/parser.dart';
 import 'package:http/http.dart' as http;
 import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skyline_university/Global/global.dart';
-
 import 'package:skyline_university/Login/home.dart';
 import 'package:skyline_university/widgets/custom_shape.dart';
 import 'package:skyline_university/widgets/responsive_ui.dart';
@@ -69,162 +66,31 @@ class _LoginAppState extends State<LoginApp> {
         ),
         elevation: 0.0,
       ),
-      backgroundColor:
-          //  isDark(context) ? Color(0xFF1F1F1F) :
-          Colors.white,
-      body: Container(
-        height: _height,
-        width: _width,
-        padding: EdgeInsets.only(bottom: 5),
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              clipShape(),
-              welcomeTextRow(),
-              signInTextRow(),
-              form(),
-              // forgetPassTextRow(),
-              SizedBox(height: _height / 12),
-              button(),
-              // signUpTextRow(),
-            ],
+      backgroundColor: isDark(context) ? Color(0xFF1F1F1F) : Colors.white,
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(new FocusNode());
+        },
+        child: Container(
+          height: _height,
+          width: _width,
+          padding: EdgeInsets.only(bottom: 5),
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                clipShape(),
+                welcomeTextRow(),
+                signInTextRow(),
+                form(),
+                // forgetPassTextRow(),
+                SizedBox(height: _height / 12),
+                button(),
+                // signUpTextRow(),
+              ],
+            ),
           ),
         ),
       ),
-
-      //  GestureDetector(
-      //   onTap: () {
-      //     FocusScope.of(context).unfocus();
-      //   },
-      //   child: Column(
-      //     // alignment: Alignment.topCenter,
-      //     children: <Widget>[
-
-      //       Expanded(
-      //         flex: 1,
-      //         child: ListView(
-      //           children: <Widget>[
-      //             Padding(
-      //               padding: const EdgeInsets.only(right: 30, left: 30),
-      //               child: Form(
-      //                 key: _logInForm,
-      //                 child: Column(
-      //                   children: <Widget>[
-      //                     Align(
-      //                         alignment: Alignment.centerLeft,
-      //                         child: Text('Username')),
-      //                     TextField(
-      //                       decoration: InputDecoration(
-      //                           enabledBorder: UnderlineInputBorder(
-      //                             borderSide:
-      //                                 BorderSide(color: Color(0xFF144C90)),
-      //                           ),
-      //                           focusedBorder: UnderlineInputBorder(
-      //                             borderSide:
-      //                                 BorderSide(color: Color(0xFF808080)),
-      //                           ),
-      //                           border: InputBorder.none,
-      //                           prefixIcon: Icon(
-      //                             FontAwesomeIcons.user,
-      //                             color: Color(0xFF144C90),
-      //                             size: 20,
-      //                           )
-      //                           // hintText: 'Enter a search term'
-      //                           ),
-      //                     ),
-      //                   ],
-      //                 ),
-      //               ),
-      //             ),
-      //             SizedBox(
-      //               height: 30,
-      //             ),
-      //             Padding(
-      //               padding: const EdgeInsets.only(right: 30, left: 30),
-      //               child: Container(
-      //                 child: Column(
-      //                   children: <Widget>[
-      //                     Align(
-      //                         alignment: Alignment.centerLeft,
-      //                         child: Text('Password')),
-      //                     TextField(
-      //                       obscureText: _obscuredText,
-      //                       decoration: InputDecoration(
-      //                           focusedBorder: UnderlineInputBorder(
-      //                             borderSide:
-      //                                 BorderSide(color: Color(0xFF144C90)),
-      //                           ),
-      //                           enabledBorder: UnderlineInputBorder(
-      //                             borderSide:
-      //                                 BorderSide(color: Color(0xFF808080)),
-      //                           ),
-      //                           border: InputBorder.none,
-      //                           suffixIcon: GestureDetector(
-      //                               onTap: () {
-      //                                 setState(() {
-      //                                   _toggle();
-      //                                 });
-      //                               },
-      //                               child: Icon(
-      //                                 _obscuredText
-      //                                     ? Icons.visibility_off
-      //                                     : Icons.visibility,
-      //                                 size: 20,
-      //                                 color: Color(0xFF144C90),
-      //                               )),
-      //                           prefixIcon: Icon(
-      //                             FontAwesomeIcons.key,
-      //                             size: 20,
-      //                             color: Color(0xFF144C90),
-      //                           )),
-      //                     ),
-      //                   ],
-      //                 ),
-      //               ),
-      //             ),
-      //             SizedBox(
-      //               height: 30,
-      //             ),
-      //             Container(
-      //               margin: const EdgeInsets.only(top: 20.0),
-      //               padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-      //               child: new Row(
-      //                 children: <Widget>[
-      //                   new Expanded(
-      //                     child: FlatButton(
-      //                       shape: new RoundedRectangleBorder(
-      //                           borderRadius: new BorderRadius.circular(30.0)),
-      //                       splashColor: Color(0xFF567191),
-      //                       color: Color(0xFF144C90),
-      //                       child: new Row(
-      //                         mainAxisAlignment: MainAxisAlignment.center,
-      //                         children: <Widget>[
-      //                           new Padding(
-      //                             padding: const EdgeInsets.only(
-      //                                 top: 20.0, bottom: 20.0),
-      //                             child: Text(
-      //                               'Login',
-      //                               style: TextStyle(color: Colors.white),
-      //                             ),
-      //                           ),
-      //                         ],
-      //                       ),
-      //                       onPressed: () {
-      //                         setState(() {
-      //                           logIn();
-      //                         });
-      //                       },
-      //                     ),
-      //                   ),
-      //                 ],
-      //               ),
-      //             ),
-      //           ],
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      // ),
     );
   }
 
@@ -262,18 +128,6 @@ class _LoginAppState extends State<LoginApp> {
                 ),
               ),
             ),
-          ),
-        ),
-        Container(
-          alignment: Alignment.bottomCenter,
-          margin: EdgeInsets.only(
-              top: _large
-                  ? _height / 30
-                  : (_medium ? _height / 25 : _height / 20)),
-          child: Image.asset(
-            'assets/images/login.png',
-            height: _height / 3.5,
-            width: _width / 3.5,
           ),
         ),
       ],
@@ -353,9 +207,10 @@ class _LoginAppState extends State<LoginApp> {
       child: Row(
         children: <Widget>[
           Text(
-            "Welcome",
+            "Login",
             style: TextStyle(
               fontWeight: FontWeight.bold,
+              color: isDark(context) ? Colors.white : Color(0xFF1F1F1F),
               fontSize: _large ? 60 : (_medium ? 50 : 40),
             ),
           ),
@@ -370,8 +225,9 @@ class _LoginAppState extends State<LoginApp> {
       child: Row(
         children: <Widget>[
           Text(
-            "Sign in to your account",
+            "Please sign in to continue",
             style: TextStyle(
+              color: isDark(context) ? Colors.white : Color(0xFF1F1F1F),
               fontWeight: FontWeight.w200,
               fontSize: _large ? 20 : (_medium ? 17.5 : 15),
             ),
@@ -404,7 +260,7 @@ class _LoginAppState extends State<LoginApp> {
         ),
         padding: const EdgeInsets.all(12.0),
         child: Text('SIGN IN',
-            style: TextStyle(fontSize: _large ? 14 : (_medium ? 12 : 10))),
+            style: TextStyle(fontSize: _large ? 14 : (_medium ? 12 : 13))),
       ),
     );
   }

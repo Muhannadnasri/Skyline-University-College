@@ -29,10 +29,7 @@ class _FabShareState extends State<FabShare> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return 
-    
-    
-    FloatingActionButton(
+    return FloatingActionButton(
       backgroundColor: Color.fromARGB(255, 39, 93, 155),
       foregroundColor: Colors.white,
       heroTag: null,
@@ -112,8 +109,6 @@ class _FabShareState extends State<FabShare> with TickerProviderStateMixin {
       Future.delayed(const Duration(seconds: 1), () {
         _showLoading(false);
       });
-    } catch (e) {
-
-    }
+    } catch (e) {}
   }
 }

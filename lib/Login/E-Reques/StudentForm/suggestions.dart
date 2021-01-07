@@ -11,6 +11,8 @@ import 'package:skyline_university/Global/dropDownWidget.dart';
 import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
 
+import 'dropList.dart';
+
 void main() => runApp(Suggestions());
 
 class Suggestions extends StatefulWidget {
@@ -20,138 +22,139 @@ class Suggestions extends StatefulWidget {
   }
 }
 
-final _generalAppointment = GlobalKey<FormState>();
-
 // Map<String, int> body;
 
 class _SuggestionsState extends State<Suggestions> {
-  List generalAPPtJson = [];
+  var caseIDCnt = TextEditingController();
+  var caseNameCnt = TextEditingController();
+  final _suggestionsAppointmentForm = GlobalKey<FormState>();
 
-  Map generalRequestJson = {};
-  String studentDescription = '';
-
-  String _categoryID;
+  String remark = '';
 
   @override
   void initState() {
     super.initState();
-
-    getGeneralApptCatDeptTime();
   }
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       resizeToAvoidBottomPadding: true,
-      bottomNavigationBar: generalAPPtJson.isEmpty
-          ? Container()
-          : bottomappBar(
-              context,
-              () {
-                setState(() {
-                  if (_generalAppointment.currentState.validate() &&
-                      _categoryID != null) {
-                    _generalAppointment.currentState.save();
-                    sendSuggestionsAppointment();
-                  }
-                });
-              },
-            ),
+      bottomNavigationBar: bottomappBar(
+        context,
+        () {
+          setState(() {
+            if (_suggestionsAppointmentForm.currentState.validate() &&
+                caseIDCnt.text != '') {
+              _suggestionsAppointmentForm.currentState.save();
+              sendSuggestionsAppointment();
+            }
+          });
+        },
+      ),
       appBar: appBarLogin(context, 'Suggestions'),
-      body: generalAPPtJson.isEmpty
-          ? Container()
-          : GestureDetector(
-              onTap: () {
-                FocusScope.of(context).requestFocus(new FocusNode());
-              },
-              child: ListView(
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(new FocusNode());
+        },
+        child: ListView(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(25.0),
+              child: Column(
                 children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      SizedBox(
-                        height: 25,
-                      ),
-                      dropDownWidget(
-                          context,
-                          'Select Option',
-                          _categoryID,
-                          generalAPPtJson,
-                          'CATEGORY_ID',
-                          'CATEGORY_DESCRIPTION', (value) {
-                        setState(() {
-                          _categoryID = value;
-                        });
-                      }, 'Case Category'),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Form(
-                        key: _generalAppointment,
-                        child: globalForms(
-                          context,
-                          '',
-                          (String value) {
-                            if (value.trim().isEmpty) {
-                              return 'Reason is required';
-                            }
-                            return null;
-                          },
-                          (x) {
-                            setState(() {
-                              studentDescription = x;
-                            });
-                          },
-                          'Reason',
-                          TextInputType.text,
-                        ),
-                      ),
-                    ],
-                  ),
+                  requestCaseWidget(),
+                  remarkAndAddressWidget(),
                 ],
               ),
             ),
+          ],
+        ),
+      ),
     );
   }
 
-  Future getGeneralApptCatDeptTime() async {
-    Future.delayed(Duration.zero, () {
-      showLoading(true, context);
-    });
-
-    try {
-      final response = await http.post(
-        Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/test/GeneralApptCatDeptTime'),
-        headers: {
-          "API-KEY": API,
-        },
-        body: {
-          'usertype': studentJson['data']['user_type'],
-        },
-      ).timeout(Duration(seconds: 35));
-
-      if (response.statusCode == 200) {
-        setState(
-          () {
-            generalAPPtJson = json.decode(response.body)['data']['category'];
+  Widget requestCaseWidget() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Case Category',
+          style:
+              TextStyle(color: isDark(context) ? Colors.white : Colors.black),
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DropList(
+                  type: 'suggestions',
+                ),
+              ),
+            ).then((val) async {
+              setState(() {
+                // miscName = val['MiscName'];
+                // miscID = val['MiscID'];
+                caseNameCnt.text = val['CATEGORY_DESCRIPTION'];
+                caseIDCnt.text = val['CATEGORY_ID'].toString();
+              });
+            });
           },
-        );
+          child: AbsorbPointer(
+            child: TextFormField(
+              validator: (x) => x.isEmpty ? "Please select request type" : null,
+              onChanged: (x) {
+                setState(() {
+                  // isEditing = true;
+                });
+              },
+              controller: caseNameCnt,
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 25,
+        ),
+      ],
+    );
+  }
 
-        showLoading(false, context);
-      }
-    } catch (x) {
-      if (x.toString().contains("TimeoutException")) {
-        showLoading(false, context);
-
-        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-            context, getGeneralApptCatDeptTime);
-      } else {
-        showLoading(false, context);
-        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-            getGeneralApptCatDeptTime);
-      }
-    }
+  Widget remarkAndAddressWidget() {
+    return Form(
+      key: _suggestionsAppointmentForm,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Remarks',
+            style:
+                TextStyle(color: isDark(context) ? Colors.white : Colors.black),
+          ),
+          TextFormField(
+            validator: (x) => x.isEmpty ? "Please enter remark" : null,
+            onChanged: (x) {
+              setState(() {
+                // isEditing = true;
+              });
+            },
+            // initialValue: widget.sessionId == null
+            //     ? ''
+            //     : widget.sessionInfo['remarks'],
+            onSaved: (x) {
+              setState(() {
+                remark = x;
+              });
+              // sessionRemarks = x;
+            },
+            keyboardType: TextInputType.text,
+          ),
+          SizedBox(
+            height: 25,
+          ),
+        ],
+      ),
+    );
   }
 
   Future sendSuggestionsAppointment() async {
@@ -169,8 +172,8 @@ class _SuggestionsState extends State<Suggestions> {
         body: {
           'Stud_ID': username,
           'CASETYPE_ID': '2',
-          'CATEGORY_ID': _categoryID.toString(),
-          'StudentDescription': studentDescription,
+          'CATEGORY_ID': caseIDCnt.text.toString(),
+          'StudentRemarks': remark.toString(),
         },
       );
       showLoading(false, context);

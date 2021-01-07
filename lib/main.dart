@@ -51,6 +51,8 @@ import 'Login/E-Reques/StudentForm/onlineRequest.dart';
 import 'Login/E-Reques/StudentForm/passportRetaining.dart';
 import 'Login/E-Reques/StudentForm/passportWithdrawal.dart';
 import 'Login/E-Reques/StudentForm/reinstatment.dart';
+import 'Login/E-Reques/StudentForm/semesterRegistration.dart';
+import 'Login/E-Reques/StudentForm/studentPassRequest.dart';
 import 'Login/E-Reques/StudentForm/suggestions.dart';
 import 'Login/E-Reques/StudentForm/updateInformation.dart';
 import 'Login/E-Reques/StudentForm/visitorInfoLan.dart';
@@ -184,8 +186,16 @@ class MyAppState extends State<MyApp> {
           '/AdmissionKit': (context) => AdmissionKit(),
 
           '/letterRequest': (context) => LetterRequest(),
+          // '/LoginApp': (context) => LetterRequest(),
 
           '/onlineRequest': (context) => OnlineRequest(),
+          // '/LoginApp': (context) => OnlineRequest(),
+          // '/LoginApp': (context) => OnlineRequests(),
+          '/studentPassRequest': (context) => StudentPassRequest(),
+
+          '/semesterRegistration': (context) => SemesterRegistration(),
+          // '/LoginApp': (context) => SemesterRegistration(),
+
           '/HomeERequest': (context) => HomeERequest(),
           '/homeAppointment': (context) => HomeAppointment(),
           '/homeSuggestion': (context) => HomeSuggestion(),

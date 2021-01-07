@@ -22,6 +22,7 @@ class UndergraduateIT extends StatefulWidget {
 class _UndergraduateITState extends State<UndergraduateIT> {
   List programsJson = [];
   Map programsJsonMessage = {};
+  bool isLoading = true;
   @override
   void initState() {
     super.initState();
@@ -31,12 +32,11 @@ class _UndergraduateITState extends State<UndergraduateIT> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       appBar: appBar(context, 'School of Information Technology'),
       body: programsJson == null || programsJson.isEmpty
-          ? exception(context)
+          ? exception(context, isLoading)
           : ListView.builder(
               itemCount: programsJson.length,
               itemBuilder: (BuildContext context, int index) {
@@ -135,6 +135,7 @@ class _UndergraduateITState extends State<UndergraduateIT> {
         setState(() {
           programsJson = json.decode(response.body)['data'];
           programsJsonMessage = json.decode(response.body);
+          isLoading = false;
         });
 
         showLoading(false, context);

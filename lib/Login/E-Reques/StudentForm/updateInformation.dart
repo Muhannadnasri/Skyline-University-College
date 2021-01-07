@@ -44,7 +44,7 @@ class _UpdateInformationState extends State<UpdateInformation> {
   String parentWork = '';
   String parentDesignation = '';
   String boxNumber = '';
-
+  bool isLoading = true;
   @override
   void initState() {
     super.initState();
@@ -54,7 +54,6 @@ class _UpdateInformationState extends State<UpdateInformation> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       bottomNavigationBar: bottomappBar(
@@ -72,7 +71,7 @@ class _UpdateInformationState extends State<UpdateInformation> {
       body: Container(
         color: Colors.white,
         child: studentInfoJson.isEmpty
-            ? exception(context)
+            ? exception(context, isLoading)
             : ListView(
                 children: <Widget>[
                   GestureDetector(
@@ -559,6 +558,7 @@ class _UpdateInformationState extends State<UpdateInformation> {
         setState(
           () {
             studentInfoJson = json.decode(response.body);
+            isLoading = false;
           },
         );
         if (studentInfoJson['data']['VisaStudent'] == "NO") {
@@ -618,13 +618,21 @@ class _UpdateInformationState extends State<UpdateInformation> {
         },
         body: {
           'user_id': username,
-          'visa_student':
-              visaValue == 1 ? 'Yes' : visaValue == 2 ? 'No' : visaValue,
+          'visa_student': visaValue == 1
+              ? 'Yes'
+              : visaValue == 2
+                  ? 'No'
+                  : visaValue,
           'dependent': dependentValue == 1
               ? 'Yes'
-              : dependentValue == 2 ? 'No' : dependentValue,
-          'staying_hostel':
-              hostelValue == 1 ? 'Yes' : hostelValue == 2 ? 'No' : hostelValue,
+              : dependentValue == 2
+                  ? 'No'
+                  : dependentValue,
+          'staying_hostel': hostelValue == 1
+              ? 'Yes'
+              : hostelValue == 2
+                  ? 'No'
+                  : hostelValue,
           'email': email,
           'mobile_no': mobileNumber,
           'visa_no': visa,
@@ -640,7 +648,9 @@ class _UpdateInformationState extends State<UpdateInformation> {
           'po_box_no': boxNumber,
           'working_student': workingValue == 1
               ? 'Yes'
-              : workingValue == 2 ? 'No' : workingValue,
+              : workingValue == 2
+                  ? 'No'
+                  : workingValue,
         },
       ).timeout(Duration(seconds: 35));
 
