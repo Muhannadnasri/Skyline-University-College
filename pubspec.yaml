@@ -6,7 +6,7 @@ name: skyline_university
 # Both the versions and the builder number may be overridden in flutter
 # build by specifying --build-name and --build-number, respectively.
 # Read more about versioning at semver.org.
-version: 1.6.0+25
+version: 1.6.0+27
 
 environment:
   sdk: ">=2.2.2 <3.0.0"
@@ -32,9 +32,9 @@ dependencies:
   shared_preferences: ^0.5.6+1
   flutter_html: ^0.11.1
   google_maps_flutter: ^0.5.21
-  
+
   # youtube_player_flutter: ^6.0.3+2
-  # flutter_calendar_carousel: ^1.4.10 
+  # flutter_calendar_carousel: ^1.4.10
   date_utils: ^0.1.0+3
   #TODO: cahnge to local
   flushbar: ^1.10.2
@@ -55,15 +55,12 @@ dependencies:
   toggle_switch: "^0.1.8"
   roundcheckbox: ^1.0.0+1
   http: ^0.12.2
-  
-
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: ^0.7.2
   flutter_launcher_name: "^0.0.1"
-  
 
 flutter_icons:
   android: "launcher_icon"
@@ -71,8 +68,6 @@ flutter_icons:
   image_path: "images/launcher.png"
 flutter_launcher_name:
   name: "SkylineUniversity"
-
-  
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec

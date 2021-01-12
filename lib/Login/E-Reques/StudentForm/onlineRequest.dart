@@ -42,6 +42,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
   var leaveFromDateNameCnt = TextEditingController();
 
   var leaveToDateNameCnt = TextEditingController();
+  var receiptDateNameCnt = TextEditingController();
 
   Map requestAmountJson = {};
   List resitMarksJson = [];
@@ -77,6 +78,9 @@ class _OnlineRequestState extends State<OnlineRequest> {
   //cancellationType
   int cancellationTypeID;
   String reasonCancellation = '';
+  //Postponement
+  String reasonPostponement = '';
+  String receiptNo = '';
   String requestType = 'Normal';
   int initialIndex = 0;
   String remark = '';
@@ -97,6 +101,8 @@ class _OnlineRequestState extends State<OnlineRequest> {
   String leaveToDate = DateFormat('yyyy-MM-dd').format(now);
   String leaveFromDate = DateFormat('yyyy-MM-dd').format(now);
 
+  String receiptDate = DateFormat('yyyy-MM-dd').format(now);
+
   String passportDate = DateFormat('yyyy-MM-dd').format(now);
   final _formShift = GlobalKey<FormState>();
   final _formRepaeating = GlobalKey<FormState>();
@@ -106,6 +112,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
   final _remarkAndAddressForm = GlobalKey<FormState>();
   final _formAgains = GlobalKey<FormState>();
   final _formCancellationVisa = GlobalKey<FormState>();
+  final _formPostponement = GlobalKey<FormState>();
 
   String _selectedShift;
   int _selectedShiftID;
@@ -121,6 +128,17 @@ class _OnlineRequestState extends State<OnlineRequest> {
         context,
         () {
           switch (miscID) {
+            case 110:
+              {
+                if (_formPostponement.currentState.validate() &&
+                    receiptDate != null) {
+                  _formPostponement.currentState.save();
+                  setState(() {
+                    inserPostponement();
+                  });
+                }
+              }
+              break;
             case 114:
               {
                 if (_formCancellationVisa.currentState.validate() &&
@@ -441,50 +459,6 @@ class _OnlineRequestState extends State<OnlineRequest> {
               });
             });
           },
-
-          //  () {
-
-          //   Future.delayed(Duration.zero, () {
-          //     Navigator.push(
-          //       context,
-          //       MaterialPageRoute(
-          //         builder: (context) => DropList(
-          //           type: 'ONLINE',
-          //         ),
-          //       ),
-          //     ).then((val) async {
-          //       setState(() {
-          //         // miscName = val['MiscName'];
-          //         miscID = val['MiscID'];
-          //         miscNameCnt.text = val['MiscName'];
-          //         getAmount();
-
-          //         if (miscID == 5) {
-          //           getResitMarksCourses();
-          //         }
-          //         if (miscID == 6) {
-          //           getMidMarksCourses();
-          //         }
-          //         if (miscID == 139) {
-          //           getCourseWithdrawal();
-          //         }
-          //         if (miscID == 143) {
-          //           getAgainstMarks();
-          //         }
-          //         if (miscID == 1) {
-          //           getCourseRepeating();
-          //         }
-          //         if (miscID == 31) {
-          //           getShiftTime();
-          //         }
-          //         if (miscID == 114) {
-          //           getCancellationVisaType();
-          //         }
-          //         // print(requestAmountJson['data']['NormalFees']);
-          //       });
-          //     });
-          //   });
-          // },
           child: AbsorbPointer(
             child: TextFormField(
               validator: (x) => x.isEmpty ? "Please select request type" : null,
@@ -776,6 +750,60 @@ class _OnlineRequestState extends State<OnlineRequest> {
                           setState(() {
                             leaveToDate = val.toString();
                             leaveToDateNameCnt.text =
+                                "${val.year}-${val.month}-${val.day}";
+                          });
+                        }),
+                  ),
+
+                  // Close the modal
+                  CupertinoButton(
+                    child: Text('OK'),
+                    onPressed: () => Navigator.of(ctx).pop(),
+                  )
+                ],
+              ),
+            ));
+  }
+
+  Future<void> _showDatePickerAndroidpostPonement(ctx) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime.now(),
+        lastDate: DateTime(DateTime.now().year + 2),
+        // confirmText: 'Confirm'
+
+        // selectableDayPredicate: (DateTime x) {
+        //   print(x);
+        // },
+        initialDatePickerMode: DatePickerMode.day);
+    if (picked != null)
+      setState(() {
+        print(picked);
+        receiptDate = picked.toString();
+        receiptDate = receiptDateNameCnt.text;
+      });
+  }
+
+  Future<void> _showDatePickerpostPonement(ctx) {
+    showCupertinoModalPopup(
+        context: ctx,
+        builder: (_) => Container(
+              height: 500,
+              color: Color.fromARGB(255, 255, 255, 255),
+              child: Column(
+                children: [
+                  Container(
+                    height: 400,
+                    child: CupertinoDatePicker(
+                        initialDateTime: DateTime.now(),
+                        minimumYear: DateTime.now().year,
+                        maximumYear: DateTime.now().year + 1,
+                        mode: CupertinoDatePickerMode.date,
+                        onDateTimeChanged: (val) {
+                          setState(() {
+                            receiptDate = val.toString();
+                            receiptDateNameCnt.text =
                                 "${val.year}-${val.month}-${val.day}";
                           });
                         }),
@@ -1486,132 +1514,6 @@ class _OnlineRequestState extends State<OnlineRequest> {
               textField: 'CancellationType',
               valueField: 'CancellationTypeID',
             ),
-
-            // FormField<String>(
-            //   builder: (FormFieldState<String> state) {
-            //     return InputDecorator(
-            //       decoration: InputDecoration(
-            //           labelStyle:
-            //               TextStyle(color: Colors.redAccent, fontSize: 16.0),
-            //           errorStyle:
-            //               TextStyle(color: Colors.redAccent, fontSize: 16.0),
-            //           hintText: 'Please select expense',
-            //           border: OutlineInputBorder(
-            //               borderRadius: BorderRadius.circular(5.0))),
-            //       isEmpty: cancellationTypeJson == '',
-            //       child: DropdownButtonHideUnderline(
-            //         child: DropdownButton<String>(
-            //           value: cancellationType,
-            //           isDense: true,
-            //           onChanged: (items) {
-            //             setState(() {
-            //               cancellationType = items;
-            //             });
-            //           },
-            //           items: cancellationTypeJson
-            //                   ?.map(
-            //                     (item) => DropdownMenuItem<String>(
-            //                       value: item['CancellationTypeID'].toString(),
-            //                       child:
-            //                           Text(item['CancellationType'].toString()),
-            //                     ),
-            //                   )
-            //                   ?.toList() ??
-            //               [],
-
-            //           // items: <String> cancellationTypeJson.map((String value) {
-            //           //   return DropdownMenuItem<String>(
-            //           //     value: value,
-            //           //     child: Text(value),
-            //           //   );
-            //           // }).toList(),
-            //         ),
-            //       ),
-            //     );
-            //   },
-            // ),
-            // dropDownWidget(
-            //     context,
-            //     'Select Your Current Timings',
-            //     cancellationType,
-            //     cancellationTypeJson,
-            //     'CancellationType',
-            //     'CancellationTypeID', (items) {
-            //   setState(() {
-            //     cancellationType = items;
-            //   });
-            // }, 'Visa Cancellation Type'),
-            // // Text(
-            //   'Visa Cancellation Type',
-            //   style: TextStyle(
-            //       color: isDark(context) ? Colors.white : Colors.black),
-            // ),
-            // Card(
-            //   shape: RoundedRectangleBorder(
-            //     borderRadius: BorderRadius.circular(30.0),
-            //   ),
-            //   elevation: 5,
-            //   child: Container(
-            //     height: MediaQuery.of(context).size.height / 3,
-            //     child: ListView.builder(
-            //         physics: ScrollPhysics(),
-            //         itemCount: courseRepaeatingJson.length,
-            //         itemBuilder: (BuildContext context, int index) {
-            //           return ListTile(
-            //             // children: [
-            //             leading: CircularCheckBox(
-            //                 activeColor: Color(0xFF3773AC),
-            //                 value: selectedCourseRepaeating[index],
-            //                 materialTapTargetSize: MaterialTapTargetSize.padded,
-            //                 onChanged: (bool x) {
-            //                   setState(() {
-            //                     selectedCourseRepaeating[index] = x;
-            //                     print(selectedCourseRepaeating);
-            //                   });
-            //                 }),
-
-            //             title: Text(
-            //               courseRepaeatingJson[index]['Cdd_Description']
-            //                   .toString(),
-            //               style: TextStyle(
-            //                   color: isDark(context)
-            //                       ? Colors.white
-            //                       : Colors.black),
-            //             ),
-            //             subtitle: Row(
-            //               children: [
-            //                 Text(
-            //                   courseRepaeatingJson[index]['Cdd_Code']
-            //                       .toString(),
-            //                   style: TextStyle(
-            //                       color: isDark(context)
-            //                           ? Colors.white
-            //                           : Colors.black),
-            //                 ),
-            //                 SizedBox(
-            //                   width: 5,
-            //                 ),
-            //                 Text('/'),
-            //                 SizedBox(
-            //                   width: 5,
-            //                 ),
-            //                 Text(
-            //                   courseRepaeatingJson[index]['Cdd_ID'].toString(),
-            //                   style: TextStyle(
-            //                       color: isDark(context)
-            //                           ? Colors.white
-            //                           : Colors.black),
-            //                 ),
-            //               ],
-            //             ),
-
-            //             // trailing:
-            //             //     Text(courseWithdrawalJson[index]['Cdd_ID'].toString()),
-            //             // ],
-            //           );
-            //         }),
-            //   ),
-            // ),
             SizedBox(
               height: 25,
             ),
@@ -1635,7 +1537,97 @@ class _OnlineRequestState extends State<OnlineRequest> {
           ],
         ),
       );
-    } else if (miscID != 1) {
+    } else if (miscID != 114) {
+      return SizedBox();
+    }
+  }
+
+  Widget postPonement() {
+    if (miscID == 110) {
+      return Form(
+        key: _formPostponement,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Visa Cancellation Type',
+              style: TextStyle(
+                  color: isDark(context) ? Colors.white : Colors.black),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            // date
+            Text(
+              'Date to be Return',
+              style: TextStyle(
+                  color: isDark(context) ? Colors.white : Colors.black),
+            ),
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  if (Platform.isIOS) {
+                    _showDatePickerpostPonement(context);
+                  } else {
+                    _showDatePickerAndroidpostPonement(context);
+                  }
+                });
+              },
+              child: AbsorbPointer(
+                child: TextFormField(
+                  validator: (x) =>
+                      x.isEmpty ? "Please enter date to be return" : null,
+                  onChanged: (x) {
+                    setState(() {
+                      // isEditing = true;
+                    });
+                  },
+                  controller: passportDateNameCnt,
+                ),
+              ),
+            ),
+
+            SizedBox(
+              height: 25,
+            ),
+            Text(
+              'Receipt No',
+              style: TextStyle(
+                  color: isDark(context) ? Colors.white : Colors.black),
+            ),
+            TextFormField(
+              validator: (x) => x.isEmpty ? "Please enter receipt no" : null,
+              onSaved: (x) {
+                setState(() {
+                  receiptNo = x;
+                });
+              },
+              keyboardType: TextInputType.number,
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            Text(
+              'Reason',
+              style: TextStyle(
+                  color: isDark(context) ? Colors.white : Colors.black),
+            ),
+            TextFormField(
+              validator: (x) => x.isEmpty ? "Please enter reason" : null,
+              onSaved: (x) {
+                setState(() {
+                  reasonPostponement = x;
+                });
+              },
+              keyboardType: TextInputType.text,
+            ),
+            SizedBox(
+              height: 25,
+            ),
+          ],
+        ),
+      );
+    } else if (miscID != 110) {
       return SizedBox();
     }
   }
@@ -2803,6 +2795,52 @@ class _OnlineRequestState extends State<OnlineRequest> {
     }
   }
 
+  Future inserPostponement() async {
+    Future.delayed(Duration.zero, () {
+      showLoading(true, context);
+    });
+
+    try {
+      final response = await http.post(
+        Uri.encodeFull(
+            'https://skylineportal.com/moappad/api/test/InserPostponement'),
+        headers: {
+          "API-KEY": API,
+        },
+        body: {
+          'StudentID': username,
+          'RequestTypeid': miscID.toString(),
+          'RequestType': requestType.toString(),
+
+          'ReceiptDate': receiptDate.toString(),
+          'ReceiptNo': receiptNo.toString(),
+          'Remarks': reasonPostponement.toString(),
+          // 'RequestDate': date.toString()
+        },
+      ).timeout(Duration(seconds: 35));
+
+      if (response.statusCode == 200) {
+        showLoading(false, context);
+
+        vottomSheetSuccess(context);
+      } else {
+        showLoading(false, context);
+
+        bottomSheetFailure(context);
+      }
+    } catch (x) {
+      if (x.toString().contains("TimeoutException")) {
+        showLoading(false, context);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getAmount);
+      } else {
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getAmount);
+      }
+    }
+  }
+
   Future insertVisaCancellation() async {
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
@@ -2822,7 +2860,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
 
           'CancellationType': cancellationTypeID.toString(),
 
-          'StudRemarks': reasonCancellation,
+          'Remarks': reasonCancellation,
           // 'RequestDate': date.toString()
         },
       ).timeout(Duration(seconds: 35));

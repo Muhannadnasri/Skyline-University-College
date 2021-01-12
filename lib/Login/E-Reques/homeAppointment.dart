@@ -29,7 +29,6 @@ class _HomeAppointmentState extends State<HomeAppointment> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
         body: Container(
           child: ListView(

@@ -1,44 +1,29 @@
 import 'dart:convert';
-
-import 'package:flutter/material.dart';
+import 'dart:ui';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
-import 'package:local_auth/local_auth.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:skyline_university/Global/global.dart';
-import 'package:skyline_university/Login/home.dart';
-import 'package:skyline_university/widgets/custom_shape.dart';
-import 'package:skyline_university/widgets/responsive_ui.dart';
-import 'package:skyline_university/widgets/textformfield.dart';
 
-void main() => runApp(MaterialApp(
-      home: LoginApp(),
-    ));
+import 'package:flutter/material.dart';
+import 'package:local_auth/local_auth.dart';
+import 'package:skyline_university/Global/global.dart';
+import 'package:skyline_university/widgets/bezierContainer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'home.dart';
 
 class LoginApp extends StatefulWidget {
+  LoginApp({Key key, this.title}) : super(key: key);
+
+  final String title;
+
   @override
-  _LoginAppState createState() => new _LoginAppState();
+  _LoginAppState createState() => _LoginAppState();
 }
 
 class _LoginAppState extends State<LoginApp> {
-  double _height;
-  double _width;
-  double _pixelRatio;
-  bool _large;
-  bool _medium;
   final _logInForm = GlobalKey<FormState>();
   final localAuth = LocalAuthentication();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-
-  String deviceToken = '';
-  final focus = FocusNode();
-  bool _obscuredText = true;
-
-  _toggle() {
-    setState(() {
-      _obscuredText = !_obscuredText;
-    });
-  }
 
   void initState() {
     super.initState();
@@ -47,231 +32,199 @@ class _LoginAppState extends State<LoginApp> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    _height = MediaQuery.of(context).size.height;
-    _width = MediaQuery.of(context).size.width;
-    _pixelRatio = MediaQuery.of(context).devicePixelRatio;
-    _large = ResponsiveWidget.isScreenLarge(_width, _pixelRatio);
-    _medium = ResponsiveWidget.isScreenMedium(_width, _pixelRatio);
-    return new Scaffold(
-      key: _scaffoldKey,
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        title: Image.asset(
-          'images/skyline_white.png',
-          // fit: BoxFit.cover,
-          height: 40,
-          width: 200,
-        ),
-        elevation: 0.0,
-      ),
-      backgroundColor: isDark(context) ? Color(0xFF1F1F1F) : Colors.white,
-      body: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).requestFocus(new FocusNode());
-        },
-        child: Container(
-          height: _height,
-          width: _width,
-          padding: EdgeInsets.only(bottom: 5),
-          child: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                clipShape(),
-                welcomeTextRow(),
-                signInTextRow(),
-                form(),
-                // forgetPassTextRow(),
-                SizedBox(height: _height / 12),
-                button(),
-                // signUpTextRow(),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget clipShape() {
-    //double height = MediaQuery.of(context).size.height;
-    return Stack(
-      children: <Widget>[
-        Opacity(
-          opacity: 0.75,
-          child: ClipPath(
-            clipper: CustomShapeClipper(),
-            child: Container(
-              height: _large
-                  ? _height / 4
-                  : (_medium ? _height / 3.75 : _height / 3.5),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Color(0xFF275d9b), Color(0xFF0e4481)],
-                ),
-              ),
-            ),
-          ),
-        ),
-        Opacity(
-          opacity: 0.5,
-          child: ClipPath(
-            clipper: CustomShapeClipper2(),
-            child: Container(
-              height: _large
-                  ? _height / 4.5
-                  : (_medium ? _height / 4.25 : _height / 4),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Color(0xFF104c90), Color(0xFF0e4481)],
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget form() {
-    return Container(
-      margin: EdgeInsets.only(
-          left: _width / 12.0, right: _width / 12.0, top: _height / 15.0),
-      child: Form(
-        key: _logInForm,
-        child: Column(
+  Widget _backButton() {
+    return InkWell(
+      onTap: () {
+        Navigator.pop(context);
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        child: Row(
           children: <Widget>[
-            emailTextFormField(),
-            SizedBox(height: _height / 40.0),
-            passwordTextFormField(),
+            Container(
+                padding: EdgeInsets.only(left: 0, top: 10, bottom: 10),
+                child: Icon(
+                  Icons.keyboard_arrow_left,
+                  color: isDark(context) ? Colors.white : Colors.black,
+                )),
+            Text('Back',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: isDark(context) ? Colors.white : Colors.black,
+                ))
           ],
         ),
       ),
     );
   }
 
-  Widget emailTextFormField() {
-    return CustomTextField(
-      keyboardType: TextInputType.emailAddress,
-      textInputAction: TextInputAction.next,
-      validator: (String value) {
-        if (value.trim().isEmpty) {
-          return 'Username is required';
-        }
-        return null;
-      },
-      onSaved: (x) {
-        username = x;
-      },
-      // textEditingController: emailController,
-      icon: FontAwesomeIcons.userAlt,
-      hint: "User ID",
-    );
-  }
-
-  Widget passwordTextFormField() {
-    return CustomTextField(
-      keyboardType: TextInputType.emailAddress,
-      // textEditingController: passwordController,
-      textInputAction: TextInputAction.done,
-      validator: (String value) {
-        if (value.trim().isEmpty) {
-          return 'Password is required';
-        }
-        return null;
-      },
-      onSaved: (x) {
-        password = x;
-      },
-      suffixIcon: GestureDetector(
-          onTap: () {
-            setState(() {
-              _toggle();
-            });
-          },
-          child: Icon(
-            _obscuredText ? Icons.visibility_off : Icons.visibility,
-            size: 20,
-            color: Color(0xFF144C90),
-          )),
-      icon: Icons.lock,
-      obscureText: _obscuredText,
-      hint: "Password",
-    );
-  }
-
-  Widget welcomeTextRow() {
+  Widget _entryField(
+      String title,
+      IconData icon,
+      TextInputAction textInputAction,
+      String Function(String) validator,
+      void Function(String) onSaved,
+      {bool isPassword = false}) {
     return Container(
-      margin: EdgeInsets.only(left: _width / 20, top: _height / 100),
-      child: Row(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            "Login",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: isDark(context) ? Colors.white : Color(0xFF1F1F1F),
-              fontSize: _large ? 60 : (_medium ? 50 : 40),
-            ),
+          // Text(
+          //   title,
+          //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+          // ),
+          SizedBox(
+            height: 10,
           ),
+          TextFormField(
+              style: TextStyle(
+                color: isDark(context) ? Colors.black : Colors.black,
+              ),
+              textInputAction: textInputAction,
+              validator: validator,
+              onSaved: onSaved,
+              obscureText: isPassword,
+              decoration: InputDecoration(
+                  prefixIcon: Icon(icon, color: Color(0xFF104c90), size: 20),
+                  labelText: title,
+                  labelStyle: TextStyle(
+                    color: isDark(context) ? Colors.black : Colors.black,
+                  ),
+                  border: InputBorder.none,
+                  fillColor: Color(0xfff3f3f4),
+                  filled: true))
         ],
       ),
     );
   }
 
-  Widget signInTextRow() {
-    return Container(
-      margin: EdgeInsets.only(left: _width / 15.0),
-      child: Row(
-        children: <Widget>[
-          Text(
-            "Please sign in to continue",
-            style: TextStyle(
-              color: isDark(context) ? Colors.white : Color(0xFF1F1F1F),
-              fontWeight: FontWeight.w200,
-              fontSize: _large ? 20 : (_medium ? 17.5 : 15),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget button() {
-    return RaisedButton(
-      elevation: 0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-      onPressed: () {
-        // print("Routing to your account");
-        setState(() {
-          logIn();
-        });
+  Widget _submitButton() {
+    return GestureDetector(
+      onTap: () {
+        if (_logInForm.currentState.validate()) {
+          _logInForm.currentState.save();
+          setState(() {
+            logIn();
+          });
+        } else {
+          return;
+          // return showErrorInput('Please check your input');
+        }
       },
-      textColor: Colors.white,
-      padding: EdgeInsets.all(0.0),
       child: Container(
+        width: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.symmetric(vertical: 15),
         alignment: Alignment.center,
-        width: _large ? _width / 4 : (_medium ? _width / 2.75 : _width / 2.5),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(20.0)),
-          gradient: LinearGradient(
-            colors: <Color>[Color(0xFF275d9b), Color(0xFF104c90)],
+            borderRadius: BorderRadius.all(Radius.circular(5)),
+            gradient: LinearGradient(
+                begin: Alignment.center,
+                end: Alignment.centerRight,
+                colors: [Color(0xFF275d9b), Color(0xFF0e4481)])),
+        child: Text(
+          'Login',
+          style: TextStyle(fontSize: 20, color: Colors.white),
+        ),
+      ),
+    );
+  }
+
+  Widget _title() {
+    return Container(
+      height: 141,
+      width: 205,
+      // height: MediaQuery.of(context).size.height / 3,
+      decoration: BoxDecoration(
+        boxShadow: [],
+        image: DecorationImage(
+          image: AssetImage(
+            'images/skyline.png',
           ),
         ),
-        padding: const EdgeInsets.all(12.0),
-        child: Text('SIGN IN',
-            style: TextStyle(fontSize: _large ? 14 : (_medium ? 12 : 13))),
       ),
     );
+  }
+
+  Widget _emailPasswordWidget() {
+    return Form(
+      key: _logInForm,
+      child: Column(
+        children: <Widget>[
+          _entryField(
+            "User ID",
+            FontAwesomeIcons.userAlt,
+            TextInputAction.next,
+            (String value) {
+              if (value.trim().isEmpty) {
+                return 'Username is required';
+              }
+              return null;
+            },
+            (x) {
+              username = x;
+            },
+          ),
+          _entryField("Password", Icons.lock, TextInputAction.done,
+              (String value) {
+            if (value.trim().isEmpty) {
+              return 'Password is required';
+            }
+            return null;
+          }, (x) {
+            password = x;
+          }, isPassword: true),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    return Scaffold(
+        key: _scaffoldKey,
+        backgroundColor: isDark(context) ? Color(0xFF1F1F1F) : Colors.white,
+        body: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).requestFocus(new FocusNode());
+          },
+          child: Container(
+            height: height,
+            child: Stack(
+              children: <Widget>[
+                Positioned(
+                  top: -height * .15,
+                  right: -MediaQuery.of(context).size.width * .4,
+                  child: BezierContainer(),
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        SizedBox(height: height * .2),
+                        _title(),
+                        SizedBox(height: 50),
+                        _emailPasswordWidget(),
+                        SizedBox(height: 20),
+                        _submitButton(),
+                        SizedBox(height: height * .055),
+                      ],
+                    ),
+                  ),
+                ),
+                Positioned(top: 40, left: 0, child: _backButton()),
+              ],
+            ),
+          ),
+        ));
   }
 
   Future logIn() async {
-    if (_logInForm.currentState.validate()) {
-      _logInForm.currentState.save();
-    } else {
-      return null;
-      // return showErrorInput('Please check your input');
-    }
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
     });
@@ -339,7 +292,7 @@ class _LoginAppState extends State<LoginApp> {
               context,
               MaterialPageRoute(builder: (BuildContext context) => HomeLogin()),
               (Route<dynamic> route) => false);
-        } else if (studentJson['message'] == "Invalid users credentials..!") {
+        } else if (studentJson['message'] == "Invalid user credentials..!") {
           username = '';
           password = '';
           loggedin = false;
@@ -348,7 +301,7 @@ class _LoginAppState extends State<LoginApp> {
           prefs.setString('password', password);
           showLoading(false, context);
           final snackBar =
-              SnackBar(content: Text('Invalid users credentials..!'));
+              SnackBar(content: Text('Invalid user credentials..!'));
           _scaffoldKey.currentState.showSnackBar(snackBar);
 
           studentJson = {};
@@ -368,6 +321,7 @@ class _LoginAppState extends State<LoginApp> {
         }
       }
     } catch (x) {
+      print(x);
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
         showError("Time out from server", FontAwesomeIcons.hourglassHalf,
@@ -421,6 +375,7 @@ class _LoginAppState extends State<LoginApp> {
         }
       }
     } catch (x) {
+      print(x);
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 

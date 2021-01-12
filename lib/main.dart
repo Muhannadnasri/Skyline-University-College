@@ -16,9 +16,10 @@ import 'Home/Info/faculty.dart';
 import 'Home/Info/info.dart';
 import 'Home/Info/infoDetails.dart';
 import 'Home/Info/studentLife.dart';
-import 'Home/Info/studentservicesdepartments.dart';
+import 'Home/Info/virtualDetails.dart';
 import 'Home/Info/virtual.dart';
-import 'Home/Info/virtualsupport.dart';
+import 'Home/Info/virtualSupportList.dart';
+
 import 'Home/Location/location.dart';
 import 'Home/home.dart';
 import 'Home/programs/ProfessionalCourses.dart';
@@ -41,7 +42,7 @@ import 'Login/E-Reques/FacForm/leaveapplication.dart';
 import 'Login/E-Reques/FacForm/permissionToLeave.dart';
 import 'Login/E-Reques/FacForm/salaryCertificate.dart';
 import 'Login/E-Reques/StudentForm/advisorAppointment.dart';
-import 'Login/E-Reques/StudentForm/changeClassTime.dart';
+
 import 'Login/E-Reques/StudentForm/complains.dart';
 import 'Login/E-Reques/StudentForm/courseWithdrawal.dart';
 import 'Login/E-Reques/StudentForm/generalAppointment.dart';
@@ -81,9 +82,11 @@ import 'Login/feesHome.dart';
 import 'Login/home.dart';
 import 'Login/loginfees.dart';
 import 'Login/loginpage.dart';
+import 'Login/loginpages.dart';
 import 'Login/myAdvisor.dart';
 import 'Login/notification.dart';
 import 'Login/payOnline.dart';
+import 'Login/payOnlineOut.dart';
 
 void main() async {
   // SystemChrome.setEnabledSystemUIOverlays([]);
@@ -137,7 +140,7 @@ class MyAppState extends State<MyApp> {
         initialRoute: '/',
         routes: {
           '/': (context) => Home(),
-          '/LoginApp': (context) => LoginApp(),
+          '/LoginPage': (context) => LoginApp(),
           '/loginFees': (context) => LoginFees(),
 
           '/Location': (context) => Location(),
@@ -183,6 +186,8 @@ class MyAppState extends State<MyApp> {
           '/HomeFees': (context) => HomeFees(),
 
           '/PayOnline': (context) => PayOnline(),
+          '/payOnlineOut': (context) => PayOnlineOut(),
+
           '/AdmissionKit': (context) => AdmissionKit(),
 
           '/letterRequest': (context) => LetterRequest(),
@@ -202,7 +207,6 @@ class MyAppState extends State<MyApp> {
           '/complains': (context) => Complains(),
           '/suggestions': (context) => Suggestions(),
 
-          '/ChangeClassTime': (context) => ChangeClassTime(),
           '/reinStatement': (context) => ReinStatement(),
           '/courseWithdrawal': (context) => CourseWithdrawal(),
 
@@ -322,9 +326,9 @@ class MyAppState extends State<MyApp> {
           // '/announcements': (context) => Announcements(),
           '/notifications': (context) => Notifications(),
           '/cdpFaculty': (context) => CdpFaculty(),
-          '/virtualSupport': (context) => VirtualSupport(),
-          '/studentServicesDepartments': (context) =>
-              StudentServicesDepartments(),
+
+          '/virtualDetails': (context) => VirtualDetails(),
+          '/virtualSupportList': (context) => VirtualSupportList(),
         },
       ),
     );

@@ -131,6 +131,11 @@ void logOut(context) {
     barrierDismissible: false,
     builder: (BuildContext context) {
       return AlertDialog(
+        shape: SuperellipseShape(
+          borderRadius: BorderRadius.all(
+            Radius.circular(20),
+          ),
+        ),
         title: Image.asset(
           isDark(context) ? 'images-white/logo.png' : 'images/logo.png',
           height: 50,

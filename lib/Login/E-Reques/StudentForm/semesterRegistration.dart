@@ -136,6 +136,9 @@ class _SemesterRegistrationState extends State<SemesterRegistration> {
             style:
                 TextStyle(color: isDark(context) ? Colors.white : Colors.black),
           ),
+          SizedBox(
+            height: 10,
+          ),
           Card(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30.0),

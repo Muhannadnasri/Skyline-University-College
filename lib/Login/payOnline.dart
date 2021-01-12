@@ -34,54 +34,55 @@ class _PayOnlineState extends State<PayOnline> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GradientAppBar(
-        centerTitle: true,
-        leading: GestureDetector(
-            onTap: () {
-              setState(() {
-                // logOut(context);
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => Home()),
-                    (Route<dynamic> route) => false);
-              });
-            },
-            child: Icon(
-              FontAwesomeIcons.home,
-              color: Colors.white,
-              size: 17,
-            )),
-        title: Text(
-          'Pay Online',
-          style: TextStyle(fontSize: 17),
-        ),
-        gradient: isDark(context)
-            ? LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color(0xFF121212),
-                  Color(0xFF121212),
-                ],
-                stops: [
-                  0.7,
-                  0.9,
-                ],
-              )
-            : LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color(0xFF104C90),
-                  Color(0xFF3773AC),
-                ],
-                stops: [
-                  0.7,
-                  0.9,
-                ],
-              ),
-      ),
+      appBar: appBarLogin(context, 'Online Payment'),
+      // appBar: GradientAppBar(
+      //   centerTitle: true,
+      //   leading: GestureDetector(
+      //       onTap: () {
+      //         setState(() {
+      //           // logOut(context);
+      //           Navigator.pushAndRemoveUntil(
+      //               context,
+      //               MaterialPageRoute(
+      //                   builder: (BuildContext context) => Home()),
+      //               (Route<dynamic> route) => false);
+      //         });
+      //       },
+      //       child: Icon(
+      //         FontAwesomeIcons.home,
+      //         color: Colors.white,
+      //         size: 17,
+      //       )),
+      //   title: Text(
+      //     'Pay Online',
+      //     style: TextStyle(fontSize: 17),
+      //   ),
+      //   gradient: isDark(context)
+      //       ? LinearGradient(
+      //           begin: Alignment.topCenter,
+      //           end: Alignment.bottomCenter,
+      //           colors: [
+      //             Color(0xFF121212),
+      //             Color(0xFF121212),
+      //           ],
+      //           stops: [
+      //             0.7,
+      //             0.9,
+      //           ],
+      //         )
+      //       : LinearGradient(
+      //           begin: Alignment.topCenter,
+      //           end: Alignment.bottomCenter,
+      //           colors: [
+      //             Color(0xFF104C90),
+      //             Color(0xFF3773AC),
+      //           ],
+      //           stops: [
+      //             0.7,
+      //             0.9,
+      //           ],
+      //         ),
+      // ),
       body: payOnlineJson == null || payOnlineJson.isEmpty
           ? exception(context, isLoading)
           : WebviewScaffold(

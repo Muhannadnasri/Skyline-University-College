@@ -1,13 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/global.dart';
-import 'package:intl/intl.dart';
 
 void main() => runApp(Notifications());
 
@@ -25,6 +24,8 @@ class _NotificationsState extends State<Notifications> {
   bool isLoading = true;
   var formatter = new DateFormat('yyyy-MM-dd');
   List notificationsJson = [];
+  // List notificationsInReverse = [];
+
   @override
   void initState() {
     print(username);
@@ -40,6 +41,7 @@ class _NotificationsState extends State<Notifications> {
             ? exception(context, isLoading)
             : Container(
                 child: ListView.builder(
+                  reverse: true,
                   itemCount: notificationsJson.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
@@ -153,6 +155,7 @@ class _NotificationsState extends State<Notifications> {
       if (response.statusCode == 200) {
         setState(() {
           notificationsJson = json.decode(response.body)['data'];
+          // notificationsInReverse = notificationsJson.reversed;
           isLoading = false;
         });
 

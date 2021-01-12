@@ -81,7 +81,7 @@ class _HomeInfoState extends State<HomeInfo> {
                           : 'images/admission.png',
                       'images-white/admission.png',
                       'Virtual Support',
-                      '/virtualSupport'),
+                      '/virtualSupportList'),
                 ],
               ),
             ),

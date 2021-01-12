@@ -147,7 +147,7 @@ class _CDPDownloadState extends State<CDPDownload>
                                           builder: (context) => PdfViews(
                                             url:
                                                 // 'http://sky.skylineuniversity.ac.ae/page/PrintLMS.aspx?Id=${cdpCourseJson[index]['Cdp_ID']}&Type=CDP'
-
+                                                // sky.skylineuniversity.ac.ae/page/PrintLMS.aspx?Id=4259&Type=CDP
                                                 'https://www.skylineportal.com/Report/Pages/SkylineCPD-Display.aspx?path1=${cdpCourseJson[index]['Faculty_id']}&batch=${cdpCourseJson[index]['BatchCode']}&studid=$username&reqid=2&cdp=0',
                                           ),
                                         ),

@@ -1,14 +1,9 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/bottomAppBar.dart';
-
-import 'package:skyline_university/Global/dropDownWidget.dart';
-import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
 
 import 'dropList.dart';

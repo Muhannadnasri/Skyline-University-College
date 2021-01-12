@@ -37,7 +37,7 @@ class _DropListState extends State<DropList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: appBarLogin(context, 'Online Request'),
+        appBar: appBarLogin(context, 'Type Request'),
         body: RefreshIndicator(
           onRefresh: () async {
             setState(() {
@@ -169,7 +169,16 @@ class _DropListState extends State<DropList> {
           };
         }
         break;
-
+      case 'Nationality':
+        {
+          body = {};
+        }
+        break;
+      case 'Program':
+        {
+          body = {};
+        }
+        break;
       default:
         {
           body = {
@@ -222,6 +231,19 @@ class _DropListState extends State<DropList> {
               'https://skylineportal.com/moappad/api/test/GeneralApptCatDeptTime';
         }
         break;
+      case 'Nationality':
+        {
+          url =
+              'https://skylineportal.com/moappad/api/test/getAptitudeProgramAndNationality';
+        }
+
+        break;
+      case 'Program':
+        {
+          url =
+              'https://skylineportal.com/moappad/api/test/getAptitudeProgramAndNationality';
+        }
+        break;
       default:
         {
           url =
@@ -266,6 +288,18 @@ class _DropListState extends State<DropList> {
           title = 'CATEGORY_DESCRIPTION';
         }
         break;
+
+      case 'Nationality':
+        {
+          title = 'NationalityName';
+        }
+        break;
+      case 'Program':
+        {
+          title = 'DegreeType_Desc';
+        }
+        break;
+
       default:
         {
           title = 'MiscName';
@@ -301,6 +335,19 @@ class _DropListState extends State<DropList> {
                   fileJson = json.decode(response.body)['data']['category'];
                 }
                 break;
+
+              case 'Nationality':
+                {
+                  fileJson = json.decode(response.body)['data']['nationality'];
+                }
+                break;
+
+              case 'Program':
+                {
+                  fileJson = json.decode(response.body)['data']['programs'];
+                }
+                break;
+
               case 'GeneralAppointmentDepartment':
                 {
                   fileJson = json.decode(response.body)['data']['department'];

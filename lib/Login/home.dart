@@ -87,8 +87,6 @@ class _HomeLoginState extends State<HomeLogin> {
 
   @override
   Widget build(BuildContext context) {
-    
-
     return WillPopScope(
       onWillPop: () => _exitApp(context),
       child: Scaffold(
@@ -264,7 +262,7 @@ class _HomeLoginState extends State<HomeLogin> {
                                 homeBox(
                                   context,
                                   'images-white/contactslist.png',
-                                  'images/contactslist.png',
+                                  'images/suggestion.png',
                                   "/homeSuggestion",
                                   Colors.white,
                                   Colors.black,
@@ -469,10 +467,7 @@ class _HomeLoginState extends State<HomeLogin> {
                         ),
                       )
                     : SizedBox(),
-        appBar: 
-        
-        
-        PreferredSize(
+        appBar: PreferredSize(
           preferredSize: Size.fromHeight(250.0),
           child: Stack(
             children: <Widget>[
@@ -496,17 +491,26 @@ class _HomeLoginState extends State<HomeLogin> {
                                   Row(
                                     children: <Widget>[
                                       Container(
-                                        // decoration: BoxDecoration(
-                                        //   boxShadow: [
-                                        //     BoxShadow(
-                                        //       color: Colors.white,
-                                        //       blurRadius:
-                                        //           12.0, // has the effect of softening the shadow
-                                        //       spreadRadius:
-                                        //           3.0, // has the effect of extending the shadow
-                                        //     )
-                                        //   ],
-                                        // ),
+                                        decoration: BoxDecoration(
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.white,
+                                              blurRadius:
+                                                  12.0, // has the effect of softening the shadow
+                                              spreadRadius:
+                                                  3.0, // has the effect of extending the shadow
+                                            )
+                                          ],
+                                          //   boxShadow: [
+                                          //     BoxShadow(
+                                          //       color: Colors.white,
+                                          //       blurRadius:
+                                          //           12.0, // has the effect of softening the shadow
+                                          //       spreadRadius:
+                                          //           3.0, // has the effect of extending the shadow
+                                          //     )
+                                          //   ],
+                                        ),
                                         child: Image.asset(
                                           studentJson['data']['user_type'] ==
                                                   'FAC'
@@ -551,21 +555,21 @@ class _HomeLoginState extends State<HomeLogin> {
                                       : Row(
                                           children: <Widget>[
                                             Container(
-                                              // decoration: BoxDecoration(
-                                              //   boxShadow: [
-                                              //     BoxShadow(
-                                              //       color: Colors.white,
-                                              //       blurRadius:
-                                              //           12.0, // has the effect of softening the shadow
-                                              //       spreadRadius:
-                                              //           3.0, // has the effect of extending the shadow
-                                              //     )
-                                              //   ],
-                                              // ),
+                                              decoration: BoxDecoration(
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.white,
+                                                    blurRadius:
+                                                        12.0, // has the effect of softening the shadow
+                                                    spreadRadius:
+                                                        3.0, // has the effect of extending the shadow
+                                                  )
+                                                ],
+                                              ),
                                               child: Image.asset(
                                                 isDark(context)
-                                                    ? 'images-white/specialization.png'
-                                                    : 'images/specialization.png',
+                                                    ? 'images-white/degree.png'
+                                                    : 'images/degree.png',
                                                 height: 25,
                                               ),
                                             ),
@@ -591,17 +595,17 @@ class _HomeLoginState extends State<HomeLogin> {
                                   Row(
                                     children: <Widget>[
                                       Container(
-                                        // decoration: BoxDecoration(
-                                        //   boxShadow: [
-                                        //     BoxShadow(
-                                        //       color: Colors.white,
-                                        //       blurRadius:
-                                        //           12.0, // has the effect of softening the shadow
-                                        //       spreadRadius:
-                                        //           3.0, // has the effect of extending the shadow
-                                        //     )
-                                        //   ],
-                                        // ),
+                                        decoration: BoxDecoration(
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.white,
+                                              blurRadius:
+                                                  12.0, // has the effect of softening the shadow
+                                              spreadRadius:
+                                                  3.0, // has the effect of extending the shadow
+                                            )
+                                          ],
+                                        ),
                                         child: Image.asset(
                                           isDark(context)
                                               ? 'images-white/year.png'

@@ -10,6 +10,7 @@ import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/zigzag.dart';
 import 'package:skyline_university/Login/home.dart';
 import 'package:skyline_university/Login/payOnline.dart';
+import 'package:skyline_university/Login/payOnlineOut.dart';
 import 'package:skyline_university/widgets/custom_shape.dart';
 import 'package:skyline_university/widgets/responsive_ui.dart';
 import 'package:skyline_university/widgets/textformfield.dart';
@@ -137,7 +138,7 @@ class _LoginFeesState extends State<LoginFees> {
                   ? _height / 30
                   : (_medium ? _height / 25 : _height / 20)),
           child: Image.asset(
-            'assets/images/login.png',
+            'images/login.png',
             height: _height / 3.5,
             width: _width / 3.5,
           ),
@@ -314,7 +315,8 @@ class _LoginFeesState extends State<LoginFees> {
 
           Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (BuildContext context) => PayOnline()),
+              MaterialPageRoute(
+                  builder: (BuildContext context) => PayOnlineOut()),
               (Route<dynamic> route) => false);
         } else if (studentJson['message'] == "Invalid users credentials..!") {
           username = '';
@@ -384,7 +386,8 @@ class _LoginFeesState extends State<LoginFees> {
 
           Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (BuildContext context) => PayOnline()),
+              MaterialPageRoute(
+                  builder: (BuildContext context) => PayOnlineOut()),
               (Route<dynamic> route) => false);
         } else if (studentJson["success"] == "0") {
           username = '';

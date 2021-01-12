@@ -9,11 +9,10 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/bottomAppBar.dart';
-import 'package:skyline_university/Global/customdropdown.dart';
-import 'package:skyline_university/Global/dropDownWidget.dart';
-import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
+import 'package:skyline_university/Login/E-Reques/StudentForm/dropList.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
 import '../home.dart';
 import 'apptitudeTest.dart';
@@ -40,16 +39,14 @@ class _ApptutudeFormState extends State<ApptutudeForm> {
   DateTime value = DateTime.now();
   int changedCount = 0;
   int savedCount = 0;
-  List aptitudeProgramJson = [];
-  List aptitudeNationalityJson = [];
   Map aptitudeMessageJson = {};
+  int initialIndex = 0;
+  int initialIndexYes = 0;
 
   String aptitudeNationality;
   String aptitudeProgram;
   String position;
-
   int groupValue;
-
   String dob;
   String university = '';
   String city = '';
@@ -60,562 +57,440 @@ class _ApptutudeFormState extends State<ApptutudeForm> {
   String email = '';
   String mobile = '';
   String address = '';
+  var nationalityNameCnt = TextEditingController();
+  var programNameCnt = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-
-    getProgramAndNationality();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: true,
-      bottomNavigationBar:
-          aptitudeProgramJson == null || aptitudeProgramJson.isEmpty
-              ? SizedBox()
-              : bottomappBar(
-                  context,
-                  () {
-                    // Navigator.pushAndRemoveUntil(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (BuildContext context) => ApptitudeTest()),
-                    //     (Route<dynamic> route) => false);
+      bottomNavigationBar: bottomappBar(
+        context,
+        () {
+          // Navigator.pushAndRemoveUntil(
+          //     context,
+          //     MaterialPageRoute(
+          //         builder: (BuildContext context) => ApptitudeTest()),
+          //     (Route<dynamic> route) => false);
 
-                    if (_apptutudeForm.currentState.validate()) {
-                      _apptutudeForm.currentState.save();
-                      sendAptitude();
-                    } else {}
-                  },
-                ),
+          if (_apptutudeForm.currentState.validate()) {
+            _apptutudeForm.currentState.save();
+            sendAptitude();
+          } else {}
+        },
+      ),
       appBar: appBarLogin(context, 'Aptitude Register'),
-      body: aptitudeProgramJson == null || aptitudeProgramJson.isEmpty
-          ? exception(context, isLoading)
-          : GestureDetector(
-              onTap: () {
-                FocusScope.of(context).requestFocus(new FocusNode());
-              },
-              child: ListView(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Form(
-                          key: _apptutudeForm,
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                SizedBox(
-                                  height: 10,
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(new FocusNode());
+        },
+        child: ListView(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(25.0),
+              child: Form(
+                key: _apptutudeForm,
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      SizedBox(
+                        height: 10,
+                      ),
+                      globalForms(
+                        context,
+                        '',
+                        (String value) {
+                          if (value.trim().isEmpty) {
+                            return 'First name is required';
+                          }
+                          return null;
+                        },
+                        (x) {
+                          setState(() {
+                            firstName = x;
+                          });
+                        },
+                        'First Name',
+                        TextInputType.text,
+                      ),
+                      globalForms(
+                        context,
+                        '',
+                        (String value) {
+                          if (value.trim().isEmpty) {
+                            return 'Middle name is required';
+                          }
+                          return null;
+                        },
+                        (x) {
+                          setState(() {
+                            middleName = x;
+                          });
+                        },
+                        'Middle Name',
+                        TextInputType.text,
+                      ),
+                      globalForms(
+                        context,
+                        '',
+                        (String value) {
+                          if (value.trim().isEmpty) {
+                            return 'Last name is required';
+                          }
+                          return null;
+                        },
+                        (x) {
+                          setState(() {
+                            lastName = x;
+                          });
+                        },
+                        'Last Name',
+                        TextInputType.text,
+                      ),
+                      globalForms(
+                        context,
+                        '',
+                        (String value) {
+                          if (value.trim().isEmpty) {
+                            return 'Email is required';
+                          }
+                          return null;
+                        },
+                        (x) {
+                          setState(() {
+                            email = x;
+                          });
+                        },
+                        'Email ',
+                        TextInputType.emailAddress,
+                      ),
+                      globalForms(
+                        context,
+                        '',
+                        (String value) {
+                          if (value.trim().isEmpty) {
+                            return 'Mobile Number is required';
+                          }
+                          return null;
+                        },
+                        (x) {
+                          setState(() {
+                            mobile = x;
+                          });
+                        },
+                        'Mobile Number',
+                        TextInputType.number,
+                      ),
+                      globalForms(
+                        context,
+                        '',
+                        (String value) {
+                          if (value.trim().isEmpty) {
+                            return 'Telephone number is required';
+                          }
+                          return null;
+                        },
+                        (x) {
+                          setState(() {
+                            telephone = x;
+                          });
+                        },
+                        'Telephone Number',
+                        TextInputType.number,
+                      ),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      datePickers(
+                        context,
+                        (date) {
+                          dob = date.toString();
+                        },
+                      ),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Nationality',
+                            style: TextStyle(
+                                color: isDark(context)
+                                    ? Colors.white
+                                    : Colors.black),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DropList(
+                                    type: 'Nationality',
+                                  ),
                                 ),
-                                globalForms(
-                                  context,
-                                  '',
-                                  (String value) {
-                                    if (value.trim().isEmpty) {
-                                      return 'First name is required';
-                                    }
-                                    return null;
-                                  },
-                                  (x) {
-                                    setState(() {
-                                      firstName = x;
-                                    });
-                                  },
-                                  'First Name',
-                                  TextInputType.text,
-                                ),
-                                globalForms(
-                                  context,
-                                  '',
-                                  (String value) {
-                                    if (value.trim().isEmpty) {
-                                      return 'Middle name is required';
-                                    }
-                                    return null;
-                                  },
-                                  (x) {
-                                    setState(() {
-                                      middleName = x;
-                                    });
-                                  },
-                                  'Middle Name',
-                                  TextInputType.text,
-                                ),
-                                globalForms(
-                                  context,
-                                  '',
-                                  (String value) {
-                                    if (value.trim().isEmpty) {
-                                      return 'Last name is required';
-                                    }
-                                    return null;
-                                  },
-                                  (x) {
-                                    setState(() {
-                                      lastName = x;
-                                    });
-                                  },
-                                  'Last Name',
-                                  TextInputType.text,
-                                ),
-                                globalForms(
-                                  context,
-                                  '',
-                                  (String value) {
-                                    if (value.trim().isEmpty) {
-                                      return 'Email is required';
-                                    }
-                                    return null;
-                                  },
-                                  (x) {
-                                    setState(() {
-                                      email = x;
-                                    });
-                                  },
-                                  'Email ',
-                                  TextInputType.emailAddress,
-                                ),
-                                globalForms(
-                                  context,
-                                  '',
-                                  (String value) {
-                                    if (value.trim().isEmpty) {
-                                      return 'Mobile Number is required';
-                                    }
-                                    return null;
-                                  },
-                                  (x) {
-                                    setState(() {
-                                      mobile = x;
-                                    });
-                                  },
-                                  'Mobile Number',
-                                  TextInputType.number,
-                                ),
-                                globalForms(
-                                  context,
-                                  '',
-                                  (String value) {
-                                    if (value.trim().isEmpty) {
-                                      return 'Telephone number is required';
-                                    }
-                                    return null;
-                                  },
-                                  (x) {
-                                    setState(() {
-                                      telephone = x;
-                                    });
-                                  },
-                                  'Telephone Number',
-                                  TextInputType.number,
-                                ),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                datePickers(
-                                  context,
-                                  (date) {
-                                    dob = date.toString();
-                                  },
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Column(
-                                  children: <Widget>[
-                                    Container(
-                                      alignment: Alignment.centerLeft,
-                                      child: Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            20.0, 0.0, 20.0, 5.0),
-                                        child: Text(
-                                          'Nationality',
-                                          style: TextStyle(
-                                            color: isDark(context)
-                                                ? Colors.white
-                                                : Colors.black,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: CustomDropDown(
-                                        isExpanded: true,
-                                        items: aptitudeNationalityJson
-                                                ?.map(
-                                                  (item) =>
-                                                      DropdownMenuItem<String>(
-                                                    value:
-                                                        item['id'].toString(),
-                                                    child: Padding(
-                                                      padding: const EdgeInsets
-                                                              .fromLTRB(
-                                                          20.0, 0.0, 20.0, 5.0),
-                                                      child: Text(
-                                                        item['nationality']
-                                                            .toString(),
-                                                        style: TextStyle(
-                                                            color: isDark(
-                                                                    context)
-                                                                ? Colors.white
-                                                                : Colors.black),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                )
-                                                ?.toList() ??
-                                            [],
-                                        value: aptitudeNationality,
-                                        hint: Padding(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              20.0, 0.0, 20.0, 5.0),
-                                          child: new Text(
-                                            'Select One',
-                                            style: TextStyle(
-                                                color: isDark(context)
-                                                    ? Colors.white
-                                                    : Colors.black),
-                                          ),
-                                        ),
-                                        underline: Container(
-                                          height: 1,
-                                          color: Color(0xFF2f2f2f),
-                                        ),
-                                        searchHint: new Text(
-                                          'Select One',
-                                          style: new TextStyle(
-                                              fontSize: 20,
-                                              color: isDark(context)
-                                                  ? Colors.white
-                                                  : Colors.black),
-                                        ),
-                                        onChanged: (value) {
-                                          setState(() {
-                                            aptitudeNationality = value;
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                              ).then((val) async {
+                                setState(() {
+                                  // miscName = val['MiscName'];
+                                  aptitudeNationality =
+                                      val['NationalityID'].toString();
 
-                                // Padding(
-                                //   padding: const EdgeInsets.all(8.0),
-                                //   child: Row(
-                                //     children: <Widget>[
-                                //       SizedBox(
-                                //         width: 5,
-                                //       ),
-                                //       Icon(
-                                //         FontAwesomeIcons.flag,
-                                //         color: Colors.blue,
-                                //         size: 20,
-                                //       ),
-                                //       SizedBox(
-                                //         width: 10,
-                                //       ),
-                                //       Expanded(
-                                //         child: DropdownButton<String>(
-                                //           style: TextStyle(
-                                //               fontSize: 13,
-                                //               color: Colors.black),
-                                //           isExpanded: true,
-                                //           value: aptitudeNationality,
-                                //           hint: Padding(
-                                //             padding:
-                                //                 const EdgeInsets.all(8.0),
-                                //             child: Text(
-                                //               'Nationality',
-                                //               style: TextStyle(
-                                //                   color: Colors.black),
-                                //             ),
-                                //           ),
-                                //           items: aptitudeNationalityJson
-                                //                   ?.map(
-                                //                     (item) =>
-                                //                         DropdownMenuItem<
-                                //                             String>(
-                                //                       value: item['id']
-                                //                           .toString(),
-                                //                       child: Padding(
-                                //                         padding:
-                                //                             const EdgeInsets
-                                //                                 .all(8.0),
-                                //                         child: Text(item[
-                                //                                 'nationality']
-                                //                             .toString()),
-                                //                       ),
-                                //                     ),
-                                //                   )
-                                //                   ?.toList() ??
-                                //               [],
-                                //           onChanged: (x) {
-                                //             aptitudeNationality = x;
-                                //           },
-                                //         ),
-                                //       ),
-                                //     ],
-                                //   ),
-                                // ),
-                                globalForms(
-                                  context,
-                                  '',
-                                  (String value) {
-                                    if (value.trim().isEmpty) {
-                                      return 'Address is required';
-                                    }
-                                    return null;
-                                  },
-                                  (x) {
-                                    setState(() {
-                                      city = x;
-                                    });
-                                  },
-                                  'City',
-                                  TextInputType.text,
-                                ),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                dropDownWidget(
-                                    context,
-                                    'Select Option',
-                                    aptitudeProgram,
-                                    aptitudeProgramJson,
-                                    'id',
-                                    'program', (value) {
+                                  nationalityNameCnt.text =
+                                      val['NationalityName'].toString();
+                                });
+                              });
+                            },
+                            child: AbsorbPointer(
+                              child: TextFormField(
+                                validator: (x) => x.isEmpty
+                                    ? "Please select request type"
+                                    : null,
+                                onChanged: (x) {
                                   setState(() {
-                                    aptitudeProgram = value;
+                                    // isEditing = true;
                                   });
-                                }, 'Program'),
-                                SizedBox(
-                                  height: 15,
+                                },
+                                controller: nationalityNameCnt,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 25,
+                          ),
+                        ],
+                      ),
+                      globalForms(
+                        context,
+                        '',
+                        (String value) {
+                          if (value.trim().isEmpty) {
+                            return 'Address is required';
+                          }
+                          return null;
+                        },
+                        (x) {
+                          setState(() {
+                            city = x;
+                          });
+                        },
+                        'City',
+                        TextInputType.text,
+                      ),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Program',
+                            style: TextStyle(
+                                color: isDark(context)
+                                    ? Colors.white
+                                    : Colors.black),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DropList(
+                                    type: 'Program',
+                                  ),
                                 ),
+                              ).then((val) async {
+                                setState(() {
+                                  // miscName = val['MiscName'];
+                                  aptitudeProgram =
+                                      val['DegreeType_Id'].toString();
 
-                                Column(
-                                  children: <Widget>[
-                                    Container(
-                                      alignment: Alignment.centerLeft,
-                                      child: Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            20.0, 0.0, 20.0, 5.0),
-                                        child: Text(
-                                          'Student/Professor',
-                                          style: TextStyle(
-                                            color: isDark(context)
-                                                ? Colors.white
-                                                : Colors.black,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: DropdownButton<String>(
-                                        underline: Container(
-                                          height: 1,
-                                          color: Color(0xFF2f2f2f),
-                                        ),
-                                        hint: Padding(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              20.0, 0.0, 20.0, 5.0),
-                                          child: Text(
-                                            'Select Option',
-                                            style: TextStyle(
-                                              color: isDark(context)
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                        isExpanded: true,
-                                        value: position,
-                                        items: ['Student', 'Professor']
-                                                ?.map(
-                                                  (item) =>
-                                                      DropdownMenuItem<String>(
-                                                    value: item.toString(),
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: FittedBox(
-                                                          child: Text(
-                                                              item.toString())),
-                                                    ),
-                                                  ),
-                                                )
-                                                ?.toList() ??
-                                            [],
-                                        onChanged: (value) {
-                                          setState(() {
-                                            position = value;
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                  programNameCnt.text =
+                                      val['DegreeType_Desc'].toString();
+                                });
+                              });
+                            },
+                            child: AbsorbPointer(
+                              child: TextFormField(
+                                validator: (x) => x.isEmpty
+                                    ? "Please select request type"
+                                    : null,
+                                onChanged: (x) {
+                                  setState(() {
+                                    // isEditing = true;
+                                  });
+                                },
+                                controller: programNameCnt,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 25,
+                          ),
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Student / Professor',
+                            style: TextStyle(
+                                color: isDark(context)
+                                    ? Colors.white
+                                    : Colors.black),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          ToggleSwitch(
+                            minWidth: 90.0,
+                            initialLabelIndex: initialIndex,
+                            cornerRadius: 10.0,
+                            activeFgColor: Colors.white,
+                            inactiveBgColor: Colors.grey,
+                            inactiveFgColor: Colors.white,
+                            labels: ['Student', 'Professor'],
+                            activeBgColors: [Colors.green, Colors.red],
+                            onToggle: (index) {
+                              print('switched to: $index');
+                              setState(() {
+                                initialIndex = index;
+                                switch (initialIndex) {
+                                  case 0:
+                                    {
+                                      setState(() {
+                                        position = 'Student';
+                                      });
+                                    }
 
-                                globalForms(
-                                  context,
-                                  '',
-                                  (String value) {
-                                    if (value.trim().isEmpty) {
-                                      return 'University is required';
+                                    break;
+                                  case 1:
+                                    {
+                                      setState(() {
+                                        position = 'Professor';
+                                      });
                                     }
-                                    return null;
-                                  },
-                                  (x) {
-                                    setState(() {
-                                      university = x;
-                                    });
-                                  },
-                                  'Name of school/university',
-                                  TextInputType.text,
-                                ),
-                                globalForms(
-                                  context,
-                                  '',
-                                  (String value) {
-                                    if (value.trim().isEmpty) {
-                                      return 'Address is required';
+                                    break;
+                                  default:
+                                    {
+                                      setState(() {
+                                        position = 'Student';
+                                      });
                                     }
-                                    return null;
-                                  },
-                                  (x) {
-                                    setState(() {
-                                      address = x;
-                                    });
-                                  },
-                                  'Address',
-                                  TextInputType.text,
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: <Widget>[
-                                    Container(
-                                      child: Text(
-                                        'Are you student of Skyline?',
-                                        style: TextStyle(
-                                            color: isDark(context)
-                                                ? Colors.white
-                                                : Colors.black),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 15,
-                                    ),
-                                    Row(
-                                      children: <Widget>[
-                                        Radio(
-                                          value: 1,
-                                          groupValue: groupValue,
-                                          onChanged: (int e) {
-                                            setState(() {
-                                              groupValue = e;
-                                            });
-                                          },
-                                          activeColor: Colors.blue,
-                                        ),
-                                        Text(
-                                          'Yes',
-                                          style: TextStyle(
-                                              color: isDark(context)
-                                                  ? Colors.white
-                                                  : Colors.black),
-                                        ),
-                                        Radio(
-                                          value: 0,
-                                          groupValue: groupValue,
-                                          onChanged: (int e) {
-                                            setState(() {
-                                              groupValue = e;
-                                            });
-                                          },
-                                          activeColor: Colors.red,
-                                        ),
-                                        Text(
-                                          'No',
-                                          style: TextStyle(
-                                              color: isDark(context)
-                                                  ? Colors.white
-                                                  : Colors.black),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Container(
-                                  height: 1.0,
-                                  color: Colors.grey[400],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                              ]),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                                }
+                              });
+                            },
+                          ),
+                          SizedBox(
+                            height: 25,
+                          ),
+                        ],
+                      ),
+                      globalForms(
+                        context,
+                        '',
+                        (String value) {
+                          if (value.trim().isEmpty) {
+                            return 'University is required';
+                          }
+                          return null;
+                        },
+                        (x) {
+                          setState(() {
+                            university = x;
+                          });
+                        },
+                        'Name of school/university',
+                        TextInputType.text,
+                      ),
+                      globalForms(
+                        context,
+                        '',
+                        (String value) {
+                          if (value.trim().isEmpty) {
+                            return 'Address is required';
+                          }
+                          return null;
+                        },
+                        (x) {
+                          setState(() {
+                            address = x;
+                          });
+                        },
+                        'Address',
+                        TextInputType.text,
+                      ),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Are you student of Skyline?',
+                            style: TextStyle(
+                                color: isDark(context)
+                                    ? Colors.white
+                                    : Colors.black),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          ToggleSwitch(
+                            minWidth: 90.0,
+                            initialLabelIndex: initialIndexYes,
+                            cornerRadius: 10.0,
+                            activeFgColor: Colors.white,
+                            inactiveBgColor: Colors.grey,
+                            inactiveFgColor: Colors.white,
+                            labels: ['Yes', 'No'],
+                            activeBgColors: [Colors.green, Colors.red],
+                            onToggle: (index) {
+                              print('switched to: $index');
+                              setState(() {
+                                initialIndexYes = index;
+                                switch (initialIndexYes) {
+                                  case 0:
+                                    {
+                                      setState(() {
+                                        groupValue = 1;
+                                      });
+                                    }
+
+                                    break;
+                                  case 1:
+                                    {
+                                      setState(() {
+                                        groupValue = 0;
+                                      });
+                                    }
+                                    break;
+                                  default:
+                                    {
+                                      setState(() {
+                                        groupValue = 0;
+                                      });
+                                    }
+                                }
+                              });
+                            },
+                          ),
+                          SizedBox(
+                            height: 25,
+                          ),
+                        ],
+                      ),
+                    ]),
               ),
             ),
+          ],
+        ),
+      ),
     );
-  }
-
-  Future getProgramAndNationality() async {
-    Future.delayed(Duration.zero, () {
-      showLoading(true, context);
-    });
-
-    try {
-      final response = await http.post(
-        Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/web/getAptitudeProgramAndNationality'),
-        headers: {
-          "API-KEY": API,
-        },
-        body: {
-          'usertype': 'STUDENT',
-          'ipaddress': '1',
-          'deviceid': '1',
-          'devicename': '1',
-        },
-      ).timeout(Duration(seconds: 35));
-
-      if (response.statusCode == 200) {
-        setState(
-          () {
-            aptitudeProgramJson =
-                json.decode(response.body)['data']['programs'];
-            aptitudeNationalityJson =
-                json.decode(response.body)['data']['nationality'];
-            isLoading = false;
-          },
-        );
-
-        showLoading(false, context);
-      }
-    } catch (x) {
-      if (x.toString().contains("TimeoutException")) {
-        showLoading(false, context);
-        // showErrorServer(context, getProgramAndNationality());
-      } else {
-        showLoading(false, context);
-        // showErrorConnect(context, getProgramAndNationality());
-      }
-    }
   }
 
   Future sendAptitude() async {
@@ -697,61 +572,54 @@ class _ApptutudeFormState extends State<ApptutudeForm> {
     return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 5.0),
-            child: Text(
-              'Date of Birth',
-              style: TextStyle(
-                color: isDark(context) ? Colors.white : Colors.black,
-              ),
+          Text(
+            'Date of Birth',
+            style: TextStyle(
+              color: isDark(context) ? Colors.white : Colors.black,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 5.0),
-            child: DateTimeField(
-              format: format,
-              onShowPicker: (context, currentValue) async {
-                final date = await showDatePicker(
-                    context: context,
-                    firstDate: DateTime(1900),
-                    initialDate: currentValue ?? DateTime.now(),
-                    lastDate: DateTime(2100));
-                if (date != null) {
-                  final time = await showTimePicker(
-                    context: context,
-                    initialTime:
-                        TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
-                  );
-                  return DateTimeField.combine(date, time);
-                } else {
-                  return currentValue;
-                }
-              },
-              validator: (date) {
-                if (value == null) {
-                  return 'Date is required';
-                }
-                return null;
-              },
-              initialValue: initialValue,
-              onChanged: (date) => setState(() {
-                value = date;
-                changedCount++;
-              }),
-              onSaved: onSaved,
-              resetIcon: showResetIcon ? Icon(Icons.delete) : null,
-              readOnly: readOnly,
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.fromLTRB(15.0, 15.0, 0.0, 0.0),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: isDark(context)
-                        ? Colors.white.withOpacity(0.2)
-                        : Colors.black,
-                  ),
+          DateTimeField(
+            format: format,
+            onShowPicker: (context, currentValue) async {
+              final date = await showDatePicker(
+                  context: context,
+                  firstDate: DateTime(1900),
+                  initialDate: currentValue ?? DateTime.now(),
+                  lastDate: DateTime(2100));
+              if (date != null) {
+                final time = await showTimePicker(
+                  context: context,
+                  initialTime:
+                      TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
+                );
+                return DateTimeField.combine(date, time);
+              } else {
+                return currentValue;
+              }
+            },
+            validator: (date) {
+              if (value == null) {
+                return 'Date is required';
+              }
+              return null;
+            },
+            initialValue: initialValue,
+            onChanged: (date) => setState(() {
+              value = date;
+              changedCount++;
+            }),
+            onSaved: onSaved,
+            resetIcon: showResetIcon ? Icon(Icons.delete) : null,
+            readOnly: readOnly,
+            decoration: InputDecoration(
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                  color: isDark(context)
+                      ? Colors.white.withOpacity(0.2)
+                      : Colors.black,
                 ),
-                fillColor: Colors.green,
               ),
+              fillColor: Colors.green,
             ),
           ),
         ]);

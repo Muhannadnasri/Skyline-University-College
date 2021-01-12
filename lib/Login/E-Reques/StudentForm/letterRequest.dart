@@ -6,8 +6,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/bottomAppBar.dart';
-import 'package:skyline_university/Global/customdropdown.dart';
-import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:toggle_switch/toggle_switch.dart';

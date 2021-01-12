@@ -281,7 +281,7 @@ class _HomeState extends State<Home> {
                                     context,
                                     'images-white/login.png',
                                     'images/login.png',
-                                    "/LoginApp",
+                                    "/LoginPage",
                                     Colors.white,
                                     Colors.black,
                                     'SUC Login',
@@ -349,7 +349,7 @@ class _HomeState extends State<Home> {
                                 homeBox(
                                   context,
                                   'images-white/aptitude.png',
-                                  'images/aptitude.png',
+                                  'images/visitor.png',
                                   "/visitorInfoLan",
                                   Colors.white,
                                   Colors.black,

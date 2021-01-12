@@ -20,13 +20,9 @@ Widget appBarLoginHome(BuildContext context) {
                   children: <Widget>[
                     Row(
                       children: <Widget>[
-
-
-Column(children: <Widget>[
-
-  
-],),
-                        
+                        Column(
+                          children: <Widget>[],
+                        ),
                         Container(
                           decoration: BoxDecoration(
                             boxShadow: [
@@ -135,11 +131,7 @@ Column(children: <Widget>[
           ),
           height: 220,
           decoration: new BoxDecoration(
-            gradient:
-            
-            
-            
-             LinearGradient(
+            gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [

@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/bottomAppBar.dart';
+import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/global.dart';
 
 void main() => runApp(StudentPassRequest());
@@ -92,28 +93,30 @@ class _StudentPassRequestState extends State<StudentPassRequest> {
       appBar: appBarLogin(context, 'Letter Request'),
 
       // appBar: appBarLogin(context, 'Letter Request'),
-      body: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).requestFocus(new FocusNode());
-        },
-        // color: Color(0xffbF8F9FB),
-        child: ListView(
-          // mainAxisAlignment: MainAxisAlignment.start,
-          // crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(25.0),
-              child: Column(
-                children: [
-                  coursesReset(),
+      body: marksPassJson == null || marksPassJson.isEmpty
+          ? exception(context, isLoading)
+          : GestureDetector(
+              onTap: () {
+                FocusScope.of(context).requestFocus(new FocusNode());
+              },
+              // color: Color(0xffbF8F9FB),
+              child: ListView(
+                // mainAxisAlignment: MainAxisAlignment.start,
+                // crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(25.0),
+                    child: Column(
+                      children: [
+                        coursesReset(),
 
-                  // letterRequest
+                        // letterRequest
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
-          ],
-        ),
-      ),
     );
   }
 
@@ -218,14 +221,18 @@ class _StudentPassRequestState extends State<StudentPassRequest> {
         setState(
           () {
             marksPassJson = json.decode(response.body)['data'];
-            for (int i = 0; i < marksPassJson.length; i++) {
-              selectedMarksPassJson.add(false);
+            if (marksPassJson != null) {
+              for (int i = 0; i < marksPassJson.length; i++) {
+                selectedMarksPassJson.add(false);
+              }
             }
+            isLoading = false;
           },
         );
         showLoading(false, context);
       }
     } catch (x) {
+      print(x);
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
         showError("Time out from server", FontAwesomeIcons.hourglassHalf,

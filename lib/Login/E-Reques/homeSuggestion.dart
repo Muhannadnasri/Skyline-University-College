@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
 import 'package:skyline_university/Global/appBarLoginImage.dart';
-
 import 'package:skyline_university/Global/rowSection.dart';
 
 void main() => runApp(HomeSuggestion());
@@ -31,7 +28,6 @@ class _HomeSuggestionState extends State<HomeSuggestion> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
         body: Container(
           child: ListView(
