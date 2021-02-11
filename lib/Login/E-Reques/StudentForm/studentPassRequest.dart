@@ -90,7 +90,7 @@ class _StudentPassRequestState extends State<StudentPassRequest> {
       //   context,
       //   () {},
       // ),
-      appBar: appBarLogin(context, 'Letter Request'),
+      appBar: appBarLogin(context, 'Pass Request'),
 
       // appBar: appBarLogin(context, 'Letter Request'),
       body: marksPassJson == null || marksPassJson.isEmpty
@@ -258,14 +258,17 @@ class _StudentPassRequestState extends State<StudentPassRequest> {
         try {
           final response = await http.post(
             Uri.encodeFull(
-                'https://skylineportal.com/moappad/api/test/InsertRepaeatingCoursess'),
+                'https://skylineportal.com/moappad/api/test/InsertPassRequest'),
             headers: {
               "API-KEY": API,
             },
             body: {
-              'Stud_ID': username,
-              'Batch_ID': marksPassJson[i]['Batch_ID'],
-              'Grade': marksPassJson[i]['Over All Grade'],
+              'Stud_ID': 'testuser',
+              // username,
+              'Batch_ID': marksPassJson[i]['Batch_ID'].toString(),
+              'Grade': marksPassJson[i]['Over All Grade'].toString(),
+              'Semester_ID': marksPassJson[i]['Semester_ID'].toString(),
+
               'CreatedDate': date.toString(),
             },
           ).timeout(Duration(seconds: 35));
@@ -282,6 +285,7 @@ class _StudentPassRequestState extends State<StudentPassRequest> {
             bottomSheetFailure(context);
           }
         } catch (x) {
+          print(x);
           if (x.toString().contains("TimeoutException")) {
             showLoading(false, context);
             showError("Time out from server", FontAwesomeIcons.hourglassHalf,
@@ -294,7 +298,5 @@ class _StudentPassRequestState extends State<StudentPassRequest> {
         }
       }
     });
-
-    //send confirmation
   }
 }

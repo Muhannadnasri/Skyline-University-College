@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_pay/flutter_pay.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -26,6 +27,33 @@ class _PayOnlineOutState extends State<PayOnlineOut> {
   final flutterWebviewPlugin = new FlutterWebviewPlugin();
   bool isLoading = true;
   Map payOnlineJson = {};
+
+  FlutterPay flutterPay = FlutterPay();
+
+  String result = "Result will be shown here";
+
+  void makePayment() async {
+    List<PaymentItem> items = [PaymentItem(name: "T-Shirt", price: 1)];
+
+    flutterPay.setEnvironment(environment: PaymentEnvironment.Test);
+
+    flutterPay.makePayment(
+      merchantIdentifier: "merchant.com.skylineuniversity.skyline",
+      gatewayName: 'Skyline',
+      merchantName: 'Skyline',
+      // googleParameters: GoogleParameters(
+      //   gatewayName: "example",
+      //   gatewayMerchantId: "example_id",
+      // ),
+      // appleParameters: AppleParameters(
+      //     merchantIdentifier: "merchant.com.skylineuniversity.skyline"),
+      currencyCode: "AED",
+      countryCode: "AE",
+      paymentItems: items,
+    );
+  }
+//Also you can state allowed payment card networks:
+
   void initState() {
     super.initState();
     getPayOnline();

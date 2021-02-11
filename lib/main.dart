@@ -56,7 +56,8 @@ import 'Login/E-Reques/StudentForm/semesterRegistration.dart';
 import 'Login/E-Reques/StudentForm/studentPassRequest.dart';
 import 'Login/E-Reques/StudentForm/suggestions.dart';
 import 'Login/E-Reques/StudentForm/updateInformation.dart';
-import 'Login/E-Reques/StudentForm/visitorInfoLan.dart';
+
+import 'Login/E-Reques/StudentForm/visitorInfo.dart';
 import 'Login/E-Reques/home.dart';
 import 'Login/E-Reques/homeAppointment.dart';
 import 'Login/E-Reques/homeSuggestion.dart';
@@ -275,7 +276,7 @@ class MyAppState extends State<MyApp> {
 
           '/courses': (context) => Courses(),
 
-          '/visitorInfoLan': (context) => VisitorInfoLan(),
+          '/VisitorInfo': (context) => VisitorInfo(),
 
           '/homeGraduate': (context) => HomeGraduate(),
           '/centreContinuingLearning': (context) => CentreContinuingLearning(),

@@ -5,14 +5,18 @@ import 'dart:typed_data';
 import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
+
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/pdfView.dart';
+import 'package:skyline_university/Global/webView.dart';
 import 'package:superellipse_shape/superellipse_shape.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 void main() => runApp(CDPDownload());
 
@@ -92,18 +96,34 @@ class _CDPDownloadState extends State<CDPDownload>
                                       ],
                                     ),
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: Row(
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 5),
-                                    child: Text(
-                                      cdpCourseJson[index]['Name'],
-                                      style: TextStyle(color: Colors.white),
+                            child: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => WebViews(
+                                          url:
+                                              'http://sky.skylineuniversity.ac.ae/page/PrintLMS.aspx?Id=${cdpCourseJson[index]['Cdp_ID']}&Type=CDP'
+                                          // 'https://www.skylineportal.com/Report/Pages/SkylineCPD-Display.aspx?path1=${cdpCourseJson[index]['Faculty_id']}&batch=${cdpCourseJson[index]['BatchCode']}&studid=$username&reqid=2&cdp=0',
+                                          ),
                                     ),
-                                  ),
-                                ],
+                                  );
+                                });
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Row(
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 5),
+                                      child: Text(
+                                        cdpCourseJson[index]['Name'],
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -133,35 +153,6 @@ class _CDPDownloadState extends State<CDPDownload>
                           ),
                           SizedBox(
                             height: 10,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => PdfViews(
-                                            url:
-                                                // 'http://sky.skylineuniversity.ac.ae/page/PrintLMS.aspx?Id=${cdpCourseJson[index]['Cdp_ID']}&Type=CDP'
-                                                // sky.skylineuniversity.ac.ae/page/PrintLMS.aspx?Id=4259&Type=CDP
-                                                'https://www.skylineportal.com/Report/Pages/SkylineCPD-Display.aspx?path1=${cdpCourseJson[index]['Faculty_id']}&batch=${cdpCourseJson[index]['BatchCode']}&studid=$username&reqid=2&cdp=0',
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    child: Container(
-                                        child: Text(
-                                      'Download',
-                                      style: TextStyle(
-                                          decoration: TextDecoration.underline,
-                                          color: Colors.blue),
-                                    ))),
-                              ],
-                            ),
                           ),
                         ],
                       ),

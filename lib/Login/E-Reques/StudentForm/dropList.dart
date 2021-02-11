@@ -7,13 +7,16 @@ import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/lists.dart';
+import 'package:intl/intl.dart';
 
 class DropList extends StatefulWidget {
   final String type;
   final String empId;
   final String departmentID;
+  final String selectedDate;
 
-  const DropList({Key key, this.type, this.empId, this.departmentID})
+  const DropList(
+      {Key key, this.type, this.empId, this.departmentID, this.selectedDate})
       : super(key: key);
   @override
   _DropListState createState() => _DropListState();
@@ -26,7 +29,9 @@ class _DropListState extends State<DropList> {
   List itemsToShow = [];
   Map body = {};
   List fileJson = [];
+  List fileJsons = [];
   String title = '';
+
   @override
   void initState() {
     selectedName = "";
@@ -77,6 +82,7 @@ class _DropListState extends State<DropList> {
                       delegate: SliverChildBuilderDelegate(
                         (BuildContext context, int index) {
                           // if (itemsToShow[index]['archive'] == '0')
+
                           return buildItems(index);
                           // else
                           // return SizedBox();
@@ -90,10 +96,19 @@ class _DropListState extends State<DropList> {
   }
 
   buildItems(index) {
+    if (widget.type == 'GeneralAppointmentDate') {
+      var parsedDate = DateTime.parse(itemsToShow[index][title]);
+      DateFormat formatter = DateFormat('yyyy-MM-dd');
+      String formatted = formatter.format(parsedDate);
+
+      itemsToShow[index][title] = formatted;
+      // print(formatted); // something like 2013-04-20
+    }
     return Card(
       // color: itemsToShow[index]['archive'] == '0'
       //     ? Colors.white
       //     : Colors.grey[300],
+
       child: new Column(
         children: <Widget>[
           Container(
@@ -105,7 +120,7 @@ class _DropListState extends State<DropList> {
                   title: Padding(
                     padding: const EdgeInsets.only(bottom: 8),
                     child: new Text(
-                      itemsToShow[index][title],
+                      itemsToShow[index][title].toString(),
                       // 'packages Name',
                       style: new TextStyle(
                           fontSize: 14.0, fontWeight: FontWeight.bold),
@@ -144,6 +159,9 @@ class _DropListState extends State<DropList> {
       showLoading(true, context);
     });
     switch (widget.type) {
+      case 'ShortProgram':
+        body = {};
+        break;
       case 'GeneralAppointmentCategory':
         {
           body = {};
@@ -156,16 +174,21 @@ class _DropListState extends State<DropList> {
         break;
       case 'GeneralAppointmentTime':
         {
-          body = {};
+          body = {
+            'AppointMentDate': widget.selectedDate.toString(),
+            'EMPNUMBER': widget.empId,
+            'OPERATION': 'TIME'
+          };
         }
 
         break;
       case 'GeneralAppointmentDate':
         {
           body = {
-            'user_id': username,
-            'emp_no': widget.empId,
-            'department': widget.departmentID,
+            'AppointMentDate':
+                DateFormat("yyyy-MM-dd").format(DateTime.now()).toString(),
+            'EMPNUMBER': widget.empId,
+            'OPERATION': 'DATES'
           };
         }
         break;
@@ -188,6 +211,42 @@ class _DropListState extends State<DropList> {
         }
     }
     switch (widget.type) {
+      case 'ShortProgram':
+        {
+          url = 'https://skylineportal.com/moappad/api/test/visitorCourses';
+        }
+        break;
+      case 'Organization':
+        {
+          url =
+              'https://skylineportal.com/moappad/api/test/VisitorInformationProgramAndCountries';
+        }
+        break;
+      case 'title':
+        {
+          url =
+              'https://skylineportal.com/moappad/api/test/VisitorInformationProgramAndCountries';
+        }
+        break;
+      case 'countries':
+        {
+          url =
+              'https://skylineportal.com/moappad/api/test/VisitorInformationProgramAndCountries';
+        }
+        break;
+      case 'programEn':
+        {
+          url =
+              'https://skylineportal.com/moappad/api/test/VisitorInformationProgramAndCountries';
+        }
+        break;
+      case 'Qualification':
+        {
+          url =
+              'https://skylineportal.com/moappad/api/test/VisitorInformationProgramAndCountries';
+        }
+        break;
+
       case 'GeneralAppointmentDepartment':
         {
           url =
@@ -203,19 +262,12 @@ class _DropListState extends State<DropList> {
         break;
       case 'GeneralAppointmentTime':
         {
-          url =
-              'https://skylineportal.com/moappad/api/test/GeneralApptCatDeptTime';
+          url = 'https://skylineportal.com/moappad/api/test/GeneralApptDates';
         }
         break;
       case 'GeneralAppointmentDate':
         {
-          url = 'https://skylineportal.com/moappad/api/test/GeneralApptDate';
-        }
-        break;
-      case 'suggestions':
-        {
-          url =
-              'https://skylineportal.com/moappad/api/test/GeneralApptCatDeptTime';
+          url = 'https://skylineportal.com/moappad/api/test/GeneralApptDates';
         }
         break;
 
@@ -238,12 +290,29 @@ class _DropListState extends State<DropList> {
         }
 
         break;
+      case 'know':
+        {
+          url = 'https://skylineportal.com/moappad/api/test/knowUs';
+        }
+        break;
       case 'Program':
         {
           url =
               'https://skylineportal.com/moappad/api/test/getAptitudeProgramAndNationality';
         }
         break;
+      case 'Country':
+        {
+          url =
+              'https://skylineportal.com/moappad/api/test/AdmissionFormDropdownRecords';
+        }
+        break;
+      // case 'program':
+      //   {
+      //     url =
+      //         'https://skylineportal.com/moappad/api/test/AdmissionFormDropdownRecords';
+      //   }
+      //   break;
       default:
         {
           url =
@@ -252,6 +321,22 @@ class _DropListState extends State<DropList> {
     }
 
     switch (widget.type) {
+      case 'ShortProgram':
+        {
+          title = 'courseEn';
+        }
+        break;
+      case 'Country':
+        {
+          title = 'NationalityName';
+        }
+        break;
+      case 'program':
+        {
+          title = 'DegreeType_Desc';
+        }
+        break;
+
       case 'GeneralAppointmentCategory':
         {
           title = 'CATEGORY_DESCRIPTION';
@@ -259,12 +344,12 @@ class _DropListState extends State<DropList> {
         break;
       case 'GeneralAppointmentTime':
         {
-          title = 'timevalue';
+          title = 'Session_TIME';
         }
         break;
       case 'GeneralAppointmentDate':
         {
-          title = 'Dates';
+          title = 'DateCol';
         }
         break;
       case 'GeneralAppointmentDepartment':
@@ -294,12 +379,42 @@ class _DropListState extends State<DropList> {
           title = 'NationalityName';
         }
         break;
-      case 'Program':
+      // case 'Program':
+      //   {
+      //     title = 'DegreeType_Desc';
+      //   }
+      //   break;
+      case 'know':
         {
-          title = 'DegreeType_Desc';
+          title = 'know';
         }
         break;
 
+      case 'Organization':
+        {
+          title = 'organizationNameAr';
+        }
+        break;
+      case 'title':
+        {
+          title = 'title';
+        }
+        break;
+      case 'countries':
+        {
+          title = 'country_enName';
+        }
+        break;
+      case 'programEn':
+        {
+          title = 'programEn';
+        }
+        break;
+      case 'Qualification':
+        {
+          title = 'qualificationEn';
+        }
+        break;
       default:
         {
           title = 'MiscName';
@@ -319,6 +434,21 @@ class _DropListState extends State<DropList> {
             // loading = false;
 
             switch (widget.type) {
+              case 'ShortProgram':
+                {
+                  fileJson = json.decode(response.body)['data'];
+                }
+                break;
+              case 'Country':
+                {
+                  fileJson = json.decode(response.body)['data']['countries'];
+                }
+                break;
+              case 'program':
+                {
+                  fileJson = json.decode(response.body)['data']['program'];
+                }
+                break;
               case 'suggestions':
                 {
                   fileJson = json.decode(response.body)['data']['category'];
@@ -335,18 +465,48 @@ class _DropListState extends State<DropList> {
                   fileJson = json.decode(response.body)['data']['category'];
                 }
                 break;
-
+              case 'title':
+                {
+                  fileJson = json.decode(response.body)['data']['title'];
+                }
+                break;
+              case 'countries':
+                {
+                  fileJson = json.decode(response.body)['data']['countries'];
+                }
+                break;
+              case 'programEn':
+                {
+                  fileJson = json.decode(response.body)['data']['programEn'];
+                }
+                break;
+              case 'Qualification':
+                {
+                  fileJson =
+                      json.decode(response.body)['data']['qualificationEn'];
+                }
+                break;
+              case 'Organization':
+                {
+                  fileJson = json.decode(response.body)['data']['organization'];
+                }
+                break;
               case 'Nationality':
                 {
                   fileJson = json.decode(response.body)['data']['nationality'];
                 }
                 break;
-
-              case 'Program':
+              case 'know':
                 {
-                  fileJson = json.decode(response.body)['data']['programs'];
+                  fileJson = json.decode(response.body)['data'];
                 }
                 break;
+
+              // case 'Program':
+              //   {
+              //     fileJson = json.decode(response.body)['data']['programs'];
+              //   }
+              //   break;
 
               case 'GeneralAppointmentDepartment':
                 {
@@ -355,12 +515,18 @@ class _DropListState extends State<DropList> {
                 break;
               case 'GeneralAppointmentTime':
                 {
-                  fileJson = json.decode(response.body)['data']['time'];
+                  fileJson = json.decode(response.body)['data'];
                 }
                 break;
               case 'GeneralAppointmentDate':
                 {
                   fileJson = json.decode(response.body)['data'];
+
+                  // DateTime now = json.decode(response.body)['data']['DateCol'];
+                  // DateFormat formatter = DateFormat('yyyy-MM-dd');
+                  // String formatted = formatter.format(now);
+                  // print(formatted); // something like 2013-04-20
+
                 }
                 break;
               default:
@@ -379,6 +545,7 @@ class _DropListState extends State<DropList> {
         showLoading(false, context);
       }
     } catch (x) {
+      print(x);
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
         showError("Time out from server", FontAwesomeIcons.hourglassHalf,

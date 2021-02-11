@@ -350,7 +350,7 @@ class _HomeState extends State<Home> {
                                   context,
                                   'images-white/aptitude.png',
                                   'images/visitor.png',
-                                  "/visitorInfoLan",
+                                  "/VisitorInfo",
                                   Colors.white,
                                   Colors.black,
                                   'Visitor Info',

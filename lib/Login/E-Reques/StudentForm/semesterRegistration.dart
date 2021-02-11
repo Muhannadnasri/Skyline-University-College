@@ -264,16 +264,18 @@ class _SemesterRegistrationState extends State<SemesterRegistration> {
           "API-KEY": API,
         },
         body: {
-          'Stud_ID': username,
+          'Stud_ID': 'testuser',
+          // username,
           'DebitCategoryID': selectedPayment.toString(),
           'Semester_ID': 'Semester_ID',
           'Remarks': remark,
           'IsOnline': '1',
-          'CreatedBy': username,
+          'CreatedBy': username.toString(),
         },
       ).timeout(Duration(seconds: 35));
 
       if (response.statusCode == 200) {
+        json.decode(response.body);
         showLoading(false, context);
 
         vottomSheetSuccess(context);

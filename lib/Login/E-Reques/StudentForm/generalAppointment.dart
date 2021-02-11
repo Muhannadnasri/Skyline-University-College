@@ -208,6 +208,8 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
               context,
               MaterialPageRoute(
                 builder: (context) => DropList(
+                  empId: empId,
+                  selectedDate: dateCnt.text.toString(),
                   type: 'GeneralAppointmentTime',
                 ),
               ),
@@ -215,7 +217,7 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
               setState(() {
                 // miscName = val['MiscName'];
                 // miscID = val['MiscID'];
-                timeNameCnt.text = val['timevalue'];
+                timeNameCnt.text = val['Session_TIME'];
               });
             });
           },
@@ -260,8 +262,8 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
               ),
             ).then((val) async {
               setState(() {
-                dateCnt.text = val['date'];
-                dateNameCnt.text = val['Dates'];
+                dateCnt.text = val['DateCol'];
+                dateNameCnt.text = val['DateCol'];
                 timeNameCnt.clear();
               });
             });
@@ -298,14 +300,6 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
           ),
           TextFormField(
             validator: (x) => x.isEmpty ? "Please enter remark" : null,
-            onChanged: (x) {
-              setState(() {
-                // isEditing = true;
-              });
-            },
-            // initialValue: widget.sessionId == null
-            //     ? ''
-            //     : widget.sessionInfo['remarks'],
             onSaved: (x) {
               setState(() {
                 remark = x;
@@ -322,48 +316,6 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
     );
   }
 
-  // Future getGeneralApptDate() async {
-  //   Future.delayed(Duration.zero, () {
-  //     showLoading(true, context);
-  //   });
-
-  //   try {
-  //     final response = await http.post(
-  //       Uri.encodeFull(
-  //           'https://skylineportal.com/moappad/api/test/GeneralApptDate'),
-  //       headers: {
-  //         "API-KEY": API,
-  //       },
-  //       body: {
-  //         'user_id': username,
-  //         'emp_no': _empId,
-  //         'department': _departmentID,
-  //       },
-  //     ).timeout(Duration(seconds: 35));
-
-  //     if (response.statusCode == 200) {
-  //       setState(
-  //         () {
-  //           generalApptDate = json.decode(response.body)['data'];
-  //         },
-  //       );
-
-  //       showLoading(false, context);
-  //     }
-  //   } catch (x) {
-  //     if (x.toString().contains("TimeoutException")) {
-  //       showLoading(false, context);
-
-  //       showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-  //           context, getGeneralApptDate);
-  //     } else {
-  //       showLoading(false, context);
-  //       showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-  //           getGeneralApptDate);
-  //     }
-  //   }
-  // }
-
   Future sendGeneralAppointment() async {
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
@@ -377,38 +329,38 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
           "API-KEY": API,
         },
         body: {
-          'Stud_ID': username,
+          'Stud_ID': 'testuser',
+          // username,
           'CASETYPE_ID': '4',
-          'CATEGORY_ID': caseIDCnt.toString(),
+          'CATEGORY_ID': caseIDCnt.text.toString(),
           'EmpNumber': empId.toString(),
           'Department_ID': departmentID.toString(),
-          'AppointMentDate': dateCnt.toString(),
-          'AppointmentTime': timeNameCnt.toString(),
+          'AppointMentDate': dateCnt.text.toString(),
+          'AppointmentTime': timeNameCnt.text.toString(),
           'StudentRemarks': remark,
         },
       );
+
+      // setState(
+      //   () {
+      //   },
+      // );
       if (response.statusCode == 200) {
-        // setState(
-        //   () {
-        //     generalRequestJson = json.decode(response.body);
-        //   },
-        // );
-        if (response.statusCode == 200) {
-          showLoading(false, context);
+        showLoading(false, context);
 
-          vottomSheetSuccess(context);
-        } else {
-          showLoading(false, context);
+        vottomSheetSuccess(context);
+      } else {
+        showLoading(false, context);
 
-          bottomSheetFailure(context);
-        }
-        // if (generalRequestJson['success'] == '0') {
-        //   showfailureSnackBar(context, generalRequestJson['message']);
-        // }
-        // if (generalRequestJson['success'] == '1') {
-        //   showSuccessSnackBar(context, generalRequestJson['message']);
-        // }
+        bottomSheetFailure(context);
       }
+      // if (generalRequestJson['success'] == '0') {
+      //   showfailureSnackBar(context, generalRequestJson['message']);
+      // }
+      // if (generalRequestJson['success'] == '1') {
+      //   showSuccessSnackBar(context, generalRequestJson['message']);
+      // }
+
     } catch (x) {
       print(x);
       if (x.toString().contains("TimeoutException")) {

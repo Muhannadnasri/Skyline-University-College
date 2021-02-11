@@ -486,6 +486,7 @@ void vottomSheetSuccess(context) {
     positive: SweetSheetAction(
       onPressed: () {
         Navigator.of(context).pop();
+        Navigator.of(context).pop();
       },
       title: 'Home Page',
     ),
@@ -506,6 +507,7 @@ void bottomSheetFailure(context) {
     icon: Icons.check,
     positive: SweetSheetAction(
       onPressed: () {
+        Navigator.of(context).pop();
         Navigator.of(context).pop();
       },
       title: 'Go Back',

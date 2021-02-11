@@ -5,6 +5,7 @@ import 'package:circular_check_box/circular_check_box.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_toggle_tab/flutter_toggle_tab.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -13,7 +14,9 @@ import 'package:skyline_university/Global/bottomAppBar.dart';
 import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Login/E-Reques/StudentForm/onlineRequest%20copy.dart';
+
 import 'package:toggle_switch/toggle_switch.dart';
+// import 'package:toggle_switch/toggle_switch.dart';
 
 import 'dropList.dart';
 import 'dropdown_formfield.dart';
@@ -43,9 +46,10 @@ class _OnlineRequestState extends State<OnlineRequest> {
 
   var leaveToDateNameCnt = TextEditingController();
   var receiptDateNameCnt = TextEditingController();
-
+  Map onlineRequestJson = {};
   Map requestAmountJson = {};
   List resitMarksJson = [];
+  Map insertRequestJson = {};
   List<bool> selectedResitCourses = new List<bool>();
   List<bool> selectedMitigationCourses = new List<bool>();
   List<bool> selectedCourseWithdrawals = new List<bool>();
@@ -66,21 +70,23 @@ class _OnlineRequestState extends State<OnlineRequest> {
   String addressToShift = '';
   String reasonShift = '';
   //Repeating
-  String resonRepeating = '';
+  // String resonRepeating = '';
 //Reset
-  String reasonReset = '';
+  // String reasonReset = '';
 
   //Mitigation
 
   //MarksAgains
-  String reasonAgains = '';
+  // String reasonAgains = '';
 
   //cancellationType
   int cancellationTypeID;
   String reasonCancellation = '';
   //Postponement
   String reasonPostponement = '';
+
   String receiptNo = '';
+
   String requestType = 'Normal';
   int initialIndex = 0;
   String remark = '';
@@ -88,8 +94,8 @@ class _OnlineRequestState extends State<OnlineRequest> {
   String contactNo = '';
   String internationalContactPerson = '';
   String internationalContactNo = '';
-  String reasonPassport = '';
-  String reasonWithdrawals = '';
+  // String reasonPassport = '';
+  // String reasonWithdrawals = '';
   String reasonLeave = '';
   String selectedShift = '';
   String residenceContactNo = '';
@@ -113,6 +119,8 @@ class _OnlineRequestState extends State<OnlineRequest> {
   final _formAgains = GlobalKey<FormState>();
   final _formCancellationVisa = GlobalKey<FormState>();
   final _formPostponement = GlobalKey<FormState>();
+  final _withdrawalForm = GlobalKey<FormState>();
+  final _passportForm = GlobalKey<FormState>();
 
   String _selectedShift;
   int _selectedShiftID;
@@ -195,6 +203,13 @@ class _OnlineRequestState extends State<OnlineRequest> {
               break;
             case 109:
               {
+                if (_passportForm.currentState.validate()) {
+                  _passportForm.currentState.save();
+                  setState(() {
+                    insertStudentPassport();
+                  });
+                }
+
                 //TODO:SendRequest
                 //TODO: Add more forms and date picker
 
@@ -202,6 +217,14 @@ class _OnlineRequestState extends State<OnlineRequest> {
               break;
             case 139:
               {
+                if (_withdrawalForm.currentState.validate()) {
+                  _withdrawalForm.currentState.save();
+                  setState(() {
+                    // insertRequest();
+                    insertWithdrawalMarks();
+                  });
+                }
+
                 //TODO:SendRequest
                 //TODO:Add courses
 
@@ -212,6 +235,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
                 if (_formAgains.currentState.validate()) {
                   _formAgains.currentState.save();
                   setState(() {
+                    // insertRequest();
                     insertAgainsMarks();
                   });
                 }
@@ -311,7 +335,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
         label: Text(
           newShiftTimesJson[i]['Shift_Desc'],
           style:
-              TextStyle(color: isDark(context) ? Colors.white : Colors.black),
+              TextStyle(color: isDark(context) ? Colors.white : Colors.white),
         ),
         elevation: 10,
         pressElevation: 5,
@@ -959,154 +983,158 @@ class _OnlineRequestState extends State<OnlineRequest> {
 
   Widget passportDetails() {
     if (miscID == 109) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Local Contact Person',
-            style:
-                TextStyle(color: isDark(context) ? Colors.white : Colors.black),
-          ),
-          TextFormField(
-            validator: (x) =>
-                x.isEmpty ? "Please enter local contact person" : null,
+      return Form(
+        key: _passportForm,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Local Contact Person',
+              style: TextStyle(
+                  color: isDark(context) ? Colors.white : Colors.black),
+            ),
+            TextFormField(
+              validator: (x) =>
+                  x.isEmpty ? "Please enter local contact person" : null,
 
-            // initialValue: widget.sessionId == null
-            //     ? ''
-            //     : widget.sessionInfo['remarks'],
-            onSaved: (x) {
-              setState(() {
-                localContactPerson = x;
-              });
-            },
-            keyboardType: TextInputType.text,
-          ),
-          SizedBox(
-            height: 25,
-          ),
-          Text(
-            'Contact No',
-            style:
-                TextStyle(color: isDark(context) ? Colors.white : Colors.black),
-          ),
-          TextFormField(
-            validator: (x) => x.isEmpty ? "Please enter contact no" : null,
-            inputFormatters: <TextInputFormatter>[
-              FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-            ],
-            // initialValue: widget.sessionId == null
-            //     ? ''
-            //     : widget.sessionInfo['remarks'],
-            onSaved: (x) {
-              setState(() {
-                contactNo = x;
-              });
-            },
-            keyboardType: TextInputType.phone,
-          ),
-          SizedBox(
-            height: 25,
-          ),
-          Text(
-            'International Contact Person',
-            style:
-                TextStyle(color: isDark(context) ? Colors.white : Colors.black),
-          ),
-          TextFormField(
-            validator: (x) =>
-                x.isEmpty ? "Please enter international contact person" : null,
+              // initialValue: widget.sessionId == null
+              //     ? ''
+              //     : widget.sessionInfo['remarks'],
+              onSaved: (x) {
+                setState(() {
+                  localContactPerson = x;
+                });
+              },
+              keyboardType: TextInputType.text,
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            Text(
+              'Contact No',
+              style: TextStyle(
+                  color: isDark(context) ? Colors.white : Colors.black),
+            ),
+            TextFormField(
+              validator: (x) => x.isEmpty ? "Please enter contact no" : null,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+              ],
+              // initialValue: widget.sessionId == null
+              //     ? ''
+              //     : widget.sessionInfo['remarks'],
+              onSaved: (x) {
+                setState(() {
+                  contactNo = x;
+                });
+              },
+              keyboardType: TextInputType.phone,
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            Text(
+              'International Contact Person',
+              style: TextStyle(
+                  color: isDark(context) ? Colors.white : Colors.black),
+            ),
+            TextFormField(
+              validator: (x) => x.isEmpty
+                  ? "Please enter international contact person"
+                  : null,
 
-            // initialValue: widget.sessionId == null
-            //     ? ''
-            //     : widget.sessionInfo['remarks'],
-            onSaved: (x) {
-              setState(() {
-                internationalContactPerson = x;
-              });
-            },
-            keyboardType: TextInputType.text,
-          ),
-          SizedBox(
-            height: 25,
-          ),
-          Text(
-            'International Contact No',
-            style:
-                TextStyle(color: isDark(context) ? Colors.white : Colors.black),
-          ),
-          TextFormField(
-            validator: (x) =>
-                x.isEmpty ? "Please enter international contact no" : null,
-            inputFormatters: <TextInputFormatter>[
-              FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-            ],
-            onSaved: (x) {
-              setState(() {
-                internationalContactNo = x;
-              });
-            },
-            keyboardType: TextInputType.phone,
-          ),
-          SizedBox(
-            height: 25,
-          ),
+              // initialValue: widget.sessionId == null
+              //     ? ''
+              //     : widget.sessionInfo['remarks'],
+              onSaved: (x) {
+                setState(() {
+                  internationalContactPerson = x;
+                });
+              },
+              keyboardType: TextInputType.text,
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            Text(
+              'International Contact No',
+              style: TextStyle(
+                  color: isDark(context) ? Colors.white : Colors.black),
+            ),
+            TextFormField(
+              validator: (x) =>
+                  x.isEmpty ? "Please enter international contact no" : null,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+              ],
+              onSaved: (x) {
+                setState(() {
+                  internationalContactNo = x;
+                });
+              },
+              keyboardType: TextInputType.phone,
+            ),
+            SizedBox(
+              height: 25,
+            ),
 
-          Text(
-            'Date to be Return',
-            style:
-                TextStyle(color: isDark(context) ? Colors.white : Colors.black),
-          ),
-          GestureDetector(
-            onTap: () {
-              setState(() {
-                if (Platform.isIOS) {
-                  _showDatePicker(context);
-                } else {
-                  _showDatePickerAndroid(context);
-                }
-              });
-            },
-            child: AbsorbPointer(
-              child: TextFormField(
-                validator: (x) =>
-                    x.isEmpty ? "Please enter date to be return" : null,
-                onChanged: (x) {
-                  setState(() {
-                    // isEditing = true;
-                  });
-                },
-                controller: passportDateNameCnt,
+            Text(
+              'Date to be Return',
+              style: TextStyle(
+                  color: isDark(context) ? Colors.white : Colors.black),
+            ),
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  if (Platform.isIOS) {
+                    _showDatePicker(context);
+                  } else {
+                    _showDatePickerAndroid(context);
+                  }
+                });
+              },
+              child: AbsorbPointer(
+                child: TextFormField(
+                  validator: (x) =>
+                      x.isEmpty ? "Please enter date to be return" : null,
+                  onChanged: (x) {
+                    setState(() {
+                      // isEditing = true;
+                    });
+                  },
+                  controller: passportDateNameCnt,
+                ),
               ),
             ),
-          ),
-          SizedBox(
-            height: 25,
-          ),
+            SizedBox(
+              height: 25,
+            ),
 
 //TODO: Date Picker
 
-          Text(
-            'Reason',
-            style:
-                TextStyle(color: isDark(context) ? Colors.white : Colors.black),
-          ),
-          TextFormField(
-            validator: (x) => x.isEmpty ? "Please enter reason" : null,
+            Text(
+              'Reason',
+              style: TextStyle(
+                  color: isDark(context) ? Colors.white : Colors.black),
+            ),
+            TextFormField(
+              validator: (x) => x.isEmpty ? "Please enter reason" : null,
 
-            // initialValue: widget.sessionId == null
-            //     ? ''
-            //     : widget.sessionInfo['remarks'],
-            onSaved: (x) {
-              setState(() {
-                reasonPassport = x;
-              });
-            },
-            keyboardType: TextInputType.text,
-          ),
-          SizedBox(
-            height: 25,
-          ),
-        ],
+              // initialValue: widget.sessionId == null
+              //     ? ''
+              //     : widget.sessionInfo['remarks'],
+              onSaved: (x) {
+                setState(() {
+                  remark = x;
+                });
+              },
+              keyboardType: TextInputType.text,
+            ),
+            SizedBox(
+              height: 25,
+            ),
+          ],
+        ),
       );
     } else {
       return SizedBox();
@@ -1116,27 +1144,30 @@ class _OnlineRequestState extends State<OnlineRequest> {
   Widget reasonWidget() {
     switch (miscID) {
       case 139:
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Reason',
-              style: TextStyle(
-                  color: isDark(context) ? Colors.white : Colors.black),
-            ),
-            TextFormField(
-              validator: (x) => x.isEmpty ? "Please enter reason" : null,
-              onSaved: (x) {
-                setState(() {
-                  reasonWithdrawals = x;
-                });
-              },
-              keyboardType: TextInputType.text,
-            ),
-            SizedBox(
-              height: 25,
-            ),
-          ],
+        return Form(
+          key: _withdrawalForm,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Reason',
+                style: TextStyle(
+                    color: isDark(context) ? Colors.white : Colors.black),
+              ),
+              TextFormField(
+                validator: (x) => x.isEmpty ? "Please enter reason" : null,
+                onSaved: (x) {
+                  setState(() {
+                    remark = x;
+                  });
+                },
+                keyboardType: TextInputType.text,
+              ),
+              SizedBox(
+                height: 25,
+              ),
+            ],
+          ),
         );
         break;
 
@@ -1174,16 +1205,13 @@ class _OnlineRequestState extends State<OnlineRequest> {
           ),
         ],
       );
-    } else if (requestAmountJson['success'] == '0' ||
-        requestAmountJson == null ||
-        requestAmountJson.isEmpty) {
+    } else {
       return SizedBox();
     }
   }
 
   Widget amountUrgent() {
-    if (requestAmountJson['success'] == '1' &&
-        requestAmountJson['data']['UrgentFees'] != '0') {
+    if (requestAmountJson['success'] == '1') {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -1211,10 +1239,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
           )
         ],
       );
-    } else if (requestAmountJson == null ||
-        requestAmountJson.isEmpty ||
-        requestAmountJson['success'] == '0' ||
-        requestAmountJson['data']['UrgentFees'] == '0') {
+    } else {
       return SizedBox();
     }
   }
@@ -1232,10 +1257,46 @@ class _OnlineRequestState extends State<OnlineRequest> {
           SizedBox(
             height: 10,
           ),
+          // AnimatedToggle(
+          //   values: ['Normal', 'Urgent'],
+          //   onToggleCallback: (index) {
+          //     // isDarkMode = !isDarkMode;
+          //     setState(() {
+          //       switch (initialIndex) {
+          //         case 0:
+          //           {
+          //             setState(() {
+          //               requestType = 'Normal';
+          //             });
+          //           }
+
+          //           break;
+          //         case 1:
+          //           {
+          //             setState(() {
+          //               requestType = 'Urgent';
+          //             });
+          //           }
+          //           break;
+          //         default:
+          //           {
+          //             setState(() {
+          //               requestType = 'Normal';
+          //             });
+          //           }
+          //       }
+          //     });
+          //   },
+          // ),
+
           ToggleSwitch(
-            minWidth: 90.0,
+            // minWidth: .0,
+            minWidth: 100,
+            minHeight: 40,
+
+            icons: [Icons.star_outline, Icons.star_outline],
             initialLabelIndex: initialIndex,
-            cornerRadius: 10.0,
+            cornerRadius: 15.0,
             activeFgColor: Colors.white,
             inactiveBgColor: Colors.grey,
             inactiveFgColor: Colors.white,
@@ -1373,7 +1434,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
               validator: (x) => x.isEmpty ? "Please enter reason" : null,
               onSaved: (x) {
                 setState(() {
-                  reasonReset = x;
+                  remark = x;
                 });
               },
               keyboardType: TextInputType.text,
@@ -1722,7 +1783,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
               validator: (x) => x.isEmpty ? "Please enter reason" : null,
               onSaved: (x) {
                 setState(() {
-                  resonRepeating = x;
+                  remark = x;
                 });
               },
               keyboardType: TextInputType.text,
@@ -1891,7 +1952,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
               validator: (x) => x.isEmpty ? "Please enter reason" : null,
               onSaved: (x) {
                 setState(() {
-                  reasonAgains = x;
+                  remark = x;
                 });
               },
               keyboardType: TextInputType.text,
@@ -1929,21 +1990,20 @@ class _OnlineRequestState extends State<OnlineRequest> {
         setState(
           () {
             requestAmountJson = json.decode(response.body);
-            amountNameCnt.text = requestAmountJson.isEmpty ||
-                    requestAmountJson == null ||
-                    requestAmountJson['data'] == null
-                ? ''
-                : requestAmountJson['data']['NormalFees'] == ("NA")
-                    ? "Not Avalible"
-                    : requestAmountJson['data']['NormalFees'].toString();
 
-            amountUrgentNameCnt.text = requestAmountJson.isEmpty ||
-                    requestAmountJson == null ||
-                    requestAmountJson['data'] == null
-                ? ''
-                : requestAmountJson['data']['UrgentFees'] == ("NA")
-                    ? "Not Avalible"
-                    : requestAmountJson['data']['UrgentFees'].toString();
+            amountNameCnt.text =
+                requestAmountJson['data'] == null || requestAmountJson.isEmpty
+                    ? ''
+                    : requestAmountJson['data']['NormalFees'] == ("NA")
+                        ? "Not Avalible"
+                        : requestAmountJson['data']['NormalFees'].toString();
+
+            amountUrgentNameCnt.text =
+                requestAmountJson['data'] == null || requestAmountJson.isEmpty
+                    ? ''
+                    : requestAmountJson['data']['UrgentFees'] == ("NA")
+                        ? "Not Avalible"
+                        : requestAmountJson['data']['UrgentFees'].toString();
           },
         );
 
@@ -1956,6 +2016,49 @@ class _OnlineRequestState extends State<OnlineRequest> {
         showLoading(false, context);
       }
     } catch (x) {
+      if (x.toString().contains("TimeoutException")) {
+        showLoading(false, context);
+        showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+            context, getAmount);
+      } else {
+        showLoading(false, context);
+        showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+            getAmount);
+      }
+    }
+  }
+
+  Future insertRequest() async {
+    Future.delayed(Duration.zero, () {
+      showLoading(true, context);
+    });
+
+    try {
+      final response = await http.post(
+        Uri.encodeFull(
+            'https://skylineportal.com/moappad/api/test/InsertRequest'),
+        headers: {
+          "API-KEY": API,
+        },
+        body: {
+          'StudentID': 'testuser',
+          // username,
+          'RequestTypeid': miscID.toString(),
+          'RequestType': requestType,
+          'Remarks': remark.toString(),
+        },
+      ).timeout(Duration(seconds: 35));
+
+      if (response.statusCode == 200) {
+        setState(
+          () {
+            insertRequestJson = json.decode(response.body);
+            showLoading(false, context);
+          },
+        );
+      }
+    } catch (x) {
+      print(x);
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
         showError("Time out from server", FontAwesomeIcons.hourglassHalf,
@@ -1985,18 +2088,25 @@ class _OnlineRequestState extends State<OnlineRequest> {
           'RequestType': requestType,
           'AddressTo': addressTo,
           'Remarks': remark,
-          'StudentID': username,
+          'StudentID': 'testuser',
+          // username,
         },
       ).timeout(Duration(seconds: 35));
 
       if (response.statusCode == 200) {
         setState(
           () {
-            requestAmountJson = json.decode(response.body);
+            onlineRequestJson = json.decode(response.body);
           },
         );
-
+      }
+      if (onlineRequestJson['success'] == "1") {
         showLoading(false, context);
+        vottomSheetSuccess(context);
+      } else {
+        showLoading(false, context);
+
+        bottomSheetFailure(context);
       }
     } catch (x) {
       if (x.toString().contains("TimeoutException")) {
@@ -2051,7 +2161,6 @@ class _OnlineRequestState extends State<OnlineRequest> {
   // //   }
   // // }
 
-  //TODO: here change it by email
   Future getCourseWithdrawal() async {
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
@@ -2076,7 +2185,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
           () {
             courseWithdrawalJson = json.decode(response.body)['data'];
 
-            for (int i = 0; i < 20; i++) {
+            for (int i = 0; i < courseWithdrawalJson.length; i++) {
               selectedCourseWithdrawals.add(false);
             }
           },
@@ -2100,41 +2209,45 @@ class _OnlineRequestState extends State<OnlineRequest> {
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
     });
-
+    await insertRequest();
     int i = -1;
 
     selectedCourseWithdrawals.forEach((selectedCourseWithdrawals) async {
-      if (selectedCourseWithdrawals) {
-        i++;
+      i++;
 
+      if (selectedCourseWithdrawals) {
         try {
           final response = await http.post(
             Uri.encodeFull(
-                'https://skylineportal.com/moappad/api/test/InsertRepaeatingMarks'),
+                'https://skylineportal.com/moappad/api/test/InsertWithdrawalCourses'),
             headers: {
               "API-KEY": API,
             },
             body: {
-              'Stud_ID': username,
+              'Stud_ID': 'testuser',
+              //  username,
               'RequestTypeID': miscID.toString(),
-              'CDD_ID': courseWithdrawalJson[i]['CDD_ID'],
-              'CourseCode': courseWithdrawalJson[i]['CDD_Code'],
+              // 'CDD_ID': courseWithdrawalJson[i]['CDD_ID'],
+              'CourseCode': courseWithdrawalJson[i]['Cdd_Code'],
               'CourseTitle': courseWithdrawalJson[i]['Cdd_Description'],
-              'Remarks': courseWithdrawalJson,
+              'Remarks': remark,
               'RequestDate': date.toString()
             },
           ).timeout(Duration(seconds: 35));
 
           if (response.statusCode == 200) {
             showLoading(false, context);
-
-            vottomSheetSuccess(context);
-          } else {
-            showLoading(false, context);
-
-            bottomSheetFailure(context);
           }
+          //   showLoading(false, context);
+
+          //   vottomSheetSuccess(context);
+          // } else {
+          //   showLoading(false, context);
+
+          //   bottomSheetFailure(context);
+          // }
         } catch (x) {
+          print(x);
           if (x.toString().contains("TimeoutException")) {
             showLoading(false, context);
             showError("Time out from server", FontAwesomeIcons.hourglassHalf,
@@ -2168,7 +2281,8 @@ class _OnlineRequestState extends State<OnlineRequest> {
           'LeaveTo': leaveToDateNameCnt.text.toString(),
           'LeaveContactNo': residenceContactNo.toString(),
           'RequestTypeID': miscID.toString(),
-          'Student_Id': username.toString(),
+          'Student_Id': 'testuser',
+          // username,
           'LeaveDocAttached': documentSubmitted.toString(),
           'LeaveContactAddress': contactAddress.toString(),
           'AddressTo': addressToLeave.toString(),
@@ -2303,7 +2417,8 @@ class _OnlineRequestState extends State<OnlineRequest> {
           'ClassShiftChangeTo': _selectedShift.toString(),
           'RequestTypeId': miscID.toString(),
           'RequestType': requestType,
-          'Student_Id': username,
+          'Student_Id': 'testuser',
+          // username,
           'AddressTo': addressToShift,
           'StudRemarks': reasonShift,
         },
@@ -2361,7 +2476,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
           () {
             courseRepaeatingJson = json.decode(response.body)['data'];
 
-            for (int i = 0; i < 20; i++) {
+            for (int i = 0; i < courseRepaeatingJson.length; i++) {
               selectedCourseRepaeating.add(false);
             }
           },
@@ -2385,6 +2500,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
     });
+    await insertRequest();
 
     int i = -1;
 
@@ -2405,7 +2521,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
               'CourseCode': courseRepaeatingJson[i]['Cdd_Code'].toString(),
               'CourseTitle':
                   courseRepaeatingJson[i]['Cdd_Description'].toString(),
-              'Remarks': resonRepeating,
+              'Remarks': remark,
               'RequestDate': date.toString(),
             },
           ).timeout(Duration(seconds: 35));
@@ -2484,6 +2600,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
     });
+    await insertRequest();
 
     int i = -1;
 
@@ -2498,14 +2615,15 @@ class _OnlineRequestState extends State<OnlineRequest> {
               "API-KEY": API,
             },
             body: {
-              'Stud_ID': username,
+              'Stud_ID': 'testuser',
+              // username,
               'RequestTypeID': miscID.toString(),
               'Batch_ID': againstMarksJson[i]['Batch_ID'].toString(),
               'CDD_ID': againstMarksJson[i]['CDD_ID'].toString(),
               'CourseCode': againstMarksJson[i]['CDD_Code'].toString(),
               'CourseTitle': againstMarksJson[i]['CourseName'].toString(),
               'Grade': againstMarksJson[i]['Grade'].toString(),
-              'Remarks': reasonAgains,
+              'Remarks': remark.toString(),
               'RequestDate': date.toString(),
             },
           ).timeout(Duration(seconds: 35));
@@ -2517,12 +2635,13 @@ class _OnlineRequestState extends State<OnlineRequest> {
 
           if (response.statusCode == 200) {
             // setState(() {
-            // insertAgainsJson = json.decode(response.body);
+            // json.decode(response.body);
             // });
 
             showLoading(false, context);
           }
         } catch (x) {
+          print(x);
           if (x.toString().contains("TimeoutException")) {
             showLoading(false, context);
             showError("Time out from server", FontAwesomeIcons.hourglassHalf,
@@ -2543,6 +2662,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
     });
+    await insertRequest();
 
     int i = -1;
 
@@ -2557,13 +2677,14 @@ class _OnlineRequestState extends State<OnlineRequest> {
               "API-KEY": API,
             },
             body: {
-              'Stud_ID': username,
+              'Stud_ID': 'testuser',
+              // username,
               'RequestTypeID': miscID.toString(),
+              'AssessmentName': midMarksJson[i]['AssessmentName'].toString(),
               'Batch_ID': midMarksJson[i]['Batch_ID'].toString(),
               'CDD_ID': midMarksJson[i]['CDD_ID'].toString(),
               'CourseCode': midMarksJson[i]['CDD_Code'].toString(),
               'CourseTitle': midMarksJson[i]['CourseName'].toString(),
-              'AssessmentName': midMarksJson[i]['AssessmentName'].toString(),
               'DateOfAssessment': date.toString(),
               'RequestDate': date.toString(),
             },
@@ -2571,11 +2692,12 @@ class _OnlineRequestState extends State<OnlineRequest> {
 
           if (response.statusCode == 200) {
             setState(() {
-              // insertMitigationJson = json.decode(response.body);
+              json.decode(response.body);
             });
             showLoading(false, context);
           }
         } catch (x) {
+          print(x);
           if (x.toString().contains("TimeoutException")) {
             showLoading(false, context);
             showError("Time out from server", FontAwesomeIcons.hourglassHalf,
@@ -2646,6 +2768,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
     });
+    await insertRequest();
 
     int i = -1;
 
@@ -2662,7 +2785,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
             body: {
               'Stud_ID': username,
               'RequestTypeID': miscID.toString(),
-              'Remarks': reasonReset.toString(),
+              'Remarks': remark.toString(),
               'Grade': resitMarksJson[i]['Grade'],
               'CourseTitle': resitMarksJson[i]['CourseName'],
               'CourseCode': resitMarksJson[i]['CDD_Code'],
@@ -2684,15 +2807,15 @@ class _OnlineRequestState extends State<OnlineRequest> {
           }
         } catch (x) {
           print(x);
-          // if (x.toString().contains("TimeoutException")) {
-          showLoading(false, context);
-          //   showError("Time out from server", FontAwesomeIcons.hourglassHalf,
-          //       context, insertResitOrGradeImprovement);
-          // } else {
-          // showLoading(false, context);
-          //   showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
-          //       insertResitOrGradeImprovement);
-          // }
+          if (x.toString().contains("TimeoutException")) {
+            showLoading(false, context);
+            showError("Time out from server", FontAwesomeIcons.hourglassHalf,
+                context, insertResitOrGradeImprovement);
+          } else {
+            showLoading(false, context);
+            showError("Sorry, we can't connect", Icons.perm_scan_wifi, context,
+                insertResitOrGradeImprovement);
+          }
         }
       }
     });
@@ -2752,6 +2875,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
     Future.delayed(Duration.zero, () {
       showLoading(true, context);
     });
+    await insertRequest();
 
     try {
       final response = await http.post(
@@ -2761,19 +2885,21 @@ class _OnlineRequestState extends State<OnlineRequest> {
           "API-KEY": API,
         },
         body: {
-          'Stud_ID': username,
+          'Stud_ID': 'testuser',
+          // username,
           'LocalPersonName': localContactPerson,
-          'LocalMobileNo': contactNo,
+          'LocalMobileNo': contactNo.toString(),
           'InternationalPersonName': internationalContactPerson,
-          'InternationalMobileNo': internationalContactNo,
-          'ReturnDate': passportDate,
+          'InternationalMobileNo': internationalContactNo.toString(),
+          'ReturnDate': passportDate.toString(),
           'RequestTypeid': miscID.toString(),
-          'Reason': reasonPassport,
-          // 'RequestDate': date.toString()
+          'Reason': remark.toString(),
+          'RequestDate': date.toString()
         },
       ).timeout(Duration(seconds: 35));
 
       if (response.statusCode == 200) {
+        json.decode(response.body);
         showLoading(false, context);
 
         vottomSheetSuccess(context);
@@ -2808,7 +2934,8 @@ class _OnlineRequestState extends State<OnlineRequest> {
           "API-KEY": API,
         },
         body: {
-          'StudentID': username,
+          'StudentID': 'testuser',
+          // username,
           'RequestTypeid': miscID.toString(),
           'RequestType': requestType.toString(),
 
@@ -2854,7 +2981,8 @@ class _OnlineRequestState extends State<OnlineRequest> {
           "API-KEY": API,
         },
         body: {
-          'StudentID': username,
+          'StudentID': 'testuser',
+          // username,
           'RequestTypeid': miscID.toString(),
           'RequestType': requestType.toString(),
 

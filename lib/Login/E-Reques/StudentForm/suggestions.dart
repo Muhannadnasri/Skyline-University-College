@@ -165,16 +165,26 @@ class _SuggestionsState extends State<Suggestions> {
           "API-KEY": API,
         },
         body: {
-          'Stud_ID': username,
+          'Stud_ID': 'testuser',
+          // username,
           'CASETYPE_ID': '2',
           'CATEGORY_ID': caseIDCnt.text.toString(),
           'StudentRemarks': remark.toString(),
         },
       );
-      showLoading(false, context);
 
-      showSuccessSnackBar(
-          context, 'Your request has been successfully submitted');
+      if (response.statusCode == 200) {
+        showLoading(false, context);
+
+        vottomSheetSuccess(context);
+      } else {
+        showLoading(false, context);
+
+        bottomSheetFailure(context);
+      }
+
+      // showSuccessSnackBar(
+      //     context, 'Your request has been successfully submitted');
       // if (response.statusCode == 200) {
       //   setState(
       //     () {

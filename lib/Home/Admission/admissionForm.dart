@@ -11,6 +11,7 @@ import 'package:skyline_university/Global/dropDownWidget.dart';
 import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
+import 'package:skyline_university/Login/E-Reques/StudentForm/dropList.dart';
 
 void main() => runApp(AdmissionForm());
 
@@ -23,33 +24,24 @@ class AdmissionForm extends StatefulWidget {
 
 final personalDetails = GlobalKey<FormState>();
 
-final academicBackground = GlobalKey<FormState>();
-final employmentDetails = GlobalKey<FormState>();
-
 // Map<String, int> body;
 
 class _AdmissionFormState extends State<AdmissionForm> {
-  List admissionFormDropdownCountriesJson = [];
-
-  List admissionFormDropdownProgramJson = [];
-
+  var countryNameCnt = TextEditingController();
+  var countryIDCnt = TextEditingController();
+  var programNameCnt = TextEditingController();
+  var programIDCnt = TextEditingController();
+  var knowNameCnt = TextEditingController();
   Map admissionForm = {};
-
   String fullName = '';
   bool isLoading = true;
 
   String mobile = '';
   String email = '';
 
-  String program;
-  String know;
-  String country;
-
   @override
   void initState() {
     super.initState();
-
-    getAdmissionFormDropdownRecords();
   }
 
   @override
@@ -57,323 +49,237 @@ class _AdmissionFormState extends State<AdmissionForm> {
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       appBar: appBar(context, 'Application Form'),
-      bottomNavigationBar: admissionFormDropdownCountriesJson == null ||
-              admissionFormDropdownCountriesJson.isEmpty
-          ? SizedBox()
-          : bottomappBar(
-              context,
-              () {
-                if (personalDetails.currentState.validate() &&
-                    country != null &&
-                    program != null &&
-                    know != null) {
-                  personalDetails.currentState.save();
-
-                  sendAdmissionForm();
-                } else {
-                  // showErrorInput(
-                  //   'Please Check Your Input',
-                  // );
-                }
-              },
-            ),
+      bottomNavigationBar: bottomappBar(
+        context,
+        () {
+          if (personalDetails.currentState.validate() &&
+              countryNameCnt != null &&
+              programNameCnt != null &&
+              knowNameCnt != null) {
+            personalDetails.currentState.save();
+            setState(() {
+              sendAdmissionForm();
+            });
+          }
+        },
+      ),
       body: GestureDetector(
         onTap: () {
           FocusScope.of(context).requestFocus(new FocusNode());
         },
-        child: admissionFormDropdownCountriesJson == null ||
-                admissionFormDropdownCountriesJson.isEmpty
-            ? exception(context, isLoading)
-            : ListView(
+        child:
+            // admissionFormDropdownCountriesJson == null ||
+            //         admissionFormDropdownCountriesJson.isEmpty
+            //     ? exception(context, isLoading)
+            //     :
+
+            ListView(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(25.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(children: <Widget>[
-                      Column(
-                        children: <Widget>[
-                          Form(
-                            key: personalDetails,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                globalForms(
-                                  context,
-                                  '',
-                                  (String value) {
-                                    if (value.trim().isEmpty) {
-                                      return 'First name is requiblue';
-                                    }
-                                    return null;
-                                  },
-                                  (x) {
-                                    setState(() {
-                                      fullName = x;
-                                    });
-                                  },
-                                  'Full Name',
-                                  TextInputType.text,
-                                ),
-                                globalForms(
-                                  context,
-                                  '',
-                                  (String value) {
-                                    if (value.trim().isEmpty) {
-                                      return 'Email name is requiblue';
-                                    }
-                                    return null;
-                                  },
-                                  (x) {
-                                    setState(() {
-                                      email = x;
-                                    });
-                                  },
-                                  'Email',
-                                  TextInputType.emailAddress,
-                                ),
-                                globalForms(
-                                  context,
-                                  '',
-                                  (String value) {
-                                    if (value.trim().isEmpty) {
-                                      return 'Mobile is requiblue';
-                                    }
-                                    return null;
-                                  },
-                                  (x) {
-                                    setState(() {
-                                      mobile = x;
-                                    });
-                                  },
-                                  'Mobile',
-                                  TextInputType.number,
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Container(
-                                  alignment: Alignment.centerLeft,
-                                  child: Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        20.0, 0.0, 20.0, 0.0),
-                                    child: Text(
-                                      'Country',
-                                      style: TextStyle(
-                                        color: isDark(context)
-                                            ? Colors.white
-                                            : Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Column(
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          10.0, 0.0, 20.0, 5.0),
-                                      child: CustomDropDown(
-                                        isExpanded: true,
-                                        items:
-                                            admissionFormDropdownCountriesJson
-                                                    ?.map(
-                                                      (item) =>
-                                                          DropdownMenuItem<
-                                                              String>(
-                                                        value: item[
-                                                                'NationalityID']
-                                                            .toString(),
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .fromLTRB(
-                                                                  10.0,
-                                                                  0.0,
-                                                                  20.0,
-                                                                  5.0),
-                                                          child: Text(
-                                                            item['NationalityName']
-                                                                .toString(),
-                                                            style: TextStyle(
-                                                                color: isDark(
-                                                                        context)
-                                                                    ? Colors
-                                                                        .white
-                                                                    : Colors
-                                                                        .black),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    )
-                                                    ?.toList() ??
-                                                [],
-                                        value: country,
-                                        hint: Padding(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              20.0, 0.0, 20.0, 5.0),
-                                          child: new Text(
-                                            'Select One',
-                                            style: TextStyle(
-                                                color: isDark(context)
-                                                    ? Colors.white
-                                                    : Colors.black),
-                                          ),
-                                        ),
-                                        underline: Container(
-                                          height: 1,
-                                          color: Color(0xFF2f2f2f),
-                                        ),
-                                        searchHint: new Text(
-                                          'Select One',
-                                          style: new TextStyle(
-                                              fontSize: 20,
-                                              color: isDark(context)
-                                                  ? Colors.white
-                                                  : Colors.black),
-                                        ),
-                                        onChanged: (value) {
-                                          setState(() {
-                                            country = value;
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                dropDownWidget(
-                                    context,
-                                    'Select Option',
-                                    program,
-                                    admissionFormDropdownProgramJson,
-                                    'DegreeType_Id',
-                                    'DegreeType_Desc', (value) {
-                                  setState(() {
-                                    program = value;
-                                  });
-                                }, 'Program'),
-                                Column(
-                                  children: <Widget>[
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    Container(
-                                      alignment: Alignment.centerLeft,
-                                      child: Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            20.0, 0.0, 20.0, 5.0),
-                                        child: Text(
-                                          'How did you come to know?',
-                                          style: TextStyle(
-                                            color: isDark(context)
-                                                ? Colors.white
-                                                : Colors.black,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: DropdownButton<String>(
-                                        underline: Container(
-                                          height: 1,
-                                          color: Color(0xFF2f2f2f),
-                                        ),
-                                        value: know,
-                                        isExpanded: true,
-                                        hint: Padding(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              20.0, 0.0, 20.0, 5.0),
-                                          child: Text(
-                                            'Select Option',
-                                            style: TextStyle(
-                                              color: isDark(context)
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                        items: <String>[
-                                              'Others',
-                                              'Google',
-                                              'Facebook',
-                                              'Yahoo',
-                                              'School',
-                                              'Friends/Relatives',
-                                              'Word of mouth',
-                                              'Newspaper',
-                                              'Exhibition',
-                                              'Radio',
-                                              'Cinema Theater',
-                                              'Billboards',
-                                              'Television'
-                                            ]
-                                                ?.map((item) =>
-                                                    DropdownMenuItem<String>(
-                                                        value: item,
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(8.0),
-                                                          child: Text(item),
-                                                        )))
-                                                ?.toList() ??
-                                            [],
-                                        onChanged: (value) {
-                                          setState(() {
-                                            know = value;
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ]),
+                  Form(
+                    key: personalDetails,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        globalForms(
+                          context,
+                          '',
+                          (String value) {
+                            if (value.trim().isEmpty) {
+                              return 'First name is requiblue';
+                            }
+                            return null;
+                          },
+                          (x) {
+                            setState(() {
+                              fullName = x;
+                            });
+                          },
+                          'Full Name',
+                          TextInputType.text,
+                        ),
+                        globalForms(
+                          context,
+                          '',
+                          (String value) {
+                            if (value.trim().isEmpty) {
+                              return 'Email name is requiblue';
+                            }
+                            return null;
+                          },
+                          (x) {
+                            setState(() {
+                              email = x;
+                            });
+                          },
+                          'Email',
+                          TextInputType.emailAddress,
+                        ),
+                        globalForms(
+                          context,
+                          '',
+                          (String value) {
+                            if (value.trim().isEmpty) {
+                              return 'Mobile is requiblue';
+                            }
+                            return null;
+                          },
+                          (x) {
+                            setState(() {
+                              mobile = x;
+                            });
+                          },
+                          'Mobile',
+                          TextInputType.number,
+                        ),
+                        countryWidget(),
+                        programWidget(),
+                        knowWidget(),
+                      ],
+                    ),
                   ),
                 ],
               ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  Future getAdmissionFormDropdownRecords() async {
-    Future.delayed(Duration.zero, () {
-      showLoading(true, context);
-    });
-
-    try {
-      final response = await http.post(
-        Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/test/AdmissionFormDropdownRecords'),
-        headers: {
-          "API-KEY": API,
-        },
-      ).timeout(Duration(seconds: 35));
-
-      if (response.statusCode == 200) {
-        setState(
-          () {
-            admissionFormDropdownCountriesJson =
-                json.decode(response.body)['data']['countries'];
-            admissionFormDropdownProgramJson =
-                json.decode(response.body)['data']['program'];
-            isLoading = false;
+  Widget countryWidget() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Country',
+          style:
+              TextStyle(color: isDark(context) ? Colors.white : Colors.black),
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DropList(
+                  type: 'Country',
+                ),
+              ),
+            ).then((val) async {
+              setState(() {
+                countryNameCnt.text = val['NationalityName'];
+                countryIDCnt.text = val['NationalityID'].toString();
+              });
+            });
           },
-        );
-        showLoading(false, context);
-      }
-    } catch (x) {
-      if (x.toString().contains("TimeoutException")) {
-        showLoading(false, context);
+          child: AbsorbPointer(
+            child: TextFormField(
+              validator: (x) => x.isEmpty ? "Please select country" : null,
+              onChanged: (x) {
+                setState(() {
+                  // isEditing = true;
+                });
+              },
+              controller: countryNameCnt,
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 25,
+        ),
+      ],
+    );
+  }
 
-        // showErrorServer(context, getAdmissionFormDropdownRecords());
-      } else {
-        showLoading(false, context);
-        // showErrorConnect(context, getAdmissionFormDropdownRecords());
-      }
-    }
+  Widget programWidget() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Program',
+          style:
+              TextStyle(color: isDark(context) ? Colors.white : Colors.black),
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DropList(
+                  type: 'Program',
+                ),
+              ),
+            ).then((val) async {
+              setState(() {
+                programNameCnt.text = val['DegreeType_Desc'];
+                programIDCnt.text = val['DegreeType_Id'].toString();
+              });
+            });
+          },
+          child: AbsorbPointer(
+            child: TextFormField(
+              validator: (x) => x.isEmpty ? "Please select Program" : null,
+              onChanged: (x) {
+                setState(() {
+                  // isEditing = true;
+                });
+              },
+              controller: programNameCnt,
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 25,
+        ),
+      ],
+    );
+  }
+
+  Widget knowWidget() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'How did you come to know?',
+          style:
+              TextStyle(color: isDark(context) ? Colors.white : Colors.black),
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DropList(
+                  type: 'know',
+                ),
+              ),
+            ).then((val) async {
+              setState(() {
+                knowNameCnt.text = val['know'];
+              });
+            });
+          },
+          child: AbsorbPointer(
+            child: TextFormField(
+              validator: (x) => x.isEmpty ? "Please select know us" : null,
+              onChanged: (x) {
+                setState(() {
+                  // isEditing = true;
+                });
+              },
+              controller: knowNameCnt,
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 25,
+        ),
+      ],
+    );
   }
 
   Future sendAdmissionForm() async {
@@ -389,12 +295,12 @@ class _AdmissionFormState extends State<AdmissionForm> {
           "API-KEY": API,
         },
         body: {
-          'FullName': fullName,
-          'Email': email,
-          'country_id': country,
-          'MobileNO': mobile,
-          'tbl_type': know,
-          'ProgramofInterest': program,
+          'FullName': fullName.toString(),
+          'Email': email.toString(),
+          'country_id': countryIDCnt.text.toString(),
+          'MobileNO': mobile.toString(),
+          'tbl_type': knowNameCnt.text.toString(),
+          'ProgramofInterest': programIDCnt.text.toString(),
         },
       ).timeout(Duration(seconds: 35));
 
@@ -406,15 +312,15 @@ class _AdmissionFormState extends State<AdmissionForm> {
         );
       }
       showLoading(false, context);
+
       if (admissionForm['success'] == '0') {
-        showfailureSnackBar(context, admissionForm['message']);
+        bottomSheetFailure(context);
       }
       if (admissionForm['success'] == '1') {
-        showSuccessSnackBar(context, admissionForm['message']);
+        vottomSheetSuccess(context);
       }
-
-      showSuccessSnackBar(admissionForm['message'], context);
     } catch (x) {
+      print(x);
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
         showError("Time out from server", FontAwesomeIcons.hourglassHalf,

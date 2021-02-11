@@ -89,21 +89,6 @@ class _CourseDetailsState extends State<CourseDetails> {
                                         ),
                                       ),
                                     ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          //Group ID:
-                                          launch(
-                                              'msteams://teams.microsoft.com/l/channel/0/');
-                                        });
-                                      },
-                                      child: Container(
-                                        child: Icon(
-                                          Icons.send,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    )
                                   ],
                                 ),
                               ),
