@@ -86,6 +86,8 @@ import 'Login/loginpage.dart';
 import 'Login/loginpages.dart';
 import 'Login/myAdvisor.dart';
 import 'Login/notification.dart';
+
+import 'Login/payCard.dart';
 import 'Login/payOnline.dart';
 import 'Login/payOnlineOut.dart';
 
@@ -186,7 +188,9 @@ class MyAppState extends State<MyApp> {
           '/circulars': (context) => Circulars(),
           '/HomeFees': (context) => HomeFees(),
 
-          '/PayOnline': (context) => PayOnline(),
+          '/payOnline': (context) => PayOnline(),
+          '/payCard': (context) => PayCard(),
+
           '/payOnlineOut': (context) => PayOnlineOut(),
 
           '/AdmissionKit': (context) => AdmissionKit(),

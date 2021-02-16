@@ -264,7 +264,7 @@ class _SemesterRegistrationState extends State<SemesterRegistration> {
           "API-KEY": API,
         },
         body: {
-          'Stud_ID': 'testuser',
+          'Stud_ID': username,
           // username,
           'DebitCategoryID': selectedPayment.toString(),
           'Semester_ID': 'Semester_ID',
@@ -278,7 +278,7 @@ class _SemesterRegistrationState extends State<SemesterRegistration> {
         json.decode(response.body);
         showLoading(false, context);
 
-        vottomSheetSuccess(context);
+        bottomSheetSuccess(context);
       } else {
         showLoading(false, context);
 

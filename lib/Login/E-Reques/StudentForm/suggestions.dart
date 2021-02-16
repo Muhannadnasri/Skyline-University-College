@@ -165,7 +165,7 @@ class _SuggestionsState extends State<Suggestions> {
           "API-KEY": API,
         },
         body: {
-          'Stud_ID': 'testuser',
+          'Stud_ID': username,
           // username,
           'CASETYPE_ID': '2',
           'CATEGORY_ID': caseIDCnt.text.toString(),
@@ -176,7 +176,7 @@ class _SuggestionsState extends State<Suggestions> {
       if (response.statusCode == 200) {
         showLoading(false, context);
 
-        vottomSheetSuccess(context);
+        bottomSheetSuccess(context);
       } else {
         showLoading(false, context);
 

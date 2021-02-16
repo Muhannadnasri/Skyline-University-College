@@ -20,29 +20,28 @@ class _HomeFeesState extends State<HomeFees> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
-      body: Container(
-        child: ListView(
-          children: <Widget>[
-            Column(
-              children: <Widget>[
-                SizedBox(
-                  height: 15,
-                ),
-                rowSection(context, 'images/admission.png', 'images-white/admission.png', 'Pay Online',
-                    "/PayOnline"),
-                rowSection(context, 'images/admission.png', 'images-white/admission.png', 'Admission Kit',
-                    "/AdmissionKit"),
-              ],
-            ),
-          ],
+        body: Container(
+          child: ListView(
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  SizedBox(
+                    height: 15,
+                  ),
+                  rowSection(context, 'images/admission.png',
+                      'images-white/admission.png', 'Pay Online', "/payOnline"),
+                  rowSection(
+                      context,
+                      'images/admission.png',
+                      'images-white/admission.png',
+                      'Admission Kit',
+                      "/AdmissionKit"),
+                ],
+              ),
+            ],
+          ),
         ),
-      ),
-          appBar: 
-              appBarLoginImage(context)
-
-     
-    );
+        appBar: appBarLoginImage(context));
   }
 }

@@ -434,7 +434,7 @@ class _LetterRequestState extends State<LetterRequest> {
           "API-KEY": API,
         },
         body: {
-          'StudentID': 'testuser',
+          'StudentID': username,
           // username,
           'RequestType': requestType,
           'RequestTypeid': miscID.toString(),
@@ -446,7 +446,7 @@ class _LetterRequestState extends State<LetterRequest> {
       if (response.statusCode == 200) {
         showLoading(false, context);
 
-        vottomSheetSuccess(context);
+        bottomSheetSuccess(context);
       } else {
         showLoading(false, context);
 

@@ -263,7 +263,7 @@ class _StudentPassRequestState extends State<StudentPassRequest> {
               "API-KEY": API,
             },
             body: {
-              'Stud_ID': 'testuser',
+              'Stud_ID': username,
               // username,
               'Batch_ID': marksPassJson[i]['Batch_ID'].toString(),
               'Grade': marksPassJson[i]['Over All Grade'].toString(),
@@ -278,7 +278,7 @@ class _StudentPassRequestState extends State<StudentPassRequest> {
           if (response.statusCode == 200) {
             showLoading(false, context);
 
-            vottomSheetSuccess(context);
+            bottomSheetSuccess(context);
           } else {
             showLoading(false, context);
 

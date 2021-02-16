@@ -23,6 +23,7 @@ class LoginApp extends StatefulWidget {
 class _LoginAppState extends State<LoginApp> {
   final _logInForm = GlobalKey<FormState>();
   final localAuth = LocalAuthentication();
+
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   void initState() {
@@ -402,8 +403,11 @@ class _LoginAppState extends State<LoginApp> {
     if (username != '' && password != '') {
       if (await localAuth.canCheckBiometrics) {
         bool didAuthenticate = await localAuth.authenticateWithBiometrics(
-            localizedReason: 'Please authenticate to login to your account');
+            localizedReason: 'Please authenticate to login to your account',
+            stickyAuth: true,
+            sensitiveTransaction: true);
 
+        print(didAuthenticate);
         if (didAuthenticate) {
           setState(() {
             qLogin();

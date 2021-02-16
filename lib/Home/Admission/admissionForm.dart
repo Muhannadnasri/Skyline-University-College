@@ -317,7 +317,7 @@ class _AdmissionFormState extends State<AdmissionForm> {
         bottomSheetFailure(context);
       }
       if (admissionForm['success'] == '1') {
-        vottomSheetSuccess(context);
+        bottomSheetSuccess(context);
       }
     } catch (x) {
       print(x);

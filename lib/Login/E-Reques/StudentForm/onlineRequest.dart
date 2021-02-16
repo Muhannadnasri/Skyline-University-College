@@ -2041,7 +2041,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
           "API-KEY": API,
         },
         body: {
-          'StudentID': 'testuser',
+          'StudentID': username,
           // username,
           'RequestTypeid': miscID.toString(),
           'RequestType': requestType,
@@ -2088,7 +2088,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
           'RequestType': requestType,
           'AddressTo': addressTo,
           'Remarks': remark,
-          'StudentID': 'testuser',
+          'StudentID': username,
           // username,
         },
       ).timeout(Duration(seconds: 35));
@@ -2102,7 +2102,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
       }
       if (onlineRequestJson['success'] == "1") {
         showLoading(false, context);
-        vottomSheetSuccess(context);
+        bottomSheetSuccess(context);
       } else {
         showLoading(false, context);
 
@@ -2224,7 +2224,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
               "API-KEY": API,
             },
             body: {
-              'Stud_ID': 'testuser',
+              'Stud_ID': username,
               //  username,
               'RequestTypeID': miscID.toString(),
               // 'CDD_ID': courseWithdrawalJson[i]['CDD_ID'],
@@ -2237,15 +2237,11 @@ class _OnlineRequestState extends State<OnlineRequest> {
 
           if (response.statusCode == 200) {
             showLoading(false, context);
+            bottomSheetSuccess(context);
+          } else {
+            showLoading(false, context);
+            bottomSheetFailure(context);
           }
-          //   showLoading(false, context);
-
-          //   vottomSheetSuccess(context);
-          // } else {
-          //   showLoading(false, context);
-
-          //   bottomSheetFailure(context);
-          // }
         } catch (x) {
           print(x);
           if (x.toString().contains("TimeoutException")) {
@@ -2281,7 +2277,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
           'LeaveTo': leaveToDateNameCnt.text.toString(),
           'LeaveContactNo': residenceContactNo.toString(),
           'RequestTypeID': miscID.toString(),
-          'Student_Id': 'testuser',
+          'Student_Id': username,
           // username,
           'LeaveDocAttached': documentSubmitted.toString(),
           'LeaveContactAddress': contactAddress.toString(),
@@ -2294,7 +2290,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
       if (response.statusCode == 200) {
         showLoading(false, context);
 
-        vottomSheetSuccess(context);
+        bottomSheetSuccess(context);
       } else {
         showLoading(false, context);
 
@@ -2417,7 +2413,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
           'ClassShiftChangeTo': _selectedShift.toString(),
           'RequestTypeId': miscID.toString(),
           'RequestType': requestType,
-          'Student_Id': 'testuser',
+          'Student_Id': username,
           // username,
           'AddressTo': addressToShift,
           'StudRemarks': reasonShift,
@@ -2427,7 +2423,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
       if (response.statusCode == 200) {
         showLoading(false, context);
 
-        vottomSheetSuccess(context);
+        bottomSheetSuccess(context);
       } else {
         showLoading(false, context);
 
@@ -2529,10 +2525,16 @@ class _OnlineRequestState extends State<OnlineRequest> {
           // showfailureSnackBar(context,
           //     'Your request submitted failed. Please contact IT department');
           if (response.statusCode == 200) {
-            // setState(() {
-            //   insertCourseWithdrawalJson = json.decode(response.body);
-            // });
             showLoading(false, context);
+            bottomSheetSuccess(context);
+          }
+
+          //   showLoading(false, context);
+          //   bottomSheetSuccess(context);
+          // }
+          else {
+            showLoading(false, context);
+            bottomSheetFailure(context);
           }
         } catch (x) {
           if (x.toString().contains("TimeoutException")) {
@@ -2615,7 +2617,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
               "API-KEY": API,
             },
             body: {
-              'Stud_ID': 'testuser',
+              'Stud_ID': username,
               // username,
               'RequestTypeID': miscID.toString(),
               'Batch_ID': againstMarksJson[i]['Batch_ID'].toString(),
@@ -2634,11 +2636,16 @@ class _OnlineRequestState extends State<OnlineRequest> {
           //     'Your request submitted failed. Please contact IT department');
 
           if (response.statusCode == 200) {
-            // setState(() {
-            // json.decode(response.body);
-            // });
-
             showLoading(false, context);
+            bottomSheetSuccess(context);
+          }
+
+          //   showLoading(false, context);
+          //   bottomSheetSuccess(context);
+          // }
+          else {
+            showLoading(false, context);
+            bottomSheetFailure(context);
           }
         } catch (x) {
           print(x);
@@ -2677,7 +2684,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
               "API-KEY": API,
             },
             body: {
-              'Stud_ID': 'testuser',
+              'Stud_ID': username,
               // username,
               'RequestTypeID': miscID.toString(),
               'AssessmentName': midMarksJson[i]['AssessmentName'].toString(),
@@ -2691,10 +2698,16 @@ class _OnlineRequestState extends State<OnlineRequest> {
           ).timeout(Duration(seconds: 35));
 
           if (response.statusCode == 200) {
-            setState(() {
-              json.decode(response.body);
-            });
             showLoading(false, context);
+            bottomSheetSuccess(context);
+          }
+
+          //   showLoading(false, context);
+          //   bottomSheetSuccess(context);
+          // }
+          else {
+            showLoading(false, context);
+            bottomSheetFailure(context);
           }
         } catch (x) {
           print(x);
@@ -2800,10 +2813,16 @@ class _OnlineRequestState extends State<OnlineRequest> {
           // showfailureSnackBar(context,
           //     'Your request submitted failed. Please contact IT department');
           if (response.statusCode == 200) {
-            //   setState(() {
-            //     insertResitMarksJson = json.decode(response.body);
-            //   });
             showLoading(false, context);
+            bottomSheetSuccess(context);
+          }
+
+          //   showLoading(false, context);
+          //   bottomSheetSuccess(context);
+          // }
+          else {
+            showLoading(false, context);
+            bottomSheetFailure(context);
           }
         } catch (x) {
           print(x);
@@ -2885,7 +2904,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
           "API-KEY": API,
         },
         body: {
-          'Stud_ID': 'testuser',
+          'Stud_ID': username,
           // username,
           'LocalPersonName': localContactPerson,
           'LocalMobileNo': contactNo.toString(),
@@ -2899,10 +2918,9 @@ class _OnlineRequestState extends State<OnlineRequest> {
       ).timeout(Duration(seconds: 35));
 
       if (response.statusCode == 200) {
-        json.decode(response.body);
         showLoading(false, context);
 
-        vottomSheetSuccess(context);
+        bottomSheetSuccess(context);
       } else {
         showLoading(false, context);
 
@@ -2934,7 +2952,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
           "API-KEY": API,
         },
         body: {
-          'StudentID': 'testuser',
+          'StudentID': username,
           // username,
           'RequestTypeid': miscID.toString(),
           'RequestType': requestType.toString(),
@@ -2949,7 +2967,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
       if (response.statusCode == 200) {
         showLoading(false, context);
 
-        vottomSheetSuccess(context);
+        bottomSheetSuccess(context);
       } else {
         showLoading(false, context);
 
@@ -2981,7 +2999,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
           "API-KEY": API,
         },
         body: {
-          'StudentID': 'testuser',
+          'StudentID': username,
           // username,
           'RequestTypeid': miscID.toString(),
           'RequestType': requestType.toString(),
@@ -2996,7 +3014,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
       if (response.statusCode == 200) {
         showLoading(false, context);
 
-        vottomSheetSuccess(context);
+        bottomSheetSuccess(context);
       } else {
         showLoading(false, context);
 

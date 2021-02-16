@@ -168,7 +168,7 @@ class _ComplainsState extends State<Complains> {
           "API-KEY": API,
         },
         body: {
-          'Stud_ID': 'testuser',
+          'Stud_ID': username,
           // username,
           'CASETYPE_ID': '2',
           'CATEGORY_ID': caseIDCnt.text.toString(),
@@ -178,7 +178,7 @@ class _ComplainsState extends State<Complains> {
       if (response.statusCode == 200) {
         showLoading(false, context);
 
-        vottomSheetSuccess(context);
+        bottomSheetSuccess(context);
       } else {
         showLoading(false, context);
 

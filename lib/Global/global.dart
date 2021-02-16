@@ -471,7 +471,7 @@ void showAttendance(context, msg, msg2, msg2Color) {
 
 final SweetSheet _sweetSheet = SweetSheet();
 
-void vottomSheetSuccess(context) {
+void bottomSheetSuccess(context) {
   _sweetSheet.show(
     isDismissible: false,
     context: context,

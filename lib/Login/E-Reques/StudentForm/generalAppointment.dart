@@ -329,7 +329,7 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
           "API-KEY": API,
         },
         body: {
-          'Stud_ID': 'testuser',
+          'Stud_ID': username,
           // username,
           'CASETYPE_ID': '4',
           'CATEGORY_ID': caseIDCnt.text.toString(),
@@ -348,7 +348,7 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
       if (response.statusCode == 200) {
         showLoading(false, context);
 
-        vottomSheetSuccess(context);
+        bottomSheetSuccess(context);
       } else {
         showLoading(false, context);
 
