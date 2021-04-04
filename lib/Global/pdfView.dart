@@ -23,11 +23,7 @@ class _PdfViewsState extends State<PdfViews> with TickerProviderStateMixin {
   String path;
   bool _isLoading = true;
 
-
-
   Future<String> get _localPath async {
-
-
     final directory = await getApplicationDocumentsDirectory();
 
     return directory.path;
@@ -119,10 +115,8 @@ class _PdfViewsState extends State<PdfViews> with TickerProviderStateMixin {
             :
             // SizedBox()
 
-        PdfView(
-
-
-          path: path,
+            PdfView(
+                path: path,
               ),
       ),
     );

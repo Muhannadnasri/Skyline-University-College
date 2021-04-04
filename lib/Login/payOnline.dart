@@ -65,55 +65,53 @@ class _PayOnlineState extends State<PayOnline> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
-        child: Container(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child:
-                //  Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //   children: [
-                Expanded(
-              flex: 1,
-              child: GestureDetector(
-                onTap: () {
-                  if (payOnline.currentState.validate()) {
-                    setState(() {
-                      payOnline.currentState.save();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PayCard(
-                            reamount: '',
-                            amount: balance.toString(),
-                            studentId: userIdCnt.text.toString(),
-                            requestId: '',
-                          ),
-                        ),
-                      );
-                    });
-                  } else {}
-                },
-                child: Material(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(10)),
-                  elevation: 3,
-                  shadowColor: Colors.black,
-                  color:
-                      isDark(context) ? Color(0xFF121212) : Color(0xFF275d9b),
-                  child: Padding(
-                    padding: const EdgeInsets.all(13.0),
-                    child: Text(
-                      "Card",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 20),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child:
+              //  Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //   children: [
+              //   Expanded(
+              // flex: 1,
+              // child:
+              GestureDetector(
+            onTap: () {
+              if (payOnline.currentState.validate()) {
+                setState(() {
+                  payOnline.currentState.save();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PayCard(
+                        reamount: '',
+                        amount: balance.toString(),
+                        studentId: userIdCnt.text.toString(),
+                        requestId: '',
+                      ),
                     ),
-                  ),
+                  );
+                });
+              } else {}
+            },
+            child: Material(
+              shape: RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(10)),
+              elevation: 3,
+              shadowColor: Colors.black,
+              color: isDark(context) ? Color(0xFF121212) : Color(0xFF275d9b),
+              child: Padding(
+                padding: const EdgeInsets.all(13.0),
+                child: Text(
+                  "Card",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
               ),
             ),
-            // SizedBox(
-            //   width: 20,
           ),
+          // ),
+          // SizedBox(
+          //   width: 20,
         ),
         // Platform.isIOS
         //     ? Expanded(

@@ -1,13 +1,9 @@
 import 'dart:async';
-import 'dart:io';
-import 'dart:typed_data';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
-import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
-import 'package:skyline_university/Global/appBar.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import 'global.dart';
