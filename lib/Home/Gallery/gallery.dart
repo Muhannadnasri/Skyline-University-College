@@ -37,7 +37,7 @@ class _GalleryState extends State<Gallery> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       appBar: appBar(context, 'Gallery'),
       body: galleries == null || galleries.isEmpty
           ? exception(context, isLoading)

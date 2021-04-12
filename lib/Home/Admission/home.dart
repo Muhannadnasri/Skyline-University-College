@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:skyline_university/Global/appBar.dart';
 import 'package:skyline_university/Global/global.dart';
 
-
 import 'package:skyline_university/Global/rowSection.dart';
 
 void main() => runApp(HomeAdmission());
@@ -32,15 +31,19 @@ class _HomeAdmissionState extends State<HomeAdmission> {
             SizedBox(
               height: 10,
             ),
-
-
-            rowSection(context,isDark(context)?'images-white/admission.png':'images/admission.png', 'images-white/admission.png','Application Form','/AdmissionForm'),
-
+            rowSection(
+                context,
+                isDark(context)
+                    ? 'images-white/admission.png'
+                    : 'images/admission.png',
+                'images-white/admission.png',
+                'Application Form',
+                '/AdmissionForm'),
           ],
         ),
       ),
       key: _scaffoldKey,
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       appBar: appBar(context, 'Admission'),
     );
   }

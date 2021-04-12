@@ -46,7 +46,7 @@ class _SemesterRegistrationState extends State<SemesterRegistration> {
       //     vottomSheetSuccess(context);
       //   },
       // ),
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       bottomNavigationBar: bottomappBar(
         context,
         () {

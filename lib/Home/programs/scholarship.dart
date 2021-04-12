@@ -32,7 +32,7 @@ class _ScholarshipState extends State<Scholarship> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       appBar: appBar(context, 'Scholarships'),
       body: infoJson == null || infoJson.isEmpty
           ? exception(context, isLoading)

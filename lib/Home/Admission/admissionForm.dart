@@ -47,7 +47,7 @@ class _AdmissionFormState extends State<AdmissionForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       appBar: appBar(context, 'Application Form'),
       bottomNavigationBar: bottomappBar(
         context,

@@ -44,7 +44,7 @@ class _CourseWithdrawalState extends State<CourseWithdrawal> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       bottomNavigationBar: courseWithdrawalCoursesJson == null ||
               courseWithdrawalCoursesJson.isEmpty
           ? SizedBox()

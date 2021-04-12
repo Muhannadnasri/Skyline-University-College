@@ -33,7 +33,7 @@ class _ExecutiveDevelopmentProgramState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       appBar: appBar(context, 'Executive Development Program'),
       body: Container(
         child: programsJson == null || programsJson.isEmpty

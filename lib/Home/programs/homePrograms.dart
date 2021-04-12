@@ -31,10 +31,9 @@ class _HomeProgramsState extends State<HomePrograms> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       key: _scaffoldKey,
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       appBar: appBar(context, 'Programs'),
       body: Container(
         child: ListView(children: <Widget>[
@@ -43,18 +42,45 @@ class _HomeProgramsState extends State<HomePrograms> {
               SizedBox(
                 height: 15,
               ),
-              rowSection(context, isDark(context)?'images-white/admission.png':'images/admission.png', 'images-white/admission.png',
-                  'Undergraduate Programs', "/homeUndergraduate"),
-              rowSection(context, isDark(context)?'images-white/admission.png':'images/admission.png', 'images-white/admission.png', 'Graduate Programs',
+              rowSection(
+                  context,
+                  isDark(context)
+                      ? 'images-white/admission.png'
+                      : 'images/admission.png',
+                  'images-white/admission.png',
+                  'Undergraduate Programs',
+                  "/homeUndergraduate"),
+              rowSection(
+                  context,
+                  isDark(context)
+                      ? 'images-white/admission.png'
+                      : 'images/admission.png',
+                  'images-white/admission.png',
+                  'Graduate Programs',
                   "/homeGraduate"),
-              rowSection(context, isDark(context)?'images-white/admission.png':'images/admission.png', 'images-white/admission.png',
-                  'Professional Courses', "/professionalCourses"),
-              rowSection(context, isDark(context)?'images-white/admission.png':'images/admission.png', 'images-white/admission.png', 'Scholarship',
-                  "/scholarship"
-
-
-              ),
-              rowSection(context, isDark(context)?'images-white/admission.png':'images/admission.png', 'images-white/admission.png', 'Fee Structure',
+              rowSection(
+                  context,
+                  isDark(context)
+                      ? 'images-white/admission.png'
+                      : 'images/admission.png',
+                  'images-white/admission.png',
+                  'Professional Courses',
+                  "/professionalCourses"),
+              rowSection(
+                  context,
+                  isDark(context)
+                      ? 'images-white/admission.png'
+                      : 'images/admission.png',
+                  'images-white/admission.png',
+                  'Scholarship',
+                  "/scholarship"),
+              rowSection(
+                  context,
+                  isDark(context)
+                      ? 'images-white/admission.png'
+                      : 'images/admission.png',
+                  'images-white/admission.png',
+                  'Fee Structure',
                   "/feeStructures"),
             ],
           ),

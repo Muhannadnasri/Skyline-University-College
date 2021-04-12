@@ -31,7 +31,7 @@ class _CentreContinuingLearningState extends State<CentreContinuingLearning> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       appBar: appBar(context, 'Centre Continuing Learning'),
       body: Container(
         child: programsJson == null || programsJson.isEmpty

@@ -37,7 +37,7 @@ class _ComplainsState extends State<Complains> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       bottomNavigationBar: bottomappBar(
         context,
         () {

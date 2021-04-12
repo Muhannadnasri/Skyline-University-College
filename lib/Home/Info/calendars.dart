@@ -32,12 +32,11 @@
 
 //   @override
 //   Widget build(BuildContext context) {
-//     
+//
 //     return Scaffold(
-//       resizeToAvoidBottomPadding: true,
+//       resizeToAvoidBottomInset: true,
 //       appBar: appBar(context, 'Fee Structures'),
 //       body:
-
 
 //       infoJson.isEmpty
 //           ? exception(context,  '')

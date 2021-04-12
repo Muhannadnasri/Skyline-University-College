@@ -37,7 +37,7 @@ class _InfoinsideState extends State<Infoinside> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       appBar: appBar(context, widget.infoName.toString()),
       body: ListView(children: <Widget>[
         Container(

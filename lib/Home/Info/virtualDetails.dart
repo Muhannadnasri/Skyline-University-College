@@ -35,7 +35,7 @@ class _VirtualDetailsState extends State<VirtualDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       appBar: appBar(context, widget.title),
       body: Container(
         child: ListView.builder(

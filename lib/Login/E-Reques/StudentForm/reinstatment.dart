@@ -42,9 +42,8 @@ class _ReinStatementState extends State<ReinStatement> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       bottomNavigationBar: bottomappBar(
         context,
         () {

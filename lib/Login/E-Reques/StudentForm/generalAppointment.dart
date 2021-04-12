@@ -41,7 +41,7 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       bottomNavigationBar:
           //  generalAPPtJson.isEmpty
           //     ? Container()

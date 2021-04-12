@@ -32,7 +32,7 @@ class _EnglishLanguageCentreState extends State<EnglishLanguageCentre> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       appBar: appBar(context, 'English Language Centre'),
       body: Container(
         child: programsJson == null || programsJson.isEmpty

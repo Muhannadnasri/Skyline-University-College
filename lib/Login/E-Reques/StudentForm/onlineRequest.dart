@@ -269,7 +269,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
           }
         },
       ),
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       appBar: appBarLogin(context, 'Online Request'),
       body:
           //  onlineRequestTypeJson == null || onlineRequestTypeJson.isEmpty

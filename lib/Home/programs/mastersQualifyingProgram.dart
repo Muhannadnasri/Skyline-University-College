@@ -32,7 +32,7 @@ class _MastersQualifyingProgramState extends State<MastersQualifyingProgram> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       appBar: appBar(context, 'Masters Qualifying Program'),
       body: Container(
         child: programsJson == null || programsJson.isEmpty

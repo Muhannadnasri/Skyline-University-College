@@ -45,7 +45,7 @@ class _LetterRequestState extends State<LetterRequest> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       bottomNavigationBar: bottomappBar(
         context,
         () {

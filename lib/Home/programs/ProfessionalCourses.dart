@@ -21,9 +21,8 @@ class _ProfessionalCoursesState extends State<ProfessionalCourses> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       appBar: appBar(context, 'Professional Programs'),
       body: ListView(
         children: <Widget>[
@@ -35,18 +34,28 @@ class _ProfessionalCoursesState extends State<ProfessionalCourses> {
                 ),
                 rowSection(
                     context,
-                    'images/admission.png', 'images-white/admission.png',
+                    'images/admission.png',
+                    'images-white/admission.png',
                     'Centre for Continuing Learning',
                     '/centreContinuingLearning'),
                 rowSection(
                     context,
-                    'images/admission.png', 'images-white/admission.png',
+                    'images/admission.png',
+                    'images-white/admission.png',
                     'Executive Development Program',
                     '/executiveDevelopmentProgram'),
-                rowSection(context, 'images/admission.png', 'images-white/admission.png',
-                    'English Language Centre', '/englishLanguageCentre'),
-                rowSection(context, 'images/admission.png', 'images-white/admission.png',
-                    'Masters Qualifying Program', '/mastersQualifyingProgram'),
+                rowSection(
+                    context,
+                    'images/admission.png',
+                    'images-white/admission.png',
+                    'English Language Centre',
+                    '/englishLanguageCentre'),
+                rowSection(
+                    context,
+                    'images/admission.png',
+                    'images-white/admission.png',
+                    'Masters Qualifying Program',
+                    '/mastersQualifyingProgram'),
               ],
             ),
           ),

@@ -22,7 +22,7 @@ class _VirtualState extends State<Virtual> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       appBar: appBar(context, 'Virtual Tour'),
       body: Container(
         child: WebviewScaffold(

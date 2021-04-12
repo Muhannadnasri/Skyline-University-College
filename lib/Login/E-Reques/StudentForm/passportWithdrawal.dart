@@ -39,7 +39,6 @@ class _PassportWithdrawalState extends State<PassportWithdrawal> {
 
   int groupValue;
 
-
   String localName = '';
   String localNumber = '';
   String internationalName = '';
@@ -53,9 +52,8 @@ class _PassportWithdrawalState extends State<PassportWithdrawal> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
-      resizeToAvoidBottomPadding: true, //todo: On all Form
+      resizeToAvoidBottomInset: true, //todo: On all Form
       appBar: appBarLogin(context, 'Passport Withdrawal'),
       bottomNavigationBar: bottomappBar(
         context,

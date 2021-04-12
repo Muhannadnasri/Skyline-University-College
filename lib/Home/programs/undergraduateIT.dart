@@ -33,7 +33,7 @@ class _UndergraduateITState extends State<UndergraduateIT> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       appBar: appBar(context, 'School of Information Technology'),
       body: programsJson == null || programsJson.isEmpty
           ? exception(context, isLoading)

@@ -32,7 +32,7 @@ class _HomeGraduateState extends State<HomeGraduate> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       appBar: appBar(context, 'Graduate'),
       body: Container(
         child: programsJson == null || programsJson.isEmpty

@@ -31,7 +31,7 @@ class _FAQState extends State<FAQ> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       appBar: appBar(context, 'FAQ?  '),
       body: faqsJson == null || faqsJson.isEmpty
           ? exception(context, isLoading)

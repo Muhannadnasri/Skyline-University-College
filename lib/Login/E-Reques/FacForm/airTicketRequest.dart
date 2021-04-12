@@ -62,9 +62,9 @@
 
 //   @override
 //   Widget build(BuildContext context) {
-//     
+//
 //     return Scaffold(
-//       resizeToAvoidBottomPadding: true,
+//       resizeToAvoidBottomInset: true,
 //       appBar: appBarLogin(context, 'Air Ticket Request'),
 //       body: GestureDetector(
 //         onTap: () {

@@ -31,7 +31,7 @@ class _VirtualSupportListState extends State<VirtualSupportList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       appBar: appBar(context, 'Virtual Support'),
       body: Container(
         child: ListView.builder(

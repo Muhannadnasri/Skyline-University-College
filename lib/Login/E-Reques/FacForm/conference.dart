@@ -53,9 +53,8 @@ class _ConferenceState extends State<Conference> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       bottomNavigationBar: bottomappBar(
         context,
         () {

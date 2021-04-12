@@ -30,10 +30,9 @@ class _HomeUndergraduateState extends State<HomeUndergraduate> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       key: _scaffoldKey,
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       appBar: appBar(context, 'Undergraduate'),
       body: Container(
         child: ListView(
@@ -44,10 +43,18 @@ class _HomeUndergraduateState extends State<HomeUndergraduate> {
                   SizedBox(
                     height: 15,
                   ),
-                  rowSection(context, 'images/admission.png', 'images-white/admission.png',
-                      'School Of Business', '/underGraduateBusiness'),
-                  rowSection(context, 'images/admission.png', 'images-white/admission.png',
-                      'School Of Information Technology', '/underGraduateIT'),
+                  rowSection(
+                      context,
+                      'images/admission.png',
+                      'images-white/admission.png',
+                      'School Of Business',
+                      '/underGraduateBusiness'),
+                  rowSection(
+                      context,
+                      'images/admission.png',
+                      'images-white/admission.png',
+                      'School Of Information Technology',
+                      '/underGraduateIT'),
                 ],
               ),
             ),

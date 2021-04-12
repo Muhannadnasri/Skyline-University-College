@@ -35,7 +35,7 @@ class _InfoDetailsState extends State<InfoDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       appBar: appBar(context, widget.name),
       body: infoJson == null || infoJson.isEmpty
           ? exception(context, isLoading)

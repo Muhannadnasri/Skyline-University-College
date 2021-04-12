@@ -43,7 +43,7 @@ class _ListsState extends State<Lists> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       appBar: appBar(context, '${widget.title}'),
       body: lists == null
           ? exception(context, isLoading)

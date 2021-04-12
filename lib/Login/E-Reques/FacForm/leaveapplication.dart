@@ -53,9 +53,8 @@ class _LeaveApplicationState extends State<LeaveApplication> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       appBar: appBarLogin(context, 'Leave Application'),
       bottomNavigationBar: bottomappBar(
         context,

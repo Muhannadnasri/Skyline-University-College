@@ -34,7 +34,7 @@ class _ListsContentState extends State<ListsContent> {
 Widget build(BuildContext context) {
 
     return Scaffold(
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       appBar: appBar(context, 'New'),
       body: Container(
         child: ListView(

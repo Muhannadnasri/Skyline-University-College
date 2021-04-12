@@ -39,7 +39,7 @@ class _FacultyState extends State<Faculty> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       appBar: appBar(context, 'Faculty Members'),
       body: faculty == null || faculty.isEmpty
           ? exception(context, isLoading)

@@ -54,9 +54,8 @@ class _AdvisorAppointmentState extends State<AdvisorAppointment> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       bottomNavigationBar: bottomappBar(context, () {
         setState(() {
           if (groupValue == 1 &&

@@ -43,7 +43,6 @@ class _SalaryCertificateState extends State<SalaryCertificate> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       bottomNavigationBar: bottomappBar(
         context,
@@ -55,7 +54,7 @@ class _SalaryCertificateState extends State<SalaryCertificate> {
             _other.currentState.save();
         },
       ),
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       appBar: appBarLogin(context, 'Salary Certificate'),
       body: GestureDetector(
         onTap: () {

@@ -31,7 +31,7 @@ class _HomeInfoState extends State<HomeInfo> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       appBar: appBar(context, 'SUC Info'),
       body: Container(
         child: ListView(

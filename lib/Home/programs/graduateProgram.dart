@@ -43,7 +43,7 @@ class _GraduateProgramState extends State<GraduateProgram> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomPadding: true,
+        resizeToAvoidBottomInset: true,
         appBar: appBar(context, 'Program'),
         body: programITJson == null || programITJson.isEmpty
             ? exception(context, isLoading)

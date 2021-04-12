@@ -33,7 +33,7 @@ class _FeeStructuresState extends State<FeeStructures> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       appBar: appBar(context, 'Fee Structures'),
       body: infoJson == null || infoJson.isEmpty
           ? exception(context, isLoading)

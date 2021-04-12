@@ -33,9 +33,8 @@ class _OneGalleryState extends State<OneGallery> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       appBar: appBar(context, widget.oneGalleryTitle),
       body: GridView.builder(
           gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(

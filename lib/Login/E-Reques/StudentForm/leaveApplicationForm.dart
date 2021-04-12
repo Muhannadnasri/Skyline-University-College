@@ -49,9 +49,8 @@ class _LeaveApplicationFormState extends State<LeaveApplicationForm> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       bottomNavigationBar: bottomappBar(
         context,
         () {

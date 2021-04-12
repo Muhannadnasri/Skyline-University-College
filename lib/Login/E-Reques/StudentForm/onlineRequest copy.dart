@@ -128,7 +128,7 @@ class _OnlineRequestsState extends State<OnlineRequests> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       bottomNavigationBar: onlineRequestTypeJson == null ||
               onlineRequestTypeJson.isEmpty
           ? Container()
