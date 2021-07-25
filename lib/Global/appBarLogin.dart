@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gradient_app_bar/gradient_app_bar.dart';
+import 'package:new_gradient_app_bar/new_gradient_app_bar.dart';
 import 'package:skyline_university/Global/global.dart';
 
 Widget appBarLogin(BuildContext context, header) {
-  return GradientAppBar(
+  return NewGradientAppBar(
     centerTitle: true,
     title: Text(
       header,

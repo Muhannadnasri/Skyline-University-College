@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
-import 'package:gradient_app_bar/gradient_app_bar.dart';
+import 'package:new_gradient_app_bar/new_gradient_app_bar.dart';
 import 'package:skyline_university/Global/global.dart';
 
 void main() => runApp(PayCard());
@@ -53,7 +53,7 @@ class _PayCardState extends State<PayCard> {
       enableAppScheme: true,
       supportMultipleWindows: false,
 
-      appBar: GradientAppBar(
+      appBar: NewGradientAppBar(
         bottom: PreferredSize(
           child: _progressBar(lineProgress, context),
           preferredSize: Size.fromHeight(3.0),

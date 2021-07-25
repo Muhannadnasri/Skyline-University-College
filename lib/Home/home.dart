@@ -4,7 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:gradient_app_bar/gradient_app_bar.dart';
+import 'package:new_gradient_app_bar/new_gradient_app_bar.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:quick_actions/quick_actions.dart';
@@ -133,7 +133,7 @@ class _HomeState extends State<Home> {
     return WillPopScope(
       child: Scaffold(
         key: _scaffoldKey,
-        appBar: GradientAppBar(
+        appBar: NewGradientAppBar(
           centerTitle: true,
           title: Container(
             height: 170,

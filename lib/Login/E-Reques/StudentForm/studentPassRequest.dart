@@ -43,18 +43,20 @@ class _StudentPassRequestState extends State<StudentPassRequest> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      bottomNavigationBar: bottomappBar(
-        context,
-        () {
-          if (selectedMarksPassJson.contains(true)) {
-            insertPassRequest();
-          } else {
-            return;
-          }
-          // showfailureSnackBar(context,
-          //     'Your request submitted failed. Please contact IT department');
-        },
-      ),
+      bottomNavigationBar: marksPassJson == null || marksPassJson.isEmpty
+          ? SizedBox()
+          : bottomappBar(
+              context,
+              () {
+                if (selectedMarksPassJson.contains(true)) {
+                  insertPassRequest();
+                } else {
+                  return;
+                }
+                // showfailureSnackBar(context,
+                //     'Your request submitted failed. Please contact IT department');
+              },
+            ),
       // bottomNavigationBar: BottomAppBar(
       //   elevation: 0,
       //   color: Colors.transparent,

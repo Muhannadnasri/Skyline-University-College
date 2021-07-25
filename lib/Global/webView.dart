@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
-import 'package:gradient_app_bar/gradient_app_bar.dart';
+import 'package:new_gradient_app_bar/new_gradient_app_bar.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import 'global.dart';
@@ -19,6 +19,7 @@ class WebViews extends StatefulWidget {
 class _WebViewsState extends State<WebViews> with TickerProviderStateMixin {
   AnimationController _controller;
   FlutterWebviewPlugin flutterWebviewPlugin = FlutterWebviewPlugin();
+
   final Completer<WebViewController> _controllers =
       Completer<WebViewController>();
 
@@ -44,102 +45,145 @@ class _WebViewsState extends State<WebViews> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: GradientAppBar(
-          centerTitle: true,
-          title: Container(
-            height: 170,
-            width: 170,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.scaleDown,
-                image: AssetImage(
-                  'images/skyline_white.png',
-                ),
+      appBar: NewGradientAppBar(
+        centerTitle: true,
+        title: Container(
+          height: 170,
+          width: 170,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.scaleDown,
+              image: AssetImage(
+                'images/skyline_white.png',
               ),
             ),
           ),
-          gradient: isDark(context)
-              ? LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Color(0xFF1F1F1F),
-                    Color(0xFF1F1F1F),
-                  ],
-                  stops: [
-                    0.7,
-                    0.9,
-                  ],
-                )
-              : LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Color(0xFF104C90),
-                    Color(0xFF3773AC),
-                  ],
-                  stops: [
-                    0.7,
-                    0.9,
-                  ],
-                ),
         ),
-        // floatingActionButton: FloatingActionButton(
-        //   backgroundColor: Color.fromARGB(255, 39, 93, 155),
-        //   foregroundColor: Colors.white,
-        //   child: new AnimatedBuilder(
-        //     animation: _controller,
-        //     builder: (BuildContext context, Widget child) {
-        //       return GestureDetector(
-        //         onTap: () => _shareImageFromUrl(),
-        //         // setState(() {
-        //         //   _shareImageFromUrl();
-        //         // });
+        gradient: isDark(context)
+            ? LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xFF1F1F1F),
+                  Color(0xFF1F1F1F),
+                ],
+                stops: [
+                  0.7,
+                  0.9,
+                ],
+              )
+            : LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xFF104C90),
+                  Color(0xFF3773AC),
+                ],
+                stops: [
+                  0.7,
+                  0.9,
+                ],
+              ),
+      ),
+      // floatingActionButton: FloatingActionButton(
+      //   backgroundColor: Color.fromARGB(255, 39, 93, 155),
+      //   foregroundColor: Colors.white,
+      //   child: new AnimatedBuilder(
+      //     animation: _controller,
+      //     builder: (BuildContext context, Widget child) {
+      //       return GestureDetector(
+      //         onTap: () => _shareImageFromUrl(),
+      //         // setState(() {
+      //         //   _shareImageFromUrl();
+      //         // });
 
-        //         child: new Icon(Icons.share),
-        //       );
-        //     },
-        //   ),
-        //   onPressed: () {
-        //     setState(() {
-        //       if (_controller.isDismissed) {
-        //         _controller.forward();
-        //       } else {
-        //         _controller.reverse();
-        //       }
-        //     });
-        //   },
-        // ),
-        body: IndexedStack(
-          index: _stackToView,
-          children: [
-            Column(
+      //         child: new Icon(Icons.share),
+      //       );
+      //     },
+      //   ),
+      //   onPressed: () {
+      //     setState(() {
+      //       if (_controller.isDismissed) {
+      //         _controller.forward();
+      //       } else {
+      //         _controller.reverse();
+      //       }
+      //     });
+      //   },
+      // ),
+      body: IndexedStack(
+        index: _stackToView,
+        children: [
+          Column(
+            children: <Widget>[
+              Expanded(
+                child: WebView(
+                  key: _key,
+                  userAgent: 'Chrome/{Chrome Rev} Mobile Safari/{WebKit Rev}',
+                  initialUrl:
+                      'sky.skylineuniversity.ac.ae/page/PrintLMS.aspx?Id=15374&Type=INVOICE&Code=BEC',
+                  onWebViewCreated: (WebViewController webViewController) {
+                    _controllers.complete(webViewController);
+                  },
+                  onProgress: (int progress) {
+                    print("WebView is loading (progress : $progress%)");
+                    print("Done");
+                  },
+                  onPageStarted: (String url) {
+                    print('Page started loading: $url');
+                  },
+                  onPageFinished: _handleLoad,
+                ),
+              ),
+            ],
+          ),
+          Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Expanded(
-                  child: WebView(
-                    key: _key,
-                    initialUrl: widget.url,
-                    onPageFinished: _handleLoad,
-                  ),
+                CircularProgressIndicator(),
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  child: Text('Please wait'),
                 ),
               ],
             ),
-            Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  CircularProgressIndicator(),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    child: Text('Please wait'),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ));
+          ),
+        ],
+      ),
+      // IndexedStack(
+      //   index: _stackToView,
+      //   children: [
+      //     Column(
+      //       children: <Widget>[
+      //         Expanded(
+      //           child: WebView(
+      //             key: _key,
+      //             initialUrl: widget.url,
+      //             onPageFinished: _handleLoad,
+      //           ),
+      //         ),
+      //       ],
+      //     ),
+      //     Center(
+      //       child: Column(
+      //         mainAxisSize: MainAxisSize.min,
+      //         children: <Widget>[
+      //           CircularProgressIndicator(),
+      //           SizedBox(
+      //             height: 20,
+      //           ),
+      //           Container(
+      //             child: Text('Please wait'),
+      //           ),
+      //         ],
+      //       ),
+      //     ),
+      //   ],
+      // ),
+    );
   }
 
   // Future<void> _shareImageFromUrl() async {

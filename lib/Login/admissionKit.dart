@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:skyline_university/Global/appBarLogin.dart';
 import 'package:skyline_university/Global/exception.dart';
 import 'package:skyline_university/Global/global.dart';
+import 'package:skyline_university/Global/pdfView.dart';
 import 'package:skyline_university/Global/webView.dart';
 
 void main() => runApp(AdmissionKit());
@@ -153,7 +154,7 @@ class _AdmissionKitState extends State<AdmissionKit> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => WebViews(
+                                  builder: (context) => PdfViews(
                                       url:
                                           'http://sky.skylineuniversity.ac.ae/page/PrintLMS.aspx?Id=$username&Type=INVOICE&Code=BEC'),
                                 ),

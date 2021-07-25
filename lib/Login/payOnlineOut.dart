@@ -5,7 +5,7 @@ import 'package:flutter_pay/flutter_pay.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:gradient_app_bar/gradient_app_bar.dart';
+import 'package:new_gradient_app_bar/new_gradient_app_bar.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:skyline_university/Global/exception.dart';
@@ -62,7 +62,7 @@ class _PayOnlineOutState extends State<PayOnlineOut> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GradientAppBar(
+      appBar: NewGradientAppBar(
         centerTitle: true,
         leading: GestureDetector(
             onTap: () {

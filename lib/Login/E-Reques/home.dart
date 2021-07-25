@@ -65,12 +65,12 @@ class _HomeERequestState extends State<HomeERequest> {
                             'images-white/orequest.png',
                             'Student Pass Request',
                             "/studentPassRequest"),
-                        rowSection(
-                            context,
-                            'images/orequest.png',
-                            'images-white/orequest.png',
-                            'Semester Registration',
-                            "/semesterRegistration"),
+                        // rowSection(
+                        //     context,
+                        //     'images/orequest.png',
+                        //     'images-white/orequest.png',
+                        //     'Semester Registration',
+                        //     "/semesterRegistration"),
                       ],
                     ),
                   ],
