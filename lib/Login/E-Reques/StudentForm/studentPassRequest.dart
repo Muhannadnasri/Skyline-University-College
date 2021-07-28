@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:circular_check_box/circular_check_box.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -145,18 +144,21 @@ class _StudentPassRequestState extends State<StudentPassRequest> {
                 itemBuilder: (BuildContext context, int index) {
                   return ListTile(
                     // children: [
-                    leading: CircularCheckBox(
-                        activeColor: Color(0xFF3773AC),
-                        value: selectedMarksPassJson[index],
-                        materialTapTargetSize: MaterialTapTargetSize.padded,
-                        onChanged: (bool x) {
-                          setState(() {
-                            // x = resitList[index];
-                            selectedMarksPassJson[index] = x;
-                            print(selectedMarksPassJson);
-                            // resitSelected = !resitSelected;
-                          });
-                        }),
+                    leading: Checkbox(
+                      shape: CircleBorder(),
+                      value: selectedMarksPassJson[index],
+                      onChanged: (bool x) {
+                        setState(() {
+                          // x = resitList[index];
+                          selectedMarksPassJson[index] = x;
+                          print(selectedMarksPassJson);
+                          // resitSelected = !resitSelected;
+                        });
+                      },
+                      activeColor: Color(0xFF3773AC),
+                      materialTapTargetSize: MaterialTapTargetSize.padded,
+                    ),
+
                     isThreeLine: true,
 
                     title: Text(

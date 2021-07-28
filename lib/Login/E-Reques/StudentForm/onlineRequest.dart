@@ -1,11 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:circular_check_box/circular_check_box.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_toggle_tab/flutter_toggle_tab.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -14,8 +12,8 @@ import 'package:skyline_university/Global/bottomAppBar.dart';
 import 'package:skyline_university/Global/form.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Login/E-Reques/StudentForm/onlineRequest%20copy.dart';
-
 import 'package:toggle_switch/toggle_switch.dart';
+
 // import 'package:toggle_switch/toggle_switch.dart';
 
 import 'dropList.dart';
@@ -1370,18 +1368,21 @@ class _OnlineRequestState extends State<OnlineRequest> {
                     itemBuilder: (BuildContext context, int index) {
                       return ListTile(
                         // children: [
-                        leading: CircularCheckBox(
-                            activeColor: Color(0xFF3773AC),
-                            value: selectedResitCourses[index],
-                            materialTapTargetSize: MaterialTapTargetSize.padded,
-                            onChanged: (bool x) {
-                              setState(() {
-                                // x = resitList[index];
-                                selectedResitCourses[index] = x;
-                                print(selectedResitCourses);
-                                // resitSelected = !resitSelected;
-                              });
-                            }),
+                        leading: Checkbox(
+                          shape: CircleBorder(),
+                          value: selectedResitCourses[index],
+                          onChanged: (bool x) {
+                            setState(() {
+                              // x = resitList[index];
+                              selectedResitCourses[index] = x;
+                              print(selectedResitCourses);
+                              // resitSelected = !resitSelected;
+                            });
+                          },
+                          activeColor: Color(0xFF3773AC),
+                          materialTapTargetSize: MaterialTapTargetSize.padded,
+                        ),
+
                         isThreeLine: true,
 
                         title: Text(
@@ -1476,18 +1477,21 @@ class _OnlineRequestState extends State<OnlineRequest> {
                     itemBuilder: (BuildContext context, int index) {
                       return ListTile(
                         // children: [
-                        leading: CircularCheckBox(
-                            activeColor: Color(0xFF3773AC),
-                            value: selectedMitigationCourses[index],
-                            materialTapTargetSize: MaterialTapTargetSize.padded,
-                            onChanged: (bool x) {
-                              setState(() {
-                                // x = resitList[index];
-                                selectedMitigationCourses[index] = x;
-                                print(selectedMitigationCourses);
-                                // resitSelected = !resitSelected;
-                              });
-                            }),
+                        leading: Checkbox(
+                          shape: CircleBorder(),
+                          value: selectedMitigationCourses[index],
+                          onChanged: (bool x) {
+                            setState(() {
+                              // x = resitList[index];
+                              selectedMitigationCourses[index] = x;
+                              print(selectedMitigationCourses);
+                              // resitSelected = !resitSelected;
+                            });
+                          },
+                          activeColor: Color(0xFF3773AC),
+                          materialTapTargetSize: MaterialTapTargetSize.padded,
+                        ),
+
                         isThreeLine: true,
 
                         title: Text(
@@ -1718,16 +1722,20 @@ class _OnlineRequestState extends State<OnlineRequest> {
                     itemBuilder: (BuildContext context, int index) {
                       return ListTile(
                         // children: [
-                        leading: CircularCheckBox(
-                            activeColor: Color(0xFF3773AC),
-                            value: selectedCourseRepaeating[index],
-                            materialTapTargetSize: MaterialTapTargetSize.padded,
-                            onChanged: (bool x) {
-                              setState(() {
-                                selectedCourseRepaeating[index] = x;
-                                print(selectedCourseRepaeating);
-                              });
-                            }),
+                        leading: Checkbox(
+                          shape: CircleBorder(),
+                          value: selectedCourseRepaeating[index],
+                          onChanged: (bool x) {
+                            setState(() {
+                              // x = resitList[index];
+                              selectedCourseRepaeating[index] = x;
+                              print(selectedCourseRepaeating);
+                              // resitSelected = !resitSelected;
+                            });
+                          },
+                          activeColor: Color(0xFF3773AC),
+                          materialTapTargetSize: MaterialTapTargetSize.padded,
+                        ),
 
                         title: Text(
                           courseRepaeatingJson[index]['Cdd_Description']
@@ -1824,18 +1832,20 @@ class _OnlineRequestState extends State<OnlineRequest> {
                   itemBuilder: (BuildContext context, int index) {
                     return ListTile(
                       // children: [
-                      leading: CircularCheckBox(
-                          activeColor: Color(0xFF3773AC),
-                          value: selectedCourseWithdrawals[index],
-                          materialTapTargetSize: MaterialTapTargetSize.padded,
-                          onChanged: (bool x) {
-                            setState(() {
-                              // x = resitList[index];
-                              selectedCourseWithdrawals[index] = x;
-                              print(selectedCourseWithdrawals);
-                              // resitSelected = !resitSelected;
-                            });
-                          }),
+                      leading: Checkbox(
+                        shape: CircleBorder(),
+                        value: selectedCourseWithdrawals[index],
+                        onChanged: (bool x) {
+                          setState(() {
+                            // x = resitList[index];
+                            selectedCourseWithdrawals[index] = x;
+                            print(selectedCourseWithdrawals);
+                            // resitSelected = !resitSelected;
+                          });
+                        },
+                        activeColor: Color(0xFF3773AC),
+                        materialTapTargetSize: MaterialTapTargetSize.padded,
+                      ),
 
                       title: Text(
                         courseWithdrawalJson[index]['Cdd_Description']
@@ -1893,15 +1903,20 @@ class _OnlineRequestState extends State<OnlineRequest> {
                     itemCount: againstMarksJson.length,
                     itemBuilder: (BuildContext context, int index) {
                       return ListTile(
-                        leading: CircularCheckBox(
-                            activeColor: Color(0xFF3773AC),
-                            value: selectedAgainsMarks[index],
-                            materialTapTargetSize: MaterialTapTargetSize.padded,
-                            onChanged: (bool x) {
-                              setState(() {
-                                selectedAgainsMarks[index] = x;
-                              });
-                            }),
+                        leading: Checkbox(
+                          shape: CircleBorder(),
+                          value: selectedAgainsMarks[index],
+                          onChanged: (bool x) {
+                            setState(() {
+                              // x = resitList[index];
+                              selectedAgainsMarks[index] = x;
+                              print(selectedAgainsMarks);
+                              // resitSelected = !resitSelected;
+                            });
+                          },
+                          activeColor: Color(0xFF3773AC),
+                          materialTapTargetSize: MaterialTapTargetSize.padded,
+                        ),
                         isThreeLine: true,
                         title: Text(
                           againstMarksJson[index]['CourseName'].toString(),
