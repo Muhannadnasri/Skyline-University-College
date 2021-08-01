@@ -6,7 +6,7 @@ name: skyline_university
 # Both the versions and the builder number may be overridden in flutter
 # build by specifying --build-name and --build-number, respectively.
 # Read more about versioning at semver.org.
-version: 1.6.0+35
+version: 1.6.0+41
 
 environment:
   sdk: ">=2.2.2 <3.0.0"
@@ -63,7 +63,7 @@ dependencies:
   skeleton_loader: ^1.0.2+2
   youtube_player_flutter: ^7.0.0+7
   # youtube_player_iframe: ^1.1.0
-  circular_check_box: ^1.0.4
+  # circular_check_box: ^1.0.4
   chips_choice: ^2.0.1
   toggle_switch: "^0.1.8"
   roundcheckbox: ^1.0.0+1
