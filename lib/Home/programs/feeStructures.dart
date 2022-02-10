@@ -59,8 +59,12 @@ class _FeeStructuresState extends State<FeeStructures> {
                                     Container(
                                       child: Html(
                                         data: infoJson[1]['page_content'],
-                                        defaultTextStyle:
-                                            TextStyle(color: Colors.green),
+                                        style: {
+                                          "body": Style(color: Colors.green
+                                              // backgroundColor:
+                                              //     Color.fromARGB(0x50, 0xee, 0xee, 0xee),
+                                              ),
+                                        },
                                       ),
                                     ),
                                     Column(
@@ -213,8 +217,12 @@ class _FeeStructuresState extends State<FeeStructures> {
                                     Container(
                                       child: Html(
                                         data: infoJson[7]['page_content'],
-                                        defaultTextStyle:
-                                            TextStyle(color: Colors.green),
+                                        style: {
+                                          "body": Style(color: Colors.green
+                                              // backgroundColor:
+                                              //     Color.fromARGB(0x50, 0xee, 0xee, 0xee),
+                                              ),
+                                        },
                                       ),
                                     ),
                                     Column(
@@ -451,8 +459,12 @@ class _FeeStructuresState extends State<FeeStructures> {
                                     Container(
                                       child: Html(
                                         data: infoJson[16]['page_content'],
-                                        defaultTextStyle:
-                                            TextStyle(color: Colors.purple),
+                                        style: {
+                                          "body": Style(color: Colors.purple
+                                              // backgroundColor:
+                                              //     Color.fromARGB(0x50, 0xee, 0xee, 0xee),
+                                              ),
+                                        },
                                       ),
                                     ),
                                     Column(
@@ -620,7 +632,7 @@ class _FeeStructuresState extends State<FeeStructures> {
     });
     try {
       http.Response response = await http.post(
-        Uri.encodeFull("https://skylineportal.com/moappad/api/test/PageInfo"),
+        Uri.parse("https://skylineportal.com/moappad/api/test/PageInfo"),
         headers: {
           "API-KEY": API,
         },

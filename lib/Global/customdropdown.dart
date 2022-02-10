@@ -1,10 +1,10 @@
-
 import 'package:flutter/material.dart';
 
-const EdgeInsetsGeometry _kAlignedButtonPadding = EdgeInsetsDirectional.only(start: 16.0, end: 4.0);
+const EdgeInsetsGeometry _kAlignedButtonPadding =
+    EdgeInsetsDirectional.only(start: 16.0, end: 4.0);
 const EdgeInsets _kUnalignedButtonPadding = EdgeInsets.zero;
 
-class CustomDropDown<T> extends StatefulWidget{
+class CustomDropDown<T> extends StatefulWidget {
   final List<DropdownMenuItem<T>> items;
   final ValueChanged<T> onChanged;
   final T value;
@@ -20,35 +20,38 @@ class CustomDropDown<T> extends StatefulWidget{
   final bool isExpanded;
   final bool isCaseSensitiveSearch;
 
-  CustomDropDown({
-    Key key,
-    @required this.items,
-    @required this.onChanged,
-    this.value,
-    this.style,
-    this.searchHint,
-    this.hint,
-    this.disabledHint,
-    this.icon,
-    this.underline,
-    this.iconEnabledColor,
-    this.iconDisabledColor,
-    this.iconSize = 24.0,
-    this.isExpanded = false,
-    this.isCaseSensitiveSearch = false
-  }) :  assert(items != null),
+  CustomDropDown(
+      {Key key,
+      @required this.items,
+      @required this.onChanged,
+      this.value,
+      this.style,
+      this.searchHint,
+      this.hint,
+      this.disabledHint,
+      this.icon,
+      this.underline,
+      this.iconEnabledColor,
+      this.iconDisabledColor,
+      this.iconSize = 24.0,
+      this.isExpanded = false,
+      this.isCaseSensitiveSearch = false})
+      : assert(items != null),
         assert(iconSize != null),
         assert(isExpanded != null),
         super(key: key);
 
   @override
   _CustomDropDownState<T> createState() => new _CustomDropDownState();
-
 }
 
 class _CustomDropDownState<T> extends State<CustomDropDown<T>> {
-  TextStyle get _textStyle => widget.style ?? Theme.of(context).textTheme.subhead;
-  bool get _enabled => widget.items != null && widget.items.isNotEmpty && widget.onChanged != null;
+  TextStyle get _textStyle =>
+      widget.style ?? Theme.of(context).textTheme.headline1;
+  bool get _enabled =>
+      widget.items != null &&
+      widget.items.isNotEmpty &&
+      widget.onChanged != null;
   int _selectedIndex;
 
   Icon defaultIcon = Icon(Icons.arrow_drop_down);
@@ -60,7 +63,7 @@ class _CustomDropDownState<T> extends State<CustomDropDown<T>> {
         return widget.iconEnabledColor;
       }
 
-      switch(Theme.of(context).brightness) {
+      switch (Theme.of(context).brightness) {
         case Brightness.light:
           return Colors.grey.shade700;
         case Brightness.dark:
@@ -71,7 +74,7 @@ class _CustomDropDownState<T> extends State<CustomDropDown<T>> {
         return widget.iconDisabledColor;
       }
 
-      switch(Theme.of(context).brightness) {
+      switch (Theme.of(context).brightness) {
         case Brightness.light:
           return Colors.grey.shade400;
         case Brightness.dark:
@@ -89,7 +92,10 @@ class _CustomDropDownState<T> extends State<CustomDropDown<T>> {
     }
 
     assert(widget.value == null ||
-        widget.items.where((DropdownMenuItem<T> item) => item.value == widget.value).length == 1);
+        widget.items
+                .where((DropdownMenuItem<T> item) => item.value == widget.value)
+                .length ==
+            1);
     _selectedIndex = null;
     for (int itemIndex = 0; itemIndex < widget.items.length; itemIndex++) {
       if (widget.items[itemIndex].value == widget.value) {
@@ -113,11 +119,13 @@ class _CustomDropDownState<T> extends State<CustomDropDown<T>> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> items = _enabled ? List<Widget>.from(widget.items) : <Widget>[];
+    final List<Widget> items =
+        _enabled ? List<Widget>.from(widget.items) : <Widget>[];
     int hintIndex;
     if (widget.hint != null || (!_enabled && widget.disabledHint != null)) {
-      final Widget emplacedHint =
-      _enabled ? widget.hint : DropdownMenuItem<Widget>(child: widget.disabledHint ?? widget.hint);
+      final Widget emplacedHint = _enabled
+          ? widget.hint
+          : DropdownMenuItem<Widget>(child: widget.disabledHint ?? widget.hint);
       hintIndex = items.length;
       items.add(DefaultTextStyle(
         style: _textStyle.copyWith(color: Theme.of(context).hintColor),
@@ -149,13 +157,11 @@ class _CustomDropDownState<T> extends State<CustomDropDown<T>> {
             barrierDismissible: true,
             builder: (context) {
               return new DropdownDialog(
-                items: widget.items,
-                hint: widget.searchHint,
-                isCaseSensitiveSearch: widget.isCaseSensitiveSearch
-              );
-            }
-        );
-        if(widget.onChanged != null && value != null){
+                  items: widget.items,
+                  hint: widget.searchHint,
+                  isCaseSensitiveSearch: widget.isCaseSensitiveSearch);
+            });
+        if (widget.onChanged != null && value != null) {
           widget.onChanged(value);
         }
       },
@@ -167,7 +173,9 @@ class _CustomDropDownState<T> extends State<CustomDropDown<T>> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              widget.isExpanded ? Expanded(child: innerItemsWidget) : innerItemsWidget,
+              widget.isExpanded
+                  ? Expanded(child: innerItemsWidget)
+                  : innerItemsWidget,
               IconTheme(
                 data: IconThemeData(
                   color: _iconColor,
@@ -181,7 +189,7 @@ class _CustomDropDownState<T> extends State<CustomDropDown<T>> {
       ),
     );
 
-    final double bottom = 8.0;// widget.isDense ? 0.0 : 8.0;
+    final double bottom = 8.0; // widget.isDense ? 0.0 : 8.0;
     return new Stack(
       children: <Widget>[
         result,
@@ -189,57 +197,51 @@ class _CustomDropDownState<T> extends State<CustomDropDown<T>> {
           left: 0.0,
           right: 0.0,
           bottom: bottom,
-          child: widget.underline ?? Container(
-            height: 1.0,
-            decoration: const BoxDecoration(
-                border: Border(bottom: BorderSide(color: Color(0xFFBDBDBD), width: 0.0))
-            ),
-          ),
+          child: widget.underline ??
+              Container(
+                height: 1.0,
+                decoration: const BoxDecoration(
+                    border: Border(
+                        bottom:
+                            BorderSide(color: Color(0xFFBDBDBD), width: 0.0))),
+              ),
         ),
       ],
     );
   }
 }
 
-
 class DropdownDialog<T> extends StatefulWidget {
-
   final List<DropdownMenuItem<T>> items;
   final Widget hint;
   final bool isCaseSensitiveSearch;
 
-  DropdownDialog({
-    Key key,
-    this.items,
-    this.hint,
-    this.isCaseSensitiveSearch = false
-  }) :  assert(items != null),
+  DropdownDialog(
+      {Key key, this.items, this.hint, this.isCaseSensitiveSearch = false})
+      : assert(items != null),
         super(key: key);
 
   _DropdownDialogState createState() => new _DropdownDialogState();
 }
 
 class _DropdownDialogState extends State<DropdownDialog> {
-
   TextEditingController txtSearch = new TextEditingController();
-  TextStyle defaultButtonStyle = new TextStyle(
-      fontSize: 16,
-      fontWeight: FontWeight.w500
-  );
+  TextStyle defaultButtonStyle =
+      new TextStyle(fontSize: 16, fontWeight: FontWeight.w500);
   List<int> shownIndexes = [];
 
-  void _updateShownIndexes(String keyword){
+  void _updateShownIndexes(String keyword) {
     shownIndexes.clear();
     int i = 0;
     widget.items.forEach((item) {
       bool isContains = false;
-      if(widget.isCaseSensitiveSearch){
+      if (widget.isCaseSensitiveSearch) {
         isContains = item.value.toString().contains(keyword);
+      } else {
+        isContains =
+            item.value.toString().toLowerCase().contains(keyword.toLowerCase());
       }
-      else{
-        isContains = item.value.toString().toLowerCase().contains(keyword.toLowerCase());
-      }
-      if(keyword.isEmpty || isContains){
+      if (keyword.isEmpty || isContains) {
         shownIndexes.add(i);
       }
       i++;
@@ -255,15 +257,9 @@ class _DropdownDialogState extends State<DropdownDialog> {
   @override
   Widget build(BuildContext context) {
     return new Card(
-      margin: EdgeInsets.symmetric(
-          vertical: 32,
-          horizontal: 24
-      ),
+      margin: EdgeInsets.symmetric(vertical: 32, horizontal: 24),
       child: new Container(
-        padding: EdgeInsets.symmetric(
-            vertical: 20,
-            horizontal: 20
-        ),
+        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         child: new Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -281,13 +277,11 @@ class _DropdownDialogState extends State<DropdownDialog> {
 
   Widget titleBar() {
     return widget.hint != null
-      ? new Container(
-          margin: EdgeInsets.only(
-              bottom: 8
-          ),
-          child: widget.hint,
-        )
-      : new Container();
+        ? new Container(
+            margin: EdgeInsets.only(bottom: 8),
+            child: widget.hint,
+          )
+        : new Container();
   }
 
   // Widget searchBar() {
@@ -360,7 +354,7 @@ class _DropdownDialogState extends State<DropdownDialog> {
         itemBuilder: (context, index) {
           DropdownMenuItem item = widget.items[shownIndexes[index]];
           return new InkWell(
-            onTap: (){
+            onTap: () {
               Navigator.pop(context, item.value);
             },
             child: item,
@@ -378,13 +372,10 @@ class _DropdownDialogState extends State<DropdownDialog> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
           new FlatButton(
-            onPressed: (){
+            onPressed: () {
               Navigator.pop(context);
             },
-            child: new Text(
-                'Close',
-                style: defaultButtonStyle
-            ),
+            child: new Text('Close', style: defaultButtonStyle),
           )
         ],
       ),

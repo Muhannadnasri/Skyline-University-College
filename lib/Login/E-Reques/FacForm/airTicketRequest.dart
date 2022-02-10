@@ -193,7 +193,7 @@
 //     });
 //     try {
 //       final response = await http.post(
-//         Uri.encodeFull(
+//         Uri.parse(
 //             'https://skylineportal.com/moappad/api/web/getPersonalFamilyTimes'),
 //         headers: {
 //           "API-KEY": API,
@@ -241,7 +241,7 @@
 
 //     try {
 //       final response = await http.post(
-//         Uri.encodeFull(
+//         Uri.parse(
 //             'https://skylineportal.com/moappad/api/web/airlineTicketReimbursement'),
 //         headers: {
 //           "API-KEY": API,

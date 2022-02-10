@@ -540,7 +540,7 @@ class _UpdateInformationState extends State<UpdateInformation> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             'https://skylineportal.com/moappad/api/web/getStudentPersonalInfo'),
         headers: {
           "API-KEY": API,
@@ -611,7 +611,7 @@ class _UpdateInformationState extends State<UpdateInformation> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             'https://skylineportal.com/moappad/api/test/studentPersonalInfo'),
         headers: {
           "API-KEY": API,

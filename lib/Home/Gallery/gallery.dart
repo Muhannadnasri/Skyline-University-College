@@ -132,7 +132,7 @@ class _GalleryState extends State<Gallery> {
     body = {};
     try {
       http.Response response = await http.post(
-          "http://www.muhannadnasri.com/App/gallery/data.json",
+          Uri.parse("http://www.muhannadnasri.com/App/gallery/data.json"),
           body: body);
 
       if (response.statusCode == 200) {

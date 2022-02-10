@@ -324,7 +324,7 @@ class _ReinStatementState extends State<ReinStatement> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             'https://skylineportal.com/moappad/api/test/appealReinstatement'),
         headers: {
           "API-KEY": API,

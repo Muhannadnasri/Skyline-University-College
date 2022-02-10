@@ -154,7 +154,7 @@ class _PassportRetainingState extends State<PassportRetaining> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             'https://skylineportal.com/moappad/api/web/getRequestFormsText'),
         headers: {
           "API-KEY": API,
@@ -202,7 +202,7 @@ class _PassportRetainingState extends State<PassportRetaining> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             'https://skylineportal.com/moappad/api/test/passportRetaining'),
         headers: {
           "API-KEY": API,

@@ -161,7 +161,7 @@ class _ApptitudeTestState extends State<ApptitudeTest> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             'https://skylineportal.com/moappad/api/web/apptitudeCompleted'),
         headers: {
           "API-KEY": API,
@@ -215,7 +215,7 @@ class _ApptitudeTestState extends State<ApptitudeTest> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             'https://skylineportal.com/moappad/api/test/apptitudeAnswer'),
         headers: {
           "API-KEY": API,

@@ -232,7 +232,7 @@ class _LoginAppState extends State<LoginApp> {
 
     try {
       http.Response response = await http.post(
-        Uri.encodeFull("https://skylineportal.com/moappad/api/test/login"),
+        Uri.parse("https://skylineportal.com/moappad/api/test/login"),
         headers: {
           "API-KEY": API,
         },
@@ -343,7 +343,7 @@ class _LoginAppState extends State<LoginApp> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull("https://skylineportal.com/moappad/api/test/login"),
+        Uri.parse("https://skylineportal.com/moappad/api/test/login"),
         headers: {
           "API-KEY": API,
         },
@@ -402,7 +402,7 @@ class _LoginAppState extends State<LoginApp> {
 
     if (username != '' && password != '') {
       if (await localAuth.canCheckBiometrics) {
-        bool didAuthenticate = await localAuth.authenticateWithBiometrics(
+        bool didAuthenticate = await localAuth.authenticate(
             localizedReason: 'Please authenticate to login to your account',
             stickyAuth: true,
             sensitiveTransaction: true);

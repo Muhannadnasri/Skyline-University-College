@@ -332,7 +332,7 @@ class _StudentGPAProfileState extends State<StudentGPAProfile> {
 
     try {
       http.Response response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             "https://skylineportal.com/moappad/api/test/StudentGPAProfile"),
         headers: {
           "API-KEY": API,

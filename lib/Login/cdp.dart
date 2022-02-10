@@ -214,7 +214,7 @@ class _CDPDownloadState extends State<CDPDownload>
 
     try {
       http.Response response = await http.post(
-        Uri.encodeFull("https://skylineportal.com/moappad/api/test/CDPCourse"),
+        Uri.parse("https://skylineportal.com/moappad/api/test/CDPCourse"),
         headers: {
           "API-KEY": API,
         },

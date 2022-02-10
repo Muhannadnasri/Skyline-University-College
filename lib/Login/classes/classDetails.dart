@@ -211,7 +211,7 @@ class _CourseDetailsState extends State<CourseDetails> {
     });
     try {
       http.Response response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             "https://skylineportal.com/moappad/api/web/classScheduleCourseDetails"),
         headers: {
           "API-KEY": API,

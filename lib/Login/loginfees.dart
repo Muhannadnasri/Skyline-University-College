@@ -288,7 +288,7 @@ class _LoginFeesState extends State<LoginFees> {
 
     try {
       http.Response response = await http.post(
-        Uri.encodeFull("https://skylineportal.com/moappad/api/test/login"),
+        Uri.parse("https://skylineportal.com/moappad/api/test/login"),
         headers: {
           "API-KEY": API,
         },
@@ -366,7 +366,7 @@ class _LoginFeesState extends State<LoginFees> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull("https://skylineportal.com/moappad/api/test/login"),
+        Uri.parse("https://skylineportal.com/moappad/api/test/login"),
         headers: {
           "API-KEY": API,
         },

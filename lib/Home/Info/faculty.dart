@@ -131,8 +131,9 @@ class _FacultyState extends State<Faculty> {
 
     body = {};
     try {
-      http.Response response = await http
-          .post("http://muhannadnasri.com/App/faculty/data.json", body: body);
+      http.Response response = await http.post(
+          Uri.parse("http://muhannadnasri.com/App/faculty/data.json"),
+          body: body);
 
       if (response.statusCode == 200) {
         var Json = json.decode(response.body);

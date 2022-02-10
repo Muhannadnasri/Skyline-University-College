@@ -220,7 +220,7 @@ class _SemesterRegistrationState extends State<SemesterRegistration> {
       selectedPaymnetJson = [];
       paymentRegistrationJson = [];
       final response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             'https://skylineportal.com/moappad/api/test/PaymentSemesterRegistration'),
         headers: {
           "API-KEY": API,
@@ -258,7 +258,7 @@ class _SemesterRegistrationState extends State<SemesterRegistration> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             'https://skylineportal.com/moappad/api/test/InsertSemesterRegistrations'),
         headers: {
           "API-KEY": API,

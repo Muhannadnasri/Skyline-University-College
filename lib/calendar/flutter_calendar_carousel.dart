@@ -1,8 +1,9 @@
-library flutter_calendar_dooboo;
+// library flutter_calendar_dooboo;
 
 import 'dart:async';
 
-import 'package:date_utils/date_utils.dart';
+// import 'package:date_utils/date_utils.dart';
+import 'package:date_utils/date_utils.dart' as Utils;
 import 'package:flutter/material.dart';
 import 'package:skyline_university/calendar/classes/event_list.dart';
 import 'package:skyline_university/calendar/src/default_styles.dart';
@@ -387,7 +388,8 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                                   side: BorderSide(
                                     color: isSelectedDay
                                         ? widget.selectedDayBorderColor
-                                        : isToday && widget.todayBorderColor != null
+                                        : isToday &&
+                                                widget.todayBorderColor != null
                                             ? widget.todayBorderColor
                                             : isPrevMonthDay
                                                 ? widget.prevMonthDayBorderColor
@@ -402,7 +404,8 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
                                   side: BorderSide(
                                     color: isSelectedDay
                                         ? widget.selectedDayBorderColor
-                                        : isToday && widget.todayBorderColor != null
+                                        : isToday &&
+                                                widget.todayBorderColor != null
                                             ? widget.todayBorderColor
                                             : isPrevMonthDay
                                                 ? widget.prevMonthDayBorderColor
@@ -659,10 +662,11 @@ class _CalendarState<T> extends State<CalendarCarousel<T>> {
   List<DateTime> _getDaysInWeek([DateTime selectedDate]) {
     if (selectedDate == null) selectedDate = new DateTime.now();
 
-    var firstDayOfCurrentWeek = Utils.firstDayOfWeek(selectedDate);
-    var lastDayOfCurrentWeek = Utils.lastDayOfWeek(selectedDate);
+    var firstDayOfCurrentWeek = Utils.DateUtils.firstDayOfWeek(selectedDate);
+    var lastDayOfCurrentWeek = Utils.DateUtils.lastDayOfWeek(selectedDate);
 
-    return Utils.daysInRange(firstDayOfCurrentWeek, lastDayOfCurrentWeek)
+    return Utils.DateUtils.daysInRange(
+            firstDayOfCurrentWeek, lastDayOfCurrentWeek)
         .toList();
   }
 

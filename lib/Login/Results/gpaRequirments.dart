@@ -130,8 +130,7 @@ class _GetGPARequirmentsState extends State<GetGPARequirments> {
     });
     try {
       http.Response response = await http.post(
-        Uri.encodeFull(
-            "https://skylineportal.com/moappad/api/test/GPARequirments"),
+        Uri.parse("https://skylineportal.com/moappad/api/test/GPARequirments"),
         headers: {
           "API-KEY": API,
         },

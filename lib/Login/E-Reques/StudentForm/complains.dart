@@ -162,7 +162,7 @@ class _ComplainsState extends State<Complains> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             'https://skylineportal.com/moappad/api/test/generalAppointment'),
         headers: {
           "API-KEY": API,

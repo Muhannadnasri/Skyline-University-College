@@ -233,7 +233,7 @@ class _LeaveApplicationFormState extends State<LeaveApplicationForm> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             'https://skylineportal.com/moappad/api/test/leaveApplication'),
         headers: {
           "API-KEY": API,

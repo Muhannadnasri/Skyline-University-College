@@ -213,7 +213,7 @@ class _CoursesState extends State<Course> with TickerProviderStateMixin {
     });
     try {
       http.Response response = await http.post(
-        Uri.encodeFull("http://www.muhannadnasri.com/App/login/course.php"),
+        Uri.parse("http://www.muhannadnasri.com/App/login/course.php"),
         body: {'username': username, 'password': password, 'url': widget.url},
       );
       // .timeout(Duration(seconds: 50)

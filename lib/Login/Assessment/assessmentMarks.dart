@@ -200,8 +200,7 @@ class _AssessmentMarksState extends State<AssessmentMarks> {
     });
     try {
       http.Response response = await http.post(
-        Uri.encodeFull(
-            "https://skylineportal.com/moappad/api/web/assessmentMarks"),
+        Uri.parse("https://skylineportal.com/moappad/api/web/assessmentMarks"),
         headers: {
           "API-KEY": API,
         },

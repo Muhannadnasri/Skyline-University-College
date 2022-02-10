@@ -313,8 +313,7 @@ class _BookRequisitionState extends State<BookRequisition> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/test/LibraryMaterial'),
+        Uri.parse('https://skylineportal.com/moappad/api/test/LibraryMaterial'),
         headers: {
           "API-KEY": API,
         },
@@ -346,7 +345,7 @@ class _BookRequisitionState extends State<BookRequisition> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             'https://skylineportal.com/moappad/api/test/libraryBookRequisition'),
         headers: {
           "API-KEY": API,

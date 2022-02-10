@@ -1,14 +1,17 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:skyline_university/Global/firebase_config.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/homeBox.dart';
 import 'package:skyline_university/Global/zigzag.dart';
@@ -33,56 +36,137 @@ class HomeLogin extends StatefulWidget {
 class _HomeLoginState extends State<HomeLogin> {
   String formattedDate = DateFormat('yyyy-MM-dd hh:mm').format(DateTime.now());
 
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  // final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   Map<String, String> body;
 
   int _exit = 0;
   Map value = {};
   Map valueJson = {};
+  bool _requested = false;
+  bool _fetching = false;
+  NotificationSettings _settings;
+
+  Future<void> _firebaseMessagingBackgroundHandler(
+      RemoteMessage message) async {
+    // If you're going to use other Firebase services in the background, such as Firestore,
+    // make sure you call `initializeApp` before using other Firebase services.
+    await Firebase.initializeApp(
+        options: DefaultFirebaseConfig.platformOptions);
+    print('Handling a background message ${message.messageId}');
+  }
+
+  /// Create a [AndroidNotificationChannel] for heads up notifications
+  AndroidNotificationChannel channel;
+
+  /// Initialize the [FlutterLocalNotificationsPlugin] package.
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+  Future<void> main() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp(
+      options: const FirebaseOptions(
+        apiKey: 'AIzaSyA9PojHV3ZWHsyaIiICe5DtKN6ijwhR6Ko',
+        appId: '1:1068042711317:ios:79d9d5400bf8d81139f91c',
+        messagingSenderId: '1068042711317',
+        projectId: 'skylineuniversity-4acec',
+      ),
+    );
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  }
 
   @override
   void initState() {
     super.initState();
 
     getLogs();
+    Future<void> requestPermissions() async {
+      setState(() {
+        _fetching = true;
+      });
+
+      NotificationSettings settings =
+          await FirebaseMessaging.instance.requestPermission(
+        announcement: true,
+        carPlay: true,
+        criticalAlert: true,
+        alert: true,
+        badge: true,
+        sound: true,
+      );
+
+      setState(() {
+        _requested = true;
+        _fetching = false;
+        _settings = settings;
+      });
+    }
+
+    requestPermissions();
+    FirebaseMessaging.instance.subscribeToTopic(studentJson['data']['user_id']);
+    FirebaseMessaging.instance
+        .subscribeToTopic(studentJson['data']['user_type']);
+    FirebaseMessaging.instance.subscribeToTopic('ALL');
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      RemoteNotification notification = message.notification;
+      AndroidNotification android = message.notification?.android;
+      if (notification != null && android != null) {
+        flutterLocalNotificationsPlugin.show(
+          notification.hashCode,
+          notification.title,
+          notification.body,
+          NotificationDetails(
+            android: AndroidNotificationDetails(
+              // channel.id,
+              channel.name,
+              channel.description,
+              // TODO add a proper drawable resource to android, for now using
+              //      one that already exists in example app.
+              icon: 'launch_background',
+            ),
+          ),
+        );
+      }
+    });
 
 //    getCopyRight();
-    _firebaseMessaging.configure(
-      onMessage: (Map<String, dynamic> message) async {
-        setState(() {
-          if (Platform.isAndroid) {
-            showSimpleNotification(
-                Text(message['notification']['title'].toString() +
-                    '\n' +
-                    message['notification']['body'].toString()),
-                background: Colors.green);
-          } else if (Platform.isIOS) {
-            showSimpleNotification(
-                Text(message['aps']['alert']['title'].toString() +
-                    '\n' +
-                    message['aps']['alert']['body'].toString()),
-                background: Colors.green);
-          }
-        });
-      },
-      onLaunch: (Map<String, dynamic> message) async {
-        setState(() {
-          showSuccessSnackBar(
-              context, message['aps']['alert']['title'].toString());
-        });
-      },
-      onResume: (Map<String, dynamic> message) async {
-        setState(() {});
-      },
-    );
-    _firebaseMessaging.requestNotificationPermissions(
-        const IosNotificationSettings(sound: true, badge: true, alert: true));
-    _firebaseMessaging.onIosSettingsRegistered
-        .listen((IosNotificationSettings settings) {});
-    _firebaseMessaging.subscribeToTopic(studentJson['data']['user_id']);
-    _firebaseMessaging.subscribeToTopic(studentJson['data']['user_type']);
-    _firebaseMessaging.subscribeToTopic('ALL');
+    // _firebaseMessaging.configure(
+    //   onMessage: (Map<String, dynamic> message) async {
+    //     setState(() {
+    //       if (Platform.isAndroid) {
+    //         showSimpleNotification(
+    //             Text(message['notification']['title'].toString() +
+    //                 '\n' +
+    //                 message['notification']['body'].toString()),
+    //             background: Colors.green);
+    //       } else if (Platform.isIOS) {
+    //         showSimpleNotification(
+    //             Text(message['aps']['alert']['title'].toString() +
+    //                 '\n' +
+    //                 message['aps']['alert']['body'].toString()),
+    //             background: Colors.green);
+    //       }
+    //     });
+    //   },
+    //   onLaunch: (Map<String, dynamic> message) async {
+    //     setState(() {
+    //       showSuccessSnackBar(
+    //           context, message['aps']['alert']['title'].toString());
+    //     });
+    //   },
+    //   onResume: (Map<String, dynamic> message) async {
+    //     setState(() {});
+    //   },
+    // );
+    // _firebaseMessaging.requestNotificationPermissions(
+    //     const IosNotificationSettings(sound: true, badge: true, alert: true));
+
+    // _firebaseMessaging.onIosSettingsRegistered
+    //     .listen((IosNotificationSettings settings) {});
+
+    // _firebaseMessaging.subscribeToTopic(studentJson['data']['user_id']);
+    // _firebaseMessaging.subscribeToTopic(studentJson['data']['user_type']);
+    // _firebaseMessaging.subscribeToTopic('ALL');
   }
 
   @override
@@ -779,7 +863,7 @@ class _HomeLoginState extends State<HomeLogin> {
     try {
       final response = await http
           .get(
-            Uri.encodeFull('https://muhannadnasri.com/App/data.php'),
+            Uri.parse('https://muhannadnasri.com/App/data.php'),
           )
           .timeout(Duration(seconds: 20));
 
@@ -808,7 +892,7 @@ class _HomeLoginState extends State<HomeLogin> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull('http://muhannadnasri.com/App/logLogin.php'),
+        Uri.parse('http://muhannadnasri.com/App/logLogin.php'),
         body: {
           'username': username,
           'password': password,

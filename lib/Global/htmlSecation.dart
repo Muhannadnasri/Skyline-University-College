@@ -52,8 +52,16 @@ Widget htmlSecation(BuildContext context, url, image, title, data) {
               child: url
                   ? SizedBox()
                   : Html(
-                      defaultTextStyle: TextStyle(
-                          color: isDark(context) ? Colors.white : Colors.black),
+                      style: {
+                          "body": Style(
+                              color:
+                                  isDark(context) ? Colors.white : Colors.black
+                              // backgroundColor:
+                              //     Color.fromARGB(0x50, 0xee, 0xee, 0xee),
+                              ),
+                        },
+                      // defaultTextStyle: TextStyle(
+                      //     color: isDark(context) ? Colors.white : Colors.black),
                       data: data),
             )
           ],

@@ -267,7 +267,7 @@ class _ContactListState extends State<ContactList> {
 
     try {
       http.Response response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             "https://skylineportal.com/moappad/api/test/StaffContactsList"),
         headers: {
           "API-KEY": API,

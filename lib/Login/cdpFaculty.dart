@@ -109,7 +109,6 @@ class _CdpFacultyState extends State<CdpFaculty> with TickerProviderStateMixin {
                             padding: const EdgeInsets.all(5.0),
                             child: Row(
                               children: <Widget>[
-
                                 Text('Batch Code : '),
                                 Text(
                                   cdpCourseJson[index]['batchcode'].toString(),
@@ -210,8 +209,7 @@ class _CdpFacultyState extends State<CdpFaculty> with TickerProviderStateMixin {
 
     try {
       http.Response response = await http.post(
-        Uri.encodeFull(
-            "https://skylineportal.com/moappad/api/web/getCDPDetails"),
+        Uri.parse("https://skylineportal.com/moappad/api/web/getCDPDetails"),
         headers: {
           "API-KEY": API,
         },

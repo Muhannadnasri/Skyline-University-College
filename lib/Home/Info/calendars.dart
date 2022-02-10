@@ -585,7 +585,7 @@
 //     });
 //     try {
 //       http.Response response = await http.post(
-//         Uri.encodeFull("https://skylineportal.com/moappad/api/web/getPageInfo"),
+//         Uri.parse("https://skylineportal.com/moappad/api/web/getPageInfo"),
 //         headers: {
 //           "API-KEY": API,
 //         },

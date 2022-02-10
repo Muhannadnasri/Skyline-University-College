@@ -316,7 +316,7 @@ class _FinalTermResultsState extends State<FinalTermResults> {
     });
     try {
       http.Response response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             "https://skylineportal.com/moappad/api/test/getFinalTermResults"),
         headers: {
           "API-KEY": API,

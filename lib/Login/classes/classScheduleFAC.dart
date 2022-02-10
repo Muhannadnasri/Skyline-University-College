@@ -296,7 +296,7 @@ class _CourseAllocationState extends State<CourseAllocation> {
     });
     try {
       http.Response response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             "https://skylineportal.com/moappad/api/test/CourseAllocationData"),
         headers: {
           "API-KEY": API,

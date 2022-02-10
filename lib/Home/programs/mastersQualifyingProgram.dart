@@ -126,7 +126,7 @@ class _MastersQualifyingProgramState extends State<MastersQualifyingProgram> {
     });
     try {
       http.Response response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             "https://skylineportal.com/moappad/api/web/getProgramsByCategory"),
         headers: {
           "API-KEY": API,

@@ -195,7 +195,9 @@ class _ListsState extends State<Lists> {
     body = {};
     try {
       http.Response response = await http.post(
-          "http://www.muhannadnasri.com/App/news_events/data.json",
+          Uri.parse(
+            "http://www.muhannadnasri.com/App/news_events/data.json",
+          ),
           body: body);
 
       if (response.statusCode == 200) {

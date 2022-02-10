@@ -323,7 +323,7 @@ class _GeneralAppointmentState extends State<GeneralAppointment> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             'https://skylineportal.com/moappad/api/test/generalAppointments'),
         headers: {
           "API-KEY": API,

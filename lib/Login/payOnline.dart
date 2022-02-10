@@ -368,7 +368,7 @@ class _PayOnlineState extends State<PayOnline> {
 
     try {
       http.Response response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             "https://skylineportal.com/moappad/api/test/getPaymentBalacnce"),
         headers: {
           "API-KEY": API,

@@ -211,7 +211,7 @@ class _StudentPassRequestState extends State<StudentPassRequest> {
       selectedMarksPassJson = [];
       marksPassJson = [];
       final response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             'https://skylineportal.com/moappad/api/test/CoursesPassRequest'),
         headers: {
           "API-KEY": API,
@@ -261,7 +261,7 @@ class _StudentPassRequestState extends State<StudentPassRequest> {
       if (selectedMarksPassJson) {
         try {
           final response = await http.post(
-            Uri.encodeFull(
+            Uri.parse(
                 'https://skylineportal.com/moappad/api/test/InsertPassRequest'),
             headers: {
               "API-KEY": API,

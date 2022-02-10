@@ -435,7 +435,7 @@ class _AdvisorAppointmentState extends State<AdvisorAppointment> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             'https://skylineportal.com/moappad/api/test/AdvisorNameDateCasedesc'),
         headers: {
           "API-KEY": API,
@@ -478,8 +478,7 @@ class _AdvisorAppointmentState extends State<AdvisorAppointment> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/test/AdvisorApptTime'),
+        Uri.parse('https://skylineportal.com/moappad/api/test/AdvisorApptTime'),
         headers: {
           "API-KEY": API,
         },
@@ -518,7 +517,7 @@ class _AdvisorAppointmentState extends State<AdvisorAppointment> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             'https://skylineportal.com/moappad/api/test/advisorAppointment'),
         headers: {
           "API-KEY": API,

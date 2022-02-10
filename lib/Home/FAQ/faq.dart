@@ -95,7 +95,7 @@ class _FAQState extends State<FAQ> {
     });
     try {
       http.Response response = await http.post(
-        Uri.encodeFull("https://skylineportal.com/moappad/api/test/FaqByType"),
+        Uri.parse("https://skylineportal.com/moappad/api/test/FaqByType"),
         headers: {
           "API-KEY": API,
         },

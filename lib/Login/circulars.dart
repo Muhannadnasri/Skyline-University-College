@@ -206,8 +206,7 @@ class _CircularsState extends State<Circulars> {
     });
     try {
       http.Response response = await http.post(
-        Uri.encodeFull(
-            "https://skylineportal.com/moappad/api/web/getDataByType"),
+        Uri.parse("https://skylineportal.com/moappad/api/web/getDataByType"),
         headers: {
           "API-KEY": API,
         },

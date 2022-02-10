@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -109,6 +110,9 @@ class MyApp extends StatefulWidget {
 class MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
+    Firebase.initializeApp().whenComplete(() {
+      setState(() {});
+    });
   }
 
   @override
@@ -116,11 +120,11 @@ class MyAppState extends State<MyApp> {
     return OverlaySupport(
       child: MaterialApp(
         darkTheme: ThemeData(
-          fontFamily: 'Skyline',
+          fontFamily: 'SkylÍine',
           iconTheme: IconThemeData(color: Colors.black),
           scaffoldBackgroundColor: Color(0xFF000000),
           textTheme: TextTheme(
-            body1: TextStyle(color: Colors.black),
+            bodyText1: TextStyle(color: Colors.black),
           ),
           brightness: Brightness.dark,
         ),

@@ -244,7 +244,7 @@ class _ConferenceState extends State<Conference> {
     });
     try {
       final response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             'https://skylineportal.com/moappad/api/test/OutdoorEventTime'),
         headers: {
           "API-KEY": API,
@@ -278,8 +278,7 @@ class _ConferenceState extends State<Conference> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/test/outdoorEvent'),
+        Uri.parse('https://skylineportal.com/moappad/api/test/outdoorEvent'),
         headers: {
           "API-KEY": API,
         },

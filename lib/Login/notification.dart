@@ -137,8 +137,7 @@ class _NotificationsState extends State<Notifications> {
     });
     try {
       http.Response response = await http.post(
-        Uri.encodeFull(
-            "https://skylineportal.com/moappad/api/web/getNotifications"),
+        Uri.parse("https://skylineportal.com/moappad/api/web/getNotifications"),
         headers: {
           "API-KEY": API,
         },

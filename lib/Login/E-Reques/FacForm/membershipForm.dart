@@ -238,7 +238,7 @@
 
 //     try {
 //       final response = await http.post(
-//         Uri.encodeFull(
+//         Uri.parse(
 //             'https://skylineportal.com/moappad/api/test/membershipForm'),
 //         headers: {
 //           "API-KEY": API,

@@ -491,7 +491,7 @@ class _VisitorInfoState extends State<VisitorInfo> {
           inactiveBgColor: Colors.grey,
           inactiveFgColor: Colors.white,
           labels: ['English', 'Arabic'],
-          activeBgColors: [Colors.green, Colors.red],
+          activeBgColor: [Colors.green, Colors.red],
           onToggle: (index) {
             print('switched to: $index');
             setState(() {
@@ -576,7 +576,7 @@ class _VisitorInfoState extends State<VisitorInfo> {
 
     try {
       final response = await http.post(
-          Uri.encodeFull(
+          Uri.parse(
               'https://skylineportal.com/moappad/api/test/visitorInformationForm'),
           headers: {
             "API-KEY": API,

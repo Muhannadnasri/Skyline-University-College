@@ -131,8 +131,7 @@ class _GraduateProgramState extends State<GraduateProgram> {
     });
     try {
       http.Response response = await http.post(
-        Uri.encodeFull(
-            "https://skylineportal.com/moappad/api/web/getProgramTabs"),
+        Uri.parse("https://skylineportal.com/moappad/api/web/getProgramTabs"),
         headers: {
           "API-KEY": API,
         },

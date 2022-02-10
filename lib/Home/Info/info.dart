@@ -173,7 +173,7 @@ class _InfoState extends State<Info> {
     try {
       http.Response response = await http
           .post(
-            Uri.encodeFull("http://www.muhannadnasri.com/App/about/data.json"),
+            Uri.parse("http://www.muhannadnasri.com/App/about/data.json"),
           )
           .timeout(Duration(seconds: 35));
 

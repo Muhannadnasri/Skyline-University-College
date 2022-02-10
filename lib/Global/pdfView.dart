@@ -42,7 +42,7 @@ class _PdfViewsState extends State<PdfViews> with TickerProviderStateMixin {
   }
 
   Future<Uint8List> fetchPost() async {
-    final response = await http.get(widget.url);
+    final response = await http.get(Uri.parse(widget.url));
     final responseJson = response.bodyBytes;
 
     return responseJson;

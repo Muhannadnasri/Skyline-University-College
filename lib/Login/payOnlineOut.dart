@@ -37,16 +37,20 @@ class _PayOnlineOutState extends State<PayOnlineOut> {
 
     flutterPay.setEnvironment(environment: PaymentEnvironment.Test);
 
-    flutterPay.makePayment(
-      merchantIdentifier: "merchant.com.skylineuniversity.skyline",
-      gatewayName: 'Skyline',
-      merchantName: 'Skyline',
-      // googleParameters: GoogleParameters(
-      //   gatewayName: "example",
-      //   gatewayMerchantId: "example_id",
-      // ),
-      // appleParameters: AppleParameters(
-      //     merchantIdentifier: "merchant.com.skylineuniversity.skyline"),
+    flutterPay.requestPayment(
+      appleParameters: AppleParameters(
+        merchantIdentifier: "merchant.com.skylineuniversity.skyline",
+      ),
+      googleParameters: GoogleParameters(
+        gatewayName: "Skyline",
+
+        gatewayMerchantId: "merchant.com.skylineuniversity.skyline",
+        merchantId: "example_merchant_id",
+        merchantName: "exampleMerchantName",
+        // currencyCode: "AED",
+        // countryCode: "AE",
+        // paymentItems: items,
+      ),
       currencyCode: "AED",
       countryCode: "AE",
       paymentItems: items,
@@ -131,8 +135,7 @@ class _PayOnlineOutState extends State<PayOnlineOut> {
 
     try {
       http.Response response = await http.post(
-        Uri.encodeFull(
-            "https://skylineportal.com/moappad/api/test/PayOnlineLink"),
+        Uri.parse("https://skylineportal.com/moappad/api/test/PayOnlineLink"),
         headers: {
           "API-KEY": API,
         },

@@ -162,8 +162,7 @@ class _UndergraduateProgramState extends State<UndergraduateProgram> {
     });
     try {
       http.Response response = await http.post(
-        Uri.encodeFull(
-            "https://skylineportal.com/moappad/api/test/ProgramTabs"),
+        Uri.parse("https://skylineportal.com/moappad/api/test/ProgramTabs"),
         headers: {
           "API-KEY": API,
         },

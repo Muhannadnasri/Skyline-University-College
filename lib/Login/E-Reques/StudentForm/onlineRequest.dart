@@ -1299,7 +1299,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
             inactiveBgColor: Colors.grey,
             inactiveFgColor: Colors.white,
             labels: ['Normal', 'Urgent'],
-            activeBgColors: [Colors.green, Colors.red],
+            activeBgColor: [Colors.green, Colors.red],
             onToggle: (index) {
               print('switched to: $index');
               setState(() {
@@ -1990,7 +1990,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             'https://skylineportal.com/moappad/api/test/OnlineRequestFees'),
         headers: {
           "API-KEY": API,
@@ -2050,8 +2050,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/test/InsertRequest'),
+        Uri.parse('https://skylineportal.com/moappad/api/test/InsertRequest'),
         headers: {
           "API-KEY": API,
         },
@@ -2093,8 +2092,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/test/onlineRequest'),
+        Uri.parse('https://skylineportal.com/moappad/api/test/onlineRequest'),
         headers: {
           "API-KEY": API,
         },
@@ -2143,7 +2141,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
 
   // //   try {
   // //     final response = await http.post(
-  // //       Uri.encodeFull(
+  // //       Uri.parse(
   // //           'https://skylineportal.com/moappad/api/test/CheckRequest'),
   // //       headers: {
   // //         "API-KEY": API,
@@ -2185,7 +2183,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
       selectedCourseWithdrawals = [];
       courseWithdrawalJson = [];
       final response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             'https://skylineportal.com/moappad/api/test/CourseWithdrawalCourses'),
         headers: {
           "API-KEY": API,
@@ -2233,7 +2231,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
       if (selectedCourseWithdrawals) {
         try {
           final response = await http.post(
-            Uri.encodeFull(
+            Uri.parse(
                 'https://skylineportal.com/moappad/api/test/InsertWithdrawalCourses'),
             headers: {
               "API-KEY": API,
@@ -2282,7 +2280,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             'https://skylineportal.com/moappad/api/test/InsertLeaveApplications'),
         headers: {
           "API-KEY": API,
@@ -2342,7 +2340,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             'https://skylineportal.com/moappad/api/test/CancellationVisaType'),
         headers: {
           "API-KEY": API,
@@ -2377,7 +2375,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             'https://skylineportal.com/moappad/api/test/CurrentAndNewShift'),
         headers: {
           "API-KEY": API,
@@ -2418,7 +2416,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             'https://skylineportal.com/moappad/api/test/InsertShiftChange'),
         headers: {
           "API-KEY": API,
@@ -2472,7 +2470,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
       selectedCourseRepaeating = [];
       courseRepaeatingJson = [];
       final response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             'https://skylineportal.com/moappad/api/test/RepaeatingMarksCourses'),
         headers: {
           "API-KEY": API,
@@ -2520,7 +2518,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
       if (selectedCourseRepaeating) {
         try {
           final response = await http.post(
-            Uri.encodeFull(
+            Uri.parse(
                 'https://skylineportal.com/moappad/api/test/InsertRepaeatingCoursess'),
             headers: {
               "API-KEY": API,
@@ -2577,7 +2575,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
       selectedAgainsMarks = [];
       againstMarksJson = [];
       final response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             'https://skylineportal.com/moappad/api/test/AgainstMarksCourses'),
         headers: {
           "API-KEY": API,
@@ -2626,7 +2624,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
       if (selectedAgainsMark) {
         try {
           final response = await http.post(
-            Uri.encodeFull(
+            Uri.parse(
                 'https://skylineportal.com/moappad/api/test/InsertAgainstMarks'),
             headers: {
               "API-KEY": API,
@@ -2693,7 +2691,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
       if (selectedMitigationCourse) {
         try {
           final response = await http.post(
-            Uri.encodeFull(
+            Uri.parse(
                 'https://skylineportal.com/moappad/api/test/InsertMitigationExam'),
             headers: {
               "API-KEY": API,
@@ -2758,7 +2756,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
       selectedResitCourses = [];
       resitMarksJson = [];
       final response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             'https://skylineportal.com/moappad/api/test/ResitMarksCourses'),
         headers: {
           "API-KEY": API,
@@ -2805,7 +2803,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
       if (selectedResitCourse) {
         try {
           final response = await http.post(
-            Uri.encodeFull(
+            Uri.parse(
                 'https://skylineportal.com/moappad/api/test/insertResitOrGradeImprovementss'),
             headers: {
               "API-KEY": API,
@@ -2871,8 +2869,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
       selectedMitigationCourses = [];
       midMarksJson = [];
       final response = await http.post(
-        Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/test/MidMarksCourses'),
+        Uri.parse('https://skylineportal.com/moappad/api/test/MidMarksCourses'),
         headers: {
           "API-KEY": API,
         },
@@ -2913,7 +2910,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             'https://skylineportal.com/moappad/api/test/passportWithdrawal'),
         headers: {
           "API-KEY": API,
@@ -2961,7 +2958,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             'https://skylineportal.com/moappad/api/test/InserPostponement'),
         headers: {
           "API-KEY": API,
@@ -3008,7 +3005,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             'https://skylineportal.com/moappad/api/test/InserVisaCancellation'),
         headers: {
           "API-KEY": API,

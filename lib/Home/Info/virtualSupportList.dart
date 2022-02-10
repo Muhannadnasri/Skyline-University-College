@@ -135,8 +135,7 @@ class _VirtualSupportListState extends State<VirtualSupportList> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
-            "https://skylineportal.com/moappad/api/test/GetDepartment"),
+        Uri.parse("https://skylineportal.com/moappad/api/test/GetDepartment"),
         headers: {
           "API-KEY": API,
         },

@@ -192,8 +192,7 @@ class _CoursesState extends State<Courses> with TickerProviderStateMixin {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
-            "https://skylineportal.com/moappad/api/test/StudentCourses"),
+        Uri.parse("https://skylineportal.com/moappad/api/test/StudentCourses"),
         headers: {
           "API-KEY": API,
         },

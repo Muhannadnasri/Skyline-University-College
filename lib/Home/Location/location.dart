@@ -251,8 +251,7 @@ class _LocationState extends State<Location> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/web/getLocations'),
+        Uri.parse('https://skylineportal.com/moappad/api/web/getLocations'),
         headers: {
           "API-KEY": API,
         },

@@ -274,7 +274,7 @@ class _AdvisorsState extends State<Advisors> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull('https://skylineportal.com/moappad/api/test/MyAdvisees'),
+        Uri.parse('https://skylineportal.com/moappad/api/test/MyAdvisees'),
         headers: {
           "API-KEY": API,
         },

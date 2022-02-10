@@ -388,7 +388,7 @@ class _HomeState extends State<Home> {
   Future getLogs() async {
     try {
       final response = await http.post(
-        Uri.encodeFull('http://muhannadnasri.com/App/logUser.php'),
+        Uri.parse('http://muhannadnasri.com/App/logUser.php'),
         body: {
           'date': formattedDate,
         },
@@ -418,8 +418,9 @@ class _HomeState extends State<Home> {
 
   Future getSliders() async {
     try {
-      http.Response response = await http
-          .post("http://muhannadnasri.com/App/slider/data.json", body: body);
+      http.Response response = await http.post(
+          Uri.parse("http://muhannadnasri.com/App/slider/data.json"),
+          body: body);
 
       if (response.statusCode == 200) {
         slidersJson = json.decode(response.body);

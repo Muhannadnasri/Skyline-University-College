@@ -264,7 +264,7 @@ class _LeaveApplicationState extends State<LeaveApplication> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull('https://skylineportal.com/moappad/api/test/LeaveTypes'),
+        Uri.parse('https://skylineportal.com/moappad/api/test/LeaveTypes'),
         headers: {
           "API-KEY": API,
         },
@@ -302,7 +302,7 @@ class _LeaveApplicationState extends State<LeaveApplication> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             'https://skylineportal.com/moappad/api/test/facultyStaffleaveApplication'),
         headers: {
           "API-KEY": API,
@@ -369,7 +369,7 @@ class _LeaveApplicationState extends State<LeaveApplication> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             'https://skylineportal.com/moappad/api/test/LeaveTypeBalance'),
         headers: {
           "API-KEY": API,

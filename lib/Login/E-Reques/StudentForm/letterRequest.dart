@@ -269,7 +269,7 @@ class _LetterRequestState extends State<LetterRequest> {
             inactiveBgColor: Colors.grey,
             inactiveFgColor: Colors.white,
             labels: ['Normal', 'Urgent'],
-            activeBgColors: [Colors.green, Colors.red],
+            activeBgColor: [Colors.green, Colors.red],
             onToggle: (index) {
               print('switched to: $index');
               setState(() {
@@ -373,7 +373,7 @@ class _LetterRequestState extends State<LetterRequest> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             'https://skylineportal.com/moappad/api/test/OnlineRequestFees'),
         headers: {
           "API-KEY": API,
@@ -428,8 +428,7 @@ class _LetterRequestState extends State<LetterRequest> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/test/onlineRequest'),
+        Uri.parse('https://skylineportal.com/moappad/api/test/onlineRequest'),
         headers: {
           "API-KEY": API,
         },

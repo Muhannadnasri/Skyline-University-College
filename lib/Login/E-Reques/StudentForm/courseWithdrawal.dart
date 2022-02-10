@@ -200,7 +200,7 @@ class _CourseWithdrawalState extends State<CourseWithdrawal> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             'https://skylineportal.com/moappad/api/test/CourseWithdrawalCourses'),
         headers: {
           "API-KEY": API,
@@ -240,7 +240,7 @@ class _CourseWithdrawalState extends State<CourseWithdrawal> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull('https://skylineportal.com/moappad/api/test/CourseName'),
+        Uri.parse('https://skylineportal.com/moappad/api/test/CourseName'),
         headers: {
           "API-KEY": API,
         },
@@ -280,7 +280,7 @@ class _CourseWithdrawalState extends State<CourseWithdrawal> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             'https://skylineportal.com/moappad/api/test/courseWithdrawal'),
         headers: {
           "API-KEY": API,

@@ -357,8 +357,7 @@ class _ClassScheduleState extends State<ClassSchedule> {
     });
     try {
       http.Response response = await http.post(
-        Uri.encodeFull(
-            "https://skylineportal.com/moappad/api/test/${widget.link}"),
+        Uri.parse("https://skylineportal.com/moappad/api/test/${widget.link}"),
         headers: {
           "API-KEY": API,
         },

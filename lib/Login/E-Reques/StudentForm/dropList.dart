@@ -422,7 +422,7 @@ class _DropListState extends State<DropList> {
     }
     try {
       final response = await http.post(
-        Uri.encodeFull(url),
+        Uri.parse(url),
         headers: {
           "API-KEY": API,
         },

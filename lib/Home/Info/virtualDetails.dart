@@ -85,7 +85,7 @@ class _VirtualDetailsState extends State<VirtualDetails> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
+        Uri.parse(
             "https://skylineportal.com/moappad/api/test/GetEmployeeDetails"),
         headers: {
           "API-KEY": API,

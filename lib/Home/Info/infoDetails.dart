@@ -58,7 +58,7 @@ class _InfoDetailsState extends State<InfoDetails> {
     });
     try {
       http.Response response = await http.post(
-        Uri.encodeFull("https://skylineportal.com/moappad/api/test/PageInfo"),
+        Uri.parse("https://skylineportal.com/moappad/api/test/PageInfo"),
         headers: {
           "API-KEY": API,
         },

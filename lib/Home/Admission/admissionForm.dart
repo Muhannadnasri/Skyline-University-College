@@ -289,8 +289,7 @@ class _AdmissionFormState extends State<AdmissionForm> {
 
     try {
       final response = await http.post(
-        Uri.encodeFull(
-            'https://skylineportal.com/moappad/api/test/admissionForm'),
+        Uri.parse('https://skylineportal.com/moappad/api/test/admissionForm'),
         headers: {
           "API-KEY": API,
         },
