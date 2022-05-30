@@ -35,6 +35,8 @@ bool isValidat = true;
 List aptitudeJson = [];
 Map aptitudeIDJson = {};
 
+List questionsJson = [];
+
 bool loggedin = false;
 
 bool newVersion = false;

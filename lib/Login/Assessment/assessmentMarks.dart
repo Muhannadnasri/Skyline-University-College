@@ -181,7 +181,7 @@ class _AssessmentMarksState extends State<AssessmentMarks> {
                 ),
               ),
               actions: <Widget>[
-                new FlatButton(
+                FlatButton(
                   onPressed: () {
                     Navigator.pop(context);
                     getStudentAssessmentMarks();

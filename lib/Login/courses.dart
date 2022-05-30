@@ -51,7 +51,7 @@ class _CoursesState extends State<Courses> with TickerProviderStateMixin {
       //               new EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
       //           height: 44,
       //           width: 44,
-      //           child: FlatButton(
+      //           child: TextButton(
       //             padding: EdgeInsets.all(0),
       //             color: Colors.white.withOpacity(0.3),
       //             child: Icon(Icons.menu, color: Colors.white),

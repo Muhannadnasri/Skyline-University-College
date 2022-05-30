@@ -1,33 +1,33 @@
 PODS:
   - esys_flutter_share (0.0.1):
     - Flutter
-  - Firebase/CoreOnly (8.11.0):
-    - FirebaseCore (= 8.11.0)
-  - Firebase/Messaging (8.11.0):
+  - Firebase/CoreOnly (8.15.0):
+    - FirebaseCore (= 8.15.0)
+  - Firebase/Messaging (8.15.0):
     - Firebase/CoreOnly
-    - FirebaseMessaging (~> 8.11.0)
-  - firebase_core (1.12.0):
-    - Firebase/CoreOnly (= 8.11.0)
+    - FirebaseMessaging (~> 8.15.0)
+  - firebase_core (1.17.0):
+    - Firebase/CoreOnly (= 8.15.0)
     - Flutter
-  - firebase_messaging (11.2.6):
-    - Firebase/Messaging (= 8.11.0)
+  - firebase_messaging (11.4.0):
+    - Firebase/Messaging (= 8.15.0)
     - firebase_core
     - Flutter
-  - FirebaseCore (8.11.0):
+  - FirebaseCore (8.15.0):
     - FirebaseCoreDiagnostics (~> 8.0)
     - GoogleUtilities/Environment (~> 7.7)
     - GoogleUtilities/Logger (~> 7.7)
-  - FirebaseCoreDiagnostics (8.11.0):
+  - FirebaseCoreDiagnostics (8.15.0):
     - GoogleDataTransport (~> 9.1)
     - GoogleUtilities/Environment (~> 7.7)
     - GoogleUtilities/Logger (~> 7.7)
     - nanopb (~> 2.30908.0)
-  - FirebaseInstallations (8.11.0):
+  - FirebaseInstallations (8.15.0):
     - FirebaseCore (~> 8.0)
     - GoogleUtilities/Environment (~> 7.7)
     - GoogleUtilities/UserDefaults (~> 7.7)
     - PromisesObjC (< 3.0, >= 1.2)
-  - FirebaseMessaging (8.11.0):
+  - FirebaseMessaging (8.15.0):
     - FirebaseCore (~> 8.0)
     - FirebaseInstallations (~> 8.0)
     - GoogleDataTransport (~> 9.1)
@@ -46,6 +46,8 @@ PODS:
   - flutter_inappwebview/Core (0.0.1):
     - Flutter
     - OrderedSet (~> 5.0)
+  - flutter_keyboard_visibility (0.0.1):
+    - Flutter
   - flutter_local_notifications (0.0.1):
     - Flutter
   - flutter_pay (0.0.1):
@@ -55,14 +57,14 @@ PODS:
   - google_maps_flutter (0.0.1):
     - Flutter
     - GoogleMaps
-  - GoogleDataTransport (9.1.2):
-    - GoogleUtilities/Environment (~> 7.2)
-    - nanopb (~> 2.30908.0)
+  - GoogleDataTransport (9.1.4):
+    - GoogleUtilities/Environment (~> 7.7)
+    - nanopb (< 2.30910.0, >= 2.30908.0)
     - PromisesObjC (< 3.0, >= 1.2)
-  - GoogleMaps (6.0.1):
-    - GoogleMaps/Maps (= 6.0.1)
-  - GoogleMaps/Base (6.0.1)
-  - GoogleMaps/Maps (6.0.1):
+  - GoogleMaps (6.2.1):
+    - GoogleMaps/Maps (= 6.2.1)
+  - GoogleMaps/Base (6.2.1)
+  - GoogleMaps/Maps (6.2.1):
     - GoogleMaps/Base
   - GoogleUtilities/AppDelegateSwizzler (7.7.0):
     - GoogleUtilities/Environment
@@ -93,8 +95,8 @@ PODS:
     - Flutter
   - pdf_viewer_plugin (0.0.1):
     - Flutter
-  - PromisesObjC (2.0.0)
-  - quick_actions (0.0.1):
+  - PromisesObjC (2.1.0)
+  - quick_actions_ios (0.0.1):
     - Flutter
   - shared_preferences_ios (0.0.1):
     - Flutter
@@ -102,7 +104,7 @@ PODS:
     - Flutter
   - url_launcher_ios (0.0.1):
     - Flutter
-  - video_player (0.0.1):
+  - video_player_avfoundation (0.0.1):
     - Flutter
   - wakelock (0.0.1):
     - Flutter
@@ -116,6 +118,7 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_dynamic_icon (from `.symlinks/plugins/flutter_dynamic_icon/ios`)
   - flutter_inappwebview (from `.symlinks/plugins/flutter_inappwebview/ios`)
+  - flutter_keyboard_visibility (from `.symlinks/plugins/flutter_keyboard_visibility/ios`)
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - flutter_pay (from `.symlinks/plugins/flutter_pay/ios`)
   - flutter_webview_plugin (from `.symlinks/plugins/flutter_webview_plugin/ios`)
@@ -123,11 +126,11 @@ DEPENDENCIES:
   - local_auth (from `.symlinks/plugins/local_auth/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - pdf_viewer_plugin (from `.symlinks/plugins/pdf_viewer_plugin/ios`)
-  - quick_actions (from `.symlinks/plugins/quick_actions/ios`)
+  - quick_actions_ios (from `.symlinks/plugins/quick_actions_ios/ios`)
   - shared_preferences_ios (from `.symlinks/plugins/shared_preferences_ios/ios`)
   - syncfusion_flutter_pdfviewer (from `.symlinks/plugins/syncfusion_flutter_pdfviewer/ios`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
-  - video_player (from `.symlinks/plugins/video_player/ios`)
+  - video_player_avfoundation (from `.symlinks/plugins/video_player_avfoundation/ios`)
   - wakelock (from `.symlinks/plugins/wakelock/ios`)
   - webview_flutter_wkwebview (from `.symlinks/plugins/webview_flutter_wkwebview/ios`)
 
@@ -158,6 +161,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_dynamic_icon/ios"
   flutter_inappwebview:
     :path: ".symlinks/plugins/flutter_inappwebview/ios"
+  flutter_keyboard_visibility:
+    :path: ".symlinks/plugins/flutter_keyboard_visibility/ios"
   flutter_local_notifications:
     :path: ".symlinks/plugins/flutter_local_notifications/ios"
   flutter_pay:
@@ -172,16 +177,16 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/path_provider/ios"
   pdf_viewer_plugin:
     :path: ".symlinks/plugins/pdf_viewer_plugin/ios"
-  quick_actions:
-    :path: ".symlinks/plugins/quick_actions/ios"
+  quick_actions_ios:
+    :path: ".symlinks/plugins/quick_actions_ios/ios"
   shared_preferences_ios:
     :path: ".symlinks/plugins/shared_preferences_ios/ios"
   syncfusion_flutter_pdfviewer:
     :path: ".symlinks/plugins/syncfusion_flutter_pdfviewer/ios"
   url_launcher_ios:
     :path: ".symlinks/plugins/url_launcher_ios/ios"
-  video_player:
-    :path: ".symlinks/plugins/video_player/ios"
+  video_player_avfoundation:
+    :path: ".symlinks/plugins/video_player_avfoundation/ios"
   wakelock:
     :path: ".symlinks/plugins/wakelock/ios"
   webview_flutter_wkwebview:
@@ -189,37 +194,38 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   esys_flutter_share: 403498dab005b36ce1f8d7aff377e81f0621b0b4
-  Firebase: 44dd9724c84df18b486639e874f31436eaa9a20c
-  firebase_core: 443bccfd6aa6b42f07be365b500773dc69db2d87
-  firebase_messaging: 8dc3a6f069774a0bf4dac04dd79fdaffcb62e145
-  FirebaseCore: 2f4f85b453cc8fea4bb2b37e370007d2bcafe3f0
-  FirebaseCoreDiagnostics: 64d9709d804a6c25bd77841371c1fcfd909d5601
-  FirebaseInstallations: 044eede8a049bce71c4541ee68d6e4364fcbe774
-  FirebaseMessaging: 02e248e8997f71fa8cc9d78e9d49ec1a701ba14a
+  Firebase: 5f8193dff4b5b7c5d5ef72ae54bb76c08e2b841d
+  firebase_core: aa1b92020533f5c23955e388c347c58fd64f8627
+  firebase_messaging: 8957bf304b47daf8bf12d0b111fdecc5b33e77a3
+  FirebaseCore: 5743c5785c074a794d35f2fff7ecc254a91e08b1
+  FirebaseCoreDiagnostics: 92e07a649aeb66352b319d43bdd2ee3942af84cb
+  FirebaseInstallations: 40bd9054049b2eae9a2c38ef1c3dd213df3605cd
+  FirebaseMessaging: 5e5118a2383b3531e730d974680954c679ca0a13
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
   flutter_dynamic_icon: fb0cd2f84c817c1a0ddbbc383fbebec3cd5e88d8
   flutter_inappwebview: bfd58618f49dc62f2676de690fc6dcda1d6c3721
+  flutter_keyboard_visibility: 0339d06371254c3eb25eeb90ba8d17dca8f9c069
   flutter_local_notifications: 0c0b1ae97e741e1521e4c1629a459d04b9aec743
   flutter_pay: b9fda1c5be6ddc7af769f26553e9c648fc551263
   flutter_webview_plugin: ed9e8a6a96baf0c867e90e1bce2673913eeac694
-  google_maps_flutter: abdb8dee6c52d4be36ad131ee6ebfacd14417c5a
-  GoogleDataTransport: 629c20a4d363167143f30ea78320d5a7eb8bd940
-  GoogleMaps: c213fc2334b7374144cede914da779b99be0ab74
+  google_maps_flutter: c59fc576c0d0c7f4dc4bd63832c862d22d5a7c6d
+  GoogleDataTransport: 5fffe35792f8b96ec8d6775f5eccd83c998d5a3b
+  GoogleMaps: 20d7b12be49a14287f797e88e0e31bc4156aaeb4
   GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
-  local_auth: ef62030a2731330b95df7ef1331bd15f6a64b8a6
+  local_auth: 1740f55d7af0a2e2a8684ce225fe79d8931e808c
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   OrderedSet: aaeb196f7fef5a9edf55d89760da9176ad40b93c
   path_provider: f96fff6166a8867510d2c25fdcc346327cc4b259
   pdf_viewer_plugin: 45fc2233c590780ca0ca623a1f575e4bd0a72b3a
-  PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
-  quick_actions: cd83314083fa994182e6cd9e7516167a215a4f83
-  shared_preferences_ios: aef470a42dc4675a1cdd50e3158b42e3d1232b32
+  PromisesObjC: 99b6f43f9e1044bd87a95a60beff28c2c44ddb72
+  quick_actions_ios: 622e9076602c57f1f937f1c13e5c59c3379347e9
+  shared_preferences_ios: 548a61f8053b9b8a49ac19c1ffbc8b92c50d68ad
   syncfusion_flutter_pdfviewer: bb9998884b864cfedf72628df3503bdf57e397c0
-  url_launcher_ios: 02f1989d4e14e998335b02b67a7590fa34f971af
-  video_player: 7e9dad9437c238a97648819f6dd443c8854cf0c7
+  url_launcher_ios: 839c58cdb4279282219f5e248c3321761ff3c4de
+  video_player_avfoundation: e489aac24ef5cf7af82702979ed16f2a5ef84cff
   wakelock: d0fc7c864128eac40eba1617cb5264d9c940b46f
-  webview_flutter_wkwebview: 005fbd90c888a42c5690919a1527ecc6649e1162
+  webview_flutter_wkwebview: b7e70ef1ddded7e69c796c7390ee74180182971f
 
 PODFILE CHECKSUM: 04497cb8886d24b58fdd741bb008f233935e54e2
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3

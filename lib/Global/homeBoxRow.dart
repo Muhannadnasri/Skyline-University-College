@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'global.dart';
 
-Widget homeBox(
+Widget homeBoxRow(
   BuildContext context,
   darkModeImage,
   whiteModeImage,
@@ -23,11 +23,11 @@ Widget homeBox(
                 BoxShadow(
                   color: isDark(context) ? Color(0xFF121212) : Colors.grey[500],
 
-                  blurRadius: 6.0, // has the effect of softening the shadow
+                  blurRadius: 10.0, // has the effect of softening the shadow
                   spreadRadius: 1, // has the effect of extending the shadow
                   offset: Offset(
-                    5.0, // horizontal, move right 10
-                    5.0, // vertical, move down 10
+                    2.0, // horizontal, move right 10
+                    2.0, // vertical, move down 10
                   ),
                 )
               ],

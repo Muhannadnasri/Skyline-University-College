@@ -12,10 +12,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'home.dart';
 
 class LoginApp extends StatefulWidget {
-  LoginApp({Key key, this.title}) : super(key: key);
+  LoginApp({Key key, this.title, this.destination}) : super(key: key);
 
   final String title;
-
+  final String destination;
   @override
   _LoginAppState createState() => _LoginAppState();
 }
@@ -283,52 +283,132 @@ class _LoginAppState extends State<LoginApp> {
         //     }
         // }
 
-        if (studentJson['success'] == "1") {
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          prefs.setString('username', username);
-          prefs.setString('password', password);
-          loggedin = true;
-          showLoading(false, context);
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (BuildContext context) => HomeLogin()),
-              (Route<dynamic> route) => false);
-        } else if (studentJson['message'] == "Invalid user credentials..!") {
-          username = '';
-          password = '';
-          loggedin = false;
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          prefs.setString('username', username);
-          prefs.setString('password', password);
-          showLoading(false, context);
-          final snackBar =
-              SnackBar(content: Text('Invalid user credentials..!'));
-          _scaffoldKey.currentState.showSnackBar(snackBar);
+        if (widget.destination == null) {
+          if (studentJson['success'] == "1") {
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            prefs.setString('username', username);
+            prefs.setString('password', password);
+            loggedin = true;
+            showLoading(false, context);
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => HomeLogin()),
+                (Route<dynamic> route) => false);
+          } else if (studentJson['message'] == "Invalid user credentials..!") {
+            username = '';
+            password = '';
+            loggedin = false;
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            prefs.setString('username', username);
+            prefs.setString('password', password);
+            showLoading(false, context);
 
-          studentJson = {};
-        } else if (studentJson['message'] == "User info not available...") {
-          username = '';
-          password = '';
-          loggedin = false;
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          prefs.setString('username', username);
-          prefs.setString('password', password);
-          showLoading(false, context);
-          final snackBar =
-              SnackBar(content: Text('User info not available...'));
-          _scaffoldKey.currentState.showSnackBar(snackBar);
+            ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Invalid user credentials..!')));
 
-          studentJson = {};
+            studentJson = {};
+          } else if (studentJson['message'] == "User info not available...") {
+            username = '';
+            password = '';
+            loggedin = false;
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            prefs.setString('username', username);
+            prefs.setString('password', password);
+            showLoading(false, context);
+
+            ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('User info not available...')));
+
+            studentJson = {};
+          }
+        } else {
+          if (studentJson['success'] == "1") {
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            prefs.setString('username', username);
+            prefs.setString('password', password);
+            loggedin = true;
+            showLoading(false, context);
+            print(widget.destination);
+
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => HomeLogin()),
+                (Route<dynamic> route) => false);
+          } else if (studentJson['message'] == "Invalid user credentials..!") {
+            username = '';
+            password = '';
+            loggedin = false;
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            prefs.setString('username', username);
+            prefs.setString('password', password);
+            showLoading(false, context);
+
+            ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Invalid user credentials..!')));
+
+            studentJson = {};
+          } else if (studentJson['message'] == "User info not available...") {
+            username = '';
+            password = '';
+            loggedin = false;
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            prefs.setString('username', username);
+            prefs.setString('password', password);
+            showLoading(false, context);
+
+            ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('User info not available...')));
+
+            studentJson = {};
+          }
         }
+
+        // if (studentJson['success'] == "1") {
+        //   SharedPreferences prefs = await SharedPreferences.getInstance();
+        //   prefs.setString('username', username);
+        //   prefs.setString('password', password);
+        //   loggedin = true;
+        //   showLoading(false, context);
+        //   Navigator.pushAndRemoveUntil(
+        //       context,
+        //       MaterialPageRoute(builder: (BuildContext context) => HomeLogin()),
+        //       (Route<dynamic> route) => false);
+        // } else if (studentJson['message'] == "Invalid user credentials..!") {
+        //   username = '';
+        //   password = '';
+        //   loggedin = false;
+        //   SharedPreferences prefs = await SharedPreferences.getInstance();
+        //   prefs.setString('username', username);
+        //   prefs.setString('password', password);
+        //   showLoading(false, context);
+
+        //   ScaffoldMessenger.of(context).showSnackBar(
+        //       SnackBar(content: Text('Invalid user credentials..!')));
+
+        //   studentJson = {};
+        // } else if (studentJson['message'] == "User info not available...") {
+        //   username = '';
+        //   password = '';
+        //   loggedin = false;
+        //   SharedPreferences prefs = await SharedPreferences.getInstance();
+        //   prefs.setString('username', username);
+        //   prefs.setString('password', password);
+        //   showLoading(false, context);
+
+        //   ScaffoldMessenger.of(context).showSnackBar(
+        //       SnackBar(content: Text('User info not available...')));
+
+        //   studentJson = {};
+        // }
       }
     } catch (x) {
-      print(x);
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
         showError("Time out from server", FontAwesomeIcons.hourglassHalf,
             context, logIn);
       } else {
-        print(x);
         showLoading(false, context);
         // showError(
         //     "Sorry, we can't connect", Icons.perm_scan_wifi, context, logIn);
@@ -357,26 +437,63 @@ class _LoginAppState extends State<LoginApp> {
           studentJson = json.decode(response.body);
         });
 
-        if (studentJson["success"] == "1") {
-          print(studentJson['user_id']);
-          loggedin = true;
-          showLoading(false, context);
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (BuildContext context) => HomeLogin()),
-              (Route<dynamic> route) => false);
-        } else if (studentJson["success"] == "0") {
-          username = '';
-          password = '';
-          loggedin = false;
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          prefs.setString('username', username);
-          prefs.setString('password', password);
-          showLoading(false, context);
+        if (widget.destination == null) {
+          if (studentJson["success"] == "1") {
+            loggedin = true;
+            showLoading(false, context);
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => HomeLogin()),
+                (Route<dynamic> route) => false);
+          } else if (studentJson["success"] == "0") {
+            username = '';
+            password = '';
+            loggedin = false;
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            prefs.setString('username', username);
+            prefs.setString('password', password);
+            showLoading(false, context);
+          }
+        } else {
+          if (studentJson["success"] == "1") {
+            loggedin = true;
+            showLoading(false, context);
+            print(widget.destination);
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => HomeLogin()),
+                (Route<dynamic> route) => false);
+          } else if (studentJson["success"] == "0") {
+            username = '';
+            password = '';
+            loggedin = false;
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            prefs.setString('username', username);
+            prefs.setString('password', password);
+            showLoading(false, context);
+          }
         }
+
+        // if (studentJson["success"] == "1") {
+        //   loggedin = true;
+        //   showLoading(false, context);
+        //   Navigator.pushAndRemoveUntil(
+        //       context,
+        //       MaterialPageRoute(builder: (BuildContext context) => HomeLogin()),
+        //       (Route<dynamic> route) => false);
+        // } else if (studentJson["success"] == "0") {
+        //   username = '';
+        //   password = '';
+        //   loggedin = false;
+        //   SharedPreferences prefs = await SharedPreferences.getInstance();
+        //   prefs.setString('username', username);
+        //   prefs.setString('password', password);
+        //   showLoading(false, context);
+        // }
       }
     } catch (x) {
-      print(x);
       if (x.toString().contains("TimeoutException")) {
         showLoading(false, context);
 
@@ -407,7 +524,6 @@ class _LoginAppState extends State<LoginApp> {
             stickyAuth: true,
             sensitiveTransaction: true);
 
-        print(didAuthenticate);
         if (didAuthenticate) {
           setState(() {
             qLogin();

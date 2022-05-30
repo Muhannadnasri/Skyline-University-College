@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 import 'Global/global.dart';
@@ -148,7 +149,7 @@ class MyAppState extends State<MyApp> {
         routes: {
           '/': (context) => Home(),
           '/LoginPage': (context) => LoginApp(),
-          '/loginFees': (context) => LoginFees(),
+          // '/loginFees': (context) => LoginFees(),
 
           '/Location': (context) => Location(),
           '/HomeInfo': (context) => HomeInfo(),
