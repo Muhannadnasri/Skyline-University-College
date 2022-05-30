@@ -44,7 +44,7 @@ List<ProductModel> productData = [
     rating: 5,
     review: 16,
     sale: 37,
-    // location: 'Brooklyn'
+    location: 'assessmentMarkCourses'
   ),
   ProductModel(
     id: 3,

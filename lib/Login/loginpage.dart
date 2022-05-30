@@ -329,13 +329,8 @@ class _LoginAppState extends State<LoginApp> {
             prefs.setString('password', password);
             loggedin = true;
             showLoading(false, context);
-            print(widget.destination);
 
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) => HomeLogin()),
-                (Route<dynamic> route) => false);
+            Navigator.of(context).pushNamed('/' + widget.destination);
           } else if (studentJson['message'] == "Invalid user credentials..!") {
             username = '';
             password = '';
@@ -459,12 +454,13 @@ class _LoginAppState extends State<LoginApp> {
           if (studentJson["success"] == "1") {
             loggedin = true;
             showLoading(false, context);
-            print(widget.destination);
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) => HomeLogin()),
-                (Route<dynamic> route) => false);
+
+            Navigator.of(context).pushNamed('/' + widget.destination);
+            // Navigator.pushAndRemoveUntil(
+            //     context,
+            //     MaterialPageRoute(
+            //         builder: (BuildContext context) => HomeLogin()),
+            //     (Route<dynamic> route) => false);
           } else if (studentJson["success"] == "0") {
             username = '';
             password = '';

@@ -4,7 +4,7 @@ import 'package:skyline_university/Global/appBarLoginImage.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/rowSection.dart';
 
-void main() => runApp(HomeERequest());
+void main() => runApp(HomeRequest());
 
 class Item {
   final name;
@@ -13,14 +13,14 @@ class Item {
   Item(this.name, this.clipType);
 }
 
-class HomeERequest extends StatefulWidget {
+class HomeRequest extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _HomeERequestState();
+    return _HomeRequestState();
   }
 }
 
-class _HomeERequestState extends State<HomeERequest> {
+class _HomeRequestState extends State<HomeRequest> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
   @override
@@ -40,21 +40,32 @@ class _HomeERequestState extends State<HomeERequest> {
                     ),
                     Column(
                       children: <Widget>[
-                        //TODO:Backup
-                        // rowSection(
-                        //     context,
-                        //     'images/orequest.png',
-                        //     'images-white/orequest.png',
-                        //     'Online Request',
-                        //     "/onlineRequest"),
-//
+                        rowSection(
+                            context,
+                            'images/orequest.png',
+                            'images-white/orequest.png',
+                            'Change Major',
+                            "/onlineRequest"),
+
+                        rowSection(context, 'images/orequest.png', 'images-white/orequest.png', 'Online Request', "/onlineRequest"),
                         rowSection(
                             context,
                             'images/orequest.png',
                             'images-white/orequest.png',
                             'Online Request',
-                            "/homeOnlineRequest"),
-
+                            "/onlineRequest"),
+                        rowSection(
+                            context,
+                            'images/orequest.png',
+                            'images-white/orequest.png',
+                            'Online Request',
+                            "/onlineRequest"),
+                        rowSection(
+                            context,
+                            'images/orequest.png',
+                            'images-white/orequest.png',
+                            'Online Request',
+                            "/onlineRequest"),
                         // rowSection(
                         //     context,
                         //     'images/orequest.png',

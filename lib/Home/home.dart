@@ -22,6 +22,7 @@ import '../widgets/auto_complete_navigation.dart';
 
 import '../widgets/global_function.dart';
 import '../widgets/global_widget.dart';
+import '../widgets/pcr/pcr_screen.dart';
 import '../widgets/product_model.dart';
 
 void main() => runApp(Home());
@@ -164,12 +165,19 @@ class _HomeState extends State<Home> {
             setState(() {
               // Get.to(QuizScreen()
               // QuizScreen
+
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => QuizScreen(),
+                  builder: (context) => PcrScreen(),
                 ),
               );
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => QuizScreen(),
+              //   ),
+              // );
             });
           }),
           key: _scaffoldKey,

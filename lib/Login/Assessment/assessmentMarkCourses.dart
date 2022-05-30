@@ -35,8 +35,7 @@ class _AssessmentMarkCoursesState extends State<AssessmentMarkCourses> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: appBarLogin(context, 'Assessment Courses'),
-        body: assessmentMarkCoursesJson == null ||
-                assessmentMarkCoursesJson.isEmpty
+        body: assessmentMarkCoursesJson == null 
             ? exception(context, isLoading)
             : Container(
                 child: ListView.builder(

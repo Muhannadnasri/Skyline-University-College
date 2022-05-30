@@ -331,7 +331,7 @@ class _DropListState extends State<DropList> {
           title = 'NationalityName';
         }
         break;
-      case 'program':
+      case 'Program':
         {
           title = 'DegreeType_Desc';
         }
@@ -444,9 +444,9 @@ class _DropListState extends State<DropList> {
                   fileJson = json.decode(response.body)['data']['countries'];
                 }
                 break;
-              case 'program':
+              case 'Program':
                 {
-                  fileJson = json.decode(response.body)['data']['program'];
+                  fileJson = json.decode(response.body)['data']['programs'];
                 }
                 break;
               case 'suggestions':

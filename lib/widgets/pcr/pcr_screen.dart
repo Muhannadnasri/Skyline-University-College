@@ -1,19 +1,21 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:new_gradient_app_bar/new_gradient_app_bar.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../Global/global.dart';
 
-class QuizScreen extends StatefulWidget {
+class PcrScreen extends StatefulWidget {
   @override
-  _QuizScreenState createState() => _QuizScreenState();
+  _PcrScreenState createState() => _PcrScreenState();
 }
 
-class _QuizScreenState extends State<QuizScreen> {
+class _PcrScreenState extends State<PcrScreen> {
   bool loading = true;
   bool sendError = false;
 
@@ -38,6 +40,25 @@ class _QuizScreenState extends State<QuizScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        setState(() {
+          // Get.to(QuizScreen()
+          // QuizScreen
+          launchURL('itms-apps://itunes.apple.com/app/id1505380329');
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(
+          //     builder: (context) => PcrScreen(),
+          //   ),
+          // );
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(
+          //     builder: (context) => QuizScreen(),
+          //   ),
+          // );
+        });
+      }),
       bottomNavigationBar: isDone || loading
           ? null
           : BottomAppBar(
@@ -150,159 +171,159 @@ class _QuizScreenState extends State<QuizScreen> {
             )
           : Column(
               children: <Widget>[
-                Card(
-                  child: new Column(
-                    children: <Widget>[
-                      new ListTile(
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                        title: Padding(
-                          padding: const EdgeInsets.only(right: 30.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Text(
-                                    'Faculty Name:',
-                                    style: TextStyle(fontSize: 12),
-                                  ),
-                                  Text(
-                                    'Null',
-                                    style: TextStyle(fontSize: 12),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Text(
-                                    'Course Name:',
-                                    style: TextStyle(fontSize: 12),
-                                  ),
-                                  Text(
-                                    'Null',
-                                    style: TextStyle(fontSize: 12),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Text(
-                                    'Batch Code:',
-                                    style: TextStyle(fontSize: 12),
-                                  ),
-                                  Text(
-                                    'Null',
-                                    style: TextStyle(fontSize: 12),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Text(
-                                    'Semester ID:',
-                                    style: TextStyle(fontSize: 12),
-                                  ),
-                                  Text(
-                                    'Null',
-                                    style: TextStyle(fontSize: 12),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        subtitle: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Column(
-                                children: [
-                                  Icon(
-                                    Icons.sentiment_very_satisfied,
-                                    color: Colors.green,
-                                  ),
-                                  Text(
-                                    'Strongly Agree',
-                                    style: TextStyle(fontSize: 12),
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  Icon(
-                                    Icons.sentiment_satisfied,
-                                    color: Colors.lightGreen,
-                                  ),
-                                  Text(
-                                    'Agree',
-                                    style: TextStyle(fontSize: 12),
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  Icon(
-                                    Icons.sentiment_neutral,
-                                    color: Colors.amber,
-                                  ),
-                                  Text(
-                                    'Neutral',
-                                    style: TextStyle(fontSize: 12),
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  Icon(
-                                    Icons.sentiment_dissatisfied,
-                                    color: Colors.redAccent,
-                                  ),
-                                  Text(
-                                    'Disagree',
-                                    style: TextStyle(fontSize: 12),
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  Icon(
-                                    Icons.sentiment_very_dissatisfied,
-                                    color: Colors.red,
-                                  ),
-                                  Text(
-                                    'Strongly Disagree',
-                                    style: TextStyle(fontSize: 12),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                // Card(
+                //   child: new Column(
+                //     children: <Widget>[
+                //       new ListTile(
+                //         contentPadding:
+                //             EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                //         title: Padding(
+                //           padding: const EdgeInsets.only(right: 30.0),
+                //           child: Column(
+                //             crossAxisAlignment: CrossAxisAlignment.center,
+                //             mainAxisAlignment: MainAxisAlignment.end,
+                //             children: [
+                //               Row(
+                //                 mainAxisAlignment:
+                //                     MainAxisAlignment.spaceAround,
+                //                 children: [
+                //                   Text(
+                //                     'Faculty Name:',
+                //                     style: TextStyle(fontSize: 12),
+                //                   ),
+                //                   Text(
+                //                     'Null',
+                //                     style: TextStyle(fontSize: 12),
+                //                   ),
+                //                 ],
+                //               ),
+                //               SizedBox(
+                //                 height: 10,
+                //               ),
+                //               Row(
+                //                 mainAxisAlignment:
+                //                     MainAxisAlignment.spaceAround,
+                //                 children: [
+                //                   Text(
+                //                     'Course Name:',
+                //                     style: TextStyle(fontSize: 12),
+                //                   ),
+                //                   Text(
+                //                     'Null',
+                //                     style: TextStyle(fontSize: 12),
+                //                   ),
+                //                 ],
+                //               ),
+                //               SizedBox(
+                //                 height: 10,
+                //               ),
+                //               Row(
+                //                 mainAxisAlignment:
+                //                     MainAxisAlignment.spaceAround,
+                //                 children: [
+                //                   Text(
+                //                     'Batch Code:',
+                //                     style: TextStyle(fontSize: 12),
+                //                   ),
+                //                   Text(
+                //                     'Null',
+                //                     style: TextStyle(fontSize: 12),
+                //                   ),
+                //                 ],
+                //               ),
+                //               SizedBox(
+                //                 height: 10,
+                //               ),
+                //               Row(
+                //                 mainAxisAlignment:
+                //                     MainAxisAlignment.spaceAround,
+                //                 children: [
+                //                   Text(
+                //                     'Semester ID:',
+                //                     style: TextStyle(fontSize: 12),
+                //                   ),
+                //                   Text(
+                //                     'Null',
+                //                     style: TextStyle(fontSize: 12),
+                //                   ),
+                //                 ],
+                //               ),
+                //             ],
+                //           ),
+                //         ),
+                //         subtitle: Padding(
+                //           padding: const EdgeInsets.all(8.0),
+                //           child: Row(
+                //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //             crossAxisAlignment: CrossAxisAlignment.center,
+                //             children: [
+                //               Column(
+                //                 children: [
+                //                   Icon(
+                //                     Icons.sentiment_very_satisfied,
+                //                     color: Colors.green,
+                //                   ),
+                //                   Text(
+                //                     'Strongly Agree',
+                //                     style: TextStyle(fontSize: 12),
+                //                   ),
+                //                 ],
+                //               ),
+                //               Column(
+                //                 children: [
+                //                   Icon(
+                //                     Icons.sentiment_satisfied,
+                //                     color: Colors.lightGreen,
+                //                   ),
+                //                   Text(
+                //                     'Agree',
+                //                     style: TextStyle(fontSize: 12),
+                //                   ),
+                //                 ],
+                //               ),
+                //               Column(
+                //                 children: [
+                //                   Icon(
+                //                     Icons.sentiment_neutral,
+                //                     color: Colors.amber,
+                //                   ),
+                //                   Text(
+                //                     'Neutral',
+                //                     style: TextStyle(fontSize: 12),
+                //                   ),
+                //                 ],
+                //               ),
+                //               Column(
+                //                 children: [
+                //                   Icon(
+                //                     Icons.sentiment_dissatisfied,
+                //                     color: Colors.redAccent,
+                //                   ),
+                //                   Text(
+                //                     'Disagree',
+                //                     style: TextStyle(fontSize: 12),
+                //                   ),
+                //                 ],
+                //               ),
+                //               Column(
+                //                 children: [
+                //                   Icon(
+                //                     Icons.sentiment_very_dissatisfied,
+                //                     color: Colors.red,
+                //                   ),
+                //                   Text(
+                //                     'Strongly Disagree',
+                //                     style: TextStyle(fontSize: 12),
+                //                   ),
+                //                 ],
+                //               ),
+                //             ],
+                //           ),
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
                 Expanded(
                   child: ListView.builder(
                       itemCount: testJson.length,
@@ -329,10 +350,10 @@ class _QuizScreenState extends State<QuizScreen> {
                                 padding:
                                     const EdgeInsets.only(right: 30.0, top: 20),
                                 child: new Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: getAnswers(answersx, index)),
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: getAnswers(answersx, index),
+                                ),
                               ),
                             )
                           ],
@@ -345,7 +366,9 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 
   List<Widget> getAnswers(answers, question) {
-    List<Widget> finalAnswers = [];
+    // List<String, Double> finalAnswers = [];
+    List finalAnswers = [];
+
     var i = 0;
     // for (var item in answers) {
     finalAnswers.add(
@@ -386,7 +409,11 @@ class _QuizScreenState extends State<QuizScreen> {
           }
         },
         onRatingUpdate: (rating) {
-          // print(rating);
+          print('question' + ' ' + question.toString());
+
+          print('rating' + ' ' + rating.toString());
+
+          // finalAnswers.add(question, rating);
           updateAnswer(question, rating.toInt());
         },
       ),
@@ -508,6 +535,14 @@ class _QuizScreenState extends State<QuizScreen> {
         showError(
             "Sorry, we can't connect", Icons.perm_scan_wifi, context, sendTest);
       }
+    }
+  }
+
+  launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
     }
   }
 }

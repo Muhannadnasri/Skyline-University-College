@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:skyline_university/Global/appBar.dart';
 import 'package:skyline_university/Global/bottomAppBar.dart';
 import 'package:skyline_university/Global/customdropdown.dart';
@@ -119,23 +120,81 @@ class _AdmissionFormState extends State<AdmissionForm> {
                           'Email',
                           TextInputType.emailAddress,
                         ),
-                        globalForms(
-                          context,
-                          '',
-                          (String value) {
-                            if (value.trim().isEmpty) {
-                              return 'Mobile is requiblue';
-                            }
-                            return null;
-                          },
-                          (x) {
-                            setState(() {
-                              mobile = x;
-                            });
-                          },
-                          'Mobile',
-                          TextInputType.number,
+
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              'Mobile Number',
+                              style: TextStyle(
+                                color: isDark(context)
+                                    ? Colors.white
+                                    : Colors.black,
+                              ),
+                            ),
+                            IntlPhoneField(
+                              // onChanged: (phone) {
+                              //   setState(() {
+                              //     mobile = phone.completeNumber;
+                              //     print(phone.completeNumber);
+                              //   });
+                              //   // print(phone.completeNumber);
+                              // },
+                              // textInputAction: TextInputAction.next,
+                              initialValue: '',
+                              initialCountryCode: 'AE',
+                              // onChanged: onSaveds,
+                              onSaved: (phone) {
+                                setState(() {
+                                  mobile = phone.completeNumber;
+                                });
+                              },
+                              validator: (phone) {
+                                if (phone.completeNumber.trim().isEmpty) {
+                                  return 'Mobile is requiblue';
+                                }
+                                return null;
+                              },
+                              keyboardType: TextInputType.number,
+                              // textCapitalization: TextCapitalization.words,
+                              style: TextStyle(
+                                  fontSize: 16.0,
+                                  color: isDark(context)
+                                      ? Colors.white
+                                      : Colors.black),
+                              decoration: new InputDecoration(
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: isDark(context)
+                                        ? Colors.white.withOpacity(0.2)
+                                        : Colors.black,
+                                  ),
+                                ),
+                                fillColor: Colors.green,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 25,
+                            ),
+                          ],
                         ),
+                        // globalForms(
+                        //   context,
+                        //   '',
+                        //   (String value) {
+                        //     if (value.trim().isEmpty) {
+                        //       return 'Mobile is requiblue';
+                        //     }
+                        //     return null;
+                        //   },
+                        //   (x) {
+                        //     setState(() {
+                        //       mobile = x;
+                        //     });
+                        //   },
+                        //   'Mobile',
+                        //   TextInputType.number,
+                        // ),
                         countryWidget(),
                         programWidget(),
                         knowWidget(),
