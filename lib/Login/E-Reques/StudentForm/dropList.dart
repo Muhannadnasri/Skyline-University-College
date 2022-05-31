@@ -12,11 +12,17 @@ import 'package:intl/intl.dart';
 class DropList extends StatefulWidget {
   final String type;
   final String empId;
+  final String programType;
   final String departmentID;
   final String selectedDate;
 
   const DropList(
-      {Key key, this.type, this.empId, this.departmentID, this.selectedDate})
+      {Key key,
+      this.type,
+      this.empId,
+      this.departmentID,
+      this.selectedDate,
+      this.programType})
       : super(key: key);
   @override
   _DropListState createState() => _DropListState();
@@ -200,7 +206,9 @@ class _DropListState extends State<DropList> {
         break;
       case 'Program':
         {
-          body = {};
+          body = {
+            'program_type': widget.programType,
+          };
         }
         break;
       default:
@@ -323,6 +331,11 @@ class _DropListState extends State<DropList> {
     }
 
     switch (widget.type) {
+      case 'School':
+        {
+          title = 'name';
+        }
+        break;
       case 'ShortProgram':
         {
           title = 'courseEn';
@@ -335,7 +348,7 @@ class _DropListState extends State<DropList> {
         break;
       case 'Program':
         {
-          title = 'program';
+          title = 'programEn';
         }
         break;
 
@@ -436,6 +449,15 @@ class _DropListState extends State<DropList> {
             // loading = false;
 
             switch (widget.type) {
+              case 'School':
+                {
+                  fileJson = [
+                    {"name": 'School of Business', "id": 1},
+                    {"name": 'The School of IT', "id": 2},
+                    {"name": 'CCL', "id": 3}
+                  ];
+                }
+                break;
               case 'ShortProgram':
                 {
                   fileJson = json.decode(response.body)['data'];

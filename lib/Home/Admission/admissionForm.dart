@@ -32,6 +32,10 @@ class _AdmissionFormState extends State<AdmissionForm> {
   var countryIDCnt = TextEditingController();
   var programNameCnt = TextEditingController();
   var programIDCnt = TextEditingController();
+
+  var schoolNameCnt = TextEditingController();
+  var schoolIDCnt = TextEditingController();
+
   var knowNameCnt = TextEditingController();
   Map admissionForm = {};
   String fullName = '';
@@ -56,6 +60,7 @@ class _AdmissionFormState extends State<AdmissionForm> {
           if (personalDetails.currentState.validate() &&
               countryNameCnt != null &&
               programNameCnt != null &&
+              schoolNameCnt != null &&
               knowNameCnt != null) {
             personalDetails.currentState.save();
             setState(() {
@@ -196,6 +201,7 @@ class _AdmissionFormState extends State<AdmissionForm> {
                         //   TextInputType.number,
                         // ),
                         countryWidget(),
+                        schoolWidget(),
                         programWidget(),
                         knowWidget(),
                       ],
@@ -254,6 +260,52 @@ class _AdmissionFormState extends State<AdmissionForm> {
     );
   }
 
+  Widget schoolWidget() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'School',
+          style:
+              TextStyle(color: isDark(context) ? Colors.white : Colors.black),
+        ),
+        GestureDetector(
+          onTap: () {
+            programNameCnt.text = '';
+            programIDCnt.text = '';
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DropList(
+                  type: 'School',
+                ),
+              ),
+            ).then((val) async {
+              setState(() {
+                schoolNameCnt.text = val['name'];
+                schoolIDCnt.text = val['id'].toString();
+              });
+            });
+          },
+          child: AbsorbPointer(
+            child: TextFormField(
+              validator: (x) => x.isEmpty ? "Please select School" : null,
+              onChanged: (x) {
+                setState(() {
+                  // isEditing = true;
+                });
+              },
+              controller: schoolNameCnt,
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 25,
+        ),
+      ],
+    );
+  }
+
   Widget programWidget() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -270,11 +322,12 @@ class _AdmissionFormState extends State<AdmissionForm> {
               MaterialPageRoute(
                 builder: (context) => DropList(
                   type: 'Program',
+                  programType: schoolIDCnt.text,
                 ),
               ),
             ).then((val) async {
               setState(() {
-                programNameCnt.text = val['program'];
+                programNameCnt.text = val['programEn'];
                 programIDCnt.text = val['id'].toString();
               });
             });
