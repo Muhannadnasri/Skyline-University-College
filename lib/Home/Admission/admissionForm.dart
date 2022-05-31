@@ -274,8 +274,8 @@ class _AdmissionFormState extends State<AdmissionForm> {
               ),
             ).then((val) async {
               setState(() {
-                programNameCnt.text = val['DegreeType_Desc'];
-                programIDCnt.text = val['DegreeType_Id'].toString();
+                programNameCnt.text = val['program'];
+                programIDCnt.text = val['id'].toString();
               });
             });
           },
