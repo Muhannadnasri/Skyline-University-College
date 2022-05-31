@@ -24,6 +24,7 @@ class DropList extends StatefulWidget {
 
 class _DropListState extends State<DropList> {
   var seachCnt = TextEditingController();
+
   String url = '';
   List itemsJson = [];
   List itemsToShow = [];
@@ -298,7 +299,8 @@ class _DropListState extends State<DropList> {
       case 'Program':
         {
           url =
-              'https://skylineportal.com/moappad/api/test/getAptitudeProgramAndNationality';
+              // 'https://skylineportal.com/moappad/api/test/getAptitudeProgramAndNationality';
+              'https://skylineportal.com/moappad/api/test/AdmissionPrograms';
         }
         break;
       case 'Country':
@@ -333,7 +335,7 @@ class _DropListState extends State<DropList> {
         break;
       case 'Program':
         {
-          title = 'DegreeType_Desc';
+          title = 'program';
         }
         break;
 
@@ -446,7 +448,7 @@ class _DropListState extends State<DropList> {
                 break;
               case 'Program':
                 {
-                  fileJson = json.decode(response.body)['data']['programs'];
+                  fileJson = json.decode(response.body)['data'];
                 }
                 break;
               case 'suggestions':
