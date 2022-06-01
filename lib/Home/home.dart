@@ -161,25 +161,25 @@ class _HomeState extends State<Home> {
       child: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: Scaffold(
-          floatingActionButton: FloatingActionButton(onPressed: () {
-            setState(() {
-              // Get.to(QuizScreen()
-              // QuizScreen
+          // floatingActionButton: FloatingActionButton(onPressed: () {
+          //   setState(() {
+          //     // Get.to(QuizScreen()
+          //     // QuizScreen
 
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => PcrScreen(),
-                ),
-              );
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => QuizScreen(),
-              //   ),
-              // );
-            });
-          }),
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(
+          //         builder: (context) => PcrScreen(),
+          //       ),
+          //     );
+          //     // Navigator.push(
+          //     //   context,
+          //     //   MaterialPageRoute(
+          //     //     builder: (context) => QuizScreen(),
+          //     //   ),
+          //     // );
+          //   });
+          // }),
           key: _scaffoldKey,
 
           body: CustomScrollView(
