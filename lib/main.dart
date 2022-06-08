@@ -48,6 +48,7 @@ import 'Login/E-Reques/StudentForm/generalAppointment.dart';
 import 'Login/E-Reques/StudentForm/leaveApplicationForm.dart';
 import 'Login/E-Reques/StudentForm/letterRequest.dart';
 import 'Login/E-Reques/StudentForm/onlineRequest.dart';
+import 'Login/E-Reques/StudentForm/onlineRequestAppeals.dart';
 import 'Login/E-Reques/StudentForm/passportRetaining.dart';
 import 'Login/E-Reques/StudentForm/passportWithdrawal.dart';
 import 'Login/E-Reques/StudentForm/reinstatment.dart';
@@ -198,6 +199,8 @@ class MyAppState extends State<MyApp> {
           // '/LoginApp': (context) => LetterRequest(),
 
           '/onlineRequest': (context) => OnlineRequest(),
+          '/onlineRequestAppeals': (context) => OnlineRequestAppeals(),
+
           '/homeOnlineRequest': (context) => HomeRequest(),
 
           // '/LoginApp': (context) => OnlineRequest(),

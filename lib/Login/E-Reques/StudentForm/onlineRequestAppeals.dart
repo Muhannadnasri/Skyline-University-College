@@ -19,19 +19,16 @@ import 'package:toggle_switch/toggle_switch.dart';
 import 'dropList.dart';
 import 'dropdown_formfield.dart';
 
-void main() => runApp(OnlineRequest());
+void main() => runApp(OnlineRequestAppeals());
 
-class OnlineRequest extends StatefulWidget {
-  final String name;
-
-  const OnlineRequest({Key key, this.name}) : super(key: key);
+class OnlineRequestAppeals extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _OnlineRequestState();
+    return _OnlineRequestAppealsState();
   }
 }
 
-class _OnlineRequestState extends State<OnlineRequest> {
+class _OnlineRequestAppealsState extends State<OnlineRequestAppeals> {
   String date = DateFormat("yyyy-MM-dd").format(DateTime.now());
 
   bool isLoading = true;
@@ -136,53 +133,6 @@ class _OnlineRequestState extends State<OnlineRequest> {
       bottomNavigationBar: bottomappBar(
         context,
         () {
-          switch (widget.name) {
-            case "Appeals":
-              {
-                switch (miscID) {
-                  case 143:
-                    {
-                      if (_formAgains.currentState.validate()) {
-                        _formAgains.currentState.save();
-                        setState(() {
-                          // insertRequest();
-                          insertAgainsMarks();
-                        });
-                      }
-                    }
-                    break;
-                  case 109:
-                    {
-                      if (_passportForm.currentState.validate()) {
-                        _passportForm.currentState.save();
-                        setState(() {
-                          insertStudentPassport();
-                        });
-                      }
-
-                      //TODO:SendRequest
-                      //TODO: Add more forms and date picker
-
-                    }
-                    break;
-                  case 141:
-                    {
-                      if (_remarkAndAddressForm.currentState.validate()) {
-                        _remarkAndAddressForm.currentState.save();
-                        setState(() {
-                          sendOnlineRequest();
-                        });
-                      }
-
-                      //TODO:SendRequest
-                      //TODO: Add more forms and date picker
-
-                    }
-                    break;
-                }
-              }
-              break;
-          }
           switch (miscID) {
             case 110:
               {
@@ -249,20 +199,20 @@ class _OnlineRequestState extends State<OnlineRequest> {
 
               }
               break;
-            // case 109:
-            //   {
-            //     if (_passportForm.currentState.validate()) {
-            //       _passportForm.currentState.save();
-            //       setState(() {
-            //         insertStudentPassport();
-            //       });
-            //     }
+            case 109:
+              {
+                if (_passportForm.currentState.validate()) {
+                  _passportForm.currentState.save();
+                  setState(() {
+                    insertStudentPassport();
+                  });
+                }
 
-            //     //TODO:SendRequest
-            //     //TODO: Add more forms and date picker
+                //TODO:SendRequest
+                //TODO: Add more forms and date picker
 
-            //   }
-            //   break;
+              }
+              break;
             case 139:
               {
                 if (_withdrawalForm.currentState.validate()) {
@@ -278,17 +228,17 @@ class _OnlineRequestState extends State<OnlineRequest> {
 
               }
               break;
-            // case 143:
-            //   {
-            //     if (_formAgains.currentState.validate()) {
-            //       _formAgains.currentState.save();
-            //       setState(() {
-            //         // insertRequest();
-            //         insertAgainsMarks();
-            //       });
-            //     }
-            //   }
-            //   break;
+            case 143:
+              {
+                if (_formAgains.currentState.validate()) {
+                  _formAgains.currentState.save();
+                  setState(() {
+                    // insertRequest();
+                    insertAgainsMarks();
+                  });
+                }
+              }
+              break;
             case 31:
               {
                 if (_formShift.currentState.validate() &&
@@ -480,75 +430,6 @@ class _OnlineRequestState extends State<OnlineRequest> {
       return SizedBox();
     }
   }
-
-  // Widget requestTypeWidgetValue() {
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: [
-  //       Text(
-  //         'Request Type',
-  //         style:
-  //             TextStyle(color: isDark(context) ? Colors.white : Colors.black),
-  //       ),
-  //       GestureDetector(
-  //         onTap: () {
-  //           Navigator.push(
-  //             context,
-  //             MaterialPageRoute(
-  //               builder: (context) => DropList(
-  //                 type: 'ONLINE',
-  //               ),
-  //             ),
-  //           ).then((val) async {
-  //             setState(() {
-  //               // miscName = val['MiscName'];
-  //               miscID = val['MiscID'];
-  //               miscNameCnt.text = val['MiscName'];
-  //               getAmount();
-
-  //               if (miscID == 5) {
-  //                 getResitMarksCourses();
-  //               }
-  //               if (miscID == 6) {
-  //                 getMidMarksCourses();
-  //               }
-  //               if (miscID == 139) {
-  //                 getCourseWithdrawal();
-  //               }
-  //               if (miscID == 143) {
-  //                 getAgainstMarks();
-  //               }
-  //               if (miscID == 1) {
-  //                 getCourseRepeating();
-  //               }
-  //               if (miscID == 31) {
-  //                 getShiftTime();
-  //               }
-  //               if (miscID == 114) {
-  //                 getCancellationVisaType();
-  //               }
-  //               // print(requestAmountJson['data']['NormalFees']);
-  //             });
-  //           });
-  //         },
-  //         child: AbsorbPointer(
-  //           child: TextFormField(
-  //             validator: (x) => x.isEmpty ? "Please select request type" : null,
-  //             onChanged: (x) {
-  //               setState(() {
-  //                 // isEditing = true;
-  //               });
-  //             },
-  //             controller: miscNameCnt,
-  //           ),
-  //         ),
-  //       ),
-  //       SizedBox(
-  //         height: 25,
-  //       ),
-  //     ],
-  //   );
-  // }
 
   Widget requestTypeWidget() {
     return Column(

@@ -119,7 +119,7 @@ class _LoginAppState extends State<LoginApp> {
         padding: EdgeInsets.symmetric(vertical: 15),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(5)),
+            borderRadius: BorderRadius.all(Radius.circular(25)),
             gradient: LinearGradient(
                 begin: Alignment.center,
                 end: Alignment.centerRight,
@@ -128,6 +128,53 @@ class _LoginAppState extends State<LoginApp> {
           'Login',
           style: TextStyle(fontSize: 20, color: Colors.white),
         ),
+      ),
+    );
+  }
+
+  Widget _submitButtonPass() {
+    return GestureDetector(
+      onTap: () {
+        // if (_logInForm.currentState.validate()) {
+        //   _logInForm.currentState.save();
+        //   setState(() {
+        //     logIn();
+        //   });
+        // } else {
+        //   return;
+        //   // return showErrorInput('Please check your input');
+        // }
+      },
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        height: 75,
+        padding: EdgeInsets.symmetric(vertical: 15),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(5)),
+          image: DecorationImage(
+            // fit: BoxFit.scaleDown,
+
+            image: NetworkImage(
+              'https://smartsso.dubai.gov.ae/images/UAEPASS_Sign_in_Btn_Outline_Pill_Focus.png',
+            ),
+          ),
+          // gradient: LinearGradient(
+          //   begin: Alignment.center,
+          //   end: Alignment.centerRight,
+          //   colors: [Color(0xFF275d9b), Color(0xFF0e4481)],
+          // ),
+        ),
+        // child: IconButton(
+        //   icon: Image.network(
+        //       'https://smartsso.dubai.gov.ae/images/AR_UAEPASS_Sign_in_Btn_Outline_Pill_Focus.png'),
+        //   iconSize: 50,
+        //   onPressed: () {},
+        // )
+        // Text(
+        //   'Login',
+        //   style: TextStyle(fontSize: 20, color: Colors.white),
+        // ),
       ),
     );
   }
@@ -213,6 +260,8 @@ class _LoginAppState extends State<LoginApp> {
                         _emailPasswordWidget(),
                         SizedBox(height: 20),
                         _submitButton(),
+                        SizedBox(height: 20),
+                        _submitButtonPass(),
                         SizedBox(height: height * .055),
                       ],
                     ),
