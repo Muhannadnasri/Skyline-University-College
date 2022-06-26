@@ -33,11 +33,6 @@ public final class GeneratedPluginRegistrant {
       Log.e(TAG, "Error registering plugin firebase_messaging, io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingPlugin", e);
     }
     try {
-      flutterEngine.getPlugins().add(new io.github.tastelessjolt.flutterdynamicicon.FlutterDynamicIconPlugin());
-    } catch(Exception e) {
-      Log.e(TAG, "Error registering plugin flutter_dynamic_icon, io.github.tastelessjolt.flutterdynamicicon.FlutterDynamicIconPlugin", e);
-    }
-    try {
       flutterEngine.getPlugins().add(new com.pichillilorenzo.flutter_inappwebview.InAppWebViewFlutterPlugin());
     } catch(Exception e) {
       Log.e(TAG, "Error registering plugin flutter_inappwebview, com.pichillilorenzo.flutter_inappwebview.InAppWebViewFlutterPlugin", e);
@@ -51,11 +46,6 @@ public final class GeneratedPluginRegistrant {
       flutterEngine.getPlugins().add(new com.dexterous.flutterlocalnotifications.FlutterLocalNotificationsPlugin());
     } catch(Exception e) {
       Log.e(TAG, "Error registering plugin flutter_local_notifications, com.dexterous.flutterlocalnotifications.FlutterLocalNotificationsPlugin", e);
-    }
-    try {
-      flutterEngine.getPlugins().add(new com.xamelon.flutter_pay.FlutterPayPlugin());
-    } catch(Exception e) {
-      Log.e(TAG, "Error registering plugin flutter_pay, com.xamelon.flutter_pay.FlutterPayPlugin", e);
     }
     try {
       flutterEngine.getPlugins().add(new io.flutter.plugins.flutter_plugin_android_lifecycle.FlutterAndroidLifecyclePlugin());
@@ -76,6 +66,11 @@ public final class GeneratedPluginRegistrant {
       flutterEngine.getPlugins().add(new io.flutter.plugins.localauth.LocalAuthPlugin());
     } catch(Exception e) {
       Log.e(TAG, "Error registering plugin local_auth, io.flutter.plugins.localauth.LocalAuthPlugin", e);
+    }
+    try {
+      flutterEngine.getPlugins().add(new dev.fluttercommunity.plus.packageinfo.PackageInfoPlugin());
+    } catch(Exception e) {
+      Log.e(TAG, "Error registering plugin package_info_plus, dev.fluttercommunity.plus.packageinfo.PackageInfoPlugin", e);
     }
     try {
       io.flutter.plugins.pathprovider.PathProviderPlugin.registerWith(shimPluginRegistry.registrarFor("io.flutter.plugins.pathprovider.PathProviderPlugin"));

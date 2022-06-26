@@ -152,11 +152,13 @@ class _AttendanceState extends State<Attendance> {
                                   ),
                                   Expanded(
                                     child: Text(
-                                        attendanceJson[index]['NATT']
+                                        attendanceJson[index]['SESSIONNot']
                                                     .toString() ==
                                                 "null"
-                                            ? "0"
-                                            : attendanceJson[index]['NATT'],
+                                            ? 0
+                                            : attendanceJson[index]
+                                                    ['SESSIONNot']
+                                                .toString(),
                                         style: TextStyle(
                                             color: isDark(context)
                                                 ? Colors.white
@@ -169,19 +171,24 @@ class _AttendanceState extends State<Attendance> {
                               padding: const EdgeInsets.all(10.0),
                               child: Row(
                                 children: <Widget>[
-                                  Text("Percentage Absent: ",
+                                  Text("Percentage Attend: ",
                                       style: TextStyle(
                                           color: isDark(context)
                                               ? Colors.white
                                               : Colors.black)),
                                   Expanded(
                                     child: Text(
-                                        attendanceJson[index]['NATT']
+                                        attendanceJson[index]['RATT']
                                                     .toString() ==
                                                 ("null")
-                                            ? "0.0"
-                                            : attendanceJson[index]['NATT']
-                                                .toString(),
+                                            ? "0.0" + '%'
+                                            : attendanceJson[index]['RATT'] ==
+                                                    '100.00'
+                                                ? '100%'
+                                                : attendanceJson[index]['RATT']
+                                                        .toString() +
+                                                    '%',
+                                        // attendanceJson[index]['RATT']=='100.00'?'100%':attendanceJson[index]['RATT'],
                                         style: TextStyle(
                                             color: isDark(context)
                                                 ? Colors.white

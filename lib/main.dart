@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:new_version/new_version.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 import 'Global/global.dart';
@@ -106,6 +107,33 @@ class MyApp extends StatefulWidget {
 class MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
+    //   final newVersion = NewVersion(
+    //     iOSId: 'com.google.Vespa',
+    //     androidId: 'com.google.android.apps.cloudconsole',
+    //   );
+    //   const simpleBehavior = true;
+
+    //   if (simpleBehavior) {
+    //     basicStatusCheck(newVersion);
+    //   } else {
+    //     advancedStatusCheck(newVersion);
+    //   }
+    // }
+
+    // basicStatusCheck(NewVersion newVersion) {
+    //   newVersion.showAlertIfNecessary(context: context);
+    // }
+
+    // advancedStatusCheck(NewVersion newVersion) async {
+    //   final status = await newVersion.getVersionStatus();
+    //   if (status != null) {
+    //     debugPrint(status.releaseNotes);
+    //     debugPrint(status.appStoreLink);
+    //     debugPrint(status.localVersion);
+    //     debugPrint(status.storeVersion);
+    //     debugPrint(status.canUpdate.toString());
+
+    //   }
     Firebase.initializeApp().whenComplete(() {
       setState(() {});
     });

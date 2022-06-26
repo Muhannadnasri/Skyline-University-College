@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_pay/flutter_pay.dart';
+// import 'package:flutter_pay/flutter_pay.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -28,34 +28,34 @@ class _PayOnlineOutState extends State<PayOnlineOut> {
   bool isLoading = true;
   Map payOnlineJson = {};
 
-  FlutterPay flutterPay = FlutterPay();
+  // FlutterPay flutterPay = FlutterPay();
 
   String result = "Result will be shown here";
 
-  void makePayment() async {
-    List<PaymentItem> items = [PaymentItem(name: "T-Shirt", price: 1)];
+  // void makePayment() async {
+  //   List<PaymentItem> items = [PaymentItem(name: "T-Shirt", price: 1)];
 
-    flutterPay.setEnvironment(environment: PaymentEnvironment.Test);
+  //   flutterPay.setEnvironment(environment: PaymentEnvironment.Test);
 
-    flutterPay.requestPayment(
-      appleParameters: AppleParameters(
-        merchantIdentifier: "merchant.com.skylineuniversity.skyline",
-      ),
-      googleParameters: GoogleParameters(
-        gatewayName: "Skyline",
+  //   flutterPay.requestPayment(
+  //     appleParameters: AppleParameters(
+  //       merchantIdentifier: "merchant.com.skylineuniversity.skyline",
+  //     ),
+  //     googleParameters: GoogleParameters(
+  //       gatewayName: "Skyline",
 
-        gatewayMerchantId: "merchant.com.skylineuniversity.skyline",
-        merchantId: "example_merchant_id",
-        merchantName: "exampleMerchantName",
-        // currencyCode: "AED",
-        // countryCode: "AE",
-        // paymentItems: items,
-      ),
-      currencyCode: "AED",
-      countryCode: "AE",
-      paymentItems: items,
-    );
-  }
+  //       gatewayMerchantId: "merchant.com.skylineuniversity.skyline",
+  //       merchantId: "example_merchant_id",
+  //       merchantName: "exampleMerchantName",
+  //       // currencyCode: "AED",
+  //       // countryCode: "AE",
+  //       // paymentItems: items,
+  //     ),
+  //     currencyCode: "AED",
+  //     countryCode: "AE",
+  //     paymentItems: items,
+  //   );
+  // }
 //Also you can state allowed payment card networks:
 
   void initState() {

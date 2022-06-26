@@ -36,7 +36,9 @@ Widget homeBox(
                   width: 1.0,
                   color: isDark(context) ? Colors.white60 : Colors.white),
               borderRadius: BorderRadius.all(
-                  Radius.circular(20.0) //         <--- border radius here
+                  Radius.circular(15.0) //         <--- border radius here
+
+                  // Radius.circular(20.0) //         <--- border radius here
                   ),
             ),
             width: 90,
@@ -50,7 +52,7 @@ Widget homeBox(
                   children: <Widget>[
                     Image.asset(
                       isDark(context) ? darkModeImage : whiteModeImage,
-                      height: 25,
+                      height: 30,
                     ),
                     // SizedBox(
                     //   height: 10,

@@ -43,7 +43,7 @@ dependencies:
   #   git:
   #     url: git://github.com/jawad12345A/esys-flutter-share.git
   photo_view: ^0.13.0
-  shared_preferences: ^2.0.12
+  shared_preferences: ^2.0.15
   flutter_html: ^2.2.1
   google_maps_flutter: ^2.1.1
   date_utils: ^0.2.0
@@ -58,7 +58,7 @@ dependencies:
   flutter_webview_plugin: ^0.4.0
   # webview_flutter: ^3.0.4
   quick_actions: ^0.6.0+9
-  flutter_dynamic_icon: ^2.0.0
+  # flutter_dynamic_icon: ^2.0.0
   # html: ^0.15.0
   skeleton_loader: ^2.0.0+4
   youtube_player_flutter: ^8.0.0
@@ -67,8 +67,9 @@ dependencies:
   roundcheckbox: ^2.0.4+1
   http: ^0.13.4
   flutter_toggle_tab: ^1.1.7
-  flutter_pay: ^1.0.2
+  # flutter_pay: ^1.0.2
   flutter_typeahead: ^4.0.0
+  new_version: ^0.3.0
   # cached_network_image: ^3.2.1
   get: ^4.6.5
   flutter_rating_bar: ^4.0.1

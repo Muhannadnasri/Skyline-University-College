@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:new_gradient_app_bar/new_gradient_app_bar.dart';
+import 'package:new_version/new_version.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:skyline_university/Global/global.dart';
 import 'package:skyline_university/Global/homeBox.dart';
@@ -20,6 +21,7 @@ import '../Global/homeBoxRow.dart';
 import '../Login/loginpage.dart';
 import '../widgets/auto_complete_navigation.dart';
 
+import '../widgets/custom_dialog_box.dart';
 import '../widgets/global_function.dart';
 import '../widgets/global_widget.dart';
 import '../widgets/pcr/pcr_screen.dart';
@@ -57,11 +59,23 @@ class _HomeState extends State<Home> {
     return matches;
   }
 
+  // CustomDialogBox showDialog() {
+  //   return CustomDialogBox(
+  //     title: "Custom Dialog Demo",
+  //     descriptions:
+  //         "Hii all this is a custom dialog in flutter and  you will be use in your flutter applications",
+  //     text: "Yes",
+  //   );
+  // }
+
   @override
   void initState() {
     super.initState();
+
     _setupQuickActions();
     _handleQuickActions();
+    // CustomDialogBox();
+
     getLogs();
     getSliders();
   }
@@ -165,13 +179,12 @@ class _HomeState extends State<Home> {
           //   setState(() {
           //     // Get.to(QuizScreen()
           //     // QuizScreen
-
-          //     Navigator.push(
-          //       context,
-          //       MaterialPageRoute(
-          //         builder: (context) => PcrScreen(),
-          //       ),
-          //     );
+          //     // Navigator.push(
+          //     //   context,
+          //     //   MaterialPageRoute(
+          //     //     builder: (context) => PcrScreen(),
+          //     //   ),
+          //     // );
           //     // Navigator.push(
           //     //   context,
           //     //   MaterialPageRoute(
@@ -186,7 +199,8 @@ class _HomeState extends State<Home> {
             shrinkWrap: true,
             slivers: <Widget>[
               SliverAppBar(
-                expandedHeight: MediaQuery.of(context).size.height / 7,
+                // expandedHeight: MediaQuery.of(context).size.height / 7,
+                expandedHeight: MediaQuery.of(context).size.height / 12,
 
                 flexibleSpace: Container(
                   decoration: BoxDecoration(
@@ -216,116 +230,116 @@ class _HomeState extends State<Home> {
                             ],
                           ),
                   ),
-                  child: FlexibleSpaceBar(
-                    background: Column(
-                      children: <Widget>[
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height / 8),
-                        Padding(
-                          padding:
-                              const EdgeInsets.fromLTRB(10.0, 6.0, 10.0, 0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20.0),
-                              color: Colors.white,
-                            ),
-                            height: 40.0,
-                            width: double.infinity,
-                            child: TypeAheadField(
-                              textFieldConfiguration: TextFieldConfiguration(
-                                keyboardType: TextInputType.text,
-                                decoration: InputDecoration(
+                  // child: FlexibleSpaceBar(
+                  //   background: Column(
+                  //     children: <Widget>[
+                  //       SizedBox(
+                  //           height: MediaQuery.of(context).size.height / 8),
+                  //       Padding(
+                  //         padding:
+                  //             const EdgeInsets.fromLTRB(10.0, 6.0, 10.0, 0),
+                  //         child: Container(
+                  //           decoration: BoxDecoration(
+                  //             borderRadius: BorderRadius.circular(20.0),
+                  //             color: Colors.white,
+                  //           ),
+                  //           height: 40.0,
+                  //           width: double.infinity,
+                  //           child: TypeAheadField(
+                  //             textFieldConfiguration: TextFieldConfiguration(
+                  //               keyboardType: TextInputType.text,
+                  //               decoration: InputDecoration(
 
-                                    // borderRadius: BorderRadius.circular(8.0),
-                                    //     color: Color(0xffF0F1F5),
-                                    border: InputBorder.none,
-                                    //  OutlineInputBorder(
-                                    //     // borderRadius: BorderRadius.circular(20.0),
-                                    //     ),
-                                    prefixIcon: Icon(Icons.search),
-                                    // prefix: Padding(
-                                    //   padding: const EdgeInsets.fromLTRB(
-                                    //       9.0, 6.0, 9.0, 6.0),
-                                    //   child: Icon(
-                                    //     Icons.search,
-                                    //     color: Colors.red,
-                                    //   ),
-                                    // ),
-                                    hintStyle: TextStyle(color: Colors.black),
-                                    contentPadding: const EdgeInsets.all(8.0),
-                                    hintText: 'Search Here ...'),
-                              ),
-                              suggestionsCallback: (pattern) {
-                                return _getSuggestions(pattern);
-                              },
-                              // getImmediateSuggestions: false,
-                              suggestionsBoxDecoration:
-                                  SuggestionsBoxDecoration(
-                                      borderRadius: BorderRadius.circular(20.0),
-                                      shadowColor: Colors.black,
-                                      elevation: 10.0),
-                              transitionBuilder: (context, suggestionsBox,
-                                      animationController) =>
-                                  FadeTransition(
-                                child: suggestionsBox,
-                                opacity: CurvedAnimation(
-                                    parent: animationController,
-                                    curve: Curves.fastOutSlowIn),
-                              ),
-                              itemBuilder: (context, ProductModel suggestion) {
-                                return ListTile(
-                                  // leading: ClipRRect(
-                                  //   borderRadius:
-                                  //       BorderRadius.all(Radius.circular(4)),
-                                  //   // child: buildCacheNetworkImage(
-                                  //   //     width: boxImageSize,
-                                  //   //     height: boxImageSize,
-                                  //   //     url: suggestion.image),
-                                  // ),
-                                  title: Text(suggestion.name),
-                                  // subtitle: Text('\$ ' +
-                                  //     _globalFunction.removeDecimalZeroFormat(
-                                  //         suggestion.price)),
-                                );
-                              },
+                  //                   // borderRadius: BorderRadius.circular(8.0),
+                  //                   //     color: Color(0xffF0F1F5),
+                  //                   border: InputBorder.none,
+                  //                   //  OutlineInputBorder(
+                  //                   //     // borderRadius: BorderRadius.circular(20.0),
+                  //                   //     ),
+                  //                   prefixIcon: Icon(Icons.search),
+                  //                   // prefix: Padding(
+                  //                   //   padding: const EdgeInsets.fromLTRB(
+                  //                   //       9.0, 6.0, 9.0, 6.0),
+                  //                   //   child: Icon(
+                  //                   //     Icons.search,
+                  //                   //     color: Colors.red,
+                  //                   //   ),
+                  //                   // ),
+                  //                   hintStyle: TextStyle(color: Colors.black),
+                  //                   contentPadding: const EdgeInsets.all(8.0),
+                  //                   hintText: 'Search Here ...'),
+                  //             ),
+                  //             suggestionsCallback: (pattern) {
+                  //               return _getSuggestions(pattern);
+                  //             },
+                  //             // getImmediateSuggestions: false,
+                  //             suggestionsBoxDecoration:
+                  //                 SuggestionsBoxDecoration(
+                  //                     borderRadius: BorderRadius.circular(20.0),
+                  //                     shadowColor: Colors.black,
+                  //                     elevation: 10.0),
+                  //             transitionBuilder: (context, suggestionsBox,
+                  //                     animationController) =>
+                  //                 FadeTransition(
+                  //               child: suggestionsBox,
+                  //               opacity: CurvedAnimation(
+                  //                   parent: animationController,
+                  //                   curve: Curves.fastOutSlowIn),
+                  //             ),
+                  //             itemBuilder: (context, ProductModel suggestion) {
+                  //               return ListTile(
+                  //                 // leading: ClipRRect(
+                  //                 //   borderRadius:
+                  //                 //       BorderRadius.all(Radius.circular(4)),
+                  //                 //   // child: buildCacheNetworkImage(
+                  //                 //   //     width: boxImageSize,
+                  //                 //   //     height: boxImageSize,
+                  //                 //   //     url: suggestion.image),
+                  //                 // ),
+                  //                 title: Text(suggestion.name),
+                  //                 // subtitle: Text('\$ ' +
+                  //                 //     _globalFunction.removeDecimalZeroFormat(
+                  //                 //         suggestion.price)),
+                  //               );
+                  //             },
 
-                              onSuggestionSelected: (suggestion) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => LoginApp(
-                                        destination:
-                                            suggestion.location.toString()),
-                                  ),
-                                );
-                                // print(suggestion);
-                              },
-                            ),
-                            // CupertinoTextField(
-                            //   keyboardType: TextInputType.text,
-                            //   placeholder: 'Search Here...',
-                            //   placeholderStyle: TextStyle(
-                            //     color: Color(0xffC4C6CC),
-                            //     fontSize: 14.0,
-                            //   ),
-                            //   prefix: Padding(
-                            //     padding:
-                            //         const EdgeInsets.fromLTRB(9.0, 6.0, 9.0, 6.0),
-                            //     child: Icon(
-                            //       Icons.search,
-                            //       color: Color(0xffC4C6CC),
-                            //     ),
-                            //   ),
-                            //   decoration: BoxDecoration(
-                            //     borderRadius: BorderRadius.circular(8.0),
-                            //     color: Color(0xffF0F1F5),
-                            //   ),
-                            // ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  //             onSuggestionSelected: (suggestion) {
+                  //               Navigator.push(
+                  //                 context,
+                  //                 MaterialPageRoute(
+                  //                   builder: (context) => LoginApp(
+                  //                       destination:
+                  //                           suggestion.location.toString()),
+                  //                 ),
+                  //               );
+                  //               // print(suggestion);
+                  //             },
+                  //           ),
+                  //           // CupertinoTextField(
+                  //           //   keyboardType: TextInputType.text,
+                  //           //   placeholder: 'Search Here...',
+                  //           //   placeholderStyle: TextStyle(
+                  //           //     color: Color(0xffC4C6CC),
+                  //           //     fontSize: 14.0,
+                  //           //   ),
+                  //           //   prefix: Padding(
+                  //           //     padding:
+                  //           //         const EdgeInsets.fromLTRB(9.0, 6.0, 9.0, 6.0),
+                  //           //     child: Icon(
+                  //           //       Icons.search,
+                  //           //       color: Color(0xffC4C6CC),
+                  //           //     ),
+                  //           //   ),
+                  //           //   decoration: BoxDecoration(
+                  //           //     borderRadius: BorderRadius.circular(8.0),
+                  //           //     color: Color(0xffF0F1F5),
+                  //           //   ),
+                  //           // ),
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                 ),
                 // leading: Icon(Icons.person),
                 // automaticallyImplyLeading: false,
@@ -356,61 +370,62 @@ class _HomeState extends State<Home> {
                       child: ListView(
                         padding: EdgeInsets.only(top: 0),
                         children: <Widget>[
-                          CarouselSlider.builder(
-                            itemCount: slidersJson.length,
-                            // Give the controller
-                            options: CarouselOptions(
-                                aspectRatio: 2.0, autoPlay: true),
-                            itemBuilder: (BuildContext context, int index,
-                                int pageViewIndex) {
-                              return slidersJson.isEmpty
-                                  ? Center(
-                                      // decoration: BoxDecoration(
-                                      //     borderRadius:
-                                      //         BorderRadius.circular(20),
-                                      //     image: DecorationImage(
-                                      //       image: AssetImage(
-                                      //           'images/launcher3.png'),
-                                      //       fit: BoxFit.contain,
-                                      //     )),
+                          // CarouselSlider.builder(
+                          //   itemCount: slidersJson.length,
+                          //   // Give the controller
+                          //   options: CarouselOptions(
+                          //       aspectRatio: 2.0, autoPlay: true),
+                          //   itemBuilder: (BuildContext context, int index,
+                          //       int pageViewIndex) {
+                          //     return slidersJson.isEmpty
+                          //         ? Center(
+                          //             // decoration: BoxDecoration(
+                          //             //     borderRadius:
+                          //             //         BorderRadius.circular(20),
+                          //             //     image: DecorationImage(
+                          //             //       image: AssetImage(
+                          //             //           'images/launcher3.png'),
+                          //             //       fit: BoxFit.contain,
+                          //             //     )),
 
-                                      child: CircularProgressIndicator(
-                                        color: Color(0xFF3773AC),
-                                      ),
+                          //             child: CircularProgressIndicator(
+                          //               color: Color(0xFF3773AC),
+                          //             ),
 
-                                      // margin: EdgeInsets.symmetric(
-                                      //     horizontal: 5, vertical: 15),
-                                      // child: Image.network(imgUrls[index],
-                                      //     fit: BoxFit.cover, width: 1000),
-                                    )
-                                  : GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          _launchURL(
-                                              slidersJson[index]['link']);
-                                        });
-                                      },
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            image: DecorationImage(
-                                              image: NetworkImage(
-                                                  slidersJson[index]['image']
-                                                      .toString()),
-                                              fit: BoxFit.cover,
-                                            )),
+                          //             // margin: EdgeInsets.symmetric(
+                          //             //     horizontal: 5, vertical: 15),
+                          //             // child: Image.network(imgUrls[index],
+                          //             //     fit: BoxFit.cover, width: 1000),
+                          //           )
+                          //         : GestureDetector(
+                          //             onTap: () {
+                          //               setState(() {
+                          //                 _launchURL(
+                          //                     slidersJson[index]['link']);
+                          //               });
+                          //             },
+                          //             child: Container(
+                          //               decoration: BoxDecoration(
+                          //                   borderRadius:
+                          //                       BorderRadius.circular(20),
+                          //                   image: DecorationImage(
+                          //                     image: NetworkImage(
+                          //                         slidersJson[index]['image']
+                          //                             .toString()),
+                          //                     fit: BoxFit.cover,
+                          //                   )),
 
-                                        // child:
+                          //               // child:
 
-                                        margin: EdgeInsets.symmetric(
-                                            horizontal: 5, vertical: 15),
-                                        // child: Image.network(imgUrls[index],
-                                        //     fit: BoxFit.cover, width: 1000),
-                                      ),
-                                    );
-                            },
-                          ),
+                          //               margin: EdgeInsets.symmetric(
+                          //                   horizontal: 5, vertical: 15),
+                          //               // child: Image.network(imgUrls[index],
+                          //               //     fit: BoxFit.cover, width: 1000),
+                          //             ),
+                          //           );
+                          //   },
+                          // ),
+
                           // SizedBox(
                           //   height: 10,
                           // ),
@@ -603,43 +618,35 @@ class _HomeState extends State<Home> {
                                     ],
                                   ),
                                 ),
-                                // Row(
-                                //   children: <Widget>[
-                                //     homeBox(
-                                //       context,
-                                //       'images-white/aptitude.png',
-                                //       'images/aptitude.png',
-                                //       "/apptutudeForm",
-                                //       Colors.white,
-                                //       Colors.black,
-                                //       'Apptitude Test',
-                                //       Colors.white,
-                                //       Colors.black,
-                                //     ),
-                                //     homeBox(
-                                //       context,
-                                //       'images-white/aptitude.png',
-                                //       'images/visitor.png',
-                                //       "/VisitorInfo",
-                                //       Colors.white,
-                                //       Colors.black,
-                                //       'Visitor Info',
-                                //       Colors.white,
-                                //       Colors.black,
-                                //     ),
-                                //     // homeBox(
-                                //     //   context,
-                                //     //   'images-white/fees.png',
-                                //     //   'images/fees.png',
-                                //     //   "/loginFees",
-                                //     //   Colors.white,
-                                //     //   Colors.black,
-                                //     //   'Pay Fees',
-                                //     //   Colors.white,
-                                //     //   Colors.black,
-                                //     // ),
-                                //   ],
-                                // ),
+                                Row(
+                                  children: <Widget>[
+                                    homeBox(
+                                      context,
+                                      'images-white/aptitude.png',
+                                      'images/aptitude.png',
+                                      "/apptutudeForm",
+                                      'Apptitude Test',
+                                    ),
+                                    homeBox(
+                                      context,
+                                      'images-white/aptitude.png',
+                                      'images/visitor.png',
+                                      "/VisitorInfo",
+                                      'Visitor Info',
+                                    ),
+                                    // homeBox(
+                                    //   context,
+                                    //   'images-white/fees.png',
+                                    //   'images/fees.png',
+                                    //   "/loginFees",
+                                    //   Colors.white,
+                                    //   Colors.black,
+                                    //   'Pay Fees',
+                                    //   Colors.white,
+                                    //   Colors.black,
+                                    // ),
+                                  ],
+                                ),
                               ],
                             ),
                           ),
@@ -701,6 +708,8 @@ class _HomeState extends State<Home> {
   }
 
   Future getLogs() async {
+    // Future.delayed(Duration.zero, () => showAlert(context));
+
     try {
       final response = await http.post(
         Uri.parse('http://muhannadnasri.com/App/logUser.php'),
@@ -761,6 +770,19 @@ class MyImageView extends StatelessWidget {
           ),
         ));
   }
+}
+
+void showAlert(BuildContext context) {
+  showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CustomDialogBox(
+          title: "Dear Student",
+          descriptions:
+              "SUC version you are using too old need to upgrade to latest version in order to experience total multifunction",
+          text: "Update",
+        );
+      });
 }
 
 _launchURL(String url) async {

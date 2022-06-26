@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_pay/flutter_pay.dart';
+// import 'package:flutter_pay/flutter_pay.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -34,7 +34,7 @@ class _PayOnlineState extends State<PayOnline> {
   Map payOnlineJson = {};
   int optionValue;
   double balance;
-  FlutterPay flutterPay = FlutterPay();
+  // FlutterPay flutterPay = FlutterPay();
 
   // void makePayment() async {
   //   List<PaymentItem> items = [
