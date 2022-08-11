@@ -23,8 +23,9 @@ void main() => runApp(OnlineRequest());
 
 class OnlineRequest extends StatefulWidget {
   final String name;
+  final String id;
 
-  const OnlineRequest({Key key, this.name}) : super(key: key);
+  const OnlineRequest({Key key, this.name, this.id}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
     return _OnlineRequestState();
@@ -566,6 +567,7 @@ class _OnlineRequestState extends State<OnlineRequest> {
               MaterialPageRoute(
                 builder: (context) => DropList(
                   type: 'ONLINE',
+                  id: widget.id,
                 ),
               ),
             ).then((val) async {

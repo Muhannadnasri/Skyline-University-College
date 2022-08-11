@@ -12,6 +12,7 @@ import 'package:intl/intl.dart';
 class DropList extends StatefulWidget {
   final String type;
   final String empId;
+  final String id;
   final String programType;
   final String departmentID;
   final String selectedDate;
@@ -22,7 +23,8 @@ class DropList extends StatefulWidget {
       this.empId,
       this.departmentID,
       this.selectedDate,
-      this.programType})
+      this.programType,
+      this.id})
       : super(key: key);
   @override
   _DropListState createState() => _DropListState();
@@ -216,6 +218,7 @@ class _DropListState extends State<DropList> {
           body = {
             'user_id': username,
             'Operation': widget.type,
+            'CategoryID': widget.id,
           };
         }
     }
