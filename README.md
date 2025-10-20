@@ -8,7 +8,29 @@ This application for students , Staff and Introduction to Skyline University Col
 
 
 
-## Points In Application
+## ScreenShot
+
+![App Screenshot](https://raw.githubusercontent.com/Muhannadnasri/Skyline-University-College/refs/heads/master/screenshot/Screenshot%20Main.jpg)
+
+
+![App Screenshot](https://raw.githubusercontent.com/Muhannadnasri/Skyline-University-College/refs/heads/master/screenshot/Screenshot%20Dashboard.jpg)
+
+
+
+
+![App Screenshot](https://raw.githubusercontent.com/Muhannadnasri/Skyline-University-College/refs/heads/master/screenshot/Screenshot%20Login.jpg)
+
+
+
+![App Screenshot](https://raw.githubusercontent.com/Muhannadnasri/Skyline-University-College/refs/heads/master/screenshot/Screenshot%20FAQ.jpg)
+
+
+
+![App Screenshot](https://raw.githubusercontent.com/Muhannadnasri/Skyline-University-College/refs/heads/master/screenshot/Screenshot%20News.jpg)
+
+
+
+![App Screenshot](https://raw.githubusercontent.com/Muhannadnasri/Skyline-University-College/refs/heads/master/screenshot/Screenshot%20location.jpg)
 
 
 
